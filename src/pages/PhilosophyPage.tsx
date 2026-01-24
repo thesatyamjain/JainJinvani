@@ -1,0 +1,278 @@
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { GlassCard } from '../components/GlassCard';
+import { ArrowLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
+
+interface PhilosophyPageProps {
+  onBack: () => void;
+}
+
+const philosophyTopics = [
+  {
+    id: 'ahimsa',
+    icon: '🕊️',
+    title: 'अहिंसा',
+    titleEn: 'Ahimsa (Non-Violence)',
+    shortDesc: 'सर्वोच्च धर्म',
+    content: {
+      intro: 'अहिंसा जैन धर्म का सबसे महत्वपूर्ण सिद्धांत है। यह केवल शारीरिक हिंसा से बचना नहीं, बल्कि मन, वचन और कर्म से किसी भी जीव को कष्ट न पहुंचाना है।',
+      principles: [
+        'मनसा, वाचा, कर्मणा अहिंसा',
+        'सभी जीवों में आत्मा का निवास',
+        'परस्पर उपग्रहो जीवानाम् (जीव एक दूसरे की सहायता करते हैं)',
+        'जीओ और जीने दो'
+      ],
+      practice: 'शाकाहार, जीव दया, करुणा, क्षमा और सहनशीलता से अहिंसा का पालन होता है।'
+    }
+  },
+  {
+    id: 'anekantavad',
+    icon: '🔷',
+    title: 'अनेकांतवाद',
+    titleEn: 'Anekantavada (Multiple Viewpoints)',
+    shortDesc: 'बहुपक्षीय दृष्टिकोण',
+    content: {
+      intro: 'अनेकांतवाद का अर्थ है कि सत्य के अनेक पहलू होते हैं। कोई भी एक दृष्टिकोण पूर्ण सत्य नहीं है।',
+      principles: [
+        'सत्य बहुआयामी है',
+        'प्रत्येक दृष्टिकोण आंशिक रूप से सही है',
+        'सहिष्णुता और समन्वय का आधार',
+        'विवादों का समाधान'
+      ],
+      practice: 'अन्य विचारों का सम्मान करना, खुले मन से सोचना, और कट्टरता से बचना अनेकांतवाद का अभ्यास है।'
+    }
+  },
+  {
+    id: 'syadvad',
+    icon: '💭',
+    title: 'स्याद्वाद',
+    titleEn: 'Syadvada (Conditional Truth)',
+    shortDesc: 'सप्तभंगी नय',
+    content: {
+      intro: 'स्याद्वाद अनेकांतवाद की अभिव्यक्ति है। यह कहता है कि हर कथन "स्यात्" (शायद/हो सकता है) से प्रारंभ होना चाहिए।',
+      principles: [
+        'स्यात् अस्ति (कुछ दृष्टि से है)',
+        'स्यात् नास्ति (कुछ दृष्टि से नहीं है)',
+        'स्यात् अस्ति च नास्ति च (दोनों है)',
+        'सप्तभंगी (सात संभावनाएं)'
+      ],
+      practice: 'निर्णय लेते समय सभी पहलुओं को देखना और निश्चितता से बचना।'
+    }
+  },
+  {
+    id: 'aparigraha',
+    icon: '🎋',
+    title: 'अपरिग्रह',
+    titleEn: 'Aparigraha (Non-Possessiveness)',
+    shortDesc: 'आसक्ति से मुक्ति',
+    content: {
+      intro: 'अपरिग्रह का अर्थ है संग्रह और आसक्ति से मुक्त रहना। यह केवल भौतिक वस्तुओं तक सीमित नहीं है।',
+      principles: [
+        'आवश्यकता से अधिक संग्रह न करना',
+        'भौतिक और मानसिक आसक्ति से मुक्ति',
+        'सादगी और संतोष',
+        'मोह-माया से दूरी'
+      ],
+      practice: 'सरल जीवन जीना, दान देना, और केवल आवश्यक वस्तुओं का उपयोग करना।'
+    }
+  },
+  {
+    id: 'karma',
+    icon: '⚖️',
+    title: 'कर्म सिद्धांत',
+    titleEn: 'Karma Theory',
+    shortDesc: 'कार्य-कारण का नियम',
+    content: {
+      intro: 'जैन कर्म सिद्धांत अत्यंत वैज्ञानिक है। कर्म सूक्ष्म पुद्गल कण हैं जो आत्मा से बंधते हैं।',
+      principles: [
+        'आठ प्रकार के कर्म',
+        'हर कर्म का फल मिलता है',
+        'आत्मा कर्म से बंधी है',
+        'कर्म निर्जरा से मुक्ति'
+      ],
+      practice: 'शुभ कर्म करना, अशुभ कर्मों से बचना, और तपस्या से कर्मों को नष्ट करना।'
+    }
+  },
+  {
+    id: 'ratnatraya',
+    icon: '💎',
+    title: 'रत्नत्रय',
+    titleEn: 'Three Jewels',
+    shortDesc: 'सम्यक दर्शन, ज्ञान, चरित्र',
+    content: {
+      intro: 'रत्नत्रय मोक्ष का मार्ग है - सम्यक दर्शन (सही विश्वास), सम्यक ज्ञान (सही ज्ञान), और सम्यक चरित्र (सही आचरण)।',
+      principles: [
+        'सम्यक दर्शन - तत्व का सही ज्ञान',
+        'सम्यक ज्ञान - शास्त्रों का अध्ययन',
+        'सम्यक चरित्र - व्रतों का पालन',
+        'तीनों एक साथ आवश्यक'
+      ],
+      practice: 'तीर्थंकरों में श्रद्धा, शास्त्र अध्ययन, और नैतिक जीवन जीना।'
+    }
+  },
+  {
+    id: 'tattva',
+    icon: '🌟',
+    title: 'नव तत्व',
+    titleEn: 'Nine Tattvas',
+    shortDesc: 'जीवन के मूल सिद्धांत',
+    content: {
+      intro: 'नौ तत्व जैन दर्शन के आधार हैं जो जीवन और मुक्ति को समझाते हैं।',
+      principles: [
+        'जीव - आत्मा',
+        'अजीव - निर्जीव पदार्थ',
+        'पुण्य और पाप',
+        'आस्रव, बंध, संवर, निर्जरा, मोक्ष'
+      ],
+      practice: 'इन तत्वों को समझकर आध्यात्मिक जीवन जीना।'
+    }
+  },
+  {
+    id: 'jiva',
+    icon: '🔆',
+    title: 'जीव दया',
+    titleEn: 'Compassion for All Beings',
+    shortDesc: 'सभी जीवों में आत्मा',
+    content: {
+      intro: 'जैन धर्म में सभी जीवों को समान माना गया है। चाहे एक इंद्रिय हो या पंच इंद्रिय, सभी में आत्मा है।',
+      principles: [
+        'एकेन्द्रिय से पंचेन्द्रिय तक',
+        'त्रस और स्थावर जीव',
+        'सभी जीव सुख चाहते हैं',
+        'जीव हत्या सबसे बड़ा पाप'
+      ],
+      practice: 'जीवों की रक्षा, शाकाहार, और सावधानी से चलना-फिरना।'
+    }
+  }
+];
+
+export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
+  const [selectedTopic, setSelectedTopic] = useState<any>(null);
+
+  return (
+    <div className="w-full max-w-6xl mx-auto pt-20 pb-32 px-6">
+      {/* Header */}
+      <div className="mb-8">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-blue-200 hover:text-white transition-colors mb-6 group"
+        >
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-gotu">वापस जाएं</span>
+        </button>
+
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs mb-3">
+            <Lightbulb className="w-3 h-3" />
+            <span className="uppercase tracking-widest text-sm font-bold font-cinzel">Philosophy</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3">
+            जैन दर्शन
+          </h1>
+          <p className="text-blue-100/60 font-gotu text-lg">
+            आध्यात्मिक सिद्धांत और जीवन मूल्य
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Topics Grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {philosophyTopics.map((topic, idx) => (
+          <motion.div
+            key={topic.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.05 }}
+          >
+            <GlassCard
+              className="p-6 hover:bg-white/10 cursor-pointer transition-all group text-center h-full flex flex-col"
+              onClick={() => setSelectedTopic(topic)}
+            >
+              <div className="text-5xl mb-3">{topic.icon}</div>
+              <h3 className="text-xl font-rozha text-white mb-1 group-hover:text-amber-300 transition-colors">
+                {topic.title}
+              </h3>
+              <p className="text-xs text-blue-100/50 font-gotu mb-2">{topic.titleEn}</p>
+              <p className="text-sm text-amber-300/80 font-gotu mt-auto">{topic.shortDesc}</p>
+            </GlassCard>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Detail Modal */}
+      {selectedTopic && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            onClick={() => setSelectedTopic(null)}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="relative w-full max-w-2xl z-10 my-8"
+          >
+            <GlassCard className="p-8 border-white/20 bg-[#0b162c] shadow-2xl">
+              <button
+                onClick={() => setSelectedTopic(null)}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+
+              <div className="text-6xl mb-4 text-center">{selectedTopic.icon}</div>
+              
+              <h2 className="text-3xl font-rozha text-white mb-2 text-center">
+                {selectedTopic.title}
+              </h2>
+              <p className="text-blue-100/60 font-gotu mb-6 text-center">{selectedTopic.titleEn}</p>
+
+              <div className="space-y-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <BookOpen className="w-4 h-4 text-amber-400" />
+                    <div className="text-sm text-amber-300 uppercase font-gotu">परिचय</div>
+                  </div>
+                  <p className="text-blue-100/80 font-gotu leading-relaxed">
+                    {selectedTopic.content.intro}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <div className="text-sm text-amber-300 uppercase font-gotu">मुख्य सिद्धांत</div>
+                  </div>
+                  <ul className="space-y-2">
+                    {selectedTopic.content.principles.map((principle: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-3 text-blue-100/80 font-gotu">
+                        <span className="text-amber-400 mt-1">✦</span>
+                        <span>{principle}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 border-t border-white/10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Heart className="w-4 h-4 text-rose-400" />
+                    <div className="text-sm text-amber-300 uppercase font-gotu">व्यावहारिक अभ्यास</div>
+                  </div>
+                  <p className="text-blue-100/80 font-gotu leading-relaxed">
+                    {selectedTopic.content.practice}
+                  </p>
+                </div>
+              </div>
+            </GlassCard>
+          </motion.div>
+        </div>
+      )}
+    </div>
+  );
+};
