@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const projectRoot = path.resolve(__dirname, '..');
-const modulesDir = path.join(projectRoot, 'src', 'data', 'sadhana', 'data', 'modules');
+const modulesDir = path.join(projectRoot, 'public', 'modules');
 const inventoryFile = path.join(projectRoot, 'src', 'data', 'inventory.ts');
 
 // regex to find IDs in JS files: "id": "value" or 'id': 'value'
