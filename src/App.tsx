@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { SpaceBackground } from "./components/SpaceBackground";
-import { Dock } from "./components/Dock";
+import React, { useState, useRef, useEffect } from "react";
+import { SpaceBackground } from "./components/layout/SpaceBackground";
+import { Dock } from "./components/layout/Dock";
 import { Landing } from "./pages/Landing";
 import { SadhanaMenu } from "./pages/SadhanaMenu";
 import { LibraryMenu } from "./pages/LibraryMenu";
@@ -25,19 +25,64 @@ import { SamayikPage } from "./pages/SamayikPage";
 import { DietaryPage } from "./pages/DietaryPage";
 import { AsceticsPage } from "./pages/AsceticsPage";
 import { MuniProfilesPage } from "./pages/MuniProfilesPage";
-import { SearchOverlay } from "./components/SearchOverlay";
+import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { contentInventory } from "./data/inventory";
 
 export default function App() {
-  const [activePage, setActivePage] = useState("landing");
+  // Initialize state from history or default to landing
+  const [activePage, setActivePage] = useState(() => {
+    if (typeof window !== 'undefined' && window.history.state?.page) {
+      return window.history.state.page;
+    }
+    return "landing";
+  });
+
+  const [pageParams, setPageParams] = useState<any>(() => {
+    if (typeof window !== 'undefined' && window.history.state?.params) {
+      return window.history.state.params;
+    }
+    return null;
+  });
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // Store navigation history or parameters here if needed in a real app
-  const [pageParams, setPageParams] = useState<any>(null);
+  const mainRef = useRef<HTMLElement>(null);
+
+  // Sync with browser history
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state) {
+        setActivePage(event.state.page);
+        setPageParams(event.state.params);
+      } else {
+        // Fallback for initial state or empty history
+        setActivePage("landing");
+        setPageParams(null);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    // Ensure initial state exists so we can go "back" to it
+    if (!window.history.state) {
+      window.history.replaceState({ page: "landing", params: null }, "", "#landing");
+    }
+
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const handleNavigate = (page: string, params?: any) => {
+    // Push new state to history stack
+    window.history.pushState({ page, params }, "", `#${page}`);
     setPageParams(params);
     setActivePage(page);
   };
+
+  // Scroll to top when activePage changes
+  useEffect(() => {
+    if (mainRef.current) {
+      mainRef.current.scrollTo(0, 0);
+    }
+  }, [activePage]);
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden text-slate-200 font-gotu selection:bg-amber-500/30 selection:text-amber-100 bg-[#050a14]">
@@ -49,7 +94,7 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/40 z-0" />
 
       {/* Main Content Area */}
-      <main className="relative z-10 w-full h-screen overflow-y-auto custom-scrollbar">
+      <main ref={mainRef} className="relative z-10 w-full h-screen overflow-y-auto custom-scrollbar">
         <AnimatePresence mode="wait">
           {activePage === "landing" && (
             <motion.div
@@ -416,6 +461,7 @@ export default function App() {
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
         onNavigate={handleNavigate}
+        currentActivePage={activePage}
       />
     </div>
   );

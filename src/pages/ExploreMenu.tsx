@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, MapPin, Lightbulb, Flame, BookOpen, Image, Users } from 'lucide-react';
 
 interface ExploreMenuProps {
@@ -114,9 +114,8 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
             transition={{ delay: idx * 0.05 }}
           >
             <GlassCard
-              className={`p-4 md:p-6 hover:bg-white/10 transition-all group h-full relative overflow-hidden ${
-                category.comingSoon ? 'opacity-75' : 'cursor-pointer'
-              }`}
+              className={`p-4 md:p-6 hover:bg-white/10 transition-all group h-full relative overflow-hidden ${category.comingSoon ? 'opacity-75' : 'cursor-pointer'
+                }`}
               onClick={() => {
                 if (category.page) {
                   onNavigate(category.page);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, MapPin, Navigation, Star, Image as ImageIcon, Info } from 'lucide-react';
 
 interface PilgrimagePageProps {
@@ -98,8 +98,8 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
   const [filter, setFilter] = useState<string>('all');
 
-  const filteredPlaces = filter === 'all' 
-    ? pilgrimageData 
+  const filteredPlaces = filter === 'all'
+    ? pilgrimageData
     : pilgrimageData.filter(p => p.category === filter);
 
   return (
@@ -135,31 +135,28 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
         <div className="flex gap-3 justify-center flex-wrap">
           <button
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'all'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'all'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             सभी
           </button>
           <button
             onClick={() => setFilter('सिद्ध क्षेत्र')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'सिद्ध क्षेत्र'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'सिद्ध क्षेत्र'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             सिद्ध क्षेत्र
           </button>
           <button
             onClick={() => setFilter('अतिशय क्षेत्र')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'अतिशय क्षेत्र'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'अतिशय क्षेत्र'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             अतिशय क्षेत्र
           </button>
@@ -223,7 +220,7 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
               </button>
 
               <div className="text-6xl mb-4">{selectedPlace.emoji}</div>
-              
+
               <h2 className="text-3xl font-rozha text-white mb-2">
                 {selectedPlace.nameHindi}
               </h2>

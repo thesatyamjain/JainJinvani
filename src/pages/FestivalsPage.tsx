@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { Calendar, Sparkles, ChevronRight, X } from 'lucide-react';
 import { jainFestivals, type JainFestival } from '../data/festivals';
 import { ArrowLeft } from 'lucide-react';

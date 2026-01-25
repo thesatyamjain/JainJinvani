@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, MapPin, Book, Sparkles, Heart } from 'lucide-react';
-import { addFavorite, removeFavorite, isFavorite } from '../utils/localStorage';
-import { getContentById } from '../data/jinvani-bridge';
+import { addFavorite, removeFavorite, isFavorite } from '../lib';
+import { getContentById } from '../lib/bridge';
 
 interface TirthankarProfileProps {
   tirthankarId: string;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass } from 'lucide-react';
-import { getSettings, updateSettings, type UserSettings } from '../utils/localStorage';
+import { getSettings, updateSettings, type UserSettings } from '../lib';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -19,10 +19,10 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   };
 
   const items = [
-    { 
-      id: 'about', 
-      label: 'About', 
-      icon: Info, 
+    {
+      id: 'about',
+      label: 'About',
+      icon: Info,
       desc: 'About Jain Jinvani',
       content: (
         <div className="space-y-4 text-blue-100/80 font-gotu">
@@ -34,89 +34,84 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
         </div>
       )
     },
-    { 
-      id: 'settings', 
-      label: 'Settings', 
-      icon: Settings, 
+    {
+      id: 'settings',
+      label: 'Settings',
+      icon: Settings,
       desc: 'Preferences',
       content: (
         <div className="space-y-6">
-           {/* Font Size */}
-           <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-             <div className="flex items-center gap-2 mb-3">
-               <Type className="w-4 h-4 text-amber-400" />
-               <span className="text-white font-gotu">फ़ॉन्ट साइज़ (Font Size)</span>
-             </div>
-             <div className="flex gap-2">
-               {(['small', 'medium', 'large', 'xl'] as const).map(size => (
-                 <button
-                   key={size}
-                   onClick={() => handleSettingChange('fontSize', size)}
-                   className={`px-3 py-1.5 rounded-lg text-xs font-gotu transition-colors ${
-                     settings.fontSize === size
-                       ? 'bg-amber-500 text-black font-bold'
-                       : 'bg-white/5 text-white hover:bg-white/10'
-                   }`}
-                 >
-                   {size === 'small' ? 'छोटा' : size === 'medium' ? 'मध्यम' : size === 'large' ? 'बड़ा' : 'बहुत बड़ा'}
-                 </button>
-               ))}
-             </div>
-           </div>
+          {/* Font Size */}
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2 mb-3">
+              <Type className="w-4 h-4 text-amber-400" />
+              <span className="text-white font-gotu">फ़ॉन्ट साइज़ (Font Size)</span>
+            </div>
+            <div className="flex gap-2">
+              {(['small', 'medium', 'large', 'xl'] as const).map(size => (
+                <button
+                  key={size}
+                  onClick={() => handleSettingChange('fontSize', size)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-gotu transition-colors ${settings.fontSize === size
+                    ? 'bg-amber-500 text-black font-bold'
+                    : 'bg-white/5 text-white hover:bg-white/10'
+                    }`}
+                >
+                  {size === 'small' ? 'छोटा' : size === 'medium' ? 'मध्यम' : size === 'large' ? 'बड़ा' : 'बहुत बड़ा'}
+                </button>
+              ))}
+            </div>
+          </div>
 
-           {/* Notifications */}
-           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
-             <div className="flex items-center gap-2">
-               <Bell className="w-4 h-4 text-blue-400" />
-               <span className="text-white font-gotu">सूचनाएं (Notifications)</span>
-             </div>
-             <button
-               onClick={() => handleSettingChange('notifications', !settings.notifications)}
-               className={`w-12 h-6 rounded-full relative transition-colors ${
-                 settings.notifications ? 'bg-amber-500' : 'bg-white/10'
-               }`}
-             >
-                <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${
-                  settings.notifications ? 'left-7' : 'left-1'
+          {/* Notifications */}
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2">
+              <Bell className="w-4 h-4 text-blue-400" />
+              <span className="text-white font-gotu">सूचनाएं (Notifications)</span>
+            </div>
+            <button
+              onClick={() => handleSettingChange('notifications', !settings.notifications)}
+              className={`w-12 h-6 rounded-full relative transition-colors ${settings.notifications ? 'bg-amber-500' : 'bg-white/10'
+                }`}
+            >
+              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings.notifications ? 'left-7' : 'left-1'
                 }`} />
-             </button>
-           </div>
+            </button>
+          </div>
 
-           {/* Auto Play Audio */}
-           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
-             <div className="flex items-center gap-2">
-               <Volume2 className="w-4 h-4 text-green-400" />
-               <span className="text-white font-gotu">ऑटो प्ले (Auto Play)</span>
-             </div>
-             <button
-               onClick={() => handleSettingChange('autoPlay', !settings.autoPlay)}
-               className={`w-12 h-6 rounded-full relative transition-colors ${
-                 settings.autoPlay ? 'bg-amber-500' : 'bg-white/10'
-               }`}
-             >
-                <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${
-                  settings.autoPlay ? 'left-7' : 'left-1'
+          {/* Auto Play Audio */}
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2">
+              <Volume2 className="w-4 h-4 text-green-400" />
+              <span className="text-white font-gotu">ऑटो प्ले (Auto Play)</span>
+            </div>
+            <button
+              onClick={() => handleSettingChange('autoPlay', !settings.autoPlay)}
+              className={`w-12 h-6 rounded-full relative transition-colors ${settings.autoPlay ? 'bg-amber-500' : 'bg-white/10'
+                }`}
+            >
+              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings.autoPlay ? 'left-7' : 'left-1'
                 }`} />
-             </button>
-           </div>
+            </button>
+          </div>
 
-           {/* Dark Mode - Always On */}
-           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 opacity-50">
-             <span className="text-white font-gotu">डार्क मोड (Dark Mode)</span>
-             <div className="px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-bold">Always On</div>
-           </div>
+          {/* Dark Mode - Always On */}
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 opacity-50">
+            <span className="text-white font-gotu">डार्क मोड (Dark Mode)</span>
+            <div className="px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-bold">Always On</div>
+          </div>
         </div>
       )
     },
-    { 
-      id: 'donate', 
-      label: 'Donate', 
-      icon: Heart, 
+    {
+      id: 'donate',
+      label: 'Donate',
+      icon: Heart,
       desc: 'Support us',
       content: (
         <div className="text-center space-y-6">
           <div className="w-32 h-32 mx-auto bg-white rounded-xl p-2 flex items-center justify-center shadow-lg">
-             <div className="w-full h-full border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">QR Code</div>
+            <div className="w-full h-full border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">QR Code</div>
           </div>
           <p className="text-blue-100/80 font-gotu">
             इस धर्म प्रभावना के कार्य में सहयोग देने के लिए आप अपनी स्वेच्छा से दान कर सकते हैं।
@@ -128,10 +123,10 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       )
     },
     { id: 'contact', label: 'Contact', icon: Mail, desc: 'Get in touch' },
-    { 
-      id: 'privacy', 
-      label: 'Privacy', 
-      icon: Shield, 
+    {
+      id: 'privacy',
+      label: 'Privacy',
+      icon: Shield,
       desc: 'Data policy',
       content: (
         <div className="space-y-4 text-blue-100/80 font-gotu text-sm">
@@ -173,7 +168,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       }
       return;
     }
-    
+
     if (item.id === 'contact') {
       window.location.href = 'mailto:contact@jainjinvani.app';
       return;
@@ -186,7 +181,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
 
   return (
     <div className="w-full max-w-4xl mx-auto pt-20 pb-32 px-6 relative">
-      <motion.h1 
+      <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl md:text-5xl font-rozha text-white mb-10 text-center"
@@ -261,14 +256,14 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       <AnimatePresence>
         {selectedId && selectedItem && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedId(null)}
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
-            
+
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -278,7 +273,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               <GlassCard className="p-8 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden">
                 {/* Glow effect inside modal */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
-                
+
                 <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4 relative z-10">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-white/5 text-amber-400">
@@ -286,14 +281,14 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                     </div>
                     <h2 className="text-2xl font-rozha text-white">{selectedItem.label}</h2>
                   </div>
-                  <button 
+                  <button
                     onClick={() => setSelectedId(null)}
                     className="p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
-                
+
                 <div className="text-blue-50 relative z-10">
                   {selectedItem.content}
                 </div>

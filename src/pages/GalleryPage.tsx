@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface GalleryPageProps {
@@ -160,7 +160,7 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
                 {category.name}
               </h3>
               <p className="text-sm text-blue-100/60 font-gotu text-center mb-4">{category.nameEn}</p>
-              
+
               {/* Image Grid Preview */}
               <div className="grid grid-cols-2 gap-2 mb-4">
                 {category.images.slice(0, 4).map((img, i) => (
@@ -231,7 +231,7 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
             <div className="aspect-video rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center mb-4 text-8xl">
               {selectedImage.placeholder}
             </div>
-            
+
             <div className="text-center">
               <h3 className="text-2xl font-rozha text-white mb-1">
                 {selectedImage.title}

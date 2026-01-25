@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, BookOpen, Star, Award, Play, Users } from 'lucide-react';
 
 interface PathshalaPageProps {
@@ -173,19 +173,19 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
                 onClick={() => setSelectedCourse(course)}
               >
                 <div className="text-5xl mb-4">{course.icon}</div>
-                
+
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs px-2 py-1 rounded-full bg-white/10 text-blue-200">
                       {course.level}
                     </span>
                   </div>
-                  
+
                   <h3 className="text-xl font-rozha text-white mb-1 group-hover:text-amber-300 transition-colors">
                     {course.title}
                   </h3>
                   <p className="text-sm text-blue-100/60 font-gotu mb-3">{course.titleEn}</p>
-                  
+
                   <p className="text-xs text-blue-100/70 font-gotu mb-4">
                     {course.description}
                   </p>
@@ -238,7 +238,7 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
               </button>
 
               <div className="text-6xl mb-4">{selectedCourse.icon}</div>
-              
+
               <h2 className="text-3xl font-rozha text-white mb-2">
                 {selectedCourse.title}
               </h2>
@@ -265,17 +265,15 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
                 {selectedCourse.lessons.map((lesson: any) => (
                   <div
                     key={lesson.id}
-                    className={`p-4 rounded-lg border transition-all ${
-                      lesson.completed
+                    className={`p-4 rounded-lg border transition-all ${lesson.completed
                         ? 'bg-green-500/10 border-green-400/30'
                         : 'bg-white/5 border-white/10 hover:bg-white/10'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className={`p-2 rounded-full ${
-                          lesson.completed ? 'bg-green-500/20' : 'bg-white/10'
-                        }`}>
+                        <div className={`p-2 rounded-full ${lesson.completed ? 'bg-green-500/20' : 'bg-white/10'
+                          }`}>
                           {lesson.completed ? (
                             <Award className="w-4 h-4 text-green-400" />
                           ) : (

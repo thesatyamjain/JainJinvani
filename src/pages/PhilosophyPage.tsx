@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
 
 interface PhilosophyPageProps {
@@ -227,7 +227,7 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
               </button>
 
               <div className="text-6xl mb-4 text-center">{selectedTopic.icon}</div>
-              
+
               <h2 className="text-3xl font-rozha text-white mb-2 text-center">
                 {selectedTopic.title}
               </h2>

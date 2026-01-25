@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { Heart, Calendar, Sparkles, ArrowLeft } from 'lucide-react';
-import { getFavorites, type Favorite } from '../utils/localStorage';
+import { getFavorites, type Favorite } from '../lib';
 import { getUpcomingFestivals } from '../data/festivals';
 import { getDailyThought } from '../data/festivals';
 
@@ -25,7 +25,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
         className="text-center mb-12 relative"
       >
         {onBack && (
-          <button 
+          <button
             onClick={onBack}
             className="absolute left-0 top-0 md:top-2 p-2 md:p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group z-10"
           >
@@ -78,7 +78,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
             <Heart className="w-6 h-6 text-rose-400" />
             <h2 className="text-2xl font-rozha text-white">पसंदीदा</h2>
           </div>
-          
+
           <div className="space-y-3">
             {favorites.length === 0 ? (
               <GlassCard className="p-8 text-center">
@@ -98,9 +98,15 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 + idx * 0.05 }}
                 >
-                  <GlassCard 
+                  <GlassCard
                     className="p-4 hover:bg-white/10 cursor-pointer transition-all group"
-                    onClick={() => onNavigate('viewer', { id: fav.id, title: fav.title, type: fav.type })}
+                    onClick={() => onNavigate('viewer', {
+                      id: fav.id,
+                      title: fav.title,
+                      type: fav.type,
+                      previousPage: 'favorites',
+                      // We don't strictly need previousParams if returning to a static page like favorites
+                    })}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0 flex-1">
@@ -117,7 +123,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
                 </motion.div>
               ))
             )}
-            
+
             {favorites.length > 5 && (
               <button className="w-full text-center text-sm text-amber-300 hover:text-amber-200 font-gotu py-2">
                 और देखें ({favorites.length - 5}+)
@@ -136,7 +142,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
             <Calendar className="w-6 h-6 text-blue-400" />
             <h2 className="text-2xl font-rozha text-white">आगामी पर्व</h2>
           </div>
-          
+
           <div className="space-y-3">
             {upcomingFestivals.map((festival: any, idx) => (
               <motion.div
@@ -167,7 +173,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
             ))}
           </div>
 
-          <button 
+          <button
             onClick={() => onNavigate('festivals')}
             className="w-full mt-4 text-center text-sm text-amber-300 hover:text-amber-200 font-gotu py-2 border border-amber-400/20 rounded-lg hover:bg-white/5 transition-colors"
           >

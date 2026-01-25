@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowRight, Star, Moon, Sun, BookOpen, Compass } from 'lucide-react';
 
 interface LandingProps {

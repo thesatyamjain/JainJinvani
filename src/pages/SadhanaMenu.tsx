@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { Flame, Music, Book, Calendar, Sparkles, Feather, Scroll, Flower2, BookOpen, Crown, Timer, Leaf } from 'lucide-react';
 
 interface SadhanaMenuProps {

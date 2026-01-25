@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { Lock, User, ShieldCheck } from 'lucide-react';
 
 interface AdminLoginProps {
@@ -40,27 +40,27 @@ export const AdminLogin = ({ onLogin }: AdminLoginProps) => {
               <label className="text-xs font-medium text-blue-100/70 uppercase tracking-wider ml-1">Username</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 focus:bg-black/30 transition-all"
                   placeholder="admin"
                 />
               </div>
             </div>
-            
+
             <div className="space-y-2">
               <label className="text-xs font-medium text-blue-100/70 uppercase tracking-wider ml-1">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/50" />
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 focus:bg-black/30 transition-all"
                   placeholder="••••••••"
                 />
               </div>
             </div>
 
-            <button 
+            <button
               type="submit"
               disabled={loading}
               className="w-full mt-6 bg-white text-slate-900 font-semibold py-3 rounded-xl hover:bg-slate-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
@@ -75,9 +75,9 @@ export const AdminLogin = ({ onLogin }: AdminLoginProps) => {
               )}
             </button>
           </form>
-          
+
           <div className="mt-6 text-center">
-             <span className="text-xs text-white/20">System Ver: 2.1.0 • /admin/index.html</span>
+            <span className="text-xs text-white/20">System Ver: 2.1.0 • /admin/index.html</span>
           </div>
         </GlassCard>
       </motion.div>

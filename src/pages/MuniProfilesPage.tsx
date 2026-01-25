@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Search, Filter, User } from 'lucide-react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 interface MuniProfilesPageProps {
@@ -107,8 +107,8 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
   const [filterSect, setFilterSect] = useState<'All' | 'Digambar' | 'Shwetambar'>('All');
 
   const filteredMunis = muniDatabase.filter(muni => {
-    const matchesSearch = muni.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         muni.hindiName.includes(searchTerm);
+    const matchesSearch = muni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      muni.hindiName.includes(searchTerm);
     const matchesFilter = filterSect === 'All' || muni.sect === filterSect;
     return matchesSearch && matchesFilter;
   });
@@ -118,13 +118,13 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={onBack}
             className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group"
           >
             <ArrowLeft className="w-6 h-6 text-blue-100 group-hover:-translate-x-1 transition-transform" />
           </button>
-          
+
           <div>
             <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-orange-200">
               पुण्य चरित्र
@@ -148,18 +148,17 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
               className="w-full h-10 bg-white/5 border border-white/10 rounded-full pl-10 pr-4 text-sm text-white placeholder-white/30 focus:outline-none focus:bg-white/10 focus:border-white/20 transition-all"
             />
           </div>
-          
+
           {/* Filter */}
           <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
             {['All', 'Digambar', 'Shwetambar'].map((sect) => (
               <button
                 key={sect}
                 onClick={() => setFilterSect(sect as any)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                  filterSect === sect 
-                    ? 'bg-amber-500/20 text-amber-200' 
+                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${filterSect === sect
+                    ? 'bg-amber-500/20 text-amber-200'
                     : 'text-white/50 hover:text-white'
-                }`}
+                  }`}
               >
                 {sect}
               </button>
@@ -181,9 +180,9 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
               {/* Image Area */}
               <div className="relative h-48 w-full bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
                 {muni.image ? (
-                  <img 
-                    src={muni.image} 
-                    alt={muni.name} 
+                  <img
+                    src={muni.image}
+                    alt={muni.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                   />
                 ) : (
@@ -192,12 +191,12 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] to-transparent" />
-                
+
                 {/* Badge */}
                 <div className="absolute top-3 right-3">
-                   <span className="px-2 py-1 rounded bg-black/40 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-wider text-amber-200 font-bold">
-                     {muni.title}
-                   </span>
+                  <span className="px-2 py-1 rounded bg-black/40 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-wider text-amber-200 font-bold">
+                    {muni.title}
+                  </span>
                 </div>
               </div>
 

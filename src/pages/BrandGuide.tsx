@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ChevronLeft, Copy, Check } from 'lucide-react';
 
 interface BrandGuideProps {
@@ -32,14 +32,14 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-10 pb-32 px-6 flex flex-col h-full text-slate-200">
-      
+
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex items-center gap-4 mb-8"
       >
-        <button 
+        <button
           onClick={onBack}
           className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors backdrop-blur-md"
         >
@@ -52,7 +52,7 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
       </motion.div>
 
       <div className="space-y-12 overflow-y-auto pb-20 custom-scrollbar pr-2">
-        
+
         {/* Color Palette */}
         <section>
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">Color Palette</h2>
@@ -60,12 +60,12 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
             {colors.map((color) => (
               <GlassCard key={color.name} className="p-4 flex flex-col gap-3 group">
                 <div className={`h-24 rounded-lg shadow-inner ${color.class} border border-white/5 relative`}>
-                    <button 
-                        onClick={() => copyToClipboard(color.value)}
-                        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40"
-                    >
-                        {copied === color.value ? <Check className="w-6 h-6 text-green-400" /> : <Copy className="w-6 h-6 text-white" />}
-                    </button>
+                  <button
+                    onClick={() => copyToClipboard(color.value)}
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40"
+                  >
+                    {copied === color.value ? <Check className="w-6 h-6 text-green-400" /> : <Copy className="w-6 h-6 text-white" />}
+                  </button>
                 </div>
                 <div>
                   <div className="font-bold text-white text-sm">{color.name}</div>
@@ -84,7 +84,7 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
               <GlassCard key={font.name} className="p-6">
                 <div className="text-xs text-amber-500 font-bold uppercase tracking-widest mb-2">{font.type}</div>
                 <div className="text-3xl text-white mb-4 leading-tight">
-                    <span className={font.class}>{font.name}</span>
+                  <span className={font.class}>{font.name}</span>
                 </div>
                 <div className={`text-xl text-blue-100/80 border-t border-white/10 pt-4 ${font.class}`}>
                   {font.sample}
@@ -99,7 +99,7 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
         <section>
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">UI Components</h2>
           <div className="grid md:grid-cols-2 gap-8">
-            
+
             {/* Cards */}
             <div className="space-y-4">
               <h3 className="text-white font-bold mb-2">Glass Cards</h3>
@@ -120,7 +120,7 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
             {/* Buttons & Interactive */}
             <div className="space-y-6">
               <h3 className="text-white font-bold mb-2">Interactive Elements</h3>
-              
+
               <div className="flex flex-wrap gap-4">
                 <button className="px-6 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-gotu border border-white/10 transition-all">
                   Secondary Button
@@ -132,37 +132,37 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
 
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 cursor-pointer transition-colors">
-                    <Copy className="w-5 h-5" />
+                  <Copy className="w-5 h-5" />
                 </div>
                 <div className="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 cursor-pointer shadow-[0_0_10px_rgba(245,158,11,0.2)]">
-                    <Check className="w-5 h-5" />
+                  <Check className="w-5 h-5" />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-         {/* Iconography */}
-         <section>
+        {/* Iconography */}
+        <section>
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">Iconography & Vibes</h2>
           <GlassCard className="p-8">
-              <div className="flex flex-col md:flex-row gap-8 items-center">
-                  <div className="w-32 h-32 relative">
-                       {/* Abstract representation of the cosmic/jain theme */}
-                       <div className="absolute inset-0 border-2 border-white/10 rounded-full animate-[spin_10s_linear_infinite]" />
-                       <div className="absolute inset-2 border-2 border-amber-500/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
-                       <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-4 h-4 bg-amber-500 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.8)]" />
-                       </div>
-                  </div>
-                  <div className="flex-1 space-y-4">
-                      <p className="text-blue-100/80 leading-relaxed font-gotu">
-                          The visual identity combines <strong>ancient spirituality</strong> with <strong>cosmic vastness</strong>. 
-                          We use thin, elegant strokes for icons (Lucide React) and avoid heavy fills unless emphasizing a primary action.
-                          The "Frosted Glass" aesthetic represents the ethereal nature of the soul (Atma) - transparent yet distinct.
-                      </p>
-                  </div>
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+              <div className="w-32 h-32 relative">
+                {/* Abstract representation of the cosmic/jain theme */}
+                <div className="absolute inset-0 border-2 border-white/10 rounded-full animate-[spin_10s_linear_infinite]" />
+                <div className="absolute inset-2 border-2 border-amber-500/20 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-4 h-4 bg-amber-500 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.8)]" />
+                </div>
               </div>
+              <div className="flex-1 space-y-4">
+                <p className="text-blue-100/80 leading-relaxed font-gotu">
+                  The visual identity combines <strong>ancient spirituality</strong> with <strong>cosmic vastness</strong>.
+                  We use thin, elegant strokes for icons (Lucide React) and avoid heavy fills unless emphasizing a primary action.
+                  The "Frosted Glass" aesthetic represents the ethereal nature of the soul (Atma) - transparent yet distinct.
+                </p>
+              </div>
+            </div>
           </GlassCard>
         </section>
 

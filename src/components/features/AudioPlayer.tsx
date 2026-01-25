@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2, X, Minimize2, Maximize2 } from 'lucide-react';
-import { GlassCard } from './GlassCard';
+import { GlassCard } from '../layout/GlassCard';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface AudioPlayerProps {
@@ -79,7 +79,7 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
           onEnded={() => setIsPlaying(false)}
           onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
         />
-        
+
         <div className="flex items-center gap-4">
           {/* Album Art / Icon */}
           <div className={`relative overflow-hidden rounded-lg bg-gradient-to-br from-amber-500/20 to-purple-600/20 flex items-center justify-center border border-white/10 ${isMinimized ? 'w-10 h-10' : 'w-14 h-14'}`}>
@@ -98,28 +98,28 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
 
           {/* Controls */}
           <div className="flex items-center gap-2">
-             {!isMinimized && (
-               <>
-                 <button className="p-2 text-blue-200 hover:text-white transition-colors">
-                   <SkipBack className="w-5 h-5" />
-                 </button>
-               </>
-             )}
-             
-             <button 
-               onClick={togglePlay}
-               className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-transform"
-             >
-               {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
-             </button>
+            {!isMinimized && (
+              <>
+                <button className="p-2 text-blue-200 hover:text-white transition-colors">
+                  <SkipBack className="w-5 h-5" />
+                </button>
+              </>
+            )}
 
-             {!isMinimized && (
-               <>
-                 <button className="p-2 text-blue-200 hover:text-white transition-colors">
-                   <SkipForward className="w-5 h-5" />
-                 </button>
-               </>
-             )}
+            <button
+              onClick={togglePlay}
+              className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-transform"
+            >
+              {isPlaying ? <Pause className="w-5 h-5 fill-current" /> : <Play className="w-5 h-5 fill-current ml-0.5" />}
+            </button>
+
+            {!isMinimized && (
+              <>
+                <button className="p-2 text-blue-200 hover:text-white transition-colors">
+                  <SkipForward className="w-5 h-5" />
+                </button>
+              </>
+            )}
           </div>
 
           {/* Window Controls */}
@@ -140,8 +140,8 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
               {formatTime(audioRef.current?.currentTime || 0)}
             </span>
             <div className="flex-1 relative h-1 bg-white/10 rounded-full group cursor-pointer">
-              <div 
-                className="absolute left-0 top-0 h-full bg-amber-400 rounded-full" 
+              <div
+                className="absolute left-0 top-0 h-full bg-amber-400 rounded-full"
                 style={{ width: `${progress}%` }}
               />
               <input
@@ -170,9 +170,9 @@ const MusicVisualizer = ({ isPlaying }: { isPlaying: boolean }) => (
       <div
         key={i}
         className={`w-1 bg-amber-400/80 rounded-t-sm transition-all duration-300 ${isPlaying ? 'animate-pulse' : 'h-1'}`}
-        style={{ 
+        style={{
           height: isPlaying ? `${Math.random() * 100}%` : '20%',
-          animationDelay: `${i * 0.1}s` 
+          animationDelay: `${i * 0.1}s`
         }}
       />
     ))}

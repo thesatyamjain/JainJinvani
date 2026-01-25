@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { BookOpen, Globe, Hourglass, Landmark, Scroll, FileText } from 'lucide-react';
 
 interface LibraryMenuProps {
@@ -25,9 +25,9 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         className="mb-10 relative rounded-3xl overflow-hidden h-72 flex items-end p-10 shadow-2xl border border-white/10 group"
       >
         <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080" 
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+          <img
+            src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             alt="Library Header"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/60 to-transparent" />
@@ -62,7 +62,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                   LIB • {idx + 1}
                 </span>
               </div>
-              
+
               <h3 className="text-2xl font-rozha text-white mb-2 group-hover:text-emerald-200 transition-colors break-words">
                 {item.label}
               </h3>

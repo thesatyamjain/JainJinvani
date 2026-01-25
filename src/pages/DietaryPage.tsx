@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Search, CheckCircle, XCircle, AlertTriangle, Leaf, Carrot } from 'lucide-react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 
 interface DietaryPageProps {
   onBack: () => void;
@@ -46,9 +46,9 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
 
   const filteredItems = foodDatabase.filter(item => {
     const matchesSearch = item.name.includes(searchTerm) || item.englishName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filter === 'all' || 
-                         (filter === 'allowed' && (item.status === 'allowed' || item.status === 'caution')) ||
-                         (filter === 'prohibited' && item.status === 'prohibited');
+    const matchesFilter = filter === 'all' ||
+      (filter === 'allowed' && (item.status === 'allowed' || item.status === 'caution')) ||
+      (filter === 'prohibited' && item.status === 'prohibited');
     return matchesSearch && matchesFilter;
   });
 
@@ -57,13 +57,13 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={onBack}
             className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group"
           >
             <ArrowLeft className="w-6 h-6 text-blue-100 group-hover:-translate-x-1 transition-transform" />
           </button>
-          
+
           <div>
             <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-emerald-400">
               भक्ष्य-अभक्ष्य विवेक
@@ -86,21 +86,21 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
               className="w-full h-10 bg-white/5 border border-white/10 rounded-full pl-10 pr-4 text-sm text-white placeholder-white/30 focus:outline-none focus:bg-white/10 focus:border-white/20 transition-all"
             />
           </div>
-          
+
           <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
-            <button 
+            <button
               onClick={() => setFilter('all')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${filter === 'all' ? 'bg-white/20 text-white' : 'text-white/50 hover:text-white'}`}
             >
               All
             </button>
-            <button 
+            <button
               onClick={() => setFilter('allowed')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${filter === 'allowed' ? 'bg-emerald-500/20 text-emerald-200' : 'text-white/50 hover:text-white'}`}
             >
               Bhakshya
             </button>
-            <button 
+            <button
               onClick={() => setFilter('prohibited')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${filter === 'prohibited' ? 'bg-red-500/20 text-red-200' : 'text-white/50 hover:text-white'}`}
             >
@@ -129,15 +129,15 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
                 {item.status === 'prohibited' && <XCircle className="w-6 h-6 text-red-400" />}
                 {item.status === 'caution' && <AlertTriangle className="w-6 h-6 text-amber-400" />}
               </div>
-              
+
               <div className="mt-auto">
                 <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mb-2
-                  ${item.status === 'allowed' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 
-                    item.status === 'prohibited' ? 'bg-red-500/10 text-red-300 border border-red-500/20' : 
-                    'bg-amber-500/10 text-amber-300 border border-amber-500/20'}`}>
+                  ${item.status === 'allowed' ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' :
+                    item.status === 'prohibited' ? 'bg-red-500/10 text-red-300 border border-red-500/20' :
+                      'bg-amber-500/10 text-amber-300 border border-amber-500/20'}`}>
                   {item.status === 'allowed' ? 'Bhakshya (Allowed)' : item.status === 'prohibited' ? 'Abhakshya (Prohibited)' : 'Caution (Vivek)'}
                 </div>
-                
+
                 <p className="text-sm text-blue-100/70 leading-relaxed font-gotu">
                   {item.reason}
                 </p>
@@ -145,7 +145,7 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
             </GlassCard>
           </motion.div>
         ))}
-        
+
         {filteredItems.length === 0 && (
           <div className="col-span-full py-12 text-center text-white/30">
             <Leaf className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -153,7 +153,7 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
           </div>
         )}
       </div>
-      
+
       <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10 flex gap-4">
         <div className="p-3 bg-amber-500/20 rounded-xl h-fit text-amber-300">
           <AlertTriangle className="w-6 h-6" />
@@ -161,7 +161,7 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
         <div>
           <h4 className="text-lg font-bold text-white mb-2">नोट</h4>
           <p className="text-sm text-blue-100/70 leading-relaxed">
-            जैन धर्म में भक्ष्य-अभक्ष्य का विवेक केवल स्वास्थ्य के लिए नहीं, बल्कि अहिंसा धर्म के पालन के लिए है। 
+            जैन धर्म में भक्ष्य-अभक्ष्य का विवेक केवल स्वास्थ्य के लिए नहीं, बल्कि अहिंसा धर्म के पालन के लिए है।
             अनंतकाय (जिसमें अनंत जीव हों) और चलितरस (सड़ा-गला) भोजन सर्वथा त्याज्य है। रात्रि भोजन का भी त्याग करना चाहिए।
           </p>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ChevronLeft, Search, Star, ArrowRight } from 'lucide-react';
 import { contentInventory, ContentItem } from '../data/inventory';
 

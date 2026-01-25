@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Clock, Flame, Droplet, Sparkles, Sun, Moon, Star } from 'lucide-react';
 
 interface RitualsPageProps {
@@ -174,31 +174,28 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
         <div className="flex gap-3 justify-center flex-wrap">
           <button
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'all'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'all'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             सभी
           </button>
           <button
             onClick={() => setFilter('daily')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'daily'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'daily'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             दैनिक
           </button>
           <button
             onClick={() => setFilter('special')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${
-              filter === 'special'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'special'
                 ? 'bg-amber-500 text-black font-bold'
                 : 'bg-white/5 text-blue-100 hover:bg-white/10'
-            }`}
+              }`}
           >
             विशेष
           </button>
@@ -222,12 +219,12 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
                 {ritual.icon}
                 <div className="text-3xl">{ritual.emoji}</div>
               </div>
-              
+
               <h3 className="text-xl font-rozha text-white mb-1 group-hover:text-amber-300 transition-colors">
                 {ritual.title}
               </h3>
               <p className="text-sm text-blue-100/60 font-gotu mb-3">{ritual.titleEn}</p>
-              
+
               <div className="space-y-2 mb-3">
                 <div className="flex items-center gap-2 text-sm text-amber-300">
                   <Clock className="w-4 h-4" />

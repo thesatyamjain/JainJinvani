@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Play, Pause, RotateCcw, Volume2, VolumeX, Timer } from 'lucide-react';
-import { GlassCard } from '../components/GlassCard';
-import { HrimSymbol, SwastikaSymbol } from '../components/JainSymbols';
+import { GlassCard } from '../components/layout/GlassCard';
+import { HrimSymbol, SwastikaSymbol } from '../components/features/JainSymbols';
 
 interface SamayikPageProps {
   onBack: () => void;
@@ -18,7 +18,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
   useEffect(() => {
     audioRef.current = new Audio('https://ia800302.us.archive.org/10/items/NamokarMantra/Namokar%20Mantra.mp3'); // Public domain/archive link
     audioRef.current.loop = true;
-    
+
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -51,7 +51,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
   }, [isActive, timeLeft]);
 
   const toggleTimer = () => setIsActive(!isActive);
-  
+
   const resetTimer = () => {
     setIsActive(false);
     setTimeLeft(48 * 60);
@@ -70,17 +70,17 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
     <div className="w-full max-w-4xl mx-auto pt-24 pb-32 px-6 flex flex-col items-center">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-8">
-        <button 
+        <button
           onClick={onBack}
           className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group"
         >
           <ArrowLeft className="w-6 h-6 text-blue-100 group-hover:-translate-x-1 transition-transform" />
         </button>
-        
+
         <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-amber-300">
           सामायिक साधना
         </h1>
-        
+
         <div className="w-12" /> {/* Spacer */}
       </div>
 
@@ -118,7 +118,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                   style={{ transition: 'stroke-dashoffset 1s linear' }}
                 />
               </svg>
-              
+
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <HrimSymbol className="w-16 h-16 text-amber-200/20 mb-2 absolute" />
                 <span className="text-6xl font-mono font-bold text-white tracking-wider relative z-10">
@@ -140,22 +140,20 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
 
               <button
                 onClick={toggleTimer}
-                className={`p-6 rounded-full transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.3)] ${
-                  isActive 
-                    ? 'bg-amber-500/20 text-amber-200 border border-amber-500/50' 
+                className={`p-6 rounded-full transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.3)] ${isActive
+                    ? 'bg-amber-500/20 text-amber-200 border border-amber-500/50'
                     : 'bg-white text-slate-900'
-                }`}
+                  }`}
               >
                 {isActive ? <Pause className="w-8 h-8 fill-current" /> : <Play className="w-8 h-8 fill-current ml-1" />}
               </button>
 
               <button
                 onClick={() => setIsAudioPlaying(!isAudioPlaying)}
-                className={`p-4 rounded-full transition-all ${
-                  isAudioPlaying 
-                    ? 'bg-amber-500/20 text-amber-200 border border-amber-500/50' 
+                className={`p-4 rounded-full transition-all ${isAudioPlaying
+                    ? 'bg-amber-500/20 text-amber-200 border border-amber-500/50'
                     : 'bg-white/5 hover:bg-white/10 text-white/50 hover:text-white'
-                }`}
+                  }`}
                 title="Toggle Mantra"
               >
                 {isAudioPlaying ? <Volume2 className="w-6 h-6" /> : <VolumeX className="w-6 h-6" />}

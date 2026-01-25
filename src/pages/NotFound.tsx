@@ -1,5 +1,5 @@
 import React from "react";
-import { GlassCard } from "../components/GlassCard";
+import { GlassCard } from "../components/layout/GlassCard";
 import { Home, Search, BookOpen } from "lucide-react";
 
 interface NotFoundProps {
