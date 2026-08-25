@@ -4,73 +4,116 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
+    --background: 224 71% 4%;
     --foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
- 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
- 
-    --card: 222.2 84% 4.9%;
+    --card: 224 71% 6%;
     --card-foreground: 210 40% 98%;
- 
-    --popover: 222.2 84% 4.9%;
+
+    --popover: 224 71% 6%;
     --popover-foreground: 210 40% 98%;
- 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
- 
-    --secondary: 217.2 32.6% 17.5%;
+
+    --primary: 38 92% 50%;
+    --primary-foreground: 224 71% 4%;
+
+    --secondary: 224 35% 15%;
     --secondary-foreground: 210 40% 98%;
- 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
- 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
- 
+
+    --muted: 224 30% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 224 71% 4%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
- 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+
+    --border: 224 30% 18%;
+    --input: 224 30% 18%;
+    --ring: 38 92% 50%;
+
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-border selection:bg-amber-500/30 selection:text-amber-100;
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#030712] text-slate-100 font-mukta antialiased;
+    font-family: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+    background-color: #030712;
+    overflow-x: hidden;
   }
 }
- 
-@layer base {
-  * {
-    @apply border-border;
+
+/* Gilded & Sacred Celestial Utilities */
+@layer utilities {
+  .gilded-text {
+    @apply bg-gradient-to-b from-amber-100 via-amber-200 to-amber-500/90 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(245,158,11,0.25)];
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .gilded-text-subtle {
+    @apply bg-gradient-to-r from-amber-100 via-amber-200/90 to-amber-300/80 bg-clip-text text-transparent;
   }
+
+  .gilded-border {
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    box-shadow: 0 0 15px -3px rgba(245, 158, 11, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .gilded-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(5, 10, 20, 0.85) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6), 0 0 20px -2px rgba(245, 158, 11, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .gilded-card:hover {
+    border-color: rgba(245, 158, 11, 0.45);
+    box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.7), 0 0 30px -2px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .cosmic-card {
+    background: linear-gradient(145deg, rgba(11, 22, 44, 0.7) 0%, rgba(5, 10, 20, 0.85) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .cosmic-card:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 14px 40px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(245, 158, 11, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  .sacred-halo {
+    background: radial-gradient(circle at center, rgba(245, 158, 11, 0.18) 0%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+  }
+
+  .sacred-glow-blue {
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.03) 50%, transparent 70%);
+  }
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(5, 10, 20, 0.6);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(245, 158, 11, 0.4), rgba(245, 158, 11, 0.2));
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(245, 158, 11, 0.6), rgba(245, 158, 11, 0.35));
 }

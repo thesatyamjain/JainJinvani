@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, MapPin, Navigation, Star, Image as ImageIcon, Info } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
+
 
 interface PilgrimagePageProps {
   onBack: () => void;
@@ -97,6 +99,10 @@ const pilgrimageData = [
 export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
   const [filter, setFilter] = useState<string>('all');
+
+  // Close place details modal on mobile back navigation
+  useModalBackHandler(!!selectedPlace, () => setSelectedPlace(null), 'pilgrimage-detail');
+
 
   const filteredPlaces = filter === 'all'
     ? pilgrimageData

@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Gotu&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Martel:wght@400;600;700;800;900&family=Mukta:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Noto+Serif+Devanagari:wght@400;500;600;700;800;900&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-gotu: 'Gotu', sans-serif;
-  --font-rozha: 'Rozha One', serif;
+  --font-mukta: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+  --font-noto: 'Noto Sans Devanagari', 'Mukta', sans-serif;
+  --font-notoserif: 'Noto Serif Devanagari', 'Martel', serif;
+  --font-gotu: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+  --font-rozha: 'Noto Serif Devanagari', 'Martel', serif;
   --font-cinzel: 'Cinzel', serif;
-  --font-tiro: 'Tiro Devanagari Hindi', serif;
+  --font-tiro: 'Noto Serif Devanagari', 'Martel', serif;
 }
 
 :root {

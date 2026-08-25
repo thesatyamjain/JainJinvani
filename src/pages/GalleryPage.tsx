@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
+
 
 interface GalleryPageProps {
   onBack: () => void;
@@ -92,6 +94,10 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Close image viewer modal on mobile back navigation
+  useModalBackHandler(!!selectedImage, () => setSelectedImage(null), 'gallery-viewer');
+
 
   const handleImageClick = (image: any, category: any, index: number) => {
     setSelectedImage(image);

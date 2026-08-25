@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, BookOpen, Star, Award, Play, Users } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
+
 
 interface PathshalaPageProps {
   onBack: () => void;
@@ -108,6 +110,10 @@ const pathshalaContent = [
 
 export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
+
+  // Close course detail modal on mobile back navigation
+  useModalBackHandler(!!selectedCourse, () => setSelectedCourse(null), 'pathshala-detail');
+
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-20 pb-32 px-6">

@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { Calendar, Sparkles, ChevronRight, X } from 'lucide-react';
+import { Calendar, Sparkles, ChevronRight, X, ArrowLeft } from 'lucide-react';
 import { jainFestivals, type JainFestival } from '../data/festivals';
-import { ArrowLeft } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
 
 interface FestivalsPageProps {
   onBack: () => void;
@@ -11,6 +11,10 @@ interface FestivalsPageProps {
 
 export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
   const [selectedFestival, setSelectedFestival] = React.useState<JainFestival | null>(null);
+
+  // Close festival details modal on mobile back navigation
+  useModalBackHandler(!!selectedFestival, () => setSelectedFestival(null), 'festival-detail');
+
 
   const getFestivalIcon = (type: string) => {
     switch (type) {

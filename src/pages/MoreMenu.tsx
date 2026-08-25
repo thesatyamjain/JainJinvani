@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass } from 'lucide-react';
-import { getSettings, updateSettings, type UserSettings } from '../lib';
+import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -11,6 +11,10 @@ interface MoreMenuProps {
 export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [settings, setSettings] = useState<UserSettings>(getSettings());
+
+  // Close modal on mobile back navigation
+  useModalBackHandler(!!selectedId, () => setSelectedId(null), 'more-modal');
+
 
   const handleSettingChange = (key: keyof UserSettings, value: any) => {
     const newSettings = { ...settings, [key]: value };

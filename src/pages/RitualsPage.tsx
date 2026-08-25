@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Clock, Flame, Droplet, Sparkles, Sun, Moon, Star } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
+
 
 interface RitualsPageProps {
   onBack: () => void;
@@ -136,6 +138,10 @@ const ritualsData = [
 export const RitualsPage = ({ onBack }: RitualsPageProps) => {
   const [selectedRitual, setSelectedRitual] = useState<any>(null);
   const [filter, setFilter] = useState<string>('all');
+
+  // Close ritual detail modal on mobile back navigation
+  useModalBackHandler(!!selectedRitual, () => setSelectedRitual(null), 'ritual-detail');
+
 
   const filteredRituals = filter === 'all'
     ? ritualsData

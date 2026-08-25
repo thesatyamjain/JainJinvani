@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { SpaceBackground } from "./components/layout/SpaceBackground";
 import { Dock } from "./components/layout/Dock";
+import { ExitToast } from "./components/layout/ExitToast";
+import { BackToTop } from "./components/layout/BackToTop";
 import { Landing } from "./pages/Landing";
 import { SadhanaMenu } from "./pages/SadhanaMenu";
 import { LibraryMenu } from "./pages/LibraryMenu";
@@ -26,15 +28,23 @@ import { DietaryPage } from "./pages/DietaryPage";
 import { AsceticsPage } from "./pages/AsceticsPage";
 import { MuniProfilesPage } from "./pages/MuniProfilesPage";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
-import { contentInventory } from "./data/inventory";
+import { useModalBackHandler } from "./lib";
+
+const getInitialHashPage = () => {
+  if (typeof window !== 'undefined' && window.location.hash) {
+    const hashPage = window.location.hash.replace(/^#/, '');
+    if (hashPage) return hashPage;
+  }
+  return 'landing';
+};
 
 export default function App() {
-  // Initialize state from history or default to landing
+  // Initialize state from history or default to hash / landing
   const [activePage, setActivePage] = useState(() => {
     if (typeof window !== 'undefined' && window.history.state?.page) {
       return window.history.state.page;
     }
-    return "landing";
+    return getInitialHashPage();
   });
 
   const [pageParams, setPageParams] = useState<any>(() => {
@@ -45,36 +55,129 @@ export default function App() {
   });
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [showExitToast, setShowExitToast] = useState(false);
+  const lastBackPressTimeRef = useRef<number>(0);
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const mainRef = useRef<HTMLElement>(null);
+  const activePageRef = useRef(activePage);
 
-  // Sync with browser history
   useEffect(() => {
+    activePageRef.current = activePage;
+  }, [activePage]);
+
+  // Handle mobile back button closing the search overlay
+  useModalBackHandler(isSearchOpen, () => setIsSearchOpen(false), 'search-overlay');
+
+  // Sync with browser history & root exit prevention
+  useEffect(() => {
+    // Initial setup: ensure root history guard is in place
+    if (!window.history.state || typeof window.history.state.historyIndex !== 'number') {
+      const initialPage = window.history.state?.page || getInitialHashPage();
+      const initialParams = window.history.state?.params || null;
+
+      // Base entry at index 0
+      window.history.replaceState(
+        { page: initialPage, params: initialParams, historyIndex: 0, isRoot: true },
+        '',
+        window.location.hash || `#${initialPage}`
+      );
+
+      // If starting on landing, push a guard entry so back button is captured by popstate
+      if (initialPage === 'landing') {
+        window.history.pushState(
+          { page: 'landing', params: null, historyIndex: 1, isRootGuard: true },
+          '',
+          '#landing'
+        );
+      }
+    }
+
     const handlePopState = (event: PopStateEvent) => {
-      if (event.state) {
+      // If a modal was open, useModalBackHandler will handle closing it
+      if (event.state?.modalOpen) {
+        return;
+      }
+
+      if (event.state?.page) {
         setActivePage(event.state.page);
-        setPageParams(event.state.params);
+        setPageParams(event.state.params || null);
       } else {
-        // Fallback for initial state or empty history
-        setActivePage("landing");
-        setPageParams(null);
+        // We reached root entry or popped outside app stack
+        const now = Date.now();
+        const timeDiff = now - lastBackPressTimeRef.current;
+
+        if (activePageRef.current === 'landing' || !event.state) {
+          if (timeDiff < 2000) {
+            // Second back press within 2s: allow normal exit
+            setShowExitToast(false);
+            if (window.history.length > 1) {
+              window.history.back();
+            }
+          } else {
+            // First back press on root: show toast and re-arm guard
+            lastBackPressTimeRef.current = now;
+            setShowExitToast(true);
+            if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+            toastTimeoutRef.current = setTimeout(() => {
+              setShowExitToast(false);
+            }, 2000);
+
+            window.history.pushState(
+              { page: 'landing', params: null, historyIndex: 1, isRootGuard: true },
+              '',
+              '#landing'
+            );
+            setActivePage('landing');
+            setPageParams(null);
+          }
+        } else {
+          setActivePage('landing');
+          setPageParams(null);
+          window.history.replaceState(
+            { page: 'landing', params: null, historyIndex: 0, isRoot: true },
+            '',
+            '#landing'
+          );
+        }
       }
     };
 
     window.addEventListener("popstate", handlePopState);
 
-    // Ensure initial state exists so we can go "back" to it
-    if (!window.history.state) {
-      window.history.replaceState({ page: "landing", params: null }, "", "#landing");
-    }
-
-    return () => window.removeEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
   }, []);
 
   const handleNavigate = (page: string, params?: any) => {
+    // If navigating to the same page with identical params, do not push duplicate
+    if (activePage === page && JSON.stringify(pageParams) === JSON.stringify(params)) {
+      return;
+    }
+
+    const currentIndex = typeof window.history.state?.historyIndex === 'number'
+      ? window.history.state.historyIndex
+      : 1;
+    const newIndex = currentIndex + 1;
+
     // Push new state to history stack
-    window.history.pushState({ page, params }, "", `#${page}`);
+    window.history.pushState({ page, params, historyIndex: newIndex }, "", `#${page}`);
     setPageParams(params);
     setActivePage(page);
+  };
+
+  const handleBack = (fallbackPage: string = 'landing', fallbackParams?: any) => {
+    // If there is browser history within our app, use standard back
+    if (
+      window.history.state &&
+      typeof window.history.state.historyIndex === 'number' &&
+      window.history.state.historyIndex > 1
+    ) {
+      window.history.back();
+    } else {
+      handleNavigate(fallbackPage, fallbackParams);
+    }
   };
 
   // Scroll to top when activePage changes
@@ -159,11 +262,7 @@ export default function App() {
               <CategoryListing
                 categoryId={pageParams?.id}
                 onNavigate={handleNavigate}
-                onBack={() =>
-                  handleNavigate(
-                    pageParams?.source || "sadhana",
-                  )
-                }
+                onBack={() => handleBack(pageParams?.source || "sadhana")}
               />
             </motion.div>
           )}
@@ -180,9 +279,9 @@ export default function App() {
               <ContentViewer
                 onBack={() => {
                   if (pageParams?.previousPage) {
-                    handleNavigate(pageParams.previousPage, pageParams.previousParams);
+                    handleBack(pageParams.previousPage, pageParams.previousParams);
                   } else {
-                    handleNavigate(
+                    handleBack(
                       pageParams?.source === "library"
                         ? "library"
                         : pageParams?.source === "sadhana"
@@ -208,7 +307,7 @@ export default function App() {
               className="min-h-full"
             >
               <Panchang
-                onBack={() => handleNavigate("sadhana")}
+                onBack={() => handleBack("sadhana")}
               />
             </motion.div>
           )}
@@ -265,7 +364,7 @@ export default function App() {
             >
               <FavoritesPage
                 onNavigate={handleNavigate}
-                onBack={() => handleNavigate("more")}
+                onBack={() => handleBack("more")}
               />
             </motion.div>
           )}
@@ -279,7 +378,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <FestivalsPage onBack={() => handleNavigate("favorites")} />
+              <FestivalsPage onBack={() => handleBack("favorites")} />
             </motion.div>
           )}
 
@@ -293,12 +392,12 @@ export default function App() {
               className="min-h-full"
             >
               <TirthankarProfile
-                tirthankarId={pageParams?.id || '24'}
+                tirthankarId={pageParams?.id || 'adinath'}
                 onBack={() => {
                   if (pageParams?.previousPage) {
-                    handleNavigate(pageParams.previousPage, pageParams.previousParams);
+                    handleBack(pageParams.previousPage, pageParams.previousParams);
                   } else {
-                    handleNavigate(pageParams?.source || "sadhana");
+                    handleBack(pageParams?.source || "sadhana");
                   }
                 }}
                 onNavigate={handleNavigate}
@@ -315,7 +414,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <PilgrimagePage onBack={() => handleNavigate("favorites")} />
+              <PilgrimagePage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -328,7 +427,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <PhilosophyPage onBack={() => handleNavigate("favorites")} />
+              <PhilosophyPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -341,7 +440,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <RitualsPage onBack={() => handleNavigate("favorites")} />
+              <RitualsPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -354,7 +453,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <PathshalaPage onBack={() => handleNavigate("favorites")} />
+              <PathshalaPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -367,7 +466,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <GalleryPage onBack={() => handleNavigate("explore")} />
+              <GalleryPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -381,7 +480,7 @@ export default function App() {
               className="min-h-full"
             >
               <ExploreMenu
-                onBack={() => handleNavigate("more")}
+                onBack={() => handleBack("more")}
                 onNavigate={handleNavigate}
               />
             </motion.div>
@@ -396,7 +495,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <SamayikPage onBack={() => handleNavigate("sadhana")} />
+              <SamayikPage onBack={() => handleBack("sadhana")} />
             </motion.div>
           )}
 
@@ -409,7 +508,7 @@ export default function App() {
               transition={{ duration: 0.4 }}
               className="min-h-full"
             >
-              <DietaryPage onBack={() => handleNavigate("sadhana")} />
+              <DietaryPage onBack={() => handleBack("sadhana")} />
             </motion.div>
           )}
 
@@ -423,7 +522,7 @@ export default function App() {
               className="min-h-full"
             >
               <AsceticsPage
-                onBack={() => handleNavigate("explore")}
+                onBack={() => handleBack("explore")}
                 onNavigate={handleNavigate}
               />
             </motion.div>
@@ -439,7 +538,7 @@ export default function App() {
               className="min-h-full"
             >
               <MuniProfilesPage
-                onBack={() => handleNavigate("ascetics")}
+                onBack={() => handleBack("ascetics")}
                 onNavigate={handleNavigate}
               />
             </motion.div>
@@ -463,6 +562,12 @@ export default function App() {
         onNavigate={handleNavigate}
         currentActivePage={activePage}
       />
+
+      {/* Double back exit toast on root screen */}
+      <ExitToast isVisible={showExitToast} />
+
+      {/* Floating Back to Top button */}
+      <BackToTop />
     </div>
   );
 }

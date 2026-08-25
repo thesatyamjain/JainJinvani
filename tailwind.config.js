@@ -47,10 +47,15 @@ export default {
                 sm: "calc(var(--radius) - 4px)",
             },
             fontFamily: {
-                gotu: ["Gotu", "sans-serif"],
-                rozha: ["Rozha One", "serif"],
-                cinzel: ["Cinzel", "serif"],
-                tiro: ["Tiro Devanagari Hindi", "serif"],
+                mukta: ["'Mukta'", "'Noto Sans Devanagari'", "sans-serif"],
+                noto: ["'Noto Sans Devanagari'", "'Mukta'", "sans-serif"],
+                notoserif: ["'Noto Serif Devanagari'", "'Martel'", "serif"],
+                martel: ["'Martel'", "'Noto Serif Devanagari'", "serif"],
+                gotu: ["'Mukta'", "'Noto Sans Devanagari'", "sans-serif"],
+                rozha: ["'Noto Serif Devanagari'", "'Martel'", "serif"],
+                display: ["'Noto Serif Devanagari'", "'Martel'", "serif"],
+                cinzel: ["'Cinzel'", "serif"],
+                tiro: ["'Noto Serif Devanagari'", "'Martel'", "serif"],
             },
             keyframes: {
                 "accordion-down": {

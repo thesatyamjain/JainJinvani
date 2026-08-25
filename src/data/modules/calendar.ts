@@ -1,0 +1,350 @@
+// Auto-generated from calendar_data.js
+export const CalendarData = {
+    "vardhaman-calendar": {
+        "id": "vardhaman-calendar",
+        "category": "calendar",
+        "title": "Tirthankar Vardhaman Calendar",
+        "subtitle": "Jain Panchang & Kalyanak Dates",
+        "type": "html",
+        "content": `<div class="book-content">
+<style>
+.calendar-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
+    border-radius: 12px;
+}
+
+.calendar-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.calendar-year-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.year-btn {
+    background: var(--primary-saffron);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.2rem;
+}
+
+.year-btn:hover {
+    transform: scale(1.1);
+    background: var(--kumkum-red);
+}
+
+.current-year {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-title);
+    min-width: 100px;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.month-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.month-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.month-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-saffron);
+    margin-bottom: 1rem;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold-light);
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.calendar-table td {
+    padding: 0.5rem 0.25rem;
+    text-align: center;
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.day-cell {
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.day-cell.today {
+    background: var(--primary-saffron);
+    color: white;
+    font-weight: 600;
+}
+
+.day-cell.special-date {
+    background: var(--kumkum-red);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.day-cell.special-date:hover {
+    transform: scale(1.1);
+}
+
+.day-cell.festival {
+    background: var(--gold-light);
+    color: var(--deep-maroon);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.important-dates {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-saffron);
+}
+
+.date-legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.festival-list {
+    margin-top: 1.5rem;
+}
+
+.festival-item {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-saffron);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.festival-date {
+    font-weight: 600;
+    color: var(--kumkum-red);
+}
+
+.pdf-download-section {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
+    border-radius: 12px;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-saffron);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.download-btn:hover {
+    background: var(--kumkum-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+</style>
+
+<div class="calendar-header">
+    <h2>📅 Tirthankar Vardhaman Calendar 2026</h2>
+    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Vikram Samvat 2082-2083 | Veer Nirvana Samvat 2552-2553</p>
+</div>
+
+<div class="calendar-actions">
+    <button class="download-btn" onclick="window.open('assets/vardhaman-calendar-2026.pdf', '_blank')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download PDF Calendar
+    </button>
+</div>
+
+<div class="important-dates">
+    <h3 style="margin-top: 0; color: var(--primary-saffron);">🎉 Major Jain Festivals 2026</h3>
+    <div class="festival-list">
+        <div class="festival-item">
+            <span>Mahavir Jayanti</span>
+            <span class="festival-date">April 13, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Akshaya Tritiya</span>
+            <span class="festival-date">April 30, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Chaturmas Begins</span>
+            <span class="festival-date">July 16, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Paryushan Parv (Digambara)</span>
+            <span class="festival-date">August 23 - September 1, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Das Lakshan Mahaparva</span>
+            <span class="festival-date">September 2-11, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Kshamavani (Samvatsari)</span>
+            <span class="festival-date">September 11, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Diwali (Nirvana Mahotsav)</span>
+            <span class="festival-date">November 1, 2026</span>
+        </div>
+        <div class="festival-item">
+            <span>Veer Nirvana Samvat New Year</span>
+            <span class="festival-date">November 2, 2026</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem;">
+        <h3 style="color: var(--primary-saffron);">📿 Tirthankara Kalyanak Dates</h3>
+        <p style="color: var(--text-secondary); margin: 0.5rem 0;">Important birth and liberation dates of the 24 Tirthankaras</p>
+        <div class="festival-list">
+            <div class="festival-item">
+                <span>Lord Adinath Janma Kalyanak</span>
+                <span class="festival-date">Chaitra Shukla Navami</span>
+            </div>
+            <div class="festival-item">
+                <span>Lord Mahavir Janma Kalyanak</span>
+                <span class="festival-date">Chaitra Shukla Trayodashi (Apr 13)</span>
+            </div>
+            <div class="festival-item">
+                <span>Lord Mahavir Moksha Kalyanak</span>
+                <span class="festival-date">Kartik Amavasya (Nov 1)</span>
+            </div>
+            <div class="festival-item">
+                <span>Lord Parshvanath Janma Kalyanak</span>
+                <span class="festival-date">Pausha Krishna Ekadashi</span>
+            </div>
+            <div class="festival-item">
+                <span>Lord Naminath Janma Kalyanak</span>
+                <span class="festival-date">Shravan Shukla Ashtami</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="date-legend" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee;">
+        <div class="legend-item">
+            <div class="legend-dot" style="background: var(--kumkum-red);"></div>
+            <span>Kalyanak Dates</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: var(--gold-light);"></div>
+            <span>Festivals</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot" style="background: var(--primary-saffron);"></div>
+            <span>Today</span>
+        </div>
+    </div>
+</div>
+
+<div class="pdf-download-section">
+    <h3 style="margin-top: 0;">📄 Full Calendar PDF</h3>
+    <p style="color: var(--text-secondary); margin: 1rem 0;">Download the complete Tirthankar Vardhaman Calendar with all important dates, tithis, and Panchang details for the entire year.</p>
+    <button class="download-btn" onclick="generateCalendarPDF()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Generate & Download Full Calendar PDF
+    </button>
+    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 1rem;">PDF includes monthly views, all festivals, Kalyanak dates, and daily Panchang</p>
+</div>
+
+<script>
+function generateCalendarPDF() {
+    // Show loading message
+    const btn = event.target.closest('.download-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 0.5rem;">⏳ Generating PDF...</span>';
+    btn.disabled = true;
+    
+    // Simulate PDF generation (in production, this would call a server endpoint or use jsPDF)
+    setTimeout(() => {
+        alert('PDF Calendar download will be available soon!\\n\\nThe full calendar PDF with all Panchang details, festivals, and Kalyanak dates will be ready for download.\\n\\nFor now, you can:\\n• Use the calendar view above\\n• Check the Important Dates section\\n• Visit the Library for more resources');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }, 1500);
+}
+</script>
+
+</div>`
+    }
+};

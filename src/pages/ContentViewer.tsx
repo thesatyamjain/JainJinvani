@@ -1,9 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ChevronLeft, Share2, Bookmark, BookOpen, List, Copy, Loader2 } from 'lucide-react';
-import { getContentByIdAsync, getContentById } from '../lib/bridge';
+import {
+  ChevronLeft,
+  Share2,
+  Bookmark,
+  BookOpen,
+  List,
+  Loader2,
+  Type,
+  Sparkles,
+} from 'lucide-react';
+import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
+import { addFavorite, removeFavorite, isFavorite } from '../lib/storage';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -12,177 +22,574 @@ interface ContentViewerProps {
   type?: string;
 }
 
-// ... helper views remain the same ...
+// 1. HTML View (For History, Vidhi, etc.)
+const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) => {
+  return (
+    <GlassCard variant="gilded" className="p-6 sm:p-10 md:p-12 min-h-full">
+      <div
+        style={{ fontSize: `${fontSize}px` }}
+        className="prose prose-invert prose-lg max-w-none font-mukta text-slate-200 leading-relaxed
+                   prose-headings:font-notoserif prose-headings:text-amber-200 prose-headings:mb-4
+                   prose-p:mb-6 prose-strong:text-amber-300 prose-ul:list-disc prose-ul:pl-6
+                   prose-li:mb-2 [&_.intro]:text-xl [&_.intro]:font-light [&_.intro]:text-white/90
+                   [&_.fact-box]:grid [&_.fact-box]:grid-cols-2 [&_.fact-box]:gap-4 [&_.fact-box]:bg-amber-500/10 [&_.fact-box]:border [&_.fact-box]:border-amber-500/20 [&_.fact-box]:p-6 [&_.fact-box]:rounded-2xl [&_.fact-box]:mb-8
+                   [&_.fact-item]:flex [&_.fact-item]:flex-col [&_.fact-item_strong]:text-amber-400 [&_.fact-item_strong]:text-xs [&_.fact-item_strong]:uppercase [&_.fact-item_strong]:tracking-wider
+                   [&_.bio-header]:text-center [&_.bio-header]:mb-10 [&_.tirthankara-symbol]:text-6xl [&_.tirthankara-symbol]:block [&_.tirthankara-symbol]:mb-4
+                   [&_.mantra-box]:bg-gradient-to-r [&_.mantra-box]:from-amber-500/15 [&_.mantra-box]:via-slate-900/60 [&_.mantra-box]:to-amber-500/15 [&_.mantra-box]:p-6 [&_.mantra-box]:rounded-2xl [&_.mantra-box]:text-center [&_.mantra-box]:border [&_.mantra-box]:border-amber-400/30 [&_.mantra-box]:my-6 [&_.mantra-box]:shadow-[0_0_20px_rgba(245,158,11,0.15)]
+                   [&_.steps-grid]:grid [&_.steps-grid]:gap-6 [&_.steps-grid]:md:grid-cols-1
+                   [&_.step-card]:bg-slate-900/60 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-white/10
+                   [&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </GlassCard>
+  );
+};
 
-export const ContentViewer = ({ onBack, id, title, type }: ContentViewerProps) => {
-  const [data, setData] = React.useState<any>(null);
-  const [loading, setLoading] = React.useState(true);
-  const isDemoArticle = !id || id === 'anekantavada' || id === 'tattva';
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+// Category translation mapping
+const CATEGORY_NAMES_HI: Record<string, string> = {
+  puja: 'पूजा',
+  vidhan: 'विधान',
+  stotra: 'स्तोत्र',
+  arti: 'आरती',
+  chalisa: 'चालीसा',
+  bhajan: 'भजन',
+  path: 'पाठ',
+  shastra: 'शास्त्र',
+  vidhi: 'विधि',
+  philosophy: 'दर्शन',
+  cosmology: 'भूगोल',
+  history: 'इतिहास',
+  parva: 'पर्व',
+  sutra: 'सूत्र',
+  kids: 'बाल संस्कार',
+};
 
-  React.useEffect(() => {
-    let mounted = true;
+// Helper to sanitize Devanagari text, standardize dandas, and fix encoding typos
+const sanitizeDevanagari = (text: string): string => {
+  if (!text) return '';
+  return text
+    .replace(/र्इ/g, 'ई')
+    .replace(/र्उ/g, 'उ')
+    .replace(/र्ऊ/g, 'ऊ')
+    .replace(/र्ए/g, 'ए')
+    .replace(/र्ऐ/g, 'ऐ')
+    .replace(/र्ओ/g, 'ओ')
+    .replace(/र्औ/g, 'औ')
+    .replace(/\|\|/g, '॥')
+    .replace(/\|/g, '।');
+};
 
-    const loadContent = async () => {
-      if (!id) {
-        if (mounted) setLoading(false);
-        return;
-      }
+// Helper to remove stray English parenthetical glosses/translations from liturgical text
+const cleanEnglishAnnotations = (text: string): string => {
+  if (!text) return '';
+  return text
+    .replace(/\s*\((?:Water|Sandalwood|Rice|Flower|Flowers|Naivedya|Sweets|Lamp|Incense|Fruit|Fruits|Arghya|Offering|Full Offering|Poorna Arghya|Mantra Japa|Nirvana Laddu|Meaning)\)/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+};
 
-      setLoading(true);
-      try {
-        // Try async first
-        const result = await getContentByIdAsync(id);
-        if (mounted) {
-          setData(result);
-        }
-      } catch (err) {
-        console.error("Error loading content:", err);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    };
+// Helper to strip HTML tags and decode entities for clean display/copy
+const stripHtml = (html: string): string => {
+  if (!html) return '';
+  return cleanEnglishAnnotations(
+    sanitizeDevanagari(
+      html
+        .replace(/<[^>]*>/g, '')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&quot;/g, '"')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .trim()
+    )
+  );
+};
 
-    loadContent();
-    return () => { mounted = false; };
-  }, [id]);
+interface ParsedLine {
+  type: 'tag' | 'mantra' | 'line';
+  text: string;
+}
 
-  const scrollToSection = (sectionId: string) => {
-    const element = sectionRefs.current[sectionId];
-    if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+interface ParsedVerse {
+  sectionTitle?: string;
+  lines: ParsedLine[];
+  meanings: string[];
+  number?: number | string | null;
+}
+
+const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => {
+  let rawText = '';
+  if (typeof v === 'string') rawText = v;
+  else if (v.lines && Array.isArray(v.lines)) rawText = v.lines.join('\n');
+  else if (v.hindi) rawText = v.hindi;
+  else if (v.original && Array.isArray(v.original)) rawText = v.original.join('\n');
+  else if (v.original) rawText = v.original;
+
+  const rawMeaning = v.meaning || v.translation || v.explanation || '';
+  const meanings = Array.isArray(rawMeaning)
+    ? rawMeaning.map(stripHtml).filter(Boolean)
+    : [stripHtml(rawMeaning)].filter(Boolean);
+
+  let sectionTitle = '';
+  const secMatch = rawText.match(/<div class=["']section-title["']>([\s\S]*?)<\/div>/i);
+  if (secMatch) {
+    sectionTitle = stripHtml(secMatch[1]);
+    rawText = rawText.replace(secMatch[0], '').trim();
+  } else {
+    const cleanRaw = stripHtml(rawText);
+    if (/^\s*॥\s*[^॥\n]+\s*॥\s*$/.test(cleanRaw) && cleanRaw.length < 60) {
+      sectionTitle = cleanRaw;
+      rawText = '';
+    }
+  }
+
+  // Split lines by <br> tags or newlines
+  const rawLineArray = rawText
+    .split(/<br\s*\/?>|\r?\n/gi)
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  const lines: ParsedLine[] = rawLineArray.map((line) => {
+    // Check if tag / Chhand / Dravya name like <b>(छंद जोगीरासा)</b> or <b>(जल)</b> or (जल)
+    const rawClean = stripHtml(line);
+    const tagMatch =
+      line.match(/^<b>\s*\((.*?)\)\s*<\/b>$/i) ||
+      line.match(/^<strong>\s*\((.*?)\)\s*<\/strong>$/i) ||
+      line.match(/^<b>(.*?)<\/b>$/i) ||
+      line.match(/^<strong>(.*?)<\/strong>$/i) ||
+      rawClean.match(
+        /^\s*\(?\s*(दोहा|सोरठा|चौपाई|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|दीप|धूप|फल|अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*)\s*\)?\s*$/i
+      );
+
+    if (tagMatch) {
+      let tagText = stripHtml(tagMatch[1] || tagMatch[0]);
+      tagText = tagText.replace(/[()]/g, '').trim();
+      return { type: 'tag', text: tagText };
+    }
+
+    const cleanLine = stripHtml(line);
+    const isMantra =
+      /^(ॐ|ॐ\s*ह्रीं)/.test(cleanLine) ||
+      /(स्वाहा|स्वाहा।|स्वाहा\.|नमः|नमः।|वषट्!|संवौषट्!|ठ:! ठ:!|ठः ठः स्थापनं|ठ: ठ: स्थापनं)$/.test(cleanLine);
+
+    if (isMantra) {
+      return { type: 'mantra', text: cleanLine };
+    }
+
+    return { type: 'line', text: cleanLine };
+  });
+
+  const number = v.number || (category === 'stotra' ? idx + 1 : null);
+
+  return {
+    sectionTitle,
+    lines,
+    meanings,
+    number,
   };
+};
+
+// 2. Unified Verse / Lyrics View (For Stotra, Aarti, Chalisa, Bhajan, Puja, Vidhan, Path)
+const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) => {
+  const verses = item.verses || item.lyrics || [];
 
   return (
-    <div className="w-full h-screen flex flex-col relative bg-[#050a14]">
+    <div className="space-y-6">
+      {verses.map((verse: any, idx: number) => {
+        const parsed = parseVerseData(verse, idx, item.category);
 
-      {/* Fixed Sticky Header */}
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="fixed top-0 left-0 right-0 z-50 h-16 bg-black/40 backdrop-blur-xl border-b border-white/5 flex items-center justify-between px-4 md:px-8 shadow-2xl"
-      >
-        <button
-          onClick={onBack}
-          className="flex items-center gap-3 text-blue-200 hover:text-white transition-all px-2 py-2 rounded-lg hover:bg-white/5 group"
-        >
-          <div className="p-1.5 rounded-full bg-white/5 border border-white/10 group-hover:bg-amber-500/20 group-hover:border-amber-500/50 transition-all">
-            <ChevronLeft className="w-5 h-5" />
+        return (
+          <React.Fragment key={idx}>
+            {/* Render Section Header if present (e.g. ॥ स्थापना ॥, ॥ अष्ट द्रव्य पूजा ॥, ॥ जयमाला ॥) */}
+            {parsed.sectionTitle && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-6 text-center my-2"
+              >
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border border-amber-500/35 backdrop-blur-md shadow-lg">
+                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-notoserif font-bold text-amber-200 tracking-wide">
+                    {parsed.sectionTitle}
+                  </h3>
+                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                </div>
+              </motion.div>
+            )}
+
+            {/* Render verse card if lines or meanings exist */}
+            {(parsed.lines.length > 0 || parsed.meanings.length > 0) && (
+              <GlassCard
+                variant="gilded"
+                className="p-6 md:p-9 relative group hover:border-amber-400/40 transition-all duration-300"
+              >
+                {/* Verse Header Row */}
+                <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/5">
+                  {parsed.number ? (
+                    <div className="flex items-center gap-2">
+                      <span className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold flex items-center justify-center">
+                        {parsed.number}
+                      </span>
+                      <span className="text-[11px] uppercase tracking-widest text-slate-400 font-cinzel">
+                        पद / श्लोक
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-cinzel">
+                      पद्य
+                    </span>
+                  )}
+                </div>
+
+                {/* Sacred Lines & Mantras */}
+                <div className="space-y-3.5 text-center my-4">
+                  {parsed.lines.map((lineObj: ParsedLine, lIdx: number) => {
+                    if (lineObj.type === 'tag') {
+                      return (
+                        <div key={lIdx} className="pt-1 pb-1">
+                          <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-gotu text-xs sm:text-sm font-semibold tracking-wide">
+                            {lineObj.text}
+                          </span>
+                        </div>
+                      );
+                    }
+
+                    if (lineObj.type === 'mantra') {
+                      return (
+                        <div
+                          key={lIdx}
+                          style={{ fontSize: `${fontSize + 1}px` }}
+                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border border-amber-500/35 text-amber-100 font-notoserif font-bold text-center shadow-inner tracking-wide leading-relaxed"
+                        >
+                          {lineObj.text}
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <p
+                        key={lIdx}
+                        style={{ fontSize: `${fontSize + 3}px` }}
+                        className="font-notoserif font-semibold text-white leading-relaxed tracking-wide"
+                      >
+                        {lineObj.text}
+                      </p>
+                    );
+                  })}
+                </div>
+
+                {/* Meanings / Translation */}
+                {parsed.meanings.length > 0 && (
+                  <div className="mt-6 pt-5 border-t border-amber-500/15 space-y-2 text-center bg-amber-500/[0.03] -mx-6 -mb-6 md:-mx-9 md:-mb-9 p-5 rounded-b-2xl">
+                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-cinzel font-bold block mb-1">
+                      भावार्थ
+                    </span>
+                    {parsed.meanings.map((meaningLine: string, lIdx: number) => (
+                      <p
+                        key={lIdx}
+                        style={{ fontSize: `${fontSize}px` }}
+                        className="font-mukta text-slate-200 leading-relaxed max-w-3xl mx-auto"
+                      >
+                        {meaningLine}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </GlassCard>
+            )}
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};
+
+// 3. Article View (For Grantha Chapters)
+const ArticleView = ({
+  data,
+  sectionRefs,
+  fontSize,
+}: {
+  data: ContentItem;
+  sectionRefs: any;
+  fontSize: number;
+}) => {
+  if (!data.chapters) return null;
+  return (
+    <GlassCard variant="gilded" className="p-6 md:p-12 min-h-full">
+      <div className="max-w-3xl mx-auto space-y-12 text-slate-200 leading-relaxed font-mukta">
+        {data.chapters.map((chapter: any, chapterIdx: number) => (
+          <div
+            key={chapterIdx}
+            ref={(el) => {
+              sectionRefs.current[`chapter-${chapterIdx}`] = el;
+            }}
+            className="scroll-mt-20"
+          >
+            <h3 className="text-2xl md:text-3xl font-notoserif text-amber-200 mb-6 border-l-4 border-amber-500 pl-4 py-1">
+              {chapter.title}
+            </h3>
+            <div className="space-y-6">
+              {chapter.content.map((para: string, pIdx: number) =>
+                para === '' ? (
+                  <div key={pIdx} className="h-4" />
+                ) : (
+                  <p
+                    key={pIdx}
+                    style={{ fontSize: `${fontSize}px` }}
+                    className="leading-loose text-justify text-slate-200"
+                  >
+                    {para}
+                  </p>
+                )
+              )}
+            </div>
           </div>
-          <span className="font-gotu text-sm font-medium tracking-wide hidden md:block group-hover:text-amber-200 transition-colors">वापस</span>
-        </button>
+        ))}
+      </div>
+    </GlassCard>
+  );
+};
 
-        {/* Optional: Show Title in Header when scrolled (omitted for now to keep clean) */}
+// Helper to get clean Hindi subtitle and author without English artifacts
+const getCleanHindiSubtitle = (sub?: string, author?: string): string => {
+  const parts: string[] = [];
+  if (sub) {
+    const hasDevanagari = /[\u0900-\u097F]/.test(sub);
+    const isEnglishOnly = /^[A-Za-z0-9\s\-(),.'"]+$/.test(sub.trim());
+    if (hasDevanagari && !isEnglishOnly) {
+      parts.push(sub.replace(/\s*\([A-Za-z\s,-]+\)/g, '').trim());
+    }
+  }
+  if (author) {
+    parts.push(`रचयिता: ${author}`);
+  }
+  return parts.filter(Boolean).join(' • ');
+};
 
-        <div className="flex gap-2">
-          <button className="p-2 rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors">
-            <Bookmark className="w-5 h-5" />
+export const ContentViewer = ({
+  onBack,
+  id,
+  type,
+  title,
+}: {
+  onBack: () => void;
+  id?: string;
+  type?: string;
+  title?: string;
+}) => {
+  const [data, setData] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [fontSize, setFontSize] = React.useState(18);
+  const [isFav, setIsFav] = React.useState(false);
+  const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  React.useEffect(() => {
+    let isMounted = true;
+    const loadContent = async () => {
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      try {
+        const result = await getContentByIdAsync(id);
+        if (isMounted) setData(result);
+      } catch (err) {
+        console.error('Error loading content:', err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    loadContent();
+    return () => { isMounted = false; };
+  }, [id]);
+
+  React.useEffect(() => {
+    if (id) setIsFav(isFavorite(id));
+  }, [id]);
+
+  const scrollToSection = (secId: string) => {
+    sectionRefs.current[secId]?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleFavoriteToggle = () => {
+    if (!id) return;
+    if (isFav) {
+      removeFavorite(id);
+      setIsFav(false);
+    } else {
+      addFavorite({
+        id,
+        title: data?.title || title || 'Content',
+        type: type || data?.category || 'scripture',
+      });
+      setIsFav(true);
+    }
+  };
+
+  const handleShare = async () => {
+    const shareTitle = data?.title || title || 'Jain Jinvani';
+    const shareData = { title: shareTitle, text: `${shareTitle} - जैन जिनवाणी`, url: window.location.href };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch (e) {}
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
+
+  const hindiSubtitle = getCleanHindiSubtitle(data?.subtitle, data?.author);
+
+  return (
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full">
+      {/* Unified Top Header Bar - 100% Single-Row & Responsive across Mobile & Desktop */}
+      <motion.div
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex items-center justify-between gap-2.5 sm:gap-4 mb-6 sm:mb-8"
+      >
+        {/* Left: Back Button & Title */}
+        <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
+          <button
+            onClick={onBack}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group shadow-md"
+            title="वापस जाएँ"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300 group-hover:text-amber-200 transition-colors" />
           </button>
-          <button className="p-2 rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors">
-            <Share2 className="w-5 h-5" />
+          
+          <div className="min-w-0 flex-1 py-1">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-notoserif font-bold text-white truncate pt-1.5 pb-1 leading-[1.3] sm:leading-[1.25] drop-shadow-[0_2px_10px_rgba(251,191,36,0.15)]">
+                {data?.title || title || 'स्वाध्याय'}
+              </h1>
+              {data?.category && (
+                <span className="hidden xs:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-[10px] sm:text-xs font-bold text-amber-200 shrink-0 font-cinzel">
+                  <Sparkles className="w-2.5 h-2.5 text-amber-400" />
+                  {CATEGORY_NAMES_HI[data.category] || data.category}
+                </span>
+              )}
+            </div>
+            {hindiSubtitle ? (
+              <p className="text-slate-400 text-[11px] sm:text-xs md:text-sm font-gotu truncate mt-0.5">
+                {hindiSubtitle}
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        {/* Right: Action Controls (Font Size, Favorite, Share) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center bg-slate-900/80 border border-white/10 rounded-xl sm:rounded-2xl p-0.5 sm:p-1.5 backdrop-blur-xl shadow-inner">
+            <button
+              onClick={() => setFontSize((f) => Math.max(14, f - 2))}
+              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs text-slate-300 hover:text-white font-mono hover:bg-white/10 rounded-lg sm:rounded-xl transition-all"
+              title="अक्षर छोटा करें"
+            >
+              A-
+            </button>
+            <span className="text-[11px] sm:text-xs text-amber-300 font-mono font-semibold px-1 sm:px-2">{fontSize}</span>
+            <button
+              onClick={() => setFontSize((f) => Math.min(26, f + 2))}
+              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs text-slate-300 hover:text-white font-mono hover:bg-white/10 rounded-lg sm:rounded-xl transition-all"
+              title="अक्षर बड़ा करें"
+            >
+              A+
+            </button>
+          </div>
+
+          <button
+            onClick={handleFavoriteToggle}
+            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-center backdrop-blur-xl group shrink-0 ${
+              isFav
+                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
+                : 'bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-amber-500/20 hover:border-amber-500/40'
+            }`}
+            title="संग्रह में जोड़ें"
+          >
+            <Bookmark className={`w-4 h-4 sm:w-5 sm:h-5 ${isFav ? 'fill-current text-rose-300' : 'group-hover:text-amber-200'}`} />
+          </button>
+          <button
+            onClick={handleShare}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-amber-500/20 hover:border-amber-500/40 transition-all flex items-center justify-center backdrop-blur-xl group shrink-0"
+            title="साझा करें"
+          >
+            <Share2 className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-amber-200 transition-colors" />
           </button>
         </div>
       </motion.div>
 
-      {/* Main Content Container with Top Padding for Header */}
-      <div className="flex-1 overflow-hidden pt-16 flex w-full max-w-7xl mx-auto px-4 md:px-6">
-
-        {(isDemoArticle || (data?.chapters && data.chapters.length > 0)) && (
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="hidden lg:block w-72 flex-shrink-0 overflow-y-auto px-2 py-6 custom-scrollbar"
-          >
-            <GlassCard className="p-6 h-full border-none bg-white/5 sticky top-6">
-              <div className="flex items-center gap-2 mb-6 text-blue-300">
-                <List className="w-4 h-4" />
-                <h4 className="text-xs font-bold uppercase tracking-wider font-cinzel">विषय सूची</h4>
-              </div>
-              <ul className="space-y-4 text-base font-gotu">
-                {data?.chapters ? (
-                  data.chapters.map((chapter: any, idx: number) => (
-                    <li
+      {/* Main Content Area */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="w-full"
+      >
+        {loading ? (
+          <div className="flex flex-col items-center justify-center min-h-[50vh]">
+            <Loader2 className="w-12 h-12 text-amber-400 animate-spin mb-4" />
+            <p className="text-amber-200/70 font-gotu">सामग्री लोड हो रही है...</p>
+          </div>
+        ) : data ? (
+          <div className="w-full space-y-6">
+            {/* Table of Contents for Articles with Chapters */}
+            {data.chapters && data.chapters.length > 0 && (
+              <GlassCard variant="gilded" className="p-6 mb-8">
+                <div className="flex items-center gap-2 mb-4 text-amber-300">
+                  <List className="w-4 h-4" />
+                  <h4 className="text-xs font-bold uppercase tracking-[0.2em] font-cinzel">
+                    विषय सूची (अध्याय)
+                  </h4>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                  {data.chapters.map((chapter: any, idx: number) => (
+                    <button
                       key={idx}
                       onClick={() => scrollToSection(`chapter-${idx}`)}
-                      className="text-blue-100/60 hover:text-white cursor-pointer pl-4 py-1 transition-colors border-l-2 border-transparent hover:border-amber-500"
+                      className="text-left text-slate-300 hover:text-amber-200 text-sm font-gotu p-2.5 rounded-xl bg-white/5 hover:bg-amber-500/15 border border-white/5 hover:border-amber-500/30 transition-all truncate"
                     >
                       {chapter.title}
-                    </li>
-                  ))
-                ) : (
-                  <>
-                    <li className="text-amber-200 font-medium cursor-pointer border-l-2 border-amber-500 pl-4 py-1">भूमिका</li>
-                    <li className="text-blue-100/60 hover:text-white cursor-pointer pl-4.5 py-1 transition-colors">शब्द व्युत्पत्ति</li>
-                    <li className="text-blue-100/60 hover:text-white cursor-pointer pl-4.5 py-1 transition-colors">ऐतिहासिक संदर्भ</li>
-                  </>
-                )}
-              </ul>
-            </GlassCard>
-          </motion.div>
+                    </button>
+                  ))}
+                </div>
+              </GlassCard>
+            )}
+
+            {/* Body Content */}
+            {data.type === 'html' ? (
+              <HtmlView content={data.content} fontSize={fontSize} />
+            ) : data.type === 'structured' ||
+              data.type === 'stotra' ||
+              data.verses ||
+              data.lyrics ? (
+              <UnifiedVerseView item={data} fontSize={fontSize} />
+            ) : data.chapters ? (
+              <ArticleView data={data} sectionRefs={sectionRefs} fontSize={fontSize} />
+            ) : (
+              <div className="text-center text-slate-400 py-16">प्रारूप समर्थित नहीं है</div>
+            )}
+          </div>
+        ) : isDemoArticle ? (
+          <GlassCard variant="gilded" className="p-8 md:p-16 min-h-full flex items-center justify-center my-10">
+            <div className="max-w-2xl mx-auto text-center">
+              <h1 className="text-4xl text-white font-rozha mb-4">डेमो मोड</h1>
+              <p className="text-slate-300 font-gotu">कृपया सूची से स्वाध्याय सामग्री का चयन करें।</p>
+            </div>
+          </GlassCard>
+        ) : (
+          <div className="flex flex-col items-center justify-center min-h-[50vh] text-center py-20">
+            <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
+              <BookOpen className="w-10 h-10 text-white/30" />
+            </div>
+            <h1 className="text-3xl md:text-5xl font-rozha text-white mb-4">
+              {title || 'सामग्री उपलब्ध नहीं है'}
+            </h1>
+            <p className="text-slate-400 font-gotu text-base">यह रचना अभी उपलब्ध नहीं है।</p>
+          </div>
         )}
-
-        {/* Content Area */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex-1 overflow-y-auto custom-scrollbar pb-24 px-2 md:px-8"
-        >
-          {loading ? (
-            <div className="flex flex-col items-center justify-center h-full">
-              <Loader2 className="w-12 h-12 text-amber-500 animate-spin mb-4" />
-              <p className="text-blue-200/50 font-gotu">Loading content...</p>
-            </div>
-          ) : data ? (
-            <div className="max-w-4xl mx-auto py-10">
-              {/* Header Info */}
-              <div className="text-center mb-12">
-                {data.category && (
-                  <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/10 border border-white/10 text-xs font-bold uppercase tracking-widest text-blue-200/80 shadow-lg backdrop-blur-sm">
-                    {data.category}
-                  </div>
-                )}
-                <h1 className="text-4xl md:text-6xl font-rozha text-white mb-4 leading-tight text-shadow-lg">
-                  {data.title}
-                </h1>
-                {data.subtitle && (
-                  <h2 className="text-xl md:text-2xl font-gotu text-blue-200/80 mb-2 font-light">{data.subtitle}</h2>
-                )}
-                {data.author && (
-                  <span className="text-amber-400 font-rozha text-lg block opacity-80 mt-4">रचयिता: {data.author}</span>
-                )}
-                <div className="w-24 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mx-auto mt-8 rounded-full"></div>
-              </div>
-
-              {data.type === 'html' ? (
-                <HtmlView content={data.content} />
-              ) : (data.type === 'structured' || data.type === 'stotra' || data.verses || data.lyrics) ? (
-                <UnifiedVerseView item={data} />
-              ) : data.chapters ? (
-                <ArticleView data={data} sectionRefs={sectionRefs} />
-              ) : (
-                <div className="text-center text-white/50">Format not supported</div>
-              )}
-            </div>
-          ) : isDemoArticle ? (
-            <GlassCard className="p-8 md:p-16 min-h-full flex items-center justify-center">
-              <div className="max-w-3xl mx-auto text-center">
-                <h1 className="text-4xl text-white">Demonstration Mode</h1>
-                <p className="text-blue-200 mt-4">Select content from the menu.</p>
-              </div>
-            </GlassCard>
-          ) : (
-            <div className="flex flex-col items-center justify-center min-h-[50vh] text-center">
-              <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-8">
-                <BookOpen className="w-10 h-10 text-white/30" />
-              </div>
-              <h1 className="text-4xl md:text-6xl font-rozha text-white mb-6">
-                {title || "Content Not Found"}
-              </h1>
-              <p className="text-blue-200/50 font-gotu text-lg">Content unavailable.</p>
-            </div>
-          )}
-        </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };

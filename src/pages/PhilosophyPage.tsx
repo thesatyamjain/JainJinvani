@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
+import { useModalBackHandler } from '../lib';
+
 
 interface PhilosophyPageProps {
   onBack: () => void;
@@ -148,6 +150,10 @@ const philosophyTopics = [
 
 export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
   const [selectedTopic, setSelectedTopic] = useState<any>(null);
+
+  // Close philosophy topic modal on mobile back navigation
+  useModalBackHandler(!!selectedTopic, () => setSelectedTopic(null), 'philosophy-detail');
+
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-20 pb-32 px-6">
