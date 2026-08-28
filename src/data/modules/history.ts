@@ -1,235 +1,198 @@
-// Auto-generated from history_data.js
+// Auto-generated comprehensive Jain History (Itihas) Data
 export const HistoryData = {
   "adinath": {
     "id": "adinath",
     "category": "itihas",
-    "title": "Lord Adinath (Rishabhanatha)",
-    "subtitle": "The First Tirthankara",
+    "title": "भगवान आदिनाथ (ऋषभदेव) का इतिहास",
+    "subtitle": "युगादि पुरुष, संस्कृति के जनक एवं प्रथम तीर्थंकर",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐂</span><h2>श्री आदिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Bull (Vrishabha)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Nabhi</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Marudevi</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Ayodhya</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Mount Kailash</span></div></div><div class=\"bio-section\"><h3>Life & Civilization</h3><p>Lord Adinath, born as Rishabhadeva, is the first Tirthankara of the current time cycle. He is credited with teaching humanity the skills necessary for a civilized society, known as \"Asi\" (Defense), \"Masi\" (Writing), \"Krishi\" (Agriculture), \"Vidya\" (Knowledge), \"Vanijya\" (Commerce), and \"Shilp\" (Crafts).</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">भगवान आदिनाथ (ऋषभदेव) वर्तमान अवसर्पिणी काल के प्रथम तीर्थंकर हैं। उन्होंने ही मानव सभ्यता को 'कर्मभूमि' में प्रवेश कराया और जीवन जीने की छह कलाएं (असि, मसि, कृषि, विद्या, वाणिज्य, शिल्प) सिखाईं। नीलांजना का नृत्य देखते हुए उन्हें वैराग्य हुआ। तपस्या के बाद अक्षय तृतीया के दिन इक्षु रस (गन्ने का रस) से उनका प्रथम आहार हुआ। अंत में कैलाश पर्वत से उन्हें निर्वाण प्राप्त हुआ।</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "युगादिपुरुषाय नमः श्रीऋषभदेवाय जिनेन्द्राय।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>भगवान आदिनाथ (ऋषभदेव)</strong> वर्तमान अवसर्पिणी काल के प्रथम तीर्थंकर, प्रथम चक्रवर्ती भरत के पिता तथा मानव संस्कृति व सभ्यता के आदि प्रवर्तक हैं। अयोध्या के इक्ष्वाकु वंश में राजा नाभिराज और माता मरुदेवी के यहाँ आपका जन्म हुआ।
+    </p>
+
+    <div class="fact-box grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 mb-8 text-center">
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">लांछन (चिन्ह)</strong><span class="text-white font-bold">बैल (वृषभ)</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">वर्ण</strong><span class="text-white font-bold">स्वर्ण वर्ण</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">जन्म स्थान</strong><span class="text-white font-bold">अयोध्या</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">पिता/माता</strong><span class="text-white font-bold">नाभिराज / मरुदेवी</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">प्रथम आहार</strong><span class="text-white font-bold">हस्तिनापुर (इक्षुरस)</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">मोक्ष स्थल</strong><span class="text-white font-bold">कैलाश पर्वत (अष्टापद)</span></div>
+    </div>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">षट्कर्म एवं समाज रचना</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">कल्पवृक्षों की समाप्ति के पश्चात् प्रजा के भरण-पोषण के लिए भगवान ऋषभदेव ने छह कलाओं—<strong>असि (रक्षा), मसि (लेखन), कृषि (खेती), विद्या (ज्ञान), वाणिज्य (व्यापार) एवं शिल्प (कारीगरी)</strong> का उपदेश दिया। ब्राह्मी को लिपि और सुंदरी को अंक विद्या सिखाई।</p>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">वैराग्य, तप एवं मोक्ष कल्याणक</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">इंद्र द्वारा आयोजित राजसभा में अप्सरा नीलांजना का क्षणभंगुर नृत्य देखकर प्रभु को परम वैराग्य हुआ। आपने राज्य का विभाजन कर दिगम्बर दीक्षा धारण की। १ हजार वर्ष के घोर मौन तप के पश्चात् केवलज्ञान प्राप्त किया और अंत में कैलाश पर्वत (अष्टापद) से माघ कृष्ण चतुर्दशी को मोक्ष पद प्राप्त किया।</p>
+        </div>
+    </div>
+</div>`
   },
-  "ajitnath": {
-    "id": "ajitnath",
-    "category": "itihas",
-    "title": "Lord Ajitnath",
-    "subtitle": "The 2nd Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐘</span><h2>श्री अजितनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Elephant (Gaja)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Jitashatru</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Vijaya</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Ayodhya</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Sammed Shikhar</span></div></div><div class=\"bio-section\"><h3>Life & Teachings</h3><p>Lord Ajitnath, meaning \"The Invincible,\" conquered inner enemies like anger and pride. He emphasized self-control and meditation.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">भगवान अजितनाथ द्वितीय तीर्थंकर थे। उनका जन्म अयोध्या में हुआ था। उनका नाम 'अजित' इसलिए पड़ा क्योंकि वे मोह-माया और कर्म शत्रुओं से अपराजेय थे। उन्होंने १५ वर्ष तक कठोर तप किया और सम्मेद शिखरजी से मोक्ष प्राप्त किया।</p></div></div>"
-  },
-  "sambhavnath": {
-    "id": "sambhavnath",
-    "category": "itihas",
-    "title": "Lord Sambhavnath",
-    "subtitle": "The 3rd Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐴</span><h2>श्री संभवनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Horse (Ashva)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Jitari</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Sushena</span></div></div><div class=\"bio-section\"><h3>Teachings</h3><p>Born in Shravasti, he preached the importance of self-realization and inner awakening.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">तृतीय तीर्थंकर भगवान संभवनाथ का जन्म श्रावस्ती में हुआ था। उनके समय में अकाल पड़ा था जो उनके प्रभाव से दूर हो गया, जिससे 'संभव' (कल्याण की संभावना) नाम सार्थक हुआ। सम्मेद शिखर से उन्हें निर्वाण मिला।</p></div></div>"
-  },
-  "abhinandannath": {
-    "id": "abhinandannath",
-    "category": "itihas",
-    "title": "Lord Abhinandannath",
-    "subtitle": "The 4th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐵</span><h2>श्री अभिनन्दननाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Monkey (Kapi)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Sanvar</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Siddhartha</span></div></div><div class=\"bio-section\"><h3>Significance</h3><p>His birth brought rejoicing to the kingdom. He taught that lasting joy comes from liberation.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">चतुर्थ तीर्थंकर भगवान अभिनन्दननाथ अयोध्या में जन्मे थे। उनके गर्भ में आते ही राज्य में आनंद और 'अभिनंदन' का वातावरण बन गया था। उन्होंने सांसारिक सुखों को त्याग कर आत्म-कल्याण का मार्ग दिखाया।</p></div></div>"
-  },
-  "sumatinath": {
-    "id": "sumatinath",
-    "category": "itihas",
-    "title": "Lord Sumatinath",
-    "subtitle": "The 5th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦆</span><h2>श्री सुमतिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Curlew (Chakravaka)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Megha</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Mangala</span></div></div><div class=\"bio-section\"><h3>Wisdom</h3><p>Known for his 'Good Mind' (Sumati) and exceptional wisdom.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">पाँचवें तीर्थंकर भगवान सुमतिनाथ का जन्म अयोध्या में हुआ। 'सु-मति' अर्थात श्रेष्ठ बुद्धि। उन्होंने सिखाया कि सम्यक ज्ञान और शुद्ध बुद्धि से ही मोक्ष प्राप्त किया जा सकता है।</p></div></div>"
-  },
-  "padmaprabh": {
-    "id": "padmaprabh",
-    "category": "itihas",
-    "title": "Lord Padmaprabh",
-    "subtitle": "The 6th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🪷</span><h2>श्री पद्मप्रभ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Red Lotus (Padma)</span></div><div class=\"fact-item\"><strong>Color</strong><span>Red</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Padmottara</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Susima</span></div></div><div class=\"bio-section\"><h3>Lotus Glow</h3><p>Like a lotus, he taught detachment from the muddy waters of the world.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">छठवें तीर्थंकर भगवान पद्मप्रभ कौशाम्बी में जन्मे। उनका शरीर लाल कमल (पद्म) के समान आभायुक्त था। उन्होंने संसार रूपी कीचड़ में रहते हुए भी कमल की भांति निर्लिप्त रहने का उपदेश दिया।</p></div></div>"
-  },
-  "suparshvanath": {
-    "id": "suparshvanath",
-    "category": "itihas",
-    "title": "Lord Suparshvanath",
-    "subtitle": "The 7th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">✳️</span><h2>श्री सुपार्श्वनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Swastika</span></div><div class=\"fact-item\"><strong>Color</strong><span>Green</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Pratistha</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Prithvi</span></div></div><div class=\"bio-section\"><h3>Life</h3><p>His symbol is the Swastika, representing the four states of existence.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">सातवें तीर्थंकर भगवान सुपार्श्वनाथ का जन्म वाराणसी में हुआ। उनका चिन्ह 'साथिया' (स्वास्तिक) है, जो संसार की चार गतियों का प्रतीक है। उन्होंने जीवों को सन्मार्ग दिखाया।</p></div></div>"
-  },
-  "chandraprabh": {
-    "id": "chandraprabh",
-    "category": "itihas",
-    "title": "Lord Chandraprabh",
-    "subtitle": "The 8th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🌙</span><h2>श्री चन्द्रप्रभ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Moon</span></div><div class=\"fact-item\"><strong>Color</strong><span>White</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Mahasena</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Lakshmi</span></div></div><div class=\"bio-section\"><h3>Radiance</h3><p>His calming presence was compared to the moon (Chandra).</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">आठवें तीर्थंकर भगवान चन्द्रप्रभ की जन्मस्थली चन्द्रपुरी है। चन्द्रमा की तरह शीतल और शांत होने के कारण वे चन्द्रप्रभ कहलाए। उनके दर्शन मात्र से भक्तों को शांति मिलती है।</p></div></div>"
-  },
-  "pushpadant": {
-    "id": "pushpadant",
-    "category": "itihas",
-    "title": "Lord Pushpadant (Suvidhinath)",
-    "subtitle": "The 9th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐊</span><h2>श्री पुष्पदन्त भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Crocodile</span></div><div class=\"fact-item\"><strong>Color</strong><span>White</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Sugriva</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Rama</span></div></div><div class=\"bio-section\"><h3>Life</h3><p>Also known as Suvidhinath, he reinstated correct religious practices (Su-vidhi).</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">नौवें तीर्थंकर भगवान पुष्पदंत (सुविधिनाथ) का जन्म काकंदी में हुआ। उन्होंने धर्म की लुप्त होती 'सु-विधि' को पुनः स्थापित किया। उनका चिन्ह मकर (मगरमच्छ) है।</p></div></div>"
-  },
-  "sheetalnath": {
-    "id": "sheetalnath",
-    "category": "itihas",
-    "title": "Lord Sheetalnath",
-    "subtitle": "The 10th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🌳</span><h2>श्री शीतलनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Kalpavriksha</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Dridharatha</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Nanda</span></div></div><div class=\"bio-section\"><h3>Coolness</h3><p>He brought coolness (Sheetalta) to a world burning with passions.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">दसवें तीर्थंकर भगवान शीतलनाथ हैं। उनका जन्म भद्रिकापुरी में हुआ। जिस प्रकार कल्पवृक्ष (श्रीवत्स) सभी कामनाएं पूर्ण करता है, वैसे ही प्रभु ने संसार के ताप को हर कर शीतलता प्रदान की।</p></div></div>"
-  },
-  "shreyansanath": {
-    "id": "shreyansanath",
-    "category": "itihas",
-    "title": "Lord Shreyansanath",
-    "subtitle": "The 11th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦏</span><h2>श्री श्रेयांसनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Rhinoceros</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Vishnuraja</span></div></div><div class=\"bio-section\"><h3>Goodness</h3><p>He guided souls towards the ultimate good (Shreyas).</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">ग्यारहवें तीर्थंकर भगवान श्रेयांसनाथ का जन्म सिंहपुरी (सारनाथ) में हुआ। उन्होंने बताया कि आत्म-कल्याण ही 'श्रेयस्' है। उनका चिन्ह गैंडा है।</p></div></div>"
-  },
-  "vasupujya": {
-    "id": "vasupujya",
-    "category": "itihas",
-    "title": "Lord Vasupujya",
-    "subtitle": "The 12th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐃</span><h2>श्री वासुपूज्य भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Buffalo</span></div><div class=\"fact-item\"><strong>Color</strong><span>Red</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Champapuri</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Champapuri</span></div></div><div class=\"bio-section\"><h3>Uniqueness</h3><p>He is the only Tirthankara to attain all five Kalyanakas in Champapuri.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">बारहवें तीर्थंकर भगवान वासुपूज्य चम्पापुरी में जन्मे। वे लाल वर्ण के थे। विशेषता यह है कि उनके गर्भ, जन्म, तप, ज्ञान और मोक्ष - पाँचों कल्याणक चम्पापुरी में ही हुए।</p></div></div>"
-  },
-  "vimalanath": {
-    "id": "vimalanath",
-    "category": "itihas",
-    "title": "Lord Vimalanath",
-    "subtitle": "The 13th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦬</span><h2>श्री विमलनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Boar</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div></div><div class=\"bio-section\"><h3>Purity</h3><p>Vimal means 'Pure'. He taught the path of purity.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">तेरहवें तीर्थंकर भगवान विमलनाथ काम्पिल्यजी में जन्मे। उनका नाम 'विमल' (निर्मल) उनके गुणों को दर्शाता है। उन्होंने कर्म मल को धोकर आत्मा को विमल बनाने का मार्ग बताया।</p></div></div>"
-  },
-  "anantanath": {
-    "id": "anantanath",
-    "category": "itihas",
-    "title": "Lord Anantanath",
-    "subtitle": "The 14th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦅</span><h2>श्री अनन्तनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Falcon</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div></div><div class=\"bio-section\"><h3>Infinity</h3><p>Representing infinite qualities of the soul.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">चौदहवें तीर्थंकर भगवान अनन्तनाथ अयोध्या में जन्मे। आत्मा के 'अनंत' गुणों (अनंत ज्ञान, दर्शन, सुख, वीर्य) को प्रकट करने के कारण वे अनंतनाथ कहलाए।</p></div></div>"
-  },
-  "dharmanath": {
-    "id": "dharmanath",
-    "category": "itihas",
-    "title": "Lord Dharmanath",
-    "subtitle": "The 15th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">⚡</span><h2>श्री धर्मनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Vajra</span></div></div><div class=\"bio-section\"><h3>Dharma</h3><p>The upholder of the eternal law.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">पंद्रहवें तीर्थंकर भगवान धर्मनाथ का जन्म रत्नपुरी में हुआ। उनका चिन्ह वज्र है। उन्होंने 'धर्म' के वास्तविक स्वरूप (अहिंसा और संयम) का उपदेश दिया।</p></div></div>"
-  },
-  "shantinath": {
-    "id": "shantinath",
-    "category": "itihas",
-    "title": "Lord Shantinath",
-    "subtitle": "The 16th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦌</span><h2>श्री शान्तिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Deer</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Hastinapur</span></div></div><div class=\"bio-section\"><h3>Peace</h3><p>He was a Chakravarti and Tirthankara, bringing universal peace.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">सोलहवें तीर्थंकर भगवान शान्तिनाथ हस्तिनापुर के चक्रवर्ती राजा थे। उन्होंने 'शान्ति' का पाठ पढ़ाया। आज भी 'बृहत् शांति धारा' में उनका नाम मुख्य रूप से लिया जाता है।</p></div></div>"
-  },
-  "kunthunath": {
-    "id": "kunthunath",
-    "category": "itihas",
-    "title": "Lord Kunthunath",
-    "subtitle": "The 17th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐐</span><h2>श्री कुन्थुनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Goat</span></div></div><div class=\"bio-section\"><h3>Bio</h3><p>He was also a Chakravarti.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">सत्रहवें तीर्थंकर भगवान कुन्थुनाथ हस्तिनापुर में जन्मे। वे भी कामदेव और चक्रवर्ती पद के धारक थे, जिसे त्याग कर उन्होंने मुनि दीक्षा ली।</p></div></div>"
-  },
-  "aranath": {
-    "id": "aranath",
-    "category": "itihas",
-    "title": "Lord Aranath",
-    "subtitle": "The 18th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐟</span><h2>श्री अरनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Fish (Matsya)</span></div></div><div class=\"bio-section\"><h3>Bio</h3><p>The third Chakravarti Tirthankara.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">अठारहवें तीर्थंकर भगवान अरनाथ हस्तिनापुर में जन्मे। उनका चिन्ह मीन (मछली) है। उन्होंने संसार चक्र (आरा) से मुक्त होने का मार्ग दिखाया।</p></div></div>"
-  },
-  "mallinath": {
-    "id": "mallinath",
-    "category": "itihas",
-    "title": "Lord Mallinath",
-    "subtitle": "The 19th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🏺</span><h2>श्री मल्लिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Kalash</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Mithila</span></div></div><div class=\"bio-section\"><h3>Purity</h3><p>Symbolized by the Kalash.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">उन्नीसवें तीर्थंकर भगवान मल्लिनाथ मिथिला में जन्मे। उनका चिन्ह कलश है। श्वेतांबर परंपरा में उन्हें स्त्री तीर्थंकर माना जाता है, जबकि दिगंबर परंपरा में पुरुष। उनका जीवन मोह-त्याग का आदर्श है।</p></div></div>"
-  },
-  "munisuvrata": {
-    "id": "munisuvrata",
-    "category": "itihas",
-    "title": "Lord Munisuvratanath",
-    "subtitle": "The 20th Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐢</span><h2>श्री मुनिसुव्रतनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Tortoise</span></div><div class=\"fact-item\"><strong>Color</strong><span>Black</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Rajgriha</span></div></div><div class=\"bio-section\"><h3>Vows</h3><p>Master of Vows (Su-vrata).</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">बीसवें तीर्थंकर भगवान मुनिसुव्रतनाथ राजगृह में जन्मे। वे भगवान राम के समकालीन माने जाते हैं। उनका चिन्ह कछुआ है। वे काले वर्ण के थे और उन्होंने 'सुव्रत' (अच्छे व्रत) का पालन सिखाया।</p></div></div>"
-  },
-  "naminath": {
-    "id": "naminath",
-    "category": "itihas",
-    "title": "Lord Naminath",
-    "subtitle": "The 21st Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🪷</span><h2>श्री नमिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Blue Lotus</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Mithila</span></div></div><div class=\"bio-section\"><h3>Humility</h3><p>Nami means 'One who bows'.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">इक्कीसवें तीर्थंकर भगवान नमिनाथ मिथिला के राजा थे। उनका चिन्ह नीलकमल है। उन्होंने विनम्रता और आत्म-समर्पण का मार्ग दिखाया।</p></div></div>"
-  },
-  "neminath": {
-    "id": "neminath",
-    "category": "itihas",
-    "title": "Lord Neminath",
-    "subtitle": "The 22nd Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐚</span><h2>श्री नेमिनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Conch</span></div><div class=\"fact-item\"><strong>Color</strong><span>Black</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Girnar</span></div></div><div class=\"bio-section\"><h3>Compassion</h3><p>Renounced the world upon seeing animals suffering.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">बाईसवें तीर्थंकर भगवान नेमिनाथ (अरिष्टनेमि) शौरीपुर (द्वारका) में जन्मे। वे श्रीकृष्ण के चचेरे भाई थे। विवाह के समय पशुओं का क्रंदन सुनकर उन्होंने गिरनार पर्वत पर दीक्षा ली। गिरनार उनका मोक्ष स्थल है।</p></div></div>"
-  },
-  "parshvanath": {
-    "id": "parshvanath",
-    "category": "itihas",
-    "title": "Lord Parshvanath",
-    "subtitle": "The 23rd Tirthankara",
-    "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🐍</span><h2>श्री पार्श्वनाथ भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Snake</span></div><div class=\"fact-item\"><strong>Color</strong><span>Blue</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Varanasi</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Sammed Shikhar</span></div></div><div class=\"bio-section\"><h3>Savior</h3><p>Protected by Dharanendra during meditation.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">तेइसवें तीर्थंकर भगवान पार्श्वनाथ वाराणसी में जन्मे। उन्होंने 'चार यम' (अहिंसा, सत्य, अचौर्य, अपरिग्रह) का उपदेश दिया। उपसर्ग के समय धरणेन्द्र ने उनकी रक्षा की थी। सम्मेद शिखर (पारसनाथ हिल) से वे मोक्ष गए।</p></div></div>"
-  },
+
   "mahavir-swami": {
     "id": "mahavir-swami",
     "category": "itihas",
-    "title": "Lord Mahavir Swami",
-    "subtitle": "The 24th Tirthankara",
+    "title": "भगवान महावीर स्वामी का इतिहास",
+    "subtitle": "२४वें तीर्थंकर, अहिंसा के अमर संदेशवाहक एवं शासन नायक",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🦁</span><h2>श्री महावीर भगवान</h2></div><div class=\"fact-box\"><div class=\"fact-item\"><strong>Symbol</strong><span>Lion</span></div><div class=\"fact-item\"><strong>Color</strong><span>Golden</span></div><div class=\"fact-item\"><strong>Father</strong><span>King Siddhartha</span></div><div class=\"fact-item\"><strong>Mother</strong><span>Queen Trishala</span></div><div class=\"fact-item\"><strong>Birthplace</strong><span>Kundalpur</span></div><div class=\"fact-item\"><strong>Nirvana</strong><span>Pawapuri</span></div></div><div class=\"bio-section\"><h3>Ahimsa</h3><p>The pioneer of Ahimsa Paramo Dharma.</p></div><div class=\"bio-section bg-amber-500/10 p-4 rounded-xl border border-amber-500/20 mt-6\"><h3 class=\"text-amber-200 font-rozha\">जीवन परिचय</h3><p class=\"font-gotu text-lg leading-relaxed\">चौबीसवें तीर्थंकर भगवान महावीर का जन्म कुण्डलपुर (वैशाली) में हुआ। उन्होंने 'अहिंसा परमो धर्म:' का संदेश दिया और पाँचवाँ महाव्रत 'ब्रह्मचर्य' जोड़ा। ७२ वर्ष की आयु में पावापुरी से दीपावली के दिन उन्हें निर्वाण प्राप्त हुआ।</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "अहिंसा परमो धर्मः। जीयो और जीने दो।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>भगवान महावीर स्वामी</strong> (वर्धमान) वर्तमान चौबीसी के २४वें एवं अंतिम तीर्थंकर हैं। कुण्डलपुर (वैशाली) के ज्ञातृक कुल में राजा सिद्धार्थ और माता त्रिशला के यहाँ चैत्र शुक्ल त्रयोदशी को आपका जन्म हुआ। आपने प्राणिमात्र के प्रति दया, अपरिग्रह, अनेकांत एवं पांचवें महाव्रत 'ब्रह्मचर्य' का प्रतिपादन किया।
+    </p>
+
+    <div class="fact-box grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 mb-8 text-center">
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">लांछन (चिन्ह)</strong><span class="text-white font-bold">सिंह</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">वर्ण</strong><span class="text-white font-bold">तप्त स्वर्ण</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">जन्म स्थान</strong><span class="text-white font-bold">कुण्डलपुर (वैशाली)</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">माता/पिता</strong><span class="text-white font-bold">त्रिशला / सिद्धार्थ</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">केवलज्ञान</strong><span class="text-white font-bold">ऋजुकूला नदी तट</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">निर्वाण स्थल</strong><span class="text-white font-bold">पावापुरी (बिहार)</span></div>
+    </div>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">१२ वर्ष का घोर तप एवं उपसर्ग विजय</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">३० वर्ष की आयु में राजवैभव का त्याग कर आपने दिगम्बर दीक्षा धारण की। १२ वर्ष ५ माह और १५ दिन तक मौन रहकर संगम देव व चंडकौशिक सर्प आदि द्वारा किए गए भयंकर उपसर्गों को परम क्षमा से सहन किया।</p>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">केवलज्ञान, समवसरण एवं निर्वाण</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">जृम्भिक ग्राम में ऋजुकूला नदी के तट पर शाल वृक्ष के नीचे केवलज्ञान प्राप्त हुआ। विपुलाचल पर्वत पर प्रथम दिव्यध्वनि खिरी और गौतम स्वामी प्रथम गणधर बने। कार्तिक कृष्ण अमावस्या को पावापुरी के जलमंदिर से ७२ वर्ष की आयु में निर्वाण प्राप्त हुआ, जिसे दीपावली महापर्व के रूप में मनाया जाता है।</p>
+        </div>
+    </div>
+</div>`
   },
+
+  "mahavir-jayanti": {
+    "id": "mahavir-jayanti",
+    "category": "itihas",
+    "title": "महावीर जयंती एवं शासन प्रभावना",
+    "subtitle": "चैत्र शुक्ल त्रयोदशी - २४वें तीर्थंकर जन्म कल्याणक महोत्सव",
+    "type": "html",
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>महावीर जयंती</strong> जैन समाज का सर्वोच्च पावन पर्व है, जो प्रतिवर्ष चैत्र शुक्ल त्रयोदशी को मनाया जाता है। इस दिन २४वें तीर्थंकर भगवान महावीर स्वामी का जन्म कुण्डलपुर के राजमहल में हुआ था।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">महोत्सव एवं पूजन विधि</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">इस दिन प्रातःकाल भव्य प्रभात फेरी, जिनालयों में १०८ कलशों से शांतिधारा व महामस्तकाभिषेक, पालकी यात्रा एवं भगवान महावीर के विश्व-शांति संदेश 'अहिंसा, संयम और अपरिग्रह' का जन-जन में प्रचार किया जाता है।</p>
+        </div>
+    </div>
+</div>`
+  },
+
   "acharya-kundakunda": {
     "id": "acharya-kundakunda",
     "category": "itihas",
-    "title": "Acharya Kundakunda",
-    "subtitle": "The Great Digambara Mystic",
+    "title": "अध्यात्म चक्रवर्ती आचार्य कुन्दकुन्द देव",
+    "subtitle": "दिगम्बर जैन अध्यात्म परंपरा के सर्वोपरि महर्षि",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🧘</span><h2>आचार्य कुंदकुंद</h2></div><div class=\"bio-section\"><p>Author of Samaysar, Pravachanasar, and others.</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "मंगलं भगवान वीरो, मंगलं गौतमो गणी।<br>
+        मंगलं कुन्दकुन्दार्यो, जैनधर्मोऽस्तु मंगलम्॥"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>आचार्य कुन्दकुन्द देव</strong> (प्रथम शताब्दी ईसा पूर्व) दिगम्बर जैन आम्नाय के सबसे महान और पूज्य आचार्य हैं। मंगलाचरण में तीर्थंकर महावीर और गणधर गौतम के तत्काल पश्चात् आपका ही पावन नाम लिया जाता है।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">अमर कृतियाँ (नाटक समयसार एवं पंचपरमागम)</h2>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300 text-sm sm:text-base">
+                <li><strong>१. समयसार :</strong> शुद्ध निश्चयनय द्वारा आत्मा के अखंड चैतन्य स्वरूप का साक्षात्कार।</li>
+                <li><strong>२. प्रवचनसार :</strong> ज्ञान, ज्ञेय और चारित्र का विशद निरूपण।</li>
+                <li><strong>३. पंचास्तिकाय संग्रह :</strong> पाँच अस्तिकाय और षट्द्रव्यों का वैज्ञानिक विवेचन।</li>
+                <li><strong>४. नियमसार :</strong> परम समाधि, नियम व शुद्ध भावों का प्रतिपादन।</li>
+                <li><strong>५. अष्टपाहुड़ :</strong> दर्शन, चारित्र, सूत्र, बोध, भाव, मोक्ष, लिंग और शील पाहुड़।</li>
+            </ul>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">विदेह क्षेत्र गमन एवं अतिशय</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">परंपरानुसार आचार्य कुन्दकुन्द देव को रिद्धि प्राप्त थी और आपने विदेह क्षेत्र जाकर साक्षात् <strong>सीमंधर स्वामी</strong> के समवसरण में बैठकर आठ दिन तक दिव्यध्वनि का श्रवण किया था।</p>
+        </div>
+    </div>
+</div>`
   },
+
   "acharya-samantabhadra": {
     "id": "acharya-samantabhadra",
     "category": "itihas",
-    "title": "Acharya Samantabhadra",
-    "subtitle": "The Great Logician",
+    "title": "स्वामी समन्तभद्र आचार्य",
+    "subtitle": "तार्किक शिरोमणि, वादीभसिंह एवं श्रावक धर्म के अमर प्रणेता",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">📖</span><h2>आचार्य समन्तभद्र</h2></div><div class=\"bio-section\"><p>Author of Ratnakaranda Shravakachar and Aptamimamsa.</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>आचार्य समन्तभद्र</strong> (द्वितीय शताब्दी) जैन दर्शन के अद्वितीय तार्किक, कवि एवं प्रभावक आचार्य थे। उन्होंने बनारस, पाटलिपुत्र, कांची आदि नगरों में जैन न्याय एवं स्याद्वाद की विजय ध्वजा फहराई।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">प्रमुख ग्रंथ एवं योगदान</h2>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300 text-sm sm:text-base">
+                <li><strong>रत्नकरण्ड श्रावकाचार :</strong> गृहस्थ श्रावक के १२ व्रत एवं आचार की आचार संहिता।</li>
+                <li><strong>आप्तमीमांसा (देवागम स्तोत्र) :</strong> सर्वज्ञ प्रभु की तार्किक सिद्धि एवं स्याद्वाद का आधार स्तंभ।</li>
+                <li><strong>स्वयंभू स्तोत्र :</strong> चौबीस तीर्थंकरों की अप्रतिम संस्कृत भक्ति स्तुति।</li>
+                <li><strong>युक्त्यनुशासन एवं जिनशतकम्।</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>`
   },
+
   "acharya-jinasena": {
     "id": "acharya-jinasena",
     "category": "itihas",
-    "title": "Acharya Jinasena",
-    "subtitle": "Author of Mahapurana",
+    "title": "आचार्य जिनसेन स्वामी",
+    "subtitle": "महापुराण एवं आदिपुराण के अमर रचयिता",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">✍️</span><h2>आचार्य जिनसेन</h2></div><div class=\"bio-section\"><p>Composer of Adi Purana.</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>आचार्य जिनसेन स्वामी</strong> (८वीं-९वीं शताब्दी) राष्ट्रकूट सम्राट अमोघवर्ष के गुरु और जैन साहित्य के महाकवि थे। उन्होंने ६३ शलाका पुरुषों के जीवन चरित्र पर आधारित <strong>'महापुराण' (आदिपुराण)</strong>, <strong>'हरिवंश पुराण'</strong> एवं मेघदूत के पदों से युक्त <strong>'पार्श्वाभ्युदय काव्य'</strong> की रचना की।
+    </p>
+</div>`
   },
+
   "acharya-todarmal": {
     "id": "acharya-todarmal",
-    "title": "Pandit Todarmal",
-    "subtitle": "The Great Revivalist",
     "category": "itihas",
+    "title": "प्रातःस्मरणीय पंडित टोडरमल जी",
+    "subtitle": "मोक्षमार्ग प्रकाशक के रचयिता, जयपुर के अद्वितीय विद्वान",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🌟</span><h2>पंडित टोडरमल</h2></div><div class=\"bio-section\"><p>Author of Moksha Marg Prakashak.</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>पंडित टोडरमल जी</strong> (१८वीं शताब्दी, जयपुर) जैन वांग्मय के अत्यंत प्रखर तार्किक, गणितज्ञ एवं दार्शनिक मनीषी थे। उन्होंने भाषा गद्य में <strong>'मोक्षमार्ग प्रकाशक'</strong> जैसे अद्वितीय ग्रंथ की रचना की और गोम्मटसार, लब्धिसार, क्षपणासार पर 'सम्यग्ज्ञान चन्द्रिका' टीका लिखकर आगम को जन-जन तक पहुँचाया।
+    </p>
+</div>`
   },
+
   "acharya-virsena": {
     "id": "acharya-virsena",
     "category": "itihas",
-    "title": "Acharya Virasena",
-    "subtitle": "Master of Karma Theory",
+    "title": "सिद्धांताचार्य वीरसेन स्वामी",
+    "subtitle": "षट्खण्डागम पर ७२,००० श्लोक प्रमाण 'धवला' टीका के रचयिता",
     "type": "html",
-    "content": "<div class=\"book-content\"><div class=\"bio-header\"><span class=\"tirthankara-symbol\">🔬</span><h2>आचार्य वीरसेन</h2></div><div class=\"bio-section\"><p>Author of Dhavala Tika.</p></div></div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        <strong>आचार्य वीरसेन स्वामी</strong> (८वीं शताब्दी) सिद्धांत चक्रवर्ती थे। उन्होंने आचार्य पुष्पदंत एवं भूतबलि विरचित मूल आगम षट्खण्डागम पर ७२,००० श्लोक प्रमाण <strong>'धवला टीका'</strong> तथा कषायपाहुड़ पर <strong>'जयधवला टीका'</strong> लिखकर जैन सिद्धांत एवं गणित की रक्षा की।
+    </p>
+</div>`
   }
 };

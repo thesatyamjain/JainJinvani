@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   ChevronLeft,
   Search,
@@ -20,6 +21,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { contentInventory, ContentItem, subCategoryMap, SubCategoryDef } from '../data/inventory';
+import { matchSearchQuery } from '../utils/searchHelper';
 
 interface CategoryListingProps {
   categoryId: string;
@@ -33,14 +35,17 @@ const categoryTitles: Record<string, { title: string; sub: string }> = {
   bhajan: { title: 'भक्ति भजन', sub: 'आध्यात्मिक रस धारा एवं प्रभु गुणगान' },
   chalisa: { title: 'चालीसा संग्रह', sub: '४० पद्य स्तुति एवं भक्ति पाठ' },
   puja: { title: 'नित्य पूजा', sub: 'अष्टद्रव्य पूजन विधि, नित्य नियम एवं पर्व पूजाएँ' },
-  vidhan: { title: 'महामंडल विधान', sub: '२४ तीर्थंकर, सिद्धचक्र, कल्पतरु व शांति विधान' },
+  vidhan: { title: 'महामंडल विधान', sub: 'सिद्धचक्र, भक्तामर, कल्याणमंदिर, २४ तीर्थंकर व सर्व महाविधान' },
   stotra: { title: 'प्राचीन स्तोत्र', sub: 'भक्तामर, कल्याणमंदिर, एकीभाव व शांति स्तोत्र' },
   path: { title: 'पाठ और स्तुति', sub: 'दैनिक स्वाध्याय, वैराग्य भावना व विनती' },
   granthas: { title: 'जिनवाणी शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
+  shastra: { title: 'जिनवाणी शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
+  agamas: { title: 'मूल आगम ग्रंथ', sub: 'षट्खण्डागम, कषायपाहुड़ व द्वादशांग जिनवाणी' },
   itihas: { title: 'जैन इतिहास', sub: 'तीर्थंकर जीवन चरित्र व महान आचार्य परंपरा' },
   bhugol: { title: 'जैन भूगोल', sub: 'तीन लोक, जम्बूद्वीप व अकृत्रिम चैत्यालय' },
   parva: { title: 'पर्व और त्यौहार', sub: 'दशलक्षण, अष्टान्हिका, दीपावली व महापर्व' },
   tattva: { title: 'जैन तत्त्वज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
+  philosophy: { title: 'जैन तत्त्वज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
 };
 
 // Subcategory icon resolver
@@ -51,6 +56,7 @@ const getSubCategoryIcon = (subId: string) => {
     case 'tirthankar':
     case 'tirthankar-vidhan':
     case 'tirthankar-chalisa':
+    case 'prathamanuyoga':
       return <Crown className="w-4 h-4" />;
     case 'parva-vrat':
     case 'mahamandal-vidhan':
@@ -59,10 +65,13 @@ const getSubCategoryIcon = (subId: string) => {
       return <Users className="w-4 h-4" />;
     case 'tattva-guna':
     case 'pradhan-stotra':
+    case 'karnanuyoga':
       return <Sparkles className="w-4 h-4" />;
     case 'shanti-raksha':
+    case 'charananuyoga':
       return <Flame className="w-4 h-4" />;
     case 'bhakti-stuti':
+    case 'dravyanuyoga':
       return <Feather className="w-4 h-4" />;
     case 'vishesh-chalisa':
       return <Flower2 className="w-4 h-4" />;
@@ -88,14 +97,10 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
         activeSubCategory === 'all' || item.subCategory === activeSubCategory;
 
       // Search match
-      const query = searchQuery.trim().toLowerCase();
+      const query = searchQuery.trim();
       if (!query) return matchesSubCategory;
 
-      const matchesSearch =
-        item.title.toLowerCase().includes(query) ||
-        (item.description && item.description.toLowerCase().includes(query)) ||
-        (item.author && item.author.toLowerCase().includes(query)) ||
-        (item.badge && item.badge.toLowerCase().includes(query));
+      const matchesSearch = matchSearchQuery(item, query);
 
       return matchesSubCategory && matchesSearch;
     });
@@ -136,7 +141,7 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
   const isDailyFlow = categoryId === 'puja' && (activeSubCategory === 'daily-flow' || viewMode === 'timeline');
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-36 px-4 md:px-6 flex flex-col h-full">
+    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-36 px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
       {/* Header Bar */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
@@ -152,7 +157,7 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
           </button>
           <div className="py-1">
-            <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-1.5 pb-1 leading-[1.3] sm:leading-[1.25] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
+            <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
               {meta.title}
             </h1>
             <p className="text-slate-300/80 text-xs md:text-sm font-gotu mt-0.5">
@@ -222,7 +227,7 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
           animate={{ opacity: 1, y: 0 }}
           className="mb-7"
         >
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+          <HorizontalScrollContainer>
             {subCategories.map((sub) => {
               const count = subCategoryCounts[sub.id] || 0;
               const isActive = activeSubCategory === sub.id;
@@ -257,7 +262,7 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
                 </button>
               );
             })}
-          </div>
+          </HorizontalScrollContainer>
 
           {/* Active Subcategory Context Banner */}
           {activeSubCategoryInfo?.description && (
@@ -309,7 +314,7 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
                   key={item.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.03 }}
+                  transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
                   onClick={() => handleItemClick(item)}
                   className="relative group cursor-pointer"
                 >
@@ -368,56 +373,56 @@ export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryList
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 md:gap-4.5"
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4.5"
             >
               {filteredItems.map((item, idx) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.02 }}
+                  transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
                   onClick={() => handleItemClick(item)}
                   className="h-full"
                 >
                   <GlassCard
                     variant="gilded"
-                    className="p-5 md:p-6 h-full min-h-[145px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
+                    className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
                   >
                     <div>
                       {/* Top Badges Row */}
-                      <div className="flex items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
                         {item.badge ? (
-                          <span className="text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[170px]">
+                          <span className="text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
                             {item.badge}
                           </span>
                         ) : item.author ? (
-                          <span className="text-[10px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[170px]">
+                          <span className="text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
                             {item.author}
                           </span>
                         ) : <span />}
 
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
+                        <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
                           #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
+                      <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
                         {item.title}
                       </h3>
 
                       {/* Short Description */}
                       {item.description && (
-                        <p className="text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1.5 leading-relaxed">
+                        <p className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
                           {item.description}
                         </p>
                       )}
                     </div>
 
                     {/* Footer Action */}
-                    <div className="mt-4 flex items-center justify-between text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2.5">
-                      <span>{categoryId === 'puja' ? 'पढ़ें व पूजन करें' : 'पढ़ें व स्वाध्याय करें'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
+                      <span className="truncate">{categoryId === 'puja' ? 'पूजन करें' : 'स्वाध्याय'}</span>
+                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
                     </div>
                   </GlassCard>
                 </motion.div>

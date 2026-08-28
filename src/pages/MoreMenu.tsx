@@ -15,7 +15,6 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   // Close modal on mobile back navigation
   useModalBackHandler(!!selectedId, () => setSelectedId(null), 'more-modal');
 
-
   const handleSettingChange = (key: keyof UserSettings, value: any) => {
     const newSettings = { ...settings, [key]: value };
     setSettings(newSettings);
@@ -33,7 +32,18 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           <p>जैन जिनवाणी (Jain Jinvani) एक आधुनिक डिजिटल प्रयास है जिसका उद्देश्य जैन धर्म के प्राचीन ज्ञान, दर्शन और साहित्य को जन-जन तक पहुँचाना है।</p>
           <p>यह एप्लिकेशन शुद्ध React और Tailwind CSS का उपयोग करके बनाया गया है, जिसमें आधुनिक UI/UX सिद्धांतों का पालन किया गया है।</p>
           <div className="pt-4 pb-2 border-t border-white/10 mt-6">
-            <p className="text-amber-300 font-medium">Developed by Satyam Jain</p>
+            <p className="text-amber-300 font-medium text-sm">
+              Built by{' '}
+              <a
+                href="https://thesoftwareco.pages.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 hover:text-amber-200 transition-colors font-semibold"
+              >
+                The Software Co
+              </a>{' '}
+              and Satyam Jain
+            </p>
           </div>
         </div>
       )
@@ -184,7 +194,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const selectedItem = items.find(i => i.id === selectedId);
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-20 pb-32 px-6 relative">
+    <div className="w-full max-w-4xl mx-auto pt-20 pb-36 px-6 relative">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -256,6 +266,27 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           </motion.div>
         ))}
       </div>
+
+      {/* Footer Attribution */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="mt-14 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8"
+      >
+        <p>
+          Built by{' '}
+          <a
+            href="https://thesoftwareco.pages.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-400 hover:text-amber-300 underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors font-medium"
+          >
+            The Software Co
+          </a>{' '}
+          and Satyam Jain
+        </p>
+      </motion.div>
 
       <AnimatePresence>
         {selectedId && selectedItem && (

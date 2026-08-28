@@ -1,51 +1,208 @@
-// Auto-generated from cosmology_data.js
+// Auto-generated comprehensive Jain Cosmology (Bhugol) Data
 export const CosmologyData = {
   "cosmology": {
     "id": "cosmology",
     "category": "bhugol",
-    "title": "Jain Cosmology (Teen Lok)",
-    "subtitle": "Structure of the Universe",
+    "title": "जैन त्रिलोक रचना एवं भूगोल",
+    "subtitle": "अनादिनिधन चौदह राजू प्रमाण तीन लोक का संपूर्ण स्वरूप",
     "type": "html",
-    "content": "<div class=\"book-content\">\r\n    <p style=\"text-align: center; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6;\">\r\n        The Jain Universe (Loka) is eternal, uncreated, and infinite. It is shaped like a man standing with\r\n        hands on waist (Purushakara). It is divided into three main realms: <strong>Urdhvaloka</strong>\r\n        (Upper World),\r\n        <strong>Madhyaloka</strong> (Middle World), and <strong>Adholoka</strong> (Lower World).\r\n    </p>\r\n\r\n    <!-- Urdhva Loka -->\r\n    <div class=\"loka-section urdhva-loka\">\r\n        <h2 class=\"loka-title\">\r\n            <span style=\"color: #60a5fa;\">☁️</span>\r\n            Urdhvaloka (Upper World)\r\n        </h2>\r\n        <p class=\"loka-desc\">\r\n            The realm of Celestial Beings (Devas). Situated above Mount Meru. It consists of various heavens\r\n            (Vimanas) where gods reside.\r\n            These beings enjoy immense pleasure and have long lifespans, but cannot attain liberation from\r\n            here.\r\n        </p>\r\n        <div class=\"highlight-box\">\r\n            <strong>Siddhashila:</strong> At the very apex of the universe lies the Siddhashila, the abode\r\n            of liberated souls (Siddhas) who have attained Moksha.\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Madhya Loka -->\r\n    <div class=\"loka-section madhya-loka\">\r\n        <h2 class=\"loka-title\">\r\n            <span style=\"color: #22c55e;\">🌳</span>\r\n            Madhyaloka (Middle World)\r\n        </h2>\r\n        <p class=\"loka-desc\">\r\n            The realm of Humans and Animals. This is the only world from where Moksha (Liberation) is\r\n            possible.\r\n            It consists of innumerable concentric island-continents (Dwipas) and oceans.\r\n        </p>\r\n        <div class=\"highlight-box\">\r\n            <strong>Jambudvipa:</strong> The central continent where we reside (Bharat Kshetra). At its\r\n            center stands the majestic <strong>Mount Meru</strong>.\r\n        </div>\r\n    </div>\r\n\r\n    <!-- Adho Loka -->\r\n    <div class=\"loka-section adho-loka\">\r\n        <h2 class=\"loka-title\">\r\n            <span style=\"color: #ef4444;\">🔥</span>\r\n            Adholoka (Lower World)\r\n        </h2>\r\n        <p class=\"loka-desc\">\r\n            The realm of Hellish Beings (Narakis). Located below Mount Meru. It consists of 7 grounds\r\n            (Hells)\r\n            where souls suffer intense pain due to their past evil karmas.\r\n        </p>\r\n        <div class=\"highlight-box\">\r\n            <strong>7 Hells:</strong> Ratnaprabha, Sharkaraprabha, Valukaprabha, Pankaprabha, Dhumaprabha,\r\n            Tamahprabha, Mahatamahprabha.\r\n        </div>\r\n    </div>\r\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "लोगागासे दिट्ठो चउदस-रज्जु-पमाण संठाणो।<br>
+        तिहुयण-निलओ णिच्चो जिणेहिं विहिओ अकिट्टिमो॥"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        जैन दर्शन के अनुसार यह सम्पूर्ण <strong>लोक (ब्रह्माण्ड)</strong> अनादिनिधन, अकृत्रिम और स्वयंसिद्ध है। इसे किसी ईश्वर ने नहीं बनाया और न ही कोई इसे नष्ट कर सकता है। यह लोक कटि पर दोनों हाथ रखे खड़े हुए पुरुषाकार आकृति जैसा है। इसकी कुल ऊँचाई <strong>१४ राजू</strong> तथा कुल घनफल <strong>३४३ घनराजू</strong> है। यह तीन भागों—<strong>ऊर्ध्वलोक, मध्यलोक एवं अधोलोक</strong> में विभक्त है।
+    </p>
+
+    <div class="fact-box grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20 mb-10 text-center">
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">कुल ऊँचाई</strong><span class="text-white font-bold">१४ राजू</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">कुल आयतन</strong><span class="text-white font-bold">३४३ घनराजू</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">आकार</strong><span class="text-white font-bold">कटिबद्ध पुरुषाकार</span></div>
+        <div class="fact-item"><strong class="text-amber-400 text-xs block mb-1">विभाजन</strong><span class="text-white font-bold">ऊर्ध्व, मध्य, अधो लोक</span></div>
+    </div>
+
+    <div class="chapters-grid space-y-6">
+        <!-- Urdhva Loka -->
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">१. ऊर्ध्व लोक (देवलोक व सिद्धशिला)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">मध्यलोक के सुमेरु पर्वत की चोटी से ऊपर ७ राजू की ऊँचाई तक ऊर्ध्वलोक विस्तृत है। इसमें १६ स्वर्ग (सौधर्म से अच्युत तक), नव ग्रैवेयक, नव अनुदिश तथा पाँच अनुत्तर विमान स्थित हैं जहाँ वैमानिक देव निवास करते हैं।</p>
+            <p class="text-slate-300/90 text-sm sm:text-base">ऊर्ध्वलोक के सर्वोच्च शिखर पर लोकाग्र में <strong>सिद्धशिला</strong> स्थित है, जहाँ समस्त कर्मों से मुक्त अनंतानंत सिद्ध परमेष्ठी शाश्वत अतीन्द्रिय सुख में लीन रहते हैं।</p>
+        </div>
+
+        <!-- Madhya Loka -->
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">२. मध्य लोक (तिर्यक् लोक / कर्मभूमि)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">सुमेरु पर्वत के आधार से ऊपर-नीचे १०० योजन प्रमाण मध्यलोक है। इसमें थाली के आकार वाले असंख्यात गोल द्वीप और वलयाकार समुद्र परस्पर घिरे हुए हैं।</p>
+            <p class="text-slate-300/90 text-sm sm:text-base">सबसे मध्य में १ लाख योजन विस्तृत <strong>जम्बूद्वीप</strong> है। मध्यलोक के ढाई द्वीप (जम्बूद्वीप, धातकीखण्ड एवं पुष्करार्ध) ही एकमात्र ऐसा क्षेत्र है जहाँ से मुनि दीक्षा धारण कर मोक्ष पद प्राप्त किया जा सकता है।</p>
+        </div>
+
+        <!-- Adho Loka -->
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">३. अधो लोक (नरक लोक)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">मध्यलोक से नीचे ७ राजू गहराई तक अधोलोक है। इसमें क्रमशः ७ नरक भूमियाँ हैं: रत्नप्रभा, शर्कराप्रभा, वालुकाप्रभा, पंकप्रभा, धूमप्रभा, तमःप्रभा एवं महातमःप्रभा।</p>
+            <p class="text-slate-300/90 text-sm sm:text-base">इनमें कुल ८४ लाख नारकी बिल हैं जहाँ पाप कर्मों के तीव्र उदय से नारकी जीव निरंतर शारीरिक व मानसिक असह्य वेदनाएँ भोगते हैं।</p>
+        </div>
+    </div>
+</div>`
   },
+
   "jambudvipa": {
     "id": "jambudvipa",
     "category": "bhugol",
-    "title": "Jambudvipa",
-    "subtitle": "The Central Continent of the Middle World",
+    "title": "जम्बूद्वीप संरचना",
+    "subtitle": "मध्यलोक का केंद्रवर्ती १ लाख योजन विस्तृत चक्राकार द्वीप",
     "type": "html",
-    "content": "<div class=\"book-content\">\r\n    <p style=\"text-align: center; margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6;\">\r\n        <strong>Jambudvipa</strong> is the central island-continent of the Middle World (Madhyaloka) in Jain Cosmology.\r\n        It is circular in shape with a diameter of 100,000 Yojanas. At its exact center stands the majestic <strong>Mount Meru</strong>.\r\n        It is surrounded by the Lavana Samudra (Salt Ocean).\r\n    </p>\r\n\r\n    <div class=\"chapters-grid\">\r\n        <div class=\"chapter-card\">\r\n            <h2 class=\"chapter-title\">Structure & Divisions</h2>\r\n            <p>Jambudvipa is divided into 7 regions (Kshetras) by 6 mighty mountain ranges (Varshadhar Parvatas).\r\n            The regions are: Bharat, Haimavat, Hari, Videha, Ramyak, Hairanyvat, and Airavat.</p>\r\n        </div>\r\n\r\n        <div class=\"chapter-card\">\r\n            <h2 class=\"chapter-title\">Bharat Kshetra</h2>\r\n            <p>This is the region where we currently reside (specifically in the Arya Khanda of Bharat Kshetra).\r\n            It is a land of action (Karma Bhumi) where Tirthankaras are born and liberation (Moksha) is possible.</p>\r\n        </div>\r\n\r\n        <div class=\"chapter-card\">\r\n            <h2 class=\"chapter-title\">Videha Kshetra</h2>\r\n            <p>Located north of Bharat Kshetra. It is also a Karma Bhumi. The unique feature is that\r\n            Tirthankaras are <strong>always present</strong> here (wandering physically) and preaching.\r\n            Currently, <strong>Simandhar Swami</strong> is the living Tirthankara in Videha Kshetra.</p>\r\n        </div>\r\n\r\n        <div class=\"chapter-card\">\r\n            <h2 class=\"chapter-title\">Mount Meru</h2>\r\n            <p>Sumeru Parvat stands 100,000 Yojanas high at the center of Jambudvipa (in Videha Kshetra).\r\n            It is the axis regarding which the heavenly bodies (Sun, Moon, Stars) revolve.\r\n            The Pandasukha Shila is located here, where the Janma Kalyanak (Birth Ablution) of Tirthankaras is performed by Celestials.</p>\r\n        </div>\r\n    </div>\r\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "तन्मध्ये मेरुनाभिरर्जुनवृक्षो जम्बूद्वीपः।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        मध्यलोक के ठीक केंद्र में स्थित गोल थाली के समान <strong>जम्बूद्वीप</strong> का विस्तार १,००,००० (एक लाख) योजन है। इसके ठीक मध्य में १,००,००० योजन ऊँचा <strong>सुमेरु पर्वत (सुदर्शन मेरु)</strong> स्थित है। जम्बूद्वीप को चारों ओर से २ लाख योजन चौड़ा <strong>लवण समुद्र</strong> घेरे हुए है।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">७ क्षेत्र एवं ६ वर्षधर पर्वत</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">पूर्व से पश्चिम तक फैले ६ कुलाचल (पर्वत) जम्बूद्वीप को ७ क्षेत्रों में विभाजित करते हैं:</p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300 text-sm sm:text-base">
+                <li><strong>७ क्षेत्र :</strong> भरत, हैमवत, हरि, विदेह, रम्यक, हैरण्यवत एवं ऐरावत क्षेत्र।</li>
+                <li><strong>६ पर्वत :</strong> हिमवान, महाहिमवान, निषध, नील, रुक्मी एवं शिखरी पर्वत। इन पर्वतों पर पद्म, महापद्म, तिगिंछ आदि विशाल सरोवर हैं जहाँ देवांगनाएँ निवास करती हैं।</li>
+            </ul>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">भरत क्षेत्र एवं आर्यखण्ड</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">जम्बूद्वीप के सबसे दक्षिण में स्थित भरत क्षेत्र ५२६ ६/१९ योजन विस्तृत है। विजयार्ध पर्वत तथा गंगा-सिंधु नदियाँ इसे ६ खण्डों में बाँटती हैं। इसके मध्य में <strong>आर्यखण्ड</strong> है जहाँ हम निवास करते हैं और जहाँ तीर्थंकर जन्म लेते हैं।</p>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">विदेह क्षेत्र एवं सीमंधर स्वामी</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">सुमेरु पर्वत के उत्तर-दक्षिण में स्थित विदेह क्षेत्र शाश्वत कर्मभूमि है। यहाँ सदैव तीर्थंकर विद्यमान रहते हैं और वर्तमान में <strong>श्री सीमंधर स्वामी</strong> साक्षात् दिव्यध्वनि द्वारा धर्मोपदेश दे रहे हैं।</p>
+        </div>
+    </div>
+</div>`
   },
+
   "urdhva-loka": {
     "id": "urdhva-loka",
     "category": "bhugol",
-    "title": "Urdhva Loka (Upper World)",
-    "subtitle": "The Celestial Realms and Path to Siddhashila",
+    "title": "ऊर्ध्व लोक (देवलोक)",
+    "subtitle": "१६ स्वर्ग, नव ग्रैवेयक, नव अनुदिश, ५ अनुत्तर विमान एवं सिद्धशिला",
     "type": "html",
-    "content": "<div class=\"book-content\">\n    <h3>☁️ Overview</h3>\n    <p><strong>Urdhva Loka</strong> (Upper World) extends above Madhya Loka (Middle World) and houses the celestial beings (Devas) in various heavenly realms. It consists of multiple levels of heavens, each progressively subtler and more blissful. At the very apex lies <strong>Siddhashila</strong>, the abode of liberated souls.</p>\n\n    <div class=\"concept-card\">\n        <h3>Structure of Urdhva Loka</h3>\n        <p>The Upper World is divided into several heaven categories:</p>\n        <ul class=\"vows-list\">\n            <li><strong>Kalpas (Heavens with hierarchy):</strong> 12 Kalpas where Indra (king of gods) rules. Lower heavens with less purity.</li>\n            <li><strong>Kalpatita/Kalpateeta (Beyond-Kalpas):</strong> 9 Graiveyaka and 5 Anutara Vimanas - higher heavens without rulers. Reserved for souls with very pure karma who will soon attain liberation.</li>\n            <li><strong>Siddhashila (Ishatpragbhara):</strong> The ultimate destination - the abode of liberated souls (Siddhas).</li>\n        </ul>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Life in Heaven</h3>\n        <p><strong>Celestial Beings (Devas):</strong></p>\n        <ul class=\"vows-list\">\n            <li>Possess radiant, luminous bodies that don't require food</li>\n            <li>Enjoy immense pleasures and long lifespans (up to 33 Sagaropama)</li>\n            <li>Have supernatural powers (flying, changing form, etc.)</li>\n            <li>Cannot practice serious austerities or attain Moksha from heaven</li>\n            <li>Experience very mild sufferings (mainly fear of death)</li>\n        </ul>\n        <p style=\"margin-top: 1rem;\"><strong>Why Heaven is Not the Goal:</strong> Despite pleasures, heavenly life is temporary. When merit karma exhausts, souls fall back to lower realms. Only human birth in Karma Bhumi offers the opportunity for liberation.</p>\n    </div>\n\n    <div class=\"quote-box\">\n        \"Heaven is a reward, but not the goal. Liberation (Moksha) is the true destination.\"\n    </div>\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "सौधर्मादि-विमानानि लोकाग्रे सिद्धसंस्थितिः।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        मध्यलोक के ऊपर ७ राजू विस्तृत ऊर्ध्वलोक में वैमानिक देवों के दिव्य विमान स्थित हैं। ऊर्ध्वलोक में जैसे-जैसे ऊपर जाते हैं, देवों की आयु, प्रभाव, सुख, लेश्या की विशुद्धि और इन्द्रिय-विषय कम तथा आत्मिक शांति अधिक होती जाती है।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">१६ स्वर्ग (कल्प देव)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-2">१. सौधर्म, २. ईशान, ३. सनत्कुमार, ४. माहेन्द्र, ५. ब्रह्म, ६. ब्रह्मोत्तर, ७. लांतव, ८. कापिष्ठ, ९. शुक्र, १०. महाशुक्र, ११. शतार, १२. सहस्रार, १३. आनत, १४. प्राणत, १५. आरण, १६. अच्युत स्वर्ग।</p>
+            <p class="text-slate-300/90 text-sm sm:text-base">सौधर्म स्वर्ग के इन्द्र 'सौधर्मेन्द्र' तीर्थंकरों के जन्माभिषेक एवं पंचकल्याणक महोत्सव के मुख्य कर्ता होते हैं।</p>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">कल्पातीत देव (अहमिन्द्र)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">१६ स्वर्गों से ऊपर <strong>९ ग्रैवेयक, ९ अनुदिश एवं ५ अनुत्तर विमान</strong> (विजय, वैजयंत, जयंत, अपराजित, सर्वार्थसिद्धि) हैं। यहाँ सभी देव समान पद वाले 'अहमिन्द्र' होते हैं। सर्वार्थसिद्धि के देव एक भव धारण कर नियम से मोक्ष प्राप्त करते हैं।</p>
+        </div>
+    </div>
+</div>`
   },
+
   "madhya-loka": {
     "id": "madhya-loka",
     "category": "bhugol",
-    "title": "Madhya Loka (Middle World)",
-    "subtitle": "The Realm of Action and Liberation",
+    "title": "मध्य लोक (मनुष्य व तिर्यंच लोक)",
+    "subtitle": "असंख्यात द्वीप-समुद्र, ढाई द्वीप एवं कर्मभूमि व्यवस्था",
     "type": "html",
-    "content": "<div class=\"book-content\">\n    <h3>🌍 Overview</h3>\n    <p><strong>Madhya Loka</strong> (Middle World) is the central realm of the universe where humans, animals, and plants reside. It is the <strong>only realm</strong> from which liberation (Moksha) is possible. The Middle World consists of countless concentric island-continents (Dwipas) separated by oceans (Samudras).</p>\n\n    <div class=\"concept-card\">\n        <h3>Structure: Concentric Lands & Oceans</h3>\n        <p>The Middle World expands outward from the center in alternating rings of land and water:</p>\n        <ul class=\"vows-list\">\n            <li><strong>1. Jambudvipa</strong> (Central continent) - Surrounded by Lavana Samudra (Salt Ocean)</li>\n            <li><strong>2. Dhataki Khanda</strong> - Surrounded by Kalodadhi Samudra (Black Ocean)</li>\n            <li><strong>3. Pushkaradvipa</strong> - Contains the second Mount Meru. Beyond this, liberation is not possible.</li>\n            <li>Additional countless concentric continents and oceans extending outward</li>\n        </ul>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Karma Bhumi vs Bhoga Bhumi</h3>\n        <p><strong>Karma Bhumi (Lands of Action):</strong></p>\n        <ul class=\"vows-list\">\n            <li>Beings must work for survival (agriculture, trade, etc.)</li>\n            <li>Tirthankaras are born here</li>\n            <li>Moksha is possible from these regions</li>\n            <li>Examples: Bharat Kshetra, Airavat Kshetra, Videha Kshetra in Jambudvipa</li>\n        </ul>\n        <p style=\"margin-top: 1rem;\"><strong>Bhoga Bhumi (Lands of Enjoyment):</strong></p>\n        <ul class=\"vows-list\">\n            <li>Wish-fulfilling trees (Kalpa Vriksha) provide all necessities</li>\n            <li>No need for work or effort</li>\n            <li>Tirthankaras are NOT born here</li>\n            <li>Moksha is NOT possible</li>\n            <li>Examples: Haimavat, Hari, Ramyak, Hairanyvat regions in Jambudvipa</li>\n        </ul>\n    </div>\n\n    <div class=\"quote-box\">\n        \"Only in the realm of action (Karma Bhumi) can the soul conquer karma and attain liberation.\"\n    </div>\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "मानुषोत्तर-परिवेष्टिताः सार्ध-द्वि-द्वीपाः कर्मभूमयः।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        मध्यलोक १ राजू चौड़ा और सुमेरु पर्वत के आधार से १०० योजन ऊँचा-नीचा है। इसमें असंख्यात द्वीप और समुद्र चूड़ी के आकार में एक-दूसरे को घेरे हुए हैं।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">ढाई द्वीप (नरलोक)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">१. जम्बूद्वीप (१ लाख योजन), २. धातकीखण्ड द्वीप (४ लाख योजन), ३. पुष्करार्ध द्वीप (८ लाख योजन)। मानुषोत्तर पर्वत के भीतर ही मनुष्य जन्म ले सकते हैं और केवल यहीं से मोक्ष संभव है।</p>
+        </div>
+
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">नंदीश्वर द्वीप (८वाँ द्वीप)</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">आठवाँ नंदीश्वर द्वीप १६३ करोड़ ८४ लाख योजन विस्तृत है। यहाँ चारों दिशाओं में ५२ अकृत्रिम जिन चैत्यालय हैं जहाँ अष्टान्हिका महापर्व में चारों निकायों के देव आकर अखंड पूजन वंदना करते हैं।</p>
+        </div>
+    </div>
+</div>`
   },
+
   "adho-loka": {
     "id": "adho-loka",
     "category": "bhugol",
-    "title": "Adho Loka (Lower World)",
-    "subtitle": "The Seven Hells - Realms of Suffering",
+    "title": "अधो लोक (नरक लोक)",
+    "subtitle": "सातों नरक भूमियाँ, ८४ लाख बिल एवं नारकियों की दारुण वेदना",
     "type": "html",
-    "content": "<div class=\"book-content\">\n    <h3>🔥 Overview</h3>\n    <p><strong>Adho Loka</strong> (Lower World) extends below Madhya Loka and consists of seven grounds (Bhumis), each containing multiple hells where souls suffer intense pain as a result of their severe evil karmas. The lower the hell, the more intense and prolonged the suffering.</p>\n\n    <div class=\"concept-card\">\n        <h3>The Seven Hells (Naraka Bhumis)</h3>\n        <ul class=\"vows-list\">\n            <li><strong>1. Ratnaprabha</strong> (Jewel-lustered) - Least suffering, shortest duration</li>\n            <li><strong>2. Sharkaraprabha</strong> (Gravel-lustered)</li>\n            <li><strong>3. Valukaprabha</strong> (Sand-lustered)</li>\n            <li><strong>4. Pankaprabha</strong> (Mud-lustered)</li>\n            <li><strong>5. Dhumaprabha</strong> (Smoke-lustered)</li>\n            <li><strong>6. Tamahprabha</strong> (Darkness-lustered)</li>\n            <li><strong>7. Mahatamahprabha</strong> (Great-darkness-lustered) - Most suffering, longest duration (up to 33 Sagaropama)</li>\n        </ul>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Life in Hell (Naraka)</h3>\n        <p><strong>Hell Beings (Narakis):</strong></p>\n        <ul class=\"vows-list\">\n            <li>Experience continuous, intense suffering from heat, cold, hunger, and thirst</li>\n            <li>Bodies are repeatedly torn apart and regenerate instantly to continue suffering</li>\n            <li>Tortured by hell-guards (Asurakumara devas assigned to this duty)</li>\n            <li>Cannot die until karma exhausts - must complete the full term</li>\n            <li>No possibility of spiritual practice or liberation from hell</li>\n            <li>After punishment ends, reborn in higher realms based on remaining karma</li>\n        </ul>\n        <p style=\"margin-top: 1rem;\"><strong>Causes of Hell Birth:</strong> Extreme violence, cruelty, deceit, intense passions (anger, greed), harming ascetics, and disrespecting Tirthankaras.</p>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Important Note</h3>\n        <p>Hell is NOT eternal in Jainism. It's a temporary state of intense suffering to exhaust evil karma. Once karma is exhausted, the soul moves to higher realms and can eventually achieve liberation. Even the worst sinner can become a Tirthankara in future births through spiritual purification.</p>\n    </div>\n\n    <div class=\"quote-box\">\n        \"Hell is the result of intense passions and evil deeds, but it is not permanent - the path to liberation remains open to all souls.\"\n    </div>\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "रत्नशर्करावालुकापंकधूमतमोमहातमःप्रभा भूमयः।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        मध्यलोक से नीचे ७ राजू प्रमाण अधोलोक है। इसमें एक के नीचे एक ७ नरक भूमियाँ स्थित हैं जो क्रमशः घनोदधि, घनवात एवं तनुवात वलयों के आधार पर टिकी हुई हैं।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">सातों नरक भूमियाँ :</h2>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300 text-sm sm:text-base">
+                <li><strong>१. रत्नप्रभा (घम्मा) :</strong> ३० लाख बिल, उत्कृष्ट आयु १ सागर।</li>
+                <li><strong>२. शर्कराप्रभा (वंशा) :</strong> २५ लाख बिल, उत्कृष्ट आयु ३ सागर।</li>
+                <li><strong>३. वालुकाप्रभा (मेघा) :</strong> १५ लाख बिल, उत्कृष्ट आयु ७ सागर।</li>
+                <li><strong>४. पंकप्रभा (अंजना) :</strong> १० लाख बिल, उत्कृष्ट आयु १० सागर।</li>
+                <li><strong>५. धूमप्रभा (अरिष्ठा) :</strong> ३ लाख बिल, उत्कृष्ट आयु १७ सागर।</li>
+                <li><strong>६. तमःप्रभा (मघवा) :</strong> ९९ हजार ५ सौ बिल, उत्कृष्ट आयु २२ सागर।</li>
+                <li><strong>७. महातमःप्रभा (माधवी) :</strong> ५ बिल, उत्कृष्ट आयु ३३ सागरोपम।</li>
+            </ul>
+        </div>
+    </div>
+</div>`
   },
+
   "siddhashila": {
     "id": "siddhashila",
     "category": "bhugol",
-    "title": "Siddhashila - Abode of Liberated Souls",
-    "subtitle": "The Ultimate Destination",
+    "title": "सिद्धशिला स्वरूप",
+    "subtitle": "लोकाग्र स्थित ४५ लाख योजन विस्तृत मोक्ष धाम",
     "type": "html",
-    "content": "<div class=\"book-content\">\n    <h3>🕊️ The Peak of the Universe</h3>\n    <p><strong>Siddhashila</strong> (also called Ishatpragbhara Prithvi) is located at the absolute apex of the universe, forming the topmost boundary of Lokakasha (cosmic space). This is the eternal abode of all liberated souls (Siddhas) who have destroyed all karma and achieved Moksha.</p>\n\n    <div class=\"concept-card\">\n        <h3>Characteristics of Siddhashila</h3>\n        <ul class=\"vows-list\">\n            <li><strong>Location:</strong> At the very top of Urdhva Loka, above all heavens</li>\n            <li><strong>Shape:</strong> Like an inverted umbrella or a slightly curved ceiling</li>\n            <li><strong>Size:</strong> 45 lakh (4.5 million) Yojanas in each direction</li>\n            <li><strong>Nature:</strong> Made of transparent, crystalline substance - neither Jiva nor Pudgala</li>\n            <li><strong>Population:</strong> Infinite liberated souls reside here</li>\n            <li><strong>Entry:</strong> One-way only - once a soul reaches,it never leaves</li>\n        </ul>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Life of Siddhas (Liberated Souls)</h3>\n        <p>All Siddhas are identical in their qualities:</p>\n        <ul class=\"vows-list\">\n            <li><strong>Anant Jnana:</strong> Infinite knowledge - knowing everything in all three times (past, present, future) simultaneously</li>\n            <li><strong>Anant Darshan:</strong> Infinite perception - perceiving the entire universe at once</li>\n            <li><strong>Anant Sukha:</strong> Infinite bliss - experiencing perfect, uninterrupted happiness</li>\n            <li><strong>Anant Virya:</strong> Infinite power - possessing unlimited spiritual energy</li>\n        </ul>\n        <p style=\"margin-top: 1rem;\"><strong>Activities:</strong> Siddhas do not eat, sleep, think, or engage in any activity. They exist in pure consciousness, experiencing infinite bliss. They cannot interact with the world or help others - they are beyond all worldly concerns.</p>\n    </div>\n\n    <div class=\"concept-card\">\n        <h3>Worship of Siddhas</h3>\n        <p>Though Siddhas cannot help us directly (being formless and beyond interaction), we worship them as the ideal - the ultimate state every soul can achieve. The famous Jain prayer begins:</p>\n        <div style=\"padding: 1rem; background: #fff5f2; border-radius: 8px; margin: 1rem 0; font-style: italic;\">\n            \"Namo Arihantanam, Namo Siddhanam...\"<br>\n            (Salutations to the Arihantas, Salutations to the Siddhas...)\n        </div>\n        <p>Siddhas are worshipped even before Arihantas (living Tirthankaras) because they have achieved the final state.</p>\n    </div>\n\n    <div class=\"quote-box\">\n        \"Siddhashila is not a place of reward, but the natural destination of a purified soul - the end of all journeys.\"\n    </div>\n</div>"
+    "content": `<div class="book-content font-gotu text-slate-200">
+    <div class="sutra-quote text-center my-6 p-6 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-amber-200 font-notoserif font-bold text-lg md:text-xl shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+        "लोकाग्रे संप्रस्थिताः शुद्धात्म-मूर्तयः।"
+    </div>
+
+    <p class="intro text-base sm:text-lg text-slate-300 leading-relaxed mb-8 text-center max-w-3xl mx-auto">
+        समग्र ब्रह्माण्ड (तीन लोक) के सर्वोच्च शिखर पर <strong>ईषत्प्राग्भार भूमि</strong> के मध्य में <strong>सिद्धशिला</strong> स्थित है। यह उल्टे श्वेत छत्र के आकार की है, जिसका विस्तार ठीक मनुष्य लोक के बराबर <strong>४५ लाख योजन</strong> है।
+    </p>
+
+    <div class="chapters-grid space-y-6">
+        <div class="chapter-card p-6 md:p-8 rounded-2xl bg-slate-900/80 border border-white/10">
+            <h2 class="text-xl font-notoserif font-bold text-amber-200 mb-2">सिद्ध भगवान का दिव्य स्वरूप</h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-3">सिद्धशिला से ऊपर तनुवातवलय के अंतिम छोर पर सिद्ध परमेष्ठी विराजमान हैं:</p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300 text-sm sm:text-base">
+                <li><strong>अशरीरी एवं अमूर्तिक :</strong> आठों कर्मों से रहित, किंचित् न्यून अंतिम शरीर प्रमाण आत्म-प्रदेशी।</li>
+                <li><strong>अनंत चतुष्टय :</strong> अनंत ज्ञान, अनंत दर्शन, अनंत सुख और अनंत आत्म-वीर्य के स्वामी।</li>
+                <li><strong>शाश्वत निवास :</strong> एक बार सिद्धपद प्राप्त होने के पश्चात् जीव कभी भी संसार में लौटकर नहीं आता।</li>
+            </ul>
+        </div>
+    </div>
+</div>`
   }
 };

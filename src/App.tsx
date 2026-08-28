@@ -3,6 +3,7 @@ import { SpaceBackground } from "./components/layout/SpaceBackground";
 import { Dock } from "./components/layout/Dock";
 import { ExitToast } from "./components/layout/ExitToast";
 import { BackToTop } from "./components/layout/BackToTop";
+import { ScrollScrubber } from "./components/layout/ScrollScrubber";
 import { Landing } from "./pages/Landing";
 import { SadhanaMenu } from "./pages/SadhanaMenu";
 import { LibraryMenu } from "./pages/LibraryMenu";
@@ -188,7 +189,7 @@ export default function App() {
   }, [activePage]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden text-slate-200 font-gotu selection:bg-amber-500/30 selection:text-amber-100 bg-[#050a14]">
+    <div className="relative min-h-screen w-full overflow-hidden text-slate-200 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#050a14]">
 
       {/* Background Layer */}
       <SpaceBackground />
@@ -197,28 +198,16 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/40 z-0" />
 
       {/* Main Content Area */}
-      <main ref={mainRef} className="relative z-10 w-full h-screen overflow-y-auto custom-scrollbar">
+      <main ref={mainRef} className="relative z-10 w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
         <AnimatePresence mode="wait">
           {activePage === "landing" && (
             <motion.div
               key="landing"
-              initial={{
-                opacity: 0,
-                scale: 0.95,
-                filter: "blur(10px)",
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)",
-              }}
-              exit={{
-                opacity: 0,
-                scale: 1.05,
-                filter: "blur(10px)",
-              }}
-              transition={{ duration: 0.5 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <Landing onNavigate={handleNavigate} />
             </motion.div>
@@ -227,11 +216,11 @@ export default function App() {
           {activePage === "sadhana" && (
             <motion.div
               key="sadhana"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <SadhanaMenu onNavigate={handleNavigate} />
             </motion.div>
@@ -240,11 +229,11 @@ export default function App() {
           {activePage === "library" && (
             <motion.div
               key="library"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <LibraryMenu onNavigate={handleNavigate} />
             </motion.div>
@@ -253,11 +242,11 @@ export default function App() {
           {activePage === "category" && (
             <motion.div
               key="category"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <CategoryListing
                 categoryId={pageParams?.id}
@@ -270,11 +259,11 @@ export default function App() {
           {activePage === "viewer" && (
             <motion.div
               key="viewer"
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <ContentViewer
                 onBack={() => {
@@ -300,11 +289,11 @@ export default function App() {
           {activePage === "panchang" && (
             <motion.div
               key="panchang"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <Panchang
                 onBack={() => handleBack("sadhana")}
@@ -315,11 +304,11 @@ export default function App() {
           {activePage === "more" && (
             <motion.div
               key="more"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <MoreMenu onNavigate={handleNavigate} />
             </motion.div>
@@ -328,11 +317,11 @@ export default function App() {
           {activePage === "admin" && (
             <motion.div
               key="admin"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <AdminLogin
                 onLogin={() => alert("Welcome Admin!")}
@@ -343,11 +332,11 @@ export default function App() {
           {activePage === "notfound" && (
             <motion.div
               key="notfound"
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <NotFound onNavigate={handleNavigate} />
             </motion.div>
@@ -356,11 +345,11 @@ export default function App() {
           {activePage === "favorites" && (
             <motion.div
               key="favorites"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <FavoritesPage
                 onNavigate={handleNavigate}
@@ -372,11 +361,11 @@ export default function App() {
           {activePage === "festivals" && (
             <motion.div
               key="festivals"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <FestivalsPage onBack={() => handleBack("favorites")} />
             </motion.div>
@@ -385,11 +374,11 @@ export default function App() {
           {activePage === "tirthankar" && (
             <motion.div
               key="tirthankar"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <TirthankarProfile
                 tirthankarId={pageParams?.id || 'adinath'}
@@ -408,11 +397,11 @@ export default function App() {
           {activePage === "pilgrimage" && (
             <motion.div
               key="pilgrimage"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <PilgrimagePage onBack={() => handleBack("explore")} />
             </motion.div>
@@ -421,11 +410,11 @@ export default function App() {
           {activePage === "philosophy" && (
             <motion.div
               key="philosophy"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <PhilosophyPage onBack={() => handleBack("explore")} />
             </motion.div>
@@ -434,11 +423,11 @@ export default function App() {
           {activePage === "rituals" && (
             <motion.div
               key="rituals"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <RitualsPage onBack={() => handleBack("explore")} />
             </motion.div>
@@ -447,11 +436,11 @@ export default function App() {
           {activePage === "pathshala" && (
             <motion.div
               key="pathshala"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <PathshalaPage onBack={() => handleBack("explore")} />
             </motion.div>
@@ -460,11 +449,11 @@ export default function App() {
           {activePage === "gallery" && (
             <motion.div
               key="gallery"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <GalleryPage onBack={() => handleBack("explore")} />
             </motion.div>
@@ -473,11 +462,11 @@ export default function App() {
           {activePage === "explore" && (
             <motion.div
               key="explore"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <ExploreMenu
                 onBack={() => handleBack("more")}
@@ -489,11 +478,11 @@ export default function App() {
           {activePage === "samayik" && (
             <motion.div
               key="samayik"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <SamayikPage onBack={() => handleBack("sadhana")} />
             </motion.div>
@@ -502,11 +491,11 @@ export default function App() {
           {activePage === "dietary" && (
             <motion.div
               key="dietary"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <DietaryPage onBack={() => handleBack("sadhana")} />
             </motion.div>
@@ -515,11 +504,11 @@ export default function App() {
           {activePage === "ascetics" && (
             <motion.div
               key="ascetics"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <AsceticsPage
                 onBack={() => handleBack("explore")}
@@ -531,11 +520,11 @@ export default function App() {
           {activePage === "muni-profiles" && (
             <motion.div
               key="muni-profiles"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-full"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
             >
               <MuniProfilesPage
                 onBack={() => handleBack("ascetics")}
@@ -565,6 +554,9 @@ export default function App() {
 
       {/* Double back exit toast on root screen */}
       <ExitToast isVisible={showExitToast} />
+
+      {/* Interactive Touch Draggable Scroll Scrubber */}
+      <ScrollScrubber scrollContainerRef={mainRef} />
 
       {/* Floating Back to Top button */}
       <BackToTop />

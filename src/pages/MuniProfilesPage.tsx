@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, Search, Filter, User } from 'lucide-react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { matchSearchQuery } from '../utils/searchHelper';
 
 interface MuniProfilesPageProps {
   onBack: () => void;
@@ -106,9 +107,17 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSect, setFilterSect] = useState<'All' | 'Digambar' | 'Shwetambar'>('All');
 
-  const filteredMunis = muniDatabase.filter(muni => {
-    const matchesSearch = muni.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      muni.hindiName.includes(searchTerm);
+  const filteredMunis = muniDatabase.filter((muni) => {
+    const matchesSearch = matchSearchQuery(
+      {
+        id: muni.id,
+        title: `${muni.hindiName} ${muni.name}`,
+        description: muni.description,
+        category: muni.sect,
+        badge: muni.title,
+      },
+      searchTerm
+    );
     const matchesFilter = filterSect === 'All' || muni.sect === filterSect;
     return matchesSearch && matchesFilter;
   });
@@ -126,7 +135,7 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
           </button>
 
           <div>
-            <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-orange-200">
+            <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-orange-200 pt-1.5 pb-0.5 leading-[1.35]">
               पुण्य चरित्र
             </h1>
             <p className="text-blue-100/60 font-gotu text-sm mt-1">

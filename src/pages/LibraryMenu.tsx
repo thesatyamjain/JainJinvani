@@ -94,7 +94,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             <BookOpen className="w-3.5 h-3.5" />
             <span className="uppercase tracking-[0.2em] font-cinzel font-bold">Scripture Library</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-notoserif font-bold text-white mb-2 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.35] pt-2 pb-1">
             शास्त्र ग्रंथालय
           </h1>
           <p className="text-slate-200/80 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
@@ -149,6 +149,27 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
           </motion.div>
         ))}
       </div>
+
+      {/* Footer Attribution */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="mt-14 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8"
+      >
+        <p>
+          Built by{' '}
+          <a
+            href="https://thesoftwareco.pages.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-400 hover:text-amber-300 underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors font-medium"
+          >
+            The Software Co
+          </a>{' '}
+          and Satyam Jain
+        </p>
+      </motion.div>
     </div>
   );
 };

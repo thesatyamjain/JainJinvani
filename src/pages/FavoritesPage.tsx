@@ -36,7 +36,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
         )}
 
         <div className="text-center">
-          <h1 className="text-3xl md:text-5xl font-rozha text-white">मेरा संग्रह</h1>
+          <h1 className="text-3xl md:text-5xl font-rozha text-white pt-1.5 pb-0.5 leading-[1.35]">मेरा संग्रह</h1>
           <p className="text-xs md:text-sm text-slate-400 font-gotu mt-0.5">
             पसंदीदा रचनाएँ एवं आध्यात्मिक डैशबोर्ड
           </p>

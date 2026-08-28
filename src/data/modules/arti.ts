@@ -4,7 +4,7 @@ export const ArtiData = {
         "id": "jain-aarti",
         "category": "arti",
         "title": "जैन मंगल आरती",
-        "subtitle": "Jain Mangal Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -32,7 +32,7 @@ export const ArtiData = {
         "id": "adinath-aarti",
         "category": "arti",
         "title": "श्री आदिनाथ आरती",
-        "subtitle": "Shree Adinath Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -60,7 +60,7 @@ export const ArtiData = {
         "id": "parshvanath-aarti",
         "category": "arti",
         "title": "श्री पार्श्वनाथ आरती",
-        "subtitle": "Shree Parshvanath Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -96,7 +96,7 @@ export const ArtiData = {
         "id": "mahavir-aarti",
         "category": "arti",
         "title": "श्री महावीर आरती",
-        "subtitle": "Shree Mahavir Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -128,7 +128,7 @@ export const ArtiData = {
         "id": "shantinath-aarti",
         "category": "arti",
         "title": "श्री शांतिनाथ आरती",
-        "subtitle": "Shree Shantinath Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -156,7 +156,7 @@ export const ArtiData = {
         "id": "padmavati-aarti",
         "category": "arti",
         "title": "श्री पद्मावती माता आरती",
-        "subtitle": "Shree Padmavati Mata Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -188,7 +188,7 @@ export const ArtiData = {
         "id": "nakoda-bhairav-aarti",
         "category": "arti",
         "title": "श्री नाकोड़ा भैरव आरती",
-        "subtitle": "Shree Nakoda Bhairav Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -221,7 +221,7 @@ export const ArtiData = {
         "id": "jinvani-aarti",
         "category": "arti",
         "title": "श्री जिनवाणी आरती",
-        "subtitle": "Shree Jinvani Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -245,7 +245,7 @@ export const ArtiData = {
         "id": "guru-aarti",
         "category": "arti",
         "title": "श्री गुरु महाराज आरती",
-        "subtitle": "Shree Guru Maharaj Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -269,7 +269,7 @@ export const ArtiData = {
         "id": "mangal-aarti",
         "category": "arti",
         "title": "मंगल आरती",
-        "subtitle": "Mangal Aarti - Panch Parmeshthi",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -301,7 +301,7 @@ export const ArtiData = {
         "id": "adinath-arti",
         "category": "arti",
         "title": "श्री आदिनाथ भगवान आरती",
-        "subtitle": "Aarti of Lord Adinath (Rishabhdev) - 1st Tirthankara",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -337,7 +337,7 @@ export const ArtiData = {
         "id": "bahubali-arti",
         "category": "arti",
         "title": "श्री बाहुबली स्वामी आरती",
-        "subtitle": "Aarti of Bhagwan Bahubali",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -361,7 +361,7 @@ export const ArtiData = {
         "id": "chandraprabhu-arti",
         "category": "arti",
         "title": "जय चंद्रप्रभु देवा",
-        "subtitle": "Aarti of Lord Chandraprabhu - 8th Tirthankara",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -397,7 +397,7 @@ export const ArtiData = {
         "id": "chaubiso-bhagwan-arti",
         "category": "arti",
         "title": "चौबीसों भगवान की आरती",
-        "subtitle": "Aarti of the 24 Tirthankaras",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -429,7 +429,7 @@ export const ArtiData = {
         "id": "dhoop-arti",
         "category": "arti",
         "title": "धूप आरती",
-        "subtitle": "Dhoop Aarti",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -473,7 +473,7 @@ export const ArtiData = {
         "id": "jin-padam-arti",
         "category": "arti",
         "title": "आरती श्री जिन पदम तुम्हारी",
-        "subtitle": "Aarti Shri Jin Padam Tumhari",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -501,7 +501,7 @@ export const ArtiData = {
         "id": "jinraj-arti",
         "category": "arti",
         "title": "आरती श्री जिनराज तिहारी",
-        "subtitle": "Aarti Shri Jinraj Tihari",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -513,7 +513,7 @@ export const ArtiData = {
         "id": "jinvani-mata-arti",
         "category": "arti",
         "title": "श्री जिनवाणी माता की आरती",
-        "subtitle": "Aarti of Mother Jinvani (Saraswati)",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -525,7 +525,7 @@ export const ArtiData = {
         "id": "mahavir-swami-arti",
         "category": "arti",
         "title": "श्री महावीर स्वामी की आरती",
-        "subtitle": "Aarti of Bhagwan Mahavir Swami",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -537,7 +537,7 @@ export const ArtiData = {
         "id": "munisuvratnath-arti",
         "category": "arti",
         "title": "श्री मुनिसुव्रतनाथ भगवान की आरती",
-        "subtitle": "Aarti of Bhagwan Munisuvratnath",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -549,7 +549,7 @@ export const ArtiData = {
         "id": "padmaprabhu-arti",
         "category": "arti",
         "title": "श्री पद्मप्रभु की आरती (बाड़ा)",
-        "subtitle": "Aarti of Lord Padmaprabhu (Bada Mandir)",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -561,7 +561,7 @@ export const ArtiData = {
         "id": "panch-parmeshthi-arti",
         "category": "arti",
         "title": "पंच परमेष्ठी की आरती",
-        "subtitle": "Aarti of the Five Supreme Beings",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -573,7 +573,7 @@ export const ArtiData = {
         "id": "parshvanath-arti",
         "category": "arti",
         "title": "श्री पार्श्वनाथ स्वामी आरती",
-        "subtitle": "Aarti of Lord Parshvanath - 23rd Tirthankara",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -585,7 +585,7 @@ export const ArtiData = {
         "id": "shantinath-arti",
         "category": "arti",
         "title": "श्री शान्तिनाथ भगवान की आरती",
-        "subtitle": "Aarti of Bhagwan Shantinath Swami",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {
@@ -597,7 +597,7 @@ export const ArtiData = {
         "id": "tum-se-laagi-lagan",
         "category": "arti",
         "title": "तुम से लागी लगन",
-        "subtitle": "A beautiful devotion to Lord Parshvanath",
+        "subtitle": "दीपक वंदना एवं मंगल आरती",
         "type": "structured",
         "verses": [
             {

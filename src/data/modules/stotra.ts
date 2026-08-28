@@ -4,7 +4,7 @@ export const StotraData = {
         "id": "ekibhav-stotra",
         "category": "stotra",
         "title": "एकीभाव स्तोत्र (संस्कृत व हिन्दी भावार्थ)",
-        "subtitle": "Ekibhav Stotra (Complete 26 Verses by Acharya Vadiraja)",
+        "subtitle": "आचार्य वादिराज विरचित २६ पद्य स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -143,7 +143,7 @@ export const StotraData = {
         "id": "bhaktamar-hindi-hemraj",
         "category": "stotra",
         "title": "भक्तामर स्तोत्र (हिन्दी)",
-        "subtitle": "Bhaktamar Stotra by Pt. Hemraj",
+        "subtitle": "पं. हेमराज जी विरचित हिन्दी पद्यानुवाद",
         "type": "structured",
         "verses": [
             {
@@ -456,7 +456,7 @@ export const StotraData = {
         "id": "bhaktamar-mahima",
         "category": "stotra",
         "title": "भक्तामर महिमा",
-        "subtitle": "Significance and Glory of Bhaktamar Stotra",
+        "subtitle": "भक्तामर स्तोत्र का इतिहास एवं प्रभाव",
         "type": "structured",
         "verses": [
             {
@@ -497,7 +497,7 @@ export const StotraData = {
         "id": "bhaktamar-riddhi-mantra",
         "category": "stotra",
         "title": "भक्तामर ऋद्धि मंत्र",
-        "subtitle": "Bhaktamar Riddhi Mantra Collection",
+        "subtitle": "४८ काव्यों के स्वतंत्र ऋद्धि-सिद्धि मंत्र",
         "type": "structured",
         "verses": [
             {
@@ -571,7 +571,7 @@ export const StotraData = {
         "id": "bhaktamar-stotra",
         "category": "stotra",
         "title": "भक्तामर स्तोत्र (संस्कृत व हिन्दी)",
-        "subtitle": "आचार्य मानतुंग स्वामी विरचित ४८ काव्य अर्थ सहित",
+        "subtitle": "आचार्य मानतुंग विरचित ४८ पद्य स्तोत्र (संस्कृत व हिन्दी भावार्थ)",
         "type": "structured",
         "author": "आचार्य मानतुंग स्वामी",
         "verses": [
@@ -1061,7 +1061,7 @@ export const StotraData = {
         "id": "brihat-shanti-stotra",
         "category": "stotra",
         "title": "बृहत् शांति स्तोत्र (बड़ी शांति)",
-        "subtitle": "Brihat Shanti Stotra (Badi Shanti)",
+        "subtitle": "सर्व उपद्रव नाशक बृहत् शांति स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -1095,7 +1095,7 @@ export const StotraData = {
         "id": "jinsahasranam-stotra",
         "category": "stotra",
         "title": "श्री जिनसहस्रनाम-स्तोत्रम्",
-        "subtitle": "Jin Sahasranam Stotra (Excerpt)",
+        "subtitle": "आचार्य जिनसेन विरचित १००८ पावन नाम",
         "type": "structured",
         "verses": [
             {
@@ -1130,7 +1130,7 @@ export const StotraData = {
         "id": "kalyan-mandir-stotra",
         "category": "stotra",
         "title": "कल्याण मंदिर स्तोत्र",
-        "subtitle": "Kalyan Mandir Stotra (Hindi) - Composed by Banarasidas",
+        "subtitle": "आचार्य कुमुदचन्द्र विरचित ४४ पद्य स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -1449,7 +1449,7 @@ export const StotraData = {
         "id": "laghu-shanti-stotra",
         "category": "stotra",
         "title": "लघु शांति स्तोत्र",
-        "subtitle": "Laghu Shanti Stotra",
+        "subtitle": "दैनिक पाठ योग्य लघु शांति स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -1591,7 +1591,7 @@ export const StotraData = {
         "id": "logassa-sutra",
         "category": "stotra",
         "title": "लोगस्स पाठ (चतुर्विंशति स्तव)",
-        "subtitle": "Logassa Sutra / Chaturvimshati Stava",
+        "subtitle": "प्राकृत चतुर्विंशति स्तव",
         "type": "structured",
         "verses": [
             {
@@ -1649,7 +1649,7 @@ export const StotraData = {
         "id": "mahaveerashtak-stotra",
         "category": "stotra",
         "title": "महावीराष्टक-स्तोत्रम्",
-        "subtitle": "Mahaveerashtak Stotra - Bhagchand",
+        "subtitle": "भगवान महावीर स्वामी की ८ पद्य स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -1686,7 +1686,7 @@ export const StotraData = {
         "id": "parshvanath-stotra",
         "category": "stotra",
         "title": "श्री पार्श्वनाथ स्तोत्र",
-        "subtitle": "Shree Parshvanath Stotra - Composed by Kavishri Dyanatray",
+        "subtitle": "भगवान पार्श्वनाथ स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -1735,7 +1735,7 @@ export const StotraData = {
         "id": "ratnakar-pachisi",
         "category": "stotra",
         "title": "श्री रत्नाकर पच्चीसी",
-        "subtitle": "Shri Ratnakar Pachisi",
+        "subtitle": "मुनि रत्नाकर विरचित २५ पद्य वैराग्य स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -1791,7 +1791,7 @@ export const StotraData = {
         "id": "rishi-mandal-stotra",
         "category": "stotra",
         "title": "ऋषि मण्डल स्तोत्र",
-        "subtitle": "Rishi Mandal Stotra",
+        "subtitle": "समस्त सिद्ध व आचार्यों का मन्त्र स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -1824,7 +1824,7 @@ export const StotraData = {
         "id": "santikaram-stotra",
         "category": "stotra",
         "title": "श्री संतिकरं स्तोत्र",
-        "subtitle": "Shantikaram Stotra",
+        "subtitle": "आचार्य मुनिचन्द्र विरचित प्राकृत शांति स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -1855,7 +1855,7 @@ export const StotraData = {
         "id": "saraswati-stotra",
         "category": "stotra",
         "title": "श्री सरस्वती स्तोत्र",
-        "subtitle": "Shri Saraswati Stotra",
+        "subtitle": "द्वादशांग जिनवाणी माता स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -1939,7 +1939,7 @@ export const StotraData = {
         "id": "swayambhu-stotra",
         "category": "stotra",
         "title": "स्वयंभू स्तोत्र",
-        "subtitle": "Swayambhu Stotra",
+        "subtitle": "आचार्य समन्तभद्र विरचित २४ तीर्थंकर स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -2027,7 +2027,7 @@ export const StotraData = {
         "id": "tijay-pahutta-stotra",
         "category": "stotra",
         "title": "तिजयपहुत्त स्तोत्र",
-        "subtitle": "Tijay Pahutta Stotra",
+        "subtitle": "प्राकृत पार्श्वनाथ स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -2134,7 +2134,7 @@ export const StotraData = {
         "id": "uvasaggaharam-stotra",
         "category": "stotra",
         "title": "उवसग्गहरं स्तोत्र",
-        "subtitle": "Uvasaggaharam Stotra",
+        "subtitle": "सर्व विघ्न निवारक उवसग्गहरं स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -2178,40 +2178,36 @@ export const StotraData = {
         "id": "namokar-mantra",
         "category": "stotra",
         "title": "णमोकार महामंत्र",
-        "subtitle": "Namokar Mantra - The Supreme Jain Prayer",
+        "subtitle": "अनादिनिधन पंच नमस्कार महामंत्र एवं फलश्रुति",
         "type": "structured",
         "verses": [
             {
+                "number": "॥ मूल महामंत्र ॥",
+                "original": "णमो अरिहंताणं।\nणमो सिद्धाणं।\nणमो आइरियाणं।\nणमो उवज्झायाणं।\nणमो लोए सव्वसाहूणं॥",
+                "meaning": "अनंत चतुष्टय से संयुक्त चार घातिया कर्मों के नाशक श्री अरिहंत परमेष्ठी को नमस्कार हो। आठों कर्मों से विमुक्त अशरीरी सिद्ध परमेष्ठी को नमस्कार हो। छत्तीस मूलगुणों से सुशोभित आचार्य परमेष्ठी को नमस्कार हो। पच्चीस मूलगुणों के धारक उपाध्याय परमेष्ठी को नमस्कार हो। लोक के सर्व साधु परमेष्ठी को नमस्कार हो।"
+            },
+            {
+                "number": "॥ चूलिका एवं फलश्रुति ॥",
+                "original": "एसोपञ्चणमोक्कारो, सव्वपावप्पणासणो।\nमङ्गलाणं च सव्वेसिं, पढमं हवइ मङ्गलं॥",
+                "meaning": "यह पंच नमस्कार महामंत्र समस्त पापों का नाश करने वाला है, तथा संसार के समस्त मंगलों में प्रथम एवं सर्वश्रेष्ठ मंगल है।"
+            },
+            {
+                "number": "॥ पंच परमेष्ठी के १०८ गुण ॥",
                 "lines": [
-                    "पंच परमेष्ठी नमस्कार",
-                    "णमो अरिहंताणं",
-                    "Namo Arihantanam - I bow to the Arihantas (enlightened souls who have conquered inner enemies like anger, ego, deceit, and greed)",
-                    "णमो सिद्धाणं",
-                    "Namo Siddhanam - I bow to the Siddhas (liberated souls who have attained salvation and are free from the cycle of birth and death)",
-                    "णमो आइरियाणं",
-                    "Namo Ayariyanam - I bow to the Acharyas (spiritual leaders who head the Jain congregation and guide monks and nuns)",
-                    "णमो उवज्झायाणं",
-                    "Namo Uvajjhayanam - I bow to the Upadhyayas (teachers who teach the scriptures to monks and nuns)",
-                    "णमो लोए सव्वसाहूणं",
-                    "Namo Loe Savva Sahunam - I bow to all the Sadhus (monks) in the world who have renounced worldly life for spiritual pursuits",
-                    "एसो पंच णमोक्कारो, सव्वपावप्पणासणो।",
-                    "मंगलाणं च सव्वेसिं, पढमं हवइ मंगलं॥",
-                    "Eso Panch Namokkaro, Savva Pavappanasano. Mangalanam Cha Savvesim, Padhamam Havai Mangalam.",
-                    "This five-fold salutation destroys all sins and obstacles, and of all auspicious mantras, this is the first and foremost.",
-                    "🙏 Significance of Namokar Mantra",
-                    "The Namokar Mantra is the most important mantra in Jainism",
-                    "It does not worship any single individual but pays respect to all enlightened souls",
-                    "Reciting this mantra destroys all karmic bondages",
-                    "It is recited at the beginning of all prayers and rituals",
-                    "The mantra is in Prakrit language, the language of Lord Mahavir",
-                    "It is also known as Navkar Mantra or Panch Namaskar Mantra",
-                    "Related Sadhana",
-                    "📜",
-                    "Namokar Chalisa",
-                    "Devotional hymn",
-                    "📿",
-                    "Bhaktamar Stotra",
-                    "Powerful prayer"
+                    "अरिहंत परमेष्ठी : ४६ गुण (१२ तप, ४ केवलज्ञान, ८ प्रातिहार्य, ३४ अतिशय)",
+                    "सिद्ध परमेष्ठी : ८ मूल गुण (सम्यक्त्व, ज्ञान, दर्शन, वीर्य, सूक्ष्मत्व, अवगाहनत्व, अगुरुलघुत्व, अव्याबाधत्व)",
+                    "आचार्य परमेष्ठी : ३६ गुण (१२ तप, १० धर्म, ५ आचार, ६ आवश्यक, ३ गुप्ति)",
+                    "उपाध्याय परमेष्ठी : २५ गुण (११ अंग, १४ पूर्व का ज्ञान)",
+                    "साधु परमेष्ठी : २८ मूलगुण (५ महाव्रत, ५ समिति, ५ इन्द्रिय विजय, ६ आवश्यक, ७ शेष गुण)",
+                    "कुल योग : ४६ + ८ + ३६ + २५ + २८ = १०८ गुण"
+                ]
+            },
+            {
+                "number": "॥ महामंत्र की महिमा ॥",
+                "lines": [
+                    "णमोकार महामंत्र अनादिनिधन, अपौरुषेय एवं सर्वोत्कृष्ट मंत्रराज है।",
+                    "यह किसी व्यक्ति विशेष को नहीं, अपितु वीतराग पद एवं पंच परमेष्ठी के पावन गुणों को नमस्कार करता है।",
+                    "इसके नित्य स्मरण, जाप एवं ध्यान से समस्त पापों का क्षय तथा आत्मिक शांति की प्राप्ति होती है।"
                 ]
             }
         ]

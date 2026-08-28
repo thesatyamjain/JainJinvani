@@ -67,7 +67,7 @@ export const AsceticsPage = ({ onBack, onNavigate }: AsceticsPageProps) => {
             <Feather className="w-4 h-4" />
             <span>Guru Parampara</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-rozha text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-4">
+          <h1 className="text-4xl md:text-6xl font-rozha text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-4 pt-2 pb-1 leading-[1.35]">
             जैन साधु परंपरा
           </h1>
           <p className="text-blue-100/60 font-gotu max-w-2xl mx-auto text-lg mb-6">

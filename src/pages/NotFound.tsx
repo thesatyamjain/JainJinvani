@@ -24,7 +24,7 @@ export function NotFound({ onNavigate }: NotFoundProps) {
 
         {/* Hindi/Sanskrit Message */}
         <div className="space-y-3">
-          <h2 className="text-2xl md:text-3xl font-tiro text-amber-100">
+          <h2 className="text-2xl md:text-3xl font-tiro text-amber-100 pt-1.5 pb-0.5 leading-[1.35]">
             पृष्ठ नहीं मिला
           </h2>
           <p className="text-lg md:text-xl font-tiro text-slate-300">

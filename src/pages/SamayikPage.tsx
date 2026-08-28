@@ -80,7 +80,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
         </button>
 
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-rozha text-white">सामायिक समता साधना</h1>
+          <h1 className="text-3xl md:text-4xl font-rozha text-white pt-1.5 pb-0.5 leading-[1.35]">सामायिक समता साधना</h1>
           <p className="text-xs md:text-sm text-slate-400 font-gotu mt-0.5">
             ४८ मिनट राग-द्वेष त्याग व आत्म-चिंतन
           </p>

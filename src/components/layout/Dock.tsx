@@ -116,7 +116,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch }
     <div className="relative group flex flex-col items-center">
       {/* Label Tooltip with Sacred Styling */}
       <div className="hidden md:flex flex-col items-center absolute -top-14 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-[#091428]/95 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all pointer-events-none whitespace-nowrap backdrop-blur-xl border border-amber-500/30 shadow-[0_8px_20px_rgba(0,0,0,0.6)] translate-y-2 group-hover:translate-y-0">
-        <span className="font-gotu text-xs font-semibold text-amber-200">{label}</span>
+        <span className="font-gotu text-xs font-semibold text-amber-200 pt-0.5 pb-0.5">{label}</span>
         {subLabel && (
           <span className="font-cinzel text-[9px] uppercase tracking-widest text-slate-400">
             {subLabel}

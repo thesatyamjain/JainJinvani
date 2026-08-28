@@ -115,6 +115,7 @@ interface ParsedVerse {
   lines: ParsedLine[];
   meanings: string[];
   number?: number | string | null;
+  numberDisplay?: string | null;
 }
 
 const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => {
@@ -143,6 +144,23 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     }
   }
 
+  // Check if v.number is actually a section title like "॥ मूल महामंत्र ॥"
+  let number = v.number;
+  let numberDisplay: string | null = null;
+  if (typeof number === 'string' && /॥\s*[^\d॥\s]+\s*॥/.test(number)) {
+    if (!sectionTitle) {
+      sectionTitle = number.replace(/[॥]/g, '').trim();
+    }
+    number = null;
+  } else if (number) {
+    numberDisplay = String(number).replace(/[॥\s]/g, '').trim();
+    if (/^\d+$/.test(numberDisplay)) {
+      numberDisplay = `#${Number(numberDisplay) < 10 ? '0' : ''}${numberDisplay}`;
+    }
+  } else if (category === 'stotra' || category === 'chalisa') {
+    numberDisplay = `#${idx + 1 < 10 ? '0' : ''}${idx + 1}`;
+  }
+
   // Split lines by <br> tags or newlines
   const rawLineArray = rawText
     .split(/<br\s*\/?>|\r?\n/gi)
@@ -152,18 +170,15 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
   const lines: ParsedLine[] = rawLineArray.map((line) => {
     // Check if tag / Chhand / Dravya name like <b>(छंद जोगीरासा)</b> or <b>(जल)</b> or (जल)
     const rawClean = stripHtml(line);
-    const tagMatch =
-      line.match(/^<b>\s*\((.*?)\)\s*<\/b>$/i) ||
-      line.match(/^<strong>\s*\((.*?)\)\s*<\/strong>$/i) ||
-      line.match(/^<b>(.*?)<\/b>$/i) ||
-      line.match(/^<strong>(.*?)<\/strong>$/i) ||
-      rawClean.match(
-        /^\s*\(?\s*(दोहा|सोरठा|चौपाई|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|दीप|धूप|फल|अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*)\s*\)?\s*$/i
-      );
+    const isExplicitTag =
+      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|दीप|धूप|फल|अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा)\s*\)?\s*$/i.test(
+        rawClean
+      ) ||
+      (/^\s*<b>\s*\((.*?)\)\s*<\/b>\s*$/i.test(line) && rawClean.length < 40) ||
+      (/^\s*<strong>\s*\((.*?)\)\s*<\/strong>\s*$/i.test(line) && rawClean.length < 40);
 
-    if (tagMatch) {
-      let tagText = stripHtml(tagMatch[1] || tagMatch[0]);
-      tagText = tagText.replace(/[()]/g, '').trim();
+    if (isExplicitTag) {
+      let tagText = rawClean.replace(/[()]/g, '').trim();
       return { type: 'tag', text: tagText };
     }
 
@@ -179,37 +194,42 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     return { type: 'line', text: cleanLine };
   });
 
-  const number = v.number || (category === 'stotra' ? idx + 1 : null);
-
   return {
     sectionTitle,
     lines,
     meanings,
     number,
+    numberDisplay,
   };
 };
 
-// 2. Unified Verse / Lyrics View (For Stotra, Aarti, Chalisa, Bhajan, Puja, Vidhan, Path)
 const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) => {
   const verses = item.verses || item.lyrics || [];
 
   return (
     <div className="space-y-6">
+      {/* Rich Introduction / Fact Box if present */}
+      {item.introHtml && (
+        <div
+          className="book-content font-gotu text-slate-200 mb-8"
+          dangerouslySetInnerHTML={{ __html: item.introHtml }}
+        />
+      )}
       {verses.map((verse: any, idx: number) => {
         const parsed = parseVerseData(verse, idx, item.category);
 
         return (
           <React.Fragment key={idx}>
-            {/* Render Section Header if present (e.g. ॥ स्थापना ॥, ॥ अष्ट द्रव्य पूजा ॥, ॥ जयमाला ॥) */}
+            {/* Render Section Header if present */}
             {parsed.sectionTitle && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-6 text-center my-2"
+                className="py-5 text-center my-2"
               >
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border border-amber-500/35 backdrop-blur-md shadow-lg">
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/25 to-amber-500/15 border border-amber-400/40 backdrop-blur-md shadow-lg">
                   <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-notoserif font-bold text-amber-200 tracking-wide">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-notoserif font-bold text-amber-200 tracking-wide pt-1 pb-0.5">
                     {parsed.sectionTitle}
                   </h3>
                   <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
@@ -225,17 +245,17 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
               >
                 {/* Verse Header Row */}
                 <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/5">
-                  {parsed.number ? (
+                  {parsed.numberDisplay ? (
                     <div className="flex items-center gap-2">
-                      <span className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 font-cinzel text-xs font-bold flex items-center justify-center">
-                        {parsed.number}
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 font-mono text-xs font-bold flex items-center justify-center">
+                        {parsed.numberDisplay}
                       </span>
-                      <span className="text-[11px] uppercase tracking-widest text-slate-400 font-cinzel">
+                      <span className="text-[11px] uppercase tracking-widest text-slate-400 font-gotu">
                         पद / श्लोक
                       </span>
                     </div>
                   ) : (
-                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-cinzel">
+                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-gotu">
                       पद्य
                     </span>
                   )}
@@ -270,7 +290,7 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
                       <p
                         key={lIdx}
                         style={{ fontSize: `${fontSize + 3}px` }}
-                        className="font-notoserif font-semibold text-white leading-relaxed tracking-wide"
+                        className="font-notoserif font-semibold text-white leading-relaxed tracking-wide pt-0.5 pb-0.5"
                       >
                         {lineObj.text}
                       </p>
@@ -442,7 +462,7 @@ export const ContentViewer = ({
   const hindiSubtitle = getCleanHindiSubtitle(data?.subtitle, data?.author);
 
   return (
-    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full">
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
       {/* Unified Top Header Bar - 100% Single-Row & Responsive across Mobile & Desktop */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
@@ -461,7 +481,7 @@ export const ContentViewer = ({
           
           <div className="min-w-0 flex-1 py-1">
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-notoserif font-bold text-white truncate pt-1.5 pb-1 leading-[1.3] sm:leading-[1.25] drop-shadow-[0_2px_10px_rgba(251,191,36,0.15)]">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-notoserif font-bold text-white truncate pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_10px_rgba(251,191,36,0.15)]">
                 {data?.title || title || 'स्वाध्याय'}
               </h1>
               {data?.category && (
@@ -571,13 +591,6 @@ export const ContentViewer = ({
               <div className="text-center text-slate-400 py-16">प्रारूप समर्थित नहीं है</div>
             )}
           </div>
-        ) : isDemoArticle ? (
-          <GlassCard variant="gilded" className="p-8 md:p-16 min-h-full flex items-center justify-center my-10">
-            <div className="max-w-2xl mx-auto text-center">
-              <h1 className="text-4xl text-white font-rozha mb-4">डेमो मोड</h1>
-              <p className="text-slate-300 font-gotu">कृपया सूची से स्वाध्याय सामग्री का चयन करें।</p>
-            </div>
-          </GlassCard>
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[50vh] text-center py-20">
             <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">

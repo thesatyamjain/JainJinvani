@@ -95,7 +95,7 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3">
+          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3 pt-2 pb-1 leading-[1.35]">
             अन्वेषण करें
           </h1>
           <p className="text-blue-100/60 font-gotu text-lg">
@@ -182,6 +182,27 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
             </div>
           </div>
         </GlassCard>
+      </motion.div>
+
+      {/* Footer Attribution */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-14 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8"
+      >
+        <p>
+          Built by{' '}
+          <a
+            href="https://thesoftwareco.pages.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-400 hover:text-amber-300 underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors font-medium"
+          >
+            The Software Co
+          </a>{' '}
+          and Satyam Jain
+        </p>
       </motion.div>
     </div>
   );

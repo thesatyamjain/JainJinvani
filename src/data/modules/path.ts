@@ -4,7 +4,7 @@ export const PathData = {
         "id": "vishapahar-stotra",
         "category": "path",
         "title": "विषापहार स्तोत्र",
-        "subtitle": "Hymn of Poison Removal (By Mahakavi Dhananjaya)",
+        "subtitle": "महाकवि धनंजय विरचित ४४ पद्य स्तोत्र",
         "type": "structured",
         "verses": [
             {
@@ -64,7 +64,7 @@ export const PathData = {
         "id": "aho-jagat-gurudev",
         "category": "path",
         "title": "देव-स्तुति",
-        "subtitle": "O World Teacher! Lord! Listen to my Prayer",
+        "subtitle": "परम पूज्य जिनेंद्र देव स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -109,7 +109,7 @@ export const PathData = {
         "id": "alochana-path",
         "category": "path",
         "title": "आलोचना-पाठ",
-        "subtitle": "Alochana - Confession and Repentance Prayer",
+        "subtitle": "कविवर द्यानतराय विरचित प्रायश्चित्त पाठ",
         "type": "structured",
         "verses": [
             {
@@ -223,7 +223,7 @@ export const PathData = {
         "id": "aradhana-path",
         "category": "path",
         "title": "आराधना पाठ",
-        "subtitle": "Devotional Worship by Pt. Dyanat Rai",
+        "subtitle": "दर्शन, ज्ञान, चारित्र, तप - चार आराधना",
         "type": "structured",
         "verses": [
             {
@@ -247,7 +247,7 @@ export const PathData = {
         "id": "barah-bhavana-raja-rana",
         "category": "path",
         "title": "बारह भावना (राजा राणा छत्रपति)",
-        "subtitle": "Twelve Reflections by Pandit Bhudhardas Ji",
+        "subtitle": "कविवर भूधरदास विरचित १२ भावना",
         "type": "structured",
         "verses": [
             {
@@ -295,7 +295,7 @@ export const PathData = {
         "id": "barah-bhavana",
         "category": "path",
         "title": "बारह भावना",
-        "subtitle": "The Twelve Contemplations",
+        "subtitle": "अनित्य आदि १२ वैराग्य भावनाएँ",
         "type": "structured",
         "verses": [
             {
@@ -340,7 +340,7 @@ export const PathData = {
         "id": "darshan-path-hindi",
         "category": "path",
         "title": "दर्शन पाठ हिंदी",
-        "subtitle": "Darshan Path in Hindi Recitation",
+        "subtitle": "दैनिक जिनेंद्र दर्शन पाठ",
         "type": "structured",
         "verses": [
             {
@@ -388,7 +388,7 @@ export const PathData = {
         "id": "darshan-path-sanskrit",
         "category": "path",
         "title": "दर्शन पाठ (संस्कृत)",
-        "subtitle": "Sacred Verses for Darshan (Viewing the Deity)",
+        "subtitle": "संस्कृत दर्शन पाठ",
         "type": "structured",
         "verses": [
             {
@@ -436,7 +436,7 @@ export const PathData = {
         "id": "dukh-haran-vinati",
         "category": "path",
         "title": "दुःख हरण विनती",
-        "subtitle": "A Humble Request to End All Sorrows",
+        "subtitle": "दुःख हरण जिनेंद्र विनती",
         "type": "structured",
         "verses": [
             {
@@ -487,7 +487,7 @@ export const PathData = {
         "id": "jinvani-stuti",
         "category": "path",
         "title": "जिनवाणी स्तुति",
-        "subtitle": "Praise of the Jina's Teachings",
+        "subtitle": "द्वादशांग जिनवाणी स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -511,7 +511,7 @@ export const PathData = {
         "id": "laghu-pratikraman",
         "category": "path",
         "title": "लघु प्रतिक्रमण",
-        "subtitle": "Short Repentance Prayer for Self-Purification",
+        "subtitle": "दैनिक पाप शुद्धि प्रतिक्रमण",
         "type": "structured",
         "verses": [
             {
@@ -556,7 +556,7 @@ export const PathData = {
         "id": "main-tum-charan-kamal",
         "category": "path",
         "title": "स्तुति- मैं तुम चरण-कमल गुण गाय",
-        "subtitle": "Devotional Stuti for Worship",
+        "subtitle": "मैं तुम चरण-कमल गुण गाय - स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -595,7 +595,7 @@ export const PathData = {
         "id": "mangalashtak",
         "category": "path",
         "title": "मंगलाष्टक",
-        "subtitle": "Eight Verses for Auspiciousness",
+        "subtitle": "आद्यो धर्मकरो जिनः - मंगलाष्टक",
         "type": "structured",
         "verses": [
             {
@@ -634,7 +634,7 @@ export const PathData = {
         "id": "mata-tu-daya-karke",
         "category": "path",
         "title": "जिनवाणी स्तुति (माता तू दया करके)",
-        "subtitle": "Mother, Please Have Mercy",
+        "subtitle": "माता तू दया करके - जिनवाणी वंदना",
         "type": "structured",
         "verses": [
             {
@@ -655,7 +655,7 @@ export const PathData = {
         "id": "meri-bhavana-jugal",
         "category": "path",
         "title": "मेरी भावना",
-        "subtitle": "By Pandit Jugal Kishore 'Yugveer'",
+        "subtitle": "पं. जुगलकिशोर जी विरचित",
         "type": "structured",
         "verses": [
             {
@@ -697,7 +697,7 @@ export const PathData = {
         "id": "meri-bhavana",
         "category": "path",
         "title": "मेरी भावना",
-        "subtitle": "My Reflection - A Prayer for Universal Well-being",
+        "subtitle": "पं. जुगलकिशोर जी विरचित अमर भावना",
         "type": "structured",
         "verses": [
             {
@@ -739,7 +739,7 @@ export const PathData = {
         "id": "nirvan-kand",
         "category": "path",
         "title": "निर्वाण कांड भाषा",
-        "subtitle": "Hymn of the Sacred Nirvana Sites",
+        "subtitle": "कविवर भैया भगवतीदास विरचित सिद्धक्षेत्र वंदना",
         "type": "structured",
         "verses": [
             {
@@ -817,7 +817,7 @@ export const PathData = {
         "id": "prabhu-patit-pavan",
         "category": "path",
         "title": "स्तुति (प्रभु पतित पावन)",
-        "subtitle": "A Prayer for Purification and Guidance",
+        "subtitle": "प्रभु पतित पावन मैं अपावन - दैन्य प्रार्थना",
         "type": "structured",
         "verses": [
             {
@@ -850,7 +850,7 @@ export const PathData = {
         "id": "samadhi-bhavana",
         "category": "path",
         "title": "समाधि भावना",
-        "subtitle": "Reflections for a Holy Death (Samadhi Maran)",
+        "subtitle": "आत्म-शांति एवं समाधि भावना",
         "type": "structured",
         "verses": [
             {
@@ -886,7 +886,7 @@ export const PathData = {
         "id": "samadhi-maran-path",
         "category": "path",
         "title": "समाधि-मरण पाठ",
-        "subtitle": "Preparation for a Peaceful Transition (Bada Samadhi Maran)",
+        "subtitle": "संथारा एवं समाधि मरण पाठ",
         "type": "structured",
         "verses": [
             {
@@ -922,7 +922,7 @@ export const PathData = {
         "id": "samayik-path",
         "category": "path",
         "title": "सामायिक पाठ",
-        "subtitle": "Prayer of Equanimity (Prem Bhav Ho Sab Jeevon Se)",
+        "subtitle": "आचार्य अमितगति विरचित सामायिक पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1027,7 +1027,7 @@ export const PathData = {
         "id": "sankat-mochan-vinati",
         "category": "path",
         "title": "संकट मोचन विनती",
-        "subtitle": "Prayer to Remove Obstacles and Suffering",
+        "subtitle": "संकट मोचन पार्श्वनाथ विनती",
         "type": "structured",
         "verses": [
             {
@@ -1075,7 +1075,7 @@ export const PathData = {
         "id": "siddha-bhakti",
         "category": "path",
         "title": "सिद्ध भक्ति (प्राकृत)",
-        "subtitle": "Devotion to the Liberated Souls (Prakrit)",
+        "subtitle": "प्राकृत सिद्ध भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1099,7 +1099,7 @@ export const PathData = {
         "id": "siddhachakra-stuti",
         "category": "path",
         "title": "श्री सिद्धचक्र की स्तुति",
-        "subtitle": "Praise of the Holy Siddhachakra",
+        "subtitle": "सिद्धचक्र नवपद स्तुति",
         "type": "structured",
         "verses": [
             {
@@ -1138,7 +1138,7 @@ export const PathData = {
         "id": "vairagya-bhavana",
         "category": "path",
         "title": "वैराग्य भावना",
-        "subtitle": "Reflections on Detachment and Renunciation",
+        "subtitle": "आत्म-बोधक वैराग्य भावना",
         "type": "structured",
         "verses": [
             {

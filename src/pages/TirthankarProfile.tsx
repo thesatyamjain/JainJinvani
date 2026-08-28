@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import { 
   ArrowLeft, 
   MapPin, 
@@ -149,7 +150,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
   const totalOffered = Object.values(offeredDravyas).filter(Boolean).length;
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 pb-32 px-4 sm:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 pb-32 px-4 sm:px-6 overflow-x-hidden">
       {/* Top Navigation Bar */}
       <div className="flex items-center justify-between gap-4 mb-6">
         <button
@@ -215,7 +216,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             </div>
 
             {/* Holy Name */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-notoserif font-bold text-white mb-2 tracking-normal leading-normal">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-notoserif font-bold text-white mb-2 tracking-normal leading-[1.35] pt-2 pb-1">
               {tirthankar.nameHindi}
             </h1>
             <p className="text-amber-300/80 font-gotu text-base sm:text-lg mb-2">
@@ -306,28 +307,30 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                 /* Tabbed View */
                 <div>
                   {/* Horizontal Scrollable Tabs */}
-                  <div className="flex gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar">
-                    {dravyaList.map((item, idx) => {
-                      const isOffered = !!offeredDravyas[item.id];
-                      const isSelected = activeDravyaTab === idx;
-                      return (
-                        <button
-                          key={item.id}
-                          onClick={() => setActiveDravyaTab(idx)}
-                          className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
-                            isSelected
-                              ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
-                              : isOffered
-                              ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-200'
-                              : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white/80'
-                          }`}
-                        >
-                          <span>{item.emoji}</span>
-                          <span>{item.nameHindi.split(' ')[1]}</span>
-                          {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
-                        </button>
-                      );
-                    })}
+                  <div className="mb-6">
+                    <HorizontalScrollContainer>
+                      {dravyaList.map((item, idx) => {
+                        const isOffered = !!offeredDravyas[item.id];
+                        const isSelected = activeDravyaTab === idx;
+                        return (
+                          <button
+                            key={item.id}
+                            onClick={() => setActiveDravyaTab(idx)}
+                            className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                              isSelected
+                                ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
+                                : isOffered
+                                ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-200'
+                                : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white/80'
+                            }`}
+                          >
+                            <span>{item.emoji}</span>
+                            <span>{item.nameHindi.split(' ')[1]}</span>
+                            {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </HorizontalScrollContainer>
                   </div>
 
                   {/* Active Dravya Focused Card */}

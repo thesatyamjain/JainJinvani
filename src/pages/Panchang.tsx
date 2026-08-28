@@ -98,7 +98,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
   const startDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
 
   return (
-    <div className="w-full max-w-7xl mx-auto pt-12 md:pt-16 pb-36 px-4 sm:px-6 md:px-8 flex flex-col h-full">
+    <div className="w-full max-w-7xl mx-auto pt-12 md:pt-16 pb-36 px-4 sm:px-6 md:px-8 flex flex-col h-full overflow-x-hidden">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -113,10 +113,10 @@ export const Panchang = ({ onBack }: PanchangProps) => {
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
           </button>
           <div>
-            <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white tracking-wide">
+            <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
               जैन पंचांग
             </h1>
-            <p className="text-slate-400 text-xs md:text-sm font-gotu mt-0.5">
+            <p className="text-slate-300/80 text-xs md:text-sm font-gotu mt-0.5">
               {currentTime.toLocaleDateString('hi-IN', {
                 weekday: 'long',
                 year: 'numeric',
@@ -128,7 +128,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
         </div>
 
         {/* Live Astronomy Strip */}
-        <div className="flex gap-2.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 custom-scrollbar">
+        <div className="flex gap-2.5 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 no-scrollbar">
           <GlassCard
             variant="gilded"
             className="px-4 py-2 flex items-center gap-2 border-amber-500/30 whitespace-nowrap shrink-0"

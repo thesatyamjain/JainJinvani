@@ -4,7 +4,7 @@ export const ChalisaData = {
         "id": "abhinandannath-chalisa",
         "category": "chalisa",
         "title": "श्री अभिनंदननाथ चालीसा",
-        "subtitle": "Shree Abhinandannath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -223,7 +223,7 @@ export const ChalisaData = {
         "id": "adinath-chalisa",
         "category": "chalisa",
         "title": "श्री आदिनाथ चालीसा",
-        "subtitle": "Shree Adinath Chalisa (Chandkhedi)",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -335,7 +335,7 @@ export const ChalisaData = {
         "id": "ajitnath-chalisa",
         "category": "chalisa",
         "title": "श्री अजितनाथ चालीसा",
-        "subtitle": "Shree Ajitnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -570,7 +570,7 @@ export const ChalisaData = {
         "id": "anantnath-chalisa",
         "category": "chalisa",
         "title": "श्री अनन्तनाथ चालीसा",
-        "subtitle": "Shree Anantnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -804,7 +804,7 @@ export const ChalisaData = {
         "id": "aranath-chalisa",
         "category": "chalisa",
         "title": "श्री अरहनाथ चालीसा",
-        "subtitle": "Shree Aranath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1058,7 +1058,7 @@ export const ChalisaData = {
         "id": "chandraprabhu-chalisa",
         "category": "chalisa",
         "title": "श्री चन्द्रप्रभु चालीसा",
-        "subtitle": "Shree Chandraprabhu Chalisa (Dehra Tijara)",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1164,7 +1164,7 @@ export const ChalisaData = {
         "id": "dharmanath-chalisa",
         "category": "chalisa",
         "title": "श्री धर्मनाथ चालीसा",
-        "subtitle": "Shree Dharmanath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1453,7 +1453,7 @@ export const ChalisaData = {
         "id": "kunthunath-chalisa",
         "category": "chalisa",
         "title": "श्री कुन्थुनाथ चालीसा",
-        "subtitle": "Shree Kunthunath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1732,7 +1732,7 @@ export const ChalisaData = {
         "id": "mahavir-chalisa",
         "category": "chalisa",
         "title": "श्री महावीर चालीसा",
-        "subtitle": "Shree Mahavir Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -1880,7 +1880,7 @@ export const ChalisaData = {
         "id": "mallinath-chalisa",
         "category": "chalisa",
         "title": "श्री मल्लिनाथ चालीसा",
-        "subtitle": "Shree Mallinath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -2130,7 +2130,7 @@ export const ChalisaData = {
         "id": "munisuvratnath-chalisa",
         "category": "chalisa",
         "title": "श्री मुनिसुव्रतनाथ चालीसा",
-        "subtitle": "Shree Munisuvratnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -2264,7 +2264,7 @@ export const ChalisaData = {
         "id": "naminath-chalisa",
         "category": "chalisa",
         "title": "श्री नमिनाथ चालीसा",
-        "subtitle": "Shree Naminath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -2688,7 +2688,7 @@ export const ChalisaData = {
         "id": "namokar-chalisa",
         "category": "chalisa",
         "title": "णमोकार महामंत्र चालीसा",
-        "subtitle": "Namokar Mahamantra Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -2797,7 +2797,7 @@ export const ChalisaData = {
         "id": "neminath-chalisa",
         "category": "chalisa",
         "title": "श्री नेमिनाथ चालीसा",
-        "subtitle": "Shree Neminath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3071,7 +3071,7 @@ export const ChalisaData = {
         "id": "padmaprabhu-chalisa",
         "category": "chalisa",
         "title": "श्री पद्मप्रभु चालीसा",
-        "subtitle": "Shree Padmaprabhu Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3218,7 +3218,7 @@ export const ChalisaData = {
         "id": "parshvanath-chalisa",
         "category": "chalisa",
         "title": "श्री पार्श्वनाथ चालीसा",
-        "subtitle": "Shree Parshvanath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3405,7 +3405,7 @@ export const ChalisaData = {
         "id": "pushpadanta-chalisa",
         "category": "chalisa",
         "title": "श्री पुष्पदन्त चालीसा",
-        "subtitle": "Shree Pushpadanta (Suvidhinath) Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3619,7 +3619,7 @@ export const ChalisaData = {
         "id": "sambhavnath-chalisa",
         "category": "chalisa",
         "title": "श्री संभवनाथ चालीसा",
-        "subtitle": "Shree Sambhavnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3843,7 +3843,7 @@ export const ChalisaData = {
         "id": "shantinath-chalisa",
         "category": "chalisa",
         "title": "श्री शान्तिनाथ चालीसा",
-        "subtitle": "Shree Shantinath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -3923,7 +3923,7 @@ export const ChalisaData = {
         "id": "sheetalnath-chalisa",
         "category": "chalisa",
         "title": "श्री शीतलनाथ चालीसा",
-        "subtitle": "Shree Sheetalnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4027,7 +4027,7 @@ export const ChalisaData = {
         "id": "shreyansnath-chalisa",
         "category": "chalisa",
         "title": "श्री श्रेयांसनाथ चालीसा",
-        "subtitle": "Shree Shreyansnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4131,7 +4131,7 @@ export const ChalisaData = {
         "id": "sumatinath-chalisa",
         "category": "chalisa",
         "title": "श्री सुमतिनाथ चालीसा",
-        "subtitle": "Shree Sumatinath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4235,7 +4235,7 @@ export const ChalisaData = {
         "id": "suparshvanath-chalisa",
         "category": "chalisa",
         "title": "श्री सुपार्श्वनाथ चालीसा",
-        "subtitle": "Shree Suparshvanath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4339,7 +4339,7 @@ export const ChalisaData = {
         "id": "vasupujya-chalisa",
         "category": "chalisa",
         "title": "श्री वासुपूज्य चालीसा",
-        "subtitle": "Shree Vasupujya Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4443,7 +4443,7 @@ export const ChalisaData = {
         "id": "vimalnath-chalisa",
         "category": "chalisa",
         "title": "श्री विमलनाथ चालीसा",
-        "subtitle": "Shree Vimalnath Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4547,7 +4547,7 @@ export const ChalisaData = {
         "id": "simandhar-chalisa",
         "category": "chalisa",
         "title": "श्री सीमंधर स्वामी चालीसा",
-        "subtitle": "Shree Simandhar Swami Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {
@@ -4598,7 +4598,7 @@ export const ChalisaData = {
         "id": "jinendra-chalisa",
         "category": "chalisa",
         "title": "श्री जिनेन्द्र चालीसा",
-        "subtitle": "Shree Jinendra Dev Chalisa",
+        "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
         "type": "structured",
         "verses": [
             {

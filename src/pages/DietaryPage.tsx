@@ -65,7 +65,7 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
           </button>
 
           <div>
-            <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-emerald-400">
+            <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-emerald-400 pt-1.5 pb-0.5 leading-[1.35]">
               भक्ष्य-अभक्ष्य विवेक
             </h1>
             <p className="text-blue-100/60 font-gotu text-sm mt-1">

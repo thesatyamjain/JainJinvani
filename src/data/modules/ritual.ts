@@ -4,7 +4,7 @@ export const RitualData = {
         "id": "20-teerthankar-puja",
         "category": "puja",
         "title": "श्री विद्यमान बीस तीर्थंकर पूजा",
-        "subtitle": "Worship of the 20 Existing Tirthankaras of Mahavideh Kshetra",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -64,7 +64,7 @@ export const RitualData = {
         "id": "24-tirthankar-swasti-path",
         "category": "puja",
         "title": "२४ तीर्थंकर स्वस्ति पाठ",
-        "subtitle": "Blessings of 24 Tirthankaras",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -97,7 +97,7 @@ export const RitualData = {
         "id": "adinath-chandkhedi-puja",
         "category": "puja",
         "title": "श्री आदिनाथ जिन पूजा (चाँदखेड़ी)",
-        "subtitle": "Worship of Lord Adinath at Chandkhedi",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -163,7 +163,7 @@ export const RitualData = {
         "id": "adinath-puja-jineshwardas",
         "category": "puja",
         "title": "श्री आदिनाथ जिन पूजा (जिनेश्वरदास)",
-        "subtitle": "Worship of Lord Adinath - First Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -229,7 +229,7 @@ export const RitualData = {
         "id": "anantanath-puja",
         "category": "puja",
         "title": "श्री अनंतनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Anantanath - 14th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -295,7 +295,7 @@ export const RitualData = {
         "id": "arghyavali",
         "category": "puja",
         "title": "अर्घ्यावली (संपूर्ण २४ तीर्थंकर)",
-        "subtitle": "श्री देव-शास्त्र-गुरु एवं संपूर्ण चौबीस तीर्थंकर अर्घ्य संग्रह",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -394,7 +394,7 @@ export const RitualData = {
         "id": "bahubali-puja",
         "category": "puja",
         "title": "श्री बाहुबली पूजा",
-        "subtitle": "Worship of Lord Bahubali (Gommateshwara)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -454,7 +454,7 @@ export const RitualData = {
         "id": "chandraprabh-dehra-puja",
         "category": "puja",
         "title": "श्री चंद्रप्रभु जी पूजा - देहरा (तिजारा)",
-        "subtitle": "Worship of Lord Chandraprabh (Tijara Dehra)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -523,7 +523,7 @@ export const RitualData = {
         "id": "chandraprabh-puja",
         "category": "puja",
         "title": "श्री चंद्रप्रभ जिन पूजा",
-        "subtitle": "Worship of Lord Chandraprabh - 8th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -586,7 +586,7 @@ export const RitualData = {
         "id": "chaubis-tirthankar-puja",
         "category": "puja",
         "title": "श्री चौबीस तीर्थंकर पूजा",
-        "subtitle": "Worship of All 24 Tirthankaras",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -628,7 +628,7 @@ export const RitualData = {
         "id": "dev-shastra-guru-puja-dyanat",
         "category": "puja",
         "title": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
-        "subtitle": "Dev Shastra Guru Puja - Composed by Kavi Dyanat Rai",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -676,7 +676,7 @@ export const RitualData = {
         "id": "dev-shastra-guru-puja-jugal",
         "category": "puja",
         "title": "श्री देव-शास्त्र-गुरु पूजा",
-        "subtitle": "Dev Shastra Guru Puja - Composed by Pt. Jugal Kishore 'Yugal'",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -727,7 +727,7 @@ export const RitualData = {
         "id": "jinvani-puja",
         "category": "puja",
         "title": "श्री जिनवाणी पूजा",
-        "subtitle": "Worship of the Divine Voice of the Tirthankaras",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -790,7 +790,7 @@ export const RitualData = {
         "id": "kunthunath-puja",
         "category": "puja",
         "title": "श्री कुन्थुनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Kunthunath - 17th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -853,7 +853,7 @@ export const RitualData = {
         "id": "maha-argh",
         "category": "puja",
         "title": "महा अर्घ",
-        "subtitle": "Maha Argh - The Grand Universal Offering",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -886,7 +886,7 @@ export const RitualData = {
         "id": "mahavir-puja-vrindavan",
         "category": "puja",
         "title": "श्री महावीर जिन पूजा (वृन्दावनदास)",
-        "subtitle": "Worship of Lord Mahavir - 24th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -955,7 +955,7 @@ export const RitualData = {
         "id": "munisuvrat-puja",
         "category": "puja",
         "title": "श्री मुनिसुव्रत जिन पूजन",
-        "subtitle": "Worship of Lord Munisuvrat - 20th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1018,7 +1018,7 @@ export const RitualData = {
         "id": "namokar-mahamantra-puja",
         "category": "puja",
         "title": "णमोकार महामंत्र पूजा",
-        "subtitle": "Worship of the Supreme Navkar Mantra",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1081,7 +1081,7 @@ export const RitualData = {
         "id": "navdevata-puja",
         "category": "puja",
         "title": "श्री नवदेवता पूजा",
-        "subtitle": "Worship of the Nine Supreme Deities",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1135,7 +1135,7 @@ export const RitualData = {
         "id": "neminath-puja",
         "category": "puja",
         "title": "श्री नेमिनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Neminath - 22nd Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1204,7 +1204,7 @@ export const RitualData = {
         "id": "padmaprabh-puja",
         "category": "puja",
         "title": "श्री पद्मप्रभ जिन पूजा",
-        "subtitle": "Worship of Lord Padmaprabh - 6th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1270,7 +1270,7 @@ export const RitualData = {
         "id": "panch-balyati-puja",
         "category": "puja",
         "title": "पंच बालयति पूजा",
-        "subtitle": "Worship of the Five Bal Brahmachari Tirthankaras",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1327,7 +1327,7 @@ export const RitualData = {
         "id": "panch-parmeshthi-argh",
         "category": "puja",
         "title": "पंच परमेष्ठि अर्घ",
-        "subtitle": "Offering to the Five Supreme Beings",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1351,7 +1351,7 @@ export const RitualData = {
         "id": "panch-parmeshthi-puja",
         "category": "puja",
         "title": "श्री पंच परमेष्ठी पूजा",
-        "subtitle": "Worship of the Five Supreme Beings",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1402,7 +1402,7 @@ export const RitualData = {
         "id": "parmarshi-swasti-mangal-path",
         "category": "puja",
         "title": "परमर्षि स्वस्ति मंगल पाठ",
-        "subtitle": "Benedictory Hymn of the Great Sages",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1447,7 +1447,7 @@ export const RitualData = {
         "id": "parshvanath-puja-bakhtawar",
         "category": "puja",
         "title": "श्री पार्श्वनाथ जिन पूजा (बख्तावर सिंह)",
-        "subtitle": "Worship of Lord Parshvanath - 23rd Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1510,7 +1510,7 @@ export const RitualData = {
         "id": "puja-pratigya-path",
         "category": "puja",
         "title": "पूजा प्रतिज्ञा पाठ",
-        "subtitle": "मंगलाचरण, पवित्रीकरण एवं संकल्प पाठ",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1534,7 +1534,7 @@ export const RitualData = {
         "id": "puja-vidhi-prarambh",
         "category": "puja",
         "title": "पूजा विधि प्रारम्भ",
-        "subtitle": "Initial Rituals of Jain Worship",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1576,7 +1576,7 @@ export const RitualData = {
         "id": "pushpadanta-puja",
         "category": "puja",
         "title": "श्री पुष्पदंत जिन पूजन",
-        "subtitle": "Worship of Lord Pushpadanta (Suvidhinath) - 9th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1639,7 +1639,7 @@ export const RitualData = {
         "id": "samaysagar-puja",
         "category": "puja",
         "title": "आचार्य श्री समयसागर जी महाराज पूजन",
-        "subtitle": "Worship of Acharya Shri 108 Samaysagar Ji Maharaj",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1702,7 +1702,7 @@ export const RitualData = {
         "id": "samuchay-pujan",
         "category": "puja",
         "title": "समुच्चय पूजन",
-        "subtitle": "General Worship of Tirthankaras",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1750,7 +1750,7 @@ export const RitualData = {
         "id": "shanti-path",
         "category": "puja",
         "title": "शांति पाठ",
-        "subtitle": "Santi Path - Prayer for Peace",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1777,7 +1777,7 @@ export const RitualData = {
         "id": "shantinath-puja-bakhtawar",
         "category": "puja",
         "title": "श्री शांतिनाथ जिन पूजा (बख्तावर सिंह)",
-        "subtitle": "Worship of Lord Shantinath - 16th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1846,7 +1846,7 @@ export const RitualData = {
         "id": "sheetalnath-puja",
         "category": "puja",
         "title": "श्री शीतलनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Sheetalnath - 10th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1906,7 +1906,7 @@ export const RitualData = {
         "id": "siddha-pujan",
         "category": "puja",
         "title": "श्री सिद्ध पूजन",
-        "subtitle": "Worship of the Liberated Souls",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -1969,7 +1969,7 @@ export const RitualData = {
         "id": "sumatinath-puja",
         "category": "puja",
         "title": "श्री सुमतिनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Sumatinath - 5th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2032,7 +2032,7 @@ export const RitualData = {
         "id": "vasupujya-puja",
         "category": "puja",
         "title": "श्री वासुपूज्य जिन पूजन",
-        "subtitle": "Worship of Lord Vasupujya - 12th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2095,7 +2095,7 @@ export const RitualData = {
         "id": "vidyasagar-puja",
         "category": "puja",
         "title": "आचार्य श्री विद्यासागर जी महाराज पूजन",
-        "subtitle": "Worship of Sant-Shiromani Acharya Shri 108 Vidyasagar Ji Maharaj",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2158,7 +2158,7 @@ export const RitualData = {
         "id": "vidyman-vimshati-tirthankar-pujan",
         "category": "puja",
         "title": "श्री विद्यमान विंशति तीर्थंकर पूजन",
-        "subtitle": "Worship of the 20 Existing Tirthankaras in Videha Kshetra",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2239,7 +2239,7 @@ export const RitualData = {
         "id": "vimalnath-puja",
         "category": "puja",
         "title": "श्री विमलनाथ जिन पूजन",
-        "subtitle": "Worship of Lord Vimalnath - 13th Tirthankara",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2305,7 +2305,7 @@ export const RitualData = {
         "id": "vinay-path",
         "category": "puja",
         "title": "विनय पाठ",
-        "subtitle": "Vinay Path - Prayer of Humility",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2401,7 +2401,7 @@ export const RitualData = {
         "id": "visarjan-path",
         "category": "puja",
         "title": "विसर्जन पाठ",
-        "subtitle": "Visarjan Path - Concluding Prayer",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2431,7 +2431,7 @@ export const RitualData = {
         "id": "akshaya-tritiya-puja",
         "category": "puja",
         "title": "अक्षय-तृतीया पूजा (भगवान आदिनाथ)",
-        "subtitle": "Akshaya Tritiya Puja (Lord Adinath)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2476,7 +2476,7 @@ export const RitualData = {
         "id": "ashtanhika-vrat-puja",
         "category": "puja",
         "title": "अष्टान्हिका व्रत पूजा (नंदीश्वर द्वीप)",
-        "subtitle": "Ashtanhika Vrat Puja (Nandishwar Dweep)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2521,7 +2521,7 @@ export const RitualData = {
         "id": "chandan-shashti-vrat-puja",
         "category": "puja",
         "title": "चन्दनषष्ठी व्रत पूजा",
-        "subtitle": "Chandan Shashti Vrat Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2566,7 +2566,7 @@ export const RitualData = {
         "id": "daslakshan-dharma-puja",
         "category": "puja",
         "title": "दशलक्षण-धर्म पूजा",
-        "subtitle": "Daslakshan Dharma Puja - Kavishri Dhyanatray",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2611,7 +2611,7 @@ export const RitualData = {
         "id": "deepmalika-parv-pujan",
         "category": "puja",
         "title": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
-        "subtitle": "Deepmalika Parv Pujan (Diwali Puja)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2659,7 +2659,7 @@ export const RitualData = {
         "id": "kalash-dashami-puja",
         "category": "puja",
         "title": "कलश दशमी पूजा (अक्षय फल दशमी)",
-        "subtitle": "Kalash Dashami Puja (Akshay Phal Dashami)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2704,7 +2704,7 @@ export const RitualData = {
         "id": "kshamavani-parv-puja",
         "category": "puja",
         "title": "क्षमावाणी पर्व पूजा",
-        "subtitle": "Kshamavani Parv Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2749,7 +2749,7 @@ export const RitualData = {
         "id": "mukut-saptami-vrat-puja",
         "category": "puja",
         "title": "मुकुट सप्तमी व्रत पूजा",
-        "subtitle": "Mukut Saptami Vrat Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2794,7 +2794,7 @@ export const RitualData = {
         "id": "nandishwar-dweep-puja",
         "category": "puja",
         "title": "श्री नंदीश्वर-द्वीप पूजा",
-        "subtitle": "Nandishwar Dweep Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2839,7 +2839,7 @@ export const RitualData = {
         "id": "panchmeru-puja",
         "category": "puja",
         "title": "श्री पंचमेरु पूजा",
-        "subtitle": "Panchmeru Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2884,7 +2884,7 @@ export const RitualData = {
         "id": "rakshabandhan-parv-pujan",
         "category": "puja",
         "title": "रक्षाबन्धन पर्व पूजन",
-        "subtitle": "Rakshabandhan Parv Pujan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2929,7 +2929,7 @@ export const RitualData = {
         "id": "ratnatraya-puja",
         "category": "puja",
         "title": "रत्नत्रय पूजा",
-        "subtitle": "Ratnatraya Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -2974,7 +2974,7 @@ export const RitualData = {
         "id": "ravi-vrat-puja",
         "category": "puja",
         "title": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
-        "subtitle": "Ravi Vrat Puja (Lord Parshvanath)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3019,7 +3019,7 @@ export const RitualData = {
         "id": "rot-teej-vrat-puja",
         "category": "puja",
         "title": "रोट तीज व्रत पूजा (चौबीसी व्रत)",
-        "subtitle": "Rot Teej Vrat Puja (Chaubisi Vrat)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3061,7 +3061,7 @@ export const RitualData = {
         "id": "samyagdarshan-puja",
         "category": "puja",
         "title": "सम्यग्दर्शन पूजा",
-        "subtitle": "Samyagdarshan Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3106,7 +3106,7 @@ export const RitualData = {
         "id": "samyaggyan-puja",
         "category": "puja",
         "title": "सम्यग्ज्ञान पूजा",
-        "subtitle": "Samyaggyan Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3151,7 +3151,7 @@ export const RitualData = {
         "id": "samyakcharitra-puja",
         "category": "puja",
         "title": "सम्यक्चारित्र पूजा",
-        "subtitle": "Samyakcharitra Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3196,7 +3196,7 @@ export const RitualData = {
         "id": "shrut-panchami-puja",
         "category": "puja",
         "title": "श्रुतपंचमी पूजा (षट्खण्डागम पूजा)",
-        "subtitle": "Shrut Panchami Puja (Shatkhandagam Puja)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3241,7 +3241,7 @@ export const RitualData = {
         "id": "solah-karan-puja",
         "category": "puja",
         "title": "सोलहकारण पूजा",
-        "subtitle": "Solah Karan Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3286,7 +3286,7 @@ export const RitualData = {
         "id": "sugandh-dashami-puja",
         "category": "puja",
         "title": "सुगंध दशमी पूजा",
-        "subtitle": "Sugandh Dashami Puja",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3331,7 +3331,7 @@ export const RitualData = {
         "id": "adinath-vidhan",
         "category": "vidhan",
         "title": "श्री आदिनाथ विधान",
-        "subtitle": "Adinath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3376,7 +3376,7 @@ export const RitualData = {
         "id": "das-lakshan-vidhan",
         "category": "vidhan",
         "title": "दशलक्षण विधान (समुच्चय पूजा)",
-        "subtitle": "Das Lakshan Vidhan (Samuchchay Puja)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3421,7 +3421,7 @@ export const RitualData = {
         "id": "kalpataru-vidhan",
         "category": "vidhan",
         "title": "श्री कल्पतरु विधान (समवसरण पूजा)",
-        "subtitle": "Kalpataru Vidhan (Samavasaran Puja)",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3466,7 +3466,7 @@ export const RitualData = {
         "id": "mahavir-vidhan",
         "category": "vidhan",
         "title": "श्री महावीर विधान",
-        "subtitle": "Mahavir Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3511,7 +3511,7 @@ export const RitualData = {
         "id": "parshvanath-vidhan",
         "category": "vidhan",
         "title": "श्री पार्श्वनाथ विधान",
-        "subtitle": "Parshvanath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3556,7 +3556,7 @@ export const RitualData = {
         "id": "shantinath-vidhan",
         "category": "vidhan",
         "title": "श्री शांतिनाथ विधान",
-        "subtitle": "Shantinath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3601,7 +3601,7 @@ export const RitualData = {
         "id": "siddhachakra-vidhan",
         "category": "vidhan",
         "title": "श्री सिद्धचक्र मण्डल विधान",
-        "subtitle": "Shri Siddhachakra Mandal Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3649,7 +3649,7 @@ export const RitualData = {
         "id": "ajitnath-vidhan",
         "category": "vidhan",
         "title": "श्री अजितनाथ विधान",
-        "subtitle": "Ajitnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3694,7 +3694,7 @@ export const RitualData = {
         "id": "sambhavnath-vidhan",
         "category": "vidhan",
         "title": "श्री संभवनाथ विधान",
-        "subtitle": "Sambhavnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3739,7 +3739,7 @@ export const RitualData = {
         "id": "abhinandan-vidhan",
         "category": "vidhan",
         "title": "श्री अभिनंदननाथ विधान",
-        "subtitle": "Abhinandan Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3784,7 +3784,7 @@ export const RitualData = {
         "id": "sumatinath-vidhan",
         "category": "vidhan",
         "title": "श्री सुमतिनाथ विधान",
-        "subtitle": "Sumatinath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3829,7 +3829,7 @@ export const RitualData = {
         "id": "padmaprabh-vidhan",
         "category": "vidhan",
         "title": "श्री पद्मप्रभ विधान",
-        "subtitle": "Padmaprabh Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3874,7 +3874,7 @@ export const RitualData = {
         "id": "suparshvanath-vidhan",
         "category": "vidhan",
         "title": "श्री सुपार्श्वनाथ विधान",
-        "subtitle": "Suparshvanath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3919,7 +3919,7 @@ export const RitualData = {
         "id": "chandraprabh-vidhan",
         "category": "vidhan",
         "title": "श्री चन्द्रप्रभ विधान",
-        "subtitle": "Chandraprabh Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -3964,7 +3964,7 @@ export const RitualData = {
         "id": "pushpadant-vidhan",
         "category": "vidhan",
         "title": "श्री पुष्पदंत विधान",
-        "subtitle": "Pushpadant Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4009,7 +4009,7 @@ export const RitualData = {
         "id": "sheetalnath-vidhan",
         "category": "vidhan",
         "title": "श्री शीतलनाथ विधान",
-        "subtitle": "Sheetalnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4054,7 +4054,7 @@ export const RitualData = {
         "id": "shreyansnath-vidhan",
         "category": "vidhan",
         "title": "श्री श्रेयांसनाथ विधान",
-        "subtitle": "Shreyansnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4099,7 +4099,7 @@ export const RitualData = {
         "id": "vasupujya-vidhan",
         "category": "vidhan",
         "title": "श्री वासुपूज्य विधान",
-        "subtitle": "Vasupujya Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4144,7 +4144,7 @@ export const RitualData = {
         "id": "vimalnath-vidhan",
         "category": "vidhan",
         "title": "श्री विमलनाथ विधान",
-        "subtitle": "Vimalnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4189,7 +4189,7 @@ export const RitualData = {
         "id": "anantnath-vidhan",
         "category": "vidhan",
         "title": "श्री अनंतनाथ विधान",
-        "subtitle": "Anantnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4234,7 +4234,7 @@ export const RitualData = {
         "id": "dharmanath-vidhan",
         "category": "vidhan",
         "title": "श्री धर्मनाथ विधान",
-        "subtitle": "Dharmanath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4279,7 +4279,7 @@ export const RitualData = {
         "id": "kunthunath-vidhan",
         "category": "vidhan",
         "title": "श्री कुंथुनाथ विधान",
-        "subtitle": "Kunthunath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4324,7 +4324,7 @@ export const RitualData = {
         "id": "arahnath-vidhan",
         "category": "vidhan",
         "title": "श्री अरहनाथ विधान",
-        "subtitle": "Arahnath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4369,7 +4369,7 @@ export const RitualData = {
         "id": "mallinath-vidhan",
         "category": "vidhan",
         "title": "श्री मल्लिनाथ विधान",
-        "subtitle": "Mallinath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4414,7 +4414,7 @@ export const RitualData = {
         "id": "munisuvrat-vidhan",
         "category": "vidhan",
         "title": "श्री मुनिसुव्रतनाथ विधान",
-        "subtitle": "Munisuvrat Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4459,7 +4459,7 @@ export const RitualData = {
         "id": "naminath-vidhan",
         "category": "vidhan",
         "title": "श्री नमिनाथ विधान",
-        "subtitle": "Naminath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4504,7 +4504,7 @@ export const RitualData = {
         "id": "neminath-vidhan",
         "category": "vidhan",
         "title": "श्री नेमिनाथ विधान",
-        "subtitle": "Neminath Vidhan",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4549,7 +4549,7 @@ export const RitualData = {
         "id": "shanti-vidhan-purnamati",
         "category": "vidhan",
         "title": "शांति विधान",
-        "subtitle": "Shanti Vidhan by Purnamati Mataji",
+        "subtitle": "अष्टद्रव्य पूजन एवं जयमाला",
         "type": "structured",
         "verses": [
             {
@@ -4602,4 +4602,1358 @@ export const RitualData = {
             }
         ]
     }
+,
+  "bhaktamar-vidhan": {
+  "id": "bhaktamar-vidhan",
+  "category": "vidhan",
+  "title": "श्री भक्तामर महामण्डल विधान",
+  "subtitle": "आचार्य मानतुंग विरचित ४८ काव्यों पर आधारित महामण्डल विधान एवं ४८ अर्घ्यावली",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ श्री भक्तामर महामण्डल विधान - पीठिका एवं स्थापना ॥</div><br><b>(दोहा)</b><br>आदि जिनेश्वर पद नमन, मानतुंग मुनिराज।<br>भक्तामर मंडल रचूँ, सब भविजन के काज॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अत्र अवतर अवतर संवौषट्! (इति आह्वाननम्)<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अत्र तिष्ठ तिष्ठ ठः ठः! (इति स्थापनम्)<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अत्र मम सन्निहितो भव भव वषट्! (इति सन्निधिकरणम्)"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अष्टद्रव्य पूजन ॥</div><br><b>(जल)</b> निर्मल नीर सुगन्ध मनोहर, तृषा रोग हरने को लाये। आदिनाथ प्रभु चरण कमल पर, धार करत भवि मोद बढ़ाये॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय जन्मजरामृत्युविनाशनाय जलं निर्वपामीति स्वाहा॥<br><br><b>(चंदन)</b> मलयागिर चन्दन घिस लाये, भव आताप निकंदन हेतू। प्रभु पद चन्दन लेप करत हैं, ज्ञान प्रकाशक श्रेयस हेतू॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय संसारतापविनाशनाय चन्दनं निर्वपामीति स्वाहा॥<br><br><b>(अक्षत)</b> अक्षत उज्ज्वल निर्मल लाये, अखंडित पद पाने हेतू। आदि जिनेश्वर के चरणों में, भेंट धरत शिव सुख हेतू॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अक्षयपदप्राप्तये अक्षतं निर्वपामीति स्वाहा॥<br><br><b>(पुष्प)</b> सुरभित सुमन सुगंधित लाये, काम बाण विध्वंसन हेतू। आदि प्रभु के चरण कमल पर, पुष्प चढ़ावत मन हेतू॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय कामबाणविध्वंसनाय पुष्पं निर्वपामीति स्वाहा॥<br><br><b>(नैवेद्य)</b> षड्स व्यञ्जन अमृत जैसे, क्षुधा रोग विनाशक लाये। प्रभु सन्मुख नैवेद्य चढ़ाकर, आत्मिक तृप्ति परम सुख पाये॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय क्षुधारोगविनाशनाय नैवेद्यं निर्वपामीति स्वाहा॥<br><br><b>(दीप)</b> कनक थार मनि दीप जलाये, मोह तिमिर सब दूर भगाये। चेतन जोति जगावन हेतू, आरती कर प्रभु गुण गाये॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय मोहान्धकारविनाशनाय दीपं निर्वपामीति स्वाहा॥<br><br><b>(धूप)</b> दशविधि धूप अनल में खेवैं, अष्ट करम की कलुष नशावैं। आदि जिनेश्वर के द्वारे पर, सुरभित धूम गगन महकावैं॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अष्टकर्मदहनाय धूपं निर्वपामीति स्वाहा॥<br><br><b>(फल)</b> सरस मनोहर फल ले आये, शिवफल पाने की अभिलाषा। आदिनाथ प्रभु तारनहारे, पूरी कर दो मन की आशा॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय मोक्षफलप्राप्तये फलं निर्वपामीति स्वाहा॥<br><br><b>(अर्घ्य)</b> आठों द्रव्य संजोय सुथाली, अर्घ्य बनावत भक्ति रसाली। मानतुंग प्रभु पार लगाओ, भव सागर से नाथ कृपाणी॥<br>ॐ ह्रीं श्री १००८ आदिनाथ जिनेन्द्राय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ श्री भक्तामर ४८ अर्घ्यावली (प्रमुख काव्यार्घ्य) ॥</div><br><b>काव्य १ :</b> भक्तामर-प्रणत-मौलि-मणि-प्रभाणा-मुद्योतकं दलित-पाप-तमो-वितानम्। सम्यक् प्रणम्य जिनपादयुगं युगादा-वालम्बनं भव-जले पततां जनानाम्॥<br>ॐ ह्रीं भक्तामर प्रथम काव्याय नमः अर्घ्यं निर्वपामीति स्वाहा॥<br><br><b>काव्य २ :</b> यः संस्तुतः सकल-वाङ्मय-तत्त्व-बोधा-दुद्भूत-बुद्धि-पटुभिः सुरलोक-नाथैः। स्तोत्रैर्जगत्-त्रितय-चित्त-हरैरुदारैः स्तोष्ये किलाहमपि तं प्रथमं जिनेन्द्रम्॥<br>ॐ ह्रीं भक्तामर द्वितीय काव्याय नमः अर्घ्यं निर्वपामीति स्वाहा॥<br><br><b>काव्य ४८ :</b> स्तोत्रस्रजं भवति मानतुंगमवधियाताम्... ॐ ह्रीं भक्तामर अष्टचत्वारिंशत् काव्याय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ महाजयमाला ॥</div><br><b>(दोहा)</b><br>आदिनाथ त्रिभुवन धनी, मानतुंग मुनिराज।<br>भक्तामर महिमा अमित, सिद्ध करे सब काज॥<br><b>(चौपाई/जयमाला)</b><br>जय जय आदिनाथ भगवाना, युगादि पुरुष परम कल्याणा।<br>असि मसि कृषि वाणिज्य सिखाया, धर्म तीर्थ जग माँहि चलाया॥<br>मानतुंग मुनि बाँधे ताला, बेड़ी टूटी भई उजियाला।<br>अड़तालीस काव्य जो ध्यावै, ऋद्धि-सिद्धि नव निधि पद पावै॥<br>रोग-शोक-भय-संकट भंजै, भव-सागर के दुख सब गंजै।<br>भक्तामर मण्डल जो पूजै, ताको मुक्ति सुगम कर सूझै॥<br>ॐ ह्रीं श्री भक्तामर महामण्डल विधानाय महार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "kalyanmandir-vidhan": {
+  "id": "kalyanmandir-vidhan",
+  "category": "vidhan",
+  "title": "श्री कल्याणमन्दिर महामण्डल विधान",
+  "subtitle": "आचार्य कुमुदचन्द्र विरचित पार्श्वनाथ स्तुति पर आधारित ४४ अर्घ्य एवं जयमाला",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ स्थापना एवं मंगलाचरण ॥</div><br>कल्याणमन्दिरमुदारमवद्यभेदि, भीताभयप्रदमनिन्दितमंघ्रिपद्मम्। संसार-सागर-निमज्जदशेष-जन्तु-पोतायमानमभिनम्य जिनेश्वरस्य॥<br>ॐ ह्रीं श्री १००८ पार्श्वनाथ जिनेन्द्राय अत्र अवतर अवतर संवौषट्! अत्र तिष्ठ तिष्ठ ठः ठः! अत्र मम सन्निहितो भव भव वषट्!"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अष्टद्रव्य पूजन एवं ४४ काव्यार्घ्यावली ॥</div><br><b>(अष्टद्रव्य अर्घ्य)</b> जल गंधाक्षत पुष्प चरु लै, दीप धूप फल अर्घ्य बनाय। पार्श्वनाथ जिनवर पद पूजौं, भव-भव के सब संकट जाय॥<br>ॐ ह्रीं श्री कल्याणमन्दिर मण्डल विधानाय अष्टद्रव्यार्घ्यं निर्वपामीति स्वाहा॥<br><br><b>(काव्यार्घ्य)</b> कल्याण मंदिर स्तोत्र के ४४ पद्यों द्वारा भगवान पार्श्वनाथ के चरणों में ४४ अर्घ्य समर्पित कर आत्मा के अनंत ज्ञान, दर्शन, सुख, वीर्य की प्रार्थना की जाती है।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>जय जय पार्श्वनाथ सुखकारी, कमठ-उपसर्ग-निवारणहारी। धरणेन्द्र पद्मावती पद सेवैं, सुरपति नरपति वंदन देवैं॥ कल्याणमन्दिर पाठ जो करहीं, ते भव-सिंधु पार उतरहीं॥<br>ॐ ह्रीं श्री कल्याणमन्दिर महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "navgraha-shanti-vidhan": {
+  "id": "navgraha-shanti-vidhan",
+  "category": "vidhan",
+  "title": "श्री नवग्रह शांति निवारण विधान",
+  "subtitle": "सूर्य, चन्द्र, मंगल, बुध, गुरु, शुक्र, शनि, राहु, केतु नवग्रह दोष निवारक तीर्थंकर विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ नवग्रह एवं सम्बद्ध तीर्थंकर स्थापना ॥</div><br>सूर्य - श्री पद्मप्रभ भगवान (लाल)<br>चन्द्र - श्री चन्द्रप्रभ एवं पुष्पदन्त भगवान (श्वेत)<br>मंगल - श्री वासुपूज्य भगवान (रक्त)<br>बुध - श्री विमलनाथ भगवान (हरित)<br>गुरु - श्री महावीर स्वामी एवं ऋषभदेव (पीत)<br>शुक्र - श्री सुविधिनाथ भगवान (श्वेत)<br>शनि - श्री मुनिसुव्रतनाथ भगवान (नील/श्याम)<br>राहु - श्री नेमिनाथ भगवान (नील)<br>केतु - श्री पार्श्वनाथ भगवान (हरित/श्याम)<br>ॐ ह्रीं श्री नवग्रह-शांति-प्रदायक-जिनेन्द्रेभ्यो नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ नवग्रह अर्घ्यावली ॥</div><br><b>१. सूर्य ग्रह शांति :</b> ॐ ह्रीं श्री पद्मप्रभ जिनेन्द्राय सूर्यग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>२. चन्द्र ग्रह शांति :</b> ॐ ह्रीं श्री चन्द्रप्रभ जिनेन्द्राय चन्द्रग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>३. मंगल ग्रह शांति :</b> ॐ ह्रीं श्री वासुपूज्य जिनेन्द्राय भौमग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>४. बुध ग्रह शांति :</b> ॐ ह्रीं श्री विमलनाथ जिनेन्द्राय बुधग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>५. गुरु ग्रह शांति :</b> ॐ ह्रीं श्री महावीर जिनेन्द्राय गुरुग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>६. शुक्र ग्रह शांति :</b> ॐ ह्रीं श्री पुष्पदन्त जिनेन्द्राय शुक्रग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>७. शनि ग्रह शांति :</b> ॐ ह्रीं श्री मुनिसुव्रतनाथ जिनेन्द्राय शनिग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>८. राहु ग्रह शांति :</b> ॐ ह्रीं श्री नेमिनाथ जिनेन्द्राय राहुग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥<br><b>९. केतु ग्रह शांति :</b> ॐ ह्रीं श्री पार्श्वनाथ जिनेन्द्राय केतुग्रह-पीडा-निवारणाय शांतिं कुरु कुरु स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>ग्रह-गोचर सब अनुकूल करावैं, जिनवर भक्ति से सुख पावैं। नवग्रह दोष सबै मिट जावैं, मंगलमय सब काज सुहावैं॥<br>ॐ ह्रीं श्री नवग्रह शांति महामण्डल विधानाय महार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "rishi-mandal-vidhan": {
+  "id": "rishi-mandal-vidhan",
+  "category": "vidhan",
+  "title": "श्री ऋषिमण्डल महामण्डल विधान",
+  "subtitle": "समस्त ऋद्धिधारी मुनियों, २४ तीर्थंकरों एवं गणधरों का मन्त्रमय महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ ऋषिमण्डल मंत्र मंगलाचरण ॥</div><br>ॐ नमोऽर्हद्भ्यो नमः सिद्धेभ्यः। ॐ नमो आयरियाणं, ॐ नमो उवज्झायाणं, ॐ नमो लोए सव्वसाहूणं। ऋषिमण्डलं यन्त्रं सर्व-विघ्न-विनाशनं सर्व-सिद्धि-दायकं नमाम्यहम्॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अष्टद्रव्य एवं ऋद्धिश्वर अर्घ्य ॥</div><br>बुद्धि ऋद्धि, चारण ऋद्धि, क्रिया ऋद्धि, तप ऋद्धि, रस ऋद्धि, बल ऋद्धि, औषध ऋद्धि एवं विक्रिया ऋद्धि धारक समस्त मुनिराजों को अर्घ्य समर्पित।<br>ॐ ह्रीं अष्ट-ऋद्धि-समन्वितेभ्यो सर्व-मुनि-पुंगवेभ्यो अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>ऋषिमण्डल मन्त्र महान, करे सकल जन का कल्याण। भूत-पिशाच डाकिनी भागैं, रोग-शोक सब दूर विरागैं॥ जो भवि पूजैं ऋषिमण्डला, ता घर बरसै अमृत फला॥<br>ॐ ह्रीं श्री ऋषिमण्डल महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "solah-karan-vidhan": {
+  "id": "solah-karan-vidhan",
+  "category": "vidhan",
+  "title": "श्री सोलहकारण महामण्डल विधान",
+  "subtitle": "दर्शनविशुद्धि आदि १६ भावनाओं की आराधना एवं तीर्थंकर प्रकृति बंध विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ १६ कारण भावना स्थापना ॥</div><br>दर्शनविशुद्धि, विनयसम्पन्नता, शीलव्रतेष्वनतिचारो, ऽभीक्ष्णज्ञानोपयोगसंवेगौ, शक्तितस्त्यागतपसी, साधुसमाधिवैयावृत्त्यकरणमर्हदाचार्यबहुश्रुतप्रवचनभक्तिरावश्यकापरिहाणिर्मार्गप्रभावना प्रवचनवत्सलत्वमिति तीर्थकरत्वस्य॥<br>ॐ ह्रीं षोडशकारण-भावना-समन्वितेभ्यो तीर्थंकर-पद-दायकेभ्यो अत्र अवतर अवतर संवौषट्!"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ १६ भावनाओं के अर्घ्य ॥</div><br>१. दर्शनविशुद्धि अर्घ्य<br>२. विनयसम्पन्नता अर्घ्य<br>३. शीलव्रतेष्वनतिचार अर्घ्य<br>४. अभीक्ष्ण ज्ञानोपयोग अर्घ्य<br>५. अभीक्ष्ण संवेग अर्घ्य<br>६. शक्तितस्त्याग अर्घ्य<br>७. शक्तितस्तप अर्घ्य<br>८. साधुसमाधि अर्घ्य<br>९. वैयावृत्त्यकरण अर्घ्य<br>१०. अर्हद्भक्ति अर्घ्य<br>११. आचार्यभक्ति अर्घ्य<br>१२. बहुश्रुतभक्ति अर्घ्य<br>१३. प्रवचनभक्ति अर्घ्य<br>१४. आवश्यकापरिहाणि अर्घ्य<br>१५. मार्गप्रभावना अर्घ्य<br>१६. प्रवचनवत्सलत्व अर्घ्य<br>ॐ ह्रीं षोडशकारण-भावितेभ्यो तीर्थंकर-प्रकृति-बंधकेभ्यो अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>सोलहकारण जो भवि भावैं, तीर्थंकर पद निश्चय पावैं। तीन लोक के नाथ कहावैं, सुर-नर-मुनि सब शीश नवावैं॥<br>ॐ ह्रीं श्री सोलहकारण महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "ratnatraya-vidhan": {
+  "id": "ratnatraya-vidhan",
+  "category": "vidhan",
+  "title": "श्री रत्नत्रय महामण्डल विधान",
+  "subtitle": "सम्यग्दर्शन, सम्यग्ज्ञान एवं सम्यक्चारित्र मोक्षमार्ग आराधना विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ रत्नत्रय मंगलाचरण ॥</div><br>सम्यग्दर्शनज्ञानचारित्राणि मोक्षमार्गः।<br>रत्नत्रयं परं ब्रह्म, रत्नत्रयं परा गतिः। रत्नत्रयं समासाद्य, मुक्तिं यान्ति मनीषिणः॥<br>ॐ ह्रीं श्री सम्यग्दर्शन-सम्यग्ज्ञान-सम्यक्चारित्र-रत्नत्रय-स्वरूपाय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ रत्नत्रय अर्घ्यावली ॥</div><br><b>१. सम्यग्दर्शन अर्घ्य :</b> अष्टांग सहित २५ दोष रहित तत्त्वार्थ श्रद्धान रूप सम्यग्दर्शन हेतु अर्घ्य।<br>ॐ ह्रीं श्री सम्यग्दर्शनाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥<br><br><b>२. सम्यग्ज्ञान अर्घ्य :</b> मति, श्रुत, अवधि, मनःपर्यय, केवलज्ञान रूप सम्यग्ज्ञान हेतु अर्घ्य।<br>ॐ ह्रीं श्री सम्यग्ज्ञानाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥<br><br><b>३. सम्यक्चारित्र अर्घ्य :</b> पंच महाव्रत, पंच समिति, त्रिगुप्ति रूप शुद्ध चारित्र हेतु अर्घ्य।<br>ॐ ह्रीं श्री सम्यक्चारित्राय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>दर्शन ज्ञान चरित सुखदानी, जिनवर की यह अमर कहानी। जो रत्नत्रय मन में ध्यावै, सो अविनाशी शिवपद पावै॥<br>ॐ ह्रीं श्री रत्नत्रय महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "jinasahasranam-vidhan": {
+  "id": "jinasahasranam-vidhan",
+  "category": "vidhan",
+  "title": "श्री जिनसहस्रनाम महामण्डल विधान",
+  "subtitle": "आचार्य जिनसेन विरचित १००८ जिनेंद्र नामों पर आधारित महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ सहस्रनाम मंगलाचरण ॥</div><br>श्रीमते नमः प्रद्युम्नाय जिनेन्द्राय महात्मने। सहस्रनाम-संस्तुत्या, पूजयामि जिनेश्वरम्॥<br>ॐ ह्रीं श्री १००८ जिनसहस्रनाम-मण्डलाय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ सहस्रनाम अर्घ्यावली ॥</div><br>स्वयंभू, जितशत्रु, अनंतवीर्य, जगद्गुरु, देवाधिदेव, त्रिलोकपति, वीतराग, सर्वज्ञ आदि १००८ पावन नामों द्वारा जिनेंद्र प्रभु के चरणों में अष्टद्रव्य अर्घ्य समर्पित।<br>ॐ ह्रीं श्री सहस्रनाम-मण्डिताय श्रीजिनेन्द्राय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>सहस्र नाम जो नित्य उचारै, सो निज आतम पार उतारै। कोटि जन्म के पातक नाशैं, हृदय कमल में ज्ञान प्रकाशैं॥<br>ॐ ह्रीं श्री जिनसहस्रनाम महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "panchameru-vidhan": {
+  "id": "panchameru-vidhan",
+  "category": "vidhan",
+  "title": "श्री पंचमेरु एवं नंदीश्वर महामण्डल विधान",
+  "subtitle": "५ मेरु के ८० एवं नंदीश्वर द्वीप के ५२ अकृत्रिम जिनालयों का महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ पंचमेरु व नंदीश्वर जिनालय स्थापना ॥</div><br>सुदर्शन, विजय, अचल, मन्दिर और विद्युन्माली—इन पाँच मेरु पर्वतों पर स्थित ८० अकृत्रिम चैत्यालय तथा आठवें नंदीश्वर द्वीप में स्थित ५२ अकृत्रिम जिनालयों की जय हो!<br>ॐ ह्रीं पंचमेरु-सम्बन्धि-अशीति-जिनालयेभ्यो नन्दीश्वर-द्विप-द्वापञ्चाशद्-जिनालयेभ्यो नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अकृत्रिम चैत्यालय अर्घ्यावली ॥</div><br>१. सुदर्शन मेरु १६ जिनालय अर्घ्य<br>२. विजय मेरु १६ जिनालय अर्घ्य<br>३. अचल मेरु १६ जिनालय अर्घ्य<br>४. मन्दिर मेरु १६ जिनालय अर्घ्य<br>५. विद्युन्माली मेरु १६ जिनालय अर्घ्य<br>६. नंदीश्वर द्वीप पूर्व दिशा १३ जिनालय अर्घ्य<br>७. नंदीश्वर द्वीप दक्षिण दिशा १३ जिनालय अर्घ्य<br>८. नंदीश्वर द्वीप पश्चिम दिशा १३ जिनालय अर्घ्य<br>९. नंदीश्वर द्वीप उत्तर दिशा १३ जिनालय अर्घ्य<br>ॐ ह्रीं सर्व-अकृत्रिम-चैत्यालयेभ्यो अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>बावन जिनवर धाम सुहाये, अष्टान्हिका में देव सुधाये। मनुष्य यहीं से शीश नवावैं, पंचमेरु के गुण नित गावैं॥<br>ॐ ह्रीं श्री पंचमेरु नंदीश्वर महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "shrut-skandha-vidhan": {
+  "id": "shrut-skandha-vidhan",
+  "category": "vidhan",
+  "title": "श्री श्रुतस्कंध (जिनवाणी) महामण्डल विधान",
+  "subtitle": "द्वादशांग जिनवाणी, चौदह पूर्व एवं समस्त आगम शास्त्रों की आराधना का महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ द्वादशांग जिनवाणी मंगलाचरण ॥</div><br>आचारांग, सूत्रकृतांग, स्थानांग, समवायांग, व्याख्याप्रज्ञप्ति, ज्ञातृधर्मकथा, उपासकाध्ययन, अन्तकृद्दशा, अनुत्तरोपपादिकदशा, प्रश्नव्याकरण, विपाकसूत्र एवं दृष्टिवाद अंग—इन १२ अंगों रूपी जिनवाणी माता को नमस्कार।<br>ॐ ह्रीं द्वादशांग-जिनवाणी-मातृकायै नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ श्रुतस्कंध अर्घ्यावली ॥</div><br>समस्त अंग, पूर्व, प्रकीर्णक एवं प्रथमानुयोग, करणानुयोग, चरणानुयोग, द्रव्यानुयोग रूप चारों वेदों को अर्घ्य समर्पित।<br>ॐ ह्रीं श्री श्रुतस्कंध-द्वादशांगाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>माता जिनवाणी सुखदानी, त्रिभुवन के जीवों को तारी। जो श्रुतस्कंध विधान रचावै, सो केवल सुख अविचल पावै॥<br>ॐ ह्रीं श्री श्रुतस्कंध महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "karma-dahan-vidhan": {
+  "id": "karma-dahan-vidhan",
+  "category": "vidhan",
+  "title": "श्री कर्म दहन महामण्डल विधान",
+  "subtitle": "ज्ञानावरणी आदि आठों कर्मों के क्षय एवं आत्मा की मुक्ति हेतु महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ कर्म दहन मंगलाचरण ॥</div><br>ज्ञानावरणी, दर्शनावरणी, वेदनीय, मोहनीय, आयु, नाम, गोत्र और अंतराय—इन आठों कर्मों का समूल नाश करने वाले श्री सिद्ध परमेष्ठी को नमस्कार।<br>ॐ ह्रीं अष्टकर्म-दहनाय श्री सिद्धपरमेष्ठिने नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अष्टकर्म दहन अर्घ्यावली ॥</div><br>१. ज्ञानावरणी कर्म दहन अर्घ्य<br>२. दर्शनावरणी कर्म दहन अर्घ्य<br>३. वेदनीय कर्म दहन अर्घ्य<br>४. मोहनीय कर्म दहन अर्घ्य<br>५. आयु कर्म दहन अर्घ्य<br>६. नाम कर्म दहन अर्घ्य<br>७. गोत्र कर्म दहन अर्घ्य<br>८. अंतराय कर्म दहन अर्घ्य<br>ॐ ह्रीं अष्टकर्म-विनाशनाय मोक्षपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>आठों कर्म महा बलवन्ता, जीव भमायो चतुर्गति अनंता। कर्म दहन विधान जो करहीं, ते सिद्धशिला पर जाय ठहरहीं॥<br>ॐ ह्रीं श्री कर्मदहन महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "bahubali-vidhan": {
+  "id": "bahubali-vidhan",
+  "category": "vidhan",
+  "title": "श्री बाहुबली स्वामी महामण्डल विधान",
+  "subtitle": "प्रथम कामदेव, घोर तपस्वी भगवान गोमटेश बाहुबली आराधना विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ बाहुबली स्वामी स्थापना ॥</div><br>ऋषभपुत्राय वीराय, बाहुबलि-महात्मने। कामदेवाय वन्द्याय, नमः कैवल्य-धारिणे॥<br>ॐ ह्रीं श्री बाहुबलि जिनेन्द्राय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ बाहुबली अष्टद्रव्य एवं तप अर्घ्य ॥</div><br>एक वर्ष तक खड़े रहकर घोर ध्यान लगाने वाले, वेष्टित लताओं और पक्षियों के घोंसलों से आवृत्त महातपस्वी बाहुबली प्रभु के चरणों में अर्घ्य समर्पित।<br>ॐ ह्रीं श्री बाहुबली स्वामिने अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>जय गोमटेश्वर बाहुबली, तीन लोक में महिमा भली। त्याग-तपस्या के अवतारी, जय जय बाहुबली सुखकारी॥<br>ॐ ह्रीं श्री बाहुबली महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "samavasharan-vidhan": {
+  "id": "samavasharan-vidhan",
+  "category": "vidhan",
+  "title": "श्री समवशरण महामण्डल विधान",
+  "subtitle": "तीर्थंकर प्रभु के १२ दिव्य सभाओं से युक्त समवशरण महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ समवशरण रचना मंगलाचरण ॥</div><br>इंद्र द्वारा रचित २०,००० सीढ़ियों वाले, १२ सभाओं से युक्त, गंधकुटी एवं अशोक वृक्ष आदि आठ प्रातिहार्यों से शोभित समवशरण में विराजमान तीर्थंकर भगवान को नमस्कार।<br>ॐ ह्रीं श्री समवशरण-मंडिताय जिनेन्द्राय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ द्वादश सभा अर्घ्यावली ॥</div><br>मुनि, आर्यिका, देव, देवी, मनुष्य एवं तिर्यंचों की १२ सभाओं में दिव्यध्वनि बरसाने वाले प्रभु के चरणों में अर्घ्य।<br>ॐ ह्रीं श्री समवशरण-द्वादश-सभा-समन्वितेभ्यो जिनेन्द्रेभ्यो अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>समवशरण की शोभा न्यारी, जहाँ वैर भाव भूलें संसारी। सिंह-हिरण एक संग बैठें, अमृत वाणी प्रभु की घोंटें॥<br>ॐ ह्रीं श्री समवशरण महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "padmavati-vidhan": {
+  "id": "padmavati-vidhan",
+  "category": "vidhan",
+  "title": "श्री पद्मावती माता महामण्डल विधान",
+  "subtitle": "पार्श्वनाथ शासन देवी पद्मावती आराधना, सुख-समृद्धि एवं शांति विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ शासन देवी पद्मावती स्थापना ॥</div><br>पार्श्वनाथ जिनेन्द्र की शासन देवी, कमठ उपसर्ग निवारिणी, धरणेन्द्र की पटरानी माता पद्मावती को नमन।<br>ॐ ह्रीं क्लीं श्रीं पद्मावती देव्यै नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ अष्टद्रव्य एवं शासन देवी अर्घ्य ॥</div><br>रक्त कमल पर विराजमान, छत्र धरे माता पद्मावती के चरणों में अष्टद्रव्य अर्घ्य समर्पित।<br>ॐ ह्रीं श्री पद्मावती देव्यै सर्व-कष्ट-निवारणाय अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>जय पद्मावती मात दयाली, संकट हरने वाली आली। पार्श्व प्रभु की सेवा कीनी, धर्म प्रभावना जग में दीनी॥<br>ॐ ह्रीं श्री पद्मावती महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "sarvatobhadra-vidhan": {
+  "id": "sarvatobhadra-vidhan",
+  "category": "vidhan",
+  "title": "श्री सर्वतोभद्र महामण्डल विधान",
+  "subtitle": "सर्व दिशाओं में मंगल एवं समस्त विघ्नों के शमन हेतु सर्वतोभद्र विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ सर्वतोभद्र मण्डल मंगलाचरण ॥</div><br>सर्वतो भद्रं भद्रं भद्रं, जिनेन्द्र-चरण-युगलम्। सर्वतोभद्र-मण्डलेन, पूजयामि जिनेश्वरम्॥<br>ॐ ह्रीं सर्वतोभद्र-मण्डलाय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ सर्वतोभद्र अर्घ्यावली ॥</div><br>दसों दिशाओं में सर्व प्रकार के उपद्रवों की शांति एवं आत्म-कल्याण हेतु अर्घ्य।<br>ॐ ह्रीं सर्वतोभद्र-महामण्डलाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>सर्वतोभद्र विधान जो ध्यावै, ताके विघ्न सकल मिट जावैं। घर-आँगन में मंगल छावै, जिनवर भक्ति सदा सुख पावै॥<br>ॐ ह्रीं श्री सर्वतोभद्र महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "indradhwaj-vidhan": {
+  "id": "indradhwaj-vidhan",
+  "category": "vidhan",
+  "title": "श्री इन्द्रध्वज महामण्डल विधान",
+  "subtitle": "सौधर्मेन्द्र आदि देवों द्वारा आयोजित जैन परम्परा का सर्वोच्च महामण्डल विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ इन्द्रध्वज महामण्डल मंगलाचरण ॥</div><br>इन्द्रध्वजेन मण्डित-जिनालयेभ्यः, सौधर्म-प्रमुख-सुरेन्द्र-वन्दितेभ्यः। त्रिलोक-पूज्याय जिनेश्वराय, नमोऽस्तु रागादि-विनाशकाय॥<br>ॐ ह्रीं श्री इन्द्रध्वज-महामण्डलाय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ इन्द्रध्वज महा-अर्घ्यावली ॥</div><br>इन्द्रध्वज की स्थापना कर, धर्म ध्वजा फहराकर समस्त तीर्थंकरों एवं जिनवाणी की आराधना हेतु अर्घ्य।<br>ॐ ह्रीं श्री इन्द्रध्वज-महामण्डलाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>इन्द्रध्वज अतिशय गुणकारी, धर्म पताका फहरे भारी। जो भवि इन्द्रध्वज मण्डल रचैं, ते सुर-पद पा शिवपुर पहुँचैं॥<br>ॐ ह्रीं श्री इन्द्रध्वज महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "chaubisi-vidhan": {
+  "id": "chaubisi-vidhan",
+  "category": "vidhan",
+  "title": "श्री चौबीस तीर्थंकर महामण्डल विधान",
+  "subtitle": "भगवान ऋषभदेव से लेकर भगवान महावीर तक समुच्चय २४ तीर्थंकर महाविधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ चौबीस तीर्थंकर समुच्चय स्थापना ॥</div><br>ऋषभ, अजित, संभव, अभिनन्दन, सुमति, पद्म, सुपार्श्व, चन्द्रप्रभ, पुष्पदन्त, शीतल, श्रेयांस, वासुपूज्य, विमल, अनन्त, धर्म, शान्ति, कुन्थु, अरह, मल्लि, मुनिसुव्रत, नमि, नेमि, पार्श्व और महावीर—इन चौबीस तीर्थंकरों को नमन।<br>ॐ ह्रीं श्री चतुर्विंशति-तीर्थंकरेभ्यो नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ चौबीस तीर्थंकर समुच्चय अर्घ्यावली ॥</div><br>चौबीसों जिनवर के पावन चरणों में अष्टद्रव्य अर्घ्य समर्पित।<br>ॐ ह्रीं श्री चतुर्विंशति-तीर्थंकरेभ्यो अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>चौबीसों भगवान हमारे, भव-सागर से तारनहारे। जो चौबीसी विधान रचावै, सो आतम-निधि अविचल पावै॥<br>ॐ ह्रीं श्री चौबीस तीर्थंकर महामण्डल विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+},
+  "bhaktamar-deep-archana-vidhan": {
+  "id": "bhaktamar-deep-archana-vidhan",
+  "category": "vidhan",
+  "title": "श्री भक्तामर दीप अर्चना विधान",
+  "subtitle": "४८ दीपकों से युक्त भक्तामर महाआरती व दीप अर्चना विधान",
+  "type": "structured",
+  "verses": [
+    {
+      "hindi": "<div class=\"section-title\">॥ भक्तामर दीप अर्चना मंगलाचरण ॥</div><br>४८ दीपकों की ज्योति प्रज्वलित कर, अड़तालीस काव्यों के मंत्रों से अष्टकर्म का अंधकार दूर करने हेतु दीप अर्चना।<br>ॐ ह्रीं श्री भक्तामर-अष्टचत्वारिंशद्-दीपार्चनाय नमः।"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ ४८ दीप अर्घ्यावली ॥</div><br>एक-एक दीपक एक-एक काव्य के साथ समर्पित कर आत्मा के ज्ञान दीप को प्रज्वलित करने हेतु अर्घ्य।<br>ॐ ह्रीं श्री भक्तामर-दीपार्चना-मण्डलाय अनर्घ्यपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा॥"
+    },
+    {
+      "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br>जगमग जगमग दीपक जलैं, पाप-ताप सब क्षण में गलैं। मानतुंग प्रभु की यह आरती, भव-भव के भय दूर निवारती॥<br>ॐ ह्रीं श्री भक्तामर दीप अर्चना विधानाय पूर्णार्घ्यं निर्वपामीति स्वाहा॥"
+    }
+  ]
+}
+,
+
+  "ajitnath-puja": {
+    "id": "ajitnath-puja",
+    "category": "puja",
+    "title": "श्री अजितनाथ जिन पूजन",
+    "subtitle": "द्वितीय तीर्थंकर अजितनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>जितशत्रु नृप के नंदन, विजया माता के लाल।<br>अजितनाथ जिनवर नमो, काटें भव-जंजाल॥<br>अयोध्या नगरी के स्वामी, हाथी लक्षण शुभ पाय।<br>अष्टम वसुधा प्राप्ति हित, पूजूं शीश नवाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अजितनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>सुरसरि सम शीतल निर्मल जल, कंचन झारी भर लाया।<br>जन्म-मरण भय मेटन कारन, अजित प्रभु के ढिग ध्याया॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन घिसकर शीतल, केशर संग मिलाया है।<br>संसार-ताप मिटाने को प्रभु, चरण-कमल लिपटाया है॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>अमल-अखण्डित अक्षत लेकर, पुंज धरे जिन चरणों में।<br>अक्षय पद की प्राप्ति हेत, सुख पाऊं शिव-भवनों में॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर चूनकर, मन्मथ मान विदारन को।<br>भेंट करूँ अजित प्रभु आगे, काम-व्यथा निवारन को॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग मिट जावे मेरा, प्रभु पद शीश झुकाया हूँ॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>मणिमय दीप प्रज्वलित कीना, मोहान्धकार नसाने को।<br>केवलज्ञान प्रकाश मिले प्रभु, निज स्वभाव प्रगटाने को॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित महके, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म की दाहन खातिर, अजित शरण में आया है॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>उत्तम श्रीफल मधुर मनोहर, अमृत रस भरपूर भरा।<br>मोक्ष-महाफल पावन कारन, प्रभु चरणों में आन धरा॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>जल चन्दन अक्षत पुष्प सुहावन, दीप धूप फल अर्घ्य करूँ।<br>अजितनाथ प्रभु के चरणों में, बारम्बार प्रणाम करूँ॥<br>ॐ ह्रीं श्री अजितनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय अजितनाथ स्वामी नमो, गज-लांछन शुभ अंग।<br>भव-भव के संताप हर, रंगो ज्ञान के रंग॥"
+        },
+        {
+            "hindi": "जय जितशत्रु भूप कुल-दीपक, जय विजया माता के प्राण।<br>कोटि सूर्य सम तेज आपका, सुर-नर करते गुण-गान॥<br>सम्मेद शिखर से मोक्ष सिधारे, अजर-अमर पद पाया है।<br>जो जन तुमको ध्याते स्वामी, तिनका बेड़ा पार लगाया है॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अजितनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "sambhavnath-puja": {
+    "id": "sambhavnath-puja",
+    "category": "puja",
+    "title": "श्री संभवनाथ जिन पूजन",
+    "subtitle": "तृतीय तीर्थंकर संभवनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>श्रावस्ती नगरी भली, जितारी कुल-चन्द्र।<br>सेना माता के सुवन, संभव जिन सुख-कन्द॥<br>अश्व चिन्ह जिनवर चरण, शोभित अति छवि पाय।<br>सकल विघ्न विनाशन को, पूजूं शीश नवाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री संभवनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल नीर क्षीरनिधि जैसा, स्वर्ण झार भर लाया हूँ।<br>जन्म मरण दुख दूर करो प्रभु, संभव शरण में आया हूँ॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>शीतल चन्दन केशर युत ले, त्रिभुवन-पति पद चर्चत हूँ।<br>संसार-ताप विनाशक जिनवर, श्रद्धा सुमन समर्पत हूँ॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, प्रभु सम्मुख पुंज लगाऊं।<br>अक्षय सुख अविनाशी पाऊं, भव-भव में न भटकाऊं॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>संभव जिनवर पद में भेंटूँ, पावन मन संसर्जन को॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मोदक खाजा फेनी अमृत, व्यंजन उत्तम लायो हूँ।<br>क्षुधा-वेदना शांत करो प्रभु, तुम ढिग शीश झुकायो हूँ॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहांधकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, यही याचना लाता हूँ॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>कृष्णागुरु की धूप खेवकर, अष्ट कर्म को दग्ध करूँ।<br>परम दिगम्बर पदवी पाकर, आतम-रस भरपूर भरूँ॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>नाना विधि के उत्तम श्रीफल, प्रभु पद में अर्पण करता।<br>मोक्ष-महाफल की आशा से, त्रिभुवन का संकट हरता॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>अष्ट द्रव्य अनमोल मिलाके, पूर्ण अर्घ्य सजाया है।<br>संभवनाथ दयालु प्रभुजी, चरणों में शीश नवाया है॥<br>ॐ ह्रीं श्री संभवनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय संभव जग-तारण स्वामी, अश्व-लक्षणधारी।<br>श्रावस्ती के राज-दुलारे, भव-भय-हारी॥<br>सम्मेद शिखर से शिवपद पहुंचे, जय जय जय जय जिनराया।<br>जो कोई ध्यावे प्रभु तुमको, उसने अक्षय सुख पाया॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री संभवनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "abhinandan-puja": {
+    "id": "abhinandan-puja",
+    "category": "puja",
+    "title": "श्री अभिनंदननाथ जिन पूजन",
+    "subtitle": "चतुर्थ तीर्थंकर अभिनंदननाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>संवर नृप कुल-कमल रवि, माता सिद्धारथ पाय।<br>अभिनंदन जिनवर नमो, वानर चिन्ह सुहाय॥<br>अयोध्या के प्राण-पति, ज्ञान-दिवाकर देव।<br>सकल अमंगल दूर कर, करूँ चरण की सेव॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>गंगा-जमुना नीर पवित्र, कंचन-कलश भराया है।<br>जन्म-जरा-दुख मेटन कारन, प्रभु चरणों में चढ़ाया है॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>संसार-ताप मिटाने खातिर, प्रभु चरणों लिपटाया है॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>मोती जैसे श्वेत अक्षत, पुंज धरे जिन चरणों में।<br>अक्षय पद की प्राप्ति हेत, सुख पाऊं शिव-भवनों में॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>अभिनंदन जिनवर पद भेंटूँ, मनवांछित फल पावन को॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मधुर मनोहर व्यंजन उत्तम, भर थाली ढिग लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>आतम-ज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>अभिनंदन प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय जय अभिनंदन दयाल, वानर चिन्ह सुहावन।<br>अयोध्या नगरी के ईश, जग को कीना पावन॥<br>सम्मेद शिखर तें मुक्ति पाई, पायो सिद्ध अनन्त।<br>हम सब पर करुणा करो, स्वामी श्री भगवन्त॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अभिनंदननाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "suparshvanath-puja": {
+    "id": "suparshvanath-puja",
+    "category": "puja",
+    "title": "श्री सुपार्श्वनाथ जिन पूजन",
+    "subtitle": "सप्तम तीर्थंकर सुपार्श्वनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>सुप्रतिष्ठ नृप के लाल, पृथ्वी माता के सुवन।<br>सुपार्श्व जिनवर नमो, स्वस्तिक चिन्ह सुभगन॥<br>काशी नगरी के धनी, त्रिभुवन के आधार।<br>आह्वानन करि पूजहूँ, मेटो भव-संसार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल जल गंगा की धारा, कंचन-भृंग भराया है।<br>जन्म मरण दुख मेटन कारन, प्रभु चरणों ढरकाया है॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर युत ले, भव-आतप विदारन को।<br>सुपार्श्व प्रभु के चरण चढ़ाऊँ, शीतलता संपादन को॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत अखण्ड सुहावन, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>कमल गुलाब चमेली पुष्प, काम-बाण विध्वंसन को।<br>सुपार्श्व जिन के चरण चढ़ाऊँ, आतम-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मधुर भर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप प्रज्वलित कीना, मोहान्धकार विनाशन को।<br>ज्ञान-ज्योति प्रगटाओ स्वामी, निज-स्वरूप अवभासन को॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित महके, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म की दाहन खातिर, सुपार्श्व शरण में आया है॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>उत्तम फल अमृत रस पूरित, प्रभु चरणों में आन धरा।<br>मोक्ष-महाफल दीजे स्वामी, संकट हर लो विपुल भरा॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>वसु विधि द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>सुपार्श्वनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय सुपार्श्व प्रभु तारण स्वामी, स्वस्तिक चिन्ह ललाट।<br>वाराणसी के राज-दुलारे, खोल दिए शिव-बाट॥<br>सम्मेद शिखर से मुक्ति पाई, नमो नमो जिनराय।<br>जो कोई पूजे भाव से, सब संकट मिट जाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री सुपार्श्वनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "shreyansnath-puja": {
+    "id": "shreyansnath-puja",
+    "category": "puja",
+    "title": "श्री श्रेयांसनाथ जिन पूजन",
+    "subtitle": "एकादश तीर्थंकर श्रेयांसनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>विष्णु भूप के सुवन भये, विष्णुप्रिया के लाल।<br>श्रेयांसनाथ जिनवर नमो, खड्गी चिन्ह विशाल॥<br>सिंहपुरी के ईश प्रभु, त्रिभुवन-तारणहार।<br>अष्टम वसुधा प्राप्ति हित, वन्दन बारम्बार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>क्षीरोदधि सम निर्मल जल ले, कंचन-झारी भर लाया।<br>जन्म-जरा-मृत्यु हरने को, श्रेयांस प्रभु पद ध्याया॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>भव-आतप सब दूर करो प्रभु, चरण-कमल लिपटाया है॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>श्रेयांस जिन के चरण चढ़ाऊँ, आतम-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मधुर भर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>केवलज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>श्रेयांसनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय श्रेयांस दयाल प्रभु, गेंडा चिन्ह सुहाय।<br>सिंहपुरी के राज-पति, भक्तन कष्ट नशाय॥<br>सम्मेद शिखर से शिवपद पहुंचे, जय जय जय जय जिनराया।<br>जो कोई ध्यावे प्रभु तुमको, उसने अक्षय सुख पाया॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री श्रेयांसनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "dharmanath-puja": {
+    "id": "dharmanath-puja",
+    "category": "puja",
+    "title": "श्री धर्मनाथ जिन पूजन",
+    "subtitle": "पंचदश तीर्थंकर धर्मनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>भानु भूप के कुल-तिलक, सुव्रता माता के लाल।<br>धर्मनाथ जिनवर नमो, वज्र-चिन्ह दीपाल॥<br>रतनपुरी के प्राण-पति, धर्म-धुरंधर देव।<br>भव-सागर से पार कर, करूँ चरण की सेव॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री धर्मनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल नीर क्षीरनिधि जैसा, स्वर्ण झार भर लाया हूँ।<br>जन्म मरण दुख दूर करो प्रभु, धर्म शरण में आया हूँ॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>शीतल चन्दन केशर युत ले, त्रिभुवन-पति पद चर्चत हूँ।<br>संसार-ताप विनाशक जिनवर, श्रद्धा सुमन समर्पत हूँ॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, प्रभु सम्मुख पुंज लगाऊं।<br>अक्षय सुख अविनाशी पाऊं, भव-भव में न भटकाऊं॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>धर्मनाथ जिनवर पद भेंटूँ, पावन मन संसर्जन को॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मोदक खाजा फेनी अमृत, व्यंजन उत्तम लायो हूँ।<br>क्षुधा-वेदना शांत करो प्रभु, तुम ढिग शीश झुकायो हूँ॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहांधकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, यही याचना लाता हूँ॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>कृष्णागुरु की धूप खेवकर, अष्ट कर्म को दग्ध करूँ।<br>परम दिगम्बर पदवी पाकर, आतम-रस भरपूर भरूँ॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>नाना विधि के उत्तम श्रीफल, प्रभु पद में अर्पण करता।<br>मोक्ष-महाफल की आशा से, त्रिभुवन का संकट हरता॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>अष्ट द्रव्य अनमोल मिलाके, पूर्ण अर्घ्य सजाया है।<br>धर्मनाथ दयालु प्रभुजी, चरणों में शीश नवाया है॥<br>ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय धर्मनाथ दयाल प्रभु, वज्र चिन्ह छवि पाय।<br>रतनपुरी के राज-पति, भक्तन कष्ट नशाय॥<br>सम्मेद शिखर से मुक्ति पाई, नमो नमो जिनराज।<br>भव-सागर से पार लगाओ, पूरो आतम-काज॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री धर्मनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "arahnath-puja": {
+    "id": "arahnath-puja",
+    "category": "puja",
+    "title": "श्री अरहनाथ जिन पूजन",
+    "subtitle": "अष्टादश तीर्थंकर अरहनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>सुदर्शन नृप के सुवन, मित्रसेना के प्राण।<br>अरहनाथ जिनवर नमो, मत्स्य-चिन्ह कल्यान॥<br>हस्तिनापुर के ईश प्रभु, चक्रवर्ती तीर्थेश।<br>आह्वानन करि पूजहूँ, काटो सकल कलेश॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अरहनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>गंगा-जमुना नीर पवित्र, कंचन-कलश भराया है।<br>जन्म-जरा-दुख मेटन कारन, प्रभु चरणों में चढ़ाया है॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>संसार-ताप मिटाने खातिर, प्रभु चरणों लिपटाया है॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>मोती जैसे श्वेत अक्षत, पुंज धरे जिन चरणों में।<br>अक्षय पद की प्राप्ति हेत, सुख पाऊं शिव-भवनों में॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>अरहनाथ जिनवर पद भेंटूँ, मनवांछित फल पावन को॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मधुर मनोहर व्यंजन उत्तम, भर थाली ढिग लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>आतम-ज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>अरहनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री अरहनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय अरहनाथ जिनवर नमो, हस्तिनापुर के ईश।<br>काम-क्रोध मद लोभ हर, चरण नवाऊँ शीश॥<br>सम्मेद शिखर से मुक्ति पाई, पाए सिद्ध अनन्त।<br>हम सब पर करुणा करो, स्वामी श्री भगवन्त॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री अरहनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "mallinath-puja": {
+    "id": "mallinath-puja",
+    "category": "puja",
+    "title": "श्री मल्लिनाथ जिन पूजन",
+    "subtitle": "एकोनविंशति तीर्थंकर मल्लिनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>कुम्भ नृपति के लाल, प्रभावती माता के सुवन।<br>मल्लिनाथ जिनवर नमो, कलश-चिन्ह सुभगन॥<br>मिथिला नगरी के धनी, त्रिभुवन के आधार।<br>आह्वानन करि पूजहूँ, मेटो भव-संसार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री मल्लिनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल जल गंगा की धारा, कंचन-भृंग भराया है।<br>जन्म मरण दुख मेटन कारन, प्रभु चरणों ढरकाया है॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर युत ले, भव-आतप विदारन को।<br>मल्लिनाथ प्रभु चरण चढ़ाऊँ, शीतलता संपादन को॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत अखण्ड सुहावन, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>कमल गुलाब चमेली पुष्प, काम-बाण विध्वंसन को।<br>मल्लिनाथ जिन के चरण चढ़ाऊँ, आतम-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मधुर भर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप प्रज्वलित कीना, मोहान्धकार विनाशन को।<br>ज्ञान-ज्योति प्रगटाओ स्वामी, निज-स्वरूप अवभासन को॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित महके, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म की दाहन खातिर, मल्लिनाथ शरण में आया है॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>उत्तम फल अमृत रस पूरित, प्रभु चरणों में आन धरा।<br>मोक्ष-महाफल दीजे स्वामी, संकट हर लो विपुल भरा॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>वसु विधि द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>मल्लिनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय मल्लिनाथ जग-तारक स्वामी, कलश-लक्षणधारी।<br>मिथिला नगरी के राज-दुलारे, भव-भय-हारी॥<br>सम्मेद शिखर से शिवपद पहुंचे, जय जय जय जय जिनराया।<br>जो कोई ध्यावे प्रभु तुमको, उसने अक्षय सुख पाया॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री मल्लिनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "naminath-puja": {
+    "id": "naminath-puja",
+    "category": "puja",
+    "title": "श्री नमिनाथ जिन पूजन",
+    "subtitle": "एकविंशति तीर्थंकर नमिनाथ अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>विजय भूप कुल-मुकुट मणि, वप्रा माता के लाल।<br>नमिनाथ जिनवर नमो, नीलकमल दीपाल॥<br>मिथिला नगरी के प्राण-पति, शांत-मूर्ति सुख-कन्द।<br>अष्टम वसुधा प्राप्ति हित, पूजूं आनंद-कन्द॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री नमिनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>क्षीरोदधि सम निर्मल जल ले, कंचन-झारी भर लाया।<br>जन्म-जरा-मृत्यु हरने को, नमिनाथ प्रभु पद ध्याया॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>भव-आतप सब दूर करो प्रभु, चरण-कमल लिपटाया है॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>नमिनाथ जिन के चरण चढ़ाऊँ, आतम-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मधुर भर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>केवलज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>नमिनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री नमिनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय नमिनाथ दयाल प्रभु, नीलकमल चिन्ह सुहाय।<br>मिथिला नगरी के ईश, भक्तन कष्ट नशाय॥<br>सम्मेद शिखर से शिवपद पहुंचे, जय जय जय जय जिनराया।<br>जो कोई ध्यावे प्रभु तुमको, उसने अक्षय सुख पाया॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री नमिनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "bhaktamar-puja": {
+    "id": "bhaktamar-puja",
+    "category": "puja",
+    "title": "श्री भक्तामर पूजा",
+    "subtitle": "आचार्य मानतुंग कृत भक्तामर आधारित अष्टद्रव्य पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>भक्तामर प्रणत-मौलमणि, प्रभा-प्रद्योतक देव।<br>आदिनाथ जिनवर नमो, करूँ चरण की सेव॥<br>मानतुंग आचार्य वर, कीनी स्तुति उदार।<br>बंधन काटे अड़तालीस, पायो सुख अपार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री भक्तामर-महिमामंडित-आदिनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री भक्तामर-महिमामंडित-आदिनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री भक्तामर-महिमामंडित-आदिनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल नीर सुगंधित शीतल, कंचन-भृंग भराया।<br>जन्म जरा दुख मेटन कारन, भक्तामर गुण गाया॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर युत ले, भव-संताप नसाने को।<br>आदिनाथ के चरण चढ़ाऊँ, शीतलता प्रगटाने को॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत अक्षत-पद हित, पुंज धरूँ प्रभु पास।<br>भक्तामर महिमा से पूरन, होवे मेरी आस॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>आदि जिनेश्वर के ढिग भेंटूँ, शुद्ध आत्म संपादन को॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-वेदना शांत करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, भक्तामर गुण गाता हूँ॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>भक्तामर महिमामय प्रभु को, कोटि प्रणाम मैं करता हूँ॥<br>ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-पूजकाय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय आदिनाथ जिनवर नमो, भक्तामर के ईश।<br>मानतुंग मुनिराज सम, हमहू नावें शीश॥<br>ताले टूटे बन्धन छूटे, संकट सब कट जाये।<br>जो भक्तामर पाठ करे, सो सुख सम्पत्ति पाये॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री आदिनाथजिनेन्द्राय भक्तामर-जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "kalyanmandir-puja": {
+    "id": "kalyanmandir-puja",
+    "category": "puja",
+    "title": "श्री कल्याणमन्दिर पूजा",
+    "subtitle": "आचार्य कुमुदचन्द्र कृत कल्याणमन्दिर आधारित पार्श्वनाथ पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>कल्याणमन्दिर-मुदार-मवद्यभेदि, भीताभयप्रदमुदार-गुणाभिरामम्।<br>संसार-सिन्धु-पततोपतमान-जीवान्, वन्दे सदा कमठ-मर्दन-पार्श्वनाथम्॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री कल्याणमन्दिर-स्तोत्र-प्रतिपादित-पार्श्वनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री कल्याणमन्दिर-स्तोत्र-प्रतिपादित-पार्श्वनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री कल्याणमन्दिर-स्तोत्र-प्रतिपादित-पार्श्वनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>कल्याण-कुम्भ भर नीर विमल, प्रभु पार्श्व चरण ढरकाऊँ।<br>भव-भव के जन्म-मरण संकट, पल माहिं दूर नसाऊँ॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर युत ले, भव-आतप शांत करूँ।<br>हे पार्श्वनाथ प्रभु तुम चरणों में, शीश झुकाय धरूँ॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>अक्षत उज्ज्वल पुंज लगाऊँ, अक्षय पद की चाह लिए।<br>कल्याणमन्दिर स्तुति करूँ मैं, आतम-रस भरपूर पिए॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>पार्श्व जिनेश्वर के पद भेंटूँ, आत्म-विशुद्धि संपादन को॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, कल्याणमन्दिर गाता हूँ॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, पार्श्व का ध्यान लगाया है॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>कल्याणमन्दिर पार्श्व प्रभु को, कोटि प्रणाम मैं करता हूँ॥<br>ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय पार्श्वनाथ संकट-हरण, कमठ-मान-मर्दन दयाल।<br>कुमुदचन्द्र मुनिराज कृत, स्तुति करे निहाल॥<br>चौवालिस पद कल्याणमय, जो कोई नर-नारी गाये।<br>मनवांछित सब फल मिले, सुख-सम्पत्ति शिव पाये॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री कल्याणमन्दिर-पार्श्वनाथजिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "rishi-mandal-puja": {
+    "id": "rishi-mandal-puja",
+    "category": "puja",
+    "title": "श्री ऋषिमण्डल पूजा",
+    "subtitle": "सर्व ऋद्धि-सिद्धिधारी महामुनि एवं मन्त्रमय ऋषिमण्डल पूजन",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>ऋषिमण्डल मन्त्रेश्वरं, सकल विघ्न-विनाशनम्।<br>अष्ट-ऋद्धि-समायुक्तं, वन्दे मुनिवर-मण्डलम्॥<br>गौतम आदि गणधर नमो, चारण-ऋद्धि मुनीश।<br>ऋषिमण्डल आराधि कर, नाऊँ चरणन शीश॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री ऋषिमण्डल-यन्त्रार्पित-सर्वर्षि-मुनीन्द्रेभ्यो नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री ऋषिमण्डल-यन्त्रार्पित-सर्वर्षि-मुनीन्द्रेभ्यो नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री ऋषिमण्डल-यन्त्रार्पित-सर्वर्षि-मुनीन्द्रेभ्यो नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल नीर सुगंधित शीतल, ऋषिमण्डल पद धारूँ।<br>जन्म जरा भय ताप मिटे सब, भव-वारिधि को पारूँ॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, ऋषियों के पद चर्चूँ।<br>भव-संताप निवारन कारन, श्रद्धा सुमन समर्पूँ॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>अमल अक्षत पुंज लगाऊँ, अक्षय पद की आशा में।<br>ऋषिमण्डल का ध्यान धरूँ मैं, परम शांति अभिलाषा में॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>ऋषिवरों के चरण चढ़ाऊँ, आत्म-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मोदक घेवर अमृत व्यंजन, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>मणिमय दीप प्रज्वलित कीना, मोहान्धकार मिटाने को।<br>केवलज्ञान प्रकाश मिले प्रभु, निज-स्वरूप प्रगटाने को॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित महके, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, ऋषियों का ध्यान लगाया है॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>वसु विधि द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>ऋषिमण्डल मन्त्रेश्वर को, कोटि प्रणाम मैं करता हूँ॥<br>ॐ ह्रीं श्री ऋषिमण्डल-मन्त्राधिष्ठित-सर्वमुनीन्द्रेभ्यो अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय ऋषिमण्डल यन्त्र वर, जय अड़सठ अक्षर मन्त्र।<br>भूत-प्रेत-ग्रह-भय टरे, कटे विषैले जन्त्र॥<br>अष्ट-ऋद्धि चौंसठ गुणों, मण्डित मुनिवर वृन्द।<br>तिनके चरण-सरोज में, वन्दन बारम्बार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री ऋषिमण्डल-सर्वमुनीन्द्रेभ्यो जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "seemandhar-puja": {
+    "id": "seemandhar-puja",
+    "category": "puja",
+    "title": "श्री सीमंधर स्वामी पूजा",
+    "subtitle": "विदेह क्षेत्र के वर्तमान विहरमान तीर्थंकर सीमंधर स्वामी पूजन",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>पुष्पकलावती देश में, पुण्डरीकिणी पुर-धाम।<br>श्रेयांस नृप सत्यकी सुवन, सीमंधर जिन नाम॥<br>विदेह क्षेत्र में विहरते, वर्तमान जिनराय।<br>अष्टम वसुधा प्राप्ति हित, पूजूं शीश नवाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री सीमंधर-स्वामी-जिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री सीमंधर-स्वामी-जिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री सीमंधर-स्वामी-जिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>गंगा-जमुना नीर पवित्र, कंचन-कलश भराया है।<br>जन्म-जरा-दुख मेटन कारन, सीमंधर पद ध्याया है॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>संसार-ताप मिटाने खातिर, प्रभु चरणों लिपटाया है॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>मोती जैसे श्वेत अक्षत, पुंज धरे जिन चरणों में।<br>अक्षय पद की प्राप्ति हेत, सुख पाऊं शिव-भवनों में॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>सीमंधर जिनवर पद भेंटूँ, मनवांछित फल पावन को॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मधुर मनोहर व्यंजन उत्तम, भर थाली ढिग लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>आतम-ज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>सीमंधर प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय सीमंधर देव जग-तारक, वर्तमान जिनराय।<br>विदेह क्षेत्र के समवशरण में, दिव्य-ध्वनि सुखदाय॥<br>कुन्दकुन्द मुनिराज ने जाकर, दर्शन पाए साक्षात।<br>हमहूं शरण तिहारी आए, काटो भव-उत्पात॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री सीमंधरस्वामि-जिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "kundkund-acharya-puja": {
+    "id": "kundkund-acharya-puja",
+    "category": "puja",
+    "title": "श्री कुन्दकुन्द आचार्य पूजा",
+    "subtitle": "कलिकालसर्वज्ञ श्रीमद् भगवत्कुन्दकुन्दाचार्य देव पूजन एवं जयमाला",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>श्रीमद् भगवत्कुन्दकुन्दाचार्य, कलिकालसर्वज्ञ महन्त।<br>समयसार-प्रवचनसार-दाता, नमो नमो भगवन्त॥<br>विदेह गमन करि जिनवर वन्दे, सीमंधर के पाय।<br>आतम-रस बरसावन हारे, पूजूं शीश नवाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री कलिकालसर्वज्ञ-कुन्दकुन्दाचार्याय नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री कलिकालसर्वज्ञ-कुन्दकुन्दाचार्याय नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री कलिकालसर्वज्ञ-कुन्दकुन्दाचार्याय नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल नीर सुगंधित शीतल, कुन्दकुन्द गुरु चरण चढ़ाऊँ।<br>जन्म जरा भय रोग नशाकर, आतम-रस में डूब नहाऊँ॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, गुरु चरणों में चर्चत हूँ।<br>संसार-ताप निवारन कारन, श्रद्धा-भक्ति समर्पत हूँ॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ गुरु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>कुन्दकुन्द गुरु के पद भेंटूँ, शुद्ध आत्म संपादन को॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>समयसार का ज्ञान मिले गुरु, यही प्रार्थना लाता हूँ॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, गुरु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>कुन्दकुन्द मुनिराज युगल-पद, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री कुन्दकुन्दाचार्याय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय कुन्दकुन्द मुनिराज महान, समयसार के गायक।<br>पंचास्तिकाय नियमसार, ग्रंथन के नायक॥<br>पद्मनंदि मुनिराज नमो, कलिकाल-दिवाकर।<br>शुद्धातम का मार्ग दिखाया, जय जय सुख-आकर॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री कुन्दकुन्दाचार्याय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "ashtakarma-dahan-puja": {
+    "id": "ashtakarma-dahan-puja",
+    "category": "puja",
+    "title": "श्री अष्टकर्म निवारण पूजा",
+    "subtitle": "ज्ञानावरणी आदि आठों कर्मों के क्षय एवं मुक्ति प्राप्ति हेतु अष्टकर्म पूजा",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>ज्ञानावरण दर्शनावरण, वेदनीय मोहनीय जान।<br>आयु नाम अरु गोत्र अंतराय, अष्ट कर्म बलवान॥<br>इन कर्मों के दहन हित, जिनवर पद में आय।<br>अष्टद्रव्य ले पूजहूँ, मुक्ति महासुख पाय॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं अष्टकर्म-दहन-समर्थ-श्रीजिनेन्द्रेभ्यो नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं अष्टकर्म-दहन-समर्थ-श्रीजिनेन्द्रेभ्यो नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं अष्टकर्म-दहन-समर्थ-श्रीजिनेन्द्रेभ्यो नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल - ज्ञानावरण कर्म क्षय)</b><br>निर्मल नीर सुगंधित शीतल, जिनवर चरण चढ़ाऊँ।<br>ज्ञानावरण कर्म का क्षय कर, केवलज्ञान प्रगटाऊँ॥<br>ॐ ह्रीं ज्ञानावरण-कर्म-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन - दर्शनावरण कर्म क्षय)</b><br>मलयज चन्दन केशर युत ले, भव-संताप मिटाऊँ।<br>दर्शनावरण कर्म विनाशी, केवलदर्शन पाऊँ॥<br>ॐ ह्रीं दर्शनावरण-कर्म-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत - साता-असाता वेदनीय क्षय)</b><br>उज्ज्वल अक्षत पुंज लगाऊँ, अव्याबाध पद पाऊँ।<br>वेदनीय कर्म का क्षय कर, आतम-सुख में समाऊँ॥<br>ॐ ह्रीं वेदनीय-कर्म-विनाशनाय अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प - मोहनीय कर्म क्षय)</b><br>सुरभित पुष्प मनोहर सुन्दर, काम-बाण विध्वंसन को।<br>मोहनीय कर्म का नाश करूँ मैं, क्षायिक सम्यक्त्व संपादन को॥<br>ॐ ह्रीं मोहनीय-कर्म-विनाशनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य - आयु कर्म क्षय)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया।<br>आयु कर्म का नाश करूँ प्रभु, अवगाहन पद पाया॥<br>ॐ ह्रीं आयु-कर्म-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप - नाम कर्म क्षय)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>नाम कर्म का नाश करूँ प्रभु, सूक्ष्म पदवी पाता हूँ॥<br>ॐ ह्रीं नाम-कर्म-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप - गोत्र कर्म क्षय)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>गोत्र कर्म का नाश करूँ प्रभु, अगुरुलघु पद पाया है॥<br>ॐ ह्रीं गोत्र-कर्म-विनाशनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल - अंतराय कर्म क्षय)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>अंतराय कर्म का नाश करूँ, अनंत वीर्य संपादन है॥<br>ॐ ह्रीं अंतराय-कर्म-विनाशनाय फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य - सकल अष्टकर्म दहन)</b><br>आठों द्रव्य मिलाय मनोहर, पूर्ण अर्घ्य सजाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, सिद्ध-पदवी को पाया है॥<br>ॐ ह्रीं अष्टकर्म-विनाशनाय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय जिनवर अष्टकर्म-विनाशी, सिद्ध अनन्त विशुद्ध।<br>निरावरण निष्पाप निरंजन, आठ गुणों युत बुद्ध॥<br>हमहू अष्टकर्म को जीतकर, शिव-रमणी को पावें।<br>जन्म मरण दुख दूर बहाकर, सिद्धालय में जावें॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं अष्टकर्म-रहित-सिद्धपरमेष्ठिभ्यो जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "padmavati-mata-puja": {
+    "id": "padmavati-mata-puja",
+    "category": "puja",
+    "title": "श्री पद्मावती माता पूजा",
+    "subtitle": "भगवान पार्श्वनाथ शासन देवी पद्मावती आराधना एवं सुख-शांति पूजा",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>पार्श्वनाथ की शासन देवी, पद्मावती महारानी।<br>कमठ-उपसर्ग निवारन कीनी, संकट-हरन सुहानी॥<br>रत्न-मुकुट कुण्डल छवि सोहे, कर त्रिशूल वर धारे।<br>पद्मावती माता पद पूजूं, भक्तन कष्ट निवारे॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री पार्श्वनाथ-शासन-देव्यै पद्मावती-मातृकायै नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री पार्श्वनाथ-शासन-देव्यै पद्मावती-मातृकायै नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री पार्श्वनाथ-शासन-देव्यै पद्मावती-मातृकायै नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>कंचन भृंग भर नीर सुगंधित, माता के पद धारूँ।<br>जन्म जरा भय रोग नशावे, जय पद्मावती पुकारूँ॥<br>ॐ ह्रीं श्री पद्मावती देव्यै जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, माता के पद चर्चत हूँ।<br>संसार-ताप निवारन कारन, श्रद्धा-भक्ति समर्पत हूँ॥<br>ॐ ह्रीं श्री पद्मावती देव्यै संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ शुभ आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री पद्मावती देव्यै अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>लाल-गुलाब चमेली पुष्प, काम-बाण विध्वंसन को।<br>पद्मावती के चरण चढ़ाऊँ, शुद्ध भाव संपादन को॥<br>ॐ ह्रीं श्री पद्मावती देव्यै कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>मोदक पेड़ा खीर मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो माँ, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री पद्मावती देव्यै क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>धर्म-ध्यान में बुद्धि लगाओ, सुख-सम्पत्ति बरसाने को॥<br>ॐ ह्रीं श्री पद्मावती देव्यै मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, माता का ध्यान लगाया है॥<br>ॐ ह्रीं श्री पद्मावती देव्यै अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, माता चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री पद्मावती देव्यै मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>पद्मावती देवी के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री पद्मावती देव्यै अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय पद्मावती माता सुखदानी, पार्श्वनाथ की चेली।<br>संकट-मोचन विघ्न-विनाशन, धर्म-धुरंधर बेली॥<br>जो जन तुमको ध्यावे माता, तिनका संकट टारे।<br>रिद्धि-सिद्धि-सुख-सम्पत्ति देकर, सब दुख-द्वन्द्व निवारे॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री पद्मावती देव्यै जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "samavasharan-puja": {
+    "id": "samavasharan-puja",
+    "category": "puja",
+    "title": "श्री समवशरण पूजा",
+    "subtitle": "तीर्थंकर प्रभु के दिव्य १२ सभाओं से युक्त समवशरण पूजन",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>इन्द्र रचित सुरम्य अति, समवशरण सुख-धाम।<br>द्वादश सभा विराजती, जहाँ जिनवर अभिराम॥<br>सिंहपीठ पर चार अंगुल, अधर प्रभु विराजें।<br>दिव्य-ध्वनि खिरती जहाँ, समवशरण सो साजें॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री द्वादश-सभा-समन्वित-समवशरण-स्थिताय जिनेन्द्राय नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री द्वादश-सभा-समन्वित-समवशरण-स्थिताय जिनेन्द्राय नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री द्वादश-सभा-समन्वित-समवशरण-स्थिताय जिनेन्द्राय नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल जल गंगा की धारा, कंचन-भृंग भराया है।<br>समवशरण में जिनवर पूजूँ, भव-भय दूर नशाया है॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, प्रभु चरणों में चर्चत हूँ।<br>संसार-ताप निवारन कारन, श्रद्धा-भक्ति समर्पत हूँ॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>समवशरण में प्रभु पद भेंटूँ, शुद्ध आत्म संपादन को॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, समवशरण गुण गाता हूँ॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, समवशरण मन भाया है॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>समवशरण स्थित जिनवर को, कोटि प्रणाम मैं करता हूँ॥<br>ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय समवशरण सुरम्य अति, जय जय जिनवर देव।<br>सुर-नर-खग-पशु सब मिलें, करें चरण की सेव॥<br>मान-स्तम्भ देखत ही प्राणी, मान गलित हो जाता।<br>कोटि भवों के पातक कटते, आतम-वैभव पाता॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री समवशरण-स्थित-जिनेन्द्राय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "nirvan-kalyanak-ladu-puja": {
+    "id": "nirvan-kalyanak-ladu-puja",
+    "category": "puja",
+    "title": "श्री निर्वाण कल्याणक (मोक्ष लाडू) पूजा",
+    "subtitle": "भगवान महावीर एवं तीर्थंकरों के निर्वाण कल्याणक पर मोक्ष लाडू समर्पण पूजन",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>कार्तिक कृष्णा अमावस्या, पावापुर अभिराम।<br>महावीर स्वामी लहे, मुक्ति महासुख-धाम॥<br>दीप जलाये सुर-नरों, कीनो जय-जयकार।<br>लाडू समर्पण करूँ मैं, पार करो संसार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री महावीर-निर्वाण-कल्याणक-प्राप्ताय जिनेन्द्राय नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री महावीर-निर्वाण-कल्याणक-प्राप्ताय जिनेन्द्राय नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री महावीर-निर्वाण-कल्याणक-प्राप्ताय जिनेन्द्राय नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>क्षीरोदधि सम निर्मल जल ले, कंचन-झारी भर लाया।<br>जन्म-जरा-मृत्यु हरने को, महावीर पद ध्याया॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>चन्दन केशर कस्तूरी युत, घिसकर थाल सजाया है।<br>भव-आतप सब दूर करो प्रभु, चरण-कमल लिपटाया है॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>वीर जिनेश्वर के चरण चढ़ाऊँ, आतम-शुद्धि संपादन को॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य - मोक्ष लाडू)</b><br>मोतीचूर मोदक उत्तम भर, लाडू थाल सजाया है।<br>निर्वाण महोत्सव पर प्रभुवर, मोक्ष लाडू चढ़ाया है॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये मोक्षलाडु-नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>घृत-दीपक की ज्योति प्रज्वलित, मोहान्धकार मिटाने को।<br>केवलज्ञान प्रकाश करो प्रभु, निज-वैभव प्रगटाने को॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>उत्तम धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, प्रभु का ध्यान लगाया है॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-प्राप्तये मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, महा अर्घ्य सजाया है।<br>महावीर स्वामी के चरणों में, मोक्ष लाडू चढ़ाया है॥<br>ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-महा-अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय महावीर दयाल प्रभु, पावापुर निर्वाण।<br>गौतम गणधर को हुआ, केवलज्ञान महान॥<br>दीपावली महापर्व पर, घर-घर दीप जलायें।<br>महावीर प्रभु के चरणों में, कोटि प्रणाम नवायें॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री महावीरजिनेन्द्राय निर्वाणकल्याणक-जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "jinasahasranam-puja": {
+    "id": "jinasahasranam-puja",
+    "category": "puja",
+    "title": "श्री जिनसहस्रनाम पूजा",
+    "subtitle": "आचार्य जिनसेन विरचित जिनेंद्र भगवान के १००८ पावन नामों की अष्टद्रव्य पूजा",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>सहस्र-नाम जिनदेव के, जिनसेन मुनि गाय।<br>एक-एक नामावली, पाप-पुंज नशाय॥<br>श्री-स्वयम्भू-प्रभु-अनन्त, गुण-अनन्त भण्डार।<br>सहस्रनाम जिनवर नमो, पूजूं श्रद्धा धार॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री जिनसहस्रनाम-प्रतिपादित-जिनेन्द्रेभ्यो नमः! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री जिनसहस्रनाम-प्रतिपादित-जिनेन्द्रेभ्यो नमः! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री जिनसहस्रनाम-प्रतिपादित-जिनेन्द्रेभ्यो नमः! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल जल गंगा की धारा, कंचन-भृंग भराया है।<br>सहस्रनाम जिनवर पूजूँ, भव-भय दूर नशाया है॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, प्रभु चरणों में चर्चत हूँ।<br>संसार-ताप निवारन कारन, श्रद्धा-भक्ति समर्पत हूँ॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>सहस्रनाम जिनवर पद भेंटूँ, शुद्ध आत्म संपादन को॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, सहस्रनाम गुण गाता हूँ॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, सहस्रनाम मन भाया है॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>सहस्रनाम जिनवर प्रभु को, कोटि प्रणाम मैं करता हूँ॥<br>ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय जिनवर सहस्रनाम-धारी, परम ब्रह्म अविनाशी।<br>अनादि-अनन्त शुद्ध चिद्रूप, त्रिभुवन-पति सुखराशी॥<br>एक सहस्र आठ पावन पद, जो जन नित्य उचारे।<br>तिनके पाप-पंक सब धुलते, शिव-मन्दिर पद धारे॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री जिनसहस्रनाम-जिनेन्द्रेभ्यो जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+},
+
+  "shanti-puja": {
+    "id": "shanti-puja",
+    "category": "puja",
+    "title": "श्री शांतिनाथ महाशांति पूजा",
+    "subtitle": "सर्व विघ्न-विनाशक एवं शांति प्रदायक शांतिनाथ जिनेंद्र पूजन",
+    "type": "structured",
+    "verses": [
+        {
+            "hindi": "<div class=\"section-title\">॥ स्थापना ॥</div><br><b>(दोहा)</b><br>शांतिनाथ शांति-कर, सब जग-मंगल-मूल।<br>हस्तिनापुर के भूप-मणि, हर लो भव की शूल॥<br>मृग-लांछन शोभित चरण, चक्रवर्ती कामदेव।<br>सर्व उपद्रव शांत हित, करूँ चरण की सेव॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री शांतिनाथजिनेन्द्र! अत्र अवतर! अवतर! संवौषट्! (आह्वाननम्)<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्र! अत्र तिष्ठ! तिष्ठ! ठ:! ठ:! (स्थापनम्)<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्र! अत्र मम सन्निहितो भव भव वषट्! (सन्निधिकरणम्)"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ अष्ट द्रव्य पूजा ॥</div>"
+        },
+        {
+            "hindi": "<b>(जल)</b><br>निर्मल जल गंगा की धारा, कंचन-भृंग भराया है।<br>शांतिनाथ जिनवर पद पूजूँ, शांति-सुधा बरसाया है॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय जन्म-जरा-मृत्यु-विनाशनाय जलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(चन्दन)</b><br>मलयज चन्दन केशर घिसकर, प्रभु चरणों में चर्चत हूँ।<br>संसार-ताप निवारन कारन, श्रद्धा-भक्ति समर्पत हूँ॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय संसारताप-विनाशनाय चन्दनं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अक्षत)</b><br>उज्ज्वल अक्षत थाल सजाकर, पुंज धरूँ प्रभु आगे।<br>अक्षय पद पाऊँ सुखदाता, मोह-निशा सब भागे॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय अक्षयपद-प्राप्तये अक्षतान् निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(पुष्प)</b><br>सुरभित कुसुम मनोहर लेकर, काम-बाण विध्वंसन को।<br>शांतिनाथ पद भेंटूँ प्रभुवर, शुद्ध आत्म संपादन को॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय कामबाण-विध्वंसनाय पुष्पं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(नैवेद्य)</b><br>षड्रस व्यंजन सरस मनोहर, थाल सजाकर लाया हूँ।<br>क्षुधा-रोग का नाश करो प्रभु, शरण तुम्हारी आया हूँ॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय क्षुधारोग-विनाशनाय नैवेद्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(दीप)</b><br>रत्नदीप की ज्योति जलाकर, मोहान्धकार नसाता हूँ।<br>केवलज्ञान प्रकाश मिले प्रभु, शांति पाठ मैं गाता हूँ॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय मोहान्धकार-विनाशनाय दीपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(धूप)</b><br>दशांग धूप सुगंधित पावन, अग्नि माहिं सुलगाया है।<br>अष्ट कर्म को दग्ध करूँ मैं, शांति शरण में आया है॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(फल)</b><br>श्रीफल आदि मनोहर ऋतुफल, प्रभु चरणों में अर्पण है।<br>मोक्ष-महाफल दीजे स्वामी, यही भक्त का तर्पण है॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<b>(अर्घ्य)</b><br>आठों द्रव्य मिलाय मनोहर, अर्घ्य समर्पण करता हूँ।<br>शांतिनाथ प्रभु के चरणों में, वन्दन कोटि-कोटि करता हूँ॥<br>ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय अनर्घ्यपद-प्राप्तये अर्घ्यं निर्वपामीति स्वाहा।"
+        },
+        {
+            "hindi": "<div class=\"section-title\">॥ जयमाला ॥</div><br><b>(दोहा)</b><br>जय शांतिनाथ शांति-प्रदाता, मृग-लक्षण छवि सोहे।<br>विश्व-शांति के दाता स्वामी, सुर-नर मुनि-मन मोहे॥<br>महामारी दुख व्याधि नशावे, सर्व अमंगल टारे।<br>सम्मेद शिखर से मुक्ति पाई, जय जय जय जयकारे॥"
+        },
+        {
+            "hindi": "ॐ ह्रीं श्री शांतिनाथजिनेन्द्राय सर्वशांतिकराय जयमाला-पूर्णार्घ्यं निर्वपामीति स्वाहा।<br>इत्याशीर्वादः (पुष्पांजलिं क्षिपेत्)"
+        }
+    ]
+}
 };

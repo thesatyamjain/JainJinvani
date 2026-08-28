@@ -4,7 +4,7 @@ export const BhajanData = {
         "id": "ae-malik-tere-bande-hum",
         "category": "bhajan",
         "title": "ऐ मालिक तेरे बंदे हम",
-        "subtitle": "O Lord, We Are Your Servants",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -48,7 +48,7 @@ export const BhajanData = {
         "id": "baba-tere-charno-ki",
         "category": "bhajan",
         "title": "बाबा तेरे चरणों की",
-        "subtitle": "If I Could Get the Dust of Your Feet",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -91,7 +91,7 @@ export const BhajanData = {
         "id": "baje-kundalpur-mein-badhai",
         "category": "bhajan",
         "title": "बजे कुण्डलपुर में बधाई",
-        "subtitle": "Celebration in Kundalpur",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -160,7 +160,7 @@ export const BhajanData = {
         "id": "bhagwan-meri-naiya",
         "category": "bhajan",
         "title": "भगवान मेरी नैया उस पार लगा देना",
-        "subtitle": "Lord, Take My Boat Across",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -207,7 +207,7 @@ export const BhajanData = {
         "id": "chalo-tijara-jaana-hai",
         "category": "bhajan",
         "title": "चलो तिजारा जाना है",
-        "subtitle": "Chalo Tijara Jaana Hai",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -276,7 +276,7 @@ export const BhajanData = {
         "id": "daya-kar-daan-bhakti-ka",
         "category": "bhajan",
         "title": "दया कर दान भक्ति का",
-        "subtitle": "Grant Us the Gift of Devotion",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -315,7 +315,7 @@ export const BhajanData = {
         "id": "guruvar-ke-charno-mein",
         "category": "bhajan",
         "title": "गुरुवर के चरणो में",
-        "subtitle": "At the Feet of the Guru",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -358,7 +358,7 @@ export const BhajanData = {
         "id": "hey-veer-tumhare-dware-par",
         "category": "bhajan",
         "title": "हे वीर तुम्हारे द्वारे पर",
-        "subtitle": "O Veer, At Your Doorstep",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -413,7 +413,7 @@ export const BhajanData = {
         "id": "hum-ko-man-ki-shakti-dena",
         "category": "bhajan",
         "title": "हमको मन की शक्ति देना",
-        "subtitle": "Give Us Inner Strength",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -444,7 +444,7 @@ export const BhajanData = {
         "id": "is-duniya-mein-sabse-sachcha",
         "category": "bhajan",
         "title": "इस दुनिया में सबसे सच्चा",
-        "subtitle": "Is Duniya Mein Sabse Sachcha",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -516,7 +516,7 @@ export const BhajanData = {
         "id": "itni-shakti-hamein-dena-data",
         "category": "bhajan",
         "title": "इतनी शक्ति हमें देना दाता",
-        "subtitle": "Give Us This Strength, O Lord",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -549,7 +549,7 @@ export const BhajanData = {
         "id": "jab-koi-nahi-aata",
         "category": "bhajan",
         "title": "जब कोई नहीं आता मेरे बाबा आते है",
-        "subtitle": "Divine Support in Times of Need",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -596,7 +596,7 @@ export const BhajanData = {
         "id": "jab-se-guru-darsh-mila",
         "category": "bhajan",
         "title": "जब से गुरु दर्श मिला",
-        "subtitle": "Since I Saw the Guru, My Heart Blossomed",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -637,7 +637,7 @@ export const BhajanData = {
         "id": "jai-gomtesh-jai-bahubali",
         "category": "bhajan",
         "title": "जय गोमटेश जय बाहुबली",
-        "subtitle": "Jai Gomtesh Jai Bahubali",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -702,7 +702,7 @@ export const BhajanData = {
         "id": "jai-jinendra-bolie",
         "category": "bhajan",
         "title": "जय जिनेन्द्र बोलिए",
-        "subtitle": "Say Jai Jinendra",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -755,7 +755,7 @@ export const BhajanData = {
         "id": "jain-dharm-ke-heere-moti",
         "category": "bhajan",
         "title": "जैन धर्म के हीरे मोती",
-        "subtitle": "Gems and Pearls of Jain Dharma",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -806,7 +806,7 @@ export const BhajanData = {
         "id": "tu-mane-bhagwan-ek-vardan",
         "category": "bhajan",
         "title": "तू माने भगवान एक वरदान",
-        "subtitle": "O Lord, Grant Me This One Boon",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -838,7 +838,7 @@ export const BhajanData = {
         "id": "maitri-bhav",
         "category": "bhajan",
         "title": "मैत्री भाव (Maitri Bhav)",
-        "subtitle": "Universal Friendship",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -871,7 +871,7 @@ export const BhajanData = {
         "id": "jinvani-amrit-rasat",
         "category": "bhajan",
         "title": "जिनवाणी अमृत रसात",
-        "subtitle": "The Nectar of Jinvani",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -913,7 +913,7 @@ export const BhajanData = {
         "id": "jivan-hai-pani-ki-bund",
         "category": "bhajan",
         "title": "जीवन है पानी की बूँद",
-        "subtitle": "Life is Transitory Like a Drop of Water",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -960,7 +960,7 @@ export const BhajanData = {
         "id": "junagadh-mein-saj-gaye",
         "category": "bhajan",
         "title": "जूनागढ़ में सज गए देखो",
-        "subtitle": "Look at the Decorations in Junagadh",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1007,7 +1007,7 @@ export const BhajanData = {
         "id": "kabhi-veer-ban-ke",
         "category": "bhajan",
         "title": "कभी वीर बनके महावीर बनके",
-        "subtitle": "Come as Veer, Come as Mahavir",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1062,7 +1062,7 @@ export const BhajanData = {
         "id": "kesariya-kesariya",
         "category": "bhajan",
         "title": "केसरिया केसरिया",
-        "subtitle": "Saffron, Saffron (My Heart is Saffron)",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1106,7 +1106,7 @@ export const BhajanData = {
         "id": "madhuban-ke-mandiron-mein",
         "category": "bhajan",
         "title": "मधुबन के मंदिरों में",
-        "subtitle": "In the Temples of Madhuban",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1159,7 +1159,7 @@ export const BhajanData = {
         "id": "mahaveer-tere-hi-naam-se",
         "category": "bhajan",
         "title": "महावीर तेरे ही नाम से",
-        "subtitle": "Mahaveer Tere Hi Naam Se",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1223,7 +1223,7 @@ export const BhajanData = {
         "id": "mantra-namokar-hamein-prano-se-pyara",
         "category": "bhajan",
         "title": "मंत्र णमोकार हमें प्राणों से प्यारा",
-        "subtitle": "The Sacred Mantra Beloved as Life Itself",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1258,7 +1258,7 @@ export const BhajanData = {
         "id": "mera-aapki-kripa-se",
         "category": "bhajan",
         "title": "मेरा आपकी कृपा से",
-        "subtitle": "Everything Happens by Your Grace",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1314,7 +1314,7 @@ export const BhajanData = {
         "id": "mera-rom-rom-harshaya",
         "category": "bhajan",
         "title": "मेरे रोम रोम हर्षाया",
-        "subtitle": "Mera Rom Rom Harshaya",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1433,7 +1433,7 @@ export const BhajanData = {
         "id": "meri-bhavna",
         "category": "bhajan",
         "title": "मेरी भावना",
-        "subtitle": "Meri Bhavna",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1662,7 +1662,7 @@ export const BhajanData = {
         "id": "naam-hai-tera-taran-hara",
         "category": "bhajan",
         "title": "नाम है तेरा तारण हारा",
-        "subtitle": "Your Name is the Savior",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1702,7 +1702,7 @@ export const BhajanData = {
         "id": "o-gurusa-thoro-chelo-banu-mai",
         "category": "bhajan",
         "title": "ओ गुरूसा ..थोरो चेलो बनु मै",
-        "subtitle": "I Want to Be Your Disciple, O Guru",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1741,7 +1741,7 @@ export const BhajanData = {
         "id": "o-jagat-ke-shanti-data",
         "category": "bhajan",
         "title": "ओ जगत के शांति दाता",
-        "subtitle": "O Giver of Peace to the World",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1783,7 +1783,7 @@ export const BhajanData = {
         "id": "palken-hi-palken",
         "category": "bhajan",
         "title": "पलकें ही पलकें हम बिछाएंगे",
-        "subtitle": "Welcoming the Guru with Devotion",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1825,7 +1825,7 @@ export const BhajanData = {
         "id": "phoolon-ka-taron-ka",
         "category": "bhajan",
         "title": "फूलों का तारों का सबका कहना है",
-        "subtitle": "One in a Million is My Guru",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1868,7 +1868,7 @@ export const BhajanData = {
         "id": "rang-ma-rang-ma",
         "category": "bhajan",
         "title": "रंग मा रंग मा रंग मा रे",
-        "subtitle": "Colored in the Lord's Hues",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1908,7 +1908,7 @@ export const BhajanData = {
         "id": "saj-dhaj-kar-jis-din",
         "category": "bhajan",
         "title": "सज धज कर जिस दिन",
-        "subtitle": "The Ultimate Truth of Life",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -1970,7 +1970,7 @@ export const BhajanData = {
         "id": "sare-tirath-dham",
         "category": "bhajan",
         "title": "सारे तीरथ धाम आपके चरणों में",
-        "subtitle": "Sare Tirath Dham Aapke Charnon Mein",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2079,7 +2079,7 @@ export const BhajanData = {
         "id": "subha-savere-le-kar-tera-naam",
         "category": "bhajan",
         "title": "सुबह सवेरे लेकर तेरा नाम प्रभु",
-        "subtitle": "Subha Savere Le Kar Tera Naam Prabhu",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2203,7 +2203,7 @@ export const BhajanData = {
         "id": "tere-paanch-hue-kalyan",
         "category": "bhajan",
         "title": "तेरे पाँच हुए कल्याण प्रभु",
-        "subtitle": "Tere Paanch Hue Kalyan Prabhu",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2272,7 +2272,7 @@ export const BhajanData = {
         "id": "tu-pyar-ka-sagar-hai",
         "category": "bhajan",
         "title": "तु प्यार का सागर है",
-        "subtitle": "You Are the Ocean of Love",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2313,7 +2313,7 @@ export const BhajanData = {
         "id": "tumhi-ho-mata-pita",
         "category": "bhajan",
         "title": "तुम्ही हो माता पिता तुम्ही हो",
-        "subtitle": "You are My Mother, You are My Father",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2352,7 +2352,7 @@ export const BhajanData = {
         "id": "unche-unche-shikharo-wala",
         "category": "bhajan",
         "title": "ऊंचे ऊंचे शिखरों वाला",
-        "subtitle": "The One with High Peaks",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {
@@ -2404,7 +2404,7 @@ export const BhajanData = {
         "id": "ye-dharam-hai-aatam-gyani-ka",
         "category": "bhajan",
         "title": "ये धरम है आतम ज्ञानी का",
-        "subtitle": "This is the Religion of the Self-Realized",
+        "subtitle": "आध्यात्मिक भक्ति पद",
         "type": "structured",
         "verses": [
             {

@@ -11,7 +11,7 @@ import {
   ChevronRight,
   Compass,
 } from 'lucide-react';
-import { JainPrateekSymbol, LotusSymbol } from '../components/features/JainSymbols';
+import { LotusSymbol } from '../components/features/JainSymbols';
 
 interface LandingProps {
   onNavigate: (page: string, params?: any) => void;
@@ -20,10 +20,6 @@ interface LandingProps {
 export const Landing = ({ onNavigate }: LandingProps) => {
   return (
     <div className="w-full max-w-6xl mx-auto pt-6 sm:pt-8 md:pt-10 pb-36 px-4 sm:px-6 flex flex-col items-center relative overflow-x-hidden">
-      {/* Background Sacred Emblem Glow Watermark */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none opacity-[0.07] blur-[0.5px] select-none -z-0">
-        <JainPrateekSymbol className="w-72 h-72 sm:w-96 sm:h-96 md:w-[440px] md:h-[440px] text-amber-300" />
-      </div>
 
       {/* Hero Section Container */}
       <motion.section
@@ -44,7 +40,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         </motion.div>
 
         {/* Grand Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300/90 leading-[1.25] sm:leading-[1.2] tracking-normal pt-4 sm:pt-6 pb-2 sm:pb-3 mb-2 sm:mb-3 drop-shadow-[0_4px_30px_rgba(245,158,11,0.2)] select-none">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300/90 leading-[1.35] sm:leading-[1.3] tracking-normal pt-4 sm:pt-6 pb-3 mb-2 sm:mb-3 drop-shadow-[0_4px_30px_rgba(245,158,11,0.2)] select-none">
           जैन जिनवाणी
         </h1>
 
@@ -244,6 +240,22 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu truncate">तीर्थ, दर्शन व दीर्घा</p>
           </div>
         </GlassCard>
+      </div>
+
+      {/* Footer Attribution */}
+      <div className="mt-14 mb-4 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8 relative z-10">
+        <p>
+          Built by{' '}
+          <a
+            href="https://thesoftwareco.pages.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-400 hover:text-amber-300 underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors font-medium"
+          >
+            The Software Co
+          </a>{' '}
+          and Satyam Jain
+        </p>
       </div>
     </div>
   );

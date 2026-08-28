@@ -176,7 +176,7 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
             <Lightbulb className="w-3 h-3" />
             <span className="uppercase tracking-widest text-sm font-bold font-cinzel">Philosophy</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3">
+          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3 pt-2 pb-1 leading-[1.35]">
             जैन दर्शन
           </h1>
           <p className="text-blue-100/60 font-gotu text-lg">
