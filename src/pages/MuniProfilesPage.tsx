@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Search, Filter, User } from 'lucide-react';
+import { ChevronLeft, Search, Filter, User } from 'lucide-react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { matchSearchQuery } from '../utils/searchHelper';
@@ -129,9 +129,10 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
-            className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group"
+            className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group cursor-pointer shadow-md shrink-0"
+            title="वापस जाएं"
           >
-            <ArrowLeft className="w-6 h-6 text-blue-100 group-hover:-translate-x-1 transition-transform" />
+            <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
           </button>
 
           <div>

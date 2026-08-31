@@ -80,7 +80,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
         </button>
 
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-rozha text-white pt-1.5 pb-0.5 leading-[1.35]">सामायिक समता साधना</h1>
+          <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-1.5 pb-0.5 leading-[1.35]">सामायिक समता साधना</h1>
           <p className="text-xs md:text-sm text-slate-400 font-gotu mt-0.5">
             ४८ मिनट राग-द्वेष त्याग व आत्म-चिंतन
           </p>
@@ -190,7 +190,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
         {/* Info & Vows Section */}
         <div className="lg:col-span-6 flex flex-col gap-5">
           <GlassCard variant="gilded" className="p-6 sm:p-7 flex-1">
-            <h3 className="text-xl font-rozha text-amber-200 mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
+            <h3 className="text-xl font-notoserif font-bold text-amber-200 mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
               <Timer className="w-5 h-5 text-amber-400" />
               <span>सामायिक प्रतिज्ञा (संकल्प पाठ)</span>
             </h3>

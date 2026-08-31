@@ -26,18 +26,18 @@ const popularSuggestions = [
 ];
 
 const CATEGORY_NAMES_HI: Record<string, string> = {
-  stotra: 'स्तोत्र',
-  puja: 'पूजन',
-  vidhan: 'विधान',
-  aarti: 'आरती',
-  chalisa: 'चालीसा',
-  bhajan: 'भजन',
-  path: 'नित्य पाठ',
-  granthas: 'शास्त्र ग्रंथ',
-  tattva: 'तत्त्वज्ञान',
+  stotra: 'स्तोत्र संग्रह',
+  puja: 'नित्य पूजा',
+  vidhan: 'महामंडल विधान',
+  aarti: 'आरती संग्रह',
+  chalisa: 'चालीसा संग्रह',
+  bhajan: 'भक्ति भजन',
+  path: 'पाठ व स्तुति',
+  granthas: 'प्रमुख शास्त्र',
+  tattva: 'तत्त्व ज्ञान',
   bhugol: 'जैन भूगोल',
-  itihas: 'इतिहास',
-  parva: 'पर्व',
+  itihas: 'जैन इतिहास',
+  parva: 'पर्व व उत्सव',
   agamas: 'मूल आगम',
 };
 
@@ -134,7 +134,7 @@ export const SearchOverlay = ({
                 autoFocus
                 type="text"
                 placeholder="जिनवाणी में खोजें... (स्तोत्र, पूजा, ग्रंथ, आरती...)"
-                className="w-full bg-[#071124]/95 border border-amber-500/30 rounded-2xl py-3.5 sm:py-4 pl-12 pr-12 text-white placeholder:text-slate-500 outline-none focus:border-amber-400/60 focus:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all font-gotu text-sm sm:text-base shadow-2xl"
+                className="w-full bg-[#071124]/80 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/30 rounded-2xl py-3.5 sm:py-4 pl-12 pr-12 text-white placeholder:text-slate-500 outline-none focus:border-amber-400/60 focus:shadow-[0_0_25px_rgba(245,158,11,0.2)] transition-all font-gotu text-sm sm:text-base shadow-2xl"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -168,7 +168,7 @@ export const SearchOverlay = ({
             </div>
 
             {/* Content & Results Container */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/95 rounded-2xl border border-amber-500/20 p-3 sm:p-4 shadow-2xl min-h-[300px] max-h-[60vh]">
+            <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/80 backdrop-blur-2xl backdrop-saturate-[190%] rounded-2xl border border-amber-500/20 p-3 sm:p-4 shadow-2xl min-h-[300px] max-h-[60vh]">
               {query.trim() === '' ? (
                 /* Curated Featured / Suggested Items when search box is empty */
                 <div className="space-y-3">

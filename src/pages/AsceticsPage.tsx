@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, BookOpen, User, Users, Feather, Droplets, Scroll, Sun, Moon, Eye, Hand } from 'lucide-react';
+import { ChevronLeft, BookOpen, User, Users, Feather, Droplets, Scroll, Sun, Moon, Eye, Hand } from 'lucide-react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { AhimsaHandSymbol, OmSymbol } from '../components/features/JainSymbols';
 
@@ -57,9 +57,10 @@ export const AsceticsPage = ({ onBack, onNavigate }: AsceticsPageProps) => {
       <div className="mb-10 relative">
         <button
           onClick={onBack}
-          className="absolute left-0 top-1 p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group z-10"
+          className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group z-10 cursor-pointer shadow-md"
+          title="वापस जाएं"
         >
-          <ArrowLeft className="w-6 h-6 text-blue-100 group-hover:-translate-x-1 transition-transform" />
+          <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
         </button>
 
         <div className="text-center w-full">

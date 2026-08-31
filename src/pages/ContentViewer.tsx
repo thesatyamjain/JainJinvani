@@ -47,20 +47,26 @@ const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) 
 
 // Category translation mapping
 const CATEGORY_NAMES_HI: Record<string, string> = {
-  puja: 'पूजा',
-  vidhan: 'विधान',
-  stotra: 'स्तोत्र',
-  arti: 'आरती',
-  chalisa: 'चालीसा',
-  bhajan: 'भजन',
-  path: 'पाठ',
-  shastra: 'शास्त्र',
+  puja: 'नित्य पूजा',
+  vidhan: 'महामंडल विधान',
+  stotra: 'स्तोत्र संग्रह',
+  arti: 'आरती संग्रह',
+  aarti: 'आरती संग्रह',
+  chalisa: 'चालीसा संग्रह',
+  bhajan: 'भक्ति भजन',
+  path: 'पाठ व स्तुति',
+  shastra: 'प्रमुख शास्त्र',
+  granthas: 'प्रमुख शास्त्र',
   vidhi: 'विधि',
-  philosophy: 'दर्शन',
-  cosmology: 'भूगोल',
-  history: 'इतिहास',
-  parva: 'पर्व',
+  philosophy: 'तत्त्व ज्ञान',
+  tattva: 'तत्त्व ज्ञान',
+  cosmology: 'जैन भूगोल',
+  bhugol: 'जैन भूगोल',
+  history: 'जैन इतिहास',
+  itihas: 'जैन इतिहास',
+  parva: 'पर्व व उत्सव',
   sutra: 'सूत्र',
+  agamas: 'मूल आगम',
   kids: 'बाल संस्कार',
 };
 
@@ -168,14 +174,13 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     .filter(Boolean);
 
   const lines: ParsedLine[] = rawLineArray.map((line) => {
-    // Check if tag / Chhand / Dravya name like <b>(छंद जोगीरासा)</b> or <b>(जल)</b> or (जल)
-    const rawClean = stripHtml(line);
+    const rawClean = stripHtml(line).replace(/[:：]/g, '').trim();
     const isExplicitTag =
-      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|दीप|धूप|फल|अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा)\s*\)?\s*$/i.test(
+      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|नैवेद्य\s*\(Offering\)|दीप|धूप|फल|अर्घ्य|अर्घ|महा\s*अर्घ|महा\s*अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा|पद्य\s*\/?\s*चौपाई|पद्य|अर्घावली)\s*\)?\s*$/i.test(
         rawClean
       ) ||
-      (/^\s*<b>\s*\((.*?)\)\s*<\/b>\s*$/i.test(line) && rawClean.length < 40) ||
-      (/^\s*<strong>\s*\((.*?)\)\s*<\/strong>\s*$/i.test(line) && rawClean.length < 40);
+      (/^\s*<b>\s*\(?(.*?)\)?\s*<\/b>\s*$/i.test(line) && rawClean.length < 50) ||
+      (/^\s*<strong>\s*\(?(.*?)\)?\s*<\/strong>\s*$/i.test(line) && rawClean.length < 50);
 
     if (isExplicitTag) {
       let tagText = rawClean.replace(/[()]/g, '').trim();
@@ -184,8 +189,11 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
 
     const cleanLine = stripHtml(line);
     const isMantra =
-      /^(ॐ|ॐ\s*ह्रीं)/.test(cleanLine) ||
-      /(स्वाहा|स्वाहा।|स्वाहा\.|नमः|नमः।|वषट्!|संवौषट्!|ठ:! ठ:!|ठः ठः स्थापनं|ठ: ठ: स्थापनं)$/.test(cleanLine);
+      /^(ॐ|ॐ\s*ह्रीं|ॐ\s*नमो|ॐ\s*आ|ॐ\s*श्री)/.test(cleanLine) ||
+      /(स्वाहा|स्वाहा।|स्वाहा\.|स्वाहा॥|नमः|नमः।|नमः॥|वषट्!|संवौषट्!|ठ:! ठ:!|ठः ठः स्थापनं|ठ: ठ: स्थापनं|निर्वपामीति\s*स्वाहा[।॥]?)$/.test(cleanLine) ||
+      cleanLine.includes('निर्वपामीति स्वाहा') ||
+      cleanLine.includes('अत्र अवतर अवतर') ||
+      cleanLine.includes('अत्र तिष्ठ तिष्ठ');
 
     if (isMantra) {
       return { type: 'mantra', text: cleanLine };

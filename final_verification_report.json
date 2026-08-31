@@ -1,0 +1,1206 @@
+{
+  "total": 209,
+  "matchedCount": 180,
+  "unmatchedCount": 29,
+  "percentage": "86.1%",
+  "matched": [
+    {
+      "index": 1,
+      "item": "देवदर्शन-स्वाध्याय : विधि निर्देश",
+      "matchedTitle": "पूजा विधि",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 2,
+      "item": "स्वस्तिक : उद्देश्य एवं भावना",
+      "matchedTitle": "स्वस्तिक : उद्देश्य एवं भावना",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 3,
+      "item": "जैन दर्शन का उद्देश्य",
+      "matchedTitle": "जैन दर्शन का उद्देश्य",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 4,
+      "item": "मंगलाष्टक-स्तुति (हिंदी)",
+      "matchedTitle": "मंगलाष्टक",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 5,
+      "item": "स्तुति (प्रभु पतितपावन)",
+      "matchedTitle": "स्तुति (प्रभु पतितपावन)",
+      "source": "path.ts"
+    },
+    {
+      "index": 6,
+      "item": "प्रतिमा-प्रक्षाल-विधि पाठ",
+      "matchedTitle": "प्रतिमा-प्रक्षाल-विधि पाठ",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 7,
+      "item": "विनयपाठ (इह बिधि ठाड़ो...)",
+      "matchedTitle": "विनय पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 8,
+      "item": "भजन (श्री जी! मैं थानेपूजन...)",
+      "matchedTitle": "भजन (श्री जी! मैं थाने पूजण आयो जी)",
+      "source": "bhajan.ts"
+    },
+    {
+      "index": 9,
+      "item": "पंचकल्याणक अर्घ्य",
+      "matchedTitle": "पंचकल्याणक अर्घ्य",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 10,
+      "item": "चतुर्विंशति स्वस्ति-मंगलम्(संस्कृत)",
+      "matchedTitle": "मंगल आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 11,
+      "item": "देव-शास्त्र-गुरु पूजा (द्यानतराय)",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 14,
+      "item": "सिद्ध-पूजा (संस्कृत-पद् मनन्दि)",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 15,
+      "item": "सिद्ध-पूजा (द्रव्याष्टक-हीराचंद)",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 16,
+      "item": "श्री आदिनाथ-जिन पूजा 'जिनेश्वर'",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 17,
+      "item": "श्री पार्श्वनाथ पूजा (बख्तावर)",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 18,
+      "item": "समुच्चय महाअर्घ्य",
+      "matchedTitle": "महा अर्घ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 19,
+      "item": "शांतिपाठ (शास्त्रोक्तविधि...)",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 20,
+      "item": "स्तुति (तुम तरण तारण)",
+      "matchedTitle": "स्तुति (तुम तरण तारण)",
+      "source": "path.ts"
+    },
+    {
+      "index": 21,
+      "item": "भजन (आ. देवेन्द्रकीर्ति)",
+      "matchedTitle": "श्री जिनेन्द्र चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 22,
+      "item": "श्री देव-शास्त्र-गुरु पूजा (युगल जी)",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 23,
+      "item": "श्री आदिनाथ पूजा (चाँदखेड़ी)",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 24,
+      "item": "श्री पदमप्रभ पूजा (बाड़ा)",
+      "matchedTitle": "श्री पदमप्रभ पूजा (बाड़ा)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 25,
+      "item": "श्री नेमिनाथ पूजा (सन्मति)",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 26,
+      "item": "श्री पार्श्वनाथपूजा (रवीन्द्र)",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 27,
+      "item": "श्री महावीर पूजा (चाँदनगॉव)",
+      "matchedTitle": "श्री महावीर पूजा (चाँदनगॉव)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 28,
+      "item": "श्री महावीर पूजा (भारिल्ल)",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 29,
+      "item": "श्री पंच परमेष्ठी पूजा (राजमल)",
+      "matchedTitle": "श्री पंच परमेष्ठी पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 30,
+      "item": "श्री बाहुबलीस्वामी पूजा (अरुणा)",
+      "matchedTitle": "श्री बाहुबली स्वामी आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 31,
+      "item": "अभिषेक : विधि-निर्देश",
+      "matchedTitle": "पूजा विधि",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 32,
+      "item": "पूजन :विधि-निर्देश",
+      "matchedTitle": "पूजा विधि",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 33,
+      "item": "मण्डलाष्टकम् (संस्कृत)",
+      "matchedTitle": "मण्डलाष्टकम् (संस्कृत)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 35,
+      "item": "जलाभिषेक पाठ",
+      "matchedTitle": "जलाभिषेक पाठ",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 36,
+      "item": "अभिषेक पाठ :(संस्कृत)",
+      "matchedTitle": "अभिषेक पाठ (संस्कृत)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 37,
+      "item": "मंगलपाठ (मंगलमूर्ति परमपद...)",
+      "matchedTitle": "मंगल आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 38,
+      "item": "पूजा-विधि प्रारम्भ",
+      "matchedTitle": "पूजा विधि प्रारम्भ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 39,
+      "item": "स्वस्ति-मंगल-विधान (संस्कृत)",
+      "matchedTitle": "स्वस्ति-मंगल-विधान (संस्कृत)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 40,
+      "item": "परमर्षि-स्वस्ति-विधान (संस्कृत)",
+      "matchedTitle": "परमर्षि-स्वस्ति-विधान (संस्कृत)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 41,
+      "item": "तीस चौबीसी का अर्घ्य",
+      "matchedTitle": "तीस चौबीसी का अर्घ्य",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 42,
+      "item": "विद्यमान बीस तीर्थंकरों के अर्घ्य",
+      "matchedTitle": "श्री विद्यमान बीस तीर्थंकर पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 44,
+      "item": "सिद्ध-पूजा (भावाष्टक-द्रव्याष्टक)",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 45,
+      "item": "समुच्चय चौबीसी पूजा (वृन्दावन)",
+      "matchedTitle": "समुच्चय पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 46,
+      "item": "श्री शांतिनाथ पूजा (बख्तावर)",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 47,
+      "item": "श्री महावीर-जिन पूजा(वृन्दावन)",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 48,
+      "item": "आसिका लेने का पद",
+      "matchedTitle": "आसिका लेने का पद",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 49,
+      "item": "विसर्जनपाठ(सम्पूर्णविधि)",
+      "matchedTitle": "विसर्जन पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 51,
+      "item": "समुच्चय-पूजा (सच्चिदानंद)",
+      "matchedTitle": "समुच्चय-पूजा (सच्चिदानंद)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 52,
+      "item": "श्री देव-शास्त्र-गुरु पूजा (रवीन्द्र)",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 53,
+      "item": "श्री ऋषभदेव पूजा (रानीला)",
+      "matchedTitle": "श्री ऋषभदेव पूजा (रानीला)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 54,
+      "item": "श्री चंद्रप्रभ पूजा (तिजारा)",
+      "matchedTitle": "श्री चंद्रप्रभ जिन पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 55,
+      "item": "श्री पार्श्वनाथ पूजा (पुष्पेन्दु)",
+      "matchedTitle": "श्री पार्श्वनाथ पूजा (पुष्पेन्दु)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 56,
+      "item": "श्री पार्श्वनाथ पूजा (बड़ागॉव)",
+      "matchedTitle": "श्री पार्श्वनाथ पूजा (बड़ागॉव)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 57,
+      "item": "भजन (चाँदनपुर के महावीर)",
+      "matchedTitle": "भजन (चाँदनपुर के महावीर)",
+      "source": "bhajan.ts"
+    },
+    {
+      "index": 58,
+      "item": "नवदेवता-पूजन (ज्ञानमती)",
+      "matchedTitle": "श्री नवदेवता पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 59,
+      "item": "सिद्ध-पूजा (युगल जी)",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 60,
+      "item": "श्री जम्बूस्वामी पूजा (स्वस्ति भूषण)",
+      "matchedTitle": "श्री जम्बूस्वामी पूजा (स्वस्ति भूषण)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 61,
+      "item": "आ. कुंदकुंदस्वामी पूजा (अरुणा)",
+      "matchedTitle": "आ. कुंदकुंदस्वामी पूजा (अरुणा)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 62,
+      "item": "श्री विष्णुकुमार मुनि पूजा",
+      "matchedTitle": "श्री विष्णुकुमार मुनि पूजा",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 64,
+      "item": "दशलक्षण धर्म पूजा (द्यानतराय)",
+      "matchedTitle": "दशलक्षण-धर्म पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 65,
+      "item": "सम्यग्दर्शन पूजा (द्यानतराय)",
+      "matchedTitle": "सम्यग्दर्शन पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 66,
+      "item": "सम्यक्चारित्र पूजा (द्यानतराय)",
+      "matchedTitle": "सम्यक्चारित्र पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 68,
+      "item": "सप्तर्षि पूजा (मनरंगलाल)",
+      "matchedTitle": "सप्तर्षि पूजा (मनरंगलाल)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 69,
+      "item": "पंचबालयति पूजा (अरदास) निर्वाणक्षेत्र बड़ी पूजा",
+      "matchedTitle": "पंच बालयति पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 70,
+      "item": "श्रीऋषिमंडल पूजा (दौलत आसेरी)",
+      "matchedTitle": "श्रीऋषिमंडल पूजा (दौलत आसेरी)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 71,
+      "item": "समुच्चय पूजा",
+      "matchedTitle": "दशलक्षण विधान (समुच्चय पूजा)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 72,
+      "item": "उपसर्ग हर स्तोत्र (भद्रबाहु)",
+      "matchedTitle": "उपसर्ग हर स्तोत्र (भद्रबाहु)",
+      "source": "stotra.ts"
+    },
+    {
+      "index": 73,
+      "item": "नवग्रह-शांति स्तोत्र (हिंदी)",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 74,
+      "item": "श्री कलिकुंड-पार्श्वनाथ पूजा",
+      "matchedTitle": "श्री कलिकुंड-पार्श्वनाथ पूजा",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 75,
+      "item": "दीपावली-पूजन-विधान",
+      "matchedTitle": "जैन दीपावली (भगवान महावीर निर्वाण कल्याणक)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 76,
+      "item": "सरस्वती पूजा (द्यानतराय)",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 77,
+      "item": "गौतमस्वामी जी का अर्घ्य",
+      "matchedTitle": "गौतमस्वामी जी का अर्घ्य",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 78,
+      "item": "लाभ शुभ",
+      "matchedTitle": "नई बहियों की मुहूर्त-विधि एवं लाभ-शुभ",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 79,
+      "item": "विसर्जन-पाठ (संस्कृत)",
+      "matchedTitle": "विसर्जन पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 80,
+      "item": "शांति पाठ (हिंदी)",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 81,
+      "item": "वीर-प्रभु जी आरती",
+      "matchedTitle": "वीर-प्रभु जी आरती",
+      "source": "arti.ts"
+    },
+    {
+      "index": 83,
+      "item": "णमोकार महामंत्र पूजा (ज्ञानमती)",
+      "matchedTitle": "णमोकार महामंत्र पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 85,
+      "item": "श्री संभवनाथ पूजा",
+      "matchedTitle": "श्री संभवनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 86,
+      "item": "श्री सुमतिनाथ पूजा",
+      "matchedTitle": "श्री सुमतिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 87,
+      "item": "श्री सुपार्श्वनाथ पूजा",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 88,
+      "item": "श्री पुष्पदंत पूजा",
+      "matchedTitle": "श्री पुष्पदंत जिन पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 89,
+      "item": "श्री श्रेयांसनाथ पूजा",
+      "matchedTitle": "श्री श्रेयांसनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 90,
+      "item": "श्री विमलनाथ पूजा",
+      "matchedTitle": "श्री विमलनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 91,
+      "item": "श्री अकंपनाचार्यादि पूजा",
+      "matchedTitle": "श्री अकंपनाचार्यादि पूजा",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 93,
+      "item": "नंदीश्वर द्वीप पूजा (द्यानतराय)",
+      "matchedTitle": "श्री नंदीश्वर-द्वीप पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 94,
+      "item": "रत्नत्रय पूजा (द्यानतराय)",
+      "matchedTitle": "रत्नत्रय पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 95,
+      "item": "सम्यग्ज्ञान पूजा (द्यानतराय)",
+      "matchedTitle": "सम्यग्ज्ञान पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 98,
+      "item": "चौबीसी निर्वाणक्षेत्र पूजा (द्यानत)",
+      "matchedTitle": "चौबीसी निर्वाणक्षेत्र पूजा (द्यानत)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 99,
+      "item": "(निर्वाण लड्डू पूजा)",
+      "matchedTitle": "(निर्वाण लड्डू पूजा)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 100,
+      "item": "रविव्रत पूजा",
+      "matchedTitle": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 101,
+      "item": "नवग्रह अरिष्ट-निवारक विधान",
+      "matchedTitle": "नवग्रह अरिष्ट-निवारक विधान",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 102,
+      "item": "नवग्रह-शांति स्तोत्रम् (संस्कृत)",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 104,
+      "item": "अहिच्छत्र श्रीपार्श्वनाथ पूजा",
+      "matchedTitle": "अहिच्छत्र श्रीपार्श्वनाथ पूजा",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 106,
+      "item": "सरस्वती स्तवन",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 107,
+      "item": "अंतराय-नाशार्थ अर्घ्य",
+      "matchedTitle": "अंतराय-नाशार्थ अर्घ्य",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 108,
+      "item": "शांति-पाठ (संस्कृत)",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 109,
+      "item": "अथ इष्ट-प्रार्थना",
+      "matchedTitle": "अथ इष्ट-प्रार्थना (भावना दिन-रात)",
+      "source": "path.ts"
+    },
+    {
+      "index": 110,
+      "item": "विसर्जन-पाठ (हिंदी)",
+      "matchedTitle": "विसर्जन पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 111,
+      "item": "गौतम गणधरदेव पूजा (अरुणा)",
+      "matchedTitle": "गौतम गणधरदेव पूजा (अरुणा)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 113,
+      "item": "चौबीसी पूजा स्तवन",
+      "matchedTitle": "चौबीसी पूजा स्तवन",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 114,
+      "item": "श्री अजितनाथ पूजा",
+      "matchedTitle": "श्री अजितनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 115,
+      "item": "श्री अभिनंदननाथ पूजा",
+      "matchedTitle": "श्री अभिनंदननाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 116,
+      "item": "श्री पद्मप्रभ पूजा",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 117,
+      "item": "श्री चंद्रप्रभ पूजा",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 118,
+      "item": "श्री शीतलनाथ पूजा",
+      "matchedTitle": "श्री शीतलनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 119,
+      "item": "श्री वासुपूज्य पूजा",
+      "matchedTitle": "श्री वासुपूज्य चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 120,
+      "item": "श्री अनंतनाथ पूजा",
+      "matchedTitle": "श्री अनंतनाथ जिन पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 121,
+      "item": "श्री धर्मनाथ पूजा",
+      "matchedTitle": "श्री धर्मनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 122,
+      "item": "श्री कुंथुनाथ पूजा",
+      "matchedTitle": "श्री कुंथुनाथ विधान",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 123,
+      "item": "श्री मल्लिनाथ पूजा",
+      "matchedTitle": "श्री मल्लिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 124,
+      "item": "श्री नमिनाथ पूजा",
+      "matchedTitle": "श्री नमिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 125,
+      "item": "श्री पार्श्वनाथ पूजा",
+      "matchedTitle": "श्री पार्श्वनाथ पूजा (बड़ागॉव)",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 126,
+      "item": "श्री ऋषिमंडल स्तोत्रम् (संस्कृत)",
+      "matchedTitle": "श्री ऋषिमंडल स्तोत्रम् (संस्कृत)",
+      "source": "stotra.ts"
+    },
+    {
+      "index": 127,
+      "item": "भक्तामर-स्तोत्रम्(संस्कृत)",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 128,
+      "item": "भक्तामर-स्तोत्र (हिंदी, हेमराज)",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 129,
+      "item": "तीर्थंकर महावीर महत्त्वपूर्ण संदर्भ",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 131,
+      "item": "मंगल प्रभात स्तवन",
+      "matchedTitle": "मंगल प्रभात स्तवन",
+      "source": "path.ts"
+    },
+    {
+      "index": 132,
+      "item": "रत्नाकर-पंचविंशतिका",
+      "matchedTitle": "रत्नाकर-पंचविंशतिका (हिंदी भावार्थ)",
+      "source": "stotra.ts"
+    },
+    {
+      "index": 133,
+      "item": "आलोचना-पाठ (सुनिये जिन!",
+      "matchedTitle": "आलोचना-पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 134,
+      "item": "बारह भावना (वंदूँ श्री अरिहंत",
+      "matchedTitle": "बारह भावना",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 135,
+      "item": "मेरी भावना (जिसने राग-द्वेष)",
+      "matchedTitle": "मेरी भावना",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 136,
+      "item": "समाधि भावना (दिन-रात मेरे)",
+      "matchedTitle": "समाधि भावना",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 137,
+      "item": "अथ अठाई रासा (विनयकीर्ति)",
+      "matchedTitle": "अथ अठाई रासा (विनयकीर्ति)",
+      "source": "path.ts"
+    },
+    {
+      "index": 138,
+      "item": "संकटमोचन विनती (हे दीनबंधु",
+      "matchedTitle": "संकट मोचन विनती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 139,
+      "item": "गुरु-स्तुति (ते गुरु मेरे",
+      "matchedTitle": "गुरु-स्तुति (ते गुरु मेरे उर बसो सदा)",
+      "source": "path.ts"
+    },
+    {
+      "index": 140,
+      "item": "देव-स्तुति (भूधरदास)",
+      "matchedTitle": "देव-स्तुति",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 141,
+      "item": "श्री पार्श्वनाथस्तोत्रम् (नरेंद्र",
+      "matchedTitle": "श्री पार्श्वनाथस्तोत्रम् (नरेंद्र-फणि-चंद्र)",
+      "source": "stotra.ts"
+    },
+    {
+      "index": 143,
+      "item": "आत्म-रमण (मैं दर्शन",
+      "matchedTitle": "आत्म-रमण (मैं दर्शन-ज्ञान स्वभावी हूँ)",
+      "source": "path.ts"
+    },
+    {
+      "index": 144,
+      "item": "श्रीसिद्धचक्र कि आरती",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 146,
+      "item": "जिनवाणी-स्तुति (वीर हीमा.)",
+      "matchedTitle": "श्री जिनवाणी आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 147,
+      "item": "श्री पद्मप्रभ चालीसा",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 148,
+      "item": "श्री मुनिसुव्रतनाथ चालीसा",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 149,
+      "item": "श्री पार्श्वनाथ चालीसा (अहिच्छात्र)",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 150,
+      "item": "रस त्याग विचार",
+      "matchedTitle": "रस त्याग विचार एवं फल-सब्जी जैन-सूची",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 151,
+      "item": "श्री शांतिनाथ पूजा",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 152,
+      "item": "श्री अरहनाथ पूजा",
+      "matchedTitle": "श्री अरहनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 153,
+      "item": "श्री मुनिसुव्रतनाथ पूजा",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 154,
+      "item": "श्री नेमिनाथ पूजा",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 155,
+      "item": "श्री जिनसहस्रनाम-स्तोत्रम्(स)",
+      "matchedTitle": "श्री जिनसहस्रनाम-स्तोत्रम्",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 156,
+      "item": "तत्त्वार्थसूत्र : मोक्षशास्त्र (संस्कृत)",
+      "matchedTitle": "तत्त्वार्थ सूत्र (मोक्षशास्त्र)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 157,
+      "item": "भक्तामर-स्तोत्र महिमा",
+      "matchedTitle": "भक्तामर-स्तोत्र महिमा एवं फल",
+      "source": "stotra.ts"
+    },
+    {
+      "index": 158,
+      "item": "महावीराष्टक- स्तोत्रम्(संस्कृत)",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 159,
+      "item": "कल्याणमंदिर-स्तोत्र (हिंदी)",
+      "matchedTitle": "कल्याण मंदिर स्तोत्र",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 160,
+      "item": "विषापहार-स्तोत्र (हिंदी)",
+      "matchedTitle": "विषापहार स्तोत्र",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 162,
+      "item": "सामायिक-पाठ (नितदेव! मेरी",
+      "matchedTitle": "सामायिक पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 163,
+      "item": "सामायिक-पाठ (काल-अनंत",
+      "matchedTitle": "सामायिक पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 164,
+      "item": "बारह भावना (राजा राणा छत्र",
+      "matchedTitle": "बारह भावना (राजा राणा छत्रपति)",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 165,
+      "item": "वैराग्य भावना (इहविधि राज",
+      "matchedTitle": "वैराग्य भावना",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 166,
+      "item": "लघु समाधिमरण-पाठ",
+      "matchedTitle": "लघु समाधिमरण-पाठ",
+      "source": "path.ts"
+    },
+    {
+      "index": 167,
+      "item": "तिथि षोडशी पाठ (द्यानतराय)",
+      "matchedTitle": "तिथि षोडशी पाठ (द्यानतराय)",
+      "source": "path.ts"
+    },
+    {
+      "index": 168,
+      "item": "दुःखहरण विनती (श्रीपति जिन.",
+      "matchedTitle": "दुःख हरण विनती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 170,
+      "item": "आराधना-पाठ (द्यानतराय)",
+      "matchedTitle": "आराधना पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 171,
+      "item": "आत्म कीर्तन (हूँ स्वतन्त्र",
+      "matchedTitle": "आत्म कीर्तन (हूँ स्वतन्त्र निश्चल निष्काम)",
+      "source": "path.ts"
+    },
+    {
+      "index": 172,
+      "item": "संबोधन (सदा संतोष कर",
+      "matchedTitle": "संबोधन (सदा संतोष कर मनवा)",
+      "source": "path.ts"
+    },
+    {
+      "index": 173,
+      "item": "आत्म-भक्ति (मेरे शाश्वत",
+      "matchedTitle": "आत्म-भक्ति (मेरे शाश्वत पद की वंदना)",
+      "source": "path.ts"
+    },
+    {
+      "index": 174,
+      "item": "स्तुति (श्री सिद्धचक्र का पाठ",
+      "matchedTitle": "स्तुति (श्री सिद्धचक्र का पाठ)",
+      "source": "path.ts"
+    },
+    {
+      "index": 175,
+      "item": "शास्त्र-स्वाध्याय-मंगलाचरण",
+      "matchedTitle": "शास्त्र-स्वाध्याय-मंगलाचरण",
+      "source": "path.ts"
+    },
+    {
+      "index": 176,
+      "item": "श्री आदिनाथ चालीसा (चांदखेड़ी)",
+      "matchedTitle": "श्री आदिनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 177,
+      "item": "श्री चंद्रप्रभ चालीसा",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 178,
+      "item": "श्री पार्श्वनाथ चालीसा (बड़ागांव)",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 179,
+      "item": "श्री महावीर चालीसा",
+      "matchedTitle": "श्री महावीर चालीसा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 180,
+      "item": "आरती: शब्दार्थ और व्याख्या",
+      "matchedTitle": "आरती: शब्दार्थ और व्याख्या",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 181,
+      "item": "श्री पंच-परमेष्ठी (इहविधि...)",
+      "matchedTitle": "श्री पंच-परमेष्ठी आरती (इह विधि)",
+      "source": "arti.ts"
+    },
+    {
+      "index": 182,
+      "item": "आरती: श्री चौबीस भगवान्",
+      "matchedTitle": "आरती: श्री चौबीस भगवान्",
+      "source": "arti.ts"
+    },
+    {
+      "index": 183,
+      "item": "आरती: श्री चंद्रप्रभ",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 184,
+      "item": "आरती :श्री पार्श्वनाथ",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 186,
+      "item": "आरती :श्री महावीर स्वामी",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 188,
+      "item": "वृहत् शांतिधारा-पाठ",
+      "matchedTitle": "शांति पाठ",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 192,
+      "item": "पंच-कल्याणक-तिथियाँ",
+      "matchedTitle": "पंच-कल्याणक-तिथियाँ एवं चार्ट",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 193,
+      "item": "दिशाशूल-विचार",
+      "matchedTitle": "दिशाशूल-विचार",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 194,
+      "item": "चैत्य-चैत्यालय-निर्माण : वास्तु",
+      "matchedTitle": "चैत्य-चैत्यालय-निर्माण : वास्तु",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 196,
+      "item": "आरती: श्री जिनराजतिहारी",
+      "matchedTitle": "आरती श्री जिनराज तिहारी",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 197,
+      "item": "आरती: श्री आदिनाथ भगवान्",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 198,
+      "item": "आरती :श्री मुनिसुव्रतनाथ",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 199,
+      "item": "आरती:श्री पार्श्वनाथ (बड़ागांव)",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 200,
+      "item": "आरती :श्री महावीर (चाँदनपुर)",
+      "matchedTitle": "श्री महावीर आरती",
+      "source": "inventory.ts"
+    },
+    {
+      "index": 201,
+      "item": "सम्मेदशिखर वंदना-क्रम",
+      "matchedTitle": "सम्मेदशिखर वंदना-क्रम",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 203,
+      "item": "सिद्ध क्षेत्रों की अर्घ्यावली",
+      "matchedTitle": "सिद्ध क्षेत्रों की अर्घ्यावली",
+      "source": "ritual.ts"
+    },
+    {
+      "index": 204,
+      "item": "जाप्य-मंत्र सूची",
+      "matchedTitle": "जाप्य-मंत्र सूची",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 205,
+      "item": "फल-सब्जी :जैन-सूची",
+      "matchedTitle": "रस त्याग विचार एवं फल-सब्जी जैन-सूची",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 206,
+      "item": "श्रावक-प्रतिक्रमण(लघु)",
+      "matchedTitle": "श्रावक-प्रतिक्रमण (लघु विधि)",
+      "source": "vidhi.ts"
+    },
+    {
+      "index": 209,
+      "item": "ग्यारह प्रतिमाव्रत क्रम",
+      "matchedTitle": "ग्यारह प्रतिमाव्रत क्रम",
+      "source": "vidhi.ts"
+    }
+  ],
+  "unmatched": [
+    {
+      "index": 12,
+      "item": "श्री बीस तीर्थंकर पूजा (द्यानतराय)"
+    },
+    {
+      "index": 13,
+      "item": "अकृत्रिम चैत्यालय-वंदना (संस्कृत)"
+    },
+    {
+      "index": 34,
+      "item": "दर्शनपाठ (तुम निरखत...)"
+    },
+    {
+      "index": 43,
+      "item": "चैत्य-भक्त्ति"
+    },
+    {
+      "index": 50,
+      "item": "स्तुति (मै तुम चरण)"
+    },
+    {
+      "index": 63,
+      "item": "पंचमेरू पूजा (द्यानतराय)"
+    },
+    {
+      "index": 67,
+      "item": "क्षमावणी- पर्व पूजा (मल्लजी)"
+    },
+    {
+      "index": 82,
+      "item": "निर्वाण-कांड (हिंदी-भगवती)"
+    },
+    {
+      "index": 84,
+      "item": "श्री ऋषभनाथ पूजा"
+    },
+    {
+      "index": 92,
+      "item": "सोलहकरण भावना पूजा (द्यानत)"
+    },
+    {
+      "index": 96,
+      "item": "स्वयंभुस्तोत्र (भाषा) (द्यानतराय)"
+    },
+    {
+      "index": 97,
+      "item": "अकृत्रिम-चैत्यालयपूजा (नेमजी)"
+    },
+    {
+      "index": 103,
+      "item": "नवगृहों के जाप्य"
+    },
+    {
+      "index": 105,
+      "item": "नई बहियों कि मुहूर्त-विथि"
+    },
+    {
+      "index": 112,
+      "item": "श्रुतपंचमी पूजा (अरुणा)"
+    },
+    {
+      "index": 130,
+      "item": "एकीभाव-स्तोत्र (हिंदी)"
+    },
+    {
+      "index": 142,
+      "item": "इस्ट प्रार्थना (भावना दिन"
+    },
+    {
+      "index": 145,
+      "item": "स्तुति पाश्र्वनाथ (तुमसे लागी)"
+    },
+    {
+      "index": 161,
+      "item": "भुपालचतुर्विंशति-स्तोत्र (हिंदी)"
+    },
+    {
+      "index": 169,
+      "item": "दर्शन-पाठ (दौलतराम)"
+    },
+    {
+      "index": 185,
+      "item": "आरती श्री वर्द्धमान"
+    },
+    {
+      "index": 187,
+      "item": "प्रमुख तीर्थक्षेत्र-परिचय"
+    },
+    {
+      "index": 189,
+      "item": "समस्त पूजा-अर्घ्यावली"
+    },
+    {
+      "index": 190,
+      "item": "भक्षय- अभक्षय"
+    },
+    {
+      "index": 191,
+      "item": "'श्रावक प्रतिक्रमण' क्या है ?"
+    },
+    {
+      "index": 195,
+      "item": "स्लेखखना का स्वरुप"
+    },
+    {
+      "index": 202,
+      "item": "प्रमुख जैन-पर्व"
+    },
+    {
+      "index": 207,
+      "item": "पंच-कल्याणक-तिथि चार्ट"
+    },
+    {
+      "index": 208,
+      "item": "सूतक-अवथि-विचार"
+    }
+  ]
+}

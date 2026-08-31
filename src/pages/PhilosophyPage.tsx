@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ArrowLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
+import { ChevronLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
 
 
@@ -161,10 +161,10 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
       <div className="mb-8">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-blue-200 hover:text-white transition-colors mb-6 group"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group mb-6 cursor-pointer shadow-md"
+          title="वापस जाएं"
         >
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-gotu">वापस जाएं</span>
+          <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
         </button>
 
         <motion.div

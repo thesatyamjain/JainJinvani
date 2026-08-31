@@ -559,7 +559,7 @@ export default function App() {
       <ScrollScrubber scrollContainerRef={mainRef} />
 
       {/* Floating Back to Top button */}
-      <BackToTop />
+      <BackToTop scrollContainerRef={mainRef} activePage={activePage} />
     </div>
   );
 }

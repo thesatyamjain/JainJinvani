@@ -932,3 +932,119 @@ export const getDravyaMantrasForTirthankar = (tirthankar: TirthankarInfo): Dravy
   ];
 };
 
+
+
+export interface ArghyaItem {
+  id: string;
+  type: 'garbha' | 'janma' | 'tap' | 'gyan' | 'moksha' | 'mukhya';
+  title: string;
+  kalyanakName: string;
+  emoji: string;
+  tithi: string;
+  place?: string;
+  verse: string;
+  mantra: string;
+  subtext?: string;
+}
+
+export const getArghyavaliForTirthankar = (tirthankar: TirthankarInfo): ArghyaItem[] => {
+  const jinName = tirthankar.nameHindi.split(' ')[1] || tirthankar.nameHindi;
+  const jinSimple = jinName.replace('भगवान', '').replace('स्वामी', '').trim();
+
+  return [
+    {
+      id: 'garbha',
+      type: 'garbha',
+      title: '१. गर्भ कल्याणक अर्घ्य',
+      kalyanakName: 'गर्भ कल्याणक',
+      emoji: '🤰',
+      tithi: tirthankar.kalyanak.garbha,
+      place: tirthankar.birthPlace,
+      verse: `माता ${tirthankar.mother} के उदर विराजे, ${tirthankar.father} के आनंद छाये।\nसुर-इन्द्र आकर वंदन कीने, रतन-वृष्टि जग में बरसाये॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय गर्भकल्याणक-प्राप्ताय अर्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `पावन तिथि: ${tirthankar.kalyanak.garbha} • तीर्थ स्थली: ${tirthankar.birthPlace}`
+    },
+    {
+      id: 'janma',
+      type: 'janma',
+      title: '२. जन्म कल्याणक अर्घ्य',
+      kalyanakName: 'जन्म कल्याणक',
+      emoji: '👶',
+      tithi: tirthankar.kalyanak.janma,
+      place: tirthankar.birthPlace,
+      verse: `${tirthankar.birthPlace} में प्रगटे स्वामी, तीनों लोक में आनंद छायो।\nसुमेरु पर्वत पाण्डुक-शिला पर, सुरपति १००८ कलश नहायो॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय जन्मकल्याणक-प्राप्ताय अर्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `पावन तिथि: ${tirthankar.kalyanak.janma} • अभिषेक: सुमेरु पर्वत (पाण्डुकवन)`
+    },
+    {
+      id: 'tap',
+      type: 'tap',
+      title: '३. तप / दीक्षा कल्याणक अर्घ्य',
+      kalyanakName: 'तप / दीक्षा कल्याणक',
+      emoji: '🧘‍♂️',
+      tithi: tirthankar.kalyanak.tap,
+      place: tirthankar.birthPlace,
+      verse: `संसार असार लखि मन वैरागी, राज-वैभव सब तृणवत् त्यागी।\nपंचमुष्टि केशलोंच करीने, आतम-साधन में मन लागी॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय दीक्षाकल्याणक-प्राप्ताय अर्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `पावन तिथि: ${tirthankar.kalyanak.tap} • जैनेश्वरी दिगम्बर दीक्षा अंगीकार`
+    },
+    {
+      id: 'gyan',
+      type: 'gyan',
+      title: '४. केवलज्ञान कल्याणक अर्घ्य',
+      kalyanakName: 'केवलज्ञान कल्याणक',
+      emoji: '💡',
+      tithi: tirthankar.kalyanak.gyan,
+      place: tirthankar.kevalgyanTree + ' तल',
+      verse: `चारों घातिया कर्म विनाशे, लोकालोक झलक परकाशे।\n${tirthankar.kevalgyanTree} तल समवशरण रचावै, दिव्यध्वनी भविजन हित गावै॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय केवलज्ञानकल्याणक-प्राप्ताय अर्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `पावन तिथि: ${tirthankar.kalyanak.gyan} • पवित्र वृक्ष: ${tirthankar.kevalgyanTree}`
+    },
+    {
+      id: 'moksha',
+      type: 'moksha',
+      title: '५. मोक्ष / निर्वाण कल्याणक अर्घ्य',
+      kalyanakName: 'मोक्ष कल्याणक',
+      emoji: '🕊️',
+      tithi: tirthankar.kalyanak.moksha,
+      place: tirthankar.nirvanaPlace,
+      verse: `अष्ट-कर्म सब दग्ध कराये, सिद्ध-शिला पर जा बिठलाये।\n${tirthankar.nirvanaPlace} से मुक्ति पायी, अनंत-सुख की ज्योति जगायी॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय मोक्षकल्याणक-प्राप्ताय अर्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `पावन तिथि: ${tirthankar.kalyanak.moksha} • निर्वाण क्षेत्र: ${tirthankar.nirvanaPlace}`
+    },
+    {
+      id: 'mukhya',
+      type: 'mukhya',
+      title: '६. मुख्य महा-अर्घ्यावली (जयमाला अर्घ्य)',
+      kalyanakName: 'मुख्य महा-अर्घ्य',
+      emoji: '🏆',
+      tithi: 'नित्य एवं पर्व आराधना',
+      place: 'सिद्ध क्षेत्र एवं जिनालय',
+      verse: `जल गंध अक्षत पुष्प चरु, दीपक सुधूप फल अर्घ्य लाय।\n${tirthankar.titleHindi} चरनन, अनर्घ्य-पद हेत नमाय॥`,
+      mantra: `ॐ ह्रीं श्री १००८ ${jinSimple} जिनेन्द्राय अनर्घपदप्राप्तये महार्घ्यं निर्वपामीति स्वाहा।`,
+      subtext: `अष्टद्रव्य समन्वित पूर्ण महा-अर्घ्य • समस्त विघ्न निवारक`
+    }
+  ];
+};
+
+export interface ChaubisTirthankarArghya {
+  number: number;
+  id: string;
+  name: string;
+  symbol: string;
+  emoji: string;
+  nirvanaPlace: string;
+  mantra: string;
+}
+
+export const getChaubisTirthankarArghyavali = (): ChaubisTirthankarArghya[] => {
+  return TIRTHANKARAS.map(t => ({
+    number: t.number,
+    id: t.id,
+    name: t.nameHindi,
+    symbol: t.symbol,
+    emoji: t.symbolEmoji,
+    nirvanaPlace: t.nirvanaPlace,
+    mantra: `ॐ ह्रीं श्री १००८ ${t.nameHindi.split(' ')[1] || t.nameHindi} जिनेन्द्राय अनर्घपदप्राप्तये अर्घ्यं निर्वपामीति स्वाहा।`
+  }));
+};

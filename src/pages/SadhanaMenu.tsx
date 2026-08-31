@@ -60,7 +60,7 @@ const sadhanaItems = [
   },
   {
     id: 'chalisa',
-    label: 'चालीसा',
+    label: 'चालीसा संग्रह',
     sub: '४० पद्य भक्ति',
     icon: Book,
     color: 'from-blue-500/20 to-indigo-700/10',
@@ -87,8 +87,8 @@ const sadhanaItems = [
   },
   {
     id: 'vidhan',
-    label: 'विधान',
-    sub: 'महामंडल विधान',
+    label: 'महामंडल विधान',
+    sub: 'सिद्धचक्र व महाविधान',
     icon: Sparkles,
     color: 'from-amber-500/20 to-yellow-700/10',
     border: 'border-amber-500/30',
@@ -180,6 +180,14 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                 onNavigate('samayik');
               } else if (item.id === 'dietary') {
                 onNavigate('dietary');
+              } else if (item.id === 'namokar') {
+                onNavigate('viewer', {
+                  id: 'namokar-mantra',
+                  title: 'णमोकार महामंत्र',
+                  type: 'stotra',
+                  source: 'sadhana',
+                  previousPage: 'sadhana',
+                });
               } else {
                 onNavigate('category', { id: item.id, source: 'sadhana' });
               }
@@ -199,7 +207,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
               </div>
 
               <div className="mt-4">
-                <h3 className="text-lg md:text-xl font-rozha text-white group-hover:text-amber-200 transition-colors mb-1 break-words">
+                <h3 className="text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1 break-words">
                   {item.label}
                 </h3>
                 <p className="text-xs text-slate-300/70 font-gotu break-words line-clamp-1">

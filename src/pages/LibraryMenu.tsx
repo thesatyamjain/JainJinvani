@@ -130,7 +130,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-rozha text-white group-hover:text-amber-200 transition-colors mb-1.5 break-words">
+                <h3 className="text-2xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1.5 break-words">
                   {item.label}
                 </h3>
                 <p className="text-xs text-amber-400/90 uppercase tracking-wider font-bold mb-3 font-gotu break-words">

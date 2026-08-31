@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import { 
-  ArrowLeft, 
   MapPin, 
   Book, 
   Sparkles, 
@@ -20,7 +19,9 @@ import {
   Calendar,
   RotateCcw,
   Layers,
-  CheckCircle2
+  CheckCircle2,
+  Crown,
+  Flower2
 } from 'lucide-react';
 import { addFavorite, removeFavorite, isFavorite } from '../lib';
 import { 
@@ -28,7 +29,11 @@ import {
   TIRTHANKARAS, 
   TirthankarInfo,
   getDravyaMantrasForTirthankar,
-  DravyaItem
+  DravyaItem,
+  getArghyavaliForTirthankar,
+  ArghyaItem,
+  getChaubisTirthankarArghyavali,
+  ChaubisTirthankarArghya
 } from '../data/tirthankaras';
 
 interface TirthankarProfileProps {
@@ -48,19 +53,31 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
   const [copiedMantra, setCopiedMantra] = useState(false);
   const [copiedDravyaId, setCopiedDravyaId] = useState<string | null>(null);
   const [copiedAllDravya, setCopiedAllDravya] = useState(false);
+  const [copiedArghyaId, setCopiedArghyaId] = useState<string | null>(null);
+  const [copiedAllArghya, setCopiedAllArghya] = useState(false);
   const [chantCount, setChantCount] = useState(0);
+  
+  // Tab states
+  const [activeMainTab, setActiveMainTab] = useState<'arghyavali' | 'dravya' | 'chaubisi'>('arghyavali');
   const [activeDravyaTab, setActiveDravyaTab] = useState<number>(0);
+  const [activeArghyaTab, setActiveArghyaTab] = useState<number>(0);
   const [offeredDravyas, setOfferedDravyas] = useState<Record<string, boolean>>({});
+  const [offeredArghyas, setOfferedArghyas] = useState<Record<string, boolean>>({});
   const [viewAllDravyas, setViewAllDravyas] = useState(false);
+  const [viewAllArghyas, setViewAllArghyas] = useState(false);
 
   const dravyaList: DravyaItem[] = getDravyaMantrasForTirthankar(tirthankar);
+  const arghyavaliList: ArghyaItem[] = getArghyavaliForTirthankar(tirthankar);
+  const chaubisiList: ChaubisTirthankarArghya[] = getChaubisTirthankarArghyavali();
 
   // Sync state when current tirthankar changes
   React.useEffect(() => {
     setFavorite(isFavorite(`tirthankar-${tirthankar.id}`));
     setChantCount(0);
     setOfferedDravyas({});
+    setOfferedArghyas({});
     setActiveDravyaTab(0);
+    setActiveArghyaTab(0);
   }, [tirthankar.id]);
 
   // Sync if prop changes externally
@@ -111,8 +128,34 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
     }
   };
 
+  const handleCopyArghya = (item: ArghyaItem) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(`${item.title}\n${item.verse}\n${item.mantra}`);
+      setCopiedArghyaId(item.id);
+      setTimeout(() => setCopiedArghyaId(null), 2000);
+    }
+  };
+
+  const handleCopyAllArghyas = () => {
+    if (navigator.clipboard) {
+      const allText = arghyavaliList
+        .map(a => `${a.title}\n${a.verse}\n${a.mantra}`)
+        .join('\n\n');
+      navigator.clipboard.writeText(`${tirthankar.titleHindi} - पंचकल्याणक अर्घ्यावली:\n\n${allText}`);
+      setCopiedAllArghya(true);
+      setTimeout(() => setCopiedAllArghya(false), 2500);
+    }
+  };
+
   const handleOfferDravya = (id: string) => {
     setOfferedDravyas(prev => ({
+      ...prev,
+      [id]: true
+    }));
+  };
+
+  const handleOfferArghya = (id: string) => {
+    setOfferedArghyas(prev => ({
       ...prev,
       [id]: true
     }));
@@ -147,7 +190,9 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
   const prevTirthankar = TIRTHANKARAS[tirthankar.number === 1 ? 23 : tirthankar.number - 2];
   const nextTirthankar = TIRTHANKARAS[tirthankar.number === 24 ? 0 : tirthankar.number];
   const activeDravya = dravyaList[activeDravyaTab] || dravyaList[0];
-  const totalOffered = Object.values(offeredDravyas).filter(Boolean).length;
+  const activeArghya = arghyavaliList[activeArghyaTab] || arghyavaliList[0];
+  const totalOfferedDravya = Object.values(offeredDravyas).filter(Boolean).length;
+  const totalOfferedArghya = Object.values(offeredArghyas).filter(Boolean).length;
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 pb-32 px-4 sm:px-6 overflow-x-hidden">
@@ -155,10 +200,10 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
       <div className="flex items-center justify-between gap-4 mb-6">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-blue-200 hover:text-white transition-all group"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group cursor-pointer shadow-md shrink-0"
+          title="वापस जाएं"
         >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-gotu text-sm">वापस</span>
+          <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
         </button>
 
         {/* Tirthankar Counter Badge & Actions */}
@@ -227,17 +272,31 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             </p>
 
             {/* Quick Spiritual Action Links */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-3xl mx-auto pt-2 border-t border-white/10">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 max-w-4xl mx-auto pt-2 border-t border-white/10">
               <button
                 onClick={() => {
-                  const dravyaElem = document.getElementById('dravya-section');
-                  dravyaElem?.scrollIntoView({ behavior: 'smooth' });
+                  setActiveMainTab('arghyavali');
+                  const elem = document.getElementById('ritual-deck-section');
+                  elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-medium flex items-center justify-center gap-2 transition-all hover:scale-[1.02] shadow-sm"
+                className="px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/30 to-orange-500/20 hover:from-amber-500/40 hover:to-orange-500/30 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 transition-all hover:scale-[1.02] shadow-sm"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>अर्घ्यावली</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setActiveMainTab('dravya');
+                  const elem = document.getElementById('ritual-deck-section');
+                  elem?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu font-medium flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
               >
                 <Layers className="w-4 h-4 text-amber-400" />
                 <span>द्रव्य अर्पण मंत्र</span>
               </button>
+
               {tirthankar.chalisaId && (
                 <button
                   onClick={() => onNavigate('viewer', { id: tirthankar.chalisaId, type: 'chalisa', title: `${tirthankar.nameHindi} चालीसा` })}
@@ -266,203 +325,553 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             </div>
           </GlassCard>
 
-          {/* Section: Ashtadravya Arpan Mantras (द्रव्य चढ़ाने के मंत्र) */}
-          <div id="dravya-section">
-            <GlassCard
-              variant="gilded"
-              className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
-            >
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-amber-500/20 pb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl">🪔</span>
-                    <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200">
-                      अष्टद्रव्य अर्पण मंत्र (द्रव्य चढ़ाने के विधि-मंत्र)
-                    </h2>
-                  </div>
-                  <p className="text-xs sm:text-sm text-amber-300/70 font-gotu mt-1">
-                    {tirthankar.nameHindi} के पूजन-अभिषेक में ८ द्रव्य एवं पूर्णार्घ्य समर्पित करने के प्रामाणिक मंत्र
-                  </p>
-                </div>
+          {/* Unified Ritual Deck Section: अर्घ्यावली व अष्टद्रव्य मंत्र */}
+          <div id="ritual-deck-section" className="space-y-4">
+            {/* Top Deck Mode Switcher Tabs */}
+            <div className="flex flex-wrap items-center justify-between gap-3 bg-black/40 p-1.5 rounded-2xl border border-amber-500/30 shadow-lg">
+              <div className="flex items-center gap-1.5 overflow-x-auto">
+                <button
+                  onClick={() => setActiveMainTab('arghyavali')}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                    activeMainTab === 'arghyavali'
+                      ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>पंचकल्याणक अर्घ्यावली</span>
+                  <span className="px-1.5 py-0.2 rounded-full bg-amber-950/40 text-[10px] text-amber-200 font-bold">
+                    ६ अर्घ्य
+                  </span>
+                </button>
 
-                <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                  <button
-                    onClick={() => setViewAllDravyas(!viewAllDravyas)}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu transition-all"
-                  >
-                    {viewAllDravyas ? 'टैब दृश्य' : 'सभी ९ मंत्र देखें'}
-                  </button>
-                  <button
-                    onClick={handleCopyAllDravyas}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu transition-all"
-                  >
-                    {copiedAllDravya ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedAllDravya ? 'सभी कॉपी हुए' : 'सभी मंत्र कॉपी करें'}</span>
-                  </button>
-                </div>
+                <button
+                  onClick={() => setActiveMainTab('dravya')}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                    activeMainTab === 'dravya'
+                      ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Layers className="w-4 h-4" />
+                  <span>अष्टद्रव्य अर्पण मंत्र</span>
+                  <span className="px-1.5 py-0.2 rounded-full bg-amber-950/40 text-[10px] text-amber-200 font-bold">
+                    ९ द्रव्य
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setActiveMainTab('chaubisi')}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                    activeMainTab === 'chaubisi'
+                      ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  <Crown className="w-4 h-4" />
+                  <span>२४ तीर्थंकर समुच्चय अर्घ्य</span>
+                </button>
               </div>
 
-              {!viewAllDravyas ? (
-                /* Tabbed View */
-                <div>
-                  {/* Horizontal Scrollable Tabs */}
-                  <div className="mb-6">
-                    <HorizontalScrollContainer>
-                      {dravyaList.map((item, idx) => {
-                        const isOffered = !!offeredDravyas[item.id];
-                        const isSelected = activeDravyaTab === idx;
-                        return (
-                          <button
-                            key={item.id}
-                            onClick={() => setActiveDravyaTab(idx)}
-                            className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
-                              isSelected
-                                ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
-                                : isOffered
-                                ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-200'
-                                : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white/80'
-                            }`}
-                          >
-                            <span>{item.emoji}</span>
-                            <span>{item.nameHindi.split(' ')[1]}</span>
-                            {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
-                          </button>
-                        );
-                      })}
-                    </HorizontalScrollContainer>
+              <div className="text-xs text-amber-300/80 font-gotu px-3 hidden sm:block">
+                {activeMainTab === 'arghyavali' && `कल्याणक अर्घ्य प्रगति: ${totalOfferedArghya} / ६`}
+                {activeMainTab === 'dravya' && `द्रव्य अर्पण प्रगति: ${totalOfferedDravya} / ९`}
+                {activeMainTab === 'chaubisi' && 'समस्त २४ तीर्थंकरों का नमन'}
+              </div>
+            </div>
+
+            {/* Main Deck Container */}
+            {activeMainTab === 'arghyavali' && (
+              <GlassCard
+                variant="gilded"
+                className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
+              >
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-amber-500/20 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">✨</span>
+                      <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200">
+                        {tirthankar.nameHindi} - पंचकल्याणक अर्घ्यावली
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-amber-300/70 font-gotu mt-1">
+                      गर्भ, जन्म, तप, केवलज्ञान, मोक्ष कल्याणक एवं मुख्य महार्घ्य के छंद, तिथि, स्थली व समर्पित मंत्र
+                    </p>
                   </div>
 
-                  {/* Active Dravya Focused Card */}
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeDravya.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="p-6 md:p-8 rounded-2xl bg-black/40 border border-amber-500/30 relative overflow-hidden"
+                  <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                    <button
+                      onClick={() => setViewAllArghyas(!viewAllArghyas)}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu transition-all"
                     >
-                      {/* Top Dravya Purpose Header */}
-                      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-2xl shadow-inner">
-                            {activeDravya.emoji}
-                          </div>
-                          <div>
-                            <h3 className="text-lg md:text-xl font-notoserif font-bold text-white">
-                              {activeDravya.nameHindi}
-                            </h3>
-                            <div className="text-xs text-amber-300 font-gotu">
-                              प्रयोजन: {activeDravya.purpose} ({activeDravya.purposeEn})
+                      {viewAllArghyas ? 'टैब दृश्य' : 'सभी ६ अर्घ्य देखें'}
+                    </button>
+                    <button
+                      onClick={handleCopyAllArghyas}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu transition-all"
+                    >
+                      {copiedAllArghya ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedAllArghya ? 'सम्पूर्ण कॉपी हुई' : 'सम्पूर्ण अर्घ्यावली कॉपी करें'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {!viewAllArghyas ? (
+                  /* Tabbed Carousel View */
+                  <div>
+                    {/* Horizontal Scrollable Tabs */}
+                    <div className="mb-6">
+                      <HorizontalScrollContainer>
+                        {arghyavaliList.map((item, idx) => {
+                          const isOffered = !!offeredArghyas[item.id];
+                          const isSelected = activeArghyaTab === idx;
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => setActiveArghyaTab(idx)}
+                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                                isSelected
+                                  ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
+                                  : isOffered
+                                  ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-200'
+                                  : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white/80'
+                              }`}
+                            >
+                              <span>{item.emoji}</span>
+                              <span>{item.kalyanakName}</span>
+                              {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                            </button>
+                          );
+                        })}
+                      </HorizontalScrollContainer>
+                    </div>
+
+                    {/* Active Arghya Focused Card */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeArghya.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="p-6 md:p-8 rounded-2xl bg-black/40 border border-amber-500/30 relative overflow-hidden"
+                      >
+                        {/* Top Header */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-2xl shadow-inner">
+                              {activeArghya.emoji}
+                            </div>
+                            <div>
+                              <h3 className="text-lg md:text-xl font-notoserif font-bold text-white">
+                                {activeArghya.title}
+                              </h3>
+                              <div className="flex flex-wrap items-center gap-2 mt-1">
+                                <span className="px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px] font-gotu">
+                                  📅 {activeArghya.tithi}
+                                </span>
+                                {activeArghya.place && (
+                                  <span className="px-2 py-0.5 rounded-md bg-white/10 text-white/80 text-[11px] font-gotu">
+                                    📍 {activeArghya.place}
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <button
-                          onClick={() => handleCopyDravya(activeDravya)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu transition-all"
-                        >
-                          {copiedDravyaId === activeDravya.id ? (
-                            <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          ) : (
-                            <Copy className="w-3.5 h-3.5" />
-                          )}
-                          <span>{copiedDravyaId === activeDravya.id ? 'कॉपी हो गया' : 'मंत्र कॉपी करें'}</span>
-                        </button>
-                      </div>
-
-                      {/* Gilded Sacred Sanskrit Mantra Box */}
-                      <div className="p-5 md:p-6 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 mb-4 text-center">
-                        <p className="text-white font-notoserif font-bold text-lg sm:text-xl md:text-2xl leading-relaxed text-amber-100">
-                          {activeDravya.mantra}
-                        </p>
-                      </div>
-
-                      {/* Spiritual Meaning */}
-                      <p className="text-white/70 text-xs sm:text-sm font-gotu mb-6 text-center italic">
-                        {activeDravya.subtext}
-                      </p>
-
-                      {/* Action Offering Button */}
-                      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
-                        <div className="text-xs text-white/50 font-gotu">
-                          अष्टद्रव्य अर्पण प्रगति: <span className="text-amber-300 font-bold">{totalOffered} / ९ द्रव्य</span>
-                        </div>
-
-                        <div className="flex items-center gap-3 w-full sm:w-auto">
                           <button
-                            onClick={() => handleOfferDravya(activeDravya.id)}
-                            className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md ${
-                              offeredDravyas[activeDravya.id]
-                                ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
-                                : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
-                            }`}
+                            onClick={() => handleCopyArghya(activeArghya)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu transition-all"
                           >
-                            <span>{offeredDravyas[activeDravya.id] ? '✓ द्रव्य अर्पित किया गया' : `${activeDravya.emoji} द्रव्य अर्पित करें (स्वाहा)`}</span>
+                            {copiedArghyaId === activeArghya.id ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                            <span>{copiedArghyaId === activeArghya.id ? 'कॉपी हो गया' : 'अर्घ्य कॉपी करें'}</span>
                           </button>
-                          {activeDravyaTab < dravyaList.length - 1 && (
-                            <button
-                              onClick={() => setActiveDravyaTab(prev => prev + 1)}
-                              className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu transition-all"
-                            >
-                              अगला द्रव्य →
-                            </button>
-                          )}
                         </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
+
+                        {/* Poetic Verse Lines */}
+                        <div className="p-4 md:p-5 rounded-xl bg-amber-950/30 border border-amber-500/20 mb-4 text-center">
+                          <p className="text-white/90 font-notoserif font-medium text-base sm:text-lg leading-relaxed whitespace-pre-line">
+                            {activeArghya.verse}
+                          </p>
+                        </div>
+
+                        {/* Gilded Sacred Sanskrit Mantra Box */}
+                        <div className="p-5 md:p-6 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 mb-4 text-center">
+                          <p className="text-white font-notoserif font-bold text-lg sm:text-xl md:text-2xl leading-relaxed text-amber-100">
+                            {activeArghya.mantra}
+                          </p>
+                        </div>
+
+                        {/* Subtext */}
+                        {activeArghya.subtext && (
+                          <p className="text-white/60 text-xs sm:text-sm font-gotu mb-6 text-center italic">
+                            {activeArghya.subtext}
+                          </p>
+                        )}
+
+                        {/* Action Offering Button */}
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
+                          <div className="text-xs text-white/50 font-gotu">
+                            कल्याणक अर्घ्य अर्पण: <span className="text-amber-300 font-bold">{totalOfferedArghya} / ६ अर्घ्य</span>
+                          </div>
+
+                          <div className="flex items-center gap-3 w-full sm:w-auto">
+                            <button
+                              onClick={() => handleOfferArghya(activeArghya.id)}
+                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md ${
+                                offeredArghyas[activeArghya.id]
+                                  ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
+                                  : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
+                              }`}
+                            >
+                              <span>{offeredArghyas[activeArghya.id] ? '✓ अर्घ्य अर्पित किया गया' : `${activeArghya.emoji} अर्घ्य समर्पित करें (स्वाहा)`}</span>
+                            </button>
+                            {activeArghyaTab < arghyavaliList.length - 1 && (
+                              <button
+                                onClick={() => setActiveArghyaTab(prev => prev + 1)}
+                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu transition-all"
+                              >
+                                अगला अर्घ्य →
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  /* All 6 Arghyas List View */
+                  <div className="space-y-4">
+                    {arghyavaliList.map((item) => {
+                      const isOffered = !!offeredArghyas[item.id];
+                      return (
+                        <div
+                          key={item.id}
+                          className={`p-4 md:p-6 rounded-2xl border transition-all ${
+                            isOffered
+                              ? 'bg-emerald-500/10 border-emerald-500/30'
+                              : 'bg-black/30 border-white/10'
+                          }`}
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div className="flex items-center gap-2 font-notoserif font-bold text-white text-base md:text-lg">
+                              <span>{item.emoji}</span>
+                              <span>{item.title}</span>
+                              <span className="text-xs font-gotu font-normal text-amber-300/80">({item.tithi})</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => handleCopyArghya(item)}
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
+                                title="कॉपी करें"
+                              >
+                                {copiedArghyaId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                              </button>
+                              <button
+                                onClick={() => handleOfferArghya(item.id)}
+                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium transition-all ${
+                                  isOffered
+                                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                    : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30'
+                                }`}
+                              >
+                                {isOffered ? '✓ अर्पित' : 'स्वाहा (अर्पित करें)'}
+                              </button>
+                            </div>
+                          </div>
+
+                          <p className="text-white/85 font-notoserif text-sm sm:text-base leading-relaxed pl-7 mb-3 whitespace-pre-line">
+                            {item.verse}
+                          </p>
+
+                          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 ml-7">
+                            <p className="text-amber-200 font-notoserif font-bold text-sm sm:text-base leading-relaxed">
+                              {item.mantra}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </GlassCard>
+            )}
+
+            {/* Tab 2: Ashtadravya Arpan Mantras */}
+            {activeMainTab === 'dravya' && (
+              <GlassCard
+                variant="gilded"
+                className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
+              >
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-amber-500/20 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">🪔</span>
+                      <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200">
+                        अष्टद्रव्य अर्पण मंत्र (द्रव्य चढ़ाने के विधि-मंत्र)
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-amber-300/70 font-gotu mt-1">
+                      {tirthankar.nameHindi} के पूजन-अभिषेक में ८ द्रव्य एवं पूर्णार्घ्य समर्पित करने के प्रामाणिक मंत्र
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                    <button
+                      onClick={() => setViewAllDravyas(!viewAllDravyas)}
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu transition-all"
+                    >
+                      {viewAllDravyas ? 'टैब दृश्य' : 'सभी ९ मंत्र देखें'}
+                    </button>
+                    <button
+                      onClick={handleCopyAllDravyas}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu transition-all"
+                    >
+                      {copiedAllDravya ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedAllDravya ? 'सभी कॉपी हुए' : 'सभी मंत्र कॉपी करें'}</span>
+                    </button>
+                  </div>
                 </div>
-              ) : (
-                /* All 9 Mantras List View */
-                <div className="space-y-4">
-                  {dravyaList.map((item) => {
-                    const isOffered = !!offeredDravyas[item.id];
+
+                {!viewAllDravyas ? (
+                  /* Tabbed View */
+                  <div>
+                    {/* Horizontal Scrollable Tabs */}
+                    <div className="mb-6">
+                      <HorizontalScrollContainer>
+                        {dravyaList.map((item, idx) => {
+                          const isOffered = !!offeredDravyas[item.id];
+                          const isSelected = activeDravyaTab === idx;
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() => setActiveDravyaTab(idx)}
+                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                                isSelected
+                                  ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
+                                  : isOffered
+                                  ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-200'
+                                  : 'bg-white/5 hover:bg-white/10 border border-white/10 text-white/80'
+                              }`}
+                            >
+                              <span>{item.emoji}</span>
+                              <span>{item.nameHindi.split(' ')[1]}</span>
+                              {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                            </button>
+                          );
+                        })}
+                      </HorizontalScrollContainer>
+                    </div>
+
+                    {/* Active Dravya Focused Card */}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeDravya.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="p-6 md:p-8 rounded-2xl bg-black/40 border border-amber-500/30 relative overflow-hidden"
+                      >
+                        {/* Top Dravya Purpose Header */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-2xl shadow-inner">
+                              {activeDravya.emoji}
+                            </div>
+                            <div>
+                              <h3 className="text-lg md:text-xl font-notoserif font-bold text-white">
+                                {activeDravya.nameHindi}
+                              </h3>
+                              <div className="text-xs text-amber-300 font-gotu">
+                                प्रयोजन: {activeDravya.purpose} ({activeDravya.purposeEn})
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleCopyDravya(activeDravya)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu transition-all"
+                          >
+                            {copiedDravyaId === activeDravya.id ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                            <span>{copiedDravyaId === activeDravya.id ? 'कॉपी हो गया' : 'मंत्र कॉपी करें'}</span>
+                          </button>
+                        </div>
+
+                        {/* Gilded Sacred Sanskrit Mantra Box */}
+                        <div className="p-5 md:p-6 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 mb-4 text-center">
+                          <p className="text-white font-notoserif font-bold text-lg sm:text-xl md:text-2xl leading-relaxed text-amber-100">
+                            {activeDravya.mantra}
+                          </p>
+                        </div>
+
+                        {/* Spiritual Meaning */}
+                        <p className="text-white/70 text-xs sm:text-sm font-gotu mb-6 text-center italic">
+                          {activeDravya.subtext}
+                        </p>
+
+                        {/* Action Offering Button */}
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
+                          <div className="text-xs text-white/50 font-gotu">
+                            अष्टद्रव्य अर्पण प्रगति: <span className="text-amber-300 font-bold">{totalOfferedDravya} / ९ द्रव्य</span>
+                          </div>
+
+                          <div className="flex items-center gap-3 w-full sm:w-auto">
+                            <button
+                              onClick={() => handleOfferDravya(activeDravya.id)}
+                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md ${
+                                offeredDravyas[activeDravya.id]
+                                  ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
+                                  : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
+                              }`}
+                            >
+                              <span>{offeredDravyas[activeDravya.id] ? '✓ द्रव्य अर्पित किया गया' : `${activeDravya.emoji} द्रव्य अर्पित करें (स्वाहा)`}</span>
+                            </button>
+                            {activeDravyaTab < dravyaList.length - 1 && (
+                              <button
+                                onClick={() => setActiveDravyaTab(prev => prev + 1)}
+                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu transition-all"
+                              >
+                                अगला द्रव्य →
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  /* All 9 Mantras List View */
+                  <div className="space-y-4">
+                    {dravyaList.map((item) => {
+                      const isOffered = !!offeredDravyas[item.id];
+                      return (
+                        <div
+                          key={item.id}
+                          className={`p-4 md:p-5 rounded-xl border transition-all ${
+                            isOffered
+                              ? 'bg-emerald-500/10 border-emerald-500/30'
+                              : 'bg-black/30 border-white/10'
+                          }`}
+                        >
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2 font-notoserif font-bold text-white text-base">
+                              <span>{item.emoji}</span>
+                              <span>{item.nameHindi}</span>
+                              <span className="text-xs font-gotu font-normal text-amber-300/80">({item.purpose})</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => handleCopyDravya(item)}
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
+                                title="कॉपी करें"
+                              >
+                                {copiedDravyaId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                              </button>
+                              <button
+                                onClick={() => handleOfferDravya(item.id)}
+                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium transition-all ${
+                                  isOffered
+                                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                    : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30'
+                                }`}
+                              >
+                                {isOffered ? '✓ अर्पित' : 'अर्पित करें'}
+                              </button>
+                            </div>
+                          </div>
+                          <p className="text-amber-100 font-notoserif font-semibold text-base sm:text-lg leading-relaxed pl-7">
+                            {item.mantra}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </GlassCard>
+            )}
+
+            {/* Tab 3: Chaubis Tirthankar Samucchaya Arghyavali */}
+            {activeMainTab === 'chaubisi' && (
+              <GlassCard
+                variant="gilded"
+                className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
+              >
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 border-b border-amber-500/20 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">👑</span>
+                      <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200">
+                        सम्पूर्ण २४ तीर्थंकर समुच्चय अर्घ्यावली
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-amber-300/70 font-gotu mt-1">
+                      श्री ऋषभदेव से भगवान महावीर तक समस्त २४ तीर्थंकरों के पावन अर्घ्य मंत्र
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => onNavigate('viewer', { id: 'chaubis-tirthankar-puja', type: 'puja', title: 'चौबीस तीर्थंकर पूजन' })}
+                    className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center gap-2 transition-all"
+                  >
+                    <Flower2 className="w-4 h-4 text-amber-400" />
+                    <span>सम्पूर्ण चौबीसी पूजन पढ़ें</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                  {chaubisiList.map((item) => {
+                    const isCurrent = item.id === tirthankar.id;
                     return (
                       <div
                         key={item.id}
-                        className={`p-4 md:p-5 rounded-xl border transition-all ${
-                          isOffered
-                            ? 'bg-emerald-500/10 border-emerald-500/30'
-                            : 'bg-black/30 border-white/10'
+                        className={`p-4 rounded-xl border transition-all ${
+                          isCurrent
+                            ? 'bg-amber-500/20 border-amber-500/50 shadow-md ring-1 ring-amber-400/30'
+                            : 'bg-black/30 border-white/10 hover:border-white/20'
                         }`}
                       >
-                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                          <div className="flex items-center gap-2 font-notoserif font-bold text-white text-base">
-                            <span>{item.emoji}</span>
-                            <span>{item.nameHindi}</span>
-                            <span className="text-xs font-gotu font-normal text-amber-300/80">({item.purpose})</span>
-                          </div>
+                        <div className="flex items-center justify-between gap-2 mb-2">
                           <div className="flex items-center gap-2">
-                            <button
-                              onClick={() => handleCopyDravya(item)}
-                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
-                              title="कॉपी करें"
-                            >
-                              {copiedDravyaId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                            </button>
-                            <button
-                              onClick={() => handleOfferDravya(item.id)}
-                              className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium transition-all ${
-                                isOffered
-                                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                                  : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30'
-                              }`}
-                            >
-                              {isOffered ? '✓ अर्पित' : 'अर्पित करें'}
-                            </button>
+                            <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-amber-300">
+                              {item.number}
+                            </span>
+                            <span className="text-base font-notoserif font-bold text-white">
+                              {item.name}
+                            </span>
+                            <span className="text-xs text-white/50 font-gotu">({item.symbol})</span>
                           </div>
+
+                          {!isCurrent && (
+                            <button
+                              onClick={() => setCurrentId(item.id)}
+                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-amber-500/20 text-white/70 hover:text-amber-200 text-xs font-gotu transition-all"
+                            >
+                              प्रोफ़ाइल देखें →
+                            </button>
+                          )}
                         </div>
-                        <p className="text-amber-100 font-notoserif font-semibold text-base sm:text-lg leading-relaxed pl-7">
+
+                        <p className="text-amber-100 font-notoserif text-xs sm:text-sm leading-relaxed pl-8">
                           {item.mantra}
                         </p>
                       </div>
                     );
                   })}
                 </div>
-              )}
-            </GlassCard>
+              </GlassCard>
+            )}
           </div>
 
           {/* 4-Grid Structured Canonical Info */}

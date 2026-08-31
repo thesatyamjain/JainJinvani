@@ -36,23 +36,40 @@ const categoryTitles: Record<string, { title: string; sub: string }> = {
   chalisa: { title: 'चालीसा संग्रह', sub: '४० पद्य स्तुति एवं भक्ति पाठ' },
   puja: { title: 'नित्य पूजा', sub: 'अष्टद्रव्य पूजन विधि, नित्य नियम एवं पर्व पूजाएँ' },
   vidhan: { title: 'महामंडल विधान', sub: 'सिद्धचक्र, भक्तामर, कल्याणमंदिर, २४ तीर्थंकर व सर्व महाविधान' },
-  stotra: { title: 'प्राचीन स्तोत्र', sub: 'भक्तामर, कल्याणमंदिर, एकीभाव व शांति स्तोत्र' },
-  path: { title: 'पाठ और स्तुति', sub: 'दैनिक स्वाध्याय, वैराग्य भावना व विनती' },
-  granthas: { title: 'जिनवाणी शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
-  shastra: { title: 'जिनवाणी शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
-  agamas: { title: 'मूल आगम ग्रंथ', sub: 'षट्खण्डागम, कषायपाहुड़ व द्वादशांग जिनवाणी' },
+  stotra: { title: 'स्तोत्र संग्रह', sub: 'भक्तामर, कल्याणमंदिर, एकीभाव व शांति स्तोत्र' },
+  path: { title: 'पाठ व स्तुति', sub: 'दैनिक स्वाध्याय, वैराग्य भावना व विनती' },
+  granthas: { title: 'प्रमुख शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
+  shastra: { title: 'प्रमुख शास्त्र', sub: 'समयसार, तत्त्वार्थ सूत्र व सिद्धांत ग्रंथ' },
+  agamas: { title: 'मूल आगम', sub: 'षट्खण्डागम, कषायपाहुड़ व द्वादशांग जिनवाणी' },
   itihas: { title: 'जैन इतिहास', sub: 'तीर्थंकर जीवन चरित्र व महान आचार्य परंपरा' },
   bhugol: { title: 'जैन भूगोल', sub: 'तीन लोक, जम्बूद्वीप व अकृत्रिम चैत्यालय' },
-  parva: { title: 'पर्व और त्यौहार', sub: 'दशलक्षण, अष्टान्हिका, दीपावली व महापर्व' },
-  tattva: { title: 'जैन तत्त्वज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
-  philosophy: { title: 'जैन तत्त्वज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
+  parva: { title: 'पर्व व उत्सव', sub: 'दशलक्षण, अष्टान्हिका, दीपावली व महापर्व' },
+  tattva: { title: 'तत्त्व ज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
+  philosophy: { title: 'तत्त्व ज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
 };
 
 // Subcategory icon resolver
 const getSubCategoryIcon = (subId: string) => {
   switch (subId) {
     case 'daily-flow':
+    case 'daily-swadhyay':
       return <ListOrdered className="w-4 h-4" />;
+    case 'vairagya-bhavana':
+    case 'bhakti-stuti':
+    case 'adhyatma-stotra':
+      return <Feather className="w-4 h-4" />;
+    case 'atma-sadhana':
+    case 'tattva-guna':
+    case 'pradhan-stotra':
+    case 'ashtak-stotra':
+    case 'siddha-tirth':
+    case 'karnanuyoga':
+      return <Sparkles className="w-4 h-4" />;
+    case 'jinendra-stuti':
+    case 'vishesh-chalisa':
+    case 'atishay-kshetra':
+      return <Flower2 className="w-4 h-4" />;
+    case 'tirth-vandana':
     case 'tirthankar':
     case 'tirthankar-vidhan':
     case 'tirthankar-chalisa':
@@ -62,19 +79,13 @@ const getSubCategoryIcon = (subId: string) => {
     case 'mahamandal-vidhan':
       return <Calendar className="w-4 h-4" />;
     case 'guru-acharya':
+    case 'guru-devi':
       return <Users className="w-4 h-4" />;
-    case 'tattva-guna':
-    case 'pradhan-stotra':
-    case 'karnanuyoga':
-      return <Sparkles className="w-4 h-4" />;
     case 'shanti-raksha':
     case 'charananuyoga':
       return <Flame className="w-4 h-4" />;
-    case 'bhakti-stuti':
     case 'dravyanuyoga':
       return <Feather className="w-4 h-4" />;
-    case 'vishesh-chalisa':
-      return <Flower2 className="w-4 h-4" />;
     default:
       return <BookOpen className="w-4 h-4" />;
   }

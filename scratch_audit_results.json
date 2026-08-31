@@ -1,0 +1,3775 @@
+{
+  "summary": {
+    "total": 209,
+    "found": 131,
+    "missing": 78
+  },
+  "found": [
+    {
+      "index": 1,
+      "query": "देवदर्शन-स्वाध्याय : विधि निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 4,
+      "query": "मंगलाष्टक-स्तुति (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "मंगलाष्टक",
+      "matchedId": "मंगलाष्टक",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 5,
+      "query": "स्तुति (प्रभु पतितपावन)",
+      "status": "FOUND",
+      "matchedTitle": "स्तुति (प्रभु पतित पावन)",
+      "matchedId": "स्तुति (प्रभु पतित पावन)",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 6,
+      "query": "प्रतिमा-प्रक्षाल-विधि पाठ",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 7,
+      "query": "विनयपाठ (इह बिधि ठाड़ो...)",
+      "status": "FOUND",
+      "matchedTitle": "विनय पाठ",
+      "matchedId": "विनय पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 10,
+      "query": "चतुर्विंशति स्वस्ति-मंगलम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 11,
+      "query": "देव-शास्त्र-गुरु पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 14,
+      "query": "सिद्ध-पूजा (संस्कृत-पद् मनन्दि)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 15,
+      "query": "सिद्ध-पूजा (द्रव्याष्टक-हीराचंद)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 16,
+      "query": "श्री आदिनाथ-जिन पूजा 'जिनेश्वर'",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 17,
+      "query": "श्री पार्श्वनाथ पूजा (बख्तावर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 18,
+      "query": "समुच्चय महाअर्घ्य",
+      "status": "FOUND",
+      "matchedTitle": "महा अर्घ",
+      "matchedId": "महा अर्घ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 19,
+      "query": "शांतिपाठ (शास्त्रोक्तविधि...)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 21,
+      "query": "भजन (आ. देवेन्द्रकीर्ति)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनेन्द्र चालीसा",
+      "matchedId": "श्री जिनेन्द्र चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 22,
+      "query": "श्री देव-शास्त्र-गुरु पूजा (युगल जी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 23,
+      "query": "श्री आदिनाथ पूजा (चाँदखेड़ी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 25,
+      "query": "श्री नेमिनाथ पूजा (सन्मति)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "matchedId": "श्री नेमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 26,
+      "query": "श्री पार्श्वनाथपूजा (रवीन्द्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 27,
+      "query": "श्री महावीर पूजा (चाँदनगॉव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 28,
+      "query": "श्री महावीर पूजा (भारिल्ल)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 29,
+      "query": "श्री पंच परमेष्ठी पूजा (राजमल)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पंच परमेष्ठी पूजा",
+      "matchedId": "श्री पंच परमेष्ठी पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 30,
+      "query": "श्री बाहुबलीस्वामी पूजा (अरुणा)",
+      "status": "FOUND",
+      "matchedTitle": "श्री बाहुबली स्वामी आरती",
+      "matchedId": "श्री बाहुबली स्वामी आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 31,
+      "query": "अभिषेक : विधि-निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 32,
+      "query": "पूजन :विधि-निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 37,
+      "query": "मंगलपाठ (मंगलमूर्ति परमपद...)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 38,
+      "query": "पूजा-विधि प्रारम्भ",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि प्रारम्भ",
+      "matchedId": "पूजा विधि प्रारम्भ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 39,
+      "query": "स्वस्ति-मंगल-विधान (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 42,
+      "query": "विद्यमान बीस तीर्थंकरों के अर्घ्य",
+      "status": "FOUND",
+      "matchedTitle": "श्री विद्यमान बीस तीर्थंकर पूजा",
+      "matchedId": "श्री विद्यमान बीस तीर्थंकर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 44,
+      "query": "सिद्ध-पूजा (भावाष्टक-द्रव्याष्टक)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 45,
+      "query": "समुच्चय चौबीसी पूजा (वृन्दावन)",
+      "status": "FOUND",
+      "matchedTitle": "समुच्चय पूजन",
+      "matchedId": "समुच्चय पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 46,
+      "query": "श्री शांतिनाथ पूजा (बख्तावर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "matchedId": "श्री शांतिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 47,
+      "query": "श्री महावीर-जिन पूजा(वृन्दावन)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 49,
+      "query": "विसर्जनपाठ(सम्पूर्णविधि)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 51,
+      "query": "समुच्चय-पूजा (सच्चिदानंद)",
+      "status": "FOUND",
+      "matchedTitle": "समुच्चय पूजन",
+      "matchedId": "समुच्चय पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 52,
+      "query": "श्री देव-शास्त्र-गुरु पूजा (रवीन्द्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 54,
+      "query": "श्री चंद्रप्रभ पूजा (तिजारा)",
+      "status": "FOUND",
+      "matchedTitle": "श्री चंद्रप्रभ जिन पूजा",
+      "matchedId": "श्री चंद्रप्रभ जिन पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 55,
+      "query": "श्री पार्श्वनाथ पूजा (पुष्पेन्दु)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 56,
+      "query": "श्री पार्श्वनाथ पूजा (बड़ागॉव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 57,
+      "query": "भजन (चाँदनपुर के महावीर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 58,
+      "query": "नवदेवता-पूजन (ज्ञानमती)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नवदेवता पूजा",
+      "matchedId": "श्री नवदेवता पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 59,
+      "query": "सिद्ध-पूजा (युगल जी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 64,
+      "query": "दशलक्षण धर्म पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "दशलक्षण-धर्म पूजा",
+      "matchedId": "दशलक्षण-धर्म पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 65,
+      "query": "सम्यग्दर्शन पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यग्दर्शन पूजा",
+      "matchedId": "सम्यग्दर्शन पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 66,
+      "query": "सम्यक्चारित्र पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यक्चारित्र पूजा",
+      "matchedId": "सम्यक्चारित्र पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 69,
+      "query": "पंचबालयति पूजा (अरदास) निर्वाणक्षेत्र बड़ी पूजा",
+      "status": "FOUND",
+      "matchedTitle": "पंच बालयति पूजा",
+      "matchedId": "पंच बालयति पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 71,
+      "query": "समुच्चय पूजा",
+      "status": "FOUND",
+      "matchedTitle": "दशलक्षण विधान (समुच्चय पूजा)",
+      "matchedId": "दशलक्षण विधान (समुच्चय पूजा)",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 73,
+      "query": "नवग्रह-शांति स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 74,
+      "query": "श्री कलिकुंड-पार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 75,
+      "query": "दीपावली-पूजन-विधान",
+      "status": "FOUND",
+      "matchedTitle": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
+      "matchedId": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 76,
+      "query": "सरस्वती पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "matchedId": "श्री सरस्वती स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 79,
+      "query": "विसर्जन-पाठ (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 80,
+      "query": "शांति पाठ (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 83,
+      "query": "णमोकार महामंत्र पूजा (ज्ञानमती)",
+      "status": "FOUND",
+      "matchedTitle": "णमोकार महामंत्र पूजा",
+      "matchedId": "णमोकार महामंत्र पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 85,
+      "query": "श्री संभवनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री संभवनाथ चालीसा",
+      "matchedId": "श्री संभवनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 86,
+      "query": "श्री सुमतिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री सुमतिनाथ चालीसा",
+      "matchedId": "श्री सुमतिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 87,
+      "query": "श्री सुपार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 88,
+      "query": "श्री पुष्पदंत पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पुष्पदंत जिन पूजन",
+      "matchedId": "श्री पुष्पदंत जिन पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 89,
+      "query": "श्री श्रेयांसनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री श्रेयांसनाथ चालीसा",
+      "matchedId": "श्री श्रेयांसनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 90,
+      "query": "श्री विमलनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री विमलनाथ चालीसा",
+      "matchedId": "श्री विमलनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 93,
+      "query": "नंदीश्वर द्वीप पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नंदीश्वर-द्वीप पूजा",
+      "matchedId": "श्री नंदीश्वर-द्वीप पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 94,
+      "query": "रत्नत्रय पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "रत्नत्रय पूजा",
+      "matchedId": "रत्नत्रय पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 95,
+      "query": "सम्यग्ज्ञान पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यग्ज्ञान पूजा",
+      "matchedId": "सम्यग्ज्ञान पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 100,
+      "query": "रविव्रत पूजा",
+      "status": "FOUND",
+      "matchedTitle": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
+      "matchedId": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 102,
+      "query": "नवग्रह-शांति स्तोत्रम् (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 104,
+      "query": "अहिच्छत्र श्रीपार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 106,
+      "query": "सरस्वती स्तवन",
+      "status": "FOUND",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "matchedId": "श्री सरस्वती स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 108,
+      "query": "शांति-पाठ (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 110,
+      "query": "विसर्जन-पाठ (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 114,
+      "query": "श्री अजितनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अजितनाथ चालीसा",
+      "matchedId": "श्री अजितनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 115,
+      "query": "श्री अभिनंदननाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अभिनंदननाथ चालीसा",
+      "matchedId": "श्री अभिनंदननाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 116,
+      "query": "श्री पद्मप्रभ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "matchedId": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 117,
+      "query": "श्री चंद्रप्रभ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 118,
+      "query": "श्री शीतलनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री शीतलनाथ चालीसा",
+      "matchedId": "श्री शीतलनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 119,
+      "query": "श्री वासुपूज्य पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री वासुपूज्य चालीसा",
+      "matchedId": "श्री वासुपूज्य चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 120,
+      "query": "श्री अनंतनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अनंतनाथ जिन पूजन",
+      "matchedId": "श्री अनंतनाथ जिन पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 121,
+      "query": "श्री धर्मनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री धर्मनाथ चालीसा",
+      "matchedId": "श्री धर्मनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 122,
+      "query": "श्री कुंथुनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री कुंथुनाथ विधान",
+      "matchedId": "श्री कुंथुनाथ विधान",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 123,
+      "query": "श्री मल्लिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मल्लिनाथ चालीसा",
+      "matchedId": "श्री मल्लिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 124,
+      "query": "श्री नमिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री नमिनाथ चालीसा",
+      "matchedId": "श्री नमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 125,
+      "query": "श्री पार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 127,
+      "query": "भक्तामर-स्तोत्रम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 128,
+      "query": "भक्तामर-स्तोत्र (हिंदी, हेमराज)",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 129,
+      "query": "तीर्थंकर महावीर महत्त्वपूर्ण संदर्भ",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 131,
+      "query": "मंगल प्रभात स्तवन",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 133,
+      "query": "आलोचना-पाठ (सुनिये जिन!",
+      "status": "FOUND",
+      "matchedTitle": "आलोचना-पाठ",
+      "matchedId": "आलोचना-पाठ",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 134,
+      "query": "बारह भावना (वंदूँ श्री अरिहंत",
+      "status": "FOUND",
+      "matchedTitle": "बारह भावना",
+      "matchedId": "बारह भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 135,
+      "query": "मेरी भावना (जिसने राग-द्वेष)",
+      "status": "FOUND",
+      "matchedTitle": "मेरी भावना",
+      "matchedId": "मेरी भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 136,
+      "query": "समाधि भावना (दिन-रात मेरे)",
+      "status": "FOUND",
+      "matchedTitle": "समाधि भावना",
+      "matchedId": "समाधि भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 137,
+      "query": "अथ अठाई रासा (विनयकीर्ति)",
+      "status": "FOUND",
+      "matchedTitle": "विनय पाठ",
+      "matchedId": "विनय पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 138,
+      "query": "संकटमोचन विनती (हे दीनबंधु",
+      "status": "FOUND",
+      "matchedTitle": "संकट मोचन विनती",
+      "matchedId": "संकट मोचन विनती",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 140,
+      "query": "देव-स्तुति (भूधरदास)",
+      "status": "FOUND",
+      "matchedTitle": "देव-स्तुति",
+      "matchedId": "देव-स्तुति",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 141,
+      "query": "श्री पार्श्वनाथस्तोत्रम् (नरेंद्र",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 144,
+      "query": "श्रीसिद्धचक्र कि आरती",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 146,
+      "query": "जिनवाणी-स्तुति (वीर हीमा.)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनवाणी आरती",
+      "matchedId": "श्री जिनवाणी आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 147,
+      "query": "श्री पद्मप्रभ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "matchedId": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 148,
+      "query": "श्री मुनिसुव्रतनाथ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ चालीसा",
+      "matchedId": "श्री मुनिसुव्रतनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "exact"
+    },
+    {
+      "index": 149,
+      "query": "श्री पार्श्वनाथ चालीसा (अहिच्छात्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "matchedId": "श्री पार्श्वनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 151,
+      "query": "श्री शांतिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "matchedId": "श्री शांतिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 152,
+      "query": "श्री अरहनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अरहनाथ चालीसा",
+      "matchedId": "श्री अरहनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 153,
+      "query": "श्री मुनिसुव्रतनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "matchedId": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 154,
+      "query": "श्री नेमिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "matchedId": "श्री नेमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 155,
+      "query": "श्री जिनसहस्रनाम-स्तोत्रम्(स)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनसहस्रनाम-स्तोत्रम्",
+      "matchedId": "श्री जिनसहस्रनाम-स्तोत्रम्",
+      "source": "stotra.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 156,
+      "query": "तत्त्वार्थसूत्र : मोक्षशास्त्र (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "तत्त्वार्थ सूत्र (मोक्षशास्त्र)",
+      "matchedId": "tattvartha-sutra",
+      "source": "inventory",
+      "matchType": "normalized"
+    },
+    {
+      "index": 157,
+      "query": "भक्तामर-स्तोत्र महिमा",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 158,
+      "query": "महावीराष्टक- स्तोत्रम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 159,
+      "query": "कल्याणमंदिर-स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "कल्याण मंदिर स्तोत्र",
+      "matchedId": "कल्याण मंदिर स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 160,
+      "query": "विषापहार-स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "विषापहार स्तोत्र",
+      "matchedId": "विषापहार स्तोत्र",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 162,
+      "query": "सामायिक-पाठ (नितदेव! मेरी",
+      "status": "FOUND",
+      "matchedTitle": "सामायिक पाठ",
+      "matchedId": "सामायिक पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 163,
+      "query": "सामायिक-पाठ (काल-अनंत",
+      "status": "FOUND",
+      "matchedTitle": "सामायिक पाठ",
+      "matchedId": "सामायिक पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 164,
+      "query": "बारह भावना (राजा राणा छत्र",
+      "status": "FOUND",
+      "matchedTitle": "बारह भावना (राजा राणा छत्रपति)",
+      "matchedId": "बारह भावना (राजा राणा छत्रपति)",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 165,
+      "query": "वैराग्य भावना (इहविधि राज",
+      "status": "FOUND",
+      "matchedTitle": "वैराग्य भावना",
+      "matchedId": "वैराग्य भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 166,
+      "query": "लघु समाधिमरण-पाठ",
+      "status": "FOUND",
+      "matchedTitle": "समाधि-मरण पाठ",
+      "matchedId": "समाधि-मरण पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 168,
+      "query": "दुःखहरण विनती (श्रीपति जिन.",
+      "status": "FOUND",
+      "matchedTitle": "दुःख हरण विनती",
+      "matchedId": "दुःख हरण विनती",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 170,
+      "query": "आराधना-पाठ (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "आराधना पाठ",
+      "matchedId": "आराधना पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 174,
+      "query": "स्तुति (श्री सिद्धचक्र का पाठ",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 175,
+      "query": "शास्त्र-स्वाध्याय-मंगलाचरण",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 176,
+      "query": "श्री आदिनाथ चालीसा (चांदखेड़ी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ चालीसा",
+      "matchedId": "श्री आदिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 177,
+      "query": "श्री चंद्रप्रभ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 178,
+      "query": "श्री पार्श्वनाथ चालीसा (बड़ागांव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "matchedId": "श्री पार्श्वनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 179,
+      "query": "श्री महावीर चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर चालीसा",
+      "matchedId": "श्री महावीर चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "exact"
+    },
+    {
+      "index": 181,
+      "query": "श्री पंच-परमेष्ठी (इहविधि...)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पंच परमेष्ठी पूजा",
+      "matchedId": "श्री पंच परमेष्ठी पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 183,
+      "query": "आरती: श्री चंद्रप्रभ",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 184,
+      "query": "आरती :श्री पार्श्वनाथ",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 186,
+      "query": "आरती :श्री महावीर स्वामी",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 188,
+      "query": "वृहत् शांतिधारा-पाठ",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 196,
+      "query": "आरती: श्री जिनराजतिहारी",
+      "status": "FOUND",
+      "matchedTitle": "आरती श्री जिनराज तिहारी",
+      "matchedId": "आरती श्री जिनराज तिहारी",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 197,
+      "query": "आरती: श्री आदिनाथ भगवान्",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 198,
+      "query": "आरती :श्री मुनिसुव्रतनाथ",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "matchedId": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 199,
+      "query": "आरती:श्री पार्श्वनाथ (बड़ागांव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 200,
+      "query": "आरती :श्री महावीर (चाँदनपुर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 203,
+      "query": "सिद्ध क्षेत्रों की अर्घ्यावली",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    }
+  ],
+  "missing": [
+    {
+      "index": 2,
+      "query": "स्वस्तिक : उद्देश्य एवं भावना",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 3,
+      "query": "जैन दर्शन का उद्देश्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 8,
+      "query": "भजन (श्री जी! मैं थानेपूजन...)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 9,
+      "query": "पंचकल्याणक अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 12,
+      "query": "श्री बीस तीर्थंकर पूजा (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 13,
+      "query": "अकृत्रिम चैत्यालय-वंदना (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 20,
+      "query": "स्तुति (तुम तरण तारण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 24,
+      "query": "श्री पदमप्रभ पूजा (बाड़ा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 33,
+      "query": "मण्डलाष्टकम् (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 34,
+      "query": "दर्शनपाठ (तुम निरखत...)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 35,
+      "query": "जलाभिषेक पाठ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 36,
+      "query": "अभिषेक पाठ :(संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 40,
+      "query": "परमर्षि-स्वस्ति-विधान (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 41,
+      "query": "तीस चौबीसी का अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 43,
+      "query": "चैत्य-भक्त्ति",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 48,
+      "query": "आसिका लेने का पद",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 50,
+      "query": "स्तुति (मै तुम चरण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 53,
+      "query": "श्री ऋषभदेव पूजा (रानीला)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 60,
+      "query": "श्री जम्बूस्वामी पूजा (स्वस्ति भूषण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 61,
+      "query": "आ. कुंदकुंदस्वामी पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 62,
+      "query": "श्री विष्णुकुमार मुनि पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 63,
+      "query": "पंचमेरू पूजा (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 67,
+      "query": "क्षमावणी- पर्व पूजा (मल्लजी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 68,
+      "query": "सप्तर्षि पूजा (मनरंगलाल)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 70,
+      "query": "श्रीऋषिमंडल पूजा (दौलत आसेरी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 72,
+      "query": "उपसर्ग हर स्तोत्र (भद्रबाहु)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 77,
+      "query": "गौतमस्वामी जी का अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 78,
+      "query": "लाभ शुभ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 81,
+      "query": "वीर-प्रभु जी आरती",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 82,
+      "query": "निर्वाण-कांड (हिंदी-भगवती)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 84,
+      "query": "श्री ऋषभनाथ पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 91,
+      "query": "श्री अकंपनाचार्यादि पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 92,
+      "query": "सोलहकरण भावना पूजा (द्यानत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 96,
+      "query": "स्वयंभुस्तोत्र (भाषा) (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 97,
+      "query": "अकृत्रिम-चैत्यालयपूजा (नेमजी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 98,
+      "query": "चौबीसी निर्वाणक्षेत्र पूजा (द्यानत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 99,
+      "query": "(निर्वाण लड्डू पूजा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 101,
+      "query": "नवग्रह अरिष्ट-निवारक विधान",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 103,
+      "query": "नवगृहों के जाप्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 105,
+      "query": "नई बहियों कि मुहूर्त-विथि",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 107,
+      "query": "अंतराय-नाशार्थ अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 109,
+      "query": "अथ इष्ट-प्रार्थना",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 111,
+      "query": "गौतम गणधरदेव पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 112,
+      "query": "श्रुतपंचमी पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 113,
+      "query": "चौबीसी पूजा स्तवन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 126,
+      "query": "श्री ऋषिमंडल स्तोत्रम् (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 130,
+      "query": "एकीभाव-स्तोत्र (हिंदी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 132,
+      "query": "रत्नाकर-पंचविंशतिका",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 139,
+      "query": "गुरु-स्तुति (ते गुरु मेरे",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 142,
+      "query": "इस्ट प्रार्थना (भावना दिन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 143,
+      "query": "आत्म-रमण (मैं दर्शन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 145,
+      "query": "स्तुति पाश्र्वनाथ (तुमसे लागी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 150,
+      "query": "रस त्याग विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 161,
+      "query": "भुपालचतुर्विंशति-स्तोत्र (हिंदी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 167,
+      "query": "तिथि षोडशी पाठ (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 169,
+      "query": "दर्शन-पाठ (दौलतराम)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 171,
+      "query": "आत्म कीर्तन (हूँ स्वतन्त्र",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 172,
+      "query": "संबोधन (सदा संतोष कर",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 173,
+      "query": "आत्म-भक्ति (मेरे शाश्वत",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 180,
+      "query": "आरती: शब्दार्थ और व्याख्या",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 182,
+      "query": "आरती: श्री चौबीस भगवान्",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 185,
+      "query": "आरती श्री वर्द्धमान",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 187,
+      "query": "प्रमुख तीर्थक्षेत्र-परिचय",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 189,
+      "query": "समस्त पूजा-अर्घ्यावली",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 190,
+      "query": "भक्षय- अभक्षय",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 191,
+      "query": "'श्रावक प्रतिक्रमण' क्या है ?",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 192,
+      "query": "पंच-कल्याणक-तिथियाँ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 193,
+      "query": "दिशाशूल-विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 194,
+      "query": "चैत्य-चैत्यालय-निर्माण : वास्तु",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 195,
+      "query": "स्लेखखना का स्वरुप",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 201,
+      "query": "सम्मेदशिखर वंदना-क्रम",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 202,
+      "query": "प्रमुख जैन-पर्व",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 204,
+      "query": "जाप्य-मंत्र सूची",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 205,
+      "query": "फल-सब्जी :जैन-सूची",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 206,
+      "query": "श्रावक-प्रतिक्रमण(लघु)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 207,
+      "query": "पंच-कल्याणक-तिथि चार्ट",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 208,
+      "query": "सूतक-अवथि-विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 209,
+      "query": "ग्यारह प्रतिमाव्रत क्रम",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    }
+  ],
+  "all": [
+    {
+      "index": 1,
+      "query": "देवदर्शन-स्वाध्याय : विधि निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 2,
+      "query": "स्वस्तिक : उद्देश्य एवं भावना",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 3,
+      "query": "जैन दर्शन का उद्देश्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 4,
+      "query": "मंगलाष्टक-स्तुति (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "मंगलाष्टक",
+      "matchedId": "मंगलाष्टक",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 5,
+      "query": "स्तुति (प्रभु पतितपावन)",
+      "status": "FOUND",
+      "matchedTitle": "स्तुति (प्रभु पतित पावन)",
+      "matchedId": "स्तुति (प्रभु पतित पावन)",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 6,
+      "query": "प्रतिमा-प्रक्षाल-विधि पाठ",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 7,
+      "query": "विनयपाठ (इह बिधि ठाड़ो...)",
+      "status": "FOUND",
+      "matchedTitle": "विनय पाठ",
+      "matchedId": "विनय पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 8,
+      "query": "भजन (श्री जी! मैं थानेपूजन...)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 9,
+      "query": "पंचकल्याणक अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 10,
+      "query": "चतुर्विंशति स्वस्ति-मंगलम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 11,
+      "query": "देव-शास्त्र-गुरु पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 12,
+      "query": "श्री बीस तीर्थंकर पूजा (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 13,
+      "query": "अकृत्रिम चैत्यालय-वंदना (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 14,
+      "query": "सिद्ध-पूजा (संस्कृत-पद् मनन्दि)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 15,
+      "query": "सिद्ध-पूजा (द्रव्याष्टक-हीराचंद)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 16,
+      "query": "श्री आदिनाथ-जिन पूजा 'जिनेश्वर'",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 17,
+      "query": "श्री पार्श्वनाथ पूजा (बख्तावर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 18,
+      "query": "समुच्चय महाअर्घ्य",
+      "status": "FOUND",
+      "matchedTitle": "महा अर्घ",
+      "matchedId": "महा अर्घ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 19,
+      "query": "शांतिपाठ (शास्त्रोक्तविधि...)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 20,
+      "query": "स्तुति (तुम तरण तारण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 21,
+      "query": "भजन (आ. देवेन्द्रकीर्ति)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनेन्द्र चालीसा",
+      "matchedId": "श्री जिनेन्द्र चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 22,
+      "query": "श्री देव-शास्त्र-गुरु पूजा (युगल जी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 23,
+      "query": "श्री आदिनाथ पूजा (चाँदखेड़ी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 24,
+      "query": "श्री पदमप्रभ पूजा (बाड़ा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 25,
+      "query": "श्री नेमिनाथ पूजा (सन्मति)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "matchedId": "श्री नेमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 26,
+      "query": "श्री पार्श्वनाथपूजा (रवीन्द्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 27,
+      "query": "श्री महावीर पूजा (चाँदनगॉव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 28,
+      "query": "श्री महावीर पूजा (भारिल्ल)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 29,
+      "query": "श्री पंच परमेष्ठी पूजा (राजमल)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पंच परमेष्ठी पूजा",
+      "matchedId": "श्री पंच परमेष्ठी पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 30,
+      "query": "श्री बाहुबलीस्वामी पूजा (अरुणा)",
+      "status": "FOUND",
+      "matchedTitle": "श्री बाहुबली स्वामी आरती",
+      "matchedId": "श्री बाहुबली स्वामी आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 31,
+      "query": "अभिषेक : विधि-निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 32,
+      "query": "पूजन :विधि-निर्देश",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि",
+      "matchedId": "पूजा विधि",
+      "source": "vidhi.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 33,
+      "query": "मण्डलाष्टकम् (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 34,
+      "query": "दर्शनपाठ (तुम निरखत...)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 35,
+      "query": "जलाभिषेक पाठ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 36,
+      "query": "अभिषेक पाठ :(संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 37,
+      "query": "मंगलपाठ (मंगलमूर्ति परमपद...)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 38,
+      "query": "पूजा-विधि प्रारम्भ",
+      "status": "FOUND",
+      "matchedTitle": "पूजा विधि प्रारम्भ",
+      "matchedId": "पूजा विधि प्रारम्भ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 39,
+      "query": "स्वस्ति-मंगल-विधान (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 40,
+      "query": "परमर्षि-स्वस्ति-विधान (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 41,
+      "query": "तीस चौबीसी का अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 42,
+      "query": "विद्यमान बीस तीर्थंकरों के अर्घ्य",
+      "status": "FOUND",
+      "matchedTitle": "श्री विद्यमान बीस तीर्थंकर पूजा",
+      "matchedId": "श्री विद्यमान बीस तीर्थंकर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 43,
+      "query": "चैत्य-भक्त्ति",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 44,
+      "query": "सिद्ध-पूजा (भावाष्टक-द्रव्याष्टक)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 45,
+      "query": "समुच्चय चौबीसी पूजा (वृन्दावन)",
+      "status": "FOUND",
+      "matchedTitle": "समुच्चय पूजन",
+      "matchedId": "समुच्चय पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 46,
+      "query": "श्री शांतिनाथ पूजा (बख्तावर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "matchedId": "श्री शांतिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 47,
+      "query": "श्री महावीर-जिन पूजा(वृन्दावन)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 48,
+      "query": "आसिका लेने का पद",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 49,
+      "query": "विसर्जनपाठ(सम्पूर्णविधि)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 50,
+      "query": "स्तुति (मै तुम चरण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 51,
+      "query": "समुच्चय-पूजा (सच्चिदानंद)",
+      "status": "FOUND",
+      "matchedTitle": "समुच्चय पूजन",
+      "matchedId": "समुच्चय पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 52,
+      "query": "श्री देव-शास्त्र-गुरु पूजा (रवीन्द्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री देव-शास्त्र-गुरु पूजा",
+      "matchedId": "श्री देव-शास्त्र-गुरु पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 53,
+      "query": "श्री ऋषभदेव पूजा (रानीला)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 54,
+      "query": "श्री चंद्रप्रभ पूजा (तिजारा)",
+      "status": "FOUND",
+      "matchedTitle": "श्री चंद्रप्रभ जिन पूजा",
+      "matchedId": "श्री चंद्रप्रभ जिन पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 55,
+      "query": "श्री पार्श्वनाथ पूजा (पुष्पेन्दु)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 56,
+      "query": "श्री पार्श्वनाथ पूजा (बड़ागॉव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 57,
+      "query": "भजन (चाँदनपुर के महावीर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 58,
+      "query": "नवदेवता-पूजन (ज्ञानमती)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नवदेवता पूजा",
+      "matchedId": "श्री नवदेवता पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 59,
+      "query": "सिद्ध-पूजा (युगल जी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 60,
+      "query": "श्री जम्बूस्वामी पूजा (स्वस्ति भूषण)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 61,
+      "query": "आ. कुंदकुंदस्वामी पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 62,
+      "query": "श्री विष्णुकुमार मुनि पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 63,
+      "query": "पंचमेरू पूजा (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 64,
+      "query": "दशलक्षण धर्म पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "दशलक्षण-धर्म पूजा",
+      "matchedId": "दशलक्षण-धर्म पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 65,
+      "query": "सम्यग्दर्शन पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यग्दर्शन पूजा",
+      "matchedId": "सम्यग्दर्शन पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 66,
+      "query": "सम्यक्चारित्र पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यक्चारित्र पूजा",
+      "matchedId": "सम्यक्चारित्र पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 67,
+      "query": "क्षमावणी- पर्व पूजा (मल्लजी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 68,
+      "query": "सप्तर्षि पूजा (मनरंगलाल)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 69,
+      "query": "पंचबालयति पूजा (अरदास) निर्वाणक्षेत्र बड़ी पूजा",
+      "status": "FOUND",
+      "matchedTitle": "पंच बालयति पूजा",
+      "matchedId": "पंच बालयति पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 70,
+      "query": "श्रीऋषिमंडल पूजा (दौलत आसेरी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 71,
+      "query": "समुच्चय पूजा",
+      "status": "FOUND",
+      "matchedTitle": "दशलक्षण विधान (समुच्चय पूजा)",
+      "matchedId": "दशलक्षण विधान (समुच्चय पूजा)",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 72,
+      "query": "उपसर्ग हर स्तोत्र (भद्रबाहु)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 73,
+      "query": "नवग्रह-शांति स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 74,
+      "query": "श्री कलिकुंड-पार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 75,
+      "query": "दीपावली-पूजन-विधान",
+      "status": "FOUND",
+      "matchedTitle": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
+      "matchedId": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 76,
+      "query": "सरस्वती पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "matchedId": "श्री सरस्वती स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 77,
+      "query": "गौतमस्वामी जी का अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 78,
+      "query": "लाभ शुभ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 79,
+      "query": "विसर्जन-पाठ (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 80,
+      "query": "शांति पाठ (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 81,
+      "query": "वीर-प्रभु जी आरती",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 82,
+      "query": "निर्वाण-कांड (हिंदी-भगवती)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 83,
+      "query": "णमोकार महामंत्र पूजा (ज्ञानमती)",
+      "status": "FOUND",
+      "matchedTitle": "णमोकार महामंत्र पूजा",
+      "matchedId": "णमोकार महामंत्र पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 84,
+      "query": "श्री ऋषभनाथ पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 85,
+      "query": "श्री संभवनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री संभवनाथ चालीसा",
+      "matchedId": "श्री संभवनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 86,
+      "query": "श्री सुमतिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री सुमतिनाथ चालीसा",
+      "matchedId": "श्री सुमतिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 87,
+      "query": "श्री सुपार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 88,
+      "query": "श्री पुष्पदंत पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पुष्पदंत जिन पूजन",
+      "matchedId": "श्री पुष्पदंत जिन पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 89,
+      "query": "श्री श्रेयांसनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री श्रेयांसनाथ चालीसा",
+      "matchedId": "श्री श्रेयांसनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 90,
+      "query": "श्री विमलनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री विमलनाथ चालीसा",
+      "matchedId": "श्री विमलनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 91,
+      "query": "श्री अकंपनाचार्यादि पूजा",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 92,
+      "query": "सोलहकरण भावना पूजा (द्यानत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 93,
+      "query": "नंदीश्वर द्वीप पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "श्री नंदीश्वर-द्वीप पूजा",
+      "matchedId": "श्री नंदीश्वर-द्वीप पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 94,
+      "query": "रत्नत्रय पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "रत्नत्रय पूजा",
+      "matchedId": "रत्नत्रय पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 95,
+      "query": "सम्यग्ज्ञान पूजा (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "सम्यग्ज्ञान पूजा",
+      "matchedId": "सम्यग्ज्ञान पूजा",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 96,
+      "query": "स्वयंभुस्तोत्र (भाषा) (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 97,
+      "query": "अकृत्रिम-चैत्यालयपूजा (नेमजी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 98,
+      "query": "चौबीसी निर्वाणक्षेत्र पूजा (द्यानत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 99,
+      "query": "(निर्वाण लड्डू पूजा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 100,
+      "query": "रविव्रत पूजा",
+      "status": "FOUND",
+      "matchedTitle": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
+      "matchedId": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
+      "source": "ritual.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 101,
+      "query": "नवग्रह अरिष्ट-निवारक विधान",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 102,
+      "query": "नवग्रह-शांति स्तोत्रम् (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 103,
+      "query": "नवगृहों के जाप्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 104,
+      "query": "अहिच्छत्र श्रीपार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 105,
+      "query": "नई बहियों कि मुहूर्त-विथि",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 106,
+      "query": "सरस्वती स्तवन",
+      "status": "FOUND",
+      "matchedTitle": "श्री सरस्वती स्तोत्र",
+      "matchedId": "श्री सरस्वती स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 107,
+      "query": "अंतराय-नाशार्थ अर्घ्य",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 108,
+      "query": "शांति-पाठ (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 109,
+      "query": "अथ इष्ट-प्रार्थना",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 110,
+      "query": "विसर्जन-पाठ (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "विसर्जन पाठ",
+      "matchedId": "विसर्जन पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 111,
+      "query": "गौतम गणधरदेव पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 112,
+      "query": "श्रुतपंचमी पूजा (अरुणा)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 113,
+      "query": "चौबीसी पूजा स्तवन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 114,
+      "query": "श्री अजितनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अजितनाथ चालीसा",
+      "matchedId": "श्री अजितनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 115,
+      "query": "श्री अभिनंदननाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अभिनंदननाथ चालीसा",
+      "matchedId": "श्री अभिनंदननाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 116,
+      "query": "श्री पद्मप्रभ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "matchedId": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 117,
+      "query": "श्री चंद्रप्रभ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 118,
+      "query": "श्री शीतलनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री शीतलनाथ चालीसा",
+      "matchedId": "श्री शीतलनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 119,
+      "query": "श्री वासुपूज्य पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री वासुपूज्य चालीसा",
+      "matchedId": "श्री वासुपूज्य चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 120,
+      "query": "श्री अनंतनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अनंतनाथ जिन पूजन",
+      "matchedId": "श्री अनंतनाथ जिन पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 121,
+      "query": "श्री धर्मनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री धर्मनाथ चालीसा",
+      "matchedId": "श्री धर्मनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 122,
+      "query": "श्री कुंथुनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री कुंथुनाथ विधान",
+      "matchedId": "श्री कुंथुनाथ विधान",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 123,
+      "query": "श्री मल्लिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मल्लिनाथ चालीसा",
+      "matchedId": "श्री मल्लिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 124,
+      "query": "श्री नमिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री नमिनाथ चालीसा",
+      "matchedId": "श्री नमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 125,
+      "query": "श्री पार्श्वनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 126,
+      "query": "श्री ऋषिमंडल स्तोत्रम् (संस्कृत)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 127,
+      "query": "भक्तामर-स्तोत्रम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 128,
+      "query": "भक्तामर-स्तोत्र (हिंदी, हेमराज)",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 129,
+      "query": "तीर्थंकर महावीर महत्त्वपूर्ण संदर्भ",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 130,
+      "query": "एकीभाव-स्तोत्र (हिंदी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 131,
+      "query": "मंगल प्रभात स्तवन",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 132,
+      "query": "रत्नाकर-पंचविंशतिका",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 133,
+      "query": "आलोचना-पाठ (सुनिये जिन!",
+      "status": "FOUND",
+      "matchedTitle": "आलोचना-पाठ",
+      "matchedId": "आलोचना-पाठ",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 134,
+      "query": "बारह भावना (वंदूँ श्री अरिहंत",
+      "status": "FOUND",
+      "matchedTitle": "बारह भावना",
+      "matchedId": "बारह भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 135,
+      "query": "मेरी भावना (जिसने राग-द्वेष)",
+      "status": "FOUND",
+      "matchedTitle": "मेरी भावना",
+      "matchedId": "मेरी भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 136,
+      "query": "समाधि भावना (दिन-रात मेरे)",
+      "status": "FOUND",
+      "matchedTitle": "समाधि भावना",
+      "matchedId": "समाधि भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 137,
+      "query": "अथ अठाई रासा (विनयकीर्ति)",
+      "status": "FOUND",
+      "matchedTitle": "विनय पाठ",
+      "matchedId": "विनय पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 138,
+      "query": "संकटमोचन विनती (हे दीनबंधु",
+      "status": "FOUND",
+      "matchedTitle": "संकट मोचन विनती",
+      "matchedId": "संकट मोचन विनती",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 139,
+      "query": "गुरु-स्तुति (ते गुरु मेरे",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 140,
+      "query": "देव-स्तुति (भूधरदास)",
+      "status": "FOUND",
+      "matchedTitle": "देव-स्तुति",
+      "matchedId": "देव-स्तुति",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 141,
+      "query": "श्री पार्श्वनाथस्तोत्रम् (नरेंद्र",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 142,
+      "query": "इस्ट प्रार्थना (भावना दिन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 143,
+      "query": "आत्म-रमण (मैं दर्शन",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 144,
+      "query": "श्रीसिद्धचक्र कि आरती",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 145,
+      "query": "स्तुति पाश्र्वनाथ (तुमसे लागी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 146,
+      "query": "जिनवाणी-स्तुति (वीर हीमा.)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनवाणी आरती",
+      "matchedId": "श्री जिनवाणी आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 147,
+      "query": "श्री पद्मप्रभ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "matchedId": "श्री पद्मप्रभु की आरती (बाड़ा)",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 148,
+      "query": "श्री मुनिसुव्रतनाथ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ चालीसा",
+      "matchedId": "श्री मुनिसुव्रतनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "exact"
+    },
+    {
+      "index": 149,
+      "query": "श्री पार्श्वनाथ चालीसा (अहिच्छात्र)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "matchedId": "श्री पार्श्वनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 150,
+      "query": "रस त्याग विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 151,
+      "query": "श्री शांतिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री शांतिनाथ आरती",
+      "matchedId": "श्री शांतिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 152,
+      "query": "श्री अरहनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री अरहनाथ चालीसा",
+      "matchedId": "श्री अरहनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 153,
+      "query": "श्री मुनिसुव्रतनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "matchedId": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 154,
+      "query": "श्री नेमिनाथ पूजा",
+      "status": "FOUND",
+      "matchedTitle": "श्री नेमिनाथ चालीसा",
+      "matchedId": "श्री नेमिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 155,
+      "query": "श्री जिनसहस्रनाम-स्तोत्रम्(स)",
+      "status": "FOUND",
+      "matchedTitle": "श्री जिनसहस्रनाम-स्तोत्रम्",
+      "matchedId": "श्री जिनसहस्रनाम-स्तोत्रम्",
+      "source": "stotra.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 156,
+      "query": "तत्त्वार्थसूत्र : मोक्षशास्त्र (संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "तत्त्वार्थ सूत्र (मोक्षशास्त्र)",
+      "matchedId": "tattvartha-sutra",
+      "source": "inventory",
+      "matchType": "normalized"
+    },
+    {
+      "index": 157,
+      "query": "भक्तामर-स्तोत्र महिमा",
+      "status": "FOUND",
+      "matchedTitle": "श्री भक्तामर पूजा",
+      "matchedId": "श्री भक्तामर पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 158,
+      "query": "महावीराष्टक- स्तोत्रम्(संस्कृत)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 159,
+      "query": "कल्याणमंदिर-स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "कल्याण मंदिर स्तोत्र",
+      "matchedId": "कल्याण मंदिर स्तोत्र",
+      "source": "stotra.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 160,
+      "query": "विषापहार-स्तोत्र (हिंदी)",
+      "status": "FOUND",
+      "matchedTitle": "विषापहार स्तोत्र",
+      "matchedId": "विषापहार स्तोत्र",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 161,
+      "query": "भुपालचतुर्विंशति-स्तोत्र (हिंदी)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 162,
+      "query": "सामायिक-पाठ (नितदेव! मेरी",
+      "status": "FOUND",
+      "matchedTitle": "सामायिक पाठ",
+      "matchedId": "सामायिक पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 163,
+      "query": "सामायिक-पाठ (काल-अनंत",
+      "status": "FOUND",
+      "matchedTitle": "सामायिक पाठ",
+      "matchedId": "सामायिक पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 164,
+      "query": "बारह भावना (राजा राणा छत्र",
+      "status": "FOUND",
+      "matchedTitle": "बारह भावना (राजा राणा छत्रपति)",
+      "matchedId": "बारह भावना (राजा राणा छत्रपति)",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 165,
+      "query": "वैराग्य भावना (इहविधि राज",
+      "status": "FOUND",
+      "matchedTitle": "वैराग्य भावना",
+      "matchedId": "वैराग्य भावना",
+      "source": "path.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 166,
+      "query": "लघु समाधिमरण-पाठ",
+      "status": "FOUND",
+      "matchedTitle": "समाधि-मरण पाठ",
+      "matchedId": "समाधि-मरण पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 167,
+      "query": "तिथि षोडशी पाठ (द्यानतराय)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 168,
+      "query": "दुःखहरण विनती (श्रीपति जिन.",
+      "status": "FOUND",
+      "matchedTitle": "दुःख हरण विनती",
+      "matchedId": "दुःख हरण विनती",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 169,
+      "query": "दर्शन-पाठ (दौलतराम)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 170,
+      "query": "आराधना-पाठ (द्यानतराय)",
+      "status": "FOUND",
+      "matchedTitle": "आराधना पाठ",
+      "matchedId": "आराधना पाठ",
+      "source": "path.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 171,
+      "query": "आत्म कीर्तन (हूँ स्वतन्त्र",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 172,
+      "query": "संबोधन (सदा संतोष कर",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 173,
+      "query": "आत्म-भक्ति (मेरे शाश्वत",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 174,
+      "query": "स्तुति (श्री सिद्धचक्र का पाठ",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 175,
+      "query": "शास्त्र-स्वाध्याय-मंगलाचरण",
+      "status": "FOUND",
+      "matchedTitle": "मंगल आरती",
+      "matchedId": "मंगल आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 176,
+      "query": "श्री आदिनाथ चालीसा (चांदखेड़ी)",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ चालीसा",
+      "matchedId": "श्री आदिनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 177,
+      "query": "श्री चंद्रप्रभ चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 178,
+      "query": "श्री पार्श्वनाथ चालीसा (बड़ागांव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ चालीसा",
+      "matchedId": "श्री पार्श्वनाथ चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "partial"
+    },
+    {
+      "index": 179,
+      "query": "श्री महावीर चालीसा",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर चालीसा",
+      "matchedId": "श्री महावीर चालीसा",
+      "source": "chalisa.ts",
+      "matchType": "exact"
+    },
+    {
+      "index": 180,
+      "query": "आरती: शब्दार्थ और व्याख्या",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 181,
+      "query": "श्री पंच-परमेष्ठी (इहविधि...)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पंच परमेष्ठी पूजा",
+      "matchedId": "श्री पंच परमेष्ठी पूजा",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 182,
+      "query": "आरती: श्री चौबीस भगवान्",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 183,
+      "query": "आरती: श्री चंद्रप्रभ",
+      "status": "FOUND",
+      "matchedTitle": "जय चंद्रप्रभु देवा",
+      "matchedId": "जय चंद्रप्रभु देवा",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 184,
+      "query": "आरती :श्री पार्श्वनाथ",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 185,
+      "query": "आरती श्री वर्द्धमान",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 186,
+      "query": "आरती :श्री महावीर स्वामी",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 187,
+      "query": "प्रमुख तीर्थक्षेत्र-परिचय",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 188,
+      "query": "वृहत् शांतिधारा-पाठ",
+      "status": "FOUND",
+      "matchedTitle": "शांति पाठ",
+      "matchedId": "शांति पाठ",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 189,
+      "query": "समस्त पूजा-अर्घ्यावली",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 190,
+      "query": "भक्षय- अभक्षय",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 191,
+      "query": "'श्रावक प्रतिक्रमण' क्या है ?",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 192,
+      "query": "पंच-कल्याणक-तिथियाँ",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 193,
+      "query": "दिशाशूल-विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 194,
+      "query": "चैत्य-चैत्यालय-निर्माण : वास्तु",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 195,
+      "query": "स्लेखखना का स्वरुप",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 196,
+      "query": "आरती: श्री जिनराजतिहारी",
+      "status": "FOUND",
+      "matchedTitle": "आरती श्री जिनराज तिहारी",
+      "matchedId": "आरती श्री जिनराज तिहारी",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 197,
+      "query": "आरती: श्री आदिनाथ भगवान्",
+      "status": "FOUND",
+      "matchedTitle": "श्री आदिनाथ आरती",
+      "matchedId": "श्री आदिनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 198,
+      "query": "आरती :श्री मुनिसुव्रतनाथ",
+      "status": "FOUND",
+      "matchedTitle": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "matchedId": "श्री मुनिसुव्रतनाथ भगवान की आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 199,
+      "query": "आरती:श्री पार्श्वनाथ (बड़ागांव)",
+      "status": "FOUND",
+      "matchedTitle": "श्री पार्श्वनाथ आरती",
+      "matchedId": "श्री पार्श्वनाथ आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 200,
+      "query": "आरती :श्री महावीर (चाँदनपुर)",
+      "status": "FOUND",
+      "matchedTitle": "श्री महावीर आरती",
+      "matchedId": "श्री महावीर आरती",
+      "source": "arti.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 201,
+      "query": "सम्मेदशिखर वंदना-क्रम",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 202,
+      "query": "प्रमुख जैन-पर्व",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 203,
+      "query": "सिद्ध क्षेत्रों की अर्घ्यावली",
+      "status": "FOUND",
+      "matchedTitle": "श्री सिद्ध पूजन",
+      "matchedId": "श्री सिद्ध पूजन",
+      "source": "ritual.ts",
+      "matchType": "normalized"
+    },
+    {
+      "index": 204,
+      "query": "जाप्य-मंत्र सूची",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 205,
+      "query": "फल-सब्जी :जैन-सूची",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 206,
+      "query": "श्रावक-प्रतिक्रमण(लघु)",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 207,
+      "query": "पंच-कल्याणक-तिथि चार्ट",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 208,
+      "query": "सूतक-अवथि-विचार",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    },
+    {
+      "index": 209,
+      "query": "ग्यारह प्रतिमाव्रत क्रम",
+      "status": "MISSING",
+      "matchedTitle": null,
+      "matchedId": null,
+      "source": null,
+      "matchType": "none"
+    }
+  ]
+}
