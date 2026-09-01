@@ -925,6 +925,16 @@ export const contentInventory: Record<string, ContentItem[]> = {
   }
 ],
   puja: [
+    {"id":"uttam-brahmacharya-dharma-puja","title":"श्री उत्तम ब्रह्मचर्य धर्म पूजा (दशम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व दशम दिवस — अनन्त चतुर्दशी","badge":"दशम दिन"},
+    {"id":"uttam-akinchanya-dharma-puja","title":"श्री उत्तम आकिंचन्य धर्म पूजा (नवम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व नवम दिवस — भाद्रपद शुक्ल त्रयोदशी","badge":"नवम दिन"},
+    {"id":"uttam-tyag-dharma-puja","title":"श्री उत्तम त्याग धर्म पूजा (अष्टम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व अष्टम दिवस — भाद्रपद शुक्ल द्वादशी","badge":"अष्टम दिन"},
+    {"id":"uttam-tap-dharma-puja","title":"श्री उत्तम तप धर्म पूजा (सप्तम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व सप्तम दिवस — भाद्रपद शुक्ल एकादशी","badge":"सप्तम दिन"},
+    {"id":"uttam-sanyam-dharma-puja","title":"श्री उत्तम संयम धर्म पूजा (षष्ठ दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व षष्ठ दिवस — सुगंध दशमी","badge":"षष्ठ दिन"},
+    {"id":"uttam-satya-dharma-puja","title":"श्री उत्तम सत्य धर्म पूजा (पंचम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व पंचम दिवस — भाद्रपद शुक्ल नवमी","badge":"पंचम दिन"},
+    {"id":"uttam-shauch-dharma-puja","title":"श्री उत्तम शौच धर्म पूजा (चतुर्थ दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व चतुर्थ दिवस — भाद्रपद शुक्ल अष्टमी","badge":"चतुर्थ दिन"},
+    {"id":"uttam-arjav-dharma-puja","title":"श्री उत्तम आर्जव धर्म पूजा (तृतीय दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व तृतीय दिवस — भाद्रपद शुक्ल सप्तमी","badge":"तृतीय दिन"},
+    {"id":"uttam-mardav-dharma-puja","title":"श्री उत्तम मार्दव धर्म पूजा (द्वितीय दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व द्वितीय दिवस — भाद्रपद शुक्ल षष्ठी","badge":"द्वितीय दिन"},
+    {"id":"uttam-kshama-dharma-puja","title":"श्री उत्तम क्षमा धर्म पूजा (प्रथम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व प्रथम दिवस — भाद्रपद शुक्ल पंचमी","badge":"प्रथम दिन"},
   {
     "id": "puja-vidhi-prarambh",
     "title": "पूजा विधि प्रारम्भ",
@@ -1583,6 +1593,36 @@ export const contentInventory: Record<string, ContentItem[]> = {
   }
 ],
   vidhan: [
+    {"id":"uttam-brahmacharya-dharma-vidhan","title":"श्री उत्तम ब्रह्मचर्य धर्म मण्डल विधान (दशम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व दशम दिवस मण्डल आराधना विधान","badge":"दशम दिन विधान"},
+    {"id":"uttam-akinchanya-dharma-vidhan","title":"श्री उत्तम आकिंचन्य धर्म मण्डल विधान (नवम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व नवम दिवस मण्डल आराधना विधान","badge":"नवम दिन विधान"},
+    {"id":"uttam-tyag-dharma-vidhan","title":"श्री उत्तम त्याग धर्म मण्डल विधान (अष्टम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व अष्टम दिवस मण्डल आराधना विधान","badge":"अष्टम दिन विधान"},
+    {"id":"uttam-tap-dharma-vidhan","title":"श्री उत्तम तप धर्म मण्डल विधान (सप्तम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व सप्तम दिवस मण्डल आराधना विधान","badge":"सप्तम दिन विधान"},
+    {"id":"uttam-sanyam-dharma-vidhan","title":"श्री उत्तम संयम धर्म मण्डल विधान (षष्ठ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व षष्ठ दिवस मण्डल आराधना विधान","badge":"षष्ठ दिन विधान"},
+    {"id":"uttam-satya-dharma-vidhan","title":"श्री उत्तम सत्य धर्म मण्डल विधान (पंचम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व पंचम दिवस मण्डल आराधना विधान","badge":"पंचम दिन विधान"},
+    {"id":"uttam-shauch-dharma-vidhan","title":"श्री उत्तम शौच धर्म मण्डल विधान (चतुर्थ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व चतुर्थ दिवस मण्डल आराधना विधान","badge":"चतुर्थ दिन विधान"},
+    {"id":"uttam-arjav-dharma-vidhan","title":"श्री उत्तम आर्जव धर्म मण्डल विधान (तृतीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व तृतीय दिवस मण्डल आराधना विधान","badge":"तृतीय दिन विधान"},
+    {"id":"uttam-mardav-dharma-vidhan","title":"श्री उत्तम मार्दव धर्म मण्डल विधान (द्वितीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व द्वितीय दिवस मण्डल आराधना विधान","badge":"द्वितीय दिन विधान"},
+    {"id":"uttam-kshama-dharma-vidhan","title":"श्री उत्तम क्षमा धर्म मण्डल विधान (प्रथम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व प्रथम दिवस मण्डल आराधना विधान","badge":"प्रथम दिन विधान"},
+    {"id":"ratnatraya-mahamandal-vidhan","title":"श्री रत्नत्रय महामण्डल विधान (वृहत)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र मोक्षमार्ग महामण्डल विधान","badge":"रत्नत्रय महामण्डल"},
+    {"id":"daslakshan-udypan-vidhan","title":"श्री दशलक्षण व्रत उद्यापन विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण व्रत की पूर्णता पर विधिपूर्वक उद्यापन व महामण्डल विधान","badge":"उद्यापन विधान"},
+    {"id":"rot-teej-vrat-vidhan","title":"श्री रोट तीज (चौबीसी) व्रत विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल तृतीया रोट तीज व्रत एवं २४ तीर्थंकर आराधना विधान","badge":"रोट तीज विधान"},
+    {"id":"kshamavani-parv-vidhan","title":"श्री उत्तम क्षमावाणी (पर्युषण) महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व की पूर्णाहूति पर विश्व मैत्री एवं क्षमावाणी महाविधान","badge":"क्षमावाणी विधान"},
+    {"id":"sugandh-dashami-vidhan","title":"श्री सुगंध दशमी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल दशमी धूप खेवन एवं सर्व पाप-विनाशक सुगंध दशमी महाविधान","badge":"सुगंध दशमी"},
+    {"id":"anant-chaturdashi-vidhan","title":"श्री अनन्त चतुर्दशी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व के अंतिम दिवस का १४ ग्रंथियुक्त अनन्त व्रत महाविधान","badge":"अनंत चतुर्दशी"},
+    {"id":"daslakshan-jaimala-vidhan","title":"श्री दशलक्षण जयमाला महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दसों धर्मों की विस्तृत, भावपूर्ण जयमालाओं का विशेष महाविधान","badge":"जयमाला विधान"},
+    {"id":"daslakshan-kalpadrum-vidhan","title":"श्री दशलक्षण कल्पद्रुम विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सर्व मनोरथ सिद्धि एवं दशलक्षण कल्पद्रुम महामण्डल विधान","badge":"कल्पद्रुम विधान"},
+    {"id":"daslakshan-dyanat-vidhan","title":"श्री दशलक्षण मण्डल विधान (द्यानतराय)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"कविवर द्यानतराय विरचित दशलक्षण धर्म मण्डल पूजा व छन्द विधान","badge":"द्यानतराय मण्डल"},
+    {"id":"daslakshan-mahamandal-vidhan","title":"श्री दशलक्षण महामण्डल विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"उत्तम क्षमादि दस धर्मों की आराधना का सर्वोत्कृष्ट महामण्डल विधान","badge":"दशलक्षण महामण्डल"},
+    {"id":"ratnatraya-mahamandal-vidhan","title":"श्री रत्नत्रय महामण्डल विधान (वृहत)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र मोक्षमार्ग महामण्डल विधान","badge":"रत्नत्रय महामण्डल"},
+    {"id":"daslakshan-udypan-vidhan","title":"श्री दशलक्षण व्रत उद्यापन विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण व्रत की पूर्णता पर विधिपूर्वक उद्यापन व महामण्डल विधान","badge":"उद्यापन विधान"},
+    {"id":"rot-teej-vrat-vidhan","title":"श्री रोट तीज (चौबीसी) व्रत विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल तृतीया रोट तीज व्रत एवं २४ तीर्थंकर आराधना विधान","badge":"रोट तीज विधान"},
+    {"id":"kshamavani-parv-vidhan","title":"श्री उत्तम क्षमावाणी (पर्युषण) महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व की पूर्णाहूति पर विश्व मैत्री एवं क्षमावाणी महाविधान","badge":"क्षमावाणी विधान"},
+    {"id":"sugandh-dashami-vidhan","title":"श्री सुगंध दशमी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल दशमी धूप खेवन एवं सर्व पाप-विनाशक सुगंध दशमी महाविधान","badge":"सुगंध दशमी"},
+    {"id":"anant-chaturdashi-vidhan","title":"श्री अनन्त चतुर्दशी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व के अंतिम दिवस का १४ ग्रंथियुक्त अनन्त व्रत महाविधान","badge":"अनंत चतुर्दशी"},
+    {"id":"daslakshan-jaimala-vidhan","title":"श्री दशलक्षण जयमाला महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दसों धर्मों की विस्तृत, भावपूर्ण जयमालाओं का विशेष महाविधान","badge":"जयमाला विधान"},
+    {"id":"daslakshan-kalpadrum-vidhan","title":"श्री दशलक्षण कल्पद्रुम विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सर्व मनोरथ सिद्धि एवं दशलक्षण कल्पद्रुम महामण्डल विधान","badge":"कल्पद्रुम विधान"},
+    {"id":"daslakshan-dyanat-vidhan","title":"श्री दशलक्षण मण्डल विधान (द्यानतराय)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"कविवर द्यानतराय विरचित दशलक्षण धर्म मण्डल पूजा व छन्द विधान","badge":"द्यानतराय मण्डल"},
+    {"id":"daslakshan-mahamandal-vidhan","title":"श्री दशलक्षण महामण्डल विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"उत्तम क्षमादि दस धर्मों की आराधना का सर्वोत्कृष्ट महामण्डल विधान","badge":"दशलक्षण महामण्डल"},
   {
     "id": "adinath-vidhan",
     "title": "श्री आदिनाथ विधान",
@@ -1590,11 +1630,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "subCategory": "tirthankar-vidhan",
     "description": "अष्टद्रव्य पूजन एवं जयमाला"
   },
-  {
-    "id": "das-lakshan-vidhan",
-    "title": "दशलक्षण विधान (समुच्चय पूजा)",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
+  { "id": "das-lakshan-vidhan", "title": "दशलक्षण विधान (समुच्चय पूजा)", "category": "vidhan", "subCategory": "daslakshan-vidhan",
     "description": "अष्टद्रव्य पूजन एवं जयमाला"
   },
   {

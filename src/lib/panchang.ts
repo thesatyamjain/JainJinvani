@@ -162,6 +162,8 @@ export function getFestival(
   tithiIndex: number,
   jainMonth: string
 ): FestivalInfo | null {
+  const pakshaLabel = paksha === 'Shukla' ? 'शुक्ल' : 'कृष्ण';
+
   // 1. MAJOR SPECIFIC JAIN FESTIVALS & KALYANAKS
 
   // Bhadrapada (दशलक्षण महापर्व / पर्युषण पर्व)

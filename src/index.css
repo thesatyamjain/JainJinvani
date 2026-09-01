@@ -73,16 +73,17 @@
 
   /* Universal safety headroom for all headings with Devanagari matras */
   h1, h2, h3, h4, h5, h6 {
-    line-height: 1.35;
-    padding-top: 0.1em;
-    padding-bottom: 0.05em;
+    line-height: 1.45;
+    padding-top: 0.2em;
+    padding-bottom: 0.1em;
     overflow-wrap: break-word;
   }
 
   /* Prevent top and bottom clipping on truncated/clamped text */
   .truncate, [class*="line-clamp-"] {
-    padding-top: 0.1em;
-    padding-bottom: 0.06em;
+    padding-top: 0.18em;
+    padding-bottom: 0.12em;
+    line-height: 1.4;
   }
 
   /* Ensure Devanagari text never breaks conjunct ligatures due to letter-spacing */
@@ -97,9 +98,9 @@
 @layer utilities {
   .gilded-text {
     @apply bg-gradient-to-b from-amber-100 via-amber-200 to-amber-500/90 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(245,158,11,0.25)];
-    line-height: 1.35;
-    padding-top: 0.15em;
-    padding-bottom: 0.08em;
+    line-height: 1.45;
+    padding-top: 0.25em;
+    padding-bottom: 0.12em;
     display: inline-block;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
@@ -107,9 +108,9 @@
 
   .gilded-text-subtle {
     @apply bg-gradient-to-r from-amber-100 via-amber-200/90 to-amber-300/80 bg-clip-text text-transparent;
-    line-height: 1.35;
-    padding-top: 0.15em;
-    padding-bottom: 0.08em;
+    line-height: 1.45;
+    padding-top: 0.25em;
+    padding-bottom: 0.12em;
     display: inline-block;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
@@ -119,8 +120,9 @@
   .bg-clip-text {
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
-    padding-top: 0.1em;
-    padding-bottom: 0.06em;
+    padding-top: 0.25em;
+    padding-bottom: 0.15em;
+    display: inline-block;
   }
 
   .gilded-border {

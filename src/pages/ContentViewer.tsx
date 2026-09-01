@@ -126,11 +126,19 @@ interface ParsedVerse {
 
 const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => {
   let rawText = '';
-  if (typeof v === 'string') rawText = v;
-  else if (v.lines && Array.isArray(v.lines)) rawText = v.lines.join('\n');
-  else if (v.hindi) rawText = v.hindi;
-  else if (v.original && Array.isArray(v.original)) rawText = v.original.join('\n');
-  else if (v.original) rawText = v.original;
+  if (typeof v === 'string') {
+    rawText = v;
+  } else if (v.lines && Array.isArray(v.lines)) {
+    rawText = v.lines.join('\n');
+  } else if (v.original && v.hindi && v.original !== v.hindi) {
+    const origStr = Array.isArray(v.original) ? v.original.join('\n') : String(v.original);
+    const hindiStr = Array.isArray(v.hindi) ? v.hindi.join('\n') : String(v.hindi);
+    rawText = `${origStr}\n${hindiStr}`;
+  } else if (v.hindi) {
+    rawText = Array.isArray(v.hindi) ? v.hindi.join('\n') : String(v.hindi);
+  } else if (v.original) {
+    rawText = Array.isArray(v.original) ? v.original.join('\n') : String(v.original);
+  }
 
   const rawMeaning = v.meaning || v.translation || v.explanation || '';
   const meanings = Array.isArray(rawMeaning)
@@ -138,11 +146,17 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     : [stripHtml(rawMeaning)].filter(Boolean);
 
   let sectionTitle = '';
-  const secMatch = rawText.match(/<div class=["']section-title["']>([\s\S]*?)<\/div>/i);
+  if (v.title && typeof v.title === 'string' && !v.title.includes('http')) {
+    sectionTitle = stripHtml(v.title);
+  } else if (v.heading && typeof v.heading === 'string') {
+    sectionTitle = stripHtml(v.heading);
+  }
+
+  const secMatch = rawText.match(/<div class=["'](?:section-title|reflection-title|heading|title)["']>([\s\S]*?)<\/div>/i);
   if (secMatch) {
-    sectionTitle = stripHtml(secMatch[1]);
+    if (!sectionTitle) sectionTitle = stripHtml(secMatch[1]);
     rawText = rawText.replace(secMatch[0], '').trim();
-  } else {
+  } else if (!sectionTitle) {
     const cleanRaw = stripHtml(rawText);
     if (/^\s*॥\s*[^॥\n]+\s*॥\s*$/.test(cleanRaw) && cleanRaw.length < 60) {
       sectionTitle = cleanRaw;
@@ -173,10 +187,14 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     .map((l) => l.trim())
     .filter(Boolean);
 
-  const lines: ParsedLine[] = rawLineArray.map((line) => {
-    const rawClean = stripHtml(line).replace(/[:：]/g, '').trim();
+  const lines: ParsedLine[] = [];
+  for (const line of rawLineArray) {
+    const cleanLine = stripHtml(line);
+    if (!cleanLine) continue;
+
+    const rawClean = cleanLine.replace(/[:：]/g, '').trim();
     const isExplicitTag =
-      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|नैवेद्य\s*\(Offering\)|दीप|धूप|फल|अर्घ्य|अर्घ|महा\s*अर्घ|महा\s*अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा|पद्य\s*\/?\s*चौपाई|पद्य|अर्घावली)\s*\)?\s*$/i.test(
+      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|शंभू\s*छंद|गीता\s*छंद|मत्तगयंद|कुसुमल\s*छंद|भुजंगप्रयात|तोमर\s*छंद|अड़िल्ल|स्रग्धरा|शार्दूलविक्रीड़ित|मालिनी|अनुष्टुप्|वसंततिलका|इंद्रवज्रा|उपजाति|उपेंद्रवज्रा|घनाक्षरी|सवैया|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|नैवेद्य\s*\(Offering\)|दीप|धूप|फल|अर्घ्य|अर्घ|महा\s*अर्घ|महा\s*अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|आह्वानन|सन्निधिकरण|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा|पद्य\s*\/?\s*चौपाई|पद्य|अर्घावली|.*भावना.*)\s*\)?\s*$/i.test(
         rawClean
       ) ||
       (/^\s*<b>\s*\(?(.*?)\)?\s*<\/b>\s*$/i.test(line) && rawClean.length < 50) ||
@@ -184,10 +202,10 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
 
     if (isExplicitTag) {
       let tagText = rawClean.replace(/[()]/g, '').trim();
-      return { type: 'tag', text: tagText };
+      lines.push({ type: 'tag', text: tagText });
+      continue;
     }
 
-    const cleanLine = stripHtml(line);
     const isMantra =
       /^(ॐ|ॐ\s*ह्रीं|ॐ\s*नमो|ॐ\s*आ|ॐ\s*श्री)/.test(cleanLine) ||
       /(स्वाहा|स्वाहा।|स्वाहा\.|स्वाहा॥|नमः|नमः।|नमः॥|वषट्!|संवौषट्!|ठ:! ठ:!|ठः ठः स्थापनं|ठ: ठ: स्थापनं|निर्वपामीति\s*स्वाहा[।॥]?)$/.test(cleanLine) ||
@@ -196,11 +214,12 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
       cleanLine.includes('अत्र तिष्ठ तिष्ठ');
 
     if (isMantra) {
-      return { type: 'mantra', text: cleanLine };
+      lines.push({ type: 'mantra', text: cleanLine });
+      continue;
     }
 
-    return { type: 'line', text: cleanLine };
-  });
+    lines.push({ type: 'line', text: cleanLine });
+  }
 
   return {
     sectionTitle,
@@ -251,9 +270,9 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
                 variant="gilded"
                 className="p-6 md:p-9 relative group hover:border-amber-400/40 transition-all duration-300"
               >
-                {/* Verse Header Row */}
-                <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/5">
-                  {parsed.numberDisplay ? (
+                {/* Verse Header Row (only when numberDisplay exists) */}
+                {parsed.numberDisplay && (
+                  <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-white/5">
                     <div className="flex items-center gap-2">
                       <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 font-mono text-xs font-bold flex items-center justify-center">
                         {parsed.numberDisplay}
@@ -262,12 +281,8 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
                         पद / श्लोक
                       </span>
                     </div>
-                  ) : (
-                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-gotu">
-                      पद्य
-                    </span>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 {/* Sacred Lines & Mantras */}
                 <div className="space-y-3.5 text-center my-4">

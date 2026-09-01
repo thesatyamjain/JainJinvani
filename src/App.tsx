@@ -31,10 +31,18 @@ import { MuniProfilesPage } from "./pages/MuniProfilesPage";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { useModalBackHandler } from "./lib";
 
+const VALID_PAGES = new Set([
+  "landing", "sadhana", "library", "category", "viewer", "panchang",
+  "more", "admin", "notfound", "favorites", "festivals", "tirthankar",
+  "pilgrimage", "philosophy", "rituals", "pathshala", "gallery",
+  "explore", "samayik", "dietary", "ascetics", "muni-profiles"
+]);
+
 const getInitialHashPage = () => {
   if (typeof window !== 'undefined' && window.location.hash) {
-    const hashPage = window.location.hash.replace(/^#/, '');
-    if (hashPage) return hashPage;
+    const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0].split('/')[0];
+    if (raw && VALID_PAGES.has(raw)) return raw;
+    if (raw) return 'notfound';
   }
   return 'landing';
 };
@@ -530,6 +538,19 @@ export default function App() {
                 onBack={() => handleBack("ascetics")}
                 onNavigate={handleNavigate}
               />
+            </motion.div>
+          )}
+
+          {!VALID_PAGES.has(activePage) && (
+            <motion.div
+              key="fallback-notfound"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <NotFound onNavigate={handleNavigate} />
             </motion.div>
           )}
         </AnimatePresence>
