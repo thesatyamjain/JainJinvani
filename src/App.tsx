@@ -28,6 +28,8 @@ import { SamayikPage } from "./pages/SamayikPage";
 import { DietaryPage } from "./pages/DietaryPage";
 import { AsceticsPage } from "./pages/AsceticsPage";
 import { MuniProfilesPage } from "./pages/MuniProfilesPage";
+import { JapMalaPage } from "./pages/JapMalaPage";
+import { NiyamaPage } from "./pages/NiyamaPage";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { useModalBackHandler } from "./lib";
 
@@ -35,7 +37,8 @@ const VALID_PAGES = new Set([
   "landing", "sadhana", "library", "category", "viewer", "panchang",
   "more", "admin", "notfound", "favorites", "festivals", "tirthankar",
   "pilgrimage", "philosophy", "rituals", "pathshala", "gallery",
-  "explore", "samayik", "dietary", "ascetics", "muni-profiles"
+  "explore", "samayik", "dietary", "ascetics", "muni-profiles",
+  "jap", "niyam"
 ]);
 
 const getInitialHashPage = () => {
@@ -536,6 +539,35 @@ export default function App() {
             >
               <MuniProfilesPage
                 onBack={() => handleBack("ascetics")}
+                onNavigate={handleNavigate}
+              />
+            </motion.div>
+          )}
+
+          {activePage === "jap" && (
+            <motion.div
+              key="jap"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <JapMalaPage onBack={() => handleBack("sadhana")} />
+            </motion.div>
+          )}
+
+          {activePage === "niyam" && (
+            <motion.div
+              key="niyam"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <NiyamaPage
+                onBack={() => handleBack("sadhana")}
                 onNavigate={handleNavigate}
               />
             </motion.div>

@@ -104,7 +104,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
       </motion.div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
         {libraryItems.map((item, idx) => (
           <motion.div
             key={item.id}
@@ -116,34 +116,34 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
           >
             <GlassCard
               variant="gilded"
-              className="h-full p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
+              className="h-full p-4 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
             >
               <div>
-                <div className="flex items-start justify-between mb-5">
+                <div className="flex items-start justify-between mb-3 sm:mb-5">
                   <div
-                    className={`w-13 h-13 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                    className={`w-10 h-10 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
                   >
-                    <item.icon className="w-6 h-6 md:w-7 md:h-7" />
+                    <item.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 border border-white/10 px-3 py-1 rounded-full font-cinzel whitespace-nowrap bg-white/5">
+                  <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-slate-400 border border-white/10 px-2.5 py-0.5 rounded-full font-cinzel whitespace-nowrap bg-white/5">
                     GRANTH • 0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1.5 break-words">
+                <h3 className="text-base sm:text-xl md:text-2xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1 break-words">
                   {item.label}
                 </h3>
-                <p className="text-xs text-amber-400/90 uppercase tracking-wider font-bold mb-3 font-gotu break-words">
+                <p className="text-[11px] sm:text-xs text-amber-400/90 uppercase tracking-wider font-bold mb-1.5 sm:mb-2.5 font-gotu break-words line-clamp-1">
                   {item.sub}
                 </p>
-                <p className="text-sm text-slate-300/80 leading-relaxed font-gotu break-words">
+                <p className="text-xs sm:text-sm text-slate-300/80 leading-relaxed font-gotu break-words line-clamp-2 sm:line-clamp-3">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-amber-300/80 font-gotu">
-                <span>अध्याय व विषय सूची देखें</span>
-                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-3.5 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-amber-300/80 font-gotu font-semibold">
+                <span className="truncate">विषय सूची देखें</span>
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </div>
             </GlassCard>
           </motion.div>

@@ -23,13 +23,31 @@ interface SadhanaMenuProps {
 
 const sadhanaItems = [
   {
+    id: 'jap',
+    label: '१०८ जाप माला',
+    sub: 'नवकार डिजिटल माला',
+    icon: Flame,
+    color: 'from-amber-500/20 to-amber-700/10',
+    border: 'border-amber-500/30',
+    accent: 'text-amber-300',
+  },
+  {
+    id: 'niyam',
+    label: 'दैनिक नियम',
+    sub: 'श्रावक व्रत व साधना',
+    icon: Sparkles,
+    color: 'from-emerald-500/20 to-teal-700/10',
+    border: 'border-emerald-500/30',
+    accent: 'text-emerald-300',
+  },
+  {
     id: 'samayik',
     label: 'सामायिक',
     sub: 'समता साधना',
     icon: Timer,
-    color: 'from-amber-500/20 to-amber-700/10',
-    border: 'border-amber-500/30',
-    accent: 'text-amber-300',
+    color: 'from-blue-500/20 to-indigo-700/10',
+    border: 'border-blue-500/30',
+    accent: 'text-blue-300',
   },
   {
     id: 'stotra',
@@ -174,7 +192,11 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.04, duration: 0.4 }}
             onClick={() => {
-              if (item.id === 'calendar') {
+              if (item.id === 'jap') {
+                onNavigate('jap');
+              } else if (item.id === 'niyam') {
+                onNavigate('niyam');
+              } else if (item.id === 'calendar') {
                 onNavigate('panchang');
               } else if (item.id === 'samayik') {
                 onNavigate('samayik');

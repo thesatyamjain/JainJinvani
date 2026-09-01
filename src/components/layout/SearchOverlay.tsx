@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search, X, ChevronRight, FileText, Sparkles, BookOpen, Flame, Compass } from 'lucide-react';
 import { contentInventory, ContentItem } from '../../data/inventory';
 import { matchSearchQuery } from '../../utils/searchHelper';
+import { getRecentReads } from '../../lib/storage';
 
 // Helper to flatten the inventory
 const getAllItems = () => {
@@ -170,8 +171,39 @@ export const SearchOverlay = ({
             {/* Content & Results Container */}
             <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/80 backdrop-blur-2xl backdrop-saturate-[190%] rounded-2xl border border-amber-500/20 p-3 sm:p-4 shadow-2xl min-h-[300px] max-h-[60vh]">
               {query.trim() === '' ? (
-                /* Curated Featured / Suggested Items when search box is empty */
-                <div className="space-y-3">
+                /* Curated Featured & Recent Reads when search box is empty */
+                <div className="space-y-4">
+                  {/* Recent Reads in Search */}
+                  {getRecentReads().length > 0 && (
+                    <div>
+                      <div className="flex items-center justify-between px-1 pb-1.5 border-b border-white/5 mb-2">
+                        <span className="text-xs font-gotu text-amber-300/90 font-semibold flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                          हाल ही में पढ़े गए पाठ
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                        {getRecentReads().map((item) => (
+                          <button
+                            key={item.id}
+                            onClick={() =>
+                              handleItemClick({
+                                id: item.id,
+                                title: item.title,
+                                category: item.type || 'stotra',
+                              } as ContentItem)
+                            }
+                            className="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-left shrink-0 transition-all cursor-pointer group max-w-[200px]"
+                          >
+                            <p className="text-xs font-notoserif font-semibold text-white group-hover:text-amber-200 truncate">
+                              {item.title}
+                            </p>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between px-1 pb-1 border-b border-white/5">
                     <span className="text-xs font-gotu text-amber-300/90 font-semibold flex items-center gap-1.5">
                       <Flame className="w-3.5 h-3.5 text-amber-400" />

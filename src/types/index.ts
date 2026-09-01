@@ -29,3 +29,31 @@ export interface JainDate {
     isParvaTithi: boolean; // अष्टमी, चतुर्दशी, पूर्णिमा, अमावस्या
     parvaCategory?: 'ashtami' | 'chaturdashi' | 'purnima' | 'amavasya' | 'mahavir' | 'general';
 }
+
+export interface RecentReadItem {
+    id: string;
+    title: string;
+    type?: string;
+    lastRead: number;
+}
+
+export interface NiyamaItem {
+    id: string;
+    title: string;
+    description: string;
+    category: 'daily' | 'vow' | 'dietary' | 'sadhana';
+}
+
+export interface DailyNiyamaState {
+    date: string; // YYYY-MM-DD
+    completedIds: string[];
+    streak: number;
+}
+
+export interface JapMalaState {
+    todayCount: number;
+    lifetimeCount: number;
+    lastDate: string; // YYYY-MM-DD
+    currentBead: number;
+    selectedMantraId: string;
+}

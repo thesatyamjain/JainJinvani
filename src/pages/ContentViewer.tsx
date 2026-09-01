@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
-import { addFavorite, removeFavorite, isFavorite } from '../lib/storage';
+import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -437,7 +437,16 @@ export const ContentViewer = ({
       setLoading(true);
       try {
         const result = await getContentByIdAsync(id);
-        if (isMounted) setData(result);
+        if (isMounted) {
+          setData(result);
+          if (result?.title || title) {
+            addRecentRead({
+              id,
+              title: result?.title || title || '',
+              type: type || result?.category || 'stotra',
+            });
+          }
+        }
       } catch (err) {
         console.error('Error loading content:', err);
       } finally {
