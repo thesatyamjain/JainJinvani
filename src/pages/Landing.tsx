@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import {
   BookOpen,
@@ -12,10 +12,13 @@ import {
   Flame,
   History,
   ShieldCheck,
+  Heart,
+  X,
 } from 'lucide-react';
-import { getJainDate, getFestival } from '../lib';
+import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
+import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 
 interface LandingProps {
   onNavigate: (page: string, params?: any) => void;
@@ -32,6 +35,10 @@ export const Landing = ({ onNavigate }: LandingProps) => {
     todayJain.jainMonth
   );
   const [recentReads, setRecentReads] = useState<RecentReadItem[]>([]);
+  const [showDonateModal, setShowDonateModal] = useState(false);
+
+  // Close modal on mobile back navigation
+  useModalBackHandler(showDonateModal, () => setShowDonateModal(false), 'landing-donate-modal');
 
   useEffect(() => {
     setRecentReads(getRecentReads());
@@ -40,7 +47,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   const isSpecialParva = todayFestival || todayJain.isParvaTithi;
 
   return (
-    <div className="w-full max-w-5xl mx-auto min-h-[calc(100dvh-5.5rem)] px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 flex flex-col justify-center items-center relative overflow-x-hidden">
+    <div className="w-full max-w-5xl mx-auto min-h-screen px-4 sm:px-6 md:px-8 pt-6 sm:pt-10 md:pt-14 pb-28 sm:pb-32 md:pb-36 flex flex-col items-center relative overflow-x-hidden">
       {/* Hero Section Container */}
       <motion.section
         initial={{ opacity: 0, y: 14 }}
@@ -295,6 +302,97 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
         </GlassCard>
       </div>
+
+      {/* Featured Sahyog Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+        onClick={() => setShowDonateModal(true)}
+        className="w-full max-w-3xl mt-3.5 sm:mt-4 relative z-10 cursor-pointer"
+      >
+        <GlassCard
+          variant="sacred"
+          className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-white/10 active:scale-[0.99] transition-all group rounded-xl sm:rounded-2xl border-amber-500/30 bg-gradient-to-r from-amber-500/15 via-slate-900/80 to-orange-500/15 shadow-lg"
+        >
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:scale-110 transition-transform">
+              <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5 fill-amber-400/30 text-amber-300" />
+            </div>
+            <div className="min-w-0">
+              <h4 className="text-xs sm:text-sm font-notoserif font-bold text-white group-hover:text-amber-200 truncate">
+                जिनवाणी सेवा में सहयोग
+              </h4>
+              <p className="text-[10px] sm:text-[11px] text-amber-200/80 font-gotu truncate">
+                धर्म प्रभावना व ऐप संवर्धन हेतु स्वेच्छा से योगदान करें
+              </p>
+            </div>
+          </div>
+          <div className="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-gotu font-semibold shrink-0 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+            सहयोग करें →
+          </div>
+        </GlassCard>
+      </motion.div>
+
+      {/* Sahyog Donate Modal */}
+      <AnimatePresence>
+        {showDonateModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowDonateModal(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-lg z-10"
+            >
+              <GlassCard className="p-6 sm:p-8 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-3xl">
+                {/* Glow effect inside modal */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
+
+                <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4 relative z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                      <Heart className="w-5 h-5 sm:w-6 sm:h-6 fill-amber-400/30 text-amber-300" />
+                    </div>
+                    <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">सहयोग</h2>
+                  </div>
+                  <button
+                    onClick={() => setShowDonateModal(false)}
+                    className="p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="text-blue-50 relative z-10">
+                  <div className="text-center space-y-5">
+                    <div className="w-52 sm:w-60 mx-auto bg-white rounded-2xl p-3.5 flex flex-col items-center justify-center shadow-[0_12px_36px_rgba(0,0,0,0.6)] border border-amber-400/30">
+                      <img
+                        src={upiQrCode}
+                        alt="UPI QR Code - Satyam Jain"
+                        className="w-full aspect-square object-contain rounded-xl"
+                      />
+                      <div className="mt-2.5 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-lg text-slate-800 text-xs font-mono font-bold select-all">
+                        satyam5246@upi
+                      </div>
+                    </div>
+                    <p className="text-blue-100/85 font-gotu text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
+                      इस धर्म प्रभावना व जिनवाणी डिजिटलीकरण के पावन कार्य में सहयोग हेतु किसी भी UPI ऐप (GPay, PhonePe, Paytm आदि) से स्कैन करें।
+                    </p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

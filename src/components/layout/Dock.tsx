@@ -22,12 +22,15 @@ export const Dock = ({ activePage, onNavigate, onSearchClick }: DockProps) => {
   };
 
   return (
-    <div className="fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto">
+    <div className="fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none">
       <motion.div
-        className="flex h-15 md:h-16 items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/75 px-3 md:px-5 py-2 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative"
+        className="flex h-15 md:h-16 items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/75 px-3 md:px-5 py-2 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none"
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         onTouchStart={() => mouseX.set(Infinity)}
+        onTouchMove={(e) => {
+          e.stopPropagation();
+        }}
       >
         {/* Subtle Ambient Rim Light */}
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />

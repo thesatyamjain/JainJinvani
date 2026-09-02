@@ -203,31 +203,27 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
-      {/* Header Banner - Matching Library & Sadhana Pages */}
+      {/* Header Banner - Premium Frosted Glass */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-8 md:mb-10 relative rounded-3xl overflow-hidden min-h-[220px] md:h-72 flex items-end p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-purple-500/25 group"
+        className="mb-8 md:mb-10 relative rounded-3xl overflow-hidden min-h-[190px] sm:min-h-[210px] md:h-64 flex items-end p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] border border-purple-500/30 bg-gradient-to-br from-purple-950/35 via-slate-900/60 to-[#071124]/80 backdrop-blur-3xl backdrop-saturate-[190%] group"
       >
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1548013146-72479768bada?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB0ZW1wbGUlMjBhcmNoaXRlY3R1cmUlMjBzcGlyaXR1YWx8ZW58MXx8fHwxNzY4OTY3MDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-55"
-            alt="More Menu Header"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/75 to-transparent" />
-        </div>
+        {/* Soft Ambient Glows & Specular Rim */}
+        <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/15 blur-[80px] rounded-full pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-indigo-500/15 blur-[70px] rounded-full pointer-events-none" />
+        <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent pointer-events-none" />
 
-        <div className="relative z-10">
+        <div className="relative z-10 w-full">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs mb-3 backdrop-blur-md">
-            <Menu className="w-3.5 h-3.5" />
+            <Menu className="w-3.5 h-3.5 text-purple-300" />
             <span className="font-gotu font-medium">विविध सेवाएं व सेटिंग्स</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.35] pt-2 pb-1">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.25] pt-1 pb-1">
             अधिक
           </h1>
-          <p className="text-slate-200/80 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
+          <p className="text-slate-200/85 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
             पसंदीदा संग्रह, अन्वेषण, ऐप सेटिंग्स एवं जिनवाणी सेवा से संबंधित संपूर्ण विकल्प।
           </p>
         </div>
