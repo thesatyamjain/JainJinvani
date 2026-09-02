@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import {
-  ArrowRight,
   BookOpen,
   Sparkles,
   Calendar,
@@ -14,7 +13,6 @@ import {
   History,
   ShieldCheck,
 } from 'lucide-react';
-import { LotusSymbol } from '../components/features/JainSymbols';
 import { getJainDate, getFestival } from '../lib';
 import { getRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
@@ -75,11 +73,9 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         <div className="grid grid-cols-2 gap-3 sm:gap-5 w-full max-w-md sm:max-w-lg mb-4 sm:mb-6">
           <button
             onClick={() => onNavigate('sadhana')}
-            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(245,158,11,0.3)] flex items-center justify-center gap-2 sm:gap-2.5 font-gotu text-sm sm:text-base cursor-pointer"
+            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(245,158,11,0.3)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer"
           >
-            <LotusSymbol className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-slate-950/80 shrink-0" />
             <span className="truncate">नित्य साधना</span>
-            <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
           </button>
 

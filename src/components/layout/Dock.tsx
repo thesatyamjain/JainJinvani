@@ -145,14 +145,6 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch }
           {icon}
         </div>
       </motion.div>
-
-      {/* Active Indicator Glow Pip */}
-      {isActive && (
-        <motion.div
-          layoutId="dock-active-pip"
-          className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-amber-400 rounded-full shadow-[0_0_8px_rgba(251,191,36,0.9)]"
-        />
-      )}
     </div>
   );
 }

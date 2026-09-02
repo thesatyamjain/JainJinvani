@@ -254,11 +254,11 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             href="https://thesoftwareco.pages.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-amber-400 hover:text-amber-300 underline underline-offset-4 decoration-amber-400/50 hover:decoration-amber-300 transition-colors font-medium"
+            className="text-amber-400 hover:text-amber-300 transition-colors font-medium"
           >
             The Software Co
           </a>{' '}
-          and Satyam Jain
+          and <span className="text-amber-400 font-medium">Satyam Jain</span>
         </p>
       </motion.div>
     </div>
