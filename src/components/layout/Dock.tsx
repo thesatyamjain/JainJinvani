@@ -1,89 +1,547 @@
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'motion/react';
-import { BookOpen, Search, Library, Menu, Home } from 'lucide-react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
+import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Play, Pause } from 'lucide-react';
 
 interface DockProps {
   activePage: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (page: string, params?: any) => void;
   onSearchClick: () => void;
+  onBack?: () => void;
+  scrollContainerRef?: React.RefObject<HTMLElement | null>;
 }
 
-export const Dock = ({ activePage, onNavigate, onSearchClick }: DockProps) => {
+export const Dock = ({
+  activePage,
+  onNavigate,
+  onSearchClick,
+  onBack,
+  scrollContainerRef,
+}: DockProps) => {
   const mouseX = useMotionValue(Infinity);
+  const [isDockHidden, setIsDockHidden] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const lastScrollY = useRef(0);
+
+  // Dynamic reader state when viewing content
+  const [readerState, setReaderState] = useState<{
+    fontSize: number;
+    isAutoScrolling: boolean;
+    isFav: boolean;
+    scrollSpeed: number;
+    title: string;
+  }>({
+    fontSize: 18,
+    isAutoScrolling: false,
+    isFav: false,
+    scrollSpeed: 1,
+    title: '',
+  });
+
+  const isReaderMode = activePage === 'viewer' || activePage === 'content';
 
   // Reset magnification when page changes or search is clicked
-  React.useEffect(() => {
+  useEffect(() => {
     mouseX.set(Infinity);
   }, [activePage, mouseX]);
+
+  // Listen for reader state updates from ContentViewer
+  useEffect(() => {
+    if (!isReaderMode) return;
+
+    const handleReaderState = (e: any) => {
+      if (e.detail) {
+        setReaderState((prev) => ({
+          ...prev,
+          ...e.detail,
+        }));
+      }
+    };
+
+    window.addEventListener('jinvani:reader-state', handleReaderState);
+    window.dispatchEvent(new CustomEvent('jinvani:request-reader-state'));
+
+    return () => {
+      window.removeEventListener('jinvani:reader-state', handleReaderState);
+    };
+  }, [isReaderMode]);
+
+  // Smart Auto-Hide on Scroll Down, Reveal on Scroll Up
+  useEffect(() => {
+    const getContainer = (): HTMLElement | null => {
+      if (scrollContainerRef && scrollContainerRef.current) {
+        return scrollContainerRef.current;
+      }
+      return document.querySelector('main') || document.documentElement;
+    };
+
+    const container = getContainer();
+    if (!container) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = container.scrollTop;
+          const diff = currentY - lastScrollY.current;
+
+          // Never auto-hide when auto-scroll is actively running so user can pause with 1 tap
+          if (readerState.isAutoScrolling) {
+            setIsDockHidden(false);
+          } else if (diff > 20 && currentY > 120) {
+            // Scrolling down past threshold -> hide dock
+            setIsDockHidden(true);
+          } else if (diff < -8 || currentY < 70) {
+            // Scrolling up or at page top -> reveal dock
+            setIsDockHidden(false);
+          }
+
+          lastScrollY.current = currentY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollContainerRef, activePage, readerState.isAutoScrolling]);
 
   const handleSearchClick = () => {
     mouseX.set(Infinity);
     onSearchClick();
   };
 
+  const handleBackClick = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      onNavigate('landing');
+    }
+  };
+
+  const [isFontExpanded, setIsFontExpanded] = useState(false);
+  const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
+  const touchStartX = useRef<number | null>(null);
+  const fontCollapseTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetFontCollapseTimer = useCallback(() => {
+    if (fontCollapseTimerRef.current) clearTimeout(fontCollapseTimerRef.current);
+    fontCollapseTimerRef.current = setTimeout(() => {
+      setIsFontExpanded(false);
+    }, 3500);
+  }, []);
+
+  // Collapse font controls and reset reader page when leaving reader mode
+  useEffect(() => {
+    if (!isReaderMode) {
+      setIsFontExpanded(false);
+      setReaderDockPage('reader');
+    }
+  }, [isReaderMode]);
+
+  const handleDockTouchStart = (e: React.TouchEvent) => {
+    mouseX.set(Infinity);
+    if (!isReaderMode) return;
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleDockTouchEnd = (e: React.TouchEvent) => {
+    if (!isReaderMode || touchStartX.current === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diff) > 35) {
+      setReaderDockPage((prev) => (prev === 'reader' ? 'home' : 'reader'));
+    }
+    touchStartX.current = null;
+  };
+
+  const handleDockWheel = (e: React.WheelEvent) => {
+    if (!isReaderMode) return;
+    if (Math.abs(e.deltaX) > 25 || (e.shiftKey && Math.abs(e.deltaY) > 25)) {
+      setReaderDockPage((prev) => (prev === 'reader' ? 'home' : 'reader'));
+    }
+  };
+
+  // Click outside to collapse font controls
+  useEffect(() => {
+    if (!isFontExpanded) return;
+    resetFontCollapseTimer();
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const fontControlsEl = document.getElementById('dock-font-controls');
+      if (fontControlsEl && !fontControlsEl.contains(e.target as Node)) {
+        setIsFontExpanded(false);
+      }
+    };
+    const timer = setTimeout(() => {
+      window.addEventListener('click', handleClickOutside);
+    }, 50);
+    return () => {
+      clearTimeout(timer);
+      if (fontCollapseTimerRef.current) clearTimeout(fontCollapseTimerRef.current);
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [isFontExpanded, resetFontCollapseTimer]);
+
+  const handleAdjustFontSize = (delta: number) => {
+    resetFontCollapseTimer();
+    window.dispatchEvent(
+      new CustomEvent('jinvani:reader-font-size', {
+        detail: { delta },
+      })
+    );
+  };
+
+  const handleToggleAutoScroll = () => {
+    window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-autoscroll'));
+  };
+
+  const handleToggleFavorite = () => {
+    window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-favorite'));
+  };
+
+  const handleShareClick = () => {
+    window.dispatchEvent(new CustomEvent('jinvani:reader-share'));
+  };
+
   return (
-    <div className="fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none">
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none pointer-events-none"
+    >
       <motion.div
-        className="flex h-15 md:h-16 items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/75 px-3 md:px-5 py-2 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none"
+        layout
+        animate={{
+          y: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 85 : 0,
+          opacity: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0 : 1,
+          scale: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0.94 : 1,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 380,
+          damping: 28,
+        }}
+        className="flex h-15 md:h-16 items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/85 px-3 md:px-5 py-2 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none pointer-events-auto"
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        onTouchStart={() => mouseX.set(Infinity)}
-        onTouchMove={(e) => {
-          e.stopPropagation();
-        }}
+        onTouchStart={handleDockTouchStart}
+        onTouchEnd={handleDockTouchEnd}
+        onWheel={handleDockWheel}
       >
-        {/* Subtle Ambient Rim Light */}
+        {/* Subtle Ambient Golden Rim Light */}
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
 
-        <DockIcon
-          mouseX={mouseX}
-          icon={<Home className="w-5 h-5 md:w-5.5 md:h-5.5" />}
-          label="मुख्य पृष्ठ"
-          subLabel="Home"
-          isActive={activePage === 'landing'}
-          onClick={() => onNavigate('landing')}
-        />
+        <AnimatePresence mode="wait">
+          {isReaderMode ? (
+            readerDockPage === 'reader' ? (
+              /* ============================================================ */
+              /* 📖 DYNAMIC READER MODE: Page 1 - Quick Reader Tools          */
+              /* ============================================================ */
+              <motion.div
+                key="reader-dock-page-reader"
+                layout
+                initial={{ opacity: 0, x: -10, scale: 0.97 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: 10, scale: 0.97 }}
+                transition={{ duration: 0.16 }}
+                className="flex items-center gap-1.5 md:gap-2.5"
+              >
+                {/* 1. Back Button */}
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={
+                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                  }
+                  label="वापस"
+                  subLabel="Back"
+                  isActive={false}
+                  onClick={handleBackClick}
+                />
 
-        <div className="h-7 md:h-8 w-[1px] bg-white/10 self-center mx-0.5" />
+                <div className="h-7 md:h-8 w-[1px] bg-white/10 self-center mx-0.5" />
 
-        <DockIcon
-          mouseX={mouseX}
-          icon={<BookOpen className="w-5 h-5 md:w-5.5 md:h-5.5" />}
-          label="साधना"
-          subLabel="Sadhana"
-          isActive={activePage === 'sadhana'}
-          onClick={() => onNavigate('sadhana')}
-        />
+                {/* 2. Expanding Font Sizing Control (Aa -> [A- 18 A+ ✓]) */}
+                <div id="dock-font-controls" className="relative flex items-center">
+                  <AnimatePresence mode="wait">
+                    {isFontExpanded ? (
+                      <motion.div
+                        key="font-expanded-controls"
+                        layout
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: 'spring', stiffness: 420, damping: 26 }}
+                        className="flex items-center bg-slate-900/90 border border-amber-400/40 rounded-xl md:rounded-2xl p-0.5 sm:p-1 backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+                      >
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAdjustFontSize(-2);
+                          }}
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl active:scale-95 transition-all"
+                          title="अक्षर छोटा करें (A-)"
+                        >
+                          A-
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsFontExpanded(false);
+                          }}
+                          className="px-1.5 py-0.5 rounded text-[11px] sm:text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
+                          title="क्लिक करके बंद करें (Aa)"
+                        >
+                          {readerState.fontSize}
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleAdjustFontSize(2);
+                          }}
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl active:scale-95 transition-all"
+                          title="अक्षर बड़ा करें (A+)"
+                        >
+                          A+
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsFontExpanded(false);
+                          }}
+                          className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center text-amber-400/80 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs ml-0.5 border-l border-white/10 pl-1 transition-all"
+                          title="संपन्न (Aa पर वापस लौटें)"
+                        >
+                          ✓
+                        </button>
+                      </motion.div>
+                    ) : (
+                      <DockIcon
+                        key="font-collapsed-icon"
+                        mouseX={mouseX}
+                        icon={
+                          <div className="flex flex-col items-center justify-center font-notoserif font-bold text-sm leading-none select-none">
+                            <div className="flex items-baseline gap-0.5">
+                              <span className="text-amber-200 text-sm md:text-base">A</span>
+                              <span className="text-amber-400 text-[10px] md:text-xs">a</span>
+                            </div>
+                            <span className="text-[8px] font-mono text-slate-400 font-normal mt-0.5">
+                              {readerState.fontSize}px
+                            </span>
+                          </div>
+                        }
+                        label="अक्षर आकार"
+                        subLabel={`Size ${readerState.fontSize}px`}
+                        isActive={false}
+                        onClick={() => setIsFontExpanded(true)}
+                      />
+                    )}
+                  </AnimatePresence>
+                </div>
 
-        <DockIcon
-          mouseX={mouseX}
-          icon={<Library className="w-5 h-5 md:w-5.5 md:h-5.5" />}
-          label="ग्रंथालय"
-          subLabel="Library"
-          isActive={activePage === 'library'}
-          onClick={() => onNavigate('library')}
-        />
+                {/* 3. Auto-Scroll Hands-Free Toggle */}
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={
+                    readerState.isAutoScrolling ? (
+                      <div className="relative flex items-center justify-center">
+                        <span className="absolute -inset-1 rounded-full bg-amber-400/30 animate-ping pointer-events-none" />
+                        <Pause className="w-5 h-5 md:w-5.5 md:h-5.5 text-amber-300 fill-current" />
+                      </div>
+                    ) : (
+                      <Play className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 fill-white/10 group-hover:text-amber-200 group-hover:fill-amber-400/20 transition-colors ml-0.5" />
+                    )
+                  }
+                  label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
+                  subLabel={readerState.isAutoScrolling ? "Pause Scroll" : "Auto Scroll"}
+                  isActive={readerState.isAutoScrolling}
+                  onClick={handleToggleAutoScroll}
+                />
 
-        <DockIcon
-          mouseX={mouseX}
-          icon={<Menu className="w-5 h-5 md:w-5.5 md:h-5.5" />}
-          label="अधिक"
-          subLabel="More"
-          isActive={activePage === 'more' || activePage === 'explore' || activePage === 'favorites'}
-          onClick={() => onNavigate('more')}
-        />
+                {/* 4. Bookmark / Favorite */}
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={
+                    <Bookmark
+                      className={`w-4.5 h-4.5 md:w-5 md:h-5 transition-colors ${
+                        readerState.isFav ? 'text-rose-400 fill-current' : 'text-slate-300 group-hover:text-amber-200'
+                      }`}
+                    />
+                  }
+                  label={readerState.isFav ? "संग्रहित" : "पसंदीदा"}
+                  subLabel={readerState.isFav ? "Saved" : "Favorite"}
+                  isActive={readerState.isFav}
+                  onClick={handleToggleFavorite}
+                />
 
-        <div className="h-7 md:h-8 w-[1px] bg-amber-500/20 self-center mx-0.5" />
+                {/* 5. Share Button */}
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={
+                    <Share2 className="w-4.5 h-4.5 md:w-5 md:h-5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                  }
+                  label="साझा करें"
+                  subLabel="Share"
+                  isActive={false}
+                  onClick={handleShareClick}
+                />
+              </motion.div>
+            ) : (
+              /* ============================================================ */
+              /* 🧭 READER MODE: Page 2 - Home Navigation Tabs                */
+              /* ============================================================ */
+              <motion.div
+                key="reader-dock-page-home"
+                layout
+                initial={{ opacity: 0, x: 10, scale: 0.97 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -10, scale: 0.97 }}
+                transition={{ duration: 0.16 }}
+                className="flex items-center gap-1.5 md:gap-2.5"
+              >
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={<Home className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                  label="मुख्य पृष्ठ"
+                  subLabel="Home"
+                  isActive={false}
+                  onClick={() => onNavigate('landing')}
+                />
 
-        <DockIcon
-          mouseX={mouseX}
-          icon={<Search className="w-5 h-5 md:w-5.5 md:h-5.5" />}
-          label="खोजें"
-          subLabel="Search"
-          isActive={false}
-          onClick={handleSearchClick}
-          isSearch
-        />
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={<BookOpen className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                  label="साधना"
+                  subLabel="Sadhana"
+                  isActive={false}
+                  onClick={() => onNavigate('sadhana')}
+                />
+
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={<Library className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                  label="ग्रंथालय"
+                  subLabel="Library"
+                  isActive={false}
+                  onClick={() => onNavigate('library')}
+                />
+
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={<Menu className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                  label="अधिक"
+                  subLabel="More"
+                  isActive={false}
+                  onClick={() => onNavigate('more')}
+                />
+
+                <DockIcon
+                  mouseX={mouseX}
+                  icon={<Search className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                  label="खोजें"
+                  subLabel="Search"
+                  isActive={false}
+                  onClick={handleSearchClick}
+                  isSearch
+                />
+              </motion.div>
+            )
+          ) : (
+            /* ============================================================ */
+            /* 🧭 STANDARD GLOBAL NAVIGATION MODE                          */
+            /* ============================================================ */
+            <motion.div
+              key="standard-dock-group"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.15 }}
+              className="flex items-center gap-1.5 md:gap-3"
+            >
+              <DockIcon
+                mouseX={mouseX}
+                icon={<Home className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                label="मुख्य पृष्ठ"
+                subLabel="Home"
+                isActive={activePage === 'landing'}
+                onClick={() => onNavigate('landing')}
+              />
+
+              <div className="h-7 md:h-8 w-[1px] bg-white/10 self-center mx-0.5" />
+
+              <DockIcon
+                mouseX={mouseX}
+                icon={<BookOpen className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                label="साधना"
+                subLabel="Sadhana"
+                isActive={activePage === 'sadhana'}
+                onClick={() => onNavigate('sadhana')}
+              />
+
+              <DockIcon
+                mouseX={mouseX}
+                icon={<Library className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                label="ग्रंथालय"
+                subLabel="Library"
+                isActive={activePage === 'library'}
+                onClick={() => onNavigate('library')}
+              />
+
+              <DockIcon
+                mouseX={mouseX}
+                icon={<Menu className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                label="अधिक"
+                subLabel="More"
+                isActive={activePage === 'more' || activePage === 'explore' || activePage === 'favorites'}
+                onClick={() => onNavigate('more')}
+              />
+
+              <div className="h-7 md:h-8 w-[1px] bg-amber-500/20 self-center mx-0.5" />
+
+              <DockIcon
+                mouseX={mouseX}
+                icon={<Search className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+                label="खोजें"
+                subLabel="Search"
+                isActive={false}
+                onClick={handleSearchClick}
+                isSearch
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* 2-Page Pagination Dots INSIDE Dock when in Reader Mode */}
+        {isReaderMode && (
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-auto select-none py-0.5">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setReaderDockPage('reader');
+              }}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                readerDockPage === 'reader'
+                  ? 'bg-amber-400 w-3.5 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
+                  : 'bg-white/20 w-1 hover:bg-white/50'
+              }`}
+              title="स्वाध्याय टूल्स (Reader)"
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setReaderDockPage('home');
+              }}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                readerDockPage === 'home'
+                  ? 'bg-amber-400 w-3.5 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
+                  : 'bg-white/20 w-1 hover:bg-white/50'
+              }`}
+              title="होम नेविगेशन (Home)"
+            />
+          </div>
+        )}
       </motion.div>
     </div>
   );

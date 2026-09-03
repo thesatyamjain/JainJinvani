@@ -527,4 +527,15 @@ export const contentManifest: Record<string, string> = {
   "yashastilaka-champu": "shastra",
   "ye-dharam-hai-aatam-gyani-ka": "bhajan",
   "yogasara-prabhrita": "shastra",
+  "daslakshan-dharma-puja": "ritual",
+  "uttam-kshama-dharma-puja": "ritual",
+  "uttam-mardav-dharma-puja": "ritual",
+  "uttam-arjav-dharma-puja": "ritual",
+  "uttam-shauch-dharma-puja": "ritual",
+  "uttam-satya-dharma-puja": "ritual",
+  "uttam-sanyam-dharma-puja": "ritual",
+  "uttam-tap-dharma-puja": "ritual",
+  "uttam-tyag-dharma-puja": "ritual",
+  "uttam-akinchanya-dharma-puja": "ritual",
+  "uttam-brahmacharya-dharma-puja": "ritual"
 };

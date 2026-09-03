@@ -47,7 +47,7 @@ export const subCategoryMap: Record<string, SubCategoryDef[]> = {
       "description": "सम्यग्दर्शन, ज्ञान, चारित्र, जिनवाणी एवं णमोकार मंत्र पूजा"
     }
   ],
-  "vidhan": [
+    "vidhan": [
     {
       "id": "all",
       "label": "सभी विधान"
@@ -55,7 +55,12 @@ export const subCategoryMap: Record<string, SubCategoryDef[]> = {
     {
       "id": "mahamandal-vidhan",
       "label": "महामंडल विधान",
-      "description": "सिद्धचक्र, भक्तामर, कल्याणमंदिर, दशलक्षण एवं प्रमुख महाविधान"
+      "description": "सिद्धचक्र, भक्तामर, कल्याणमंदिर, इन्द्रध्वज, सर्वतोभद्र व प्रमुख महाविधान"
+    },
+    {
+      "id": "daslakshan-vidhan",
+      "label": "दशलक्षण धर्म विधान",
+      "description": "उत्तम क्षमादि १० धर्म मण्डल विधान, कल्पद्रुम, जयमाला व पर्व विधान"
     },
     {
       "id": "tirthankar-vidhan",
@@ -925,1016 +930,176 @@ export const contentInventory: Record<string, ContentItem[]> = {
   }
 ],
   puja: [
-    {"id":"uttam-brahmacharya-dharma-puja","title":"श्री उत्तम ब्रह्मचर्य धर्म पूजा (दशम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व दशम दिवस — अनन्त चतुर्दशी","badge":"दशम दिन"},
-    {"id":"uttam-akinchanya-dharma-puja","title":"श्री उत्तम आकिंचन्य धर्म पूजा (नवम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व नवम दिवस — भाद्रपद शुक्ल त्रयोदशी","badge":"नवम दिन"},
-    {"id":"uttam-tyag-dharma-puja","title":"श्री उत्तम त्याग धर्म पूजा (अष्टम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व अष्टम दिवस — भाद्रपद शुक्ल द्वादशी","badge":"अष्टम दिन"},
-    {"id":"uttam-tap-dharma-puja","title":"श्री उत्तम तप धर्म पूजा (सप्तम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व सप्तम दिवस — भाद्रपद शुक्ल एकादशी","badge":"सप्तम दिन"},
-    {"id":"uttam-sanyam-dharma-puja","title":"श्री उत्तम संयम धर्म पूजा (षष्ठ दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व षष्ठ दिवस — सुगंध दशमी","badge":"षष्ठ दिन"},
-    {"id":"uttam-satya-dharma-puja","title":"श्री उत्तम सत्य धर्म पूजा (पंचम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व पंचम दिवस — भाद्रपद शुक्ल नवमी","badge":"पंचम दिन"},
-    {"id":"uttam-shauch-dharma-puja","title":"श्री उत्तम शौच धर्म पूजा (चतुर्थ दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व चतुर्थ दिवस — भाद्रपद शुक्ल अष्टमी","badge":"चतुर्थ दिन"},
-    {"id":"uttam-arjav-dharma-puja","title":"श्री उत्तम आर्जव धर्म पूजा (तृतीय दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व तृतीय दिवस — भाद्रपद शुक्ल सप्तमी","badge":"तृतीय दिन"},
-    {"id":"uttam-mardav-dharma-puja","title":"श्री उत्तम मार्दव धर्म पूजा (द्वितीय दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व द्वितीय दिवस — भाद्रपद शुक्ल षष्ठी","badge":"द्वितीय दिन"},
-    {"id":"uttam-kshama-dharma-puja","title":"श्री उत्तम क्षमा धर्म पूजा (प्रथम दिन)","category":"puja","subCategory":"daslakshan-puja","description":"दशलक्षण महापर्व प्रथम दिवस — भाद्रपद शुक्ल पंचमी","badge":"प्रथम दिन"},
-  {
-    "id": "puja-vidhi-prarambh",
-    "title": "पूजा विधि प्रारम्भ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "दैनिक अभिषेक एवं पूजन प्रारम्भिक विधि",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "puja-pratigya-path",
-    "title": "पूजा प्रतिज्ञा पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "संकल्प एवं पूजन प्रतिज्ञा पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "vinay-path",
-    "title": "विनय पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "जिनेंद्र प्रभु के चरणों में विनय पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "dev-shastra-guru-puja-jugal",
-    "title": "श्री देव-शास्त्र-गुरु पूजा",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "पं. जुगल किशोर जी कृत नित्य देव-शास्त्र-गुरु पूजा",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "dev-shastra-guru-puja-dyanat",
-    "title": "श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "कविवर द्यानतराय कृत देव-शास्त्र-गुरु पूजा",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "samuchay-pujan",
-    "title": "समुच्चय पूजन",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "दैनिक समुच्चय जिनेंद्र पूजन",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "chaubis-tirthankar-puja",
-    "title": "श्री चौबीस तीर्थंकर पूजा",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "चौबीसों तीर्थंकर भगवान की सामूहिक पूजा",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "24-tirthankar-swasti-path",
-    "title": "२४ तीर्थंकर स्वस्ति पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "२४ तीर्थंकर मांगलिक स्वस्ति पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "parmarshi-swasti-mangal-path",
-    "title": "परमर्षि स्वस्ति मंगल पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "परमर्षि मांगलिक स्वस्ति पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "arghyavali",
-    "title": "अर्घ्यावली (संपूर्ण २४ तीर्थंकर)",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "चौबीस तीर्थंकर सामूहिक अर्घ्यावली",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "maha-argh",
-    "title": "महा अर्घ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "समस्त पूजाओं के अंत में महा अर्घ समर्पण",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "panch-parmeshthi-argh",
-    "title": "पंच परमेष्ठि अर्घ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "पंच परमेष्ठी भगवान का पावन अर्घ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "shanti-path",
-    "title": "शांति पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "पूजनोपरांत सर्व शांति पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "visarjan-path",
-    "title": "विसर्जन पाठ",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "पूजन विसर्जन एवं क्षमा याचना पाठ",
-    "badge": "नित्य पूजन"
-  },
-  {
-    "id": "adinath-puja-jineshwardas",
-    "title": "श्री आदिनाथ जिन पूजा (जिनेश्वरदास)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "प्रथम तीर्थंकर भगवान ऋषभदेव अष्टद्रव्य पूजन",
-    "badge": "१. ऋषभदेव"
-  },
-  {
-    "id": "adinath-chandkhedi-puja",
-    "title": "श्री आदिनाथ जिन पूजा (चाँदखेड़ी)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "अतिशय क्षेत्र चाँदखेड़ी आदिनाथ पूजन",
-    "badge": "चाँदखेड़ी"
-  },
-  {
-    "id": "ajitnath-puja",
-    "title": "श्री अजितनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "द्वितीय तीर्थंकर अजितनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "२. अजितनाथ"
-  },
-  {
-    "id": "sambhavnath-puja",
-    "title": "श्री संभवनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "तृतीय तीर्थंकर संभवनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "३. संभवनाथ"
-  },
-  {
-    "id": "abhinandan-puja",
-    "title": "श्री अभिनंदननाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "चतुर्थ तीर्थंकर अभिनंदननाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "४. अभिनंदननाथ"
-  },
-  {
-    "id": "sumatinath-puja",
-    "title": "श्री सुमतिनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "पंचम तीर्थंकर सुमतिनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "५. सुमतिनाथ"
-  },
-  {
-    "id": "padmaprabh-puja",
-    "title": "श्री पद्मप्रभ जिन पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "षष्ठ तीर्थंकर भगवान पद्मप्रभु अष्टद्रव्य पूजन",
-    "badge": "६. पद्मप्रभु"
-  },
-  {
-    "id": "suparshvanath-puja",
-    "title": "श्री सुपार्श्वनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "सप्तम तीर्थंकर सुपार्श्वनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "७. सुपार्श्वनाथ"
-  },
-  {
-    "id": "chandraprabh-puja",
-    "title": "श्री चंद्रप्रभ जिन पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "अष्टम तीर्थंकर भगवान चंद्रप्रभु अष्टद्रव्य पूजन",
-    "badge": "८. चंद्रप्रभु"
-  },
-  {
-    "id": "chandraprabh-dehra-puja",
-    "title": "श्री चंद्रप्रभु जी पूजा - देहरा (तिजारा)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "अतिशय क्षेत्र तिजारा देहरा चंद्रप्रभु पूजन",
-    "badge": "तिजारा"
-  },
-  {
-    "id": "pushpadanta-puja",
-    "title": "श्री पुष्पदंत जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "नवम तीर्थंकर भगवान पुष्पदंत अष्टद्रव्य पूजन",
-    "badge": "९. पुष्पदंत"
-  },
-  {
-    "id": "sheetalnath-puja",
-    "title": "श्री शीतलनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "दशम तीर्थंकर भगवान शीतलनाथ अष्टद्रव्य पूजन",
-    "badge": "१०. शीतलनाथ"
-  },
-  {
-    "id": "shreyansnath-puja",
-    "title": "श्री श्रेयांसनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "एकादश तीर्थंकर श्रेयांसनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "११. श्रेयांसनाथ"
-  },
-  {
-    "id": "vasupujya-puja",
-    "title": "श्री वासुपूज्य जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "द्वादश तीर्थंकर भगवान वासुपूज्य अष्टद्रव्य पूजन",
-    "badge": "१२. वासुपूज्य"
-  },
-  {
-    "id": "vimalnath-puja",
-    "title": "श्री विमलनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "त्रयोदश तीर्थंकर भगवान विमलनाथ अष्टद्रव्य पूजन",
-    "badge": "१३. विमलनाथ"
-  },
-  {
-    "id": "anantanath-puja",
-    "title": "श्री अनंतनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "चतुर्दश तीर्थंकर भगवान अनंतनाथ अष्टद्रव्य पूजन",
-    "badge": "१४. अनंतनाथ"
-  },
-  {
-    "id": "dharmanath-puja",
-    "title": "श्री धर्मनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "पंचदश तीर्थंकर धर्मनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "१५. धर्मनाथ"
-  },
-  {
-    "id": "shantinath-puja-bakhtawar",
-    "title": "श्री शांतिनाथ जिन पूजा (बख्तावर सिंह)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "षोडश तीर्थंकर भगवान शांतिनाथ अष्टद्रव्य पूजन",
-    "badge": "१६. शांतिनाथ"
-  },
-  {
-    "id": "shanti-puja",
-    "title": "श्री शांतिनाथ महाशांति पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "सर्व विघ्न-विनाशक एवं शांति प्रदायक शांतिनाथ जिनेंद्र पूजन",
-    "badge": "महाशांति"
-  },
-  {
-    "id": "kunthunath-puja",
-    "title": "श्री कुन्थुनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "सप्तदश तीर्थंकर भगवान कुन्थुनाथ अष्टद्रव्य पूजन",
-    "badge": "१७. कुन्थुनाथ"
-  },
-  {
-    "id": "arahnath-puja",
-    "title": "श्री अरहनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "अष्टादश तीर्थंकर अरहनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "१८. अरहनाथ"
-  },
-  {
-    "id": "mallinath-puja",
-    "title": "श्री मल्लिनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "एकोनविंशति तीर्थंकर मल्लिनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "१९. मल्लिनाथ"
-  },
-  {
-    "id": "munisuvrat-puja",
-    "title": "श्री मुनिसुव्रत जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "विंशति तीर्थंकर भगवान मुनिसुव्रतनाथ अष्टद्रव्य पूजन",
-    "badge": "२०. मुनिसुव्रत"
-  },
-  {
-    "id": "naminath-puja",
-    "title": "श्री नमिनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "एकविंशति तीर्थंकर नमिनाथ अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "२१. नमिनाथ"
-  },
-  {
-    "id": "neminath-puja",
-    "title": "श्री नेमिनाथ जिन पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "द्वाविंशति तीर्थंकर भगवान नेमिनाथ अष्टद्रव्य पूजन",
-    "badge": "२२. नेमिनाथ"
-  },
-  {
-    "id": "parshvanath-puja-bakhtawar",
-    "title": "श्री पार्श्वनाथ जिन पूजा (बख्तावर सिंह)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "त्रयोविंशति तीर्थंकर भगवान पार्श्वनाथ अष्टद्रव्य पूजन",
-    "badge": "२३. पार्श्वनाथ"
-  },
-  {
-    "id": "mahavir-puja-vrindavan",
-    "title": "श्री महावीर जिन पूजा (वृन्दावनदास)",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "चतुर्विंशति तीर्थंकर चरम तीर्थेश भगवान महावीर पूजन",
-    "badge": "२४. महावीर"
-  },
-  {
-    "id": "bahubali-puja",
-    "title": "श्री बाहुबली पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "प्रथम कामदेव भगवान बाहुबली अष्टद्रव्य पूजन",
-    "badge": "बाहुबली"
-  },
-  {
-    "id": "seemandhar-puja",
-    "title": "श्री सीमंधर स्वामी पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "विदेह क्षेत्र के वर्तमान विहरमान तीर्थंकर सीमंधर स्वामी पूजन",
-    "badge": "सीमंधर स्वामी"
-  },
-  {
-    "id": "20-teerthankar-puja",
-    "title": "श्री विद्यमान बीस तीर्थंकर पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "महाविदेह क्षेत्र के विद्यमान बीस तीर्थंकर पूजा",
-    "badge": "२० तीर्थंकर"
-  },
-  {
-    "id": "vidyman-vimshati-tirthankar-pujan",
-    "title": "श्री विद्यमान विंशति तीर्थंकर पूजन",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "विद्यमान विंशति तीर्थंकर अष्टद्रव्य पूजन",
-    "badge": "विंशति जिन"
-  },
-  {
-    "id": "panch-balyati-puja",
-    "title": "पंच बालयति पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "पंच बालयति तीर्थंकरों की पावन पूजा",
-    "badge": "पंच बालयति"
-  },
-  {
-    "id": "samavasharan-puja",
-    "title": "श्री समवशरण पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "तीर्थंकर प्रभु के दिव्य १२ सभाओं से युक्त समवशरण पूजन",
-    "badge": "समवशरण"
-  },
-  {
-    "id": "jinasahasranam-puja",
-    "title": "श्री जिनसहस्रनाम पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "आचार्य जिनसेन विरचित जिनेंद्र भगवान के १००८ पावन नामों की अष्टद्रव्य पूजा",
-    "badge": "सहस्रनाम"
-  },
-  {
-    "id": "bhaktamar-puja",
-    "title": "श्री भक्तामर पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "आचार्य मानतुंग कृत भक्तामर आधारित अष्टद्रव्य पूजन एवं जयमाला",
-    "badge": "भक्तामर"
-  },
-  {
-    "id": "kalyanmandir-puja",
-    "title": "श्री कल्याणमन्दिर पूजा",
-    "category": "puja",
-    "subCategory": "tirthankar",
-    "description": "आचार्य कुमुदचन्द्र कृत कल्याणमन्दिर आधारित पार्श्वनाथ पूजन एवं जयमाला",
-    "badge": "कल्याणमंदिर"
-  },
-  {
-    "id": "daslakshan-dharma-puja",
-    "title": "दशलक्षण-धर्म पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "उत्तम क्षमादि १० धर्मों की अष्टद्रव्य पूजा",
-    "badge": "दशलक्षण पर्व"
-  },
-  {
-    "id": "solah-karan-puja",
-    "title": "सोलहकारण पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "तीर्थंकर प्रकृति बंध के कारणभूत १६ भावना पूजा",
-    "badge": "सोलहकारण"
-  },
-  {
-    "id": "ashtanhika-vrat-puja",
-    "title": "अष्टान्हिका व्रत पूजा (नंदीश्वर द्वीप)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "कार्तिक, फाल्गुन एवं आषाढ़ अष्टान्हिका महापर्व पूजा",
-    "badge": "अष्टान्हिका"
-  },
-  {
-    "id": "nandishwar-dweep-puja",
-    "title": "श्री नंदीश्वर-द्वीप पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "आठवें द्वीप नंदीश्वर के ५२ जिनालयों की पावन पूजा",
-    "badge": "नंदीश्वर द्वीप"
-  },
-  {
-    "id": "panchmeru-puja",
-    "title": "श्री पंचमेरु पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "सुदर्शन आदि पंचमेरु पर्वत के ८० जिनालयों की पूजा",
-    "badge": "पंचमेरु"
-  },
-  {
-    "id": "deepmalika-parv-pujan",
-    "title": "दीपमालिका पर्व पूजन (दीपावली पूजा)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "भगवान महावीर निर्वाण कल्याणक एवं दीपावली पूजन",
-    "badge": "दीपावली"
-  },
-  {
-    "id": "nirvan-kalyanak-ladu-puja",
-    "title": "श्री निर्वाण कल्याणक (मोक्ष लाडू) पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "भगवान महावीर एवं तीर्थंकरों के निर्वाण कल्याणक पर मोक्ष लाडू समर्पण पूजन",
-    "badge": "निर्वाण लाडू"
-  },
-  {
-    "id": "kshamavani-parv-puja",
-    "title": "क्षमावाणी पर्व पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "विश्व मैत्री एवं क्षमावाणी महापर्व पूजन",
-    "badge": "क्षमावाणी"
-  },
-  {
-    "id": "rakshabandhan-parv-pujan",
-    "title": "रक्षाबन्धन पर्व पूजन",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "अकंपनाचार्य आदि ७०० मुनियों के उपसर्ग निवारण स्मृति पर्व पूजन",
-    "badge": "रक्षाबंधन"
-  },
-  {
-    "id": "akshaya-tritiya-puja",
-    "title": "अक्षय-तृतीया पूजा (भगवान आदिनाथ)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "प्रथम तीर्थंकर आदिनाथ प्रथम पारणा अक्षय तृतीया पूजन",
-    "badge": "अक्षय तृतीया"
-  },
-  {
-    "id": "sugandh-dashami-puja",
-    "title": "सुगंध दशमी पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "भाद्रपद शुक्ल दशमी सुगंध धूप पूजन",
-    "badge": "सुगंध दशमी"
-  },
-  {
-    "id": "kalash-dashami-puja",
-    "title": "कलश दशमी पूजा (अक्षय फल दशमी)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "अक्षय फल दायिनी कलश दशमी पूजा",
-    "badge": "कलश दशमी"
-  },
-  {
-    "id": "mukut-saptami-vrat-puja",
-    "title": "मुकुट सप्तमी व्रत पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "भगवान पार्श्वनाथ मोक्ष कल्याणक मुकुट सप्तमी व्रत पूजा",
-    "badge": "मुकुट सप्तमी"
-  },
-  {
-    "id": "rot-teej-vrat-puja",
-    "title": "रोट तीज व्रत पूजा (चौबीसी व्रत)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "भाद्रपद शुक्ल तृतीया रोट तीज चौबीसी व्रत पूजा",
-    "badge": "रोट तीज"
-  },
-  {
-    "id": "ravi-vrat-puja",
-    "title": "रविव्रत पूजा (भगवान पार्श्वनाथ)",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "सर्व संकट नाशक रविवार पार्श्वनाथ व्रत पूजा",
-    "badge": "रविव्रत"
-  },
-  {
-    "id": "chandan-shashti-vrat-puja",
-    "title": "चन्दनषष्ठी व्रत पूजा",
-    "category": "puja",
-    "subCategory": "parva-vrat",
-    "description": "चन्दनषष्ठी पावन व्रत पूजन",
-    "badge": "चंदनषष्ठी"
-  },
-  {
-    "id": "panch-parmeshthi-puja",
-    "title": "श्री पंच परमेष्ठी पूजा",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "अरिहंत, सिद्ध, आचार्य, उपाध्याय, साधु पंच परमेष्ठी पूजा",
-    "badge": "पंचपरमेष्ठी"
-  },
-  {
-    "id": "siddha-pujan",
-    "title": "श्री सिद्ध पूजन",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "अष्ट कर्म रहित अनंत सिद्ध परमेष्ठी पूजन",
-    "badge": "सिद्ध परमेष्ठी"
-  },
-  {
-    "id": "navdevata-puja",
-    "title": "श्री नवदेवता पूजा",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "अरहंत, सिद्ध, आचार्य, पाठक, साधु, जिनधर्म, जिनागम, जिनचैत्य, जिनचैत्यालय पूजन",
-    "badge": "नवदेवता"
-  },
-  {
-    "id": "vidyasagar-puja",
-    "title": "आचार्य श्री विद्यासागर जी महाराज पूजन",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "संत शिरोमणि युगप्रवर्तक आचार्य श्री विद्यासागर जी पूजन",
-    "badge": "विद्यासागर जी"
-  },
-  {
-    "id": "samaysagar-puja",
-    "title": "आचार्य श्री समयसागर जी महाराज पूजन",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "पट्टाचार्य श्री समयसागर जी महाराज पूजन",
-    "badge": "समयसागर जी"
-  },
-  {
-    "id": "kundkund-acharya-puja",
-    "title": "श्री कुन्दकुन्द आचार्य पूजा",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "कलिकालसर्वज्ञ श्रीमद् भगवत्कुन्दकुन्दाचार्य देव पूजन एवं जयमाला",
-    "badge": "कुंदकुंद देव"
-  },
-  {
-    "id": "rishi-mandal-puja",
-    "title": "श्री ऋषिमण्डल पूजा",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "सर्व ऋद्धि-सिद्धिधारी महामुनि एवं मन्त्रमय ऋषिमण्डल पूजन",
-    "badge": "ऋषिमंडल"
-  },
-  {
-    "id": "padmavati-mata-puja",
-    "title": "श्री पद्मावती माता पूजा",
-    "category": "puja",
-    "subCategory": "guru-acharya",
-    "description": "भगवान पार्श्वनाथ शासन देवी पद्मावती आराधना एवं सुख-शांति पूजा",
-    "badge": "पद्मावती माता"
-  },
-  {
-    "id": "jinvani-puja",
-    "title": "श्री जिनवाणी पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "द्वादशांग जिनवाणी माता अष्टद्रव्य पूजन",
-    "badge": "जिनवाणी"
-  },
-  {
-    "id": "shrut-panchami-puja",
-    "title": "श्रुतपंचमी पूजा (षट्खण्डागम पूजा)",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "आगम ग्रंथ षट्खण्डागम प्रकटीकरण श्रुतपंचमी पूजा",
-    "badge": "श्रुतपंचमी"
-  },
-  {
-    "id": "namokar-mahamantra-puja",
-    "title": "णमोकार महामंत्र पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "अनादि मूल मंत्र श्री णमोकार महामंत्र अष्टद्रव्य पूजा",
-    "badge": "णमोकार"
-  },
-  {
-    "id": "ratnatraya-puja",
-    "title": "रत्नत्रय पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र रत्नत्रय धर्म पूजा",
-    "badge": "रत्नत्रय"
-  },
-  {
-    "id": "samyagdarshan-puja",
-    "title": "सम्यग्दर्शन पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "मोक्षमार्ग का प्रथम सोपान सम्यग्दर्शन पूजन",
-    "badge": "सम्यग्दर्शन"
-  },
-  {
-    "id": "samyaggyan-puja",
-    "title": "सम्यग्ज्ञान पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "संसार के समस्त पदार्थों को यथार्थ जानने वाला सम्यग्ज्ञान पूजन",
-    "badge": "सम्यग्ज्ञान"
-  },
-  {
-    "id": "samyakcharitra-puja",
-    "title": "सम्यक्चारित्र पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "आत्म शुद्धि का परम साधन सम्यक्चारित्र पूजन",
-    "badge": "सम्यक्चारित्र"
-  },
-  {
-    "id": "ashtakarma-dahan-puja",
-    "title": "श्री अष्टकर्म निवारण पूजा",
-    "category": "puja",
-    "subCategory": "tattva-guna",
-    "description": "ज्ञानावरणी आदि आठों कर्मों के क्षय एवं मुक्ति प्राप्ति हेतु अष्टकर्म पूजा",
-    "badge": "अष्टकर्म"
-  }
-],
-  vidhan: [
-    {"id":"uttam-brahmacharya-dharma-vidhan","title":"श्री उत्तम ब्रह्मचर्य धर्म मण्डल विधान (दशम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व दशम दिवस मण्डल आराधना विधान","badge":"दशम दिन विधान"},
-    {"id":"uttam-akinchanya-dharma-vidhan","title":"श्री उत्तम आकिंचन्य धर्म मण्डल विधान (नवम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व नवम दिवस मण्डल आराधना विधान","badge":"नवम दिन विधान"},
-    {"id":"uttam-tyag-dharma-vidhan","title":"श्री उत्तम त्याग धर्म मण्डल विधान (अष्टम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व अष्टम दिवस मण्डल आराधना विधान","badge":"अष्टम दिन विधान"},
-    {"id":"uttam-tap-dharma-vidhan","title":"श्री उत्तम तप धर्म मण्डल विधान (सप्तम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व सप्तम दिवस मण्डल आराधना विधान","badge":"सप्तम दिन विधान"},
-    {"id":"uttam-sanyam-dharma-vidhan","title":"श्री उत्तम संयम धर्म मण्डल विधान (षष्ठ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व षष्ठ दिवस मण्डल आराधना विधान","badge":"षष्ठ दिन विधान"},
-    {"id":"uttam-satya-dharma-vidhan","title":"श्री उत्तम सत्य धर्म मण्डल विधान (पंचम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व पंचम दिवस मण्डल आराधना विधान","badge":"पंचम दिन विधान"},
-    {"id":"uttam-shauch-dharma-vidhan","title":"श्री उत्तम शौच धर्म मण्डल विधान (चतुर्थ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व चतुर्थ दिवस मण्डल आराधना विधान","badge":"चतुर्थ दिन विधान"},
-    {"id":"uttam-arjav-dharma-vidhan","title":"श्री उत्तम आर्जव धर्म मण्डल विधान (तृतीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व तृतीय दिवस मण्डल आराधना विधान","badge":"तृतीय दिन विधान"},
-    {"id":"uttam-mardav-dharma-vidhan","title":"श्री उत्तम मार्दव धर्म मण्डल विधान (द्वितीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व द्वितीय दिवस मण्डल आराधना विधान","badge":"द्वितीय दिन विधान"},
-    {"id":"uttam-kshama-dharma-vidhan","title":"श्री उत्तम क्षमा धर्म मण्डल विधान (प्रथम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व प्रथम दिवस मण्डल आराधना विधान","badge":"प्रथम दिन विधान"},
-    {"id":"ratnatraya-mahamandal-vidhan","title":"श्री रत्नत्रय महामण्डल विधान (वृहत)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र मोक्षमार्ग महामण्डल विधान","badge":"रत्नत्रय महामण्डल"},
-    {"id":"daslakshan-udypan-vidhan","title":"श्री दशलक्षण व्रत उद्यापन विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण व्रत की पूर्णता पर विधिपूर्वक उद्यापन व महामण्डल विधान","badge":"उद्यापन विधान"},
-    {"id":"rot-teej-vrat-vidhan","title":"श्री रोट तीज (चौबीसी) व्रत विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल तृतीया रोट तीज व्रत एवं २४ तीर्थंकर आराधना विधान","badge":"रोट तीज विधान"},
-    {"id":"kshamavani-parv-vidhan","title":"श्री उत्तम क्षमावाणी (पर्युषण) महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व की पूर्णाहूति पर विश्व मैत्री एवं क्षमावाणी महाविधान","badge":"क्षमावाणी विधान"},
-    {"id":"sugandh-dashami-vidhan","title":"श्री सुगंध दशमी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल दशमी धूप खेवन एवं सर्व पाप-विनाशक सुगंध दशमी महाविधान","badge":"सुगंध दशमी"},
-    {"id":"anant-chaturdashi-vidhan","title":"श्री अनन्त चतुर्दशी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व के अंतिम दिवस का १४ ग्रंथियुक्त अनन्त व्रत महाविधान","badge":"अनंत चतुर्दशी"},
+    {"id":"puja-vidhi-prarambh","title":"पूजा विधि प्रारम्भ","category":"puja","subCategory":"daily-flow","description":"दैनिक अभिषेक एवं पूजन प्रारम्भिक विधि","badge":"नित्य पूजन"},
+    {"id":"puja-pratigya-path","title":"पूजा प्रतिज्ञा पाठ","category":"puja","subCategory":"daily-flow","description":"संकल्प एवं पूजन प्रतिज्ञा पाठ","badge":"नित्य पूजन"},
+    {"id":"vinay-path","title":"विनय पाठ","category":"puja","subCategory":"daily-flow","description":"जिनेंद्र प्रभु के चरणों में विनय पाठ","badge":"नित्य पूजन"},
+    {"id":"dev-shastra-guru-puja-jugal","title":"श्री देव-शास्त्र-गुरु पूजा","category":"puja","subCategory":"daily-flow","description":"पं. जुगल किशोर जी कृत नित्य देव-शास्त्र-गुरु पूजा","badge":"नित्य पूजन"},
+    {"id":"dev-shastra-guru-puja-dyanat","title":"श्री देव-शास्त्र-गुरु पूजा (द्यानत राय)","category":"puja","subCategory":"daily-flow","description":"कविवर द्यानतराय कृत देव-शास्त्र-गुरु पूजा","badge":"नित्य पूजन"},
+    {"id":"samuchay-pujan","title":"समुच्चय पूजन","category":"puja","subCategory":"daily-flow","description":"दैनिक समुच्चय जिनेंद्र पूजन","badge":"नित्य पूजन"},
+    {"id":"chaubis-tirthankar-puja","title":"श्री चौबीस तीर्थंकर पूजा","category":"puja","subCategory":"daily-flow","description":"चौबीसों तीर्थंकर भगवान की सामूहिक पूजा","badge":"नित्य पूजन"},
+    {"id":"24-tirthankar-swasti-path","title":"२४ तीर्थंकर स्वस्ति पाठ","category":"puja","subCategory":"daily-flow","description":"२४ तीर्थंकर मांगलिक स्वस्ति पाठ","badge":"नित्य पूजन"},
+    {"id":"parmarshi-swasti-mangal-path","title":"परमर्षि स्वस्ति मंगल पाठ","category":"puja","subCategory":"daily-flow","description":"परमर्षि मांगलिक स्वस्ति पाठ","badge":"नित्य पूजन"},
+    {"id":"arghyavali","title":"अर्घ्यावली (संपूर्ण २४ तीर्थंकर)","category":"puja","subCategory":"daily-flow","description":"चौबीस तीर्थंकर सामूहिक अर्घ्यावली","badge":"नित्य पूजन"},
+    {"id":"maha-argh","title":"महा अर्घ","category":"puja","subCategory":"daily-flow","description":"समस्त पूजाओं के अंत में महा अर्घ समर्पण","badge":"नित्य पूजन"},
+    {"id":"panch-parmeshthi-argh","title":"पंच परमेष्ठि अर्घ","category":"puja","subCategory":"daily-flow","description":"पंच परमेष्ठी भगवान का पावन अर्घ","badge":"नित्य पूजन"},
+    {"id":"shanti-path","title":"शांति पाठ","category":"puja","subCategory":"daily-flow","description":"पूजनोपरांत सर्व शांति पाठ","badge":"नित्य पूजन"},
+    {"id":"visarjan-path","title":"विसर्जन पाठ","category":"puja","subCategory":"daily-flow","description":"पूजन विसर्जन एवं क्षमा याचना पाठ","badge":"नित्य पूजन"},
+    {"id":"adinath-puja-jineshwardas","title":"श्री आदिनाथ जिन पूजा (जिनेश्वरदास)","category":"puja","subCategory":"tirthankar","description":"प्रथम तीर्थंकर भगवान ऋषभदेव अष्टद्रव्य पूजन","badge":"१. ऋषभदेव"},
+    {"id":"adinath-chandkhedi-puja","title":"श्री आदिनाथ जिन पूजा (चाँदखेड़ी)","category":"puja","subCategory":"tirthankar","description":"अतिशय क्षेत्र चाँदखेड़ी आदिनाथ पूजन","badge":"चाँदखेड़ी"},
+    {"id":"ajitnath-puja","title":"श्री अजितनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"द्वितीय तीर्थंकर अजितनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"२. अजितनाथ"},
+    {"id":"sambhavnath-puja","title":"श्री संभवनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"तृतीय तीर्थंकर संभवनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"३. संभवनाथ"},
+    {"id":"abhinandan-puja","title":"श्री अभिनंदननाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"चतुर्थ तीर्थंकर अभिनंदननाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"४. अभिनंदननाथ"},
+    {"id":"sumatinath-puja","title":"श्री सुमतिनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"पंचम तीर्थंकर सुमतिनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"५. सुमतिनाथ"},
+    {"id":"padmaprabh-puja","title":"श्री पद्मप्रभ जिन पूजा","category":"puja","subCategory":"tirthankar","description":"षष्ठ तीर्थंकर भगवान पद्मप्रभु अष्टद्रव्य पूजन","badge":"६. पद्मप्रभु"},
+    {"id":"suparshvanath-puja","title":"श्री सुपार्श्वनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"सप्तम तीर्थंकर सुपार्श्वनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"७. सुपार्श्वनाथ"},
+    {"id":"chandraprabh-puja","title":"श्री चंद्रप्रभ जिन पूजा","category":"puja","subCategory":"tirthankar","description":"अष्टम तीर्थंकर भगवान चंद्रप्रभु अष्टद्रव्य पूजन","badge":"८. चंद्रप्रभु"},
+    {"id":"chandraprabh-dehra-puja","title":"श्री चंद्रप्रभु जी पूजा - देहरा (तिजारा)","category":"puja","subCategory":"tirthankar","description":"अतिशय क्षेत्र तिजारा देहरा चंद्रप्रभु पूजन","badge":"तिजारा"},
+    {"id":"pushpadanta-puja","title":"श्री पुष्पदंत जिन पूजन","category":"puja","subCategory":"tirthankar","description":"नवम तीर्थंकर भगवान पुष्पदंत अष्टद्रव्य पूजन","badge":"९. पुष्पदंत"},
+    {"id":"sheetalnath-puja","title":"श्री शीतलनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"दशम तीर्थंकर भगवान शीतलनाथ अष्टद्रव्य पूजन","badge":"१०. शीतलनाथ"},
+    {"id":"shreyansnath-puja","title":"श्री श्रेयांसनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"एकादश तीर्थंकर श्रेयांसनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"११. श्रेयांसनाथ"},
+    {"id":"vasupujya-puja","title":"श्री वासुपूज्य जिन पूजन","category":"puja","subCategory":"tirthankar","description":"द्वादश तीर्थंकर भगवान वासुपूज्य अष्टद्रव्य पूजन","badge":"१२. वासुपूज्य"},
+    {"id":"vimalnath-puja","title":"श्री विमलनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"त्रयोदश तीर्थंकर भगवान विमलनाथ अष्टद्रव्य पूजन","badge":"१३. विमलनाथ"},
+    {"id":"anantanath-puja","title":"श्री अनंतनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"चतुर्दश तीर्थंकर भगवान अनंतनाथ अष्टद्रव्य पूजन","badge":"१४. अनंतनाथ"},
+    {"id":"dharmanath-puja","title":"श्री धर्मनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"पंचदश तीर्थंकर धर्मनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"१५. धर्मनाथ"},
+    {"id":"shantinath-puja-bakhtawar","title":"श्री शांतिनाथ जिन पूजा (बख्तावर सिंह)","category":"puja","subCategory":"tirthankar","description":"षोडश तीर्थंकर भगवान शांतिनाथ अष्टद्रव्य पूजन","badge":"१६. शांतिनाथ"},
+    {"id":"shanti-puja","title":"श्री शांतिनाथ महाशांति पूजा","category":"puja","subCategory":"tirthankar","description":"सर्व विघ्न-विनाशक एवं शांति प्रदायक शांतिनाथ जिनेंद्र पूजन","badge":"महाशांति"},
+    {"id":"kunthunath-puja","title":"श्री कुन्थुनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"सप्तदश तीर्थंकर भगवान कुन्थुनाथ अष्टद्रव्य पूजन","badge":"१७. कुन्थुनाथ"},
+    {"id":"arahnath-puja","title":"श्री अरहनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"अष्टादश तीर्थंकर अरहनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"१८. अरहनाथ"},
+    {"id":"mallinath-puja","title":"श्री मल्लिनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"एकोनविंशति तीर्थंकर मल्लिनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"१९. मल्लिनाथ"},
+    {"id":"munisuvrat-puja","title":"श्री मुनिसुव्रत जिन पूजन","category":"puja","subCategory":"tirthankar","description":"विंशति तीर्थंकर भगवान मुनिसुव्रतनाथ अष्टद्रव्य पूजन","badge":"२०. मुनिसुव्रत"},
+    {"id":"naminath-puja","title":"श्री नमिनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"एकविंशति तीर्थंकर नमिनाथ अष्टद्रव्य पूजन एवं जयमाला","badge":"२१. नमिनाथ"},
+    {"id":"neminath-puja","title":"श्री नेमिनाथ जिन पूजन","category":"puja","subCategory":"tirthankar","description":"द्वाविंशति तीर्थंकर भगवान नेमिनाथ अष्टद्रव्य पूजन","badge":"२२. नेमिनाथ"},
+    {"id":"parshvanath-puja-bakhtawar","title":"श्री पार्श्वनाथ जिन पूजा (बख्तावर सिंह)","category":"puja","subCategory":"tirthankar","description":"त्रयोविंशति तीर्थंकर भगवान पार्श्वनाथ अष्टद्रव्य पूजन","badge":"२३. पार्श्वनाथ"},
+    {"id":"mahavir-puja-vrindavan","title":"श्री महावीर जिन पूजा (वृन्दावनदास)","category":"puja","subCategory":"tirthankar","description":"चतुर्विंशति तीर्थंकर चरम तीर्थेश भगवान महावीर पूजन","badge":"२४. महावीर"},
+    {"id":"bahubali-puja","title":"श्री बाहुबली पूजा","category":"puja","subCategory":"tirthankar","description":"प्रथम कामदेव भगवान बाहुबली अष्टद्रव्य पूजन","badge":"बाहुबली"},
+    {"id":"seemandhar-puja","title":"श्री सीमंधर स्वामी पूजा","category":"puja","subCategory":"tirthankar","description":"विदेह क्षेत्र के वर्तमान विहरमान तीर्थंकर सीमंधर स्वामी पूजन","badge":"सीमंधर स्वामी"},
+    {"id":"20-teerthankar-puja","title":"श्री विद्यमान बीस तीर्थंकर पूजा","category":"puja","subCategory":"tirthankar","description":"महाविदेह क्षेत्र के विद्यमान बीस तीर्थंकर पूजा","badge":"२० तीर्थंकर"},
+    {"id":"vidyman-vimshati-tirthankar-pujan","title":"श्री विद्यमान विंशति तीर्थंकर पूजन","category":"puja","subCategory":"tirthankar","description":"विद्यमान विंशति तीर्थंकर अष्टद्रव्य पूजन","badge":"विंशति जिन"},
+    {"id":"panch-balyati-puja","title":"पंच बालयति पूजा","category":"puja","subCategory":"tirthankar","description":"पंच बालयति तीर्थंकरों की पावन पूजा","badge":"पंच बालयति"},
+    {"id":"samavasharan-puja","title":"श्री समवशरण पूजा","category":"puja","subCategory":"tirthankar","description":"तीर्थंकर प्रभु के दिव्य १२ सभाओं से युक्त समवशरण पूजन","badge":"समवशरण"},
+    {"id":"jinasahasranam-puja","title":"श्री जिनसहस्रनाम पूजा","category":"puja","subCategory":"tirthankar","description":"आचार्य जिनसेन विरचित जिनेंद्र भगवान के १००८ पावन नामों की अष्टद्रव्य पूजा","badge":"सहस्रनाम"},
+    {"id":"bhaktamar-puja","title":"श्री भक्तामर पूजा","category":"puja","subCategory":"tirthankar","description":"आचार्य मानतुंग कृत भक्तामर आधारित अष्टद्रव्य पूजन एवं जयमाला","badge":"भक्तामर"},
+    {"id":"kalyanmandir-puja","title":"श्री कल्याणमन्दिर पूजा","category":"puja","subCategory":"tirthankar","description":"आचार्य कुमुदचन्द्र कृत कल्याणमन्दिर आधारित पार्श्वनाथ पूजन एवं जयमाला","badge":"कल्याणमंदिर"},
+    {"id":"uttam-kshama-dharma-puja","title":"श्री उत्तम क्षमा धर्म पूजा (प्रथम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व प्रथम दिवस — भाद्रपद शुक्ल पंचमी","badge":"प्रथम दिन"},
+    {"id":"uttam-mardav-dharma-puja","title":"श्री उत्तम मार्दव धर्म पूजा (द्वितीय दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व द्वितीय दिवस — भाद्रपद शुक्ल षष्ठी","badge":"द्वितीय दिन"},
+    {"id":"uttam-arjav-dharma-puja","title":"श्री उत्तम आर्जव धर्म पूजा (तृतीय दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व तृतीय दिवस — भाद्रपद शुक्ल सप्तमी","badge":"तृतीय दिन"},
+    {"id":"uttam-shauch-dharma-puja","title":"श्री उत्तम शौच धर्म पूजा (चतुर्थ दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व चतुर्थ दिवस — भाद्रपद शुक्ल अष्टमी","badge":"चतुर्थ दिन"},
+    {"id":"uttam-satya-dharma-puja","title":"श्री उत्तम सत्य धर्म पूजा (पंचम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व पंचम दिवस — भाद्रपद शुक्ल नवमी","badge":"पंचम दिन"},
+    {"id":"uttam-sanyam-dharma-puja","title":"श्री उत्तम संयम धर्म पूजा (षष्ठ दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व षष्ठ दिवस — सुगंध दशमी","badge":"षष्ठ दिन"},
+    {"id":"uttam-tap-dharma-puja","title":"श्री उत्तम तप धर्म पूजा (सप्तम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व सप्तम दिवस — भाद्रपद शुक्ल एकादशी","badge":"सप्तम दिन"},
+    {"id":"uttam-tyag-dharma-puja","title":"श्री उत्तम त्याग धर्म पूजा (अष्टम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व अष्टम दिवस — भाद्रपद शुक्ल द्वादशी","badge":"अष्टम दिन"},
+    {"id":"uttam-akinchanya-dharma-puja","title":"श्री उत्तम आकिंचन्य धर्म पूजा (नवम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व नवम दिवस — भाद्रपद शुक्ल त्रयोदशी","badge":"नवम दिन"},
+    {"id":"uttam-brahmacharya-dharma-puja","title":"श्री उत्तम ब्रह्मचर्य धर्म पूजा (दशम दिन)","category":"puja","subCategory":"parva-vrat","description":"दशलक्षण महापर्व दशम दिवस — अनन्त चतुर्दशी","badge":"दशम दिन"},
+    {"id":"daslakshan-dharma-puja","title":"दशलक्षण-धर्म पूजा","category":"puja","subCategory":"parva-vrat","description":"उत्तम क्षमादि १० धर्मों की अष्टद्रव्य पूजा","badge":"दशलक्षण पर्व"},
+    {"id":"solah-karan-puja","title":"सोलहकारण पूजा","category":"puja","subCategory":"parva-vrat","description":"तीर्थंकर प्रकृति बंध के कारणभूत १६ भावना पूजा","badge":"सोलहकारण"},
+    {"id":"ashtanhika-vrat-puja","title":"अष्टान्हिका व्रत पूजा (नंदीश्वर द्वीप)","category":"puja","subCategory":"parva-vrat","description":"कार्तिक, फाल्गुन एवं आषाढ़ अष्टान्हिका महापर्व पूजा","badge":"अष्टान्हिका"},
+    {"id":"nandishwar-dweep-puja","title":"श्री नंदीश्वर-द्वीप पूजा","category":"puja","subCategory":"parva-vrat","description":"आठवें द्वीप नंदीश्वर के ५२ जिनालयों की पावन पूजा","badge":"नंदीश्वर द्वीप"},
+    {"id":"panchmeru-puja","title":"श्री पंचमेरु पूजा","category":"puja","subCategory":"parva-vrat","description":"सुदर्शन आदि पंचमेरु पर्वत के ८० जिनालयों की पूजा","badge":"पंचमेरु"},
+    {"id":"deepmalika-parv-pujan","title":"दीपमालिका पर्व पूजन (दीपावली पूजा)","category":"puja","subCategory":"parva-vrat","description":"भगवान महावीर निर्वाण कल्याणक एवं दीपावली पूजन","badge":"दीपावली"},
+    {"id":"nirvan-kalyanak-ladu-puja","title":"श्री निर्वाण कल्याणक (मोक्ष लाडू) पूजा","category":"puja","subCategory":"parva-vrat","description":"भगवान महावीर एवं तीर्थंकरों के निर्वाण कल्याणक पर मोक्ष लाडू समर्पण पूजन","badge":"निर्वाण लाडू"},
+    {"id":"kshamavani-parv-puja","title":"क्षमावाणी पर्व पूजा","category":"puja","subCategory":"parva-vrat","description":"विश्व मैत्री एवं क्षमावाणी महापर्व पूजन","badge":"क्षमावाणी"},
+    {"id":"rakshabandhan-parv-pujan","title":"रक्षाबन्धन पर्व पूजन","category":"puja","subCategory":"parva-vrat","description":"अकंपनाचार्य आदि ७०० मुनियों के उपसर्ग निवारण स्मृति पर्व पूजन","badge":"रक्षाबंधन"},
+    {"id":"akshaya-tritiya-puja","title":"अक्षय-तृतीया पूजा (भगवान आदिनाथ)","category":"puja","subCategory":"parva-vrat","description":"प्रथम तीर्थंकर आदिनाथ प्रथम पारणा अक्षय तृतीया पूजन","badge":"अक्षय तृतीया"},
+    {"id":"sugandh-dashami-puja","title":"सुगंध दशमी पूजा","category":"puja","subCategory":"parva-vrat","description":"भाद्रपद शुक्ल दशमी सुगंध धूप पूजन","badge":"सुगंध दशमी"},
+    {"id":"kalash-dashami-puja","title":"कलश दशमी पूजा (अक्षय फल दशमी)","category":"puja","subCategory":"parva-vrat","description":"अक्षय फल दायिनी कलश दशमी पूजा","badge":"कलश दशमी"},
+    {"id":"mukut-saptami-vrat-puja","title":"मुकुट सप्तमी व्रत पूजा","category":"puja","subCategory":"parva-vrat","description":"भगवान पार्श्वनाथ मोक्ष कल्याणक मुकुट सप्तमी व्रत पूजा","badge":"मुकुट सप्तमी"},
+    {"id":"rot-teej-vrat-puja","title":"रोट तीज व्रत पूजा (चौबीसी व्रत)","category":"puja","subCategory":"parva-vrat","description":"भाद्रपद शुक्ल तृतीया रोट तीज चौबीसी व्रत पूजा","badge":"रोट तीज"},
+    {"id":"ravi-vrat-puja","title":"रविव्रत पूजा (भगवान पार्श्वनाथ)","category":"puja","subCategory":"parva-vrat","description":"सर्व संकट नाशक रविवार पार्श्वनाथ व्रत पूजा","badge":"रविव्रत"},
+    {"id":"chandan-shashti-vrat-puja","title":"चन्दनषष्ठी व्रत पूजा","category":"puja","subCategory":"parva-vrat","description":"चन्दनषष्ठी पावन व्रत पूजन","badge":"चंदनषष्ठी"},
+    {"id":"panch-parmeshthi-puja","title":"श्री पंच परमेष्ठी पूजा","category":"puja","subCategory":"guru-acharya","description":"अरिहंत, सिद्ध, आचार्य, उपाध्याय, साधु पंच परमेष्ठी पूजा","badge":"पंचपरमेष्ठी"},
+    {"id":"siddha-pujan","title":"श्री सिद्ध पूजन","category":"puja","subCategory":"guru-acharya","description":"अष्ट कर्म रहित अनंत सिद्ध परमेष्ठी पूजन","badge":"सिद्ध परमेष्ठी"},
+    {"id":"navdevata-puja","title":"श्री नवदेवता पूजा","category":"puja","subCategory":"guru-acharya","description":"अरहंत, सिद्ध, आचार्य, पाठक, साधु, जिनधर्म, जिनागम, जिनचैत्य, जिनचैत्यालय पूजन","badge":"नवदेवता"},
+    {"id":"vidyasagar-puja","title":"आचार्य श्री विद्यासागर जी महाराज पूजन","category":"puja","subCategory":"guru-acharya","description":"संत शिरोमणि युगप्रवर्तक आचार्य श्री विद्यासागर जी पूजन","badge":"विद्यासागर जी"},
+    {"id":"samaysagar-puja","title":"आचार्य श्री समयसागर जी महाराज पूजन","category":"puja","subCategory":"guru-acharya","description":"पट्टाचार्य श्री समयसागर जी महाराज पूजन","badge":"समयसागर जी"},
+    {"id":"kundkund-acharya-puja","title":"श्री कुन्दकुन्द आचार्य पूजा","category":"puja","subCategory":"guru-acharya","description":"कलिकालसर्वज्ञ श्रीमद् भगवत्कुन्दकुन्दाचार्य देव पूजन एवं जयमाला","badge":"कुंदकुंद देव"},
+    {"id":"rishi-mandal-puja","title":"श्री ऋषिमण्डल पूजा","category":"puja","subCategory":"guru-acharya","description":"सर्व ऋद्धि-सिद्धिधारी महामुनि एवं मन्त्रमय ऋषिमण्डल पूजन","badge":"ऋषिमंडल"},
+    {"id":"padmavati-mata-puja","title":"श्री पद्मावती माता पूजा","category":"puja","subCategory":"guru-acharya","description":"भगवान पार्श्वनाथ शासन देवी पद्मावती आराधना एवं सुख-शांति पूजा","badge":"पद्मावती माता"},
+    {"id":"jinvani-puja","title":"श्री जिनवाणी पूजा","category":"puja","subCategory":"tattva-guna","description":"द्वादशांग जिनवाणी माता अष्टद्रव्य पूजन","badge":"जिनवाणी"},
+    {"id":"shrut-panchami-puja","title":"श्रुतपंचमी पूजा (षट्खण्डागम पूजा)","category":"puja","subCategory":"tattva-guna","description":"आगम ग्रंथ षट्खण्डागम प्रकटीकरण श्रुतपंचमी पूजा","badge":"श्रुतपंचमी"},
+    {"id":"namokar-mahamantra-puja","title":"णमोकार महामंत्र पूजा","category":"puja","subCategory":"tattva-guna","description":"अनादि मूल मंत्र श्री णमोकार महामंत्र अष्टद्रव्य पूजा","badge":"णमोकार"},
+    {"id":"ratnatraya-puja","title":"रत्नत्रय पूजा","category":"puja","subCategory":"tattva-guna","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र रत्नत्रय धर्म पूजा","badge":"रत्नत्रय"},
+    {"id":"samyagdarshan-puja","title":"सम्यग्दर्शन पूजा","category":"puja","subCategory":"tattva-guna","description":"मोक्षमार्ग का प्रथम सोपान सम्यग्दर्शन पूजन","badge":"सम्यग्दर्शन"},
+    {"id":"samyaggyan-puja","title":"सम्यग्ज्ञान पूजा","category":"puja","subCategory":"tattva-guna","description":"संसार के समस्त पदार्थों को यथार्थ जानने वाला सम्यग्ज्ञान पूजन","badge":"सम्यग्ज्ञान"},
+    {"id":"samyakcharitra-puja","title":"सम्यक्चारित्र पूजा","category":"puja","subCategory":"tattva-guna","description":"आत्म शुद्धि का परम साधन सम्यक्चारित्र पूजन","badge":"सम्यक्चारित्र"},
+    {"id":"ashtakarma-dahan-puja","title":"श्री अष्टकर्म निवारण पूजा","category":"puja","subCategory":"tattva-guna","description":"ज्ञानावरणी आदि आठों कर्मों के क्षय एवं मुक्ति प्राप्ति हेतु अष्टकर्म पूजा","badge":"अष्टकर्म"}
+  ],
+    vidhan: [
+    // -------------------------------------------------------------
+    // १. प्रमुख महामंडल विधान (Major Mahamandal Vidhans)
+    // -------------------------------------------------------------
+    {"id":"siddhachakra-vidhan","title":"श्री सिद्धचक्र मण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"अष्टान्हिका महापर्व एवं नवान्हिक सिद्धचक्र महामण्डल आराधना विधान","badge":"सिद्धचक्र महामण्डल"},
+    {"id":"bhaktamar-vidhan","title":"श्री भक्तामर महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"आचार्य मानतुंग विरचित ४८ काव्यमयी भक्तामर महामण्डल विधान","badge":"भक्तामर महामण्डल"},
+    {"id":"kalyanmandir-vidhan","title":"श्री कल्याणमन्दिर महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"आचार्य कुमुदचन्द्र विरचित ४४ श्लोकमयी कल्याणमन्दिर महामण्डल विधान","badge":"कल्याणमंदिर विधान"},
+    {"id":"kalpataru-vidhan","title":"श्री कल्पतरु विधान (समवसरण पूजा)","category":"vidhan","subCategory":"mahamandal-vidhan","description":"सर्व अभीष्ट प्रदायक एवं समवसरण रचना युक्त कल्पतरु महाविधान","badge":"कल्पतरु विधान"},
+    {"id":"shanti-vidhan-purnamati","title":"श्री शांति विधान (शांति महामण्डल)","category":"vidhan","subCategory":"mahamandal-vidhan","description":"विश्व शांति एवं सर्व विघ्न-निवारक शांतिनाथ महामण्डल विधान","badge":"शांति महाविधान"},
+    {"id":"indradhwaj-vidhan","title":"श्री इन्द्रध्वज महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"सौधर्म इन्द्र कृत अष्टद्रव्य एवं ध्वजारोहण युक्त इन्द्रध्वज महाविधान","badge":"इन्द्रध्वज विधान"},
+    {"id":"sarvatobhadra-vidhan","title":"श्री सर्वतोभद्र महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"सर्वतोभद्र मण्डल युक्त सर्व विघ्न-विनाशक पावन महाविधान","badge":"सर्वतोभद्र विधान"},
+    {"id":"samavasharan-vidhan","title":"श्री समवशरण महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"तीर्थंकर प्रभु की दिव्य धर्मसभा समवशरण महामण्डल विधान","badge":"समवशरण विधान"},
+    {"id":"chaubisi-vidhan","title":"श्री चौबीस तीर्थंकर महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"२४ जिनेन्द्र भगवान की सामूहिक अष्टद्रव्य आराधना महाविधान","badge":"चौबीसी विधान"},
+    {"id":"panchameru-vidhan","title":"श्री पंचमेरु एवं नंदीश्वर महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"अकृत्रिम चैत्यालय एवं पंचमेरु-नंदीश्वर द्वीप महामण्डल विधान","badge":"पंचमेरु विधान"},
+    {"id":"solah-karan-vidhan","title":"श्री सोलहकारण महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"तीर्थंकर प्रकृति बंध के कारणभूत १६ पावन भावनाओं का महाविधान","badge":"सोलहकारण विधान"},
+    {"id":"ratnatraya-mahamandal-vidhan","title":"श्री रत्नत्रय महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र मोक्षमार्ग महामण्डल विधान","badge":"रत्नत्रय महामण्डल"},
+    {"id":"rishi-mandal-vidhan","title":"श्री ऋषिमण्डल महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"मन्त्रराज ऋषिमण्डल एवं सर्व ऋद्धि-सिद्धिधारी मुनि आराधना विधान","badge":"ऋषिमंडल विधान"},
+    {"id":"navgraha-shanti-vidhan","title":"श्री नवग्रह शांति निवारण विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"सर्व अरिष्ट निवारक एवं जिनेन्द्र प्रभु आधारित नवग्रह शांति विधान","badge":"नवग्रह शांति"},
+    {"id":"jinasahasranam-vidhan","title":"श्री जिनसहस्रनाम महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"जिनेन्द्र भगवान के १००८ पावन नामों की आराधना का महामण्डल विधान","badge":"जिनसहस्रनाम"},
+    {"id":"shrut-skandha-vidhan","title":"श्री श्रुतस्कंध (जिनवाणी) महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"द्वादशांग जिनवाणी माता एवं श्रुतस्कंध आराधना महामण्डल विधान","badge":"श्रुतस्कंध विधान"},
+    {"id":"karma-dahan-vidhan","title":"श्री कर्म दहन महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"ज्ञानावरणी आदि आठों कर्मों के नाश हेतु कर्म दहन महाविधान","badge":"कर्म दहन विधान"},
+    {"id":"bahubali-vidhan","title":"श्री बाहुबली स्वामी महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"कामदेव प्रथम मोक्षगामी भगवान बाहुबली महामण्डल विधान","badge":"बाहुबली विधान"},
+    {"id":"padmavati-vidhan","title":"श्री पद्मावती माता महामण्डल विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"पार्श्वनाथ शासन देवी पद्मावती आराधना एवं सुख-शांति महाविधान","badge":"पद्मावती विधान"},
+    {"id":"bhaktamar-deep-archana-vidhan","title":"श्री भक्तामर दीप अर्चना विधान","category":"vidhan","subCategory":"mahamandal-vidhan","description":"४८ दीप प्रज्वलन एवं भक्तामर स्तोत्र दीप आराधना महाविधान","badge":"दीप अर्चना विधान"},
+
+    // -------------------------------------------------------------
+    // २. दशलक्षण धर्म एवं पर्व विधान (क्रम: प्रथम दिन से दशम दिन)
+    // -------------------------------------------------------------
+    {"id":"uttam-kshama-dharma-vidhan","title":"श्री उत्तम क्षमा धर्म मण्डल विधान (प्रथम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व प्रथम दिवस मण्डल आराधना विधान — क्रोध त्याग व क्षमा भाव","badge":"प्रथम दिन विधान"},
+    {"id":"uttam-mardav-dharma-vidhan","title":"श्री उत्तम मार्दव धर्म मण्डल विधान (द्वितीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व द्वितीय दिवस मण्डल आराधना विधान — मान त्याग व मृदुता","badge":"द्वितीय दिन विधान"},
+    {"id":"uttam-arjav-dharma-vidhan","title":"श्री उत्तम आर्जव धर्म मण्डल विधान (तृतीय दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व तृतीय दिवस मण्डल आराधना विधान — माया त्याग व सरलता","badge":"तृतीय दिन विधान"},
+    {"id":"uttam-shauch-dharma-vidhan","title":"श्री उत्तम शौच धर्म मण्डल विधान (चतुर्थ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व चतुर्थ दिवस मण्डल आराधना विधान — लोभ त्याग व पवित्रता","badge":"चतुर्थ दिन विधान"},
+    {"id":"uttam-satya-dharma-vidhan","title":"श्री उत्तम सत्य धर्म मण्डल विधान (पंचम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व पंचम दिवस मण्डल आराधना विधान — असत्य त्याग व हित-मित-प्रिय वचन","badge":"पंचम दिन विधान"},
+    {"id":"uttam-sanyam-dharma-vidhan","title":"श्री उत्तम संयम धर्म मण्डल विधान (षष्ठ दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व षष्ठ दिवस मण्डल आराधना विधान — इन्द्रिय व प्राणी संयम","badge":"षष्ठ दिन विधान"},
+    {"id":"uttam-tap-dharma-vidhan","title":"श्री उत्तम तप धर्म मण्डल विधान (सप्तम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व सप्तम दिवस मण्डल आराधना विधान — १२ प्रकार के तप की साधना","badge":"सप्तम दिन विधान"},
+    {"id":"uttam-tyag-dharma-vidhan","title":"श्री उत्तम त्याग धर्म मण्डल विधान (अष्टम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व अष्टम दिवस मण्डल आराधना विधान — दान व परिग्रह त्याग","badge":"अष्टम दिन विधान"},
+    {"id":"uttam-akinchanya-dharma-vidhan","title":"श्री उत्तम आकिंचन्य धर्म मण्डल विधान (नवम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व नवम दिवस मण्डल आराधना विधान — ममत्व त्याग व आत्मलीनता","badge":"नवम दिन विधान"},
+    {"id":"uttam-brahmacharya-dharma-vidhan","title":"श्री उत्तम ब्रह्मचर्य धर्म मण्डल विधान (दशम दिन)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व दशम दिवस मण्डल आराधना विधान — ब्रह्मचर्य व शुद्ध आत्मचर्या","badge":"दशम दिन विधान"},
+    {"id":"daslakshan-mahamandal-vidhan","title":"श्री दशलक्षण महामण्डल विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"उत्तम क्षमादि दस धर्मों की आराधना का सर्वोत्कृष्ट महामण्डल विधान","badge":"दशलक्षण महामण्डल"},
+    {"id":"das-lakshan-vidhan","title":"दशलक्षण विधान (समुच्चय पूजा)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण धर्मों की संपूर्ण अष्टद्रव्य समुच्चय पूजा एवं जयमाला","badge":"समुच्चय विधान"},
     {"id":"daslakshan-jaimala-vidhan","title":"श्री दशलक्षण जयमाला महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दसों धर्मों की विस्तृत, भावपूर्ण जयमालाओं का विशेष महाविधान","badge":"जयमाला विधान"},
     {"id":"daslakshan-kalpadrum-vidhan","title":"श्री दशलक्षण कल्पद्रुम विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सर्व मनोरथ सिद्धि एवं दशलक्षण कल्पद्रुम महामण्डल विधान","badge":"कल्पद्रुम विधान"},
     {"id":"daslakshan-dyanat-vidhan","title":"श्री दशलक्षण मण्डल विधान (द्यानतराय)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"कविवर द्यानतराय विरचित दशलक्षण धर्म मण्डल पूजा व छन्द विधान","badge":"द्यानतराय मण्डल"},
-    {"id":"daslakshan-mahamandal-vidhan","title":"श्री दशलक्षण महामण्डल विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"उत्तम क्षमादि दस धर्मों की आराधना का सर्वोत्कृष्ट महामण्डल विधान","badge":"दशलक्षण महामण्डल"},
-    {"id":"ratnatraya-mahamandal-vidhan","title":"श्री रत्नत्रय महामण्डल विधान (वृहत)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र मोक्षमार्ग महामण्डल विधान","badge":"रत्नत्रय महामण्डल"},
     {"id":"daslakshan-udypan-vidhan","title":"श्री दशलक्षण व्रत उद्यापन विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण व्रत की पूर्णता पर विधिपूर्वक उद्यापन व महामण्डल विधान","badge":"उद्यापन विधान"},
-    {"id":"rot-teej-vrat-vidhan","title":"श्री रोट तीज (चौबीसी) व्रत विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल तृतीया रोट तीज व्रत एवं २४ तीर्थंकर आराधना विधान","badge":"रोट तीज विधान"},
-    {"id":"kshamavani-parv-vidhan","title":"श्री उत्तम क्षमावाणी (पर्युषण) महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व की पूर्णाहूति पर विश्व मैत्री एवं क्षमावाणी महाविधान","badge":"क्षमावाणी विधान"},
     {"id":"sugandh-dashami-vidhan","title":"श्री सुगंध दशमी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल दशमी धूप खेवन एवं सर्व पाप-विनाशक सुगंध दशमी महाविधान","badge":"सुगंध दशमी"},
     {"id":"anant-chaturdashi-vidhan","title":"श्री अनन्त चतुर्दशी महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व के अंतिम दिवस का १४ ग्रंथियुक्त अनन्त व्रत महाविधान","badge":"अनंत चतुर्दशी"},
-    {"id":"daslakshan-jaimala-vidhan","title":"श्री दशलक्षण जयमाला महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दसों धर्मों की विस्तृत, भावपूर्ण जयमालाओं का विशेष महाविधान","badge":"जयमाला विधान"},
-    {"id":"daslakshan-kalpadrum-vidhan","title":"श्री दशलक्षण कल्पद्रुम विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"सर्व मनोरथ सिद्धि एवं दशलक्षण कल्पद्रुम महामण्डल विधान","badge":"कल्पद्रुम विधान"},
-    {"id":"daslakshan-dyanat-vidhan","title":"श्री दशलक्षण मण्डल विधान (द्यानतराय)","category":"vidhan","subCategory":"daslakshan-vidhan","description":"कविवर द्यानतराय विरचित दशलक्षण धर्म मण्डल पूजा व छन्द विधान","badge":"द्यानतराय मण्डल"},
-    {"id":"daslakshan-mahamandal-vidhan","title":"श्री दशलक्षण महामण्डल विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"उत्तम क्षमादि दस धर्मों की आराधना का सर्वोत्कृष्ट महामण्डल विधान","badge":"दशलक्षण महामण्डल"},
-  {
-    "id": "adinath-vidhan",
-    "title": "श्री आदिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  { "id": "das-lakshan-vidhan", "title": "दशलक्षण विधान (समुच्चय पूजा)", "category": "vidhan", "subCategory": "daslakshan-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "kalpataru-vidhan",
-    "title": "श्री कल्पतरु विधान (समवसरण पूजा)",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "mahavir-vidhan",
-    "title": "श्री महावीर विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "parshvanath-vidhan",
-    "title": "श्री पार्श्वनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "shantinath-vidhan",
-    "title": "श्री शांतिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "siddhachakra-vidhan",
-    "title": "श्री सिद्धचक्र मण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "ajitnath-vidhan",
-    "title": "श्री अजितनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "sambhavnath-vidhan",
-    "title": "श्री संभवनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "abhinandan-vidhan",
-    "title": "श्री अभिनंदननाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "sumatinath-vidhan",
-    "title": "श्री सुमतिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "padmaprabh-vidhan",
-    "title": "श्री पद्मप्रभ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "suparshvanath-vidhan",
-    "title": "श्री सुपार्श्वनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "chandraprabh-vidhan",
-    "title": "श्री चन्द्रप्रभ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "pushpadant-vidhan",
-    "title": "श्री पुष्पदंत विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "sheetalnath-vidhan",
-    "title": "श्री शीतलनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "shreyansnath-vidhan",
-    "title": "श्री श्रेयांसनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "vasupujya-vidhan",
-    "title": "श्री वासुपूज्य विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "vimalnath-vidhan",
-    "title": "श्री विमलनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "anantnath-vidhan",
-    "title": "श्री अनंतनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "dharmanath-vidhan",
-    "title": "श्री धर्मनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "kunthunath-vidhan",
-    "title": "श्री कुंथुनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "arahnath-vidhan",
-    "title": "श्री अरहनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "mallinath-vidhan",
-    "title": "श्री मल्लिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "munisuvrat-vidhan",
-    "title": "श्री मुनिसुव्रतनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "naminath-vidhan",
-    "title": "श्री नमिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "neminath-vidhan",
-    "title": "श्री नेमिनाथ विधान",
-    "category": "vidhan",
-    "subCategory": "tirthankar-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "shanti-vidhan-purnamati",
-    "title": "शांति विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "अष्टद्रव्य पूजन एवं जयमाला"
-  },
-  {
-    "id": "bhaktamar-vidhan",
-    "title": "श्री भक्तामर महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "आचार्य मानतुंग विरचित ४८ काव्यों पर आधारित महामण्डल विधान एवं ४८ अर्घ्यावली"
-  },
-  {
-    "id": "kalyanmandir-vidhan",
-    "title": "श्री कल्याणमन्दिर महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "आचार्य कुमुदचन्द्र विरचित पार्श्वनाथ स्तुति पर आधारित ४४ अर्घ्य एवं जयमाला"
-  },
-  {
-    "id": "navgraha-shanti-vidhan",
-    "title": "श्री नवग्रह शांति निवारण विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "सूर्य, चन्द्र, मंगल, बुध, गुरु, शुक्र, शनि, राहु, केतु नवग्रह दोष निवारक तीर्थंकर विधान"
-  },
-  {
-    "id": "rishi-mandal-vidhan",
-    "title": "श्री ऋषिमण्डल महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "समस्त ऋद्धिधारी मुनियों, २४ तीर्थंकरों एवं गणधरों का मन्त्रमय महाविधान"
-  },
-  {
-    "id": "solah-karan-vidhan",
-    "title": "श्री सोलहकारण महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "दर्शनविशुद्धि आदि १६ भावनाओं की आराधना एवं तीर्थंकर प्रकृति बंध विधान"
-  },
-  {
-    "id": "ratnatraya-vidhan",
-    "title": "श्री रत्नत्रय महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "सम्यग्दर्शन, सम्यग्ज्ञान एवं सम्यक्चारित्र मोक्षमार्ग आराधना विधान"
-  },
-  {
-    "id": "jinasahasranam-vidhan",
-    "title": "श्री जिनसहस्रनाम महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "आचार्य जिनसेन विरचित १००८ जिनेंद्र नामों पर आधारित महाविधान"
-  },
-  {
-    "id": "panchameru-vidhan",
-    "title": "श्री पंचमेरु एवं नंदीश्वर महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "५ मेरु के ८० एवं नंदीश्वर द्वीप के ५२ अकृत्रिम जिनालयों का महाविधान"
-  },
-  {
-    "id": "shrut-skandha-vidhan",
-    "title": "श्री श्रुतस्कंध (जिनवाणी) महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "द्वादशांग जिनवाणी, चौदह पूर्व एवं समस्त आगम शास्त्रों की आराधना का महाविधान"
-  },
-  {
-    "id": "karma-dahan-vidhan",
-    "title": "श्री कर्म दहन महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "ज्ञानावरणी आदि आठों कर्मों के क्षय एवं आत्मा की मुक्ति हेतु महाविधान"
-  },
-  {
-    "id": "bahubali-vidhan",
-    "title": "श्री बाहुबली स्वामी महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "प्रथम कामदेव, घोर तपस्वी भगवान गोमटेश बाहुबली आराधना विधान"
-  },
-  {
-    "id": "samavasharan-vidhan",
-    "title": "श्री समवशरण महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "तीर्थंकर प्रभु के १२ दिव्य सभाओं से युक्त समवशरण महाविधान"
-  },
-  {
-    "id": "padmavati-vidhan",
-    "title": "श्री पद्मावती माता महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "पार्श्वनाथ शासन देवी पद्मावती आराधना, सुख-समृद्धि एवं शांति विधान"
-  },
-  {
-    "id": "sarvatobhadra-vidhan",
-    "title": "श्री सर्वतोभद्र महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "सर्व दिशाओं में मंगल एवं समस्त विघ्नों के शमन हेतु सर्वतोभद्र विधान"
-  },
-  {
-    "id": "indradhwaj-vidhan",
-    "title": "श्री इन्द्रध्वज महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "सौधर्मेन्द्र आदि देवों द्वारा आयोजित जैन परम्परा का सर्वोच्च महामण्डल विधान"
-  },
-  {
-    "id": "chaubisi-vidhan",
-    "title": "श्री चौबीस तीर्थंकर महामण्डल विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "भगवान ऋषभदेव से लेकर भगवान महावीर तक समुच्चय २४ तीर्थंकर महाविधान"
-  },
-  {
-    "id": "bhaktamar-deep-archana-vidhan",
-    "title": "श्री भक्तामर दीप अर्चना विधान",
-    "category": "vidhan",
-    "subCategory": "mahamandal-vidhan",
-    "description": "४८ दीपकों से युक्त भक्तामर महाआरती व दीप अर्चना विधान"
-  }
-],
+    {"id":"rot-teej-vrat-vidhan","title":"श्री रोट तीज (चौबीसी) व्रत विधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"भाद्रपद शुक्ल तृतीया रोट तीज व्रत एवं २४ तीर्थंकर आराधना विधान","badge":"रोट तीज विधान"},
+    {"id":"kshamavani-parv-vidhan","title":"श्री उत्तम क्षमावाणी (पर्युषण) महाविधान","category":"vidhan","subCategory":"daslakshan-vidhan","description":"दशलक्षण महापर्व की पूर्णाहूति पर विश्व मैत्री एवं क्षमावाणी महाविधान","badge":"क्षमावाणी विधान"},
+
+    // -------------------------------------------------------------
+    // ३. २४ तीर्थंकर विधान (क्रम १ से २४: आदिनाथ से महावीर स्वामी)
+    // -------------------------------------------------------------
+    {"id":"adinath-vidhan","title":"श्री आदिनाथ (ऋषभदेव) विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"प्रथम तीर्थंकर भगवान आदिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"प्रथम तीर्थंकर"},
+    {"id":"ajitnath-vidhan","title":"श्री अजितनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"द्वितीय तीर्थंकर भगवान अजितनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"द्वितीय तीर्थंकर"},
+    {"id":"sambhavnath-vidhan","title":"श्री संभवनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"तृतीय तीर्थंकर भगवान संभवनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"तृतीय तीर्थंकर"},
+    {"id":"abhinandan-vidhan","title":"श्री अभिनंदननाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"चतुर्थ तीर्थंकर भगवान अभिनंदननाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"चतुर्थ तीर्थंकर"},
+    {"id":"sumatinath-vidhan","title":"श्री सुमतिनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"पंचम तीर्थंकर भगवान सुमतिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"पंचम तीर्थंकर"},
+    {"id":"padmaprabh-vidhan","title":"श्री पद्मप्रभ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"षष्ठ तीर्थंकर भगवान पद्मप्रभ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"षष्ठ तीर्थंकर"},
+    {"id":"suparshvanath-vidhan","title":"श्री सुपार्श्वनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"सप्तम तीर्थंकर भगवान सुपार्श्वनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"सप्तम तीर्थंकर"},
+    {"id":"chandraprabh-vidhan","title":"श्री चन्द्रप्रभ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"अष्टम तीर्थंकर भगवान चन्द्रप्रभ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"अष्टम तीर्थंकर"},
+    {"id":"pushpadant-vidhan","title":"श्री पुष्पदंत (सुविधिनाथ) विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"नवम तीर्थंकर भगवान पुष्पदंत अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"नवम तीर्थंकर"},
+    {"id":"sheetalnath-vidhan","title":"श्री शीतलनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"दशम तीर्थंकर भगवान शीतलनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"दशम तीर्थंकर"},
+    {"id":"shreyansnath-vidhan","title":"श्री श्रेयांसनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"एकादश तीर्थंकर भगवान श्रेयांसनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"एकादश तीर्थंकर"},
+    {"id":"vasupujya-vidhan","title":"श्री वासुपूज्य विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"द्वादश तीर्थंकर भगवान वासुपूज्य स्वामी अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"द्वादश तीर्थंकर"},
+    {"id":"vimalnath-vidhan","title":"श्री विमलनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"त्रयोदश तीर्थंकर भगवान विमलनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"त्रयोदश तीर्थंकर"},
+    {"id":"anantnath-vidhan","title":"श्री अनंतनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"चतुर्दश तीर्थंकर भगवान अनंतनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"चतुर्दश तीर्थंकर"},
+    {"id":"dharmanath-vidhan","title":"श्री धर्मनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"पंचदश तीर्थंकर भगवान धर्मनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"पंचदश तीर्थंकर"},
+    {"id":"shantinath-vidhan","title":"श्री शांतिनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"षोडश तीर्थंकर भगवान शांतिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"षोडश तीर्थंकर"},
+    {"id":"kunthunath-vidhan","title":"श्री कुंथुनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"सप्तदश तीर्थंकर भगवान कुंथुनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"सप्तदश तीर्थंकर"},
+    {"id":"arahnath-vidhan","title":"श्री अरहनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"अष्टादश तीर्थंकर भगवान अरहनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"अष्टादश तीर्थंकर"},
+    {"id":"mallinath-vidhan","title":"श्री मल्लिनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"१९वें तीर्थंकर भगवान मल्लिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"१९वें तीर्थंकर"},
+    {"id":"munisuvrat-vidhan","title":"श्री मुनिसुव्रतनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"२०वें तीर्थंकर भगवान मुनिसुव्रतनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"२०वें तीर्थंकर"},
+    {"id":"naminath-vidhan","title":"श्री नमिनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"२१वें तीर्थंकर भगवान नमिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"२१वें तीर्थंकर"},
+    {"id":"neminath-vidhan","title":"श्री नेमिनाथ (अरिष्टनेमि) विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"२२वें तीर्थंकर भगवान नेमिनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"२२वें तीर्थंकर"},
+    {"id":"parshvanath-vidhan","title":"श्री पार्श्वनाथ विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"२३वें तीर्थंकर भगवान पार्श्वनाथ अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"२३वें तीर्थंकर"},
+    {"id":"mahavir-vidhan","title":"श्री महावीर स्वामी विधान","category":"vidhan","subCategory":"tirthankar-vidhan","description":"२४वें तीर्थंकर भगवान महावीर स्वामी अष्टद्रव्य पूजन एवं जयमाला विधान","badge":"२४वें तीर्थंकर"}
+  ],
   stotra: [
   {
     "id": "bhaktamar-stotra",

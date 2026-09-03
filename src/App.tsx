@@ -594,6 +594,24 @@ export default function App() {
           activePage={activePage}
           onNavigate={handleNavigate}
           onSearchClick={() => setIsSearchOpen(true)}
+          onBack={() => {
+            if (activePage === "viewer") {
+              if (pageParams?.previousPage) {
+                handleBack(pageParams.previousPage, pageParams.previousParams);
+              } else {
+                handleBack(
+                  pageParams?.source === "library"
+                    ? "library"
+                    : pageParams?.source === "sadhana"
+                      ? "sadhana"
+                      : "landing"
+                );
+              }
+            } else {
+              handleBack();
+            }
+          }}
+          scrollContainerRef={mainRef}
         />
       )}
 

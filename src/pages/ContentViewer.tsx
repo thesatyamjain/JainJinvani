@@ -10,6 +10,7 @@ import {
   Loader2,
   Type,
   Sparkles,
+  Scroll,
 } from 'lucide-react';
 import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
@@ -397,15 +398,20 @@ const ArticleView = ({
 // Helper to get clean Hindi subtitle and author without English artifacts
 const getCleanHindiSubtitle = (sub?: string, author?: string): string => {
   const parts: string[] = [];
+  let cleanSub = '';
   if (sub) {
     const hasDevanagari = /[\u0900-\u097F]/.test(sub);
     const isEnglishOnly = /^[A-Za-z0-9\s\-(),.'"]+$/.test(sub.trim());
     if (hasDevanagari && !isEnglishOnly) {
-      parts.push(sub.replace(/\s*\([A-Za-z\s,-]+\)/g, '').trim());
+      cleanSub = sub.replace(/\s*\([A-Za-z\s,-]+\)/g, '').trim();
+      parts.push(cleanSub);
     }
   }
   if (author) {
-    parts.push(`रचयिता: ${author}`);
+    const authorBase = author.replace(/(स्वामी|आचार्य|मुनि|पं\.|पंडित|श्री)/g, '').trim();
+    if (!cleanSub || !cleanSub.includes(authorBase)) {
+      parts.push(`रचयिता: ${author}`);
+    }
   }
   return parts.filter(Boolean).join(' • ');
 };
@@ -425,7 +431,10 @@ export const ContentViewer = ({
   const [loading, setLoading] = React.useState(true);
   const [fontSize, setFontSize] = React.useState(18);
   const [isFav, setIsFav] = React.useState(false);
+  const [isAutoScrolling, setIsAutoScrolling] = React.useState(false);
+  const [scrollSpeed, setScrollSpeed] = React.useState(1);
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const autoScrollRafRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -461,11 +470,47 @@ export const ContentViewer = ({
     if (id) setIsFav(isFavorite(id));
   }, [id]);
 
+  // Smooth Auto-Scroll Engine using requestAnimationFrame
+  React.useEffect(() => {
+    if (!isAutoScrolling) {
+      if (autoScrollRafRef.current) cancelAnimationFrame(autoScrollRafRef.current);
+      return;
+    }
+
+    const container = document.querySelector('main') || document.documentElement;
+    let lastTime = performance.now();
+
+    const scrollStep = (now: number) => {
+      const delta = now - lastTime;
+      lastTime = now;
+
+      if (container) {
+        // ~35px/second at speed 1, smooth fluid reading rate
+        const pixelsToScroll = (35 * scrollSpeed * delta) / 1000;
+        container.scrollTop += pixelsToScroll;
+
+        // Check if reached bottom
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 8) {
+          setIsAutoScrolling(false);
+          return;
+        }
+      }
+
+      autoScrollRafRef.current = requestAnimationFrame(scrollStep);
+    };
+
+    autoScrollRafRef.current = requestAnimationFrame(scrollStep);
+
+    return () => {
+      if (autoScrollRafRef.current) cancelAnimationFrame(autoScrollRafRef.current);
+    };
+  }, [isAutoScrolling, scrollSpeed]);
+
   const scrollToSection = (secId: string) => {
     sectionRefs.current[secId]?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = React.useCallback(() => {
     if (!id) return;
     if (isFav) {
       removeFavorite(id);
@@ -478,7 +523,66 @@ export const ContentViewer = ({
       });
       setIsFav(true);
     }
-  };
+  }, [id, isFav, data, title, type]);
+
+  // Dynamic Dock 2-way event synchronization
+  React.useEffect(() => {
+    const emitReaderState = () => {
+      window.dispatchEvent(
+        new CustomEvent('jinvani:reader-state', {
+          detail: {
+            fontSize,
+            isAutoScrolling,
+            isFav,
+            scrollSpeed,
+            title: data?.title || title || '',
+            id,
+          },
+        })
+      );
+    };
+
+    emitReaderState();
+
+    const handleToggleScroll = (e: any) => {
+      if (e.detail?.speed) {
+        setScrollSpeed(e.detail.speed);
+      }
+      setIsAutoScrolling((prev) => !prev);
+    };
+
+    const handleToggleFav = () => {
+      handleFavoriteToggle();
+    };
+
+    const handleFontSize = (e: any) => {
+      if (e.detail?.mode === 'cycle') {
+        const sizes = [16, 18, 20, 22, 24];
+        setFontSize((prev) => {
+          const nextIdx = (sizes.indexOf(prev) + 1) % sizes.length;
+          return sizes[nextIdx !== -1 ? nextIdx : 1];
+        });
+      } else if (typeof e.detail?.delta === 'number') {
+        setFontSize((prev) => Math.min(28, Math.max(14, prev + e.detail.delta)));
+      }
+    };
+
+    const handleRequestState = () => emitReaderState();
+
+    window.addEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
+    window.addEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
+    window.addEventListener('jinvani:reader-font-size', handleFontSize as EventListener);
+    window.addEventListener('jinvani:reader-share', handleShare as EventListener);
+    window.addEventListener('jinvani:request-reader-state', handleRequestState as EventListener);
+
+    return () => {
+      window.removeEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
+      window.removeEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
+      window.removeEventListener('jinvani:reader-font-size', handleFontSize as EventListener);
+      window.removeEventListener('jinvani:reader-share', handleShare as EventListener);
+      window.removeEventListener('jinvani:request-reader-state', handleRequestState as EventListener);
+    };
+  }, [fontSize, isAutoScrolling, isFav, scrollSpeed, data, title, id, handleFavoriteToggle]);
 
   const handleShare = async () => {
     const shareTitle = data?.title || title || 'Jain Jinvani';
@@ -492,83 +596,63 @@ export const ContentViewer = ({
   };
 
   const hindiSubtitle = getCleanHindiSubtitle(data?.subtitle, data?.author);
+  const verseCount = data?.verses && Array.isArray(data.verses) ? data.verses.length : 0;
+  const chapterCount = data?.chapters && Array.isArray(data.chapters) ? data.chapters.length : 0;
 
   return (
     <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
-      {/* Unified Top Header Bar - 100% Single-Row & Responsive across Mobile & Desktop */}
+      {/* Sacred Sanctum Header Card */}
       <motion.div
-        initial={{ opacity: 0, y: -15 }}
+        initial={{ opacity: 0, y: -14 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between gap-2.5 sm:gap-4 mb-6 sm:mb-8"
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-5 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] mb-6 sm:mb-8 overflow-hidden"
       >
-        {/* Left: Back Button & Title */}
-        <div className="flex items-center gap-2.5 sm:gap-4 min-w-0 flex-1">
-          <button
-            onClick={onBack}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group shadow-md"
-            title="वापस जाएँ"
-          >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300 group-hover:text-amber-200 transition-colors" />
-          </button>
-          
-          <div className="min-w-0 flex-1 py-1">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-notoserif font-bold text-white truncate pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_10px_rgba(251,191,36,0.15)]">
-                {data?.title || title || 'स्वाध्याय'}
-              </h1>
-              {data?.category && (
-                <span className="hidden xs:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-[10px] sm:text-xs font-bold text-amber-200 shrink-0 font-cinzel">
-                  <Sparkles className="w-2.5 h-2.5 text-amber-400" />
-                  {CATEGORY_NAMES_HI[data.category] || data.category}
-                </span>
-              )}
-            </div>
-            {hindiSubtitle ? (
-              <p className="text-slate-400 text-[11px] sm:text-xs md:text-sm font-gotu truncate mt-0.5">
-                {hindiSubtitle}
-              </p>
-            ) : null}
-          </div>
+        {/* Subtle Ambient Golden Rim Light & Specular Glow */}
+        <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
+
+        {/* Top Badges (Category + Verses / Chapters) */}
+        <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 flex-wrap">
+          {data?.category && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu">
+              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+              {CATEGORY_NAMES_HI[data.category] || data.category}
+            </span>
+          )}
+          {verseCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+              <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
+              {verseCount} पद्य
+            </span>
+          )}
+          {chapterCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+              <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
+              {chapterCount} अध्याय
+            </span>
+          )}
         </div>
 
-        {/* Right: Action Controls (Font Size, Favorite, Share) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          <div className="flex items-center bg-slate-900/80 border border-white/10 rounded-xl sm:rounded-2xl p-0.5 sm:p-1.5 backdrop-blur-xl shadow-inner">
-            <button
-              onClick={() => setFontSize((f) => Math.max(14, f - 2))}
-              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs text-slate-300 hover:text-white font-mono hover:bg-white/10 rounded-lg sm:rounded-xl transition-all"
-              title="अक्षर छोटा करें"
-            >
-              A-
-            </button>
-            <span className="text-[11px] sm:text-xs text-amber-300 font-mono font-semibold px-1 sm:px-2">{fontSize}</span>
-            <button
-              onClick={() => setFontSize((f) => Math.min(26, f + 2))}
-              className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs text-slate-300 hover:text-white font-mono hover:bg-white/10 rounded-lg sm:rounded-xl transition-all"
-              title="अक्षर बड़ा करें"
-            >
-              A+
-            </button>
-          </div>
+        {/* Grand Sacred Title */}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] tracking-normal mb-2.5 sm:mb-3 drop-shadow-[0_2px_18px_rgba(245,158,11,0.25)] select-none">
+          {data?.title || title || 'स्वाध्याय'}
+        </h1>
 
-          <button
-            onClick={handleFavoriteToggle}
-            className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl border transition-all flex items-center justify-center backdrop-blur-xl group shrink-0 ${
-              isFav
-                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
-                : 'bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-amber-500/20 hover:border-amber-500/40'
-            }`}
-            title="संग्रह में जोड़ें"
-          >
-            <Bookmark className={`w-4 h-4 sm:w-5 sm:h-5 ${isFav ? 'fill-current text-rose-300' : 'group-hover:text-amber-200'}`} />
-          </button>
-          <button
-            onClick={handleShare}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-amber-500/20 hover:border-amber-500/40 transition-all flex items-center justify-center backdrop-blur-xl group shrink-0"
-            title="साझा करें"
-          >
-            <Share2 className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-amber-200 transition-colors" />
-          </button>
+        {/* Refined Subtitle & Author Meta */}
+        {hindiSubtitle ? (
+          <p className="text-slate-300/90 text-xs sm:text-sm md:text-base font-gotu max-w-2xl mx-auto leading-relaxed px-2">
+            {hindiSubtitle}
+          </p>
+        ) : null}
+
+        {/* Auspicious Mangal Filigree Divider */}
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 pt-1 opacity-70">
+          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-amber-400/40" />
+          <span className="text-amber-400/80 text-[10px] sm:text-xs font-gotu select-none tracking-widest">
+            ❖ ॐ नमः सिद्धेभ्यः ❖
+          </span>
+          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-400/40" />
         </div>
       </motion.div>
 

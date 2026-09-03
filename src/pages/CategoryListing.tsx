@@ -77,6 +77,7 @@ const getSubCategoryIcon = (subId: string) => {
       return <Crown className="w-4 h-4" />;
     case 'parva-vrat':
     case 'mahamandal-vidhan':
+    case 'daslakshan-vidhan':
       return <Calendar className="w-4 h-4" />;
     case 'guru-acharya':
     case 'guru-devi':
