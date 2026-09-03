@@ -150,26 +150,6 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         ))}
       </div>
 
-      {/* Footer Attribution */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="mt-14 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8"
-      >
-        <p>
-          Built by{' '}
-          <a
-            href="https://thesoftwareco.pages.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-amber-400 hover:text-amber-300 transition-colors font-medium"
-          >
-            The Software Co
-          </a>{' '}
-          and <span className="text-amber-400 font-medium">Satyam Jain</span>
-        </p>
-      </motion.div>
     </div>
   );
 };

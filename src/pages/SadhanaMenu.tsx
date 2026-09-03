@@ -217,22 +217,22 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
           >
             <GlassCard
               variant="gilded"
-              className="p-5 md:p-6 h-full min-h-[170px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
+              className="p-4 md:p-6 h-full min-h-[140px] md:min-h-[170px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
             >
               <div className="flex items-start justify-between">
                 <div
-                  className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                  className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
                 >
-                  <item.icon className="w-6 h-6 md:w-7 md:h-7" />
+                  <item.icon className="w-5 h-5 md:w-7 md:h-7" />
                 </div>
                 <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all" />
               </div>
 
-              <div className="mt-4">
-                <h3 className="text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1 break-words">
+              <div className="mt-3 md:mt-4">
+                <h3 className="text-base md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 break-words leading-snug">
                   {item.label}
                 </h3>
-                <p className="text-xs text-slate-300/70 font-gotu break-words line-clamp-1">
+                <p className="text-[11px] md:text-xs text-slate-300/70 font-gotu break-words line-clamp-1">
                   {item.sub}
                 </p>
               </div>
@@ -241,26 +241,6 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
         ))}
       </div>
 
-      {/* Footer Attribution */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="mt-14 text-center text-xs text-slate-400/90 font-gotu border-t border-white/5 pt-8"
-      >
-        <p>
-          Built by{' '}
-          <a
-            href="https://thesoftwareco.pages.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-amber-400 hover:text-amber-300 transition-colors font-medium"
-          >
-            The Software Co
-          </a>{' '}
-          and <span className="text-amber-400 font-medium">Satyam Jain</span>
-        </p>
-      </motion.div>
     </div>
   );
 };

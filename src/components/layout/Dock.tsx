@@ -125,6 +125,7 @@ export const Dock = ({
   const [isFontExpanded, setIsFontExpanded] = useState(false);
   const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
   const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
   const fontCollapseTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetFontCollapseTimer = useCallback(() => {
@@ -134,34 +135,33 @@ export const Dock = ({
     }, 3500);
   }, []);
 
-  // Collapse font controls and reset reader page when leaving reader mode
+  // ALWAYS reset reader page to 'reader' and collapse font controls whenever activePage changes
   useEffect(() => {
-    if (!isReaderMode) {
-      setIsFontExpanded(false);
-      setReaderDockPage('reader');
-    }
-  }, [isReaderMode]);
+    setIsFontExpanded(false);
+    setReaderDockPage('reader');
+  }, [activePage]);
 
   const handleDockTouchStart = (e: React.TouchEvent) => {
     mouseX.set(Infinity);
     if (!isReaderMode) return;
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
 
   const handleDockTouchEnd = (e: React.TouchEvent) => {
-    if (!isReaderMode || touchStartX.current === null) return;
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-    if (Math.abs(diff) > 35) {
-      setReaderDockPage((prev) => (prev === 'reader' ? 'home' : 'reader'));
+    if (!isReaderMode || touchStartX.current === null || touchStartY.current === null) return;
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    const diffY = e.changedTouches[0].clientY - touchStartY.current;
+    // Only trigger if horizontal swipe is intentional (> 35px) and greater than vertical drift
+    if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        setReaderDockPage('home');
+      } else {
+        setReaderDockPage('reader');
+      }
     }
     touchStartX.current = null;
-  };
-
-  const handleDockWheel = (e: React.WheelEvent) => {
-    if (!isReaderMode) return;
-    if (Math.abs(e.deltaX) > 25 || (e.shiftKey && Math.abs(e.deltaY) > 25)) {
-      setReaderDockPage((prev) => (prev === 'reader' ? 'home' : 'reader'));
-    }
+    touchStartY.current = null;
   };
 
   // Click outside to collapse font controls
@@ -224,12 +224,13 @@ export const Dock = ({
           stiffness: 380,
           damping: 28,
         }}
-        className="flex h-15 md:h-16 items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/85 px-3 md:px-5 py-2 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none pointer-events-auto"
+        className={`flex items-center gap-1.5 md:gap-3 rounded-2xl md:rounded-3xl bg-[#071124]/85 px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_16px_45px_rgba(0,0,0,0.7),0_0_30px_rgba(245,158,11,0.15),inset_0_1px_1px_rgba(255,255,255,0.2)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none pointer-events-auto transition-all ${
+          isReaderMode ? 'h-[62px] md:h-[68px] pt-1.5 pb-3.5' : 'h-15 md:h-16 py-2'
+        }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         onTouchStart={handleDockTouchStart}
         onTouchEnd={handleDockTouchEnd}
-        onWheel={handleDockWheel}
       >
         {/* Subtle Ambient Golden Rim Light */}
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
@@ -515,16 +516,16 @@ export const Dock = ({
 
         {/* 2-Page Pagination Dots INSIDE Dock when in Reader Mode */}
         {isReaderMode && (
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-auto select-none py-0.5">
+          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-0.5 px-3 cursor-pointer">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setReaderDockPage('reader');
               }}
-              className={`h-1 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 readerDockPage === 'reader'
-                  ? 'bg-amber-400 w-3.5 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
-                  : 'bg-white/20 w-1 hover:bg-white/50'
+                  ? 'bg-amber-400 w-5 shadow-[0_0_10px_rgba(245,158,11,0.8)]'
+                  : 'bg-white/30 w-2 hover:bg-white/60'
               }`}
               title="स्वाध्याय टूल्स (Reader)"
             />
@@ -533,10 +534,10 @@ export const Dock = ({
                 e.stopPropagation();
                 setReaderDockPage('home');
               }}
-              className={`h-1 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 readerDockPage === 'home'
-                  ? 'bg-amber-400 w-3.5 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
-                  : 'bg-white/20 w-1 hover:bg-white/50'
+                  ? 'bg-amber-400 w-5 shadow-[0_0_10px_rgba(245,158,11,0.8)]'
+                  : 'bg-white/30 w-2 hover:bg-white/60'
               }`}
               title="होम नेविगेशन (Home)"
             />
