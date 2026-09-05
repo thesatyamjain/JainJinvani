@@ -1,71 +1,216 @@
-# Jain Jinvani (जैन जिनवाणी)
+# जैन जिनवाणी (Jain Jinvani)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-0.1.0-green.svg)
+> **जिनेन्द्र भगवान की शाश्वत अमृतवाणी**  
+> An authentic digital encyclopedia, scripture library, and daily spiritual companion for the Jain community worldwide.
 
-**Jain Jinvani** is a comprehensive digital encyclopedia and daily companion for the Jain community. It provides a modern, interactive interface to access Arti, Bhajans, Chalisa, Path, Puja, Tirthankar details, and cosmology data.
+[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.3.5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-amber.svg)](LICENSE)
 
-## Features
+---
 
-- **📚 Digital Library**: Extensive collection of Jain texts and scriptures.
-- **🧘 Sadhana Tools**: Interactive interfaces for daily rituals (Vidhi, Path, Arti).
-- **📅 Jain Calendar**: Lunisolar calendar with Tithi and festival notifications.
-- **🎨 Modern UI**: Glassmorphism design, macOS-style Dock navigation, and 3D animated emojis.
-- **📱 Responsive**: Optimized for both desktop and mobile devices.
+## 📖 परिचय (Overview)
 
-## Tech Stack
+**जैन जिनवाणी (Jain Jinvani)** एक आधुनिक, सुरुचिपूर्ण एवं पूर्णतः प्रामाणिक डिजिटल ज्ञानकोश और नित्य साधना वेब एप्लिकेशन है। इसका उद्देश्य जैन धर्म के अनादि तत्त्वज्ञान, प्राचीन आगम, सिद्धांत ग्रंथ, स्तोत्र, पूजन, विधान, और दैनिक साधना पद्धतियों को उच्चतम गुणवत्ता, शुद्ध देवनागरी टाइपोग्राफी एवं आधुनिक यूज़र इंटरफ़ेस के साथ सुलभ कराना है।
 
-- **Frontend**: React, TypeScript, Vite
-- **Styling**: Tailwind CSS, Framer Motion
-- **Icons**: Lucide React, Fluent Emojis
-- **Data**: Modular JavaScript data files
+---
 
-## Getting Started
+## ✨ प्रमुख विशेषताएँ (Key Features)
 
-### Prerequisites
-- Node.js (v18 or higher)
-- npm or yarn
+### 🧘 नित्य साधना एवं आध्यात्मिक टूल्स (Daily Sadhana Tools)
+- **📿 १०८ जाप माला (Digital Rosary)**: टच और क्लिक आधारित डिजिटल मनका माला, जिसमें नवकार महामंत्र, णमो जिणाणं, ॐ ह्रीं अर्हं आदि मंत्र चयन, ध्वनि व कम्पन (Haptic) फीडबैक, और दैनिक जाप ट्रैकिंग शामिल है।
+- **⏱️ सामायिक (48-Minute Equanimity Timer)**: ४८ मिनट की अंतर्मुखी समता साधना हेतु विशेष टाइमर, इर्यावही व सामायिक पाठ, शांत वातावरण और समय समाप्ति पर घंटिका (Bell) संकेत।
+- **🛡️ दैनिक नियम व श्रावक व्रत (Niyama Tracker)**: अष्टमूल गुण, १२ श्रावक व्रत (अणुव्रत, गुणव्रत, शिक्षाव्रत), रात्रि भोजन त्याग, देवदर्शन नियम एवं स्वनिर्धारित नियमों का दैनिक ट्रैकर।
+- **🌸 नित्य पूजन क्रम (Step-by-Step Puja Flow)**: मंदिर जी एवं गृह चैत्यालय में नित्य की जाने वाली अष्टद्रव्य पूजन विधि (देव-शास्त्र-गुरु पूजन, पंचपरमेष्ठी पूजन) का क्रमबद्ध निर्देशित प्रवाह।
+- **📜 महामंडल विधान संग्रह (64 Vidhans)**: 
+  - **प्रमुख महामंडल विधान (20)**: श्री सिद्धचक्र, श्री भक्तामर, श्री कल्याणमंदिर, कल्पतरु, शांति विधान, इन्द्रध्वज, सर्वतोभद्र आदि।
+  - **दशलक्षण धर्म व पर्व विधान (20)**: प्रथम दिन (उत्तम क्षमा) से दशम दिन (उत्तम ब्रह्मचर्य) तक क्रमबद्ध १० धर्म मण्डल विधान, कल्पद्रुम विधान, उद्यापन, क्षमावाणी आदि।
+  - **२४ तीर्थंकर विधान (24)**: १. भगवान आदिनाथ से २४. भगवान महावीर स्वामी तक पूर्ण क्रमबद्ध विधान।
+- **🔥 आरती, चालीसा, स्तोत्र एवं पाठ**:
+  - **स्तोत्र**: श्री भक्तामर स्तोत्र (४८ काव्य, संस्कृत मूल, अन्वयार्थ, हिन्दी पद्यानुवाद व शब्दार्थ), कल्याणमंदिर, एकीभाव, देवाधिदेव, विषापहार आदि।
+  - **आरती**: पंच परमेष्ठी, २४ तीर्थंकर, आदिनाथ, महावीर, शांतिनाथ, पार्श्वनाथ, जिनवाणी आरती।
+  - **चालीसा**: भगवान महावीर, पार्श्वनाथ, बाहुबली, पद्मावती, चंद्रप्रभ आदि की ४० पद्य स्तुति।
+  - **पाठ व स्तुति**: मेरी भावना, बारह भावना, समाधिमरण (ईशोपनिषद्), आलोचना पाठ, तत्वार्थ सूत्र पाठ।
 
-### Installation
+---
 
-1. **Clone the repository**
+### 📚 शास्त्र ग्रंथालय एवं तत्त्वज्ञान (Scripture Library & Philosophy)
+- **📖 सिद्धांत ग्रंथ व आगम**:
+  - तत्त्वार्थ सूत्र (आचार्य उमास्वामी)
+  - समयसार (आचार्य कुंदकुंद देव)
+  - प्रवचनसार, पंचास्तिकाय संग्रह
+  - छहढाला (पंडित दौलतराम जी)
+  - रत्नकरण्ड श्रावकाचार (आचार्य समंतभद्र)
+  - द्रव्यसंग्रह (आचार्य नेमिचंद्र सिद्धांतचक्रवर्ती)
+  - मोक्षमार्ग प्रकाशक (पंडित टोडरमल जी)
+- **💎 तत्त्व ज्ञान**: जीव, अजीव, आस्रव, बंध, संवर, निर्जरा, मोक्ष (७ तत्त्व), षट् द्रव्य, नव पदार्थ, अनेकांतवाद एवं स्याद्वाद दर्शन।
+- **👑 २४ तीर्थंकर चरित्र**: सभी २४ तीर्थंकरों के लक्षण (लांछन), वर्ण, आयु, माता-पिता, जन्म नगरी, और पाँच कल्याणक (गर्भ, जन्म, तप/दीक्षा, केवलज्ञान, मोक्ष) की तिथियां व पावन स्थल।
+- **🌍 जैन भूगोल व ब्रह्मांड विज्ञान (Cosmology)**: तीन लोक (ऊर्ध्व, मध्य, अधो लोक), जम्बूद्वीप, सुमेरु पर्वत, अकृत्रिम चैत्यालय एवं कर्मभूमि-भोगभूमि संरचना।
+- **⏳ जैन इतिहास (History)**: ६३ शलाका पुरुष चरित्र, आचार्य परंपरा (कुंदकुंद, समंतभद्र, पूज्यपाद, वीरसेन, जिनसेन) और इतिहास।
+- **🏔️ तीर्थ यात्रा दर्शन (Pilgrimage Guide)**: सिद्धक्षेत्र (सम्मेद शिखरजी, गिरनार, पावापुरी, चंपापुरी) एवं अतिशय क्षेत्रों की ऐतिहासिक व भौगोलिक जानकारी।
+- **🌿 भक्ष्य-अभक्ष्य विवेक (Dietary Guidelines)**: जैन आगमानुकूल शुद्ध सात्विक आहार, रात्रि भोजन त्याग, जमीकंद परिहार, अनछना पानी निषेध और अहिंसक जीवन शैली।
+- **🧒 बाल पाठशाला (Pathshala)**: सरल जैन कहानियां, मूल संस्कार, प्रश्नोत्तरी एवं बाल शिक्षा।
+
+---
+
+### 📅 जैन पंचांग (Jain Lunisolar Calendar)
+- **वीर निर्वाण संवत् (VNS 2552)** एवं **विक्रम संवत् (2082)** की सटीक गणना।
+- जैन माह (कार्तिक, मार्गशीर्ष, पौष... आश्विन), पक्ष (शुक्ल/कृष्ण) और तिथियों का प्रमाणिक विवरण।
+- पर्व तिथियाँ (अष्टमी, चतुर्दशी) स्वतः हाइलाइटेड।
+- दशलक्षण महापर्व, अष्टान्हिका, महावीर जयंती, दीपावली, श्रुत पंचमी एवं तीर्थंकर कल्याणक तिथियों का कैलेंडर।
+
+---
+
+### 🎨 आधुनिक पठन व यूज़र इंटरफ़ेस (Premium UX/UI)
+- **देवनागरी टाइपोग्राफी**: `Noto Serif Devanagari`, `Gotu`, एवं `Mukta` फ़ॉन्ट्स का शुद्ध संयोजन, जिसमें मात्राओं और संयुक्ताक्षरों के कटने की समस्या का पूर्ण समाधान।
+- **रीडर मोड (Content Viewer)**:
+  - फ़ॉन्ट साइज़ स्केलिंग (Font zoom in/out)।
+  - ऑटो-स्क्रॉल (Adjustable Auto-scroll speed) — पाठ या पूजन करते समय हाथों को मुक्त रखने हेतु।
+  - बुकमार्क एवं पसंदीदा (Favorites) सिस्टम।
+  - एक-क्लिक शेयरिंग (Native Web Share & Clipboard copy)।
+- **ग्लोबल त्वरित खोज (Global Instant Search)**: `Ctrl + K` या सर्च बटन से संपूर्ण ४५०+ रचनाओं, कवियों और विषयों में तत्काल खोज।
+- **स्मार्ट फ्लोटिंग डॉक (macOS-Style Dock)**: नीचे स्क्रॉल करने पर स्वतः छिपने वाला और ऊपर स्क्रॉल करने पर सहजता से प्रकट होने वाला आधुनिक नेविगेशन डॉक।
+- **गहरा कॉस्मिक-ग्लास लुक (Frosted Glass Aesthetic)**: डीप मिडनाइट नेवी बैकग्राउंड (`#030712`) पर सूक्ष्म अम्बर (Amber) और स्वर्ण आभा।
+
+---
+
+## 📊 सामग्री इन्वेंटरी (Content Statistics)
+
+| श्रेणी (Category) | रचनाएँ (Count) | विवरण (Description) |
+|---|:---:|---|
+| **नित्य पूजा (Puja)** | 92 | दैनिक अष्टद्रव्य पूजन, तीर्थंकर पूजा, पर्व व व्रत पूजाएँ |
+| **महामंडल विधान (Vidhan)** | 64 | सिद्धचक्र, भक्तामर, दशलक्षण १० धर्म, २४ तीर्थंकर विधान |
+| **भक्ति भजन (Bhajan)** | 43 | आध्यात्मिक रस धारा, प्रभु भक्ति व वैराग्य भजन |
+| **स्तोत्र संग्रह (Stotra)** | 39 | भक्तामर (संस्कृत+हिन्दी), कल्याणमंदिर, एकीभाव, शांति स्तोत्र |
+| **चालीसा संग्रह (Chalisa)** | 38 | २४ तीर्थंकर व विशेष अतिशय क्षेत्र चालीसा |
+| **पाठ व स्तुति (Path)** | 47 | मेरी भावना, समाधिमरण, आलोचना पाठ, बारह भावना |
+| **प्रमुख शास्त्र (Granthas & Shastra)** | 36 | समयसार, तत्त्वार्थ सूत्र, छहढाला, नियमसार, द्रव्यसंग्रह |
+| **२४ तीर्थंकर (Tirthankar)** | 24 | आदिनाथ से महावीर स्वामी तक संपूर्ण जीवन चरित्र व कल्याणक |
+| **तत्त्व ज्ञान (Philosophy)** | 13 | ७ तत्त्व, ६ द्रव्य, स्याद्वाद, अनेकांत, कर्म सिद्धांत |
+| **आरती संग्रह (Aarti)** | 25 | पंच परमेष्ठी, तीर्थंकर व जिनवाणी मंगल आरती |
+| **जैन इतिहास (Itihas)** | 8 | शलाका पुरुष, आचार्य परंपरा, ऐतिहासिक कालचक्र |
+| **जैन भूगोल (Bhugol)** | 6 | तीन लोक, जम्बूद्वीप, अकृत्रिम चैत्यालय मानचित्र |
+| **पर्व व उत्सव (Parva)** | 6 | दशलक्षण, अष्टान्हिका, महावीर निर्वाण महोत्सव |
+| **बाल संस्कार (Kids)** | 5 | बाल कहानियां, पाठशाला शिक्षा व संस्कार |
+| **मूल आगम (Agamas)** | 6 | षट्खण्डागम, कषायपाहुड़ व द्वादशांग जिनवाणी परिचय |
+| **कुल रचनाएँ** | **450+** | **100% प्रामाणिक, डुप्लिकेट-मुक्त एवं क्रमबद्ध** |
+
+---
+
+## 🛠️ तकनीकी संरचना (Tech Stack)
+
+| भाग (Layer) | तकनीक (Technology) |
+|---|---|
+| **Frontend Library** | React 18.3 (Hooks, Context, Functional Components) |
+| **Language** | TypeScript 5.9 (Strict type checking) |
+| **Build Tool & Bundler** | Vite 6.3 (SWC Fast Refresh, ESNext compilation) |
+| **Styling** | Tailwind CSS 3.4, `@tailwindcss/typography`, CSS Custom Properties |
+| **Animation & Motion** | Motion / Framer Motion (Spring physics, gestures, layout animations) |
+| **UI Primitives** | Radix UI (`@radix-ui/react-*`), Lucide React Icons |
+| **State & Storage** | LocalStorage API (Settings, Favorites, Recent Reads, Niyama tracker) |
+
+---
+
+## 🚀 प्रारम्भ कैसे करें (Getting Started)
+
+### पूर्वापेक्षाएँ (Prerequisites)
+- **Node.js**: v18.0.0 या नवीनतम
+- **npm**: v9.0.0 या नवीनतम (या `pnpm` / `yarn`)
+
+### संस्थापना (Installation)
+
+1. **रिपॉजिटरी क्लोन करें**:
    ```bash
-   git clone https://github.com/your-org/jain-jinvani.git
-   cd jain-jinvani
+   git clone https://github.com/your-username/JainJinvani.git
+   cd JainJinvani
    ```
 
-2. **Install dependencies**
+2. **आवश्यक पैकेज इन्स्टॉल करें**:
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+3. **डेवलपमेंट सर्वर शुरू करें**:
    ```bash
    npm run dev
    ```
-   The app will run at `http://localhost:5173`.
+   ब्राउज़र में `http://localhost:3000` खोलें।
 
-## Project Structure
+4. **प्रोडक्शन बिल्ड तैयार करें**:
+   ```bash
+   npm run build
+   ```
+   उत्पादित फाइलें `build/` डायरेक्टरी में संकलित होंगी।
+
+---
+
+## 📁 प्रोजेक्ट संरचना (Directory Structure)
 
 ```
-e:/JainJinvani/
-├── public/                 # Static assets and legacy modules
-│   └── modules/            # Data modules (Arti, Bhajan, etc.)
+JainJinvani/
+├── build/                     # उत्पादन बिल्ड आउटपुट
+├── public/                    # सार्वजनिक स्थिर संपत्तियां (Favicon, Manifest आदि)
 ├── src/
-│   ├── components/         # Reusable React components
-│   │   ├── layout/         # Layout components (Dock, Header)
-│   │   └── ui/             # Core UI components
-│   ├── pages/              # Application page views
-│   ├── lib/                # Utilities and helper functions
-│   └── types/              # TypeScript type definitions
-├── tailwind.config.js      # Tailwind CSS configuration
-└── package.json            # Project dependencies and scripts
+│   ├── assets/                # छवियां, क्यूआर कोड एवं मीडिया फाइलें
+│   ├── components/
+│   │   ├── layout/            # Dock, SpaceBackground, GlassCard, SearchOverlay, BackToTop
+│   │   └── ui/                # बटन, इनपुट, बैज, टूलटिप आदि UI कंपोनेंट्स
+│   ├── data/
+│   │   ├── modules/           # श्रेणीबद्ध रचना डेटा (ritual.ts, stotra.ts, shastra.ts आदि)
+│   │   ├── contentData.ts     # कोर डेटा इंटरफेस एवं प्रकार परिभाषाएं
+│   │   └── inventory.ts       # केंद्रीय कैटलॉग, उपश्रेणी मैपिंग एवं इन्वेंटरी सूची
+│   ├── lib/
+│   │   ├── bridge.ts          # एसिंक्रोनस कंटेंट लोडर एवं मॉड्यूल ब्रिज
+│   │   ├── jainCalendar.ts    # पंचांग, तिथि, पक्ष व पर्व गणना इंजन
+│   │   ├── storage.ts         # लोकल स्टोरेज हैंडलर (पसंदीदा, हालिया पाठ)
+│   │   └── useModalBack.ts    # मोबाइल बैक-बटन हैंडलर (PopState एकीकरण)
+│   ├── pages/                 # सभी मुख्य पृष्ठ व्यूज
+│   │   ├── Landing.tsx        # मुख्य लैंडिंग पेज
+│   │   ├── SadhanaMenu.tsx    # नित्य साधना हब (१४ श्रेणियां)
+│   │   ├── LibraryMenu.tsx    # शास्त्र ग्रंथालय हब
+│   │   ├── CategoryListing.tsx# फ़िल्टर योग्य सूची, सब-कैटेगरी टैब्स व खोज
+│   │   ├── ContentViewer.tsx  # रीडर मोड (ऑटो-स्क्रॉल, ज़ूम, ऑडियो)
+│   │   ├── JapMalaPage.tsx    # १०८ डिजिटल जाप माला
+│   │   ├── SamayikPage.tsx    # ४८ मिनट सामायिक साधना टाइमर
+│   │   ├── NiyamaPage.tsx     # दैनिक नियम व श्रावक व्रत ट्रैकर
+│   │   ├── Panchang.tsx       # जैन पंचांग व पर्व कैलेंडर
+│   │   ├── TirthankarProfile.tsx # २४ तीर्थंकर विस्तृत जीवन चरित्र
+│   │   ├── PilgrimagePage.tsx # तीर्थ क्षेत्र व दर्शन
+│   │   ├── PhilosophyPage.tsx # जैन दर्शन व ७ तत्त्व
+│   │   ├── RitualsPage.tsx    # पूजन व अभिषेक विधि
+│   │   ├── DietaryPage.tsx    # भक्ष्य-अभक्ष्य विवेक
+│   │   ├── AsceticsPage.tsx   # मुनि परंपरा व २८ मूलगुण
+│   │   └── MoreMenu.tsx       # सेटिंग्स, सहायता व अतिरिक्त पृष्ठ
+│   ├── utils/
+│   │   └── searchHelper.ts    # त्वरित खोज एल्गोरिदम (देवनागरी नॉर्मलाइज़र)
+│   ├── App.tsx                # मुख्य एप्लिकेशन शेल व हिस्ट्री रूटिंग
+│   ├── index.css              # टेलविंड, कस्टम देवनागरी स्टाइल्स व ग्लास इफ़ेक्ट
+│   └── main.tsx               # रिएक्ट रूट एंट्री पॉइंट
+├── vite.config.ts             # विटे कॉन्फ़िगरेशन (पोर्ट ३०००, पाथ एलियास)
+├── tailwind.config.js         # टेलविंड थीम कॉन्फ़िगरेशन
+└── package.json               # डिपेंडेंसीज़ एवं स्क्रिप्ट्स
 ```
 
-## Contributing
+---
 
-We welcome contributions! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+## 📜 धर्म प्रभावना एवं योगदान (Contribution & Dharma Seva)
 
-## License
+यह परियोजना जैन धर्म के शाश्वत ज्ञान को संरक्षित करने और अगली पीढ़ी तक सुगमता से पहुँचाने का एक निःस्वार्थ धार्मिक व तकनीकी प्रयास है।
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- यदि आपको किसी पाठ, श्लोक या अर्थ में कोई त्रुटि (Typo) दिखे, तो कृपया Pull Request अथवा Issue के माध्यम से सूचित करें।
+- सभी जैन बंधुओं से अनुरोध है कि वे इस ऐप का उपयोग स्वाध्याय और नित्य साधना में करें एवं अन्य धर्मावलम्बियों तक इसे साझा करें।
+
+---
+
+## ⚖️ लाइसेंस (License)
+
+यह प्रोजेक्ट **MIT License** के अंतर्गत मुक्त स्रोत (Open Source) के रूप में उपलब्ध है। अधिक जानकारी के लिए [LICENSE](LICENSE) फाइल देखें।
+
+---
+
+<p align="center">
+  <b>॥ परस्परोपग्रहो जीवानाम् ॥</b><br>
+  <i>(सभी जीव परस्पर एक-दूसरे के उपकारक हैं — तत्त्वार्थ सूत्र ५.२१)</i>
+</p>
