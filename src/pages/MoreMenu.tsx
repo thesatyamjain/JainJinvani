@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu } from 'lucide-react';
+import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles } from 'lucide-react';
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 
@@ -57,7 +57,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       id: 'settings',
       label: 'सेटिंग्स',
       icon: Settings,
-      desc: 'फ़ॉन्ट व सूचना प्राथमिकताएं',
+      desc: 'फ़ॉन्ट, पृष्ठभूमि व सूचना प्राथमिकताएं',
       content: (
         <div className="space-y-6">
           {/* Font Size */}
@@ -79,6 +79,45 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                   {size === 'small' ? 'छोटा' : size === 'medium' ? 'मध्यम' : size === 'large' ? 'बड़ा' : 'बहुत बड़ा'}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Background Theme - Sanctum vs Cosmic */}
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span className="text-white font-gotu">पृष्ठभूमि परिवेश</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={() => handleSettingChange('backgroundTheme', 'sanctum')}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.backgroundTheme !== 'cosmic'
+                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif">जिनालय गर्भगृह</div>
+                <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
+                  अखंड दीप ज्योति, धूप सुवास व पाषाण आभा
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSettingChange('backgroundTheme', 'cosmic')}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.backgroundTheme === 'cosmic'
+                    ? 'bg-blue-500/20 border-blue-400/60 text-blue-200 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif">अंतरिक्ष (Cosmic)</div>
+                <div className="text-[11px] text-blue-300/80 mt-1 line-clamp-2">
+                  टिमटिमाते तारे, नेबुला व टूटते उल्कापिंड
+                </div>
+              </button>
             </div>
           </div>
 

@@ -537,5 +537,10 @@ export const contentManifest: Record<string, string> = {
   "uttam-tap-dharma-puja": "ritual",
   "uttam-tyag-dharma-puja": "ritual",
   "uttam-akinchanya-dharma-puja": "ritual",
-  "uttam-brahmacharya-dharma-puja": "ritual"
+  "uttam-brahmacharya-dharma-puja": "ritual",
+  "sarvarthasiddhi": "shastra",
+  "ashtapahuda": "shastra",
+  "samaysar-natak": "shastra",
+  "brihat-shantidhara": "ritual",
+  "daivasika-pratikramana": "path",
 };

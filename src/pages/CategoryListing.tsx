@@ -22,9 +22,11 @@ import {
 } from 'lucide-react';
 import { contentInventory, ContentItem, subCategoryMap, SubCategoryDef } from '../data/inventory';
 import { matchSearchQuery } from '../utils/searchHelper';
+import { updateCategorySeo } from '../utils/seoHelper';
 
 interface CategoryListingProps {
   categoryId: string;
+  initialSubCategory?: string;
   onNavigate: (page: string, params?: any) => void;
   onBack: () => void;
 }
@@ -92,10 +94,25 @@ const getSubCategoryIcon = (subId: string) => {
   }
 };
 
-export const CategoryListing = ({ categoryId, onNavigate, onBack }: CategoryListingProps) => {
+export const CategoryListing = ({
+  categoryId,
+  initialSubCategory,
+  onNavigate,
+  onBack,
+}: CategoryListingProps) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeSubCategory, setActiveSubCategory] = useState<string>('all');
+  const [activeSubCategory, setActiveSubCategory] = useState<string>(initialSubCategory || 'all');
   const [viewMode, setViewMode] = useState<'grid' | 'timeline'>('grid');
+
+  React.useEffect(() => {
+    if (initialSubCategory) {
+      setActiveSubCategory(initialSubCategory);
+    } else {
+      setActiveSubCategory('all');
+    }
+    const catTitle = categoryTitles[categoryId]?.title;
+    updateCategorySeo(categoryId, catTitle);
+  }, [initialSubCategory, categoryId]);
 
   const items: ContentItem[] = contentInventory[categoryId] || [];
   const meta = categoryTitles[categoryId] || { title: 'रचना सूची', sub: 'जिनवाणी संग्रह' };

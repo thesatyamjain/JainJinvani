@@ -24,6 +24,8 @@ import {
   Flower2
 } from 'lucide-react';
 import { addFavorite, removeFavorite, isFavorite } from '../lib';
+import { getCanonicalShareUrl } from '../utils/urlHelper';
+import { updateTirthankarSeo } from '../utils/seoHelper';
 import { 
   getTirthankarById, 
   TIRTHANKARAS, 
@@ -78,6 +80,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
     setOfferedArghyas({});
     setActiveDravyaTab(0);
     setActiveArghyaTab(0);
+    updateTirthankarSeo(tirthankar);
   }, [tirthankar.id]);
 
   // Sync if prop changes externally
@@ -162,12 +165,13 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
   };
 
   const handleShare = async () => {
+    const shareUrl = getCanonicalShareUrl('tirthankar', { id: tirthankar.id });
     if (navigator.share) {
       try {
         await navigator.share({
           title: tirthankar.nameHindi,
           text: `${tirthankar.titleHindi}\nचिह्न: ${tirthankar.symbol}\nमूल मंत्र: ${tirthankar.mantra}\n- जैन जिनवाणी`,
-          url: window.location.href,
+          url: shareUrl,
         });
       } catch (err) {
         // Share cancelled or not supported

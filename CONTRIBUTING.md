@@ -25,6 +25,15 @@ Please act professionally and respectfully. We are building a resource for the c
 - Ensure code formatting matches our `.prettierrc` settings.
 - Check for linting errors before pushing.
 
+## ⚠️ Mandatory Content Policy: 100% Complete Authentic Data
+All contributions adding or updating Jain texts (Stotras, Granthas, Chalisas, Pujas, Aartis) must strictly adhere to the **Zero-Summary / 100% Complete Authentic Data Rule** documented in [PROJECT_GUIDELINES.md](PROJECT_GUIDELINES.md):
+- **Never submit summaries or sample verses.**
+- Ashtaks must have all 8 verses + phala stuti (9 total).
+- Pachisi must have all 25 verses.
+- Shastras must contain full verses/gathas with word/line translations.
+- Chalisas must contain all 40 chaupais and dohas.
+- Partial submissions will not be merged.
+
 ## Submitting a Pull Request
 1. Push your changes to your fork.
 2. Open a Pull Request (PR) to the `main` branch of this repository.

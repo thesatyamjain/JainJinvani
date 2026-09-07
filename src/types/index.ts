@@ -15,6 +15,7 @@ export interface UserSettings {
     fontSize: 'small' | 'medium' | 'large' | 'xl';
     notifications: boolean;
     autoPlay: boolean;
+    backgroundTheme: 'sanctum' | 'cosmic';
 }
 
 export interface JainDate {

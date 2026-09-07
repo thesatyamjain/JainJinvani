@@ -17,6 +17,14 @@ export interface SubCategoryDef {
 
 export const subCategoryMap: Record<string, SubCategoryDef[]> = {
   "puja": [
+  {
+    "id": "brihat-shantidhara",
+    "title": "वृहत् शांतिधारा (सकल वांग्मय शांति मंत्र)",
+    "category": "puja",
+    "subCategory": "daily-flow",
+    "description": "परम मांगलिक जिनबिम्ब मस्तक अभिषेक एवं सर्वोपद्रव निवारक वृहत् शांतिधारा पाठ",
+    "badge": "नित्य शांतिधारा"
+},
     {
       "id": "all",
       "label": "सभी पूजाएँ"
@@ -1422,6 +1430,14 @@ export const contentInventory: Record<string, ContentItem[]> = {
 ],
   path: [
   {
+    "id": "daivasika-pratikramana",
+    "title": "श्रावक दैवसिक प्रतिक्रमण पाठ",
+    "category": "path",
+    "subCategory": "daily-swadhyay",
+    "description": "दिन भर में हुए ज्ञात-अज्ञात प्रमाद, दोषों एवं अतिचारों की शुद्धि हेतु संध्याकालीन प्रतिक्रमण",
+    "badge": "नित्य नियम"
+},
+  {
     "id": "darshan-path-hindi",
     "title": "दर्शन पाठ (हिंदी)",
     "category": "path",
@@ -1786,6 +1802,30 @@ export const contentInventory: Record<string, ContentItem[]> = {
 ],
   granthas: [
   {
+    "id": "samaysar-natak",
+    "title": "समयसार नाटक (Samaysar Natak)",
+    "category": "granthas",
+    "subCategory": "dravyanuyoga",
+    "author": "कविवर बनारसीदास जी",
+    "description": "अध्यात्म शिरोमणि बनारसीदास जी विरचित समयसार एवं आत्मख्याति कलशों का ब्रजभाषा में अमर पद्यानुवाद (७२७ छंद)"
+},
+  {
+    "id": "ashtapahuda",
+    "title": "अष्टपाहुड़ (Ashtapahuda)",
+    "category": "granthas",
+    "subCategory": "charananuyoga",
+    "author": "आचार्य कुन्दकुन्द देव",
+    "description": "प्राकृत भाषा में आठ स्वतंत्र पाहुड़ - दर्शन, चारित्र, सूत्र, बोध, भाव, मोक्ष, लिंग एवं शील पाहुड़ (५०२ गाथाएं)"
+},
+  {
+    "id": "sarvarthasiddhi",
+    "title": "सर्वार्थसिद्धि (Sarvarthasiddhi - तत्त्वार्थ टीका)",
+    "category": "granthas",
+    "subCategory": "dravyanuyoga",
+    "author": "आचार्य पूज्यपाद (देवनन्दि)",
+    "description": "तत्त्वार्थसूत्र की प्रथम एवं सर्वाधिक प्रामाणिक संस्कृत टीका - १० अध्यायों और ३५७ सूत्रों का विशद प्रमाण-नय विवेचन"
+},
+  {
     "id": "chhah-dhala",
     "title": "छह ढाला (Chhah Dhala)",
     "category": "granthas",
@@ -1797,7 +1837,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "id": "tattvartha-sutra",
     "title": "तत्त्वार्थ सूत्र (Tattvartha Sutra / मोक्षशास्त्र)",
     "category": "granthas",
-    "subCategory": "charananuyoga",
+    "subCategory": "dravyanuyoga",
     "author": "आचार्य उमास्वामी",
     "description": "जैन दर्शन का प्रथम एवं सर्वमान्य संस्कृत सूत्र ग्रंथ - सम्पूर्ण १० अध्यायों एवं ३५७ सूत्रों का प्रामाणिक संस्कृत पाठ व विस्तृत हिंदी भावार्थ"
   },
@@ -1875,7 +1915,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "id": "trilok-saar",
     "title": "त्रिलोक सार (Trilok Saar)",
     "category": "granthas",
-    "subCategory": "karananuyoga",
+    "subCategory": "karnanuyoga",
     "description": "आचार्य नेमिचन्द्र सिद्धांत चक्रवर्ती विरचित तीन लोक की गणितीय संरचना (१०१८ गाथाएँ)"
   },
   {

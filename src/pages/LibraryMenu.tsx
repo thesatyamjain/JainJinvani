@@ -1,17 +1,222 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { BookOpen, Globe, Hourglass, Landmark, Scroll, FileText, ChevronRight } from 'lucide-react';
+import {
+  BookOpen,
+  Globe,
+  Hourglass,
+  Landmark,
+  Scroll,
+  FileText,
+  ChevronRight,
+  Download,
+  ExternalLink,
+  Sparkles,
+  Search,
+  Layers,
+  Compass,
+  CheckCircle2,
+} from 'lucide-react';
 
 interface LibraryMenuProps {
   onNavigate: (page: string, params?: any) => void;
 }
 
-const libraryItems = [
+interface AnuyogaDef {
+  id: string;
+  subCategoryKey: string;
+  titleHindi: string;
+  subtitle: string;
+  description: string;
+  color: string;
+  border: string;
+  accent: string;
+  badge: string;
+  keyTexts: string[];
+}
+
+const anuyogaPillars: AnuyogaDef[] = [
+  {
+    id: 'prathamanuyoga',
+    subCategoryKey: 'prathamanuyoga',
+    titleHindi: 'प्रथमानुयोग',
+    subtitle: '६३ शलाका पुरुष चरित्र व इतिहास',
+    description:
+      'तीर्थंकर, चक्रवर्ती, बलभद्र, नारायण एवं महापुरुषों के पवित्र जीवन चरित्र, कर्मों के फल एवं धर्म की विजय का ऐतिहासिक दिग्दर्शन।',
+    color: 'from-amber-500/20 via-amber-900/10 to-transparent',
+    border: 'border-amber-500/30 hover:border-amber-400/60',
+    accent: 'text-amber-300',
+    badge: 'इतिहास व चरित्र',
+    keyTexts: ['आदिपुराण', 'उत्तरपुराण', 'पद्मपुराण (रामायण)', 'हरिवंशपुराण (महाभारत)', 'पार्श्वनाथ चरित'],
+  },
+  {
+    id: 'karnanuyoga',
+    subCategoryKey: 'karnanuyoga',
+    titleHindi: 'करणानुयोग',
+    subtitle: 'कर्म सिद्धांत एवं त्रिलोक संरचना',
+    description:
+      'आत्मा के १४ गुणस्थान, १४ जीवसमास, ८ मूल कर्म व १४८ प्रकृतियाँ, तथा तीन लोक एवं द्वीप-समुद्रों का गहन गणितीय निरूपण।',
+    color: 'from-blue-500/20 via-indigo-900/10 to-transparent',
+    border: 'border-blue-500/30 hover:border-blue-400/60',
+    accent: 'text-blue-300',
+    badge: 'कर्म व ब्रह्मांड विज्ञान',
+    keyTexts: ['षट्खण्डागम (धवला)', 'कषायपाहुड़', 'गोम्मटसार (जीव-कर्म)', 'त्रिलोकसार', 'लब्धिसार'],
+  },
+  {
+    id: 'charananuyoga',
+    subCategoryKey: 'charananuyoga',
+    titleHindi: 'चरणानुयोग',
+    subtitle: 'मुनि एवं श्रावक आचार संहिता',
+    description:
+      'दिगम्बर मुनिराजों के २८ मूलगुण, तपश्चर्या, एवं श्रावकों के दैनिक अष्टमूल गुण, १२ व्रत व ११ प्रतिमाओं का संपूर्ण सदाचार शास्त्र।',
+    color: 'from-emerald-500/20 via-teal-900/10 to-transparent',
+    border: 'border-emerald-500/30 hover:border-emerald-400/60',
+    accent: 'text-emerald-300',
+    badge: 'संयम व सदाचार',
+    keyTexts: ['मूलाचार', 'रत्नकरण्ड श्रावकाचार', 'पुरुषार्थसिद्धयुपाय', 'सागार धर्मामृत', 'भगवती आराधना'],
+  },
+  {
+    id: 'dravyanuyoga',
+    subCategoryKey: 'dravyanuyoga',
+    titleHindi: 'द्रव्यानुयोग',
+    subtitle: 'परम अध्यात्म एवं आत्म-साक्षात्कार',
+    description:
+      'षट्द्रव्य, सप्त तत्त्व, शुद्ध ज्ञायक आत्मा, भेद-विज्ञान, स्याद्वाद और सम्यग्दर्शन की प्राप्ति का साक्षात् मोक्षमार्ग दर्शन।',
+    color: 'from-purple-500/20 via-violet-900/10 to-transparent',
+    border: 'border-purple-500/30 hover:border-purple-400/60',
+    accent: 'text-purple-300',
+    badge: 'अध्यात्म व तत्त्वज्ञान',
+    keyTexts: ['समयसार', 'प्रवचनसार', 'तत्त्वार्थ सूत्र', 'मोक्षमार्ग प्रकाशक', 'छह ढाला', 'समयसार नाटक'],
+  },
+];
+
+interface PdfResource {
+  id: string;
+  title: string;
+  author: string;
+  anuyoga: string;
+  pages: string;
+  description: string;
+  readGranthId?: string;
+  downloadUrl?: string;
+}
+
+const verifiedPdfArchive: PdfResource[] = [
+  {
+    id: 'samaysar-pdf',
+    title: 'श्री समयसार (आत्मख्याति टीका सहित)',
+    author: 'आचार्य कुन्दकुन्द देव / आचार्य अमृतचन्द्र',
+    anuyoga: 'द्रव्यानुयोग',
+    pages: '४१५ गाथाएं',
+    description: 'जैन अध्यात्म का सर्वोपरि मुकुटमणि ग्रंथराज, अमृतचंद्र सूरि कृत संस्कृत आत्मख्याति टीका व हिंदी पद्यानुवाद।',
+    readGranthId: 'samaysar',
+  },
+  {
+    id: 'tattvartha-pdf',
+    title: 'तत्त्वार्थ सूत्र (सर्वार्थसिद्धि टीका सहित)',
+    author: 'आचार्य उमास्वामी / आचार्य पूज्यपाद',
+    anuyoga: 'द्रव्यानुयोग',
+    pages: '३५७ सूत्र (१० अध्याय)',
+    description: 'जैन दर्शन का प्रथम एवं सर्वमान्य संस्कृत सूत्र ग्रंथ एवं उसकी प्राचीनतम सर्वांगपूर्ण संस्कृत सर्वार्थसिद्धि टीका।',
+    readGranthId: 'tattvartha-sutra',
+  },
+  {
+    id: 'chhah-dhala-pdf',
+    title: 'छह ढाला (सटीक भावार्थ)',
+    author: 'कविवर पं. दौलतराम जी',
+    anuyoga: 'द्रव्यानुयोग / चरण',
+    pages: '६ ढाला (९५ पद्य)',
+    description: 'जैन धर्म की लघु गीता - चारों गतियों के दुःखों से लेकर सिद्ध पद तक का संपूर्ण मोक्षमार्ग।',
+    readGranthId: 'chhah-dhala',
+  },
+  {
+    id: 'moksha-marg-pdf',
+    title: 'मोक्षमार्ग प्रकाशक',
+    author: 'पं. प्रवर टोडरमल जी (जयपुर)',
+    anuyoga: 'द्रव्यानुयोग',
+    pages: '९ अधिकार (विशद ग्रंथ)',
+    description: 'तार्किक शैली में अज्ञान, विपरीत मान्यताओं एवं मिथ्यात्व का निरसन कर सम्यक् मोक्षमार्ग का उद्घाटन।',
+    readGranthId: 'moksha-marg-prakashak',
+  },
+  {
+    id: 'ratnakarand-pdf',
+    title: 'रत्नकरण्ड श्रावकाचार',
+    author: 'आचार्य समन्तभद्र स्वामी',
+    anuyoga: 'चरणानुयोग',
+    pages: '१५० श्लोक',
+    description: 'श्रावक धर्म का आदि एवं प्रामाणिक ग्रंथ - सम्यग्दर्शन, अष्ट अंग, १२ व्रत एवं संलेखना विधान।',
+    readGranthId: 'ratnakarand-shravakachar',
+  },
+  {
+    id: 'shatkhandagama-pdf',
+    title: 'मूल षट्खण्डागम (धवला टीका सार)',
+    author: 'आचार्य पुष्पदंत - भूतबलि / वीरसेनाचार्य',
+    anuyoga: 'करणानुयोग',
+    pages: '६ खण्ड (६००० सूत्र)',
+    description: 'दिगम्बर जैन परंपरा का सर्वप्राचीन प्रथम मूल सिद्धांत आगम, वीरसेनाचार्य कृत धवला टीका सहित।',
+    readGranthId: 'shatkhandagama',
+  },
+  {
+    id: 'dravya-sangrah-pdf',
+    title: 'द्रव्य संग्रह (ब्रह्मदेव टीका)',
+    author: 'आचार्य नेमिचन्द्र सिद्धांत चक्रवर्ती',
+    anuyoga: 'द्रव्यानुयोग',
+    pages: '५८ गाथाएं',
+    description: 'षट्द्रव्य, पंचास्तिकाय, नवपदार्थ एवं मोक्ष के साधनभूत ध्यान का प्राकृत पद्य संग्रह।',
+    readGranthId: 'dravya-sangrah',
+  },
+  {
+    id: 'purushartha-pdf',
+    title: 'पुरुषार्थ सिद्ध्युपाय',
+    author: 'आचार्य अमृतचन्द्र सूरि',
+    anuyoga: 'चरणानुयोग',
+    pages: '२२६ श्लोक',
+    description: 'अहिंसा धर्म की सूक्ष्म व्याख्या एवं सम्यक् पुरुषार्थ द्वारा मुक्ति प्राप्ति का मार्ग।',
+    readGranthId: 'purushartha-siddhipaya',
+  },
+  {
+    id: 'padma-puran-pdf',
+    title: 'पद्म पुराण (जैन रामायण)',
+    author: 'आचार्य रविषेण',
+    anuyoga: 'प्रथमानुयोग',
+    pages: '१२३ पर्व (महाकाव्य)',
+    description: 'भगवान रामचन्द्र जी (बलभद्र) एवं लक्ष्मण (नारायण) का आगमानुकूल प्रामाणिक जीवन चरित्र।',
+    readGranthId: 'padma-puran',
+  },
+  {
+    id: 'gommatasara-pdf',
+    title: 'श्री गोम्मटसार (जीवकाण्ड व कर्मकाण्ड)',
+    author: 'आचार्य नेमिचन्द्र सिद्धांत चक्रवर्ती',
+    anuyoga: 'करणानुयोग',
+    pages: '१७००+ गाथाएं',
+    description: 'चामुंडराय की प्रेरणा से विरचित आत्मा के अनंत भेदों एवं कर्म की १४८ प्रकृतियों का वैज्ञानिक ज्ञान।',
+    readGranthId: 'gommatasara-jiva-kanda',
+  },
+  {
+    id: 'mulachar-pdf',
+    title: 'मूलाचार (मुनि आचार संहिता)',
+    author: 'आचार्य वट्टकेर',
+    anuyoga: 'चरणानुयोग',
+    pages: '१२४३ गाथाएं',
+    description: 'दिगम्बर मुनिराजों के २८ मूलगुण, १२ तप, १० धर्म एवं चर्या का प्राचीनतम आधार ग्रंथ।',
+    readGranthId: 'mulachar',
+  },
+  {
+    id: 'samaysar-natak-pdf',
+    title: 'समयसार नाटक',
+    author: 'कविवर बनारसीदास जी',
+    anuyoga: 'द्रव्यानुयोग',
+    pages: '७२७ छंद',
+    description: 'समयसार एवं आत्मख्याति कलशों का ब्रजभाषा में भावपूर्ण, काव्यात्मक एवं अमर पद्यानुवाद।',
+    readGranthId: 'samaysar-natak',
+  },
+];
+
+const exploratorySections = [
   {
     id: 'tattva',
     label: 'तत्त्व ज्ञान',
-    sub: 'प्रयोजनभूत ७ तत्त्व',
+    sub: 'प्रयोजनभूत ७ तत्त्व व ६ द्रव्य',
     icon: BookOpen,
     desc: 'जीव, अजीव, आस्रव, बंध, संवर, निर्जरा एवं मोक्ष तत्त्व का आध्यात्मिक रहस्य।',
     color: 'from-amber-500/20 to-amber-800/10',
@@ -21,9 +226,9 @@ const libraryItems = [
   {
     id: 'bhugol',
     label: 'जैन भूगोल',
-    sub: 'त्रिलोक रचना व मानचित्र',
+    sub: 'त्रिलोक रचना व नक्शा',
     icon: Globe,
-    desc: 'ऊर्ध्व, मध्य और अधो लोक, जम्बूद्वीप एवं सुमेरु पर्वत की अकृत्रिम संरचना।',
+    desc: 'ऊर्ध्व, मध्य और अधो लोक, जम्बूद्वीप एवं सुमेरु पर्वत की अकृत्रिम रचना।',
     color: 'from-blue-500/20 to-indigo-800/10',
     border: 'border-blue-500/30',
     accent: 'text-blue-300',
@@ -31,7 +236,7 @@ const libraryItems = [
   {
     id: 'itihas',
     label: 'जैन इतिहास',
-    sub: '६३ शलाका पुरुष चरित्र',
+    sub: '६३ शलाका महापुरुष',
     icon: Hourglass,
     desc: '२४ तीर्थंकर, १२ चक्रवर्ती, ९ बलभद्र, ९ नारायण एवं ९ प्रतिनारायण का पावन इतिहास।',
     color: 'from-purple-500/20 to-indigo-800/10',
@@ -41,7 +246,7 @@ const libraryItems = [
   {
     id: 'parva',
     label: 'पर्व व उत्सव',
-    sub: 'पवित्र आध्यात्मिक पर्व',
+    sub: 'दशलक्षण व अष्टान्हिका',
     icon: Landmark,
     desc: 'दशलक्षण महापर्व, अष्टान्हिका, महावीर जयंती, दीपावली एवं क्षमावाणी पर्व।',
     color: 'from-rose-500/20 to-pink-800/10',
@@ -49,18 +254,8 @@ const libraryItems = [
     accent: 'text-rose-300',
   },
   {
-    id: 'granthas',
-    label: 'प्रमुख शास्त्र',
-    sub: 'आचार्य कुंदकुंद व उमास्वामी',
-    icon: Scroll,
-    desc: 'समयसार, प्रवचनसार, तत्त्वार्थ सूत्र, रत्नकरण्ड श्रावकाचार एवं द्रव्यसंग्रह।',
-    color: 'from-emerald-500/20 to-teal-800/10',
-    border: 'border-emerald-500/30',
-    accent: 'text-emerald-300',
-  },
-  {
     id: 'agamas',
-    label: 'मूल आगम',
+    label: 'मूल आगम परिचय',
     sub: 'द्वादशांग जिनवाणी',
     icon: FileText,
     desc: 'भगवान महावीर की दिव्यध्वनि और गणधरों द्वारा गुंफित मूल आगम साहित्य।',
@@ -71,85 +266,337 @@ const libraryItems = [
 ];
 
 export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
+  const [filterQuery, setFilterQuery] = useState('');
+
+  const filteredPdfs = verifiedPdfArchive.filter(
+    (pdf) =>
+      !filterQuery.trim() ||
+      pdf.title.toLowerCase().includes(filterQuery.toLowerCase()) ||
+      pdf.author.toLowerCase().includes(filterQuery.toLowerCase()) ||
+      pdf.anuyoga.toLowerCase().includes(filterQuery.toLowerCase())
+  );
+
   return (
     <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
-      {/* Header Banner */}
+      {/* Grand Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-10 relative rounded-3xl overflow-hidden min-h-[220px] md:h-72 flex items-end p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-emerald-500/25 group"
+        className="mb-10 relative rounded-3xl overflow-hidden min-h-[260px] md:h-80 flex items-end p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
       >
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60"
-            alt="Library Header"
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-50"
+            alt="Digambar Jain Granthalaya"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/75 to-transparent" />
         </div>
 
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs mb-3 backdrop-blur-md">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span className="uppercase tracking-[0.2em] font-cinzel font-bold">Scripture Library</span>
+        <div className="relative z-10 w-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-xs mb-3 backdrop-blur-md">
+            <Scroll className="w-3.5 h-3.5 text-amber-300" />
+            <span className="uppercase tracking-[0.2em] font-cinzel font-bold">Digambar Jain Mahagranthalaya</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.35] pt-2 pb-1">
-            शास्त्र ग्रंथालय
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.25] pt-1 pb-1">
+            दिगम्बर जिनवाणी महा-ग्रंथालय
           </h1>
-          <p className="text-slate-200/80 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
-            जैन दर्शन, इतिहास, करणानुयोग एवं तत्त्वज्ञान का अगाध एवं प्रमाणिक ज्ञानकोश।
+          <p className="text-slate-200/90 max-w-2xl font-gotu text-sm md:text-base leading-relaxed mb-4">
+            चारों अनुयोग (प्रथमानुयोग, करणानुयोग, चरणानुयोग, द्रव्यानुयोग), प्राचीन मूल आगम, आचार्य परंपरा एवं प्रामाणिक ई-पुस्तकालय का संपूर्ण डिजिटल महा-संग्रह।
           </p>
+
+          <div className="flex flex-wrap items-center gap-2 text-xs text-amber-300/90 font-gotu font-medium">
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">४ अनुयोग</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">३९+ मूल शास्त्र</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">प्रामाणिक ई-बुक्स</span>
+            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">१००% दिगम्बर आम्नाय</span>
+          </div>
         </div>
       </motion.div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-        {libraryItems.map((item, idx) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.05, duration: 0.4 }}
-            onClick={() => onNavigate('category', { id: item.id, source: 'library' })}
-            className="h-full"
+      {/* Section 1: The Four Pillars (चार अनुयोग) */}
+      <div className="mb-14">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400 font-cinzel mb-1">
+              <Layers className="w-3.5 h-3.5" />
+              <span>The Four Pillars</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
+              चार अनुयोग (The Four Anuyogas)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+              किसी भी अनुयोग पर क्लिक करके उसके संपूर्ण शास्त्रों की सूची एवं विस्तृत अध्ययन देखें
+            </p>
+          </div>
+          <button
+            onClick={() => onNavigate('category', { id: 'granthas', source: 'library' })}
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 font-gotu font-bold bg-amber-500/15 hover:bg-amber-500/25 px-4 py-2 rounded-xl border border-amber-500/30 transition-all cursor-pointer"
           >
+            <span>सभी ३९ शास्त्र देखें</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+          {anuyogaPillars.map((pillar, idx) => (
+            <motion.div
+              key={pillar.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.08, duration: 0.4 }}
+              onClick={() =>
+                onNavigate('category', {
+                  id: 'granthas',
+                  subCategory: pillar.subCategoryKey,
+                  source: 'library',
+                })
+              }
+              className="h-full"
+            >
+              <GlassCard
+                variant="gilded"
+                className={`h-full p-5 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-3xl bg-gradient-to-br ${pillar.color} border ${pillar.border}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300/80 bg-white/10 px-3 py-1 rounded-full border border-white/10 font-gotu">
+                      {pillar.badge}
+                    </span>
+                    <span className="text-xs font-cinzel font-bold text-amber-400">
+                      स्तंभ ०{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1">
+                    {pillar.titleHindi}
+                  </h3>
+                  <p className="text-xs font-bold text-amber-400/90 uppercase tracking-wider mb-2 font-gotu">
+                    {pillar.subtitle}
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-300/85 leading-relaxed font-gotu mb-4">
+                    {pillar.description}
+                  </p>
+
+                  <div className="mb-4">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 font-gotu">
+                      प्रमुख शास्त्र:
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {pillar.keyTexts.map((txt) => (
+                        <span
+                          key={txt}
+                          className="text-[11px] bg-black/40 text-amber-200/90 px-2 py-0.5 rounded-lg border border-amber-500/20 font-gotu"
+                        >
+                          {txt}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-300 font-gotu font-bold">
+                  <span>{pillar.titleHindi} के ग्रंथ खोलें</span>
+                  <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 group-hover:translate-x-1 transition-all">
+                    <ChevronRight className="w-4 h-4 text-amber-300" />
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Section 2: Canonical Roots Spotlight (मूल षट्खण्डागम व कषायपाहुड़) */}
+      <div className="mb-14">
+        <GlassCard
+          variant="sacred"
+          className="p-6 sm:p-8 rounded-3xl border-amber-500/40 relative overflow-hidden bg-gradient-to-r from-amber-950/40 via-slate-900/60 to-amber-950/30"
+        >
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400 font-cinzel mb-2">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Digambar Canonical Root Scriptures</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
+              दिगम्बर आम्नाय के मूल आधार ग्रंथ
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300/90 font-gotu max-w-3xl leading-relaxed mb-6">
+              भगवान महावीर की दिव्यध्वनि गौतम गणधर से लेकर धरसेनाचार्य तक गुरु-शिष्य परंपरा में अक्षुण्ण रही। धरसेनाचार्य के आदेश से आचार्य पुष्पदंत एवं भूतबलि ने <strong>षट्खण्डागम</strong> और आचार्य गुणधर ने <strong>कषायपाहुड़</strong> लिपिबद्ध किए, जो दिगम्बर परंपरा के अनादि स्तंभ हैं।
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div
+                onClick={() => onNavigate('viewer', { id: 'shatkhandagama' })}
+                className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded">
+                    प्रथम मूल आगम
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                  षट्खण्डागम (Shatkhandagama)
+                </h3>
+                <p className="text-xs text-slate-300 font-gotu mt-1 leading-relaxed">
+                  आचार्य पुष्पदंत व भूतबलि विरचित ६ खण्ड (जीवस्थान, खुद्दाबंध, बंधस्वामित्व, वेदना, वर्गणा, महाबंध) एवं वीरसेनाचार्य कृत धवला टीका।
+                </p>
+              </div>
+
+              <div
+                onClick={() => onNavigate('viewer', { id: 'kashayaprabhrita' })}
+                className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded">
+                    द्वितीय मूल आगम
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                  कषायपाहुड़ (Kashayaprabhrita)
+                </h3>
+                <p className="text-xs text-slate-300 font-gotu mt-1 leading-relaxed">
+                  आचार्य गुणधर विरचित २३३ प्राकृत गाथाएं एवं आचार्य जिनसेन-वीरसेन कृत जयधवला महाटीका, कषाय व कर्म-क्षय का विशद ज्ञान।
+                </p>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+      </div>
+
+      {/* Section 3: Verified E-Book / PDF Library Archive */}
+      <div className="mb-14">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-emerald-400 font-cinzel mb-1">
+              <FileText className="w-3.5 h-3.5" />
+              <span>Digital E-Library & Grantha Archive</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
+              प्रामाणिक ई-पुस्तकालय (Grantha Archive)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+              दिगम्बर आम्नाय के प्रमुख शास्त्र जिन्हें आप सीधे इन-ऐप पढ़ सकते हैं
+            </p>
+          </div>
+
+          <div className="relative w-full sm:w-72">
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={filterQuery}
+              onChange={(e) => setFilterQuery(e.target.value)}
+              placeholder="शास्त्र या आचार्य खोजें..."
+              className="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-white/15 focus:border-amber-400 rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none transition-colors font-gotu"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {filteredPdfs.map((pdf) => (
             <GlassCard
+              key={pdf.id}
               variant="gilded"
-              className="h-full p-4 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
+              className="p-4 sm:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300"
             >
               <div>
-                <div className="flex items-start justify-between mb-3 sm:mb-5">
-                  <div
-                    className={`w-10 h-10 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
-                  >
-                    <item.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-                  </div>
-                  <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-slate-400 border border-white/10 px-2.5 py-0.5 rounded-full font-cinzel whitespace-nowrap bg-white/5">
-                    GRANTH • 0{idx + 1}
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/25 font-gotu">
+                    {pdf.anuyoga}
+                  </span>
+                  <span className="text-[11px] text-slate-400 font-gotu font-medium">
+                    {pdf.pages}
                   </span>
                 </div>
 
-                <h3 className="text-base sm:text-xl md:text-2xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1 break-words">
-                  {item.label}
+                <h3 className="text-base sm:text-lg font-notoserif font-bold text-white mb-1">
+                  {pdf.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-amber-400/90 uppercase tracking-wider font-bold mb-1.5 sm:mb-2.5 font-gotu break-words line-clamp-1">
-                  {item.sub}
+                <p className="text-xs font-medium text-amber-400/90 font-gotu mb-2">
+                  {pdf.author}
                 </p>
-                <p className="text-xs sm:text-sm text-slate-300/80 leading-relaxed font-gotu break-words line-clamp-2 sm:line-clamp-3">
-                  {item.desc}
+                <p className="text-xs text-slate-300/80 font-gotu leading-relaxed line-clamp-2 mb-4">
+                  {pdf.description}
                 </p>
               </div>
 
-              <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-3.5 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-amber-300/80 font-gotu font-semibold">
-                <span className="truncate">विषय सूची देखें</span>
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform shrink-0" />
+              <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+                {pdf.readGranthId ? (
+                  <button
+                    onClick={() => onNavigate('viewer', { id: pdf.readGranthId })}
+                    className="w-full flex items-center justify-center gap-1.5 text-xs font-gotu font-bold text-slate-900 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-2 rounded-xl transition-all shadow-md cursor-pointer"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>इन-ऐप शास्त्र पढ़ें</span>
+                  </button>
+                ) : null}
               </div>
             </GlassCard>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
 
+      {/* Section 4: Exploratory & Topical Sections */}
+      <div>
+        <div className="mb-6">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-purple-400 font-cinzel mb-1">
+            <Compass className="w-3.5 h-3.5" />
+            <span>Spiritual Knowledge Domains</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
+            स्वाध्याय एवं दर्शन अनुभाग
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+            तत्त्वज्ञान, जैन भूगोल, तीर्थंकर इतिहास एवं पर्व व्यवस्था
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+          {exploratorySections.map((item, idx) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05, duration: 0.4 }}
+              onClick={() => onNavigate('category', { id: item.id, source: 'library' })}
+              className="h-full"
+            >
+              <GlassCard
+                variant="gilded"
+                className="h-full p-4 sm:p-5 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
+              >
+                <div>
+                  <div className="flex items-start justify-between mb-3">
+                    <div
+                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                    >
+                      <item.icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 break-words">
+                    {item.label}
+                  </h3>
+                  <p className="text-[11px] text-amber-400/90 font-bold mb-1.5 font-gotu break-words line-clamp-1">
+                    {item.sub}
+                  </p>
+                  <p className="text-xs text-slate-300/80 leading-relaxed font-gotu break-words line-clamp-2">
+                    {item.desc}
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs text-amber-300/90 font-gotu font-semibold">
+                  <span>सूची देखें</span>
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
+                </div>
+              </GlassCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

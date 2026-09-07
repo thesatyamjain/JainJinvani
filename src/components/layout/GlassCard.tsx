@@ -24,15 +24,15 @@ export const GlassCard = ({
 }: GlassCardProps) => {
   const variantClasses = {
     default:
-      'bg-slate-900/50 backdrop-blur-2xl backdrop-saturate-[180%] border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.15)] hover:border-white/20 hover:bg-slate-900/60',
+      'bg-[#0c101a]/70 backdrop-blur-2xl backdrop-saturate-[170%] border border-white/10 shadow-[0_12px_36px_rgba(6,4,2,0.6),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:border-white/20 hover:bg-[#0f1422]/80',
     gilded:
-      'bg-gradient-to-br from-slate-900/60 via-[#0a1426]/70 to-[#050b17]/80 backdrop-blur-2xl backdrop-saturate-[190%] border border-amber-500/25 shadow-[0_12px_40px_rgba(0,0,0,0.65),0_0_25px_rgba(245,158,11,0.06),inset_0_1px_1px_rgba(255,255,255,0.18)] hover:border-amber-400/50 hover:shadow-[0_16px_48px_rgba(0,0,0,0.75),0_0_35px_rgba(245,158,11,0.15),inset_0_1px_1px_rgba(255,255,255,0.28)]',
+      'bg-gradient-to-br from-[#121620]/80 via-[#0c101a]/85 to-[#07090f]/90 backdrop-blur-2xl backdrop-saturate-[180%] border border-amber-500/25 shadow-[0_14px_40px_rgba(8,5,2,0.7),0_0_24px_rgba(245,158,11,0.06),inset_0_1px_1px_rgba(254,240,138,0.22),inset_0_-1px_1px_rgba(0,0,0,0.5)] hover:border-amber-400/50 hover:shadow-[0_18px_48px_rgba(8,5,2,0.85),0_0_35px_rgba(245,158,11,0.16),inset_0_1px_1px_rgba(254,240,138,0.35)]',
     cosmic:
-      'bg-gradient-to-br from-[#0c1830]/55 via-[#070e1c]/70 to-[#030712]/85 backdrop-blur-2xl backdrop-saturate-[180%] border border-blue-500/20 shadow-[0_12px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.12)] hover:border-blue-400/35',
+      'bg-gradient-to-br from-[#0f1524]/60 via-[#0a0f1c]/75 to-[#050812]/85 backdrop-blur-2xl border border-amber-500/20 shadow-[0_12px_36px_rgba(6,4,2,0.6),inset_0_1px_1px_rgba(254,240,138,0.12)] hover:border-amber-400/35',
     sacred:
-      'bg-gradient-to-b from-[#111f38]/75 via-[#0a1428]/85 to-[#060c18]/90 backdrop-blur-3xl backdrop-saturate-[200%] border border-amber-400/35 shadow-[0_16px_50px_rgba(0,0,0,0.75),0_0_30px_rgba(251,191,36,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)]',
+      'bg-gradient-to-b from-[#181d28]/85 via-[#0e121c]/90 to-[#080b12]/95 backdrop-blur-3xl backdrop-saturate-[190%] border border-amber-400/40 shadow-[0_18px_50px_rgba(8,5,2,0.85),0_0_32px_rgba(251,191,36,0.12),inset_0_1px_1px_rgba(254,240,138,0.3)]',
     subtle:
-      'bg-white/[0.04] backdrop-blur-xl backdrop-saturate-[160%] border border-white/8 shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.1)] hover:border-white/15',
+      'bg-white/[0.035] backdrop-blur-xl border border-amber-500/15 shadow-[0_10px_32px_rgba(6,4,2,0.55),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-500/30 hover:bg-white/[0.06]',
   };
 
   const intensityModifier = {
@@ -57,10 +57,10 @@ export const GlassCard = ({
       {sheen && (
         <div
           className={cn(
-            'absolute inset-x-2 top-0 h-[1px] rounded-full pointer-events-none transition-opacity duration-300',
+            'absolute inset-x-3 top-0 h-[1.5px] rounded-full pointer-events-none transition-opacity duration-300',
             isGilded
-              ? 'bg-gradient-to-r from-transparent via-amber-300/50 to-transparent opacity-80 group-hover:opacity-100'
-              : 'bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-70 group-hover:opacity-100'
+              ? 'bg-gradient-to-r from-transparent via-amber-200/70 to-transparent opacity-80 group-hover:opacity-100'
+              : 'bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-60 group-hover:opacity-100'
           )}
         />
       )}

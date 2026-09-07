@@ -14,6 +14,8 @@ import {
   ShieldCheck,
   Heart,
   X,
+  MapPin,
+  RotateCcw,
 } from 'lucide-react';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
@@ -55,32 +57,35 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="w-full text-center mb-5 sm:mb-8 relative z-10 max-w-3xl flex flex-col items-center"
       >
+        {/* Sacred Archway Toran Silhouette & Diya Radiance */}
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] sm:w-[480px] h-[180px] sm:h-[240px] bg-gradient-to-b from-amber-500/20 via-amber-600/10 to-transparent rounded-t-[150px] sm:rounded-t-[240px] blur-2xl pointer-events-none -z-10" />
+
         {/* Sacred Pill Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.05, duration: 0.4 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/25 text-amber-200 text-xs sm:text-sm font-medium mb-3 sm:mb-4 backdrop-blur-xl shadow-[0_0_20px_rgba(245,158,11,0.18)]"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-200 text-xs sm:text-sm font-medium mb-3 sm:mb-4 backdrop-blur-xl shadow-[0_0_24px_rgba(245,158,11,0.2)]"
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span className="font-gotu tracking-wide">जिनेन्द्र भगवान की शाश्वत अमृतवाणी</span>
+          <span className="font-gotu tracking-wide font-semibold">दिगम्बर जैन महा-पोर्टल • जिनेन्द्र अमृतवाणी</span>
         </motion.div>
 
         {/* Grand Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] sm:leading-[1.2] tracking-normal py-1 mb-2.5 sm:mb-4 drop-shadow-[0_4px_28px_rgba(245,158,11,0.25)] select-none inline-block">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] sm:leading-[1.2] tracking-normal py-1 mb-2.5 sm:mb-4 drop-shadow-[0_4px_30px_rgba(245,158,11,0.3)] select-none inline-block">
           जैन जिनवाणी
         </h1>
 
         {/* Subtitle */}
         <p className="text-xs sm:text-base md:text-lg text-slate-200/90 max-w-[55ch] mx-auto leading-relaxed font-gotu px-2 mb-5 sm:mb-7">
-          जैन दर्शन, ब्रह्मांड विज्ञान, प्राचीन ग्रंथ एवं नित्य साधना का संपूर्ण डिजिटल ज्ञानकोश।
+          चारों अनुयोग, प्राचीन शास्त्र, नित्य साधना, प्रतिक्रमण, मुनि चर्या एवं तीर्थ क्षेत्रों का संपूर्ण दिगम्बर डिजिटल ज्ञानकोश।
         </p>
 
         {/* Primary Action Buttons */}
         <div className="grid grid-cols-2 gap-3 sm:gap-5 w-full max-w-md sm:max-w-lg mb-4 sm:mb-6">
           <button
             onClick={() => onNavigate('sadhana')}
-            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(245,158,11,0.3)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer"
+            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(245,158,11,0.35)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer"
           >
             <span className="truncate">नित्य साधना</span>
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -88,7 +93,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
 
           <button
             onClick={() => onNavigate('library')}
-            className="group h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-semibold text-amber-100 bg-slate-900/70 hover:bg-slate-800/80 border border-amber-500/30 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(0,0,0,0.4)] font-gotu text-sm sm:text-base flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer"
+            className="group h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-semibold text-amber-100 bg-[#0c101c]/80 hover:bg-[#121828]/90 border border-amber-500/35 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(0,0,0,0.5)] font-gotu text-sm sm:text-base flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer"
           >
             <BookOpen className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-400 shrink-0" />
             <span className="truncate">शास्त्र ग्रंथालय</span>
@@ -136,9 +141,14 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </button>
         </motion.div>
 
-        {/* Sacred Mahamantra Banner */}
-        <div className="p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-slate-900/85 to-amber-500/15 border border-amber-400/25 backdrop-blur-xl max-w-xl w-full mx-auto shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
-          <p className="text-xs sm:text-sm font-gotu text-amber-200/95 text-center tracking-wide leading-relaxed">
+        {/* Sacred Mahamantra Inscription Plaque (स्वर्ण-शिला पट्टिका) */}
+        <div className="relative p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#17130b]/95 via-[#231a0e]/95 to-[#17130b]/95 border border-amber-400/35 backdrop-blur-xl max-w-xl w-full mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.6)]">
+          {/* Corner traditional markers */}
+          <div className="absolute top-1.5 left-2 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute top-1.5 right-2 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute bottom-1.5 left-2 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute bottom-1.5 right-2 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <p className="text-xs sm:text-sm font-gotu text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 text-center tracking-wide leading-relaxed font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-3">
             णमो अरिहंताणं • णमो सिद्धाणं • णमो आयरियाणं • णमो उवज्झायाणं • णमो लोए सव्व साहूणं
           </p>
         </div>
@@ -179,8 +189,8 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         </div>
       )}
 
-      {/* Essential Spiritual & Scripture Cards (Unified 6 Cards Grid) */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full max-w-3xl relative z-10">
+      {/* Essential Spiritual & Scripture Cards (Digambar Super Portal 8 Cards Grid) */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 w-full max-w-4xl relative z-10">
         {/* 1. Samayik */}
         <GlassCard
           variant="subtle"
@@ -298,6 +308,51 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             </h4>
             <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu truncate">
               प्राचीन मूल आगम व ग्रंथ
+            </p>
+          </div>
+        </GlassCard>
+
+        {/* 7. Pratikramana & Alochana */}
+        <GlassCard
+          variant="subtle"
+          onClick={() =>
+            onNavigate('viewer', {
+              id: 'daivasika-pratikramana',
+              title: 'श्रावक दैवसिक प्रतिक्रमण',
+              type: 'path',
+              source: 'landing',
+            })
+          }
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-cyan-500/20 shadow-md"
+        >
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-500/30">
+            <RotateCcw className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-xs sm:text-sm font-notoserif font-bold text-white group-hover:text-cyan-200 truncate">
+              प्रतिक्रमण
+            </h4>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu truncate">
+              दैवसिक व पाक्षिक आलोचना
+            </p>
+          </div>
+        </GlassCard>
+
+        {/* 8. Tirth Yatra Guide */}
+        <GlassCard
+          variant="subtle"
+          onClick={() => onNavigate('pilgrimage')}
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-purple-500/20 shadow-md"
+        >
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 border border-purple-500/30">
+            <MapPin className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-xs sm:text-sm font-notoserif font-bold text-white group-hover:text-purple-200 truncate">
+              तीर्थ क्षेत्र
+            </h4>
+            <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu truncate">
+              २२+ सिद्ध व अतिशय क्षेत्र
             </p>
           </div>
         </GlassCard>

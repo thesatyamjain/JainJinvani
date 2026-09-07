@@ -1,4 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { getSettings, type UserSettings } from '../../lib';
+
+interface IncenseParticle {
+  x: number;
+  y: number;
+  radius: number;
+  baseOpacity: number;
+  phase: number;
+  swaySpeed: number;
+  speedY: number;
+  swayAmplitude: number;
+  color: 'gold' | 'amber' | 'warmWhite';
+}
 
 interface Star {
   x: number;
@@ -21,9 +34,52 @@ interface ShootingStar {
   active: boolean;
 }
 
-export const SpaceBackground = React.memo(() => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+interface SpaceBackgroundProps {
+  theme?: 'sanctum' | 'cosmic';
+}
 
+export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackgroundProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [currentTheme, setCurrentTheme] = useState<'sanctum' | 'cosmic'>(() => {
+    return propTheme || getSettings().backgroundTheme || 'sanctum';
+  });
+
+  // Sync if prop changes
+  useEffect(() => {
+    if (propTheme) {
+      setCurrentTheme(propTheme);
+    }
+  }, [propTheme]);
+
+  // Listen to live settings changes dispatched by updateSettings
+  useEffect(() => {
+    const handleSettingsUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<UserSettings>;
+      if (customEvent.detail?.backgroundTheme) {
+        setCurrentTheme(customEvent.detail.backgroundTheme);
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jain_settings' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed.backgroundTheme) {
+            setCurrentTheme(parsed.backgroundTheme);
+          }
+        } catch {}
+      }
+    };
+
+    window.addEventListener('jain_settings_updated', handleSettingsUpdate);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('jain_settings_updated', handleSettingsUpdate);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
+
+  // Main Canvas Rendering Loop (switches cleanly between sanctum and cosmic)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -32,6 +88,32 @@ export const SpaceBackground = React.memo(() => {
     if (!ctx) return;
 
     let animationFrameId: number;
+
+    // --- Sanctum Theme State ---
+    let incenseParticles: IncenseParticle[] = [];
+    const initSanctumParticles = () => {
+      incenseParticles = [];
+      const numParticles = Math.min(65, Math.floor((canvas.width * canvas.height) / 12000));
+      for (let i = 0; i < numParticles; i++) {
+        const rand = Math.random();
+        const color: 'gold' | 'amber' | 'warmWhite' =
+          rand > 0.6 ? 'gold' : rand > 0.25 ? 'amber' : 'warmWhite';
+
+        incenseParticles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.6 + 0.6,
+          baseOpacity: Math.random() * 0.35 + 0.15,
+          phase: Math.random() * Math.PI * 2,
+          swaySpeed: Math.random() * 0.7 + 0.4,
+          speedY: Math.random() * 0.35 + 0.15,
+          swayAmplitude: Math.random() * 0.8 + 0.3,
+          color,
+        });
+      }
+    };
+
+    // --- Cosmic Space Theme State ---
     let stars: Star[] = [];
     let shootingStar: ShootingStar = {
       x: 0,
@@ -44,16 +126,9 @@ export const SpaceBackground = React.memo(() => {
     };
     let lastShootingStarTime = Date.now();
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initStars();
-    };
-
-    const initStars = () => {
+    const initCosmicStars = () => {
       stars = [];
       const numStars = Math.min(220, Math.floor((canvas.width * canvas.height) / 4500));
-
       for (let i = 0; i < numStars; i++) {
         const rand = Math.random();
         const color: 'gold' | 'blue' | 'white' =
@@ -84,12 +159,87 @@ export const SpaceBackground = React.memo(() => {
       };
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      if (currentTheme === 'sanctum') {
+        initSanctumParticles();
+      } else {
+        initCosmicStars();
+      }
+    };
 
-      const time = Date.now() * 0.001;
+    // Draw Sanctum (Temple Diya + Incense Embers)
+    const drawSanctum = (time: number) => {
+      // 1. Akhand Diya Sacred Radiance
+      const pulse = Math.sin(time * 0.7) * 0.015;
+      const diyaGlow = ctx.createRadialGradient(
+        canvas.width * 0.5,
+        canvas.height * 0.02,
+        20,
+        canvas.width * 0.5,
+        canvas.height * 0.02,
+        Math.max(canvas.width * 0.65, 500)
+      );
+      diyaGlow.addColorStop(0, `rgba(245, 158, 11, ${0.11 + pulse})`);
+      diyaGlow.addColorStop(0.35, `rgba(217, 119, 6, ${0.05 + pulse * 0.5})`);
+      diyaGlow.addColorStop(0.7, 'rgba(120, 53, 15, 0.02)');
+      diyaGlow.addColorStop(1, 'transparent');
 
-      // Draw subtle celestial nebula clouds
+      ctx.fillStyle = diyaGlow;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 2. Secondary subtle sanctum floor warmth
+      const floorGlow = ctx.createRadialGradient(
+        canvas.width * 0.5,
+        canvas.height * 0.95,
+        30,
+        canvas.width * 0.5,
+        canvas.height * 0.95,
+        canvas.width * 0.5
+      );
+      floorGlow.addColorStop(0, 'rgba(180, 83, 9, 0.025)');
+      floorGlow.addColorStop(1, 'transparent');
+      ctx.fillStyle = floorGlow;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 3. Floating sacred incense particles
+      incenseParticles.forEach((p) => {
+        ctx.beginPath();
+        const currentX = p.x + Math.sin(time * p.swaySpeed + p.phase) * p.swayAmplitude * 12;
+        ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
+
+        const flicker = Math.sin(time * 1.5 + p.phase) * 0.08;
+        const opacity = Math.max(0.05, Math.min(0.75, p.baseOpacity + flicker));
+
+        if (p.color === 'gold') {
+          ctx.fillStyle = `rgba(251, 191, 36, ${opacity})`;
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
+        } else if (p.color === 'amber') {
+          ctx.fillStyle = `rgba(245, 158, 11, ${opacity * 0.9})`;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = 'rgba(217, 119, 6, 0.3)';
+        } else {
+          ctx.fillStyle = `rgba(254, 243, 199, ${opacity * 0.8})`;
+          ctx.shadowBlur = 2;
+          ctx.shadowColor = 'rgba(251, 191, 36, 0.2)';
+        }
+
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        p.y -= p.speedY;
+        if (p.y < -10) {
+          p.y = canvas.height + 10;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+    };
+
+    // Draw Cosmic (Original Stars + Nebula + Shooting Stars)
+    const drawCosmic = (time: number) => {
+      // 1. Celestial nebula clouds
       const grad1 = ctx.createRadialGradient(
         canvas.width * 0.8,
         canvas.height * 0.2,
@@ -117,7 +267,7 @@ export const SpaceBackground = React.memo(() => {
       ctx.fillStyle = grad2;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw stars
+      // 2. Stars
       stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -127,7 +277,6 @@ export const SpaceBackground = React.memo(() => {
 
         if (star.color === 'gold') {
           ctx.fillStyle = `rgba(251, 191, 36, ${opacity})`;
-          // Soft golden halo for special stars
           if (star.radius > 1.2) {
             ctx.shadowBlur = 8;
             ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
@@ -141,9 +290,8 @@ export const SpaceBackground = React.memo(() => {
         }
 
         ctx.fill();
-        ctx.shadowBlur = 0; // reset
+        ctx.shadowBlur = 0;
 
-        // Upward gentle drift
         star.y -= star.speed;
         if (star.y < 0) {
           star.y = canvas.height;
@@ -151,7 +299,7 @@ export const SpaceBackground = React.memo(() => {
         }
       });
 
-      // Occasional shooting star (approx every 7-10 seconds)
+      // 3. Shooting star
       const now = Date.now();
       if (!shootingStar.active && now - lastShootingStarTime > 8000 + Math.random() * 5000) {
         triggerShootingStar();
@@ -189,6 +337,17 @@ export const SpaceBackground = React.memo(() => {
         }
         ctx.restore();
       }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const time = Date.now() * 0.001;
+
+      if (currentTheme === 'sanctum') {
+        drawSanctum(time);
+      } else {
+        drawCosmic(time);
+      }
 
       animationFrameId = requestAnimationFrame(draw);
     };
@@ -202,12 +361,32 @@ export const SpaceBackground = React.memo(() => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [currentTheme]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 z-0 w-full h-full pointer-events-none bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]"
-    />
+    <>
+      {/* Canvas Layer */}
+      <canvas
+        ref={canvasRef}
+        className={`fixed inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ${
+          currentTheme === 'sanctum'
+            ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
+            : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
+        }`}
+      />
+
+      {/* Tactile Stone & Palm-leaf Manuscript Micro-Grain Texture (Sanctum Mode Only) */}
+      {currentTheme === 'sanctum' && (
+        <>
+          <div
+            className="fixed inset-0 z-0 pointer-events-none opacity-[0.032] mix-blend-screen"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            }}
+          />
+          <div className="fixed inset-0 z-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/60" />
+        </>
+      )}
+    </>
   );
 });

@@ -61,24 +61,31 @@ export const setReadingProgress = (id: string, progress: number): void => {
 export const getSettings = (): UserSettings => {
     try {
         const stored = localStorage.getItem('jain_settings');
-        return stored ? JSON.parse(stored) : {
-            fontSize: 'medium',
-            notifications: false,
-            autoPlay: false
-        };
-    } catch {
-        return {
-            fontSize: 'medium',
-            notifications: false,
-            autoPlay: false
-        };
-    }
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            return {
+                fontSize: parsed.fontSize || 'medium',
+                notifications: Boolean(parsed.notifications),
+                autoPlay: Boolean(parsed.autoPlay),
+                backgroundTheme: parsed.backgroundTheme === 'cosmic' ? 'cosmic' : 'sanctum',
+            };
+        }
+    } catch {}
+    return {
+        fontSize: 'medium',
+        notifications: false,
+        autoPlay: false,
+        backgroundTheme: 'sanctum',
+    };
 };
 
 export const updateSettings = (settings: Partial<UserSettings>): void => {
     const current = getSettings();
-    const updated = { ...current, ...settings };
+    const updated: UserSettings = { ...current, ...settings };
     localStorage.setItem('jain_settings', JSON.stringify(updated));
+    if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('jain_settings_updated', { detail: updated }));
+    }
 };
 
 // Daily Thought - Track last shown date

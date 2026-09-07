@@ -32,38 +32,25 @@ import { JapMalaPage } from "./pages/JapMalaPage";
 import { NiyamaPage } from "./pages/NiyamaPage";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { useModalBackHandler } from "./lib";
-
-const VALID_PAGES = new Set([
-  "landing", "sadhana", "library", "category", "viewer", "panchang",
-  "more", "admin", "notfound", "favorites", "festivals", "tirthankar",
-  "pilgrimage", "philosophy", "rituals", "pathshala", "gallery",
-  "explore", "samayik", "dietary", "ascetics", "muni-profiles",
-  "jap", "niyam"
-]);
-
-const getInitialHashPage = () => {
-  if (typeof window !== 'undefined' && window.location.hash) {
-    const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0].split('/')[0];
-    if (raw && VALID_PAGES.has(raw)) return raw;
-    if (raw) return 'notfound';
-  }
-  return 'landing';
-};
+import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
+import { resetSeoToDefault } from "./utils/seoHelper";
 
 export default function App() {
-  // Initialize state from history or default to hash / landing
+  // Initialize state from history or parse from initial URL (path or hash)
   const [activePage, setActivePage] = useState(() => {
     if (typeof window !== 'undefined' && window.history.state?.page) {
       return window.history.state.page;
     }
-    return getInitialHashPage();
+    const initialRoute = typeof window !== 'undefined' ? parseLocation(window.location) : { page: 'landing', params: null };
+    return initialRoute.page;
   });
 
   const [pageParams, setPageParams] = useState<any>(() => {
     if (typeof window !== 'undefined' && window.history.state?.params) {
       return window.history.state.params;
     }
-    return null;
+    const initialRoute = typeof window !== 'undefined' ? parseLocation(window.location) : { page: 'landing', params: null };
+    return initialRoute.params;
   });
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -75,6 +62,10 @@ export default function App() {
 
   useEffect(() => {
     activePageRef.current = activePage;
+    // Sync SEO metadata for portal sections
+    if (activePage !== 'viewer' && activePage !== 'tirthankar' && activePage !== 'category') {
+      resetSeoToDefault(activePage);
+    }
   }, [activePage]);
 
   // Handle mobile back button closing the search overlay
@@ -84,14 +75,16 @@ export default function App() {
   useEffect(() => {
     // Initial setup: ensure root history guard is in place
     if (!window.history.state || typeof window.history.state.historyIndex !== 'number') {
-      const initialPage = window.history.state?.page || getInitialHashPage();
-      const initialParams = window.history.state?.params || null;
+      const initialRoute = parseLocation(window.location);
+      const initialPage = window.history.state?.page || initialRoute.page;
+      const initialParams = window.history.state?.params || initialRoute.params;
+      const initialUrl = window.location.hash ? window.location.hash : buildPath(initialPage, initialParams);
 
       // Base entry at index 0
       window.history.replaceState(
         { page: initialPage, params: initialParams, historyIndex: 0, isRoot: true },
         '',
-        window.location.hash || `#${initialPage}`
+        initialUrl
       );
 
       // If starting on landing, push a guard entry so back button is captured by popstate
@@ -99,7 +92,7 @@ export default function App() {
         window.history.pushState(
           { page: 'landing', params: null, historyIndex: 1, isRootGuard: true },
           '',
-          '#landing'
+          '/'
         );
       }
     }
@@ -114,6 +107,14 @@ export default function App() {
         setActivePage(event.state.page);
         setPageParams(event.state.params || null);
       } else {
+        // Fallback to parsing the current window location if history state was absent
+        const locationRoute = parseLocation(window.location);
+        if (locationRoute.page && locationRoute.page !== 'landing') {
+          setActivePage(locationRoute.page);
+          setPageParams(locationRoute.params);
+          return;
+        }
+
         // We reached root entry or popped outside app stack
         const now = Date.now();
         const timeDiff = now - lastBackPressTimeRef.current;
@@ -137,7 +138,7 @@ export default function App() {
             window.history.pushState(
               { page: 'landing', params: null, historyIndex: 1, isRootGuard: true },
               '',
-              '#landing'
+              '/'
             );
             setActivePage('landing');
             setPageParams(null);
@@ -148,16 +149,25 @@ export default function App() {
           window.history.replaceState(
             { page: 'landing', params: null, historyIndex: 0, isRoot: true },
             '',
-            '#landing'
+            '/'
           );
         }
       }
     };
 
+    // React to direct URL adjustments (external anchors or address bar changes)
+    const handleLocationChange = () => {
+      const currentRoute = parseLocation(window.location);
+      setActivePage(currentRoute.page);
+      setPageParams(currentRoute.params);
+    };
+
     window.addEventListener("popstate", handlePopState);
+    window.addEventListener("hashchange", handleLocationChange);
 
     return () => {
       window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("hashchange", handleLocationChange);
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     };
   }, []);
@@ -172,10 +182,11 @@ export default function App() {
       ? window.history.state.historyIndex
       : 1;
     const newIndex = currentIndex + 1;
+    const targetUrl = buildPath(page, params);
 
-    // Push new state to history stack
-    window.history.pushState({ page, params, historyIndex: newIndex }, "", `#${page}`);
-    setPageParams(params);
+    // Push new state to history stack with clean path URL for SEO and sharing
+    window.history.pushState({ page, params, historyIndex: newIndex }, "", targetUrl);
+    setPageParams(params || null);
     setActivePage(page);
   };
 
@@ -200,13 +211,10 @@ export default function App() {
   }, [activePage]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden text-slate-200 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#050a14]">
+    <div className="relative min-h-screen w-full overflow-hidden text-slate-100 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#05060a]">
 
       {/* Background Layer */}
       <SpaceBackground />
-
-      {/* Decorative overlaid gradient for depth */}
-      <div className="fixed inset-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/40 z-0" />
 
       {/* Main Content Area */}
       <main ref={mainRef} className="relative z-10 w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
@@ -261,6 +269,7 @@ export default function App() {
             >
               <CategoryListing
                 categoryId={pageParams?.id}
+                initialSubCategory={pageParams?.subCategory}
                 onNavigate={handleNavigate}
                 onBack={() => handleBack(pageParams?.source || "sadhana")}
               />

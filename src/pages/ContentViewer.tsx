@@ -11,10 +11,13 @@ import {
   Type,
   Sparkles,
   Scroll,
+  Check,
 } from 'lucide-react';
 import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
 import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
+import { getCanonicalShareUrl } from '../utils/urlHelper';
+import { updateContentSeo } from '../utils/seoHelper';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -231,7 +234,15 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
   };
 };
 
-const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) => {
+const UnifiedVerseView = ({
+  item,
+  fontSize,
+  onShareVerse,
+}: {
+  item: any;
+  fontSize: number;
+  onShareVerse?: (numberDisplay?: string | null, lines?: ParsedLine[], meanings?: string[]) => void;
+}) => {
   const verses = item.verses || item.lyrics || [];
 
   return (
@@ -269,29 +280,63 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
             {(parsed.lines.length > 0 || parsed.meanings.length > 0) && (
               <GlassCard
                 variant="gilded"
-                className="p-6 md:p-9 relative group hover:border-amber-400/40 transition-all duration-300"
+                className="p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border border-amber-500/25 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
               >
+                {/* Traditional Sacred Margin Lines (हशिया) */}
+                <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+                <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+
                 {/* Verse Header Row (only when numberDisplay exists) */}
-                {parsed.numberDisplay && (
-                  <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-white/5">
+                {parsed.numberDisplay ? (
+                  <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/15">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 font-mono text-xs font-bold flex items-center justify-center">
+                      <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-600/20 border border-amber-400/40 text-amber-200 font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_10px_rgba(245,158,11,0.2)]">
                         {parsed.numberDisplay}
                       </span>
-                      <span className="text-[11px] uppercase tracking-widest text-slate-400 font-gotu">
+                      <span className="text-[11px] uppercase tracking-widest text-amber-300/80 font-gotu font-medium">
                         पद / श्लोक
                       </span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      {onShareVerse && (
+                        <button
+                          onClick={() => onShareVerse(parsed.numberDisplay, parsed.lines, parsed.meanings)}
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-amber-300 hover:text-amber-100 text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer"
+                          title="यह पद साझा करें"
+                        >
+                          <Share2 className="w-3.5 h-3.5 text-amber-300" />
+                          <span className="text-[11px]">शेयर</span>
+                        </button>
+                      )}
+                      <span className="text-amber-400/40 text-xs">❖</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between mb-3 text-amber-400/60 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-400/30" />
+                      <span>❖</span>
+                    </div>
+                    {onShareVerse && (
+                      <button
+                        onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-amber-300 hover:text-amber-100 text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer"
+                        title="यह भाग साझा करें"
+                      >
+                        <Share2 className="w-3.5 h-3.5 text-amber-300" />
+                        <span className="text-[11px]">शेयर</span>
+                      </button>
+                    )}
                   </div>
                 )}
 
                 {/* Sacred Lines & Mantras */}
-                <div className="space-y-3.5 text-center my-4">
+                <div className="space-y-3 text-center my-3 sm:my-4 px-2 sm:px-4">
                   {parsed.lines.map((lineObj: ParsedLine, lIdx: number) => {
                     if (lineObj.type === 'tag') {
                       return (
                         <div key={lIdx} className="pt-1 pb-1">
-                          <span className="inline-block px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-gotu text-xs sm:text-sm font-semibold tracking-wide">
+                          <span className="inline-block px-4 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 font-gotu text-xs sm:text-sm font-semibold tracking-wide shadow-sm">
                             {lineObj.text}
                           </span>
                         </div>
@@ -303,7 +348,7 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
                         <div
                           key={lIdx}
                           style={{ fontSize: `${fontSize + 1}px` }}
-                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border border-amber-500/35 text-amber-100 font-notoserif font-bold text-center shadow-inner tracking-wide leading-relaxed"
+                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-amber-600/20 to-amber-500/15 border border-amber-400/40 text-amber-100 font-notoserif font-bold text-center shadow-[inset_0_1px_10px_rgba(245,158,11,0.15)] tracking-wide leading-relaxed"
                         >
                           {lineObj.text}
                         </div>
@@ -314,7 +359,7 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
                       <p
                         key={lIdx}
                         style={{ fontSize: `${fontSize + 3}px` }}
-                        className="font-notoserif font-semibold text-white leading-relaxed tracking-wide pt-0.5 pb-0.5"
+                        className="font-notoserif font-bold text-amber-50/95 leading-[1.65] tracking-wide pt-0.5 pb-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
                       >
                         {lineObj.text}
                       </p>
@@ -324,15 +369,15 @@ const UnifiedVerseView = ({ item, fontSize }: { item: any; fontSize: number }) =
 
                 {/* Meanings / Translation */}
                 {parsed.meanings.length > 0 && (
-                  <div className="mt-6 pt-5 border-t border-amber-500/15 space-y-2 text-center bg-amber-500/[0.03] -mx-6 -mb-6 md:-mx-9 md:-mb-9 p-5 rounded-b-2xl">
-                    <span className="text-[11px] uppercase tracking-widest text-amber-300/70 font-cinzel font-bold block mb-1">
-                      भावार्थ
+                  <div className="mt-5 pt-4 border-t border-amber-500/20 space-y-2 text-center bg-gradient-to-b from-amber-950/20 to-slate-950/40 -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 md:-mx-9 md:-mb-9 p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl">
+                    <span className="text-[11px] uppercase tracking-widest text-amber-300 font-cinzel font-bold inline-flex items-center gap-2 mb-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20">
+                      <span>॥</span> भावार्थ <span>॥</span>
                     </span>
                     {parsed.meanings.map((meaningLine: string, lIdx: number) => (
                       <p
                         key={lIdx}
                         style={{ fontSize: `${fontSize}px` }}
-                        className="font-mukta text-slate-200 leading-relaxed max-w-3xl mx-auto"
+                        className="font-mukta text-slate-200/90 leading-relaxed max-w-3xl mx-auto text-sm sm:text-base font-normal"
                       >
                         {meaningLine}
                       </p>
@@ -448,6 +493,16 @@ export const ContentViewer = ({
         const result = await getContentByIdAsync(id);
         if (isMounted) {
           setData(result);
+          if (result) {
+            updateContentSeo({
+              id,
+              title: result.title || title,
+              subtitle: result.subtitle,
+              author: result.author,
+              category: type || result.category,
+              description: result.description,
+            });
+          }
           if (result?.title || title) {
             addRecentRead({
               id,
@@ -584,14 +639,84 @@ export const ContentViewer = ({
     };
   }, [fontSize, isAutoScrolling, isFav, scrollSpeed, data, title, id, handleFavoriteToggle]);
 
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 2400);
+  };
+
+  const copyToClipboard = async (textToCopy: string, successMessage: string = 'लिंक कॉपी हो गया!') => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      showToast(successMessage);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = textToCopy;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast(successMessage);
+    }
+  };
+
   const handleShare = async () => {
-    const shareTitle = data?.title || title || 'Jain Jinvani';
-    const shareData = { title: shareTitle, text: `${shareTitle} - जैन जिनवाणी`, url: window.location.href };
+    const shareTitle = data?.title || title || 'जैन जिनवाणी';
+    const shareUrl = id ? getCanonicalShareUrl('viewer', { id }) : window.location.href;
+    const shareText = hindiSubtitle
+      ? `${shareTitle} (${hindiSubtitle})\nजैन जिनवाणी पर पढ़ें:`
+      : `${shareTitle} - जैन जिनवाणी पर पढ़ें:`;
+
     if (navigator.share) {
-      try { await navigator.share(shareData); } catch (e) {}
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (err: any) {
+        if (err?.name !== 'AbortError') {
+          copyToClipboard(shareUrl, 'लिंक कॉपी हो गया!');
+        }
+      }
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copied to clipboard!');
+      copyToClipboard(shareUrl, 'लिंक कॉपी हो गया!');
+    }
+  };
+
+  const handleShareVerse = (verseNumber?: string | null, lines?: ParsedLine[], meanings?: string[]) => {
+    const verseText = (lines || [])
+      .filter((l) => l.type !== 'tag')
+      .map((l) => l.text)
+      .join('\n');
+    const meaningText = (meanings || []).join('\n');
+    const shareTitle = data?.title || title || 'जैन जिनवाणी';
+    const shareUrl = id ? getCanonicalShareUrl('viewer', { id }) : window.location.href;
+
+    const numLabel = verseNumber ? ` [पद ${verseNumber}]` : '';
+    const message = `❖ ${shareTitle}${numLabel} ❖\n\n${verseText}${
+      meaningText ? `\n\n॥ भावार्थ ॥\n${meaningText}` : ''
+    }\n\nसंपूर्ण पाठ पढ़ें:\n${shareUrl}`;
+
+    if (navigator.share) {
+      navigator.share({
+        title: `${shareTitle}${numLabel}`,
+        text: message,
+        url: shareUrl,
+      }).catch((err: any) => {
+        if (err?.name !== 'AbortError') {
+          copyToClipboard(message, 'पद कॉपी हो गया!');
+        }
+      });
+    } else {
+      copyToClipboard(message, 'पद कॉपी हो गया!');
     }
   };
 
@@ -601,37 +726,92 @@ export const ContentViewer = ({
 
   return (
     <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
+      {/* Floating In-App Feedback Toast */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -15, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-[100] pointer-events-none px-4"
+          >
+            <div className="flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0b162c]/95 border border-amber-400/40 shadow-[0_10px_30px_rgba(0,0,0,0.7),0_0_20px_rgba(245,158,11,0.25)] text-amber-200 text-xs sm:text-sm font-gotu font-medium backdrop-blur-xl">
+              <div className="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-300 shrink-0">
+                <Check className="w-3 h-3" />
+              </div>
+              <span>{toastMessage}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Sacred Sanctum Header Card */}
       <motion.div
         initial={{ opacity: 0, y: -14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-5 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] mb-6 sm:mb-8 overflow-hidden"
+        className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-4 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] mb-6 sm:mb-8 overflow-hidden"
       >
         {/* Subtle Ambient Golden Rim Light & Specular Glow */}
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
 
-        {/* Top Badges (Category + Verses / Chapters) */}
-        <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 flex-wrap">
-          {data?.category && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu">
-              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
-              {CATEGORY_NAMES_HI[data.category] || data.category}
-            </span>
-          )}
-          {verseCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-              <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
-              {verseCount} पद्य
-            </span>
-          )}
-          {chapterCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-              <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
-              {chapterCount} अध्याय
-            </span>
-          )}
+        {/* Top Header Action Bar (Back, Badges, Favorite & Share) */}
+        <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6 w-full">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/30 text-slate-300 hover:text-amber-200 text-xs font-gotu font-medium transition-all active:scale-95 shadow-sm cursor-pointer"
+            title="वापस जाएँ (Back)"
+          >
+            <ChevronLeft className="w-4 h-4 text-amber-300" />
+            <span className="hidden sm:inline">वापस</span>
+          </button>
+
+          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
+            {data?.category && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu truncate">
+                <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+                {CATEGORY_NAMES_HI[data.category] || data.category}
+              </span>
+            )}
+            {verseCount > 0 && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+                <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
+                {verseCount} पद्य
+              </span>
+            )}
+            {chapterCount > 0 && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+                <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
+                {chapterCount} अध्याय
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <button
+              onClick={handleFavoriteToggle}
+              className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer ${
+                isFav
+                  ? 'bg-rose-500/15 border-rose-400/40 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.15)]'
+                  : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300 hover:text-amber-200'
+              }`}
+              title={isFav ? "पसंदीदा से हटाएं" : "पसंदीदा में जोड़ें"}
+            >
+              <Bookmark className={`w-3.5 h-3.5 ${isFav ? 'fill-current' : ''}`} />
+              <span className="hidden md:inline">{isFav ? 'सहेजा गया' : 'पसंदीदा'}</span>
+            </button>
+
+            <button
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-600/25 to-amber-500/20 hover:from-amber-500/30 hover:to-amber-600/35 border border-amber-400/40 text-amber-200 hover:text-amber-100 text-xs font-gotu font-semibold transition-all active:scale-95 shadow-[0_0_15px_rgba(245,158,11,0.15)] cursor-pointer"
+              title="यह रचना साझा करें"
+            >
+              <Share2 className="w-3.5 h-3.5 text-amber-300" />
+              <span>शेयर</span>
+            </button>
+          </div>
         </div>
 
         {/* Grand Sacred Title */}
@@ -700,7 +880,7 @@ export const ContentViewer = ({
               data.type === 'stotra' ||
               data.verses ||
               data.lyrics ? (
-              <UnifiedVerseView item={data} fontSize={fontSize} />
+              <UnifiedVerseView item={data} fontSize={fontSize} onShareVerse={handleShareVerse} />
             ) : data.chapters ? (
               <ArticleView data={data} sectionRefs={sectionRefs} fontSize={fontSize} />
             ) : (
@@ -715,7 +895,13 @@ export const ContentViewer = ({
             <h1 className="text-3xl md:text-5xl font-rozha text-white mb-4">
               {title || 'सामग्री उपलब्ध नहीं है'}
             </h1>
-            <p className="text-slate-400 font-gotu text-base">यह रचना अभी उपलब्ध नहीं है।</p>
+            <p className="text-slate-400 font-gotu text-base mb-6">यह रचना अभी उपलब्ध नहीं है अथवा लिंक अधूरा है।</p>
+            <button
+              onClick={onBack}
+              className="px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-sm font-gotu font-semibold transition-all shadow-md active:scale-95 cursor-pointer"
+            >
+              ← वापस जाएँ
+            </button>
           </div>
         )}
       </motion.div>
