@@ -5,6 +5,7 @@ import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, St
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
+import { FeedbackModal } from '../components/features/FeedbackModal';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -12,6 +13,7 @@ interface MoreMenuProps {
 
 export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [settings, setSettings] = useState<UserSettings>(getSettings());
 
   // Close modal on mobile back navigation
@@ -234,7 +236,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
     }
 
     if (item.id === 'contact') {
-      window.location.href = 'mailto:contact@jainjinvani.app';
+      setShowFeedbackModal(true);
       return;
     }
 
@@ -381,6 +383,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Google Form Community Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+      />
     </div>
   );
 };

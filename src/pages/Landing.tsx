@@ -17,11 +17,13 @@ import {
   MapPin,
   RotateCcw,
   Droplets,
+  FileEdit,
 } from 'lucide-react';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
+import { FeedbackModal } from '../components/features/FeedbackModal';
 
 interface LandingProps {
   onNavigate: (page: string, params?: any) => void;
@@ -39,6 +41,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   );
   const [recentReads, setRecentReads] = useState<RecentReadItem[]>([]);
   const [showDonateModal, setShowDonateModal] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // Close modal on mobile back navigation
   useModalBackHandler(showDonateModal, () => setShowDonateModal(false), 'landing-donate-modal');
@@ -383,6 +386,57 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         </GlassCard>
       </div>
 
+      {/* Community Contribution & Error Reporting Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15, duration: 0.4 }}
+        onClick={() => setShowFeedbackModal(true)}
+        className="w-full max-w-3xl mt-4 sm:mt-6 relative z-10 cursor-pointer group"
+      >
+        <GlassCard
+          variant="gilded"
+          sheen
+          className="p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-400/40 bg-gradient-to-br from-[#1b1710]/95 via-[#131929]/90 to-[#0c101a]/95 hover:border-amber-400/70 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)] transition-all relative overflow-hidden"
+        >
+          {/* Subtle gold traditional corner markers */}
+          <div className="absolute top-2 left-2.5 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute top-2 right-2.5 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute bottom-2 left-2.5 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+          <div className="absolute bottom-2 right-2.5 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
+
+          {/* Top Pill / Badge */}
+          <div className="flex items-center gap-2 mb-2.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] sm:text-xs font-semibold font-gotu shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              डिजिटल जिनवाणी महा-संकलन • सहभागिता आमंत्रण
+            </span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4">
+            <div className="min-w-0 flex-1 pr-0 md:pr-4">
+              <h3 className="text-base sm:text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1.5 leading-snug">
+                विश्व का सबसे वृहद डिजिटल जिनवाणी संग्रह
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-200/90 font-gotu leading-relaxed max-w-[65ch]">
+                हम अब तक का सबसे विशाल एवं प्रामाणिक डिजिटल जिनवाणी महाकोश तैयार कर रहे हैं। वर्तमान में वेबसाइट निर्माण व संवर्धन के चरण में है, अतः आगम व टंकण में अज्ञानतावश त्रुटियाँ संभव हैं। यदि आपको कोई अशुद्धि दिखे या आप कोई नया पाठ, स्तोत्र अथवा ग्रंथ जोड़ना चाहते हैं, तो कृपया यहाँ सूचित करें ताकि हम तत्काल सुधार कर सकें।
+              </p>
+            </div>
+
+            <div className="shrink-0 flex items-center">
+              <button
+                type="button"
+                className="w-full md:w-auto px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.35)] group-hover:shadow-[0_6px_25px_rgba(245,158,11,0.5)] group-hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <FileEdit className="w-4 h-4 text-slate-950 shrink-0" />
+                <span>सुधार या सुझाव बताएं</span>
+                <span className="text-xs">→</span>
+              </button>
+            </div>
+          </div>
+        </GlassCard>
+      </motion.div>
+
       {/* Featured Sahyog Card */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -473,6 +527,12 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Google Form Community Feedback Modal */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+      />
     </div>
   );
 };
