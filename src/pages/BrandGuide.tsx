@@ -31,7 +31,7 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-10 pb-32 px-6 flex flex-col h-full text-slate-200">
+    <div className="w-full max-w-6xl mx-auto pt-10 pb-24 sm:pb-28 px-6 flex flex-col h-full text-slate-200">
 
       {/* Header */}
       <motion.div

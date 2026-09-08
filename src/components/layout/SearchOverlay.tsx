@@ -15,6 +15,7 @@ const getAllItems = () => {
 };
 
 const popularSuggestions = [
+  'अभिषेक व शांतिधारा',
   'भक्तामर स्तोत्र',
   'णमोकार महामंत्र',
   'समयसार',

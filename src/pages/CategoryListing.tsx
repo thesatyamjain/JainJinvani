@@ -170,7 +170,7 @@ export const CategoryListing = ({
   const isDailyFlow = categoryId === 'puja' && (activeSubCategory === 'daily-flow' || viewMode === 'timeline');
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-36 px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
+    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
       {/* Header Bar */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}

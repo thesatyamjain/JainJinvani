@@ -123,7 +123,7 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 pb-32 px-6">
+    <div className="w-full max-w-6xl mx-auto pt-20 pb-24 sm:pb-28 px-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">

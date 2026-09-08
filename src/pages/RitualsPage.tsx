@@ -148,7 +148,7 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
     : ritualsData.filter(r => r.category === filter);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 pb-32 px-6">
+    <div className="w-full max-w-6xl mx-auto pt-20 pb-24 sm:pb-28 px-6">
       {/* Header */}
       <div className="mb-8">
         <button

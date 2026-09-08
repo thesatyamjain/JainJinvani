@@ -17,7 +17,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
   const dailyThought = getDailyThought();
 
   return (
-    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

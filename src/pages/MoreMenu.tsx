@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles } from 'lucide-react';
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
+import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 
 interface MoreMenuProps {
@@ -203,27 +204,29 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
 
   const handleItemClick = async (item: any) => {
     if (item.id === 'share') {
+      const shareUrl = getCanonicalShareUrl('landing');
       const shareData = {
         title: 'जैन जिनवाणी',
         text: 'जैन जिनवाणी - प्राचीन जैन ग्रंथ, पूजा, विधान, स्तोत्र एवं स्वाध्याय का संपूर्ण डिजिटल ज्ञानकोश।',
-        url: window.location.href,
+        url: shareUrl,
       };
 
       try {
         if (navigator.share) {
           await navigator.share(shareData);
         } else {
-          // If Web Share API is not supported, show the URL in an alert
-          alert(`इस लिंक को साझा करें:\n${window.location.href}`);
+          // If Web Share API is not supported, copy or show the URL
+          await navigator.clipboard.writeText(shareUrl);
+          alert('मुख्य पृष्ठ का लिंक क्लिपबोर्ड पर कॉपी हो गया है!');
         }
       } catch (err: any) {
         // Only try clipboard if the error is not an AbortError (user cancelled)
         if (err.name !== 'AbortError') {
           try {
-            await navigator.clipboard.writeText(window.location.href);
-            alert('लिंक क्लिपबोर्ड पर कॉपी हो गया है!');
+            await navigator.clipboard.writeText(shareUrl);
+            alert('मुख्य पृष्ठ का लिंक क्लिपबोर्ड पर कॉपी हो गया है!');
           } catch (clipboardErr) {
-            alert(`इस लिंक को साझा करें:\n${window.location.href}`);
+            alert(`इस लिंक को साझा करें:\n${shareUrl}`);
           }
         }
       }
@@ -241,7 +244,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const selectedItem = items.find(i => i.id === selectedId);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
       {/* Header Banner - Premium Frosted Glass */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

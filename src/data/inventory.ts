@@ -17,22 +17,14 @@ export interface SubCategoryDef {
 
 export const subCategoryMap: Record<string, SubCategoryDef[]> = {
   "puja": [
-  {
-    "id": "brihat-shantidhara",
-    "title": "वृहत् शांतिधारा (सकल वांग्मय शांति मंत्र)",
-    "category": "puja",
-    "subCategory": "daily-flow",
-    "description": "परम मांगलिक जिनबिम्ब मस्तक अभिषेक एवं सर्वोपद्रव निवारक वृहत् शांतिधारा पाठ",
-    "badge": "नित्य शांतिधारा"
-},
     {
       "id": "all",
       "label": "सभी पूजाएँ"
     },
     {
       "id": "daily-flow",
-      "label": "नित्य पूजन क्रम",
-      "description": "प्रतिदिन मंदिर जी एवं घर में की जाने वाली क्रमबद्ध दैनिक पूजा विधि"
+      "label": "नित्य पूजन व अभिषेक क्रम",
+      "description": "प्रतिदिन मंदिर जी एवं घर में की जाने वाली क्रमबद्ध अभिषेक, शांतिधारा एवं दैनिक पूजा विधि"
     },
     {
       "id": "tirthankar",
@@ -938,6 +930,15 @@ export const contentInventory: Record<string, ContentItem[]> = {
   }
 ],
   puja: [
+    {"id":"abhishek-vidhi","title":"जैन अभिषेक विधि","category":"puja","subCategory":"daily-flow","description":"शुद्धता, प्रासुक जल, दिशा, अभिषेक के प्रकार एवं संपूर्ण शास्त्रोक्त विधि","badge":"अभिषेक विधि"},
+    {"id":"pratima-prakshal-vidhi-path","title":"प्रतिमा-प्रक्षाल-विधि पाठ","category":"puja","subCategory":"daily-flow","description":"शास्त्रोक्त जिनबिम्ब प्रक्षाल, मार्जन एवं अभिषेक क्रम","badge":"प्रक्षाल"},
+    {"id":"abhishek-path-sanskrit","title":"अभिषेक पाठ (संस्कृत)","category":"puja","subCategory":"daily-flow","description":"पारंपरिक संस्कृत जिनबिम्ब अभिषेक विधि एवं न्हवन पाठ","badge":"अभिषेक पाठ"},
+    {"id":"abhishek-path-maghanandi","title":"अभिषेक पाठ संस्कृत (माघनन्दिकृत)","category":"puja","subCategory":"daily-flow","description":"आचार्य माघनन्दि विरचित चार कलश प्रामाणिक न्हवन एवं अभिषेक विधि","badge":"माघनन्दि अभिषेक"},
+    {"id":"jalabhishek-path","title":"जलाभिषेक पाठ","category":"puja","subCategory":"daily-flow","description":"प्रासुक जल धाराभिषेक, जिनबिम्ब अभिषेक एवं शांति मंत्र","badge":"जलाभिषेक"},
+    {"id":"mandilashtakam","title":"मण्डलाष्टकम् (संस्कृत)","category":"puja","subCategory":"daily-flow","description":"संस्कृत मण्डलाष्टक स्तोत्र एवं अभिषेक पाठ","badge":"मण्डलाष्टक"},
+    {"id":"brihat-shantidhara","title":"वृहत् शांतिधारा (सकल वांग्मय शांति मंत्र)","category":"puja","subCategory":"daily-flow","description":"परम मांगलिक जिनबिम्ब मस्तक अभिषेक एवं सर्वोपद्रव निवारक वृहत् शांतिधारा पाठ","badge":"शांतिधारा"},
+    {"id":"gandhodak-vidhi","title":"गंधोदक ग्रहण विधि","category":"puja","subCategory":"daily-flow","description":"गंधोदक ग्रहण के चार स्थान, महिमा एवं पवित्र मंत्र","badge":"गंधोदक विधि"},
+    {"id":"siddha-yantra-abhishek","title":"सिद्धयंत्राभिषेक विधि एवं मंत्र","category":"puja","subCategory":"daily-flow","description":"सिद्धचक्र महायंत्र का पावन अभिषेक, शांतिधारा एवं आशीर्वाद मंत्र","badge":"सिद्धयंत्र अभिषेक"},
     {"id":"puja-vidhi-prarambh","title":"पूजा विधि प्रारम्भ","category":"puja","subCategory":"daily-flow","description":"दैनिक अभिषेक एवं पूजन प्रारम्भिक विधि","badge":"नित्य पूजन"},
     {"id":"puja-pratigya-path","title":"पूजा प्रतिज्ञा पाठ","category":"puja","subCategory":"daily-flow","description":"संकल्प एवं पूजन प्रतिज्ञा पाठ","badge":"नित्य पूजन"},
     {"id":"vinay-path","title":"विनय पाठ","category":"puja","subCategory":"daily-flow","description":"जिनेंद्र प्रभु के चरणों में विनय पाठ","badge":"नित्य पूजन"},

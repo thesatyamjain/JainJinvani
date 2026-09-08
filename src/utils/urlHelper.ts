@@ -3,7 +3,7 @@ export const VALID_PAGES = new Set([
   'more', 'admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
   'pilgrimage', 'philosophy', 'rituals', 'pathshala', 'gallery',
   'explore', 'samayik', 'dietary', 'ascetics', 'muni-profiles',
-  'jap', 'niyam'
+  'jap', 'niyam', 'daily-puja'
 ]);
 
 export interface ParsedRoute {

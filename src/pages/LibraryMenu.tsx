@@ -277,7 +277,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
       {/* Grand Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -339,7 +339,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
           {anuyogaPillars.map((pillar, idx) => (
             <motion.div
               key={pillar.id}
@@ -357,49 +357,59 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             >
               <GlassCard
                 variant="gilded"
-                className={`h-full p-5 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-3xl bg-gradient-to-br ${pillar.color} border ${pillar.border}`}
+                className={`h-full p-3.5 sm:p-5 md:p-6 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${pillar.color} border ${pillar.border}`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300/80 bg-white/10 px-3 py-1 rounded-full border border-white/10 font-gotu">
+                  <div className="flex items-center justify-between gap-1 mb-2 sm:mb-3">
+                    <span className="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-300/80 bg-white/10 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-white/10 font-gotu truncate max-w-[100px] sm:max-w-none">
                       {pillar.badge}
                     </span>
-                    <span className="text-xs font-cinzel font-bold text-amber-400">
+                    <span className="text-[10px] sm:text-xs font-cinzel font-bold text-amber-400 shrink-0">
                       स्तंभ ०{idx + 1}
                     </span>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1">
+                  <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 sm:mb-1 leading-snug">
                     {pillar.titleHindi}
                   </h3>
-                  <p className="text-xs font-bold text-amber-400/90 uppercase tracking-wider mb-2 font-gotu">
+                  <p className="text-[10px] sm:text-xs font-bold text-amber-400/90 uppercase tracking-wider mb-1.5 sm:mb-2 font-gotu line-clamp-1">
                     {pillar.subtitle}
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-300/85 leading-relaxed font-gotu mb-4">
+                  <p className="text-[11px] sm:text-xs md:text-sm text-slate-300/85 leading-relaxed font-gotu mb-2.5 sm:mb-4 line-clamp-2 sm:line-clamp-3">
                     {pillar.description}
                   </p>
 
-                  <div className="mb-4">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2 font-gotu">
+                  <div className="mb-3 sm:mb-4">
+                    <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 sm:mb-2 font-gotu">
                       प्रमुख शास्त्र:
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {pillar.keyTexts.map((txt) => (
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5">
+                      {pillar.keyTexts.map((txt, textIdx) => (
                         <span
                           key={txt}
-                          className="text-[11px] bg-black/40 text-amber-200/90 px-2 py-0.5 rounded-lg border border-amber-500/20 font-gotu"
+                          className={`text-[9px] sm:text-[11px] bg-black/40 text-amber-200/90 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-amber-500/20 font-gotu truncate max-w-full ${
+                            textIdx >= 2 ? 'hidden sm:inline-block' : ''
+                          }`}
                         >
                           {txt}
                         </span>
                       ))}
+                      {pillar.keyTexts.length > 2 && (
+                        <span className="sm:hidden text-[9px] bg-white/5 text-amber-300/80 px-1.5 py-0.5 rounded-md border border-white/10 font-gotu">
+                          +{pillar.keyTexts.length - 2}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-300 font-gotu font-bold">
-                  <span>{pillar.titleHindi} के ग्रंथ खोलें</span>
-                  <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 group-hover:translate-x-1 transition-all">
-                    <ChevronRight className="w-4 h-4 text-amber-300" />
+                <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-amber-300 font-gotu font-bold">
+                  <span>
+                    <span className="sm:hidden">ग्रंथ देखें</span>
+                    <span className="hidden sm:inline">{pillar.titleHindi} के ग्रंथ खोलें</span>
+                  </span>
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 group-hover:translate-x-1 transition-all shrink-0">
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
                   </div>
                 </div>
               </GlassCard>
@@ -426,41 +436,45 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
               भगवान महावीर की दिव्यध्वनि गौतम गणधर से लेकर धरसेनाचार्य तक गुरु-शिष्य परंपरा में अक्षुण्ण रही। धरसेनाचार्य के आदेश से आचार्य पुष्पदंत एवं भूतबलि ने <strong>षट्खण्डागम</strong> और आचार्य गुणधर ने <strong>कषायपाहुड़</strong> लिपिबद्ध किए, जो दिगम्बर परंपरा के अनादि स्तंभ हैं।
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
               <div
                 onClick={() => onNavigate('viewer', { id: 'shatkhandagama' })}
-                className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group"
+                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded">
-                    प्रथम मूल आगम
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-2">
+                    <span className="text-[10px] sm:text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded truncate">
+                      प्रथम मूल आगम
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                  </div>
+                  <h3 className="text-sm sm:text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2">
+                    षट्खण्डागम (Shatkhandagama)
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-300 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    आचार्य पुष्पदंत व भूतबलि विरचित ६ खण्ड एवं वीरसेनाचार्य कृत धवला टीका।
+                  </p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
-                  षट्खण्डागम (Shatkhandagama)
-                </h3>
-                <p className="text-xs text-slate-300 font-gotu mt-1 leading-relaxed">
-                  आचार्य पुष्पदंत व भूतबलि विरचित ६ खण्ड (जीवस्थान, खुद्दाबंध, बंधस्वामित्व, वेदना, वर्गणा, महाबंध) एवं वीरसेनाचार्य कृत धवला टीका।
-                </p>
               </div>
 
               <div
                 onClick={() => onNavigate('viewer', { id: 'kashayaprabhrita' })}
-                className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group"
+                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded">
-                    द्वितीय मूल आगम
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-2">
+                    <span className="text-[10px] sm:text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded truncate">
+                      द्वितीय मूल आगम
+                    </span>
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                  </div>
+                  <h3 className="text-sm sm:text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2">
+                    कषायपाहुड़ (Kashayaprabhrita)
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-300 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    आचार्य गुणधर विरचित २३३ गाथाएं एवं जिनसेन-वीरसेन कृत जयधवला महाटीका।
+                  </p>
                 </div>
-                <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
-                  कषायपाहुड़ (Kashayaprabhrita)
-                </h3>
-                <p className="text-xs text-slate-300 font-gotu mt-1 leading-relaxed">
-                  आचार्य गुणधर विरचित २३३ प्राकृत गाथाएं एवं आचार्य जिनसेन-वीरसेन कृत जयधवला महाटीका, कषाय व कर्म-क्षय का विशद ज्ञान।
-                </p>
               </div>
             </div>
           </div>
@@ -495,42 +509,45 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
           {filteredPdfs.map((pdf) => (
             <GlassCard
               key={pdf.id}
               variant="gilded"
-              className="p-4 sm:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300"
+              className="p-3 sm:p-4 md:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300"
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-500/25 font-gotu">
+                <div className="flex items-center justify-between gap-1 mb-1.5 sm:mb-2">
+                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/15 px-1.5 sm:px-2 py-0.5 rounded border border-amber-500/25 font-gotu truncate max-w-[85px] sm:max-w-none">
                     {pdf.anuyoga}
                   </span>
-                  <span className="text-[11px] text-slate-400 font-gotu font-medium">
+                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-gotu font-medium shrink-0">
                     {pdf.pages}
                   </span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-notoserif font-bold text-white mb-1">
+                <h3 className="text-xs sm:text-base md:text-lg font-notoserif font-bold text-white mb-0.5 sm:mb-1 line-clamp-2 leading-snug">
                   {pdf.title}
                 </h3>
-                <p className="text-xs font-medium text-amber-400/90 font-gotu mb-2">
+                <p className="text-[10px] sm:text-xs font-medium text-amber-400/90 font-gotu mb-1 sm:mb-2 line-clamp-1">
                   {pdf.author}
                 </p>
-                <p className="text-xs text-slate-300/80 font-gotu leading-relaxed line-clamp-2 mb-4">
+                <p className="text-[11px] sm:text-xs text-slate-300/80 font-gotu leading-relaxed line-clamp-2 mb-2 sm:mb-4">
                   {pdf.description}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+              <div className="pt-2 sm:pt-3 border-t border-white/10 flex items-center justify-between gap-2">
                 {pdf.readGranthId ? (
                   <button
                     onClick={() => onNavigate('viewer', { id: pdf.readGranthId })}
-                    className="w-full flex items-center justify-center gap-1.5 text-xs font-gotu font-bold text-slate-900 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-2 rounded-xl transition-all shadow-md cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-900 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl transition-all shadow-md cursor-pointer"
                   >
-                    <BookOpen className="w-3.5 h-3.5" />
-                    <span>इन-ऐप शास्त्र पढ़ें</span>
+                    <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <span>
+                      <span className="sm:hidden">पढ़ें</span>
+                      <span className="hidden sm:inline">इन-ऐप शास्त्र पढ़ें</span>
+                    </span>
                   </button>
                 ) : null}
               </div>

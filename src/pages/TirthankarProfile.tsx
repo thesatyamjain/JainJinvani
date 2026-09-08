@@ -199,7 +199,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
   const totalOfferedArghya = Object.values(offeredArghyas).filter(Boolean).length;
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 pb-32 px-4 sm:px-6 overflow-x-hidden">
+    <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 pb-24 sm:pb-28 px-4 sm:px-6 overflow-x-hidden">
       {/* Top Navigation Bar */}
       <div className="flex items-center justify-between gap-4 mb-6">
         <button

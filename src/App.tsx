@@ -30,6 +30,7 @@ import { AsceticsPage } from "./pages/AsceticsPage";
 import { MuniProfilesPage } from "./pages/MuniProfilesPage";
 import { JapMalaPage } from "./pages/JapMalaPage";
 import { NiyamaPage } from "./pages/NiyamaPage";
+import { DailyPujaFlow } from "./pages/DailyPujaFlow";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { useModalBackHandler } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
@@ -576,6 +577,22 @@ export default function App() {
               className="min-h-full overflow-x-hidden"
             >
               <NiyamaPage
+                onBack={() => handleBack("sadhana")}
+                onNavigate={handleNavigate}
+              />
+            </motion.div>
+          )}
+
+          {activePage === "daily-puja" && (
+            <motion.div
+              key="daily-puja"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <DailyPujaFlow
                 onBack={() => handleBack("sadhana")}
                 onNavigate={handleNavigate}
               />

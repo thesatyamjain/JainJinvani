@@ -167,7 +167,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
   const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-6 sm:pt-10 pb-36 px-4 sm:px-6 flex flex-col items-center select-none">
+    <div className="w-full max-w-4xl mx-auto pt-6 sm:pt-10 pb-24 sm:pb-28 px-4 sm:px-6 flex flex-col items-center select-none">
       {/* Header Bar */}
       <div className="w-full flex items-center justify-between gap-4 mb-6 relative z-10">
         <button

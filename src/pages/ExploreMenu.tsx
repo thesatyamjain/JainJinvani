@@ -79,7 +79,7 @@ const exploreCategories = [
 
 export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -10 }}
@@ -118,7 +118,7 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
       </motion.div>
 
       {/* Categories Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 md:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 md:gap-6">
         {exploreCategories.map((category, idx) => (
           <motion.div
             key={category.id}
@@ -134,32 +134,32 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
           >
             <GlassCard
               variant="gilded"
-              className="h-full p-4 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
+              className="h-full p-3.5 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
             >
               <div>
-                <div className="flex items-start justify-between mb-3 sm:mb-5">
+                <div className="flex items-start justify-between mb-2.5 sm:mb-5">
                   <div
-                    className={`w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} border ${category.border} flex items-center justify-center ${category.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                    className={`w-9 h-9 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} border ${category.border} flex items-center justify-center ${category.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
                   >
-                    <category.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                    <category.icon className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                   </div>
-                  <span className="text-[10px] sm:text-xs font-gotu px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 group-hover:border-amber-400/40 group-hover:text-amber-200 transition-colors">
+                  <span className="text-[9px] sm:text-xs font-gotu px-1.5 sm:px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 group-hover:border-amber-400/40 group-hover:text-amber-200 transition-colors">
                     अन्वेषण
                   </span>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1">
+                <h3 className="text-sm sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 sm:mb-1 line-clamp-1 leading-snug">
                   {category.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-amber-200/80 font-gotu mb-2">
+                <p className="text-[10px] sm:text-sm text-amber-200/80 font-gotu mb-1 sm:mb-2 line-clamp-1">
                   {category.sub}
                 </p>
-                <p className="text-xs text-slate-300/70 font-gotu leading-relaxed line-clamp-2">
+                <p className="text-[11px] sm:text-xs text-slate-300/70 font-gotu leading-relaxed line-clamp-2">
                   {category.description}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-gotu text-amber-300/80 group-hover:text-amber-200 transition-colors">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/5 flex items-center justify-between text-[11px] sm:text-xs font-gotu text-amber-300/80 group-hover:text-amber-200 transition-colors">
                 <span className="truncate">विवरण देखें</span>
                 <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </div>

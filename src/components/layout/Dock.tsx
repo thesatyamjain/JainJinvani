@@ -85,13 +85,15 @@ export const Dock = ({
           const currentY = container.scrollTop;
           const diff = currentY - lastScrollY.current;
 
-          // Never auto-hide when auto-scroll is actively running so user can pause with 1 tap
-          if (readerState.isAutoScrolling) {
+          const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
+
+          // Never auto-hide when auto-scroll is actively running or when user reaches bottom of page
+          if (readerState.isAutoScrolling || isAtBottom) {
             setIsDockHidden(false);
-          } else if (diff > 20 && currentY > 120) {
+          } else if (diff > 8 && currentY > 30) {
             // Scrolling down past threshold -> hide dock
             setIsDockHidden(true);
-          } else if (diff < -8 || currentY < 70) {
+          } else if (diff < -6 || currentY <= 15) {
             // Scrolling up or at page top -> reveal dock
             setIsDockHidden(false);
           }

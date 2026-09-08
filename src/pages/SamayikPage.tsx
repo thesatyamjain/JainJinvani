@@ -69,7 +69,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
   const progress = ((48 * 60 - timeLeft) / (48 * 60)) * 100;
 
   return (
-    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6 flex flex-col items-center">
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6 flex flex-col items-center">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-8">
         <button

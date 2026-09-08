@@ -16,6 +16,7 @@ import {
   X,
   MapPin,
   RotateCcw,
+  Droplets,
 } from 'lucide-react';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
@@ -49,7 +50,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   const isSpecialParva = todayFestival || todayJain.isParvaTithi;
 
   return (
-    <div className="w-full max-w-5xl mx-auto min-h-screen px-4 sm:px-6 md:px-8 pt-6 sm:pt-10 md:pt-14 pb-28 sm:pb-32 md:pb-36 flex flex-col items-center relative overflow-x-hidden">
+    <div className="w-full max-w-5xl mx-auto min-h-screen px-4 sm:px-6 md:px-8 pt-6 sm:pt-10 md:pt-14 pb-24 sm:pb-28 flex flex-col items-center relative overflow-x-hidden">
       {/* Hero Section Container */}
       <motion.section
         initial={{ opacity: 0, y: 14 }}
@@ -191,6 +192,30 @@ export const Landing = ({ onNavigate }: LandingProps) => {
 
       {/* Essential Spiritual & Scripture Cards (Digambar Super Portal 8 Cards Grid) */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 w-full max-w-4xl relative z-10">
+        {/* Featured: Daily Abhishek & Puja Full Flow */}
+        <GlassCard
+          variant="gilded"
+          onClick={() => onNavigate('daily-puja')}
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-amber-500/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-400/40 shadow-md bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-yellow-600/10 col-span-2 md:col-span-4"
+        >
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/25 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+            <Droplets className="w-5 h-5 sm:w-6 sm:h-6" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <h4 className="text-xs sm:text-sm md:text-base font-notoserif font-bold text-amber-200 group-hover:text-amber-100 truncate">
+                नित्य अभिषेक एवं पूजन पाठ
+              </h4>
+              <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-gotu border border-amber-400/30">
+                दैनिक अनुष्ठान
+              </span>
+            </div>
+            <p className="text-[10px] sm:text-xs text-slate-300/80 font-gotu truncate">
+              अभिषेक, वृहद् शान्तिधारा, गंधोदक, देव-शास्त्र-गुरु पूजन व आरती — संपूर्ण क्रम एक साथ
+            </p>
+          </div>
+        </GlassCard>
+
         {/* 1. Samayik */}
         <GlassCard
           variant="subtle"

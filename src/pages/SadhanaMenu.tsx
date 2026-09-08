@@ -15,6 +15,7 @@ import {
   Timer,
   Leaf,
   ChevronRight,
+  Droplets,
 } from 'lucide-react';
 
 interface SadhanaMenuProps {
@@ -22,6 +23,15 @@ interface SadhanaMenuProps {
 }
 
 const sadhanaItems = [
+  {
+    id: 'daily-puja',
+    label: 'नित्य अभिषेक व पूजन',
+    sub: 'अभिषेक, शान्तिधारा व देव-शास्त्र-गुरु पूजन',
+    icon: Droplets,
+    color: 'from-amber-500/25 to-yellow-600/15',
+    border: 'border-amber-400/50',
+    accent: 'text-amber-200',
+  },
   {
     id: 'jap',
     label: '१०८ जाप माला',
@@ -152,7 +162,7 @@ const sadhanaItems = [
 
 export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-36 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
       {/* Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -192,7 +202,9 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.04, duration: 0.4 }}
             onClick={() => {
-              if (item.id === 'jap') {
+              if (item.id === 'daily-puja') {
+                onNavigate('daily-puja');
+              } else if (item.id === 'jap') {
                 onNavigate('jap');
               } else if (item.id === 'niyam') {
                 onNavigate('niyam');

@@ -2,9 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import {
-  ChevronLeft,
   Share2,
-  Bookmark,
   BookOpen,
   List,
   Loader2,
@@ -145,7 +143,7 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
   }
 
   const rawMeaning = v.meaning || v.translation || v.explanation || '';
-  const meanings = Array.isArray(rawMeaning)
+  let meanings = Array.isArray(rawMeaning)
     ? rawMeaning.map(stripHtml).filter(Boolean)
     : [stripHtml(rawMeaning)].filter(Boolean);
 
@@ -156,10 +154,18 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     sectionTitle = stripHtml(v.heading);
   }
 
-  const secMatch = rawText.match(/<div class=["'](?:section-title|reflection-title|heading|title)["']>([\s\S]*?)<\/div>/i);
+  // Extract <div class="shloka-title"> or other title classes from raw HTML
+  let number = v.number;
+  const secMatch = rawText.match(/<div class=["'](?:shloka-title|section-title|reflection-title|heading|title)["']>([\s\S]*?)<\/div>/i);
   if (secMatch) {
-    if (!sectionTitle) sectionTitle = stripHtml(secMatch[1]);
+    const titleText = stripHtml(secMatch[1]);
     rawText = rawText.replace(secMatch[0], '').trim();
+    const numMatch = titleText.match(/^॥?\s*([०-९\d]+)\s*॥?$/);
+    if (numMatch && (number === undefined || number === null)) {
+      number = numMatch[1];
+    } else if (!sectionTitle) {
+      sectionTitle = titleText;
+    }
   } else if (!sectionTitle) {
     const cleanRaw = stripHtml(rawText);
     if (/^\s*॥\s*[^॥\n]+\s*॥\s*$/.test(cleanRaw) && cleanRaw.length < 60) {
@@ -168,15 +174,26 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     }
   }
 
+  // Extract <div class="hindi-meaning"> or similar meaning blocks from raw HTML if meanings is empty
+  if (meanings.length === 0) {
+    const meaningMatch = rawText.match(/<div class=["'](?:hindi-meaning|meaning|translation|explanation)["']>([\s\S]*?)<\/div>/i);
+    if (meaningMatch) {
+      const extractedMeaning = stripHtml(meaningMatch[1]);
+      if (extractedMeaning) {
+        meanings = [extractedMeaning];
+      }
+      rawText = rawText.replace(meaningMatch[0], '').trim();
+    }
+  }
+
   // Check if v.number is actually a section title like "॥ मूल महामंत्र ॥"
-  let number = v.number;
   let numberDisplay: string | null = null;
-  if (typeof number === 'string' && /॥\s*[^\d॥\s]+\s*॥/.test(number)) {
+  if (typeof number === 'string' && /॥\s*[^\d०-९॥\s]+\s*॥/.test(number)) {
     if (!sectionTitle) {
       sectionTitle = number.replace(/[॥]/g, '').trim();
     }
     number = null;
-  } else if (number) {
+  } else if (number !== undefined && number !== null) {
     numberDisplay = String(number).replace(/[॥\s]/g, '').trim();
     if (/^\d+$/.test(numberDisplay)) {
       numberDisplay = `#${Number(numberDisplay) < 10 ? '0' : ''}${numberDisplay}`;
@@ -197,12 +214,14 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
     if (!cleanLine) continue;
 
     const rawClean = cleanLine.replace(/[:：]/g, '').trim();
+    const isTagLength = rawClean.length <= 35 && !/[।॥|,;]/.test(rawClean);
     const isExplicitTag =
-      /^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|शंभू\s*छंद|गीता\s*छंद|मत्तगयंद|कुसुमल\s*छंद|भुजंगप्रयात|तोमर\s*छंद|अड़िल्ल|स्रग्धरा|शार्दूलविक्रीड़ित|मालिनी|अनुष्टुप्|वसंततिलका|इंद्रवज्रा|उपजाति|उपेंद्रवज्रा|घनाक्षरी|सवैया|छंद[^)]*|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|नैवेद्य\s*\(Offering\)|दीप|धूप|फल|अर्घ्य|अर्घ|महा\s*अर्घ|महा\s*अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|आह्वानन|सन्निधिकरण|संकल्प|कलश|आरती|पं\.[^)]*|जिनवाणी\s*स्तुति|अंतिम\s*दोहा|पद्य\s*\/?\s*चौपाई|पद्य|अर्घावली|.*भावना.*)\s*\)?\s*$/i.test(
+      isTagLength &&
+      (/^\s*\(?\s*(दोहा|सोरठा|चौपाई|पद्धति\s*छंद|पद्धरी\s*छंद|रोला\s*छंद|शंभू\s*छंद|गीता\s*छंद|मत्तगयंद|कुसुमल\s*छंद|भुजंगप्रयात|तोमर\s*छंद|अड़िल्ल|स्रग्धरा|शार्दूलविक्रीड़ित|मालिनी|अनुष्टुप्|वसंततिलका|इंद्रवज्रा|उपजाति|उपेंद्रवज्रा|घनाक्षरी|सवैया|छंद(?:\s*[-:]?\s*[\u0900-\u097F\w]+)?|जल|चंदन|चन्दन|अक्षत|पुष्प|नैवेद्य|नैवेद्य\s*\(Offering\)|दीप|धूप|फल|अर्घ्य|अर्घ|महा\s*अर्घ|महा\s*अर्घ्य|पूर्णार्घ्य|जयमाला|स्थापना|आह्वानन|सन्निधिकरण|संकल्प|कलश|आरती|पं\.\s*[\u0900-\u097F\w\s.]+|जिनवाणी\s*स्तुति|अंतिम\s*दोहा|पद्य\s*\/?\s*चौपाई|पद्य|अर्घावली|(?:\S+\s+)?(?:द्वादश|बारह|सोलह\s*कारण|[^\s]+)?\s*भावना)\s*\)?\s*$/i.test(
         rawClean
       ) ||
       (/^\s*<b>\s*\(?(.*?)\)?\s*<\/b>\s*$/i.test(line) && rawClean.length < 50) ||
-      (/^\s*<strong>\s*\(?(.*?)\)?\s*<\/strong>\s*$/i.test(line) && rawClean.length < 50);
+      (/^\s*<strong>\s*\(?(.*?)\)?\s*<\/strong>\s*$/i.test(line) && rawClean.length < 50));
 
     if (isExplicitTag) {
       let tagText = rawClean.replace(/[()]/g, '').trim();
@@ -301,11 +320,11 @@ const UnifiedVerseView = ({
                       {onShareVerse && (
                         <button
                           onClick={() => onShareVerse(parsed.numberDisplay, parsed.lines, parsed.meanings)}
-                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-amber-300 hover:text-amber-100 text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer"
+                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-all active:scale-90 cursor-pointer"
                           title="यह पद साझा करें"
+                          aria-label="यह पद साझा करें"
                         >
-                          <Share2 className="w-3.5 h-3.5 text-amber-300" />
-                          <span className="text-[11px]">शेयर</span>
+                          <Share2 className="w-3.5 h-3.5" />
                         </button>
                       )}
                       <span className="text-amber-400/40 text-xs">❖</span>
@@ -320,11 +339,11 @@ const UnifiedVerseView = ({
                     {onShareVerse && (
                       <button
                         onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-amber-300 hover:text-amber-100 text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer"
+                        className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-all active:scale-90 cursor-pointer"
                         title="यह भाग साझा करें"
+                        aria-label="यह भाग साझा करें"
                       >
-                        <Share2 className="w-3.5 h-3.5 text-amber-300" />
-                        <span className="text-[11px]">शेयर</span>
+                        <Share2 className="w-3.5 h-3.5" />
                       </button>
                     )}
                   </div>
@@ -725,7 +744,7 @@ export const ContentViewer = ({
   const chapterCount = data?.chapters && Array.isArray(data.chapters) ? data.chapters.length : 0;
 
   return (
-    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-36 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
       {/* Floating In-App Feedback Toast */}
       <AnimatePresence>
         {toastMessage && (
@@ -757,61 +776,26 @@ export const ContentViewer = ({
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
 
-        {/* Top Header Action Bar (Back, Badges, Favorite & Share) */}
-        <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6 w-full">
-          <button
-            onClick={onBack}
-            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/30 text-slate-300 hover:text-amber-200 text-xs font-gotu font-medium transition-all active:scale-95 shadow-sm cursor-pointer"
-            title="वापस जाएँ (Back)"
-          >
-            <ChevronLeft className="w-4 h-4 text-amber-300" />
-            <span className="hidden sm:inline">वापस</span>
-          </button>
-
-          <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
-            {data?.category && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu truncate">
-                <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
-                {CATEGORY_NAMES_HI[data.category] || data.category}
-              </span>
-            )}
-            {verseCount > 0 && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-                <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
-                {verseCount} पद्य
-              </span>
-            )}
-            {chapterCount > 0 && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-                <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
-                {chapterCount} अध्याय
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <button
-              onClick={handleFavoriteToggle}
-              className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-gotu transition-all active:scale-95 shadow-sm cursor-pointer ${
-                isFav
-                  ? 'bg-rose-500/15 border-rose-400/40 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.15)]'
-                  : 'bg-white/5 hover:bg-white/10 border-white/10 text-slate-300 hover:text-amber-200'
-              }`}
-              title={isFav ? "पसंदीदा से हटाएं" : "पसंदीदा में जोड़ें"}
-            >
-              <Bookmark className={`w-3.5 h-3.5 ${isFav ? 'fill-current' : ''}`} />
-              <span className="hidden md:inline">{isFav ? 'सहेजा गया' : 'पसंदीदा'}</span>
-            </button>
-
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-600/25 to-amber-500/20 hover:from-amber-500/30 hover:to-amber-600/35 border border-amber-400/40 text-amber-200 hover:text-amber-100 text-xs font-gotu font-semibold transition-all active:scale-95 shadow-[0_0_15px_rgba(245,158,11,0.15)] cursor-pointer"
-              title="यह रचना साझा करें"
-            >
-              <Share2 className="w-3.5 h-3.5 text-amber-300" />
-              <span>शेयर</span>
-            </button>
-          </div>
+        {/* Top Header Metadata Badges */}
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap min-w-0 mb-4 sm:mb-6 w-full">
+          {data?.category && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu truncate">
+              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+              {CATEGORY_NAMES_HI[data.category] || data.category}
+            </span>
+          )}
+          {verseCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+              <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
+              {verseCount} पद्य
+            </span>
+          )}
+          {chapterCount > 0 && (
+            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
+              <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
+              {chapterCount} अध्याय
+            </span>
+          )}
         </div>
 
         {/* Grand Sacred Title */}
