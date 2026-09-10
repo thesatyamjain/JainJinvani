@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jain-jinvani-v1';
+const CACHE_NAME = 'jain-jinvani-v2';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -30,6 +30,10 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
+  const requestUrl = new URL(event.request.url);
+  // Never cache third-party responses (for example, Google Apps Script).
+  if (requestUrl.origin !== self.location.origin) return;
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       const fetchPromise = fetch(event.request)
@@ -42,7 +46,12 @@ self.addEventListener('fetch', (event) => {
           }
           return networkResponse;
         })
-        .catch(() => cachedResponse);
+        .catch(() => {
+          if (event.request.mode === 'navigate') {
+            return caches.match('/index.html').then((fallback) => fallback || cachedResponse);
+          }
+          return cachedResponse;
+        });
 
       return cachedResponse || fetchPromise;
     })

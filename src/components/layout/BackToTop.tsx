@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useIsModalOpen } from '../../lib';
 
 interface BackToTopProps {
   scrollContainerRef?: React.RefObject<HTMLElement | null>;
@@ -14,6 +15,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
   threshold = 180,
   className = '',
 }) => {
+  const isModalOpen = useIsModalOpen();
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -104,9 +106,10 @@ export const BackToTop: React.FC<BackToTopProps> = ({
 
   return (
     <AnimatePresence>
-      {isVisible && (
+      {isVisible && !isModalOpen && (
         <motion.div
           key="back-to-top-wrapper"
+          data-back-to-top="true"
           initial={{ opacity: 0, scale: 0.75, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.75, y: 16 }}

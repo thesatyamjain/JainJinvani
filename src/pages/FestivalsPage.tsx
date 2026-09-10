@@ -95,50 +95,51 @@ export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
 
       {/* Festival Detail Modal */}
       {selectedFestival && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-hidden">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedFestival(null)}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/85 backdrop-blur-md z-0"
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg z-10"
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-lg z-10 my-auto"
           >
-            <GlassCard className="p-8 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden">
+            <GlassCard className="p-4 sm:p-7 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,680px)] flex flex-col">
               <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-              <div className="flex justify-between items-start mb-6 border-b border-white/10 pb-4 relative z-10">
-                <div className="flex items-center gap-3">
-                  <div className="text-5xl">{getFestivalIcon(selectedFestival.type)}</div>
-                  <div>
-                    <h2 className="text-2xl font-rozha text-white break-words">
+              <div className="flex justify-between items-start mb-4 border-b border-white/10 pb-3 relative z-10 shrink-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="text-3xl sm:text-4xl shrink-0">{getFestivalIcon(selectedFestival.type)}</div>
+                  <div className="min-w-0">
+                    <h2 className="text-xl sm:text-2xl font-rozha text-white truncate">
                       {selectedFestival.nameHindi}
                     </h2>
-                    <p className="text-blue-100/60 font-gotu text-sm">
+                    <p className="text-blue-100/60 font-gotu text-xs sm:text-sm truncate">
                       {selectedFestival.name}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setSelectedFestival(null)}
-                  className="p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors shrink-0"
+                  className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-4 relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0">
                 <div>
                   <div className="text-xs text-amber-300 uppercase tracking-wide mb-1 font-gotu">
                     तिथि (Date)
                   </div>
-                  <div className="text-white font-gotu text-lg">
+                  <div className="text-white font-gotu text-base sm:text-lg">
                     {selectedFestival.date}
                   </div>
                 </div>
@@ -147,17 +148,17 @@ export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
                   <div className="text-xs text-amber-300 uppercase tracking-wide mb-2 font-gotu">
                     विवरण (Description)
                   </div>
-                  <p className="text-blue-100/80 font-gotu leading-relaxed break-words">
+                  <p className="text-blue-100/80 font-gotu leading-relaxed break-words text-sm sm:text-base">
                     {selectedFestival.descriptionHindi}
                   </p>
-                  <p className="text-blue-100/60 font-gotu text-sm mt-2 italic break-words">
+                  <p className="text-blue-100/60 font-gotu text-xs sm:text-sm mt-2 italic break-words">
                     {selectedFestival.description}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/10">
-                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-blue-200 text-sm capitalize">
-                    <Sparkles className="w-3 h-3" />
+                <div className="pt-3 border-t border-white/10">
+                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-blue-200 text-xs sm:text-sm capitalize">
+                    <Sparkles className="w-3 h-3 text-amber-400" />
                     {selectedFestival.type}
                   </span>
                 </div>

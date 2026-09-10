@@ -50,9 +50,19 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
+  build: {
       target: 'esnext',
       outDir: 'build',
+      sourcemap: false,
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ['react', 'react-dom'],
+            motion: ['motion'],
+          },
+        },
+      },
     },
     server: {
       port: 3000,

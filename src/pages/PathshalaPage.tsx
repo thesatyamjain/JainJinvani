@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ChevronLeft, BookOpen, Star, Award, Play, Users } from 'lucide-react';
+import { ChevronLeft, BookOpen, Star, Award, Play, Users, X } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
 
 
@@ -222,91 +222,115 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
 
       {/* Course Detail Modal */}
       {selectedCourse && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setSelectedCourse(null)}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="relative w-full max-w-2xl z-10 my-8"
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            className="relative w-full max-w-xl max-h-[min(90vh,700px)] flex flex-col z-10 bg-slate-900/95 border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
           >
-            <GlassCard className="p-8 border-white/20 bg-[#0b162c] shadow-2xl">
+            {/* Pinned Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-gotu border border-amber-400/30">
+                    {selectedCourse.level}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-gotu border border-blue-400/30">
+                    आयु: {selectedCourse.age}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-gotu border border-emerald-400/30">
+                    {selectedCourse.lessons.length} पाठ
+                  </span>
+                </div>
+                <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white leading-snug break-words">
+                  {selectedCourse.title}
+                </h2>
+                <p className="text-xs text-blue-100/60 font-gotu mt-0.5">{selectedCourse.titleEn}</p>
+              </div>
+
               <button
                 onClick={() => setSelectedCourse(null)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                title="बंद करें"
               >
-                ✕
+                <X className="w-5 h-5" />
               </button>
+            </div>
 
-              <div className="text-6xl mb-4">{selectedCourse.icon}</div>
-
-              <h2 className="text-3xl font-rozha text-white mb-2">
-                {selectedCourse.title}
-              </h2>
-              <p className="text-blue-100/60 font-gotu mb-6">{selectedCourse.titleEn}</p>
-
-              <div className="flex gap-3 mb-6 flex-wrap">
-                <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-sm">
-                  {selectedCourse.level}
-                </span>
-                <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">
-                  {selectedCourse.age}
-                </span>
-                <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-300 text-sm">
-                  {selectedCourse.lessons.length} पाठ
-                </span>
-              </div>
-
-              <p className="text-blue-100/80 font-gotu mb-6">
+            {/* Scrollable Content Body */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-4 min-h-0">
+              <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs sm:text-sm text-blue-100/90 font-gotu leading-relaxed">
                 {selectedCourse.description}
-              </p>
-
-              <div className="space-y-3">
-                <div className="text-sm text-amber-300 uppercase mb-3 font-gotu">पाठ सूची</div>
-                {selectedCourse.lessons.map((lesson: any) => (
-                  <div
-                    key={lesson.id}
-                    className={`p-4 rounded-lg border transition-all ${lesson.completed
-                        ? 'bg-green-500/10 border-green-400/30'
-                        : 'bg-white/5 border-white/10 hover:bg-white/10'
-                      }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className={`p-2 rounded-full ${lesson.completed ? 'bg-green-500/20' : 'bg-white/10'
-                          }`}>
-                          {lesson.completed ? (
-                            <Award className="w-4 h-4 text-green-400" />
-                          ) : (
-                            <Play className="w-4 h-4 text-blue-300" />
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="text-white font-gotu font-medium break-words">
-                            {lesson.name}
-                          </div>
-                          <div className="text-xs text-blue-100/50 font-gotu">
-                            {lesson.duration}
-                          </div>
-                        </div>
-                      </div>
-                      {lesson.completed && (
-                        <Star className="w-5 h-5 text-amber-400 fill-amber-400 shrink-0" />
-                      )}
-                    </div>
-                  </div>
-                ))}
               </div>
 
-              <button className="w-full mt-6 px-6 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-black font-gotu font-bold hover:shadow-lg hover:shadow-amber-500/50 transition-all">
+              <div>
+                <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 font-gotu flex items-center gap-2">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>पाठ्यक्रम सूची ({selectedCourse.lessons.length} पाठ)</span>
+                </div>
+
+                <div className="space-y-2">
+                  {selectedCourse.lessons.map((lesson: any) => (
+                    <div
+                      key={lesson.id}
+                      className={`p-3 rounded-xl border transition-all ${
+                        lesson.completed
+                          ? 'bg-emerald-500/10 border-emerald-400/30'
+                          : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <div
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                              lesson.completed
+                                ? 'bg-emerald-500/20 text-emerald-400'
+                                : 'bg-white/10 text-blue-300'
+                            }`}
+                          >
+                            {lesson.completed ? (
+                              <Award className="w-4 h-4" />
+                            ) : (
+                              <Play className="w-3.5 h-3.5" />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="text-xs sm:text-sm text-white font-gotu font-medium break-words">
+                              {lesson.name}
+                            </div>
+                            <div className="text-[11px] text-blue-100/50 font-gotu">
+                              अवधि: {lesson.duration}
+                            </div>
+                          </div>
+                        </div>
+                        {lesson.completed && (
+                          <Star className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Pinned Action Footer */}
+            <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 shrink-0">
+              <button
+                onClick={() => setSelectedCourse(null)}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+              >
                 कोर्स शुरू करें
               </button>
-            </GlassCard>
+            </div>
           </motion.div>
         </div>
       )}

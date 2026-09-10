@@ -201,21 +201,21 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
 
       {/* Image Viewer Modal */}
       {selectedImage && selectedCategory && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-md overflow-hidden">
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors z-20 cursor-pointer"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           {/* Previous Button */}
           {currentIndex > 0 && (
             <button
               onClick={handlePrev}
-              className="absolute left-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-10"
+              className="absolute left-2 sm:left-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all z-20 cursor-pointer"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           )}
 
@@ -223,29 +223,29 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
           {currentIndex < selectedCategory.images.length - 1 && (
             <button
               onClick={handleNext}
-              className="absolute right-4 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all z-10"
+              className="absolute right-2 sm:right-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all z-20 cursor-pointer"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           )}
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-4xl"
+            className="w-full max-w-4xl max-h-[min(88vh,680px)] flex flex-col items-center justify-center p-2"
           >
-            <div className="aspect-video rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center mb-4 text-8xl">
+            <div className="w-full max-w-xl aspect-video rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center mb-4 text-6xl sm:text-8xl shadow-2xl">
               {selectedImage.placeholder}
             </div>
 
             <div className="text-center">
-              <h3 className="text-2xl font-rozha text-white mb-1">
+              <h3 className="text-xl sm:text-2xl font-rozha text-white mb-1">
                 {selectedImage.title}
               </h3>
-              <p className="text-blue-100/60 font-gotu">
+              <p className="text-blue-100/60 font-gotu text-xs sm:text-sm">
                 {selectedImage.location}
               </p>
-              <p className="text-sm text-blue-100/40 font-gotu mt-2">
+              <p className="text-xs text-blue-100/40 font-gotu mt-1.5">
                 {currentIndex + 1} / {selectedCategory.images.length}
               </p>
             </div>

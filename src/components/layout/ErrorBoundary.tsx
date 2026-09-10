@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
               पेज लोड करने में त्रुटि हुई
             </h2>
             <p className="text-xs text-slate-300 font-gotu mb-4">
-              {this.state.error?.message || 'अज्ञात त्रुटि उत्पन्न हुई।'}
+              कृपया मुख्य पृष्ठ पर लौटकर पुनः प्रयास करें। समस्या बनी रहे तो हमें बताएं।
             </p>
             <button
               onClick={this.handleReset}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ChevronLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles } from 'lucide-react';
+import { ChevronLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles, X } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
 
 
@@ -211,68 +211,73 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
 
       {/* Detail Modal */}
       {selectedTopic && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-hidden">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setSelectedTopic(null)}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/85 backdrop-blur-md z-0"
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="relative w-full max-w-2xl z-10 my-8"
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-2xl z-10 my-auto"
           >
-            <GlassCard className="p-8 border-white/20 bg-[#0b162c] shadow-2xl">
+            <GlassCard className="p-4 sm:p-8 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,700px)] flex flex-col">
               <button
                 onClick={() => setSelectedTopic(null)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer z-10"
               >
-                ✕
+                <X className="w-5 h-5" />
               </button>
 
-              <div className="text-6xl mb-4 text-center">{selectedTopic.icon}</div>
+              <div className="flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0 pt-2">
+                <div className="text-5xl sm:text-6xl mb-3 text-center">{selectedTopic.icon}</div>
 
-              <h2 className="text-3xl font-rozha text-white mb-2 text-center">
-                {selectedTopic.title}
-              </h2>
-              <p className="text-blue-100/60 font-gotu mb-6 text-center">{selectedTopic.titleEn}</p>
+                <h2 className="text-2xl sm:text-3xl font-rozha text-white mb-1 text-center">
+                  {selectedTopic.title}
+                </h2>
+                <p className="text-blue-100/60 font-gotu mb-5 text-center text-xs sm:text-sm">{selectedTopic.titleEn}</p>
 
-              <div className="space-y-6">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <BookOpen className="w-4 h-4 text-amber-400" />
-                    <div className="text-sm text-amber-300 uppercase font-gotu">परिचय</div>
+                <div className="space-y-5">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <BookOpen className="w-4 h-4 text-amber-400" />
+                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">परिचय</div>
+                    </div>
+                    <p className="text-blue-100/80 font-gotu leading-relaxed text-xs sm:text-sm">
+                      {selectedTopic.content.intro}
+                    </p>
                   </div>
-                  <p className="text-blue-100/80 font-gotu leading-relaxed">
-                    {selectedTopic.content.intro}
-                  </p>
-                </div>
 
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
-                    <div className="text-sm text-amber-300 uppercase font-gotu">मुख्य सिद्धांत</div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-4 h-4 text-amber-400" />
+                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">मुख्य सिद्धांत</div>
+                    </div>
+                    <ul className="space-y-2">
+                      {selectedTopic.content.principles.map((principle: string, idx: number) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-blue-100/80 font-gotu text-xs sm:text-sm">
+                          <span className="text-amber-400 mt-0.5">✦</span>
+                          <span>{principle}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="space-y-2">
-                    {selectedTopic.content.principles.map((principle: string, idx: number) => (
-                      <li key={idx} className="flex items-start gap-3 text-blue-100/80 font-gotu">
-                        <span className="text-amber-400 mt-1">✦</span>
-                        <span>{principle}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
-                <div className="pt-4 border-t border-white/10">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Heart className="w-4 h-4 text-rose-400" />
-                    <div className="text-sm text-amber-300 uppercase font-gotu">व्यावहारिक अभ्यास</div>
+                  <div className="pt-3 border-t border-white/10">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <Heart className="w-4 h-4 text-rose-400" />
+                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">व्यावहारिक अभ्यास</div>
+                    </div>
+                    <p className="text-blue-100/80 font-gotu leading-relaxed text-xs sm:text-sm">
+                      {selectedTopic.content.practice}
+                    </p>
                   </div>
-                  <p className="text-blue-100/80 font-gotu leading-relaxed">
-                    {selectedTopic.content.practice}
-                  </p>
                 </div>
               </div>
             </GlassCard>

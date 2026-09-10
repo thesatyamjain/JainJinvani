@@ -13,9 +13,11 @@ import {
   Moon,
   Sun,
   ShieldCheck,
+  X,
 } from 'lucide-react';
 import { getDailyNiyamaState, toggleNiyamaItem } from '../lib/storage';
 import { DailyNiyamaState, NiyamaItem } from '../types';
+import { useModalBackHandler } from '../lib';
 
 interface NiyamaPageProps {
   onBack: () => void;
@@ -92,6 +94,9 @@ const NIYAMAS: (NiyamaItem & { icon: any; color: string })[] = [
 export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
   const [state, setState] = useState<DailyNiyamaState>(getDailyNiyamaState());
   const [showAllCompleted, setShowAllCompleted] = useState(false);
+
+  // Close celebration modal on mobile back navigation and hide floating navigation
+  useModalBackHandler(showAllCompleted, () => setShowAllCompleted(false), 'niyama-completed');
 
   const completedCount = state.completedIds.length;
   const totalCount = NIYAMAS.length;
@@ -256,32 +261,48 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 15 }}
+              initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 15 }}
-              className="bg-slate-900 border border-emerald-400/40 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative overflow-hidden"
+              exit={{ scale: 0.95, y: 15 }}
+              className="bg-slate-900/95 border border-emerald-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,600px)] flex flex-col text-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-4 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                <Award className="w-8 h-8" />
-              </div>
-
-              <h3 className="text-2xl font-notoserif font-bold text-emerald-200 mb-2">
-                अनुमोदना! समस्त नियम पूर्ण
-              </h3>
-              <p className="text-sm font-gotu text-slate-200 leading-relaxed mb-6">
-                आज के सभी ८ पावन श्रावक नियमों का पालन पूर्ण हुआ। आपकी इस धर्म साधना की बारंबार
-                अनुमोदना!
-              </p>
-
               <button
                 onClick={() => setShowAllCompleted(false)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(16,185,129,0.3)] cursor-pointer"
+                className="absolute top-3.5 right-3.5 w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 z-10"
+                title="बंद करें"
               >
-                जय जिनेन्द्र
+                <X className="w-4 h-4" />
               </button>
+
+              <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 py-1">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                  <Award className="w-7 h-7 sm:w-8 sm:h-8" />
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-notoserif font-bold text-emerald-200 mb-2 leading-snug">
+                  अनुमोदना! समस्त नियम पूर्ण
+                </h3>
+                <p className="text-xs sm:text-sm font-gotu text-slate-200 leading-relaxed mb-4">
+                  आज के सभी ८ पावन श्रावक नियमों का पालन पूर्ण हुआ। आपकी इस धर्म साधना की बारंबार
+                  अनुमोदना!
+                </p>
+
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-gotu mb-2">
+                  "सम्यग्दर्शनज्ञानचारित्राणि मोक्षमार्गः"
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-white/10 shrink-0">
+                <button
+                  onClick={() => setShowAllCompleted(false)}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(16,185,129,0.3)] cursor-pointer"
+                >
+                  जय जिनेन्द्र
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

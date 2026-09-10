@@ -233,4 +233,13 @@
   width: 0px !important;
 }
 
-
+/* Instantly hide all floating navigation, scrubber rails, and back-to-top buttons whenever any popup/modal is open */
+body.has-modal-open [data-floating-dock],
+body.has-modal-open [data-back-to-top],
+body.has-modal-open [data-scroll-scrubber] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(24px) !important;
+  transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease !important;
+}

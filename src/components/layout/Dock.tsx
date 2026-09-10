@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
 import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Play, Pause } from 'lucide-react';
+import { useIsModalOpen } from '../../lib';
 
 interface DockProps {
   activePage: string;
@@ -17,6 +18,7 @@ export const Dock = ({
   onBack,
   scrollContainerRef,
 }: DockProps) => {
+  const isModalOpen = useIsModalOpen();
   const mouseX = useMotionValue(Infinity);
   const [isDockHidden, setIsDockHidden] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -266,15 +268,18 @@ export const Dock = ({
 
   return (
     <div
+      data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none pointer-events-none"
+      className={`fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none pointer-events-none transition-all duration-200 ${
+        isModalOpen ? 'opacity-0 pointer-events-none invisible translate-y-8' : ''
+      }`}
     >
       <motion.div
         layout
         animate={{
-          y: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 85 : 0,
-          opacity: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0 : 1,
+          y: (isDockHidden || isModalOpen) && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 85 : 0,
+          opacity: isModalOpen ? 0 : (isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0 : 1),
           scale: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0.94 : 1,
         }}
         transition={{

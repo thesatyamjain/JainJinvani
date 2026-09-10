@@ -10,12 +10,15 @@ import {
   Sparkles,
   Scroll,
   Check,
+  FileEdit,
 } from 'lucide-react';
 import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
 import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
+import { FeedbackModal } from '../components/features/FeedbackModal';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -41,7 +44,7 @@ const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) 
                    [&_.steps-grid]:grid [&_.steps-grid]:gap-6 [&_.steps-grid]:md:grid-cols-1
                    [&_.step-card]:bg-slate-900/60 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-white/10
                    [&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
       />
     </GlassCard>
   );
@@ -270,7 +273,7 @@ const UnifiedVerseView = ({
       {item.introHtml && (
         <div
           className="book-content font-gotu text-slate-200 mb-8"
-          dangerouslySetInnerHTML={{ __html: item.introHtml }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.introHtml) }}
         />
       )}
       {verses.map((verse: any, idx: number) => {
@@ -497,6 +500,7 @@ export const ContentViewer = ({
   const [isFav, setIsFav] = React.useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = React.useState(false);
   const [scrollSpeed, setScrollSpeed] = React.useState(1);
+  const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
   const autoScrollRafRef = React.useRef<number | null>(null);
 
@@ -796,6 +800,15 @@ export const ContentViewer = ({
               {chapterCount} अध्याय
             </span>
           )}
+          <button
+            type="button"
+            onClick={() => setShowFeedbackModal(true)}
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-xs font-gotu backdrop-blur-md transition-all cursor-pointer active:scale-95"
+            title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
+          >
+            <FileEdit className="w-3 h-3 text-amber-400/80 shrink-0" />
+            <span>सुधार बताएं</span>
+          </button>
         </div>
 
         {/* Grand Sacred Title */}
@@ -870,6 +883,23 @@ export const ContentViewer = ({
             ) : (
               <div className="text-center text-slate-400 py-16">प्रारूप समर्थित नहीं है</div>
             )}
+
+            {/* Reader Footer Contribution Prompt */}
+            <div className="pt-8 pb-4 text-center">
+              <div className="inline-flex flex-col sm:flex-row items-center gap-3 p-4 rounded-2xl bg-[#0c1222]/80 border border-amber-500/25 max-w-md mx-auto shadow-lg">
+                <div className="text-left flex-1 min-w-0">
+                  <div className="text-xs font-bold text-amber-200 font-notoserif">क्या इस पाठ में कोई अशुद्धि मिली?</div>
+                  <div className="text-[11px] text-slate-300/80 font-gotu">शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowFeedbackModal(true)}
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-semibold shrink-0 cursor-pointer transition-colors"
+                >
+                  सुधार बताएं →
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[50vh] text-center py-20">
@@ -889,6 +919,13 @@ export const ContentViewer = ({
           </div>
         )}
       </motion.div>
+
+      {/* Feedback Modal pre-filled with this scripture's name */}
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={() => setShowFeedbackModal(false)}
+        defaultScriptureName={data?.title || title || ''}
+      />
     </div>
   );
 };

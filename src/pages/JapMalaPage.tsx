@@ -9,10 +9,12 @@ import {
   VolumeX,
   Smartphone,
   Award,
+  X,
 } from 'lucide-react';
 import { LotusSymbol } from '../components/features/JainSymbols';
 import { getJapMalaState, saveJapMalaState } from '../lib/storage';
 import { JapMalaState } from '../types';
+import { useModalBackHandler } from '../lib';
 
 interface JapMalaPageProps {
   onBack: () => void;
@@ -102,6 +104,9 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
   const [vibrationEnabled, setVibrationEnabled] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
   const [tapEffect, setTapEffect] = useState(false);
+
+  // Close celebration modal on mobile back navigation and hide floating navigation
+  useModalBackHandler(showCelebration, () => setShowCelebration(false), 'jap-celebration');
 
   const activeMantra =
     MANTRAS.find((m) => m.id === stats.selectedMantraId) || MANTRAS[0];
@@ -341,45 +346,57 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 15 }}
+              initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 15 }}
-              className="bg-slate-900 border border-amber-400/40 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-[0_0_50px_rgba(245,158,11,0.3)] relative overflow-hidden"
+              exit={{ scale: 0.95, y: 15 }}
+              className="bg-slate-900/95 border border-amber-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,620px)] flex flex-col text-center shadow-[0_0_50px_rgba(245,158,11,0.3)] relative overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center mx-auto mb-4 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.4)]">
-                <Award className="w-8 h-8" />
-              </div>
-
-              <h3 className="text-2xl font-notoserif font-bold text-amber-200 mb-2">
-                माला पूर्ण हुई!
-              </h3>
-              <p className="text-sm font-gotu text-slate-200 leading-relaxed mb-6">
-                १०८ बार <span className="text-amber-300 font-semibold">{activeMantra.name}</span> का
-                पावन जाप सफलतापूर्वक पूर्ण हुआ।
-              </p>
-
-              <div className="grid grid-cols-2 gap-3 mb-6 bg-slate-950/60 p-3 rounded-2xl border border-white/5">
-                <div>
-                  <p className="text-[11px] text-slate-400 font-gotu">आज की कुल मालाएं</p>
-                  <p className="text-xl font-bold font-mono text-amber-300">{stats.todayCount}</p>
-                </div>
-                <div>
-                  <p className="text-[11px] text-slate-400 font-gotu">जीवनपर्यंत मालाएं</p>
-                  <p className="text-xl font-bold font-mono text-purple-300">
-                    {stats.lifetimeCount}
-                  </p>
-                </div>
-              </div>
-
               <button
                 onClick={() => setShowCelebration(false)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+                className="absolute top-3.5 right-3.5 w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 z-10"
+                title="बंद करें"
               >
-                अगली माला प्रारम्भ करें
+                <X className="w-4 h-4" />
               </button>
+
+              <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 py-1">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                  <Award className="w-7 h-7 sm:w-8 sm:h-8" />
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-notoserif font-bold text-amber-200 mb-2 leading-snug">
+                  माला पूर्ण हुई!
+                </h3>
+                <p className="text-xs sm:text-sm font-gotu text-slate-200 leading-relaxed mb-5">
+                  १०८ बार <span className="text-amber-300 font-semibold">{activeMantra.name}</span> का
+                  पावन जाप सफलतापूर्वक पूर्ण हुआ।
+                </p>
+
+                <div className="grid grid-cols-2 gap-3 mb-2 bg-slate-950/60 p-3 rounded-2xl border border-white/5">
+                  <div>
+                    <p className="text-[11px] text-slate-400 font-gotu">आज की कुल मालाएं</p>
+                    <p className="text-lg sm:text-xl font-bold font-mono text-amber-300">{stats.todayCount}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-slate-400 font-gotu">जीवनपर्यंत मालाएं</p>
+                    <p className="text-lg sm:text-xl font-bold font-mono text-purple-300">
+                      {stats.lifetimeCount}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-white/10 shrink-0">
+                <button
+                  onClick={() => setShowCelebration(false)}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+                >
+                  अगली माला प्रारम्भ करें
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

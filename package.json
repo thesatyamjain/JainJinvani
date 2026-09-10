@@ -61,8 +61,10 @@
             "vite": "6.3.5"
       },
       "scripts": {
-            "dev": "vite",
-            "sitemap": "node scripts/generate_sitemap.js",
+      "dev": "vite",
+      "typecheck": "tsc --noEmit",
+      "check": "npm run typecheck && npm run build",
+      "sitemap": "node scripts/generate_sitemap.js",
             "build": "node scripts/generate_sitemap.js && vite build"
       }
 }

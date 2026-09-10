@@ -510,106 +510,122 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
       {/* Detail Modal */}
       <AnimatePresence>
         {selectedPlace && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedPlace(null)}
+              className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
+            />
+
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-slate-900/95 border border-cyan-400/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative custom-scrollbar"
+              className="relative w-full max-w-2xl max-h-[min(90vh,720px)] flex flex-col bg-slate-900/95 border border-cyan-400/40 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-10"
             >
-              <button
-                onClick={() => setSelectedPlace(null)}
-                className="absolute right-5 top-5 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="mb-4">
-                <span
-                  className={`text-xs font-bold font-gotu px-3 py-1 rounded-full border inline-block mb-2 ${
-                    selectedPlace.category === 'सिद्ध क्षेत्र'
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                      : selectedPlace.category === 'कल्याणक क्षेत्र'
-                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
-                      : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
-                  }`}
-                >
-                  {selectedPlace.category}
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-1">
-                  {selectedPlace.nameHindi}
-                </h2>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-cyan-300 font-gotu">
-                  <MapPin className="w-4 h-4 shrink-0" />
-                  <span>
-                    {selectedPlace.location}, {selectedPlace.state}
+              {/* Pinned Modal Header */}
+              <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
+                <div className="min-w-0 flex-1">
+                  <span
+                    className={`text-[11px] font-bold font-gotu px-2.5 py-0.5 rounded-full border inline-block mb-1.5 ${
+                      selectedPlace.category === 'सिद्ध क्षेत्र'
+                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                        : selectedPlace.category === 'कल्याणक क्षेत्र'
+                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
+                        : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                    }`}
+                  >
+                    {selectedPlace.category}
                   </span>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 mb-6">
-                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1 font-gotu">
-                  पावन महात्म्य व विशेषता:
-                </div>
-                <div className="text-sm font-gotu text-cyan-100 font-medium leading-relaxed">
-                  {selectedPlace.significance}
-                </div>
-              </div>
-
-              <div className="space-y-5 text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed mb-6">
-                <div>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
-                    इतिहास एवं परिचय
-                  </h4>
-                  <p className="bg-white/5 p-4 rounded-2xl border border-white/5">
-                    {selectedPlace.description}
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
-                    आवागमन एवं मार्ग
-                  </h4>
-                  <div className="bg-white/5 p-4 rounded-2xl border border-white/5 space-y-2">
-                    <div className="flex items-start gap-2.5">
-                      <Train className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                      <span>
-                        <strong>निकटतम रेलवे:</strong> {selectedPlace.railway}
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <Plane className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                      <span>
-                        <strong>निकटतम एयरपोर्ट:</strong> {selectedPlace.airport}
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <Navigation className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                      <span>
-                        <strong>पहुँचने का मार्ग:</strong> {selectedPlace.howToReach}
-                      </span>
-                    </div>
+                  <h2 className="text-lg sm:text-2xl font-notoserif font-bold text-white leading-snug break-words">
+                    {selectedPlace.nameHindi}
+                  </h2>
+                  <div className="flex items-center gap-1.5 text-xs text-cyan-300 font-gotu mt-0.5">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span>
+                      {selectedPlace.location}, {selectedPlace.state}
+                    </span>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
-                    धर्मशाला एवं भोजनशाला सुविधा
-                  </h4>
-                  <p className="bg-white/5 p-4 rounded-2xl border border-white/5 text-amber-200/90">
-                    {selectedPlace.dharamshala}
-                  </p>
+                <button
+                  onClick={() => setSelectedPlace(null)}
+                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                  title="बंद करें"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Scrollable Content Body */}
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 space-y-4 min-h-0">
+                <div className="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+                  <div className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1 font-gotu">
+                    पावन महात्म्य व विशेषता:
+                  </div>
+                  <div className="text-xs sm:text-sm font-gotu text-cyan-100 font-medium leading-relaxed">
+                    {selectedPlace.significance}
+                  </div>
+                </div>
+
+                <div className="space-y-4 text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed">
+                  <div>
+                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
+                      इतिहास एवं परिचय
+                    </h4>
+                    <p className="bg-white/5 p-3.5 rounded-xl border border-white/5">
+                      {selectedPlace.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
+                      आवागमन एवं मार्ग
+                    </h4>
+                    <div className="bg-white/5 p-3.5 rounded-xl border border-white/5 space-y-2.5">
+                      <div className="flex items-start gap-2.5">
+                        <Train className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-slate-100">निकटतम रेलवे:</strong> {selectedPlace.railway}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <Plane className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-slate-100">निकटतम एयरपोर्ट:</strong> {selectedPlace.airport}
+                        </span>
+                      </div>
+                      <div className="flex items-start gap-2.5">
+                        <Navigation className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                        <span>
+                          <strong className="text-slate-100">पहुँचने का मार्ग:</strong> {selectedPlace.howToReach}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
+                      धर्मशाला एवं भोजनशाला सुविधा
+                    </h4>
+                    <p className="bg-white/5 p-3.5 rounded-xl border border-white/5 text-amber-200/90">
+                      {selectedPlace.dharamshala}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              {/* Pinned Action Footer */}
+              <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     selectedPlace.mapQuery
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-gotu font-bold text-xs transition-colors shadow-lg"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-gotu font-bold text-xs transition-colors shadow-lg"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>गूगल मैप्स पर देखें</span>
@@ -618,7 +634,7 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
 
                 <button
                   onClick={() => setSelectedPlace(null)}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-gotu text-xs transition-colors cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-gotu text-xs transition-colors cursor-pointer"
                 >
                   बंद करें
                 </button>

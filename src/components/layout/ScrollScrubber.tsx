@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useIsModalOpen } from '../../lib';
 
 interface ScrollScrubberProps {
   scrollContainerRef?: React.RefObject<HTMLElement | null>;
 }
 
 export const ScrollScrubber: React.FC<ScrollScrubberProps> = ({ scrollContainerRef }) => {
+  const isModalOpen = useIsModalOpen();
   const [isVisible, setIsVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [thumbTop, setThumbTop] = useState(0);
@@ -185,9 +187,10 @@ export const ScrollScrubber: React.FC<ScrollScrubberProps> = ({ scrollContainerR
   return (
     <div
       ref={trackRef}
+      data-scroll-scrubber="true"
       style={{ touchAction: 'none' }}
       className={`fixed right-0 top-14 bottom-24 z-40 w-7 select-none transition-opacity duration-150 ${
-        isVisible || isDragging ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        (isVisible || isDragging) && !isModalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
       {/* Interactive Touch Grab Area Rail */}
