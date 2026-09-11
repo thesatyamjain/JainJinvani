@@ -167,10 +167,9 @@ const verifyPassword = async (inputPass: string): Promise<boolean> => {
   }
 
   // 2. Check Vite environment variable if configured (.env)
-  const envPass = (import.meta as any).env?.VITE_ADMIN_PASSWORD;
-  if (envPass) {
-    const envHash = await sha256Hex(String(envPass).trim());
-    if (inputHash === envHash) return true;
+  const envPassHash = (import.meta as any).env?.VITE_ADMIN_PASSWORD_HASH;
+  if (envPassHash) {
+    if (inputHash === String(envPassHash).trim().toLowerCase()) return true;
   }
 
   // 3. Check single master default password
@@ -3318,10 +3317,10 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                     प्रोजेक्ट के मुख्य फोल्डर में <code className="text-amber-200">.env</code> फ़ाइल में पर्यावरण चर (Environment Variable) जोड़ें:
                   </p>
                   <div className="bg-slate-900 border border-white/10 p-2 rounded-xl flex items-center justify-between gap-1 text-[11px] font-mono text-cyan-200">
-                    <span className="truncate">VITE_ADMIN_PASSWORD="आपका_पासवर्ड"</span>
+                    <span className="truncate">VITE_ADMIN_PASSWORD_HASH="आपका_हैश"</span>
                     <button
                       type="button"
-                      onClick={() => copyGuideText('VITE_ADMIN_PASSWORD="आपका_मजबूत_पासवर्ड"', 'env_code', '.env सिंटैक्स कॉपी हो गया!')}
+                      onClick={() => copyGuideText('VITE_ADMIN_PASSWORD_HASH="आपका_मजबूत_पासवर्ड_हैश"', 'env_code', '.env सिंटैक्स कॉपी हो गया!')}
                       className="p-1 text-slate-400 hover:text-cyan-300"
                       title="कॉपी करें"
                     >
