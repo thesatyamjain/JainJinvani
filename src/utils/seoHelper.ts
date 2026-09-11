@@ -7,7 +7,7 @@ const SITE_NAME = 'जैन जिनवाणी';
 const BASE_URL = 'https://jainjinvani.pages.dev';
 const DEFAULT_TITLE = 'जैन जिनवाणी - Jain Jinvani | आरती, पूजा, स्तोत्र, चालीसा एवं जैन दर्शन';
 const DEFAULT_DESC = 'जैन जिनवाणी (Jain Jinvani) - सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का डिजिटल संग्रह।';
-const DEFAULT_IMAGE = `${BASE_URL}/logo.webp`;
+const DEFAULT_IMAGE = `${BASE_URL}/icons/pwa-512x512.png`;
 
 function setMetaTag(attributeName: 'name' | 'property', attributeValue: string, content: string) {
   if (typeof document === 'undefined') return;

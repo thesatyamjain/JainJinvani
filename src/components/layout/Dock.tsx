@@ -4,6 +4,24 @@ import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, P
 import { useIsModalOpen } from '../../lib';
 import { triggerHaptic } from '../../utils/pwaManager';
 
+// FontAwesome Duotone Solid text-size Icon (https://fontawesome.com/icons/duotone/solid/text-size)
+export const TextSizeDuotoneIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
+  <svg
+    viewBox="0 0 360 280"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    {/* Duotone Primary: Large T */}
+    <path d="M 21.0 0.5 L 178.5 0.0 L 191.5 6.0 L 199.0 17.5 L 200.0 62.5 L 197.0 70.5 L 186.5 79.0 L 173.5 79.0 L 165.0 73.5 L 160.0 62.5 L 159.5 40.0 L 120.0 40.5 L 120.0 239.5 L 146.5 241.0 L 157.0 249.5 L 160.0 257.5 L 159.0 266.5 L 157.0 270.5 L 146.5 279.0 L 57.5 280.0 L 46.5 275.0 L 41.0 266.5 L 41.0 253.5 L 46.5 245.0 L 57.5 240.0 L 80.0 239.5 L 80.0 40.5 L 40.5 40.0 L 40.0 62.5 L 37.0 70.5 L 30.5 77.0 L 22.5 80.0 L 9.5 77.0 L 3.0 70.5 L 0.0 62.5 L 0.0 21.5 L 6.0 8.5 L 11.5 4.0 L 20.5 1.0 Z" />
+    {/* Duotone Secondary: Small T (55% opacity) */}
+    <path
+      d="M 180.0 120.5 L 339.5 120.0 L 347.5 123.0 L 355.0 129.5 L 360.0 140.5 L 360.0 184.5 L 356.0 192.5 L 347.5 199.0 L 335.5 200.0 L 324.0 192.5 L 320.0 184.5 L 319.5 160.0 L 280.0 160.5 L 280.0 239.5 L 304.5 240.0 L 316.0 247.5 L 320.0 255.5 L 320.0 264.5 L 312.5 276.0 L 304.5 280.0 L 215.5 280.0 L 204.0 272.5 L 200.0 264.5 L 200.0 255.5 L 207.5 244.0 L 215.5 240.0 L 240.0 239.5 L 240.0 160.5 L 200.5 160.0 L 200.0 184.5 L 196.0 192.5 L 184.5 200.0 L 175.5 200.0 L 170.5 198.0 L 164.0 192.5 L 160.0 184.5 L 160.0 140.5 L 165.0 129.5 L 172.5 123.0 L 179.5 121.0 Z"
+      opacity="0.55"
+    />
+  </svg>
+);
+
 interface DockProps {
   activePage: string;
   onNavigate: (page: string, params?: any) => void;
@@ -391,10 +409,10 @@ export const Dock = ({
                   onClick={handleBackClick}
                 />
 
-                <div className="h-8 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 mx-0.5" />
+                <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
 
                 {/* 2. Expanding Font Sizing Control (Aa -> [A- 18 A+ ✓]) */}
-                <div id="dock-font-controls" className="relative flex flex-col items-center self-end mb-2.5">
+                <div id="dock-font-controls" className="relative flex flex-col items-center">
                   <AnimatePresence mode="wait">
                     {isFontExpanded ? (
                       <motion.div
@@ -404,14 +422,14 @@ export const Dock = ({
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                        className="flex items-center bg-slate-900/90 border border-amber-400/40 rounded-xl md:rounded-2xl p-0.5 sm:p-1 backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+                        className="flex items-center bg-[#081225]/95 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_0_20px_rgba(245,158,11,0.25)] mb-2.5 h-[39px] sm:h-[42px]"
                       >
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             handleAdjustFontSize(-2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl active:scale-95 transition-all"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg active:scale-95 transition-all"
                           title="अक्षर छोटा करें (A-)"
                         >
                           A-
@@ -421,8 +439,8 @@ export const Dock = ({
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="px-1.5 py-0.5 rounded text-[11px] sm:text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
-                          title="क्लिक करके बंद करें (Aa)"
+                          className="px-2 py-0.5 rounded text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
+                          title="क्लिक करके बंद करें"
                         >
                           {readerState.fontSize}
                         </button>
@@ -431,18 +449,19 @@ export const Dock = ({
                             e.stopPropagation();
                             handleAdjustFontSize(2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg sm:rounded-xl active:scale-95 transition-all"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg active:scale-95 transition-all"
                           title="अक्षर बड़ा करें (A+)"
                         >
                           A+
                         </button>
+                        <div className="h-4 w-[1px] bg-white/15 mx-1" />
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center text-amber-400/80 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs ml-0.5 border-l border-white/10 pl-1 transition-all"
-                          title="संपन्न (Aa पर वापस लौटें)"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs transition-all active:scale-95"
+                          title="संपन्न"
                         >
                           ✓
                         </button>
@@ -452,15 +471,7 @@ export const Dock = ({
                         key="font-collapsed-icon"
                         mouseX={mouseX}
                         icon={
-                          <div className="flex flex-col items-center justify-center font-notoserif font-bold text-sm leading-none select-none">
-                            <div className="flex items-baseline gap-0.5">
-                              <span className="text-amber-200 text-sm md:text-base">A</span>
-                              <span className="text-amber-400 text-[10px] md:text-xs">a</span>
-                            </div>
-                            <span className="text-[8px] font-mono text-slate-400 font-normal mt-0.5">
-                              {readerState.fontSize}px
-                            </span>
-                          </div>
+                          <TextSizeDuotoneIcon className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                         }
                         label="अक्षर आकार"
                         subLabel={`Size ${readerState.fontSize}px`}
@@ -627,7 +638,9 @@ export const Dock = ({
 
         {/* 2-Page Pagination Dots INSIDE Dock when in Reader Mode */}
         {isReaderMode && (
-          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-1 px-3 cursor-pointer">
+          <div className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-1 px-3 cursor-pointer transition-opacity duration-200 ${
+            isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}>
             <button
               onClick={(e) => {
                 e.stopPropagation();

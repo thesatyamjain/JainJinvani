@@ -4,6 +4,8 @@ import { resolveMetadata } from './metaResolver';
 const BOT_USER_AGENTS = [
   'whatsapp',
   'facebookexternalhit',
+  'facebot',
+  'meta-externalagent',
   'twitterbot',
   'telegrambot',
   'slackbot',
@@ -14,6 +16,8 @@ const BOT_USER_AGENTS = [
   'applebot',
   'skypeuripreview',
   'pinterest',
+  'threads',
+  'redditbot',
 ];
 
 function isBot(userAgent: string | null): boolean {
@@ -83,6 +87,20 @@ export async function onRequest(context: {
         el.setAttribute('content', meta.url);
       },
     })
+    .on('meta[property="og:image"]', {
+      element(el) {
+        if (meta.image) {
+          el.setAttribute('content', meta.image);
+        }
+      },
+    })
+    .on('meta[property="og:image:secure_url"]', {
+      element(el) {
+        if (meta.image) {
+          el.setAttribute('content', meta.image);
+        }
+      },
+    })
     .on('meta[name="twitter:title"]', {
       element(el) {
         el.setAttribute('content', meta.title);
@@ -91,6 +109,13 @@ export async function onRequest(context: {
     .on('meta[name="twitter:description"]', {
       element(el) {
         el.setAttribute('content', meta.description);
+      },
+    })
+    .on('meta[name="twitter:image"]', {
+      element(el) {
+        if (meta.image) {
+          el.setAttribute('content', meta.image);
+        }
       },
     })
     .on('link[rel="canonical"]', {

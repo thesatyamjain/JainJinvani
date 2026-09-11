@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch } from 'lucide-react';
+import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch, Database } from 'lucide-react';
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import { FeedbackModal } from '../components/features/FeedbackModal';
 import { AagamAiModal } from '../components/features/AagamAiModal';
 import { downloadTempleMode, isTempleModeCachedLocally, checkTempleModeStatus } from '../utils/templeMode';
-import { isStandaloneMode, triggerHaptic } from '../utils/pwaManager';
+import { isStandaloneMode, triggerHaptic, checkStorageEstimate, requestPersistentStorage } from '../utils/pwaManager';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -22,9 +22,17 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const [isTempleModeDownloading, setIsTempleModeDownloading] = useState(false);
   const [templeModeProgress, setTempleModeProgress] = useState(0);
   const [isTempleModeReady, setIsTempleModeReady] = useState(isTempleModeCachedLocally());
+  const [storageInfo, setStorageInfo] = useState<{
+    usageMB: number;
+    quotaMB: number;
+    percent: number;
+    isPersisted: boolean;
+  } | null>(null);
+  const [isRequestingPersist, setIsRequestingPersist] = useState(false);
 
   useEffect(() => {
     checkTempleModeStatus().then((ready) => setIsTempleModeReady(ready));
+    checkStorageEstimate().then((info) => setStorageInfo(info));
   }, []);
 
   const handleDownloadTempleMode = async () => {
@@ -33,6 +41,16 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
     await downloadTempleMode((pct) => setTempleModeProgress(pct));
     setIsTempleModeDownloading(false);
     setIsTempleModeReady(true);
+    checkStorageEstimate().then((info) => setStorageInfo(info));
+  };
+
+  const handleRequestPersist = async () => {
+    setIsRequestingPersist(true);
+    triggerHaptic('medium');
+    await requestPersistentStorage();
+    const info = await checkStorageEstimate();
+    setStorageInfo(info);
+    setIsRequestingPersist(false);
   };
 
   // Close modal on mobile back navigation
@@ -268,14 +286,53 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               </button>
             )}
           </div>
+
+          {/* Storage Quota & Persistent Storage Dashboard */}
+          {storageInfo && (
+            <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <Database className="w-4 h-4 text-emerald-400" />
+                  <span className="text-white font-bold font-gotu text-sm">ऑफ़लाइन डेटा व स्टोरेज</span>
+                </div>
+                <span className="text-[11px] font-mono font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-400/20">
+                  {storageInfo.usageMB > 0 ? `${storageInfo.usageMB} MB सुरक्षित` : 'कैश सक्रिय'}
+                </span>
+              </div>
+
+              <div className="text-[11px] text-slate-300 font-gotu leading-relaxed">
+                {storageInfo.isPersisted ? (
+                  <div className="flex items-center gap-1.5 text-emerald-400 font-medium pt-1">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span>स्थायी सुरक्षा सक्षम • कम मेमोरी होने पर भी OS डेटा नहीं हटाएगा</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2 pt-1">
+                    <span className="text-slate-300/90">
+                      सभी स्तोत्र व ऑडियो फ़ोन में सुरक्षित हैं। डिस्क स्पेस कम होने पर फ़ोन द्वारा डेटा हटाए जाने से बचाने के लिए स्थायी सुरक्षा ऑन करें।
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleRequestPersist}
+                      disabled={isRequestingPersist}
+                      className="self-start py-1.5 px-3 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-gotu text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-98"
+                    >
+                      <Shield className="w-3.5 h-3.5" />
+                      {isRequestingPersist ? 'अनुरोध भेजा जा रहा है...' : 'स्थायी सुरक्षा (Persistent Storage) सक्रिय करें'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )
     },
     {
-      id: 'git-admin',
-      label: 'गिट व्यवस्थापक',
-      icon: GitBranch,
-      desc: 'स्तोत्र, ग्रंथ व घोषणा संपादक (Git CMS)',
+      id: 'admin',
+      label: 'व्यवस्थापक पोर्टल',
+      icon: Shield,
+      desc: 'स्तोत्र संपादक, घोषणाएं, सुझाव व सेटिंग्स',
     },
     {
       id: 'aagam-ai',
@@ -324,8 +381,8 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   ];
 
   const handleItemClick = async (item: any) => {
-    if (item.id === 'git-admin') {
-      onNavigate('git-admin');
+    if (item.id === 'admin') {
+      onNavigate('admin');
       return;
     }
 

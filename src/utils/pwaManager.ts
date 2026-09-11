@@ -1,6 +1,7 @@
 /**
- * PWA & Native Platform Manager
+ * State-of-the-Art (SOTA) PWA & Native Platform Manager
  * Handles Service Worker lifecycle, WebAPK install prompt capture,
+ * Persistent Storage protection, Media Session API, App Badging API,
  * Screen Wake Lock, tactile haptics, and network connectivity state.
  */
 
@@ -39,7 +40,7 @@ export function isIOSDevice(): boolean {
 }
 
 /**
- * Register Service Worker with robust update management
+ * Register Service Worker with robust update management & persistent storage
  */
 export function registerPwaServiceWorker(): void {
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
@@ -50,6 +51,20 @@ export function registerPwaServiceWorker(): void {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
       swRegistration = reg;
+
+      // Automatically request eviction-proof persistent storage
+      requestPersistentStorage().catch(() => {});
+
+      // Register periodic background sync if supported (for daily panchang)
+      if ('periodicSync' in reg) {
+        try {
+          await (reg as any).periodicSync.register('update-panchang', {
+            minInterval: 24 * 60 * 60 * 1000,
+          });
+        } catch (e) {
+          // Periodic sync may require installed PWA status or user engagement
+        }
+      }
 
       // Detect waiting worker on load
       if (reg.waiting) {
@@ -165,6 +180,167 @@ export function applyAppUpdate(): void {
   } else {
     window.location.reload();
   }
+}
+
+/**
+ * Persistent Storage API: Prevents OS eviction of cached holy scriptures & audio
+ */
+export async function requestPersistentStorage(): Promise<boolean> {
+  if (typeof navigator === 'undefined' || !navigator.storage || !navigator.storage.persist) {
+    return false;
+  }
+  try {
+    const isPersisted = await navigator.storage.persisted();
+    if (isPersisted) return true;
+    return await navigator.storage.persist();
+  } catch (err) {
+    return false;
+  }
+}
+
+/**
+ * Storage Quota Estimation: Returns MB cached and total quota
+ */
+export async function checkStorageEstimate(): Promise<{
+  usageMB: number;
+  quotaMB: number;
+  percent: number;
+  isPersisted: boolean;
+}> {
+  if (typeof navigator === 'undefined' || !navigator.storage || !navigator.storage.estimate) {
+    return { usageMB: 0, quotaMB: 0, percent: 0, isPersisted: false };
+  }
+  try {
+    const estimate = await navigator.storage.estimate();
+    const isPersisted = navigator.storage.persisted ? await navigator.storage.persisted() : false;
+    const usage = estimate.usage || 0;
+    const quota = estimate.quota || 1;
+    const usageMB = Number((usage / (1024 * 1024)).toFixed(1));
+    const quotaMB = Number((quota / (1024 * 1024)).toFixed(0));
+    const percent = Math.min(100, Math.round((usage / quota) * 100));
+
+    return { usageMB, quotaMB, percent, isPersisted };
+  } catch (e) {
+    return { usageMB: 0, quotaMB: 0, percent: 0, isPersisted: false };
+  }
+}
+
+/**
+ * App Badging API: Shows a subtle dot/number badge on the installed app icon
+ */
+export async function setAppNotificationBadge(count?: number): Promise<void> {
+  if (typeof navigator === 'undefined') return;
+  try {
+    if ('setAppBadge' in navigator) {
+      if (typeof count === 'number' && count > 0) {
+        await (navigator as any).setAppBadge(count);
+      } else {
+        await (navigator as any).setAppBadge();
+      }
+    }
+  } catch (e) {
+    // Unsupported or permission denied
+  }
+}
+
+export async function clearAppNotificationBadge(): Promise<void> {
+  if (typeof navigator === 'undefined') return;
+  try {
+    if ('clearAppBadge' in navigator) {
+      await (navigator as any).clearAppBadge();
+    }
+  } catch (e) {
+    // Unsupported
+  }
+}
+
+/**
+ * Media Session API: Displays rich devotional player on Android / iOS lock-screens and smartwatch
+ */
+export function setupMediaSession(options: {
+  title: string;
+  artist?: string;
+  album?: string;
+  artwork?: string;
+  onPlay?: () => void;
+  onPause?: () => void;
+  onSeek?: (time: number) => void;
+}): void {
+  if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) {
+    return;
+  }
+
+  try {
+    const defaultArtwork = [
+      { src: '/icons/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/pwa-512x512.png', sizes: '512x512', type: 'image/png' },
+    ];
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: options.title,
+      artist: options.artist || 'जैन जिनवाणी • नित्य स्वाध्याय',
+      album: options.album || 'जैन धर्म भक्ति व स्तोत्र',
+      artwork: options.artwork ? [{ src: options.artwork, sizes: '512x512', type: 'image/png' }] : defaultArtwork,
+    });
+
+    if (options.onPlay) {
+      navigator.mediaSession.setActionHandler('play', options.onPlay);
+    }
+    if (options.onPause) {
+      navigator.mediaSession.setActionHandler('pause', options.onPause);
+    }
+    if (options.onSeek) {
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        if (details.seekTime !== undefined && options.onSeek) {
+          options.onSeek(details.seekTime);
+        }
+      });
+    }
+
+    navigator.mediaSession.setActionHandler('seekforward', () => {
+      // Seek forward 10s
+    });
+    navigator.mediaSession.setActionHandler('seekbackward', () => {
+      // Seek backward 10s
+    });
+  } catch (e) {
+    console.warn('MediaSession setup failed:', e);
+  }
+}
+
+export function updateMediaPlaybackState(state: 'playing' | 'paused' | 'none'): void {
+  if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
+    try {
+      navigator.mediaSession.playbackState = state;
+    } catch (e) {}
+  }
+}
+
+export function clearMediaSession(): void {
+  if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
+    try {
+      navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = 'none';
+    } catch (e) {}
+  }
+}
+
+/**
+ * Network Quality Profile (Network Information API)
+ */
+export function getNetworkProfile(): {
+  isOnline: boolean;
+  isDataSaver: boolean;
+  effectiveType: string;
+} {
+  const isOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
+  const connection = typeof navigator !== 'undefined' ? (navigator as any).connection : null;
+
+  return {
+    isOnline,
+    isDataSaver: !!connection?.saveData,
+    effectiveType: connection?.effectiveType || '4g',
+  };
 }
 
 /**

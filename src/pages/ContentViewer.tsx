@@ -741,22 +741,26 @@ export const ContentViewer = ({
     const shareUrl = id ? getCanonicalShareUrl('viewer', { id }) : window.location.href;
 
     const numLabel = verseNumber ? ` [पद ${verseNumber}]` : '';
-    const message = `❖ ${shareTitle}${numLabel} ❖\n\n${verseText}${
+    const fullMessage = `❖ ${shareTitle}${numLabel} ❖\n\n${verseText}${
       meaningText ? `\n\n॥ भावार्थ ॥\n${meaningText}` : ''
     }\n\nसंपूर्ण पाठ पढ़ें:\n${shareUrl}`;
+
+    const textForWebShare = `❖ ${shareTitle}${numLabel} ❖\n\n${verseText}${
+      meaningText ? `\n\n॥ भावार्थ ॥\n${meaningText}` : ''
+    }\n\nसंपूर्ण पाठ पढ़ें:`;
 
     if (navigator.share) {
       navigator.share({
         title: `${shareTitle}${numLabel}`,
-        text: message,
+        text: textForWebShare,
         url: shareUrl,
       }).catch((err: any) => {
         if (err?.name !== 'AbortError') {
-          copyToClipboard(message, 'पद कॉपी हो गया!');
+          copyToClipboard(fullMessage, 'पद कॉपी हो गया!');
         }
       });
     } else {
-      copyToClipboard(message, 'पद कॉपी हो गया!');
+      copyToClipboard(fullMessage, 'पद कॉपी हो गया!');
     }
   };
 

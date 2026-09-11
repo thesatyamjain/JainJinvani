@@ -1,6 +1,6 @@
 export const VALID_PAGES = new Set([
   'landing', 'sadhana', 'library', 'category', 'viewer', 'panchang',
-  'more', 'admin', 'git-admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
+  'more', 'admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
   'pilgrimage', 'philosophy', 'rituals', 'pathshala', 'gallery',
   'explore', 'samayik', 'dietary', 'ascetics', 'muni-profiles',
   'jap', 'niyam', 'daily-puja'
@@ -53,9 +53,12 @@ export const parseHash = (hashStr: string): ParsedRoute => {
     params.id = decodeURIComponent(pathSegments[1]);
   }
 
-  if (VALID_PAGES.has(rawPage)) {
+  // Map legacy/shortcut git-admin directly to unified admin portal
+  const targetPage = rawPage === 'git-admin' ? 'admin' : rawPage;
+
+  if (VALID_PAGES.has(targetPage)) {
     return {
-      page: rawPage,
+      page: targetPage,
       params: Object.keys(params).length > 0 ? params : null,
     };
   }
@@ -112,9 +115,12 @@ export const parseLocation = (loc?: { pathname?: string; search?: string; hash?:
     return { page: 'landing', params: null };
   }
 
-  if (VALID_PAGES.has(rawPage)) {
+  // Map legacy/shortcut git-admin directly to unified admin portal
+  const targetPage = rawPage === 'git-admin' ? 'admin' : rawPage;
+
+  if (VALID_PAGES.has(targetPage)) {
     return {
-      page: rawPage,
+      page: targetPage,
       params: Object.keys(params).length > 0 ? params : null,
     };
   }

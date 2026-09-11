@@ -364,7 +364,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   const [lastSyncTime, setLastSyncTime] = useState<string>('');
 
   // Active Admin Tab
-  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'content' | 'tools' | 'guide'>('feedback');
+  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'content' | 'tools' | 'guide'>('announcement');
 
   // Guide Tab: Live Cryptographic SHA-256 Hash Tool & Clipboard State
   const [hashInput, setHashInput] = useState('');
@@ -551,6 +551,137 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
       showToast('सार्वजनिक घोषणा हटा दी गई।');
     } catch {}
+  };
+
+  // 1-Tap Frictionless Quick Access
+  const handleQuickAccess = () => {
+    sessionStorage.setItem('jinvani_admin_authenticated', 'true');
+    sessionStorage.setItem('jinvani_admin_auth_time', Date.now().toString());
+    setIsAuthenticated(true);
+    showToast('व्यवस्थापक नियंत्रण कक्ष में स्वागत है!');
+  };
+
+  // GitHub Repository Connection State (Saved in LocalStorage)
+  const [githubRepo, setGithubRepo] = useState<string>(() => {
+    return localStorage.getItem('jinvani_git_repo') || '';
+  });
+  const [githubBranch, setGithubBranch] = useState<string>(() => {
+    return localStorage.getItem('jinvani_git_branch') || 'main';
+  });
+  const [githubToken, setGithubToken] = useState<string>(() => {
+    return localStorage.getItem('jinvani_git_token') || '';
+  });
+  const [isTestingConnection, setIsTestingConnection] = useState(false);
+  const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connected' | 'error'>('idle');
+  const [isCommittingGit, setIsCommittingGit] = useState(false);
+
+  // Test GitHub Connection
+  const handleTestConnection = async () => {
+    if (!githubRepo.trim()) {
+      showToast('कृपया रिपॉजिटरी नाम (उदा. username/repo) दर्ज करें।');
+      return;
+    }
+    setIsTestingConnection(true);
+    try {
+      const headers: Record<string, string> = {
+        Accept: 'application/vnd.github.v3+json',
+      };
+      if (githubToken.trim()) {
+        headers['Authorization'] = `Bearer ${githubToken.trim()}`;
+      }
+      const res = await fetch(`https://api.github.com/repos/${githubRepo.trim()}`, { headers });
+      if (res.ok) {
+        setConnectionStatus('connected');
+        localStorage.setItem('jinvani_git_repo', githubRepo.trim());
+        localStorage.setItem('jinvani_git_branch', githubBranch.trim() || 'main');
+        if (githubToken.trim()) {
+          localStorage.setItem('jinvani_git_token', githubToken.trim());
+        }
+        showToast('GitHub रिपॉजिटरी से सफलतापूर्वक संपर्क स्थापित हुआ!');
+      } else {
+        setConnectionStatus('error');
+        showToast('रिपॉजिटरी नहीं मिली या टोकन अमान्य है।');
+      }
+    } catch {
+      setConnectionStatus('error');
+      showToast('GitHub API से संपर्क नहीं हो सका।');
+    } finally {
+      setIsTestingConnection(false);
+    }
+  };
+
+  // Direct GitHub Commit via API
+  const handleCommitToGitHub = async () => {
+    if (!githubRepo.trim() || !githubToken.trim()) {
+      showToast('सीधे GitHub पर कमिट हेतु "गिट व सिस्टम टूल्स" में Repository और Token दर्ज करें, अथवा "JSON डाउनलोड" का उपयोग करें।');
+      setAdminTab('tools');
+      return;
+    }
+
+    setIsCommittingGit(true);
+    const payload = {
+      active: announcementActive,
+      type: announcementType,
+      badge: announcementBadge.trim(),
+      text: announcementText.trim(),
+      link: announcementLink.trim(),
+      startDate: announcementStartDate,
+      endDate: announcementEndDate,
+      updatedAt: new Date().toISOString(),
+    };
+
+    try {
+      const filePath = 'public/announcement.json';
+      const fileUrl = `https://api.github.com/repos/${githubRepo.trim()}/contents/${filePath}?ref=${githubBranch.trim()}`;
+      const getRes = await fetch(fileUrl, {
+        headers: {
+          Authorization: `Bearer ${githubToken.trim()}`,
+          Accept: 'application/vnd.github.v3+json',
+        },
+      });
+
+      let sha: string | undefined;
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        sha = fileData.sha;
+      }
+
+      const jsonContent = JSON.stringify(payload, null, 2);
+      const utf8Bytes = new TextEncoder().encode(jsonContent);
+      let binary = '';
+      for (let i = 0; i < utf8Bytes.length; i++) {
+        binary += String.fromCharCode(utf8Bytes[i]);
+      }
+      const base64Content = btoa(binary);
+
+      const putRes = await fetch(`https://api.github.com/repos/${githubRepo.trim()}/contents/${filePath}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${githubToken.trim()}`,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: `Update live announcement: ${payload.badge} [skip ci]`,
+          content: base64Content,
+          branch: githubBranch.trim(),
+          ...(sha ? { sha } : {}),
+        }),
+      });
+
+      if (putRes.ok) {
+        localStorage.setItem('jinvani_admin_announcement', JSON.stringify(payload));
+        window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
+        showToast('🎉 GitHub पर कमिट सफलतापूर्वक हो गया! Cloudflare ~45s में साइट लाइव कर देगा।');
+      } else {
+        const errJson = await putRes.json().catch(() => ({}));
+        showToast(`GitHub कमिट विफल: ${errJson.message || putRes.statusText}`);
+      }
+    } catch (err: any) {
+      showToast(`कमिट त्रुटि: ${err?.message || 'अज्ञात त्रुटि'}`);
+    } finally {
+      setIsCommittingGit(false);
+    }
   };
 
 
@@ -1380,31 +1511,29 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             <div className="absolute top-2.5 left-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
             <div className="absolute top-2.5 right-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
 
-            {/* Quick Switch to Git-Based Admin CMS */}
-            <div className="mb-5 p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/20 border border-amber-400/40 shadow-lg">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300 shrink-0">
-                    <GitBranch className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-bold text-white font-notoserif leading-tight">
-                      गिट व्यवस्थापक (Git Admin)
-                    </h3>
-                    <p className="text-[10px] sm:text-[11px] text-amber-200/80 font-gotu">
-                      बिना पासवर्ड के स्तोत्र व घोषणाएं संपादित करें
-                    </p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => onNavigate?.('git-admin')}
-                  className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-gotu font-bold text-xs flex items-center gap-1 transition-all shadow-md active:scale-95 cursor-pointer shrink-0"
-                >
-                  <span>खोलें</span>
-                  <span>→</span>
-                </button>
+            {/* 1-Tap Quick Access (Zero Friction) */}
+            <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/20 to-amber-500/25 border border-amber-400/50 shadow-[0_4px_25px_rgba(245,158,11,0.2)] text-center">
+              <div className="flex items-center justify-center gap-2 mb-1.5 text-amber-300 font-bold font-gotu text-xs sm:text-sm">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>त्वरित प्रवेश (Quick Admin Access)</span>
               </div>
+              <p className="text-[11px] sm:text-xs text-slate-200/90 font-gotu mb-3 leading-relaxed">
+                बिना पासवर्ड के स्तोत्र संपादक (CMS), घोषणाएं, सुझाव एवं गिट सेटिंग्स सीधे खोलें:
+              </p>
+              <button
+                type="button"
+                onClick={handleQuickAccess}
+                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <span>सीधे एडमिन पोर्टल खोलें</span>
+                <span>→</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex-1 h-px bg-white/10" />
+              <span className="text-[10px] text-slate-400 font-gotu">अथवा पासवर्ड / बायोमेट्रिक्स से</span>
+              <div className="flex-1 h-px bg-white/10" />
             </div>
 
             {loginStep === 'password' ? (
@@ -2166,17 +2295,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             <span>सुरक्षित सत्र (60m)</span>
           </div>
 
-          {onNavigate && (
-            <button
-              onClick={() => onNavigate('git-admin')}
-              title="गिट व्यवस्थापक (Git Admin CMS) खोलें"
-              className="px-2.5 sm:px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 border border-amber-500/40 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
-            >
-              <GitBranch className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">गिट एडमिन</span>
-            </button>
-          )}
-
           <button
             onClick={() => fetchData(true)}
             disabled={isRefreshing || isLoading}
@@ -2237,15 +2355,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
           </a>
 
           <button
-            onClick={() => onNavigate ? onNavigate('git-admin') : (window.location.hash = '#git-admin')}
-            className="px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer"
-            title="गिट व्यवस्थापक पोर्टल खोलें"
-          >
-            <GitBranch className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">गिट एडमिन</span>
-          </button>
-
-          <button
             onClick={() => handleLogout()}
             className="px-2.5 sm:px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
@@ -2258,10 +2367,10 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       {/* Sacred Admin Tab Selector */}
       <div className="w-full flex items-center justify-start sm:justify-center gap-1.5 sm:gap-2.5 mb-7 pb-2 overflow-x-auto no-scrollbar relative z-10 border-b border-white/10">
         {[
-          { id: 'feedback', label: 'अशुद्धि व सुझाव', icon: CheckCircle2, badge: stats.total },
           { id: 'announcement', label: 'सार्वजनिक घोषणा', icon: Megaphone, badge: announcementActive ? 'LIVE' : undefined },
           { id: 'content', label: 'स्तोत्र व ग्रंथ संपादक', icon: BookOpen, badge: 'CMS' },
-          { id: 'tools', label: 'सिस्टम टूल्स', icon: Wrench },
+          { id: 'feedback', label: 'अशुद्धि व सुझाव', icon: CheckCircle2, badge: stats.total },
+          { id: 'tools', label: 'गिट व सिस्टम टूल्स', icon: Wrench },
           { id: 'guide', label: 'एडमिन गाइड व सुरक्षा', icon: FileText, badge: 'IMP' },
         ].map((tab) => {
           const Icon = tab.icon;
@@ -2838,16 +2947,13 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                   <div className="flex flex-wrap items-center gap-2.5">
                     <button
                       type="button"
-                      onClick={handlePublishGlobalAnnouncement}
-                      disabled={isPublishingAnnouncement}
-                      className="flex-1 min-w-[200px] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold py-2.5 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer text-xs sm:text-sm flex items-center justify-center gap-1.5 disabled:opacity-50"
+                      onClick={handleCommitToGitHub}
+                      disabled={isCommittingGit}
+                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-200 border border-amber-500/40 font-gotu font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
+                      title="GitHub API द्वारा सीधे main ब्रांच पर Commit & Push करें"
                     >
-                      {isPublishingAnnouncement ? (
-                        <RefreshCw className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Send className="w-4 h-4" />
-                      )}
-                      <span>{isPublishingAnnouncement ? 'पब्लिश हो रहा है...' : '🌐 विश्वभर में लाइव पब्लिश करें'}</span>
+                      <GitBranch className={`w-3.5 h-3.5 text-amber-400 ${isCommittingGit ? 'animate-spin' : ''}`} />
+                      <span>{isCommittingGit ? 'कमिट हो रहा है...' : '🚀 सीधे GitHub पर Push'}</span>
                     </button>
 
                     <button
@@ -2856,8 +2962,23 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                       className="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15 font-gotu text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
                       title="announcement.json डाउनलोड करें ताकि GitHub Desktop से Push कर सकें"
                     >
-                      <Download className="w-3.5 h-3.5" />
-                      <span>JSON डाउनलोड</span>
+                      <Download className="w-3.5 h-3.5 text-amber-400" />
+                      <span>JSON डाउनलोड (Desktop)</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handlePublishGlobalAnnouncement}
+                      disabled={isPublishingAnnouncement}
+                      className="px-3.5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border border-amber-500/30 font-gotu text-xs flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                      title="Cloudflare Edge API पर लाइव पब्लिश करें"
+                    >
+                      {isPublishingAnnouncement ? (
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Send className="w-3.5 h-3.5 text-amber-400" />
+                      )}
+                      <span>{isPublishingAnnouncement ? 'पब्लिशिंग...' : 'Edge API'}</span>
                     </button>
 
                     <button
@@ -2872,7 +2993,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                   </div>
 
                   <p className="text-[11px] text-slate-400 font-gotu">
-                    💡 <b>GitHub Desktop सिंक:</b> 'JSON डाउनलोड' दबाकर फ़ाइल को <code>public/announcement.json</code> में रिप्लेस करें और GitHub Desktop से 1-क्लिक में Push कर दें!
+                    💡 <b>गिट सिंक:</b> आप <b>"सीधे GitHub पर Push"</b> से 1-क्लिक में वेब से ही कमिट कर सकते हैं, या <b>"JSON डाउनलोड"</b> करके GitHub Desktop से <code>public/announcement.json</code> को Push कर सकते हैं!
                   </p>
                 </div>
               </GlassCard>
@@ -2975,15 +3096,103 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
           <div className="text-center max-w-2xl mx-auto mb-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2 backdrop-blur-md">
               <Wrench className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-gotu">सिस्टम मेंटेनेंस • Diagnostics & Tools</span>
+              <span className="font-gotu">गिट व सिस्टम मेंटेनेंस • Git & Diagnostics Tools</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
-              सिस्टम स्वास्थ्य, बैकअप एवं डेटा टूल्स
+              गिट कनेक्शन, बैकअप एवं सिस्टम टूल्स
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
-              लोकल स्टोरेज उपयोग, गूगल शीट वेबहुक कनेक्शन स्थिति, संपूर्ण एडमिन डेटा बैकअप (JSON) एवं कैश शुद्धिकरण।
+              GitHub रिपॉजिटरी कनेक्शन, स्टोरेज उपयोग, गूगल शीट वेबहुक कनेक्शन स्थिति एवं डेटा बैकअप।
             </p>
           </div>
+
+          {/* GitHub Repository Connection Settings */}
+          <GlassCard variant="sacred" className="p-5 sm:p-6 rounded-3xl border-amber-500/30 bg-[#0b1220]/95 shadow-xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <GitBranch className="w-5 h-5 text-amber-400" />
+                <h3 className="text-sm sm:text-base font-bold text-white font-notoserif">
+                  GitHub रिपॉजिटरी कनेक्शन सेटिंग्स (Direct Web Commit)
+                </h3>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 border border-amber-400/30 text-[11px] font-gotu">
+                <span className={connectionStatus === 'connected' ? 'text-emerald-400 font-bold' : 'text-amber-300'}>
+                  {connectionStatus === 'connected' ? '🟢 कनेक्टेड' : '⚪ अनकनेक्टेड (लोकल/Desktop मोड)'}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 font-gotu leading-relaxed">
+              वेबसाइट से सीधे 1-क्लिक में <code>public/announcement.json</code> को GitHub पर Commit & Push करने हेतु अपनी रिपॉजिटरी का नाम और Personal Access Token दर्ज करें:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-amber-200 font-gotu">
+                  GitHub Repository (उदा. username/repo):
+                </label>
+                <input
+                  type="text"
+                  value={githubRepo}
+                  onChange={(e) => setGithubRepo(e.target.value)}
+                  placeholder="उदा. username/JainJinvani"
+                  className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-amber-200 font-gotu">
+                  ब्रांच नाम (Branch Name):
+                </label>
+                <input
+                  type="text"
+                  value={githubBranch}
+                  onChange={(e) => setGithubBranch(e.target.value)}
+                  placeholder="main"
+                  className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center justify-between">
+                <span>GitHub Personal Access Token (PAT):</span>
+                <span className="text-[10px] text-slate-400">केवल आपके ब्राउज़र में सुरक्षित रहता है</span>
+              </label>
+              <input
+                type="password"
+                value={githubToken}
+                onChange={(e) => setGithubToken(e.target.value)}
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleTestConnection}
+                disabled={isTestingConnection}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer disabled:opacity-50"
+              >
+                {isTestingConnection ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                <span>{isTestingConnection ? 'जाँच रहे हैं...' : 'सहेजें एवं कनेक्शन टेस्ट करें'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setGithubToken('');
+                  localStorage.removeItem('jinvani_git_token');
+                  setConnectionStatus('idle');
+                  showToast('GitHub टोकन हटा दिया गया।');
+                }}
+                className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-rose-300 border border-white/10 text-xs font-gotu transition-colors cursor-pointer"
+              >
+                टोकन हटाएं
+              </button>
+            </div>
+          </GlassCard>
 
           {/* System Diagnostics — LocalStorage only */}
           <GlassCard

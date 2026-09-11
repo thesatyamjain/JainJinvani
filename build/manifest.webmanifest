@@ -13,6 +13,34 @@
   "lang": "hi",
   "dir": "ltr",
   "categories": ["books", "lifestyle", "education", "religion"],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "share_target": {
+    "action": "/?shared=true",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-preview.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "जैन जिनवाणी - डिजिटल आगम एवं साधना (डेस्कटॉप)"
+    },
+    {
+      "src": "/screenshots/mobile-preview.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "जैन जिनवाणी - १००% ऑफ़लाइन मंदिर स्वाध्याय (मोबाइल)"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/pwa-192x192.png",

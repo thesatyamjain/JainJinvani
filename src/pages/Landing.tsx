@@ -18,7 +18,6 @@ import {
   RotateCcw,
   Droplets,
   FileEdit,
-  GitBranch,
 } from 'lucide-react';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
@@ -610,26 +609,15 @@ export const Landing = ({ onNavigate }: LandingProps) => {
       {/* Footer Navigation & Admin Link */}
       <footer className="w-full max-w-3xl mt-7 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400/80 font-gotu px-2">
         <span className="text-[11px] text-slate-500">© जिनवाणी सेवा ट्रस्ट • निःशुल्क जिनवाणी महाकोश</span>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => onNavigate('git-admin')}
-            className="text-amber-300/80 hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-lg hover:bg-amber-500/10 text-xs"
-            title="गिट व्यवस्थापक: स्तोत्र, ग्रंथ व घोषणा संपादक"
-          >
-            <GitBranch className="w-3.5 h-3.5 text-amber-400" />
-            <span>गिट व्यवस्थापक (CMS)</span>
-          </button>
-          <span className="text-white/20">•</span>
-          <button
-            type="button"
-            onClick={() => onNavigate('admin')}
-            className="text-slate-400 hover:text-slate-200 transition-colors cursor-pointer py-1 px-2 text-xs"
-            title="सुरक्षित व्यवस्थापक लॉगिन"
-          >
-            व्यवस्थापक
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate('admin')}
+          className="text-amber-300/80 hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-lg hover:bg-amber-500/10 text-xs"
+          title="व्यवस्थापक पोर्टल: स्तोत्र, घोषणाएं व सुझाव"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+          <span>व्यवस्थापक पोर्टल (Admin)</span>
+        </button>
       </footer>
 
       {/* Sahyog Donate Modal */}

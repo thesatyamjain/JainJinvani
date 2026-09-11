@@ -8,6 +8,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { useModalBackHandler } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
 import { resetSeoToDefault } from "./utils/seoHelper";
+import { useEdgeSwipeBack } from "./hooks/useEdgeSwipeBack";
+import { setAppNotificationBadge, clearAppNotificationBadge } from "./utils/pwaManager";
+import { getDailyNiyamaState } from "./lib/storage";
 
 import { Landing } from "./pages/Landing";
 import { SadhanaMenu } from "./pages/SadhanaMenu";
@@ -37,7 +40,6 @@ import { DailyPujaFlow } from "./pages/DailyPujaFlow";
 
 // Heavy back-office admin pages remain code-split
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
-const GitAdminPage = lazy(() => import("./pages/GitAdminPage").then(({ GitAdminPage }) => ({ default: GitAdminPage })));
 
 const PageLoading = () => (
   <div className="min-h-full flex flex-col items-center justify-center gap-3 select-none py-16">
@@ -220,6 +222,24 @@ export default function App() {
     }
   }, [activePage]);
 
+  // SOTA Native Edge-Swipe Back Gesture on touchscreens
+  useEdgeSwipeBack({
+    onBack: () => handleBack(),
+    enabled: activePage !== 'landing' && !isSearchOpen,
+  });
+
+  // SOTA App Badging: Sync app icon badge with pending daily Niyama
+  useEffect(() => {
+    try {
+      const nState = getDailyNiyamaState();
+      if (nState.completedIds.length === 0) {
+        setAppNotificationBadge(1);
+      } else {
+        clearAppNotificationBadge();
+      }
+    } catch (e) {}
+  }, [activePage]);
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden text-slate-100 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#05060a]">
 
@@ -355,22 +375,6 @@ export default function App() {
               className="min-h-full overflow-x-hidden"
             >
               <AdminLogin
-                onBack={() => handleBack("landing")}
-                onNavigate={handleNavigate}
-              />
-            </motion.div>
-          )}
-
-          {activePage === "git-admin" && (
-            <motion.div
-              key="git-admin"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
-              <GitAdminPage
                 onBack={() => handleBack("landing")}
                 onNavigate={handleNavigate}
               />
@@ -642,8 +646,8 @@ export default function App() {
         </Suspense>
       </main>
 
-      {/* Floating Dock Navigation - Hidden on admin and git-admin pages */}
-      {activePage !== "admin" && activePage !== "git-admin" && (
+      {/* Floating Dock Navigation - Hidden on admin portal */}
+      {activePage !== "admin" && (
         <Dock
           activePage={activePage}
           onNavigate={handleNavigate}

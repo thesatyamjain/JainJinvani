@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Play, Pause, SkipBack, SkipForward, Volume2, X, Minimize2, Maximize2 } from 'lucide-react';
 import { GlassCard } from '../layout/GlassCard';
 import { motion, AnimatePresence } from 'motion/react';
+import { setupMediaSession, updateMediaPlaybackState, clearMediaSession, triggerHaptic } from '../../utils/pwaManager';
 
 interface AudioPlayerProps {
   track: {
@@ -25,22 +26,58 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
       audioRef.current.src = track.url;
       if (autoPlay) {
         audioRef.current.play().catch(() => {
-          // Auto-play might be blocked
           setIsPlaying(false);
+          updateMediaPlaybackState('paused');
         });
         setIsPlaying(true);
+        updateMediaPlaybackState('playing');
       } else {
         setIsPlaying(false);
+        updateMediaPlaybackState('paused');
       }
+
+      // Configure Native OS Lock Screen Player
+      setupMediaSession({
+        title: track.title,
+        artist: track.artist || 'जैन जिनवाणी • नित्य स्वाध्याय',
+        album: 'जैन धर्म भक्ति व स्तोत्र संग्रह',
+        onPlay: () => {
+          if (audioRef.current) {
+            audioRef.current.play();
+            setIsPlaying(true);
+            updateMediaPlaybackState('playing');
+          }
+        },
+        onPause: () => {
+          if (audioRef.current) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+            updateMediaPlaybackState('paused');
+          }
+        },
+        onSeek: (time) => {
+          if (audioRef.current) {
+            audioRef.current.currentTime = time;
+            setProgress((time / (audioRef.current.duration || 1)) * 100);
+          }
+        },
+      });
     }
+
+    return () => {
+      clearMediaSession();
+    };
   }, [track, autoPlay]);
 
   const togglePlay = () => {
+    triggerHaptic('light');
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
+        updateMediaPlaybackState('paused');
       } else {
         audioRef.current.play();
+        updateMediaPlaybackState('playing');
       }
       setIsPlaying(!isPlaying);
     }

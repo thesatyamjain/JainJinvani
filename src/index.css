@@ -279,3 +279,20 @@ body.has-modal-open [data-scroll-scrubber] {
     user-select: none;
   }
 }
+
+/* Window Controls Overlay (WCO) for Desktop Standalone PWA */
+@media (display-mode: standalone) and (min-width: 1024px) {
+  .pwa-wco-header {
+    padding-left: env(titlebar-area-x, 0px);
+    padding-top: env(titlebar-area-y, 0px);
+    width: env(titlebar-area-width, 100%);
+    min-height: env(titlebar-area-height, 48px);
+    app-region: drag;
+    -webkit-app-region: drag;
+  }
+  .pwa-wco-no-drag {
+    app-region: no-drag;
+    -webkit-app-region: no-drag;
+  }
+}
+

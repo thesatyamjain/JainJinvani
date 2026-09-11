@@ -4,6 +4,7 @@ import { ChevronLeft, Play, Pause, RotateCcw, Volume2, VolumeX, Timer, Sparkles 
 import { GlassCard } from '../components/layout/GlassCard';
 import { HrimSymbol, SwastikaSymbol } from '../components/features/JainSymbols';
 import { getMediaUrl } from '../config/media';
+import { setupMediaSession, updateMediaPlaybackState, clearMediaSession } from '../utils/pwaManager';
 
 interface SamayikPageProps {
   onBack: () => void;
@@ -25,14 +26,24 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
         audioRef.current.pause();
         audioRef.current = null;
       }
+      clearMediaSession();
     };
   }, []);
 
   useEffect(() => {
     if (isAudioPlaying && audioRef.current) {
       audioRef.current.play().catch((e) => console.error('Audio play failed', e));
+      setupMediaSession({
+        title: 'णमोकार महामंत्र धुन',
+        artist: 'जैन जिनवाणी • सामायिक साधना',
+        album: 'आत्म-शुद्धि एवं समता साधना',
+        onPlay: () => setIsAudioPlaying(true),
+        onPause: () => setIsAudioPlaying(false),
+      });
+      updateMediaPlaybackState('playing');
     } else if (audioRef.current) {
       audioRef.current.pause();
+      updateMediaPlaybackState('paused');
     }
   }, [isAudioPlaying]);
 

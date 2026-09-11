@@ -11,7 +11,7 @@ export interface MetaData {
 }
 
 const SITE_NAME = 'जैन जिनवाणी (Jain Jinvani)';
-const DEFAULT_IMAGE = 'https://jainjinvani.pages.dev/logo.webp';
+const DEFAULT_IMAGE = 'https://jainjinvani.pages.dev/icons/pwa-512x512.png';
 
 // Pre-mapped prominent scriptures and sadhana items
 const KNOWN_ITEMS: Record<string, { title: string; desc: string }> = {
