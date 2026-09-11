@@ -1,6 +1,6 @@
 export const VALID_PAGES = new Set([
   'landing', 'sadhana', 'library', 'category', 'viewer', 'panchang',
-  'more', 'admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
+  'more', 'admin', 'git-admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
   'pilgrimage', 'philosophy', 'rituals', 'pathshala', 'gallery',
   'explore', 'samayik', 'dietary', 'ascetics', 'muni-profiles',
   'jap', 'niyam', 'daily-puja'

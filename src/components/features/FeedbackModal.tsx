@@ -119,15 +119,33 @@ export const FeedbackModal = ({
     };
 
     try {
-      // Direct POST to Google Sheets via Apps Script Web App
-      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      });
+      let submissionSuccess = false;
+
+      // 1. Try Cloudflare Pages Serverless Function endpoint
+      try {
+        const res = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          submissionSuccess = true;
+        }
+      } catch {
+        // Fallback if running on local dev without pages functions
+      }
+
+      // 2. Fallback to direct Google Sheets Webhook if edge endpoint was not reached
+      if (!submissionSuccess) {
+        await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(payload),
+        });
+      }
 
       // Save locally as backup
       try {

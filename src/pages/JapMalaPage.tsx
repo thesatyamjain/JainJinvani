@@ -15,6 +15,7 @@ import { LotusSymbol } from '../components/features/JainSymbols';
 import { getJapMalaState, saveJapMalaState } from '../lib/storage';
 import { JapMalaState } from '../types';
 import { useModalBackHandler } from '../lib';
+import { requestScreenWakeLock, releaseScreenWakeLock } from '../utils/pwaManager';
 
 interface JapMalaPageProps {
   onBack: () => void;
@@ -114,6 +115,14 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
   useEffect(() => {
     saveJapMalaState(stats);
   }, [stats]);
+
+  // Screen Wake Lock: Keep display awake during Mala chanting
+  useEffect(() => {
+    requestScreenWakeLock();
+    return () => {
+      releaseScreenWakeLock();
+    };
+  }, []);
 
   const handleTap = () => {
     setTapEffect(true);

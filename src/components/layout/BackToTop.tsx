@@ -114,7 +114,7 @@ export const BackToTop: React.FC<BackToTopProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.75, y: 16 }}
           transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-          className={`fixed bottom-24 md:bottom-8 right-4 md:right-7 z-40 flex items-center group select-none ${className}`}
+          className={`fixed bottom-24 md:bottom-8 left-4 md:left-auto md:right-7 z-40 flex items-center group select-none ${className}`}
         >
           {/* Tooltip on Desktop */}
           <div className="hidden md:flex flex-col items-end absolute right-full mr-3.5 px-3 py-1.5 bg-[#071124]/95 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap backdrop-blur-xl border border-amber-500/30 shadow-[0_8px_20px_rgba(0,0,0,0.6)] translate-x-2 group-hover:translate-x-0">

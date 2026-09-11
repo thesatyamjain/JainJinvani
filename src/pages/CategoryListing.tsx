@@ -48,11 +48,26 @@ const categoryTitles: Record<string, { title: string; sub: string }> = {
   parva: { title: 'पर्व व उत्सव', sub: 'दशलक्षण, अष्टान्हिका, दीपावली व महापर्व' },
   tattva: { title: 'तत्त्व ज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
   philosophy: { title: 'तत्त्व ज्ञान', sub: 'षट्द्रव्य, नवपदार्थ एवं प्रयोजनभूत ७ तत्त्व' },
+  vrat: { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
+  '105-vrat': { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
+  'vrat-vidhi': { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
 };
 
 // Subcategory icon resolver
 const getSubCategoryIcon = (subId: string) => {
   switch (subId) {
+    case 'vrat-vidhi':
+      return <ListOrdered className="w-4 h-4" />;
+    case 'vrat-soochi':
+      return <BookOpen className="w-4 h-4" />;
+    case 'vrat-puja':
+      return <Flower2 className="w-4 h-4" />;
+    case 'vrat-katha':
+      return <Feather className="w-4 h-4" />;
+    case 'samskar-vidhi':
+      return <Crown className="w-4 h-4" />;
+    case 'shravak-dharma':
+      return <Flame className="w-4 h-4" />;
     case 'daily-flow':
     case 'daily-swadhyay':
       return <ListOrdered className="w-4 h-4" />;
@@ -248,6 +263,57 @@ export const CategoryListing = ({
           )}
         </div>
       </motion.div>
+
+      {/* Book Details Hero Card for 105 Vrats Book */}
+      {(categoryId === 'vrat' || categoryId === '105-vrat' || categoryId === 'vrat-vidhi') && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
+          <GlassCard
+            variant="gilded"
+            className="p-5 md:p-7 bg-gradient-to-br from-amber-500/15 via-slate-900/85 to-amber-950/25 border-amber-400/30 relative overflow-hidden shadow-xl"
+          >
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 relative z-10">
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-400/20 border border-amber-400/30 text-amber-200 text-xs font-semibold font-gotu">
+                    पुस्तक का विवरण (Book Details)
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs font-gotu">
+                    महिलाओं के लिए विशेष
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-gotu">
+                    नवीन संकलन • नया संस्करण
+                  </span>
+                </div>
+                <h2 className="text-xl md:text-2xl font-notoserif font-bold text-white tracking-tight leading-snug">
+                  १०५ व्रतों की पूजा, विधि, उद्यापन
+                </h2>
+                <p className="text-slate-300 text-xs md:text-sm font-gotu leading-relaxed max-w-3xl">
+                  नवीन संकलन एवं सरल विधि के साथ • संकलन/विधानाचार्य: <strong className="text-amber-200 font-medium">ब्रम्हचारी विनोद सागर शास्त्री</strong>
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 sm:flex sm:items-center gap-2.5 shrink-0">
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-white/10 text-center">
+                  <span className="block text-lg font-bold text-amber-300 font-mono">174</span>
+                  <span className="text-[11px] text-slate-400 font-gotu">कुल विषय</span>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-white/10 text-center">
+                  <span className="block text-lg font-bold text-amber-300 font-mono">6</span>
+                  <span className="text-[11px] text-slate-400 font-gotu">अनुभाग</span>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900/80 border border-white/10 text-center">
+                  <span className="block text-lg font-bold text-amber-300 font-mono">105</span>
+                  <span className="text-[11px] text-slate-400 font-gotu">व्रत समुच्चय</span>
+                </div>
+              </div>
+            </div>
+          </GlassCard>
+        </motion.div>
+      )}
 
       {/* Subcategory Filter Tabs (if available) */}
       {subCategories.length > 0 && (
@@ -490,3 +556,5 @@ export const CategoryListing = ({
     </div>
   );
 };
+
+export default CategoryListing;

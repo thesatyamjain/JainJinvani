@@ -12,3 +12,4 @@ export { RitualData } from './ritual';
 export { ShastraData } from './shastra';
 export { StotraData } from './stotra';
 export { VidhiData } from './vidhi';
+export { VratData } from './vrat';

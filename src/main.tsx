@@ -1,7 +1,11 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { ErrorBoundary } from "./components/layout/ErrorBoundary";
+import { registerPwaServiceWorker } from "./utils/pwaManager";
 import "./index.css";
+
+// Initialize native PWA Service Worker, offline caching & WebAPK bridge
+registerPwaServiceWorker();
 
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
@@ -9,11 +13,11 @@ createRoot(document.getElementById("root")!).render(
   </ErrorBoundary>
 );
 
-// Register Service Worker for offline PWA capabilities
-if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((err) => {
-      console.log('SW registration error:', err);
-    });
+// Automatically recover from stale chunks during hot reload or deployments
+if (typeof window !== 'undefined') {
+  window.addEventListener('vite:preloadError', (event) => {
+    console.warn('Vite preload error detected, reloading page...', event);
+    window.location.reload();
   });
 }
+

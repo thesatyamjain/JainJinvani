@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Play, Pause, RotateCcw, Volume2, VolumeX, Timer, Sparkles } from 'lucide-react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { HrimSymbol, SwastikaSymbol } from '../components/features/JainSymbols';
+import { getMediaUrl } from '../config/media';
 
 interface SamayikPageProps {
   onBack: () => void;
@@ -16,9 +17,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
 
   // Initialize audio
   useEffect(() => {
-    audioRef.current = new Audio(
-      'https://ia800302.us.archive.org/10/items/NamokarMantra/Namokar%20Mantra.mp3'
-    );
+    audioRef.current = new Audio(getMediaUrl('NAMOKAR_MANTRA'));
     audioRef.current.loop = true;
 
     return () => {

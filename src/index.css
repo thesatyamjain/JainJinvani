@@ -33,10 +33,19 @@
     --ring: 38 92% 50%;
 
     --radius: 1rem;
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
   }
 
   * {
     @apply border-border selection:bg-amber-500/30 selection:text-amber-100;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button, a, input, select, textarea, [role="button"] {
+    touch-action: manipulation;
   }
 
   html {
@@ -242,4 +251,31 @@ body.has-modal-open [data-scroll-scrubber] {
   pointer-events: none !important;
   transform: translateY(24px) !important;
   transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease !important;
+}
+
+/* PWA Edge-to-Edge Safe Area Inset Helpers */
+.safe-pt {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.safe-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-pl {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+.safe-pr {
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Native App Standalone UI Tuning */
+@media (display-mode: standalone) {
+  /* Prevent browser text callout / magnifier on UI elements */
+  header, nav, button, [data-floating-dock] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }

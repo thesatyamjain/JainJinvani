@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles } from 'lucide-react';
+import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch } from 'lucide-react';
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import { FeedbackModal } from '../components/features/FeedbackModal';
+import { AagamAiModal } from '../components/features/AagamAiModal';
+import { downloadTempleMode, isTempleModeCachedLocally, checkTempleModeStatus } from '../utils/templeMode';
+import { isStandaloneMode, triggerHaptic } from '../utils/pwaManager';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -14,7 +17,23 @@ interface MoreMenuProps {
 export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [showAagamAiModal, setShowAagamAiModal] = useState(false);
   const [settings, setSettings] = useState<UserSettings>(getSettings());
+  const [isTempleModeDownloading, setIsTempleModeDownloading] = useState(false);
+  const [templeModeProgress, setTempleModeProgress] = useState(0);
+  const [isTempleModeReady, setIsTempleModeReady] = useState(isTempleModeCachedLocally());
+
+  useEffect(() => {
+    checkTempleModeStatus().then((ready) => setIsTempleModeReady(ready));
+  }, []);
+
+  const handleDownloadTempleMode = async () => {
+    setIsTempleModeDownloading(true);
+    setTempleModeProgress(0);
+    await downloadTempleMode((pct) => setTempleModeProgress(pct));
+    setIsTempleModeDownloading(false);
+    setIsTempleModeReady(true);
+  };
 
   // Close modal on mobile back navigation
   useModalBackHandler(!!selectedId, () => setSelectedId(null), 'more-modal');
@@ -161,8 +180,108 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             <span className="text-white font-gotu">डार्क मोड (आंखों के लिए सौम्य)</span>
             <div className="px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-bold font-gotu">सदा सक्रिय</div>
           </div>
+
+          {/* Temple Mode - 100% Offline Download */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-blue-500/10 border border-amber-400/30">
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <div>
+                <div className="flex items-center gap-2">
+                  <WifiOff className="w-4 h-4 text-amber-400" />
+                  <span className="text-white font-bold font-gotu text-sm">🛕 मंदिर मोड (100% ऑफ़लाइन)</span>
+                </div>
+                <p className="text-[11px] text-slate-300 font-gotu mt-1 leading-relaxed">
+                  सभी ४५०+ रचनाएँ एवं नवकार मंत्र ऑडियो को फ़ोन में सुरक्षित करें ताकि मंदिर में बिना इंटरनेट ऐप चले।
+                </p>
+              </div>
+            </div>
+
+            {isTempleModeDownloading ? (
+              <div className="space-y-1.5 mt-3">
+                <div className="flex justify-between text-xs text-amber-300 font-mono">
+                  <span>डाउनलोड हो रहा है…</span>
+                  <span>{templeModeProgress}%</span>
+                </div>
+                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-amber-400 transition-all duration-300 rounded-full"
+                    style={{ width: `${templeModeProgress}%` }}
+                  />
+                </div>
+              </div>
+            ) : isTempleModeReady ? (
+              <div className="flex items-center justify-between mt-3 pt-2 border-t border-white/10">
+                <span className="text-xs text-emerald-400 font-gotu flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                  संपूर्ण सामग्री ऑफ़लाइन सुरक्षित है
+                </span>
+                <button
+                  type="button"
+                  onClick={handleDownloadTempleMode}
+                  className="text-[11px] font-gotu text-amber-300 hover:text-amber-200 underline cursor-pointer"
+                >
+                  पुनः सिंक करें
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={handleDownloadTempleMode}
+                className="mt-3 w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold font-gotu text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                एक क्लिक में ऑफ़लाइन डाउनलोड करें
+              </button>
+            )}
+          </div>
+
+          {/* PWA App Installation / Native WebAPK Status */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-600/10 border border-amber-400/30">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-start gap-2.5">
+                <Smartphone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-white font-bold font-gotu text-sm">📲 जिनवाणी ऐप मोड</span>
+                  <p className="text-[11px] text-slate-300 font-gotu mt-0.5 leading-relaxed">
+                    {isStandaloneMode()
+                      ? 'असली ऐप की तरह फ़ोन में स्थापित (Standalone WebAPK)'
+                      : 'फ़ोन की होम स्क्रीन पर बिना ब्राउज़र बार के असली ऐप की तरह चलाएं।'}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {isStandaloneMode() ? (
+              <div className="mt-3 pt-2 border-t border-white/10 flex items-center gap-1.5 text-xs text-emerald-400 font-gotu">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>ऐप मोड सक्रिय • पूर्ण स्क्रीन अनुभव</span>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  triggerHaptic('medium');
+                  window.dispatchEvent(new CustomEvent('jinvani:open-install-prompt'));
+                }}
+                className="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold font-gotu text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                फ़ोन में ऐप इंस्टॉल करें
+              </button>
+            )}
+          </div>
         </div>
       )
+    },
+    {
+      id: 'git-admin',
+      label: 'गिट व्यवस्थापक',
+      icon: GitBranch,
+      desc: 'स्तोत्र, ग्रंथ व घोषणा संपादक (Git CMS)',
+    },
+    {
+      id: 'aagam-ai',
+      label: 'आगम AI जिज्ञासा',
+      icon: Sparkles,
+      desc: 'जैन दर्शन व आगम से जुड़े प्रश्नों के त्वरित उत्तर',
     },
     {
       id: 'donate',
@@ -205,6 +324,11 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   ];
 
   const handleItemClick = async (item: any) => {
+    if (item.id === 'git-admin') {
+      onNavigate('git-admin');
+      return;
+    }
+
     if (item.id === 'share') {
       const shareUrl = getCanonicalShareUrl('landing');
       const shareData = {
@@ -237,6 +361,11 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
 
     if (item.id === 'contact') {
       setShowFeedbackModal(true);
+      return;
+    }
+
+    if (item.id === 'aagam-ai') {
+      setShowAagamAiModal(true);
       return;
     }
 
@@ -389,6 +518,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       <FeedbackModal
         isOpen={showFeedbackModal}
         onClose={() => setShowFeedbackModal(false)}
+      />
+
+      {/* Cloudflare Workers AI - Aagam AI Q&A Modal */}
+      <AagamAiModal
+        isOpen={showAagamAiModal}
+        onClose={() => setShowAagamAiModal(false)}
       />
     </div>
   );

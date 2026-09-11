@@ -28,7 +28,6 @@ import {
   Smartphone,
   QrCode,
   Megaphone,
-  Calendar,
   Database,
   Download,
   Upload,
@@ -42,10 +41,13 @@ import {
   Wifi,
   Info,
   FileCode,
+  Calendar,
+  Send,
+  GitBranch,
 } from 'lucide-react';
 import { GOOGLE_SHEET_WEBHOOK_URL } from '../components/features/FeedbackModal';
-import { contentManifest } from '../data/modules/contentManifest';
-import { getJainDate, getFestival } from '../lib';
+import { ContentCmsTab } from '../components/admin/ContentCmsTab';
+
 
 export interface AdminContributionItem {
   id: number | string;
@@ -362,7 +364,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   const [lastSyncTime, setLastSyncTime] = useState<string>('');
 
   // Active Admin Tab
-  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'catalog' | 'panchang' | 'tools' | 'guide'>('feedback');
+  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'content' | 'tools' | 'guide'>('feedback');
 
   // Guide Tab: Live Cryptographic SHA-256 Hash Tool & Clipboard State
   const [hashInput, setHashInput] = useState('');
@@ -403,12 +405,20 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       return false;
     }
   });
+  const [announcementType, setAnnouncementType] = useState<'permanent' | 'scheduled' | 'time_frame'>(() => {
+    try {
+      const stored = localStorage.getItem('jinvani_admin_announcement');
+      return stored ? JSON.parse(stored).type || 'permanent' : 'permanent';
+    } catch {
+      return 'permanent';
+    }
+  });
   const [announcementText, setAnnouncementText] = useState<string>(() => {
     try {
       const stored = localStorage.getItem('jinvani_admin_announcement');
-      return stored ? JSON.parse(stored).text || '' : 'पर्यूषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।';
+      return stored ? JSON.parse(stored).text || '' : 'पर्युषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।';
     } catch {
-      return 'पर्यूषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।';
+      return 'पर्युषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।';
     }
   });
   const [announcementBadge, setAnnouncementBadge] = useState<string>(() => {
@@ -427,20 +437,107 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       return 'festivals';
     }
   });
+  const [announcementStartDate, setAnnouncementStartDate] = useState<string>(() => {
+    try {
+      const stored = localStorage.getItem('jinvani_admin_announcement');
+      return stored ? JSON.parse(stored).startDate || '' : '';
+    } catch {
+      return '';
+    }
+  });
+  const [announcementEndDate, setAnnouncementEndDate] = useState<string>(() => {
+    try {
+      const stored = localStorage.getItem('jinvani_admin_announcement');
+      return stored ? JSON.parse(stored).endDate || '' : '';
+    } catch {
+      return '';
+    }
+  });
+  const [isPublishingAnnouncement, setIsPublishingAnnouncement] = useState(false);
 
   const handleSaveAnnouncement = () => {
     const data = {
       active: announcementActive,
+      type: announcementType,
       text: announcementText.trim(),
       badge: announcementBadge.trim(),
       link: announcementLink.trim(),
+      startDate: announcementStartDate,
+      endDate: announcementEndDate,
+      updatedAt: new Date().toISOString(),
     };
     try {
       localStorage.setItem('jinvani_admin_announcement', JSON.stringify(data));
       window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
-      showToast(announcementActive ? 'सार्वजनिक घोषणा वेबसाइट पर लाइव कर दी गई!' : 'घोषणा सहेज दी गई (निष्क्रिय)।');
+      showToast(announcementActive ? 'स्थानीय घोषणा वेबसाइट पर लाइव कर दी गई!' : 'घोषणा सहेज दी गई (निष्क्रिय)।');
     } catch {
       showToast('घोषणा सहेजने में त्रुटि हुई।');
+    }
+  };
+
+  const handlePublishGlobalAnnouncement = async () => {
+    setIsPublishingAnnouncement(true);
+    const data = {
+      active: announcementActive,
+      type: announcementType,
+      text: announcementText.trim(),
+      badge: announcementBadge.trim(),
+      link: announcementLink.trim(),
+      startDate: announcementStartDate,
+      endDate: announcementEndDate,
+      updatedAt: new Date().toISOString(),
+    };
+
+    try {
+      // 1. Save locally for instant preview
+      localStorage.setItem('jinvani_admin_announcement', JSON.stringify(data));
+      window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
+
+      // 2. Publish to Cloudflare Edge API
+      const authHash = localStorage.getItem('jinvani_admin_custom_hash') || MASTER_PASSWORD_HASH;
+      const res = await fetch('/api/announcement', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authHash}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        showToast('सार्वजनिक घोषणा विश्वभर के सभी श्रद्धालुओं के लिए लाइव पब्लिश हो गई!');
+      } else {
+        showToast('स्थानीय रूप से सहेजा गया! (एज सर्वर से सम्पर्क नहीं हो सका)');
+      }
+    } catch {
+      showToast('स्थानीय रूप से सहेजा गया! (एज सर्वर ऑफ़लाइन)');
+    } finally {
+      setIsPublishingAnnouncement(false);
+    }
+  };
+
+  const handleDownloadAnnouncementJSON = () => {
+    const data = {
+      active: announcementActive,
+      type: announcementType,
+      badge: announcementBadge.trim(),
+      text: announcementText.trim(),
+      link: announcementLink.trim(),
+      startDate: announcementStartDate,
+      endDate: announcementEndDate,
+      updatedAt: new Date().toISOString(),
+    };
+    try {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'announcement.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('announcement.json डाउनलोड हो गया! इसे public/ फ़ोल्डर में रखकर Push करें।');
+    } catch {
+      showToast('डाउनलोड में त्रुटि हुई।');
     }
   };
 
@@ -449,43 +546,13 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       localStorage.removeItem('jinvani_admin_announcement');
       setAnnouncementActive(false);
       setAnnouncementText('');
+      setAnnouncementStartDate('');
+      setAnnouncementEndDate('');
       window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
       showToast('सार्वजनिक घोषणा हटा दी गई।');
     } catch {}
   };
 
-  // Content Catalog State & Filtering
-  const [catalogSearch, setCatalogSearch] = useState('');
-  const [catalogModuleFilter, setCatalogModuleFilter] = useState('all');
-
-  const catalogItems = useMemo(() => {
-    return Object.entries(contentManifest).map(([id, module]) => {
-      const formattedTitle = id
-        .split('-')
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' ');
-      return { id, module, title: formattedTitle };
-    });
-  }, []);
-
-  const catalogCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: catalogItems.length };
-    catalogItems.forEach((it) => {
-      counts[it.module] = (counts[it.module] || 0) + 1;
-    });
-    return counts;
-  }, [catalogItems]);
-
-  const filteredCatalogItems = useMemo(() => {
-    return catalogItems.filter((item) => {
-      const matchesSearch =
-        !catalogSearch.trim() ||
-        item.id.toLowerCase().includes(catalogSearch.toLowerCase().trim()) ||
-        item.title.toLowerCase().includes(catalogSearch.toLowerCase().trim());
-      const matchesModule = catalogModuleFilter === 'all' || item.module === catalogModuleFilter;
-      return matchesSearch && matchesModule;
-    });
-  }, [catalogItems, catalogSearch, catalogModuleFilter]);
 
   // System Diagnostics & Tools State
   const [storageUsageKB, setStorageUsageKB] = useState<number>(0);
@@ -541,6 +608,9 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         statusOverrides: localStorage.getItem('jinvani_status_overrides')
           ? JSON.parse(localStorage.getItem('jinvani_status_overrides')!)
           : {},
+        deletedItems: localStorage.getItem('jinvani_deleted_items')
+          ? JSON.parse(localStorage.getItem('jinvani_deleted_items')!)
+          : {},
         announcement: localStorage.getItem('jinvani_admin_announcement')
           ? JSON.parse(localStorage.getItem('jinvani_admin_announcement')!)
           : null,
@@ -568,6 +638,9 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         const parsed = JSON.parse(event.target?.result as string);
         if (parsed.statusOverrides) {
           localStorage.setItem('jinvani_status_overrides', JSON.stringify(parsed.statusOverrides));
+        }
+        if (parsed.deletedItems) {
+          localStorage.setItem('jinvani_deleted_items', JSON.stringify(parsed.deletedItems));
         }
         if (parsed.announcement) {
           localStorage.setItem('jinvani_admin_announcement', JSON.stringify(parsed.announcement));
@@ -607,23 +680,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   };
 
   const handleResetOverrides = () => {
-    if (window.confirm('क्या आप सभी स्थानीय स्थिति ओवरराइड्स हटाना चाहते हैं?')) {
+    if (window.confirm('क्या आप सभी स्थानीय स्थिति ओवरराइड्स एवं हटाई गई प्रविष्टियाँ रीसेट करना चाहते हैं?')) {
       localStorage.removeItem('jinvani_status_overrides');
-      showToast('सभी स्थिति ओवरराइड्स हटा दिए गए।');
+      localStorage.removeItem('jinvani_deleted_items');
+      showToast('सभी स्थिति ओवरराइड्स एवं हटाई गई प्रविष्टियाँ रीसेट कर दी गईं।');
       fetchData();
     }
   };
 
-  // Panchang calculations for Tab 4
-  const todayDate = new Date();
-  const todayJain = getJainDate(todayDate);
-  const todayFestival = getFestival(
-    todayJain.tithiLabel,
-    todayJain.paksha,
-    todayDate.getMonth(),
-    todayJain.tithi,
-    todayJain.jainMonth
-  );
+
 
   // Multi-column layout state (1, 2, or 3 columns, defaults to 2 columns on desktop)
   const [columns, setColumns] = useState<1 | 2 | 3>(() => {
@@ -1048,11 +1113,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
       const data = await res.json();
       if (Array.isArray(data)) {
-        // Apply any locally saved status overrides if present
+        // Apply any locally saved status overrides and filter out deleted items
         try {
+          const deletedStr = localStorage.getItem('jinvani_deleted_items');
+          const deletedIds: Record<string, boolean> = deletedStr ? JSON.parse(deletedStr) : {};
+          const activeData = data.filter((item) => !deletedIds[String(item.id)]);
+
           const overridesStr = localStorage.getItem('jinvani_status_overrides');
           const overrides: Record<string, string> = overridesStr ? JSON.parse(overridesStr) : {};
-          const merged = data.map((item) => {
+          const merged = activeData.map((item) => {
             const overrideStatus = overrides[String(item.id)];
             return overrideStatus ? { ...item, status: overrideStatus } : item;
           });
@@ -1111,6 +1180,52 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       });
     } catch (err) {
       console.warn('Background sync to sheet failed, stored locally:', err);
+    }
+  };
+
+  // Delete item handler
+  const handleDeleteItem = async (item: AdminContributionItem) => {
+    const confirmDelete = window.confirm(
+      `क्या आप प्रविष्टि #${item.id} (${item.scriptureName || 'सुझाव'}) को हटाना चाहते हैं?\n\nयह प्रविष्टि डैशबोर्ड से हटा दी जाएगी।`
+    );
+    if (!confirmDelete) return;
+
+    // 1. Remove from local UI state immediately
+    setItems((prev) => prev.filter((it) => it.id !== item.id));
+
+    // 2. Persist in deleted items list in localStorage
+    try {
+      const deletedStr = localStorage.getItem('jinvani_deleted_items');
+      const deletedIds: Record<string, boolean> = deletedStr ? JSON.parse(deletedStr) : {};
+      deletedIds[String(item.id)] = true;
+      localStorage.setItem('jinvani_deleted_items', JSON.stringify(deletedIds));
+
+      // Clean up any status override for this item
+      const overridesStr = localStorage.getItem('jinvani_status_overrides');
+      if (overridesStr) {
+        const overrides: Record<string, string> = JSON.parse(overridesStr);
+        delete overrides[String(item.id)];
+        localStorage.setItem('jinvani_status_overrides', JSON.stringify(overrides));
+      }
+    } catch (err) {
+      console.error('Failed to save deleted item to localStorage:', err);
+    }
+
+    showToast(`प्रविष्टि #${item.id} सफलतापूर्वक हटा दी गई!`);
+
+    // 3. Attempt background delete in Google Sheet via Apps Script webhook
+    try {
+      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'delete',
+          rowId: item.id,
+        }),
+      });
+    } catch (err) {
+      console.warn('Background sync delete to sheet failed, stored locally:', err);
     }
   };
 
@@ -1264,6 +1379,33 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             {/* Corner Markers */}
             <div className="absolute top-2.5 left-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
             <div className="absolute top-2.5 right-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
+
+            {/* Quick Switch to Git-Based Admin CMS */}
+            <div className="mb-5 p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/20 border border-amber-400/40 shadow-lg">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300 shrink-0">
+                    <GitBranch className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-bold text-white font-notoserif leading-tight">
+                      गिट व्यवस्थापक (Git Admin)
+                    </h3>
+                    <p className="text-[10px] sm:text-[11px] text-amber-200/80 font-gotu">
+                      बिना पासवर्ड के स्तोत्र व घोषणाएं संपादित करें
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onNavigate?.('git-admin')}
+                  className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-gotu font-bold text-xs flex items-center gap-1 transition-all shadow-md active:scale-95 cursor-pointer shrink-0"
+                >
+                  <span>खोलें</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
 
             {loginStep === 'password' ? (
               <>
@@ -2024,6 +2166,17 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             <span>सुरक्षित सत्र (60m)</span>
           </div>
 
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('git-admin')}
+              title="गिट व्यवस्थापक (Git Admin CMS) खोलें"
+              className="px-2.5 sm:px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-300 border border-amber-500/40 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
+            >
+              <GitBranch className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">गिट एडमिन</span>
+            </button>
+          )}
+
           <button
             onClick={() => fetchData(true)}
             disabled={isRefreshing || isLoading}
@@ -2084,6 +2237,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
           </a>
 
           <button
+            onClick={() => onNavigate ? onNavigate('git-admin') : (window.location.hash = '#git-admin')}
+            className="px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer"
+            title="गिट व्यवस्थापक पोर्टल खोलें"
+          >
+            <GitBranch className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">गिट एडमिन</span>
+          </button>
+
+          <button
             onClick={() => handleLogout()}
             className="px-2.5 sm:px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
@@ -2098,8 +2260,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         {[
           { id: 'feedback', label: 'अशुद्धि व सुझाव', icon: CheckCircle2, badge: stats.total },
           { id: 'announcement', label: 'सार्वजनिक घोषणा', icon: Megaphone, badge: announcementActive ? 'LIVE' : undefined },
-          { id: 'catalog', label: 'शास्त्र भंडार (564)', icon: BookOpen },
-          { id: 'panchang', label: 'पंचांग व पर्व', icon: Calendar },
+          { id: 'content', label: 'स्तोत्र व ग्रंथ संपादक', icon: BookOpen, badge: 'CMS' },
           { id: 'tools', label: 'सिस्टम टूल्स', icon: Wrench },
           { id: 'guide', label: 'एडमिन गाइड व सुरक्षा', icon: FileText, badge: 'IMP' },
         ].map((tab) => {
@@ -2381,7 +2542,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                         className="p-3 sm:p-5 rounded-2xl sm:rounded-3xl border-white/10 bg-[#0c1222]/85 hover:border-amber-500/40 transition-all flex flex-col justify-between h-full shadow-lg"
                       >
                         <div>
-                          {/* Card Header: Type Badge, Row ID & Status Tag */}
+                          {/* Card Header: Type Badge, Row ID & Status Tag + Delete Button */}
                           <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2.5">
                             <div className="flex items-center gap-1.5 flex-wrap">
                               {getTypeBadge(item.type)}
@@ -2389,7 +2550,20 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                                 #{item.id}
                               </span>
                             </div>
-                            {getStatusBadge(item.status)}
+                            <div className="flex items-center gap-1.5">
+                              {getStatusBadge(item.status)}
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteItem(item);
+                                }}
+                                title="प्रविष्टि हटाएं (Delete)"
+                                className="p-1 rounded-lg text-slate-400 hover:text-rose-300 hover:bg-rose-500/20 border border-white/5 hover:border-rose-500/30 transition-all cursor-pointer"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
                           </div>
 
                           {/* Scripture / Text Name */}
@@ -2507,7 +2681,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                       वेबसाइट पर घोषणा प्रदर्शित करें (Active Status)
                     </span>
                     <span className="text-[11px] text-slate-400 font-gotu">
-                      {announcementActive ? '🟢 घोषणा अभी मुख्य पृष्ठ पर लाइव है' : '⚪ घोषणा अभी निष्क्रिय है'}
+                      {announcementActive ? '🟢 घोषणा अभी मुख्य पृष्ठ पर सक्रिय है' : '⚪ घोषणा अभी निष्क्रिय है'}
                     </span>
                   </div>
                   <button
@@ -2524,6 +2698,74 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                     />
                   </button>
                 </div>
+
+                {/* Announcement Type Selector (Permanent, Scheduled, Time-Frame) */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-amber-200 font-gotu">
+                    घोषणा का प्रकार (Schedule Type):
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: 'permanent', label: '🌟 स्थायी', desc: 'हमेशा दिखेगी' },
+                      { id: 'scheduled', label: '⏰ पूर्व-निर्धारित', desc: 'तय समय से शुरू' },
+                      { id: 'time_frame', label: '⏳ समय-सीमा', desc: 'स्वतः गायब होगी' },
+                    ].map((t) => (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setAnnouncementType(t.id as any)}
+                        className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
+                          announcementType === t.id
+                            ? 'bg-amber-500/25 border-amber-400 text-amber-200 font-bold'
+                            : 'bg-slate-950/60 border-white/10 text-slate-300 hover:border-amber-400/30'
+                        }`}
+                      >
+                        <span className="text-xs font-gotu block">{t.label}</span>
+                        <span className="text-[10px] text-slate-400 block font-gotu mt-0.5">{t.desc}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Date & Time Pickers for Scheduled and Time-Frame */}
+                {announcementType !== 'permanent' && (
+                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1">
+                          <Calendar className="w-3.5 h-3.5 text-amber-400" />
+                          <span>प्रारंभ तिथि व समय:</span>
+                        </label>
+                        <input
+                          type="datetime-local"
+                          value={announcementStartDate}
+                          onChange={(e) => setAnnouncementStartDate(e.target.value)}
+                          className="w-full bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 text-xs text-amber-100 focus:outline-none focus:border-amber-400 font-mono"
+                        />
+                      </div>
+
+                      {announcementType === 'time_frame' && (
+                        <div className="space-y-1">
+                          <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5 text-rose-400" />
+                            <span>समाप्ति तिथि व समय:</span>
+                          </label>
+                          <input
+                            type="datetime-local"
+                            value={announcementEndDate}
+                            onChange={(e) => setAnnouncementEndDate(e.target.value)}
+                            className="w-full bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 text-xs text-amber-100 focus:outline-none focus:border-amber-400 font-mono"
+                          />
+                        </div>
+                      )}
+                    </div>
+                    {announcementType === 'time_frame' && (
+                      <p className="text-[11px] text-amber-200/80 font-gotu leading-tight">
+                        ✨ <b>स्मार्ट ऑटो-एक्सपायरी:</b> यह समय पूरा होते ही घोषणा वेबसाइट से खुद-ब-खुद दिखना बंद हो जाएगी। आपको मैन्युअली हटाने की आवश्यकता नहीं होगी।
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 {/* Badge Category */}
                 <div className="space-y-1.5">
@@ -2566,7 +2808,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                     maxLength={200}
                     value={announcementText}
                     onChange={(e) => setAnnouncementText(e.target.value)}
-                    placeholder="उदा. पर्यूषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।"
+                    placeholder="उदा. पर्युषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।"
                     className="w-full bg-slate-950/70 border border-amber-500/25 rounded-2xl p-3 text-xs sm:text-sm text-amber-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-400 font-gotu leading-relaxed"
                   />
                 </div>
@@ -2591,26 +2833,47 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                   </select>
                 </div>
 
-                {/* Actions */}
-                <div className="pt-2 flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={handleSaveAnnouncement}
-                    className="flex-1 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold py-2.5 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-xs sm:text-sm flex items-center justify-center gap-1.5"
-                  >
-                    <Check className="w-4 h-4" />
-                    <span>घोषणा सहेजें व लाइव करें</span>
-                  </button>
+                {/* Actions Grid */}
+                <div className="pt-2 space-y-2.5">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <button
+                      type="button"
+                      onClick={handlePublishGlobalAnnouncement}
+                      disabled={isPublishingAnnouncement}
+                      className="flex-1 min-w-[200px] bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold py-2.5 rounded-xl shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:scale-[1.01] active:scale-[0.98] transition-all cursor-pointer text-xs sm:text-sm flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    >
+                      {isPublishingAnnouncement ? (
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Send className="w-4 h-4" />
+                      )}
+                      <span>{isPublishingAnnouncement ? 'पब्लिश हो रहा है...' : '🌐 विश्वभर में लाइव पब्लिश करें'}</span>
+                    </button>
 
-                  <button
-                    type="button"
-                    onClick={handleClearAnnouncement}
-                    className="px-3.5 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-colors font-gotu text-xs cursor-pointer flex items-center gap-1"
-                    title="घोषणा हटाएं"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">हटाएं</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={handleDownloadAnnouncementJSON}
+                      className="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15 font-gotu text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+                      title="announcement.json डाउनलोड करें ताकि GitHub Desktop से Push कर सकें"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>JSON डाउनलोड</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleClearAnnouncement}
+                      className="px-3 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-colors font-gotu text-xs cursor-pointer flex items-center gap-1"
+                      title="घोषणा हटाएं"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">हटाएं</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-slate-400 font-gotu">
+                    💡 <b>GitHub Desktop सिंक:</b> 'JSON डाउनलोड' दबाकर फ़ाइल को <code>public/announcement.json</code> में रिप्लेस करें और GitHub Desktop से 1-क्लिक में Push कर दें!
+                  </p>
                 </div>
               </GlassCard>
             </div>
@@ -2619,12 +2882,43 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             <div className="lg:col-span-5 space-y-4">
               <GlassCard
                 variant="sacred"
-                className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0b1220]/80 shadow-xl space-y-3"
+                className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0b1220]/80 shadow-xl space-y-3 sticky top-4"
               >
-                <div className="flex items-center gap-2 pb-2 border-b border-white/10 text-xs font-bold text-amber-300 font-gotu">
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>लाइव पूर्वावलोकन (Landing Page Preview)</span>
+                <div className="flex items-center justify-between pb-2 border-b border-white/10 text-xs font-bold text-amber-300 font-gotu">
+                  <div className="flex items-center gap-2">
+                    <Eye className="w-3.5 h-3.5" />
+                    <span>लाइव पूर्वावलोकन (Preview)</span>
+                  </div>
+                  {/* Status Indicator */}
+                  {(() => {
+                    if (!announcementActive || !announcementText.trim()) {
+                      return <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-400 font-gotu">⚪ निष्क्रिय</span>;
+                    }
+                    const now = Date.now();
+                    if (announcementType === 'scheduled' && announcementStartDate) {
+                      const s = new Date(announcementStartDate).getTime();
+                      if (!isNaN(s) && now < s) {
+                        return <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-gotu">⏰ आगामी</span>;
+                      }
+                    }
+                    if (announcementType === 'time_frame') {
+                      if (announcementStartDate) {
+                        const s = new Date(announcementStartDate).getTime();
+                        if (!isNaN(s) && now < s) {
+                          return <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-gotu">⏰ आगामी</span>;
+                        }
+                      }
+                      if (announcementEndDate) {
+                        const e = new Date(announcementEndDate).getTime();
+                        if (!isNaN(e) && now > e) {
+                          return <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/30 font-gotu">🔴 समाप्त (Expired)</span>;
+                        }
+                      }
+                    }
+                    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-gotu">🟢 सक्रिय (Live)</span>;
+                  })()}
                 </div>
+
                 <p className="text-[11px] text-slate-400 font-gotu">
                   उपयोगकर्ताओं को मुख्य पृष्ठ पर घोषणा ठीक इसी रूप में दिखाई देगी:
                 </p>
@@ -2654,7 +2948,9 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-400 font-gotu space-y-1">
-                  <p>💡 <b>मार्गदर्शन:</b> घोषणा सहेजने के बाद मुख्य पृष्ठ (`Landing Page`) पर यह तुरंत दिखाई देगी और आगंतुक इसे 'देखें' बटन से खोल सकेंगे।</p>
+                  <p>✨ <b>घोषणा प्रकार:</b> {announcementType === 'permanent' ? 'स्थायी (हमेशा दिखेगी)' : announcementType === 'scheduled' ? 'पूर्व-निर्धारित (तय समय से शुरू)' : 'समय-सीमा युक्त (समाप्ति समय पर स्वतः गायब)'}</p>
+                  {announcementStartDate && <p>📅 <b>प्रारंभ:</b> {announcementStartDate.replace('T', ' ')}</p>}
+                  {announcementEndDate && <p>⌛ <b>समाप्ति:</b> {announcementEndDate.replace('T', ' ')}</p>}
                 </div>
               </GlassCard>
             </div>
@@ -2662,256 +2958,12 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         </motion.div>
       )}
 
-      {/* TAB 3: शास्त्र भंडार निर्देशिका (Content Library & Catalog) */}
-      {adminTab === 'catalog' && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-5xl space-y-6 relative z-10"
-        >
-          <div className="text-center max-w-2xl mx-auto mb-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2 backdrop-blur-md">
-              <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-gotu">डिजिटल ग्रंथालय • 564 Canonical Items</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
-              जिनवाणी शास्त्र भंडार निर्देशिका
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
-              पोर्टल पर उपलब्ध समस्त 564 प्रामाणिक ग्रंथों, स्तोत्रों, चालीसा, पूजाओं एवं दार्शनिक पाठों की संपूर्ण सूची व त्वरित परीक्षण।
-            </p>
-          </div>
-
-          {/* Search & Category Filter */}
-          <div className="space-y-3">
-            <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-              <input
-                type="text"
-                value={catalogSearch}
-                onChange={(e) => setCatalogSearch(e.target.value)}
-                placeholder="ग्रंथ का नाम या स्लग ID खोजें (उदा. समयसार, samayasara, bhaktamar)..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-900/80 border border-amber-500/25 text-amber-100 placeholder:text-slate-500 text-xs sm:text-sm font-gotu focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/40 shadow-inner"
-              />
-              {catalogSearch && (
-                <button
-                  onClick={() => setCatalogSearch('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-gotu"
-                >
-                  ✕ साफ़ करें
-                </button>
-              )}
-            </div>
-
-            {/* Category Filter Chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar">
-              {[
-                { id: 'all', label: `सभी (${catalogCounts.all || 564})` },
-                { id: 'ritual', label: `पूजा व विधान (${catalogCounts.ritual || 0})` },
-                { id: 'shastra', label: `मूल शास्त्र (${catalogCounts.shastra || 0})` },
-                { id: 'stotra', label: `स्तोत्र (${catalogCounts.stotra || 0})` },
-                { id: 'chalisa', label: `चालीसा (${catalogCounts.chalisa || 0})` },
-                { id: 'arti', label: `आरती (${catalogCounts.arti || 0})` },
-                { id: 'bhajan', label: `भजन (${catalogCounts.bhajan || 0})` },
-                { id: 'philosophy', label: `दर्शन (${catalogCounts.philosophy || 0})` },
-                { id: 'history', label: `इतिहास (${catalogCounts.history || 0})` },
-                { id: 'cosmology', label: `भूगोल (${catalogCounts.cosmology || 0})` },
-                { id: 'parva', label: `पर्व (${catalogCounts.parva || 0})` },
-                { id: 'vidhi', label: `विधि (${catalogCounts.vidhi || 0})` },
-                { id: 'kids', label: `पाठशाला (${catalogCounts.kids || 0})` },
-              ].map((chip) => (
-                <button
-                  key={chip.id}
-                  onClick={() => setCatalogModuleFilter(chip.id)}
-                  className={`px-3 py-1 rounded-xl text-xs font-gotu whitespace-nowrap transition-all cursor-pointer ${
-                    catalogModuleFilter === chip.id
-                      ? 'bg-amber-500/30 text-amber-200 border border-amber-400/50 font-bold shadow-sm'
-                      : 'bg-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10 border border-transparent'
-                  }`}
-                >
-                  {chip.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Catalog Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {filteredCatalogItems.slice(0, 120).map((item) => (
-              <GlassCard
-                key={item.id}
-                variant="sacred"
-                className="p-3.5 sm:p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 hover:border-amber-500/40 transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-mono">
-                      {item.module}
-                    </span>
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(item.id);
-                        showToast(`स्लग '${item.id}' कॉपी हो गया!`);
-                      }}
-                      className="text-slate-400 hover:text-amber-300 transition-colors p-1"
-                      title="स्लग कॉपी करें"
-                    >
-                      <Copy className="w-3 h-3" />
-                    </button>
-                  </div>
-                  <h4 className="text-sm font-notoserif font-bold text-slate-100 leading-snug mb-1">
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] text-slate-400 font-mono select-all truncate">
-                    {item.id}
-                  </p>
-                </div>
-
-                <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-[10px] text-slate-500 font-gotu">मॉड्यूल: {item.module}</span>
-                  {onNavigate && (
-                    <button
-                      onClick={() => onNavigate('viewer', { id: item.id, title: item.title, type: item.module, source: 'admin' })}
-                      className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-semibold transition-all cursor-pointer flex items-center gap-1"
-                    >
-                      <span>पाठ खोलें</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
-              </GlassCard>
-            ))}
-          </div>
-          {filteredCatalogItems.length > 120 && (
-            <p className="text-center text-xs text-slate-400 font-gotu pt-2">
-              कुल {filteredCatalogItems.length} में से प्रथम 120 परिणाम दिखाए जा रहे हैं। विशिष्ट पाठ खोजने हेतु ऊपर सर्च बार का उपयोग करें।
-            </p>
-          )}
-        </motion.div>
+      {/* TAB 3: सामग्री एवं स्तोत्र संपादक (Content CMS) */}
+      {adminTab === 'content' && (
+        <ContentCmsTab showToast={showToast} />
       )}
 
-      {/* TAB 4: पंचांग एवं पर्व स्थिति (Panchang & Auspicious Dates) */}
-      {adminTab === 'panchang' && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-4xl space-y-6 relative z-10"
-        >
-          <div className="text-center max-w-2xl mx-auto mb-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2 backdrop-blur-md">
-              <Calendar className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-gotu">जैन काल-गणना • Tithi & Astrological Status</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
-              दैनिक पंचांग एवं पर्व नियंत्रण
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
-              दिगम्बर जैन परम्परा अनुसार आज की तिथि, पक्ष, जैन मास एवं आगामी महापर्वों का पूर्ण विवरण।
-            </p>
-          </div>
 
-          {/* Today's Tithi Card */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-7 rounded-3xl border-amber-500/30 bg-[#0b1220]/95 shadow-xl space-y-4"
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
-              <div>
-                <span className="text-xs text-amber-400 font-gotu font-semibold">आज का शुभ पंचांग:</span>
-                <h3 className="text-xl sm:text-2xl font-notoserif font-bold text-white mt-0.5">
-                  {todayJain.tithiLabel} ({todayJain.paksha} पक्ष)
-                </h3>
-                <p className="text-xs text-amber-200/80 font-gotu mt-0.5">
-                  मास: {todayJain.jainMonth} • वीर निर्वाण संवत् 2552
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                {todayFestival ? (
-                  <span className="px-3 py-1.5 rounded-xl bg-amber-500/25 border border-amber-400/50 text-amber-200 text-xs font-gotu font-bold flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                    <span>{todayFestival}</span>
-                  </span>
-                ) : todayJain.isParvaTithi ? (
-                  <span className="px-3 py-1.5 rounded-xl bg-emerald-500/25 border border-emerald-400/50 text-emerald-200 text-xs font-gotu font-bold">
-                    पर्व तिथि (उपोषण/साधना)
-                  </span>
-                ) : (
-                  <span className="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-gotu">
-                    सामान्य तिथि
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Panchang Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-              <div className="p-3 rounded-2xl bg-slate-950/60 border border-white/5">
-                <span className="text-[11px] text-slate-400 font-gotu block">सूर्योदय:</span>
-                <span className="text-sm sm:text-base font-bold text-amber-200 font-notoserif">{todayJain.sunrise}</span>
-              </div>
-              <div className="p-3 rounded-2xl bg-slate-950/60 border border-white/5">
-                <span className="text-[11px] text-slate-400 font-gotu block">सूर्यास्त:</span>
-                <span className="text-sm sm:text-base font-bold text-amber-200 font-notoserif">{todayJain.sunset}</span>
-              </div>
-              <div className="p-3 rounded-2xl bg-slate-950/60 border border-white/5">
-                <span className="text-[11px] text-slate-400 font-gotu block">नक्षत्र:</span>
-                <span className="text-sm sm:text-base font-bold text-amber-200 font-notoserif">{todayJain.nakshatra}</span>
-              </div>
-              <div className="p-3 rounded-2xl bg-slate-950/60 border border-white/5">
-                <span className="text-[11px] text-slate-400 font-gotu block">ऋतु:</span>
-                <span className="text-sm sm:text-base font-bold text-amber-200 font-notoserif">{todayJain.season}</span>
-              </div>
-            </div>
-
-            {onNavigate && (
-              <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => onNavigate('panchang')}
-                  className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-bold transition-all cursor-pointer flex items-center gap-1.5"
-                >
-                  <span>संपूर्ण पंचांग पृष्ठ खोलें</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            )}
-          </GlassCard>
-
-          {/* Major Jain Festivals Table */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0c1222]/80 shadow-xl space-y-3"
-          >
-            <h3 className="text-base font-bold text-white font-notoserif flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>दिगम्बर जैन वार्षिक महापर्व संदर्भ तालिका</span>
-            </h3>
-            <div className="space-y-2.5 pt-2">
-              {[
-                { name: 'दशलक्षण महापर्व (भाद्रपद)', tithi: 'भाद्रपद शुक्ल पंचमी से चतुर्दशी', desc: 'दस धर्मों (उत्तम क्षमा, मार्दव, आर्जव, सत्य, शौच, संयम, तप, त्याग, आकिंचन्य, ब्रह्मचर्य) का महापर्व।' },
-                { name: 'अनंत चतुर्दशी', tithi: 'भाद्रपद शुक्ल चतुर्दशी', desc: 'वापसी व्रत, धूप दशमी एवं सिद्ध चक्र आराधना का समापन।' },
-                { name: 'अष्टान्हिका महापर्व (कार्तिक)', tithi: 'कार्तिक शुक्ल अष्टमी से पूर्णिमा', desc: 'नंदीश्वर द्वीप के अकृत्रिम चैत्यालयों की 8 दिवसीय अलौकिक वंदना।' },
-                { name: 'वीर निर्वाण संवत् एवं दीपावली', tithi: 'कार्तिक कृष्ण अमावस्या', desc: 'भगवान महावीर स्वामी का मोक्ष कल्याणक एवं गौतम गणधर का केवलज्ञान दिवस।' },
-                { name: 'महावीर जयंती (कल्याणक)', tithi: 'चैत्र शुक्ल त्रयोदशी', desc: '24वें तीर्थंकर भगवान महावीर स्वामी का जन्म कल्याणक महोत्सव।' },
-                { name: 'अक्षय तृतीया', tithi: 'वैशाख शुक्ल तृतीया', desc: 'प्रथम तीर्थंकर भगवान ऋषभदेव का इक्षुरस से प्रथम पारणा दिवस।' },
-                { name: 'श्रुत पंचमी', tithi: 'ज्येष्ठ शुक्ल पंचमी', desc: 'षट्खंडागम ग्रंथ रचना एवं जिनवाणी लिपिबद्ध होने का पावन दिवस।' },
-              ].map((parva, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-2xl bg-slate-950/60 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
-                >
-                  <div>
-                    <h4 className="text-sm font-bold text-amber-200 font-gotu">{parva.name}</h4>
-                    <p className="text-xs text-slate-300 font-gotu mt-0.5">{parva.desc}</p>
-                  </div>
-                  <span className="text-[11px] font-mono text-slate-400 bg-white/5 px-2.5 py-1 rounded-lg shrink-0 sm:self-center">
-                    {parva.tithi}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </GlassCard>
-        </motion.div>
-      )}
 
       {/* TAB 5: सिस्टम स्वास्थ्य, बैकअप व टूल्स (System Diagnostics & Tools) */}
       {adminTab === 'tools' && (
@@ -2933,79 +2985,20 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             </p>
           </div>
 
-          {/* System Diagnostics Bento Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-            <GlassCard
-              variant="sacred"
-              className="p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 flex flex-col justify-between"
-            >
-              <div className="text-xs text-slate-400 font-gotu flex items-center gap-1.5">
-                <Database className="w-3.5 h-3.5 text-amber-400" />
-                <span>लोकल स्टोरेज उपयोग</span>
-              </div>
-              <div className="text-2xl font-bold text-white font-mono mt-2">
-                {storageUsageKB} KB
-              </div>
-              <div className="text-[10px] text-slate-400 font-gotu mt-1">
-                ब्राउज़र सीमा: ~5,120 KB
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 flex flex-col justify-between"
-            >
-              <div className="text-xs text-slate-400 font-gotu flex items-center gap-1.5">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
-                <span>स्थिति ओवरराइड्स</span>
-              </div>
-              <div className="text-2xl font-bold text-amber-300 font-mono mt-2">
-                {(() => {
-                  try {
-                    const o = localStorage.getItem('jinvani_status_overrides');
-                    return o ? Object.keys(JSON.parse(o)).length : 0;
-                  } catch {
-                    return 0;
-                  }
-                })()}
-              </div>
-              <div className="text-[10px] text-slate-400 font-gotu mt-1">
-                स्थानीय रूप से सहेजे गए स्टेटस
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-4 rounded-2xl border-emerald-500/20 bg-emerald-950/20 flex flex-col justify-between"
-            >
-              <div className="text-xs text-emerald-300 font-gotu flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>2FA प्रमाणीकरण</span>
-              </div>
-              <div className="text-lg font-bold text-emerald-200 font-mono mt-2">
-                TOTP (RFC 6238)
-              </div>
-              <div className="text-[10px] text-emerald-400/80 font-gotu mt-1">
-                {is2FAEnabled ? 'Google Authenticator सक्रिय' : 'वैकल्पिक / निष्क्रिय'}
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-4 rounded-2xl border-amber-500/20 bg-amber-950/20 flex flex-col justify-between"
-            >
-              <div className="text-xs text-amber-300 font-gotu flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-amber-400" />
-                <span>हैशिंग अल्गोरिद्म</span>
-              </div>
-              <div className="text-lg font-bold text-amber-200 font-mono mt-2">
-                SHA-256
-              </div>
-              <div className="text-[10px] text-amber-400/80 font-gotu mt-1">
-                क्रिप्टोग्राफिक अपरिवर्तनीय
-              </div>
-            </GlassCard>
-          </div>
+          {/* System Diagnostics — LocalStorage only */}
+          <GlassCard
+            variant="sacred"
+            className="p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 flex items-center gap-5"
+          >
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-400/20 shrink-0">
+              <Database className="w-5 h-5 text-amber-400" />
+            </div>
+            <div>
+              <div className="text-xs text-slate-400 font-gotu">लोकल स्टोरेज उपयोग</div>
+              <div className="text-2xl font-bold text-white font-mono">{storageUsageKB} KB</div>
+              <div className="text-[10px] text-slate-500 font-gotu">ब्राउज़र सीमा: ~5,120 KB</div>
+            </div>
+          </GlassCard>
 
           {/* Google Sheet Webhook Ping Test */}
           <GlassCard

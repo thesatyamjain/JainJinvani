@@ -33,7 +33,7 @@ const CORE_PAGES = [
 const CATEGORIES = [
   'puja', 'vidhan', 'stotra', 'arti', 'chalisa', 'bhajan',
   'path', 'shastra', 'agamas', 'itihas', 'bhugol', 'parva',
-  'tattva', 'philosophy'
+  'tattva', 'philosophy', 'vrat'
 ];
 
 function extractContentIds(fileContent) {

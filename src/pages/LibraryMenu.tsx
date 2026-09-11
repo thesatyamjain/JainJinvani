@@ -263,6 +263,16 @@ const exploratorySections = [
     border: 'border-teal-500/30',
     accent: 'text-teal-300',
   },
+  {
+    id: 'vrat',
+    label: '१०५ व्रत व उद्यापन',
+    sub: 'पूजा, विधि व उद्यापन संग्रह',
+    icon: Sparkles,
+    desc: 'ब्रम्हचारी विनोद सागर शास्त्री संकलित १०५ व्रत, उद्यापन विधि एवं श्रावक सदाचार।',
+    color: 'from-amber-500/25 to-yellow-600/15',
+    border: 'border-amber-400/40',
+    accent: 'text-amber-200',
+  },
 ];
 
 export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
@@ -617,3 +627,5 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
     </div>
   );
 };
+
+export default LibraryMenu;

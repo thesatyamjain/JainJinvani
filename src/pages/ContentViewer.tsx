@@ -11,6 +11,7 @@ import {
   Scroll,
   Check,
   FileEdit,
+  Volume2,
 } from 'lucide-react';
 import { getContentByIdAsync } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
@@ -19,6 +20,9 @@ import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { FeedbackModal } from '../components/features/FeedbackModal';
+import { requestScreenWakeLock, releaseScreenWakeLock } from '../utils/pwaManager';
+import { AudioPlayer } from '../components/features/AudioPlayer';
+import { getContentAudioTrack } from '../config/media';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -73,6 +77,9 @@ const CATEGORY_NAMES_HI: Record<string, string> = {
   sutra: 'सूत्र',
   agamas: 'मूल आगम',
   kids: 'बाल संस्कार',
+  vrat: '१०५ व्रत एवं उद्यापन',
+  '105-vrat': '१०५ व्रत एवं उद्यापन',
+  'vrat-vidhi': '१०५ व्रत एवं उद्यापन',
 };
 
 // Helper to sanitize Devanagari text, standardize dandas, and fix encoding typos
@@ -501,6 +508,8 @@ export const ContentViewer = ({
   const [isAutoScrolling, setIsAutoScrolling] = React.useState(false);
   const [scrollSpeed, setScrollSpeed] = React.useState(1);
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
+  const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
+  const audioTrack = React.useMemo(() => getContentAudioTrack(id), [id]);
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
   const autoScrollRafRef = React.useRef<number | null>(null);
 
@@ -547,6 +556,14 @@ export const ContentViewer = ({
   React.useEffect(() => {
     if (id) setIsFav(isFavorite(id));
   }, [id]);
+
+  // Screen Wake Lock: Keep display awake during scripture recitation
+  React.useEffect(() => {
+    requestScreenWakeLock();
+    return () => {
+      releaseScreenWakeLock();
+    };
+  }, [id, isAutoScrolling]);
 
   // Smooth Auto-Scroll Engine using requestAnimationFrame
   React.useEffect(() => {
@@ -800,6 +817,21 @@ export const ContentViewer = ({
               {chapterCount} अध्याय
             </span>
           )}
+          {audioTrack && (
+            <button
+              type="button"
+              onClick={() => setIsAudioPlayerActive((prev) => !prev)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-gotu font-bold transition-all cursor-pointer active:scale-95 shadow-md ${
+                isAudioPlayerActive
+                  ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-[0_0_18px_rgba(245,158,11,0.4)]'
+                  : 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+              }`}
+              title="पवित्र उच्चारण व ऑडियो पाठ सुनें"
+            >
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>{isAudioPlayerActive ? 'ऑडियो सक्रिय' : 'ऑडियो पाठ'}</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setShowFeedbackModal(true)}
@@ -926,6 +958,17 @@ export const ContentViewer = ({
         onClose={() => setShowFeedbackModal(false)}
         defaultScriptureName={data?.title || title || ''}
       />
+
+      {/* Floating Read-Along Audio Player */}
+      <AnimatePresence>
+        {isAudioPlayerActive && audioTrack && (
+          <AudioPlayer
+            track={audioTrack}
+            onClose={() => setIsAudioPlayerActive(false)}
+            autoPlay={true}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

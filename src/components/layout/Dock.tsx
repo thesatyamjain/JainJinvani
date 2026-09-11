@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
 import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Play, Pause } from 'lucide-react';
 import { useIsModalOpen } from '../../lib';
+import { triggerHaptic } from '../../utils/pwaManager';
 
 interface DockProps {
   activePage: string;
@@ -22,6 +23,8 @@ export const Dock = ({
   const mouseX = useMotionValue(Infinity);
   const [isDockHidden, setIsDockHidden] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const lastScrollY = useRef(0);
 
   // Dynamic reader state when viewing content
@@ -89,6 +92,12 @@ export const Dock = ({
 
           const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
 
+          // Scroll progress for back-to-top ring
+          const maxScroll = container.scrollHeight - container.clientHeight;
+          const progress = maxScroll > 0 ? Math.min(currentY / maxScroll, 1) : 0;
+          setScrollProgress(progress);
+          setShowBackToTop(currentY > 180);
+
           // Never auto-hide when auto-scroll is actively running or when user reaches bottom of page
           if (readerState.isAutoScrolling || isAtBottom) {
             setIsDockHidden(false);
@@ -116,6 +125,13 @@ export const Dock = ({
   const handleSearchClick = () => {
     mouseX.set(Infinity);
     onSearchClick();
+  };
+
+  const handleScrollToTop = () => {
+    const container = scrollContainerRef?.current
+      ?? document.querySelector('main') as HTMLElement
+      ?? document.documentElement;
+    container.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackClick = () => {
@@ -192,6 +208,7 @@ export const Dock = ({
   }, [isFontExpanded, resetFontCollapseTimer]);
 
   const handleAdjustFontSize = (delta: number) => {
+    triggerHaptic('light');
     resetFontCollapseTimer();
     window.dispatchEvent(
       new CustomEvent('jinvani:reader-font-size', {
@@ -201,16 +218,50 @@ export const Dock = ({
   };
 
   const handleToggleAutoScroll = () => {
+    triggerHaptic('medium');
     window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-autoscroll'));
   };
 
   const handleToggleFavorite = () => {
+    triggerHaptic('success');
     window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-favorite'));
   };
 
   const handleShareClick = () => {
+    triggerHaptic('light');
     window.dispatchEvent(new CustomEvent('jinvani:reader-share'));
   };
+
+  const renderBackToTopIcon = () => (
+    <DockIcon
+      mouseX={mouseX}
+      icon={
+        <div className="relative flex items-center justify-center w-5 h-5 md:w-5.5 md:h-5.5">
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(251,191,36,0.18)" strokeWidth="3" />
+            <circle
+              cx="18" cy="18" r="14"
+              fill="none"
+              stroke="rgba(251,191,36,0.9)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={`${2 * Math.PI * 14}`}
+              strokeDashoffset={`${2 * Math.PI * 14 * (1 - scrollProgress)}`}
+              style={{ transition: 'stroke-dashoffset 0.15s ease' }}
+            />
+          </svg>
+          <svg className="relative w-3 h-3 md:w-3.5 md:h-3.5 text-amber-300" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </div>
+      }
+      label="शीर्ष पर जाएं"
+      subLabel={`${Math.round(scrollProgress * 100)}% read`}
+      isActive={false}
+      isSpecial
+      onClick={handleScrollToTop}
+    />
+  );
 
   const renderNavItems = () => (
     <>
@@ -220,10 +271,13 @@ export const Dock = ({
         label="मुख्य पृष्ठ"
         subLabel="Home"
         isActive={activePage === 'landing'}
-        onClick={() => onNavigate('landing')}
+        onClick={() => {
+          triggerHaptic('light');
+          onNavigate('landing');
+        }}
       />
 
-      <div className="h-8 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 mx-0.5" />
+      <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
 
       <DockIcon
         mouseX={mouseX}
@@ -231,7 +285,10 @@ export const Dock = ({
         label="साधना"
         subLabel="Sadhana"
         isActive={activePage === 'sadhana'}
-        onClick={() => onNavigate('sadhana')}
+        onClick={() => {
+          triggerHaptic('light');
+          onNavigate('sadhana');
+        }}
       />
 
       <DockIcon
@@ -240,7 +297,10 @@ export const Dock = ({
         label="ग्रंथालय"
         subLabel="Library"
         isActive={activePage === 'library'}
-        onClick={() => onNavigate('library')}
+        onClick={() => {
+          triggerHaptic('light');
+          onNavigate('library');
+        }}
       />
 
       <DockIcon
@@ -249,10 +309,13 @@ export const Dock = ({
         label="अधिक"
         subLabel="More"
         isActive={activePage === 'more' || activePage === 'explore' || activePage === 'favorites'}
-        onClick={() => onNavigate('more')}
+        onClick={() => {
+          triggerHaptic('light');
+          onNavigate('more');
+        }}
       />
 
-      <div className="h-8 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2.5 mx-0.5" />
+      <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
 
       <DockIcon
         mouseX={mouseX}
@@ -260,7 +323,10 @@ export const Dock = ({
         label="खोजें"
         subLabel="Search"
         isActive={false}
-        onClick={handleSearchClick}
+        onClick={() => {
+          triggerHaptic('light');
+          handleSearchClick();
+        }}
         isSearch
       />
     </>
@@ -271,7 +337,7 @@ export const Dock = ({
       data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-50 px-4 w-full max-w-[calc(100vw-1.5rem)] md:max-w-none md:w-auto touch-none select-none pointer-events-none transition-all duration-200 ${
+      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-all duration-200 ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible translate-y-8' : ''
       }`}
     >
@@ -287,8 +353,8 @@ export const Dock = ({
           stiffness: 380,
           damping: 28,
         }}
-        className={`flex items-end gap-1.5 md:gap-3 rounded-2xl md:rounded-[26px] bg-[#071124]/85 px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[200%] border border-amber-500/25 shadow-[0_20px_50px_rgba(0,0,0,0.7),0_0_25px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] mx-auto w-fit max-w-full relative touch-none overscroll-contain select-none pointer-events-auto transition-all ${
-          isReaderMode ? 'min-h-[66px] md:min-h-[74px] pt-2 pb-3.5' : 'min-h-[60px] md:min-h-[68px] pt-2 pb-2'
+        className={`flex items-end gap-1 sm:gap-1.5 md:gap-3 rounded-2xl md:rounded-[26px] bg-[#071124]/90 px-2 sm:px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[200%] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.75),0_0_25px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-all ${
+          isReaderMode ? 'min-h-[66px] md:min-h-[74px] pt-2 pb-3.5' : 'min-h-[58px] md:min-h-[68px] pt-1.5 pb-2'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
@@ -311,7 +377,7 @@ export const Dock = ({
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 10, scale: 0.97 }}
                 transition={{ duration: 0.16 }}
-                className="flex items-end gap-1.5 md:gap-2.5"
+                className="flex items-end gap-1 sm:gap-1.5 md:gap-2.5"
               >
                 {/* 1. Back Button */}
                 <DockIcon
@@ -451,6 +517,31 @@ export const Dock = ({
                   isActive={false}
                   onClick={handleShareClick}
                 />
+
+                {/* 6. Back To Top in Reader Mode Tools */}
+                <AnimatePresence>
+                  {showBackToTop && !isFontExpanded && (
+                    <>
+                      <motion.div
+                        key="reader-btt-divider"
+                        initial={{ opacity: 0, scaleY: 0 }}
+                        animate={{ opacity: 1, scaleY: 1 }}
+                        exit={{ opacity: 0, scaleY: 0 }}
+                        className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
+                      />
+                      <motion.div
+                        key="reader-btt-icon"
+                        layout
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                      >
+                        {renderBackToTopIcon()}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ) : (
               /* ============================================================ */
@@ -463,9 +554,33 @@ export const Dock = ({
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -10, scale: 0.97 }}
                 transition={{ duration: 0.16 }}
-                className="flex items-end gap-1.5 md:gap-3"
+                className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
               >
                 {renderNavItems()}
+
+                <AnimatePresence>
+                  {showBackToTop && (
+                    <>
+                      <motion.div
+                        key="reader-home-btt-divider"
+                        initial={{ opacity: 0, scaleY: 0 }}
+                        animate={{ opacity: 1, scaleY: 1 }}
+                        exit={{ opacity: 0, scaleY: 0 }}
+                        className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
+                      />
+                      <motion.div
+                        key="reader-home-btt-icon"
+                        layout
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                      >
+                        {renderBackToTopIcon()}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )
           ) : (
@@ -474,13 +589,38 @@ export const Dock = ({
             /* ============================================================ */
             <motion.div
               key="standard-dock-group"
+              layout
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.15 }}
-              className="flex items-end gap-1.5 md:gap-3"
+              transition={{ duration: 0.2 }}
+              className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
             >
               {renderNavItems()}
+
+              <AnimatePresence>
+                {showBackToTop && (
+                  <>
+                    <motion.div
+                      key="btt-divider"
+                      initial={{ opacity: 0, scaleY: 0 }}
+                      animate={{ opacity: 1, scaleY: 1 }}
+                      exit={{ opacity: 0, scaleY: 0 }}
+                      className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
+                    />
+                    <motion.div
+                      key="btt-icon"
+                      layout
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 24 }}
+                    >
+                      {renderBackToTopIcon()}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>
@@ -527,11 +667,22 @@ interface DockIconProps {
   isActive: boolean;
   onClick: () => void;
   isSearch?: boolean;
+  isSpecial?: boolean;
 }
 
-function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch }: DockIconProps) {
+function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, isSpecial }: DockIconProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isBouncing, setIsBouncing] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1024));
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isSmallMobile = windowWidth < 380;
+  const isMobile = windowWidth < 768;
 
   // Distance from cursor to icon center on X axis
   const distance = useTransform(mouseX, (val) => {
@@ -539,11 +690,10 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch }
     return val - bounds.x - bounds.width / 2;
   });
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
   // macOS Continuous Cosine-wave Fisheye Magnification
   const widthSync = useTransform(distance, (dist) => {
-    if (isMobile) return 42;
+    if (isSmallMobile) return 36;
+    if (isMobile) return 39;
     const absDist = Math.abs(dist);
     const radius = 145; // Magnification wave radius in px
     const baseWidth = 46; // macOS base icon tile size
@@ -594,9 +744,11 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch }
             : { y: 0 }
         }
         onClick={handleClick}
-        className={`aspect-square rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none ${
+        className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none ${
           isActive
             ? 'bg-gradient-to-b from-amber-500/25 via-amber-600/15 to-amber-700/10 border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.3),inset_0_1px_1px_rgba(255,255,255,0.25)]'
+            : isSpecial
+            ? 'bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/35 hover:border-amber-400/70 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
             : isSearch
             ? 'bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/35 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
             : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'

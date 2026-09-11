@@ -2,8 +2,8 @@ import React, { lazy, Suspense, useState, useRef, useEffect } from "react";
 import { SpaceBackground } from "./components/layout/SpaceBackground";
 import { Dock } from "./components/layout/Dock";
 import { ExitToast } from "./components/layout/ExitToast";
-import { BackToTop } from "./components/layout/BackToTop";
 import { ScrollScrubber } from "./components/layout/ScrollScrubber";
+import { PwaAppBridge } from "./components/layout/PwaAppBridge";
 import { AnimatePresence, motion } from "motion/react";
 import { useModalBackHandler } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
@@ -13,6 +13,7 @@ const Landing = lazy(() => import("./pages/Landing").then(({ Landing }) => ({ de
 const SadhanaMenu = lazy(() => import("./pages/SadhanaMenu").then(({ SadhanaMenu }) => ({ default: SadhanaMenu })));
 const LibraryMenu = lazy(() => import("./pages/LibraryMenu").then(({ LibraryMenu }) => ({ default: LibraryMenu })));
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
+const GitAdminPage = lazy(() => import("./pages/GitAdminPage").then(({ GitAdminPage }) => ({ default: GitAdminPage })));
 const ContentViewer = lazy(() => import("./pages/ContentViewer").then(({ ContentViewer }) => ({ default: ContentViewer })));
 const Panchang = lazy(() => import("./pages/Panchang").then(({ Panchang }) => ({ default: Panchang })));
 const CategoryListing = lazy(() => import("./pages/CategoryListing").then(({ CategoryListing }) => ({ default: CategoryListing })));
@@ -358,6 +359,22 @@ export default function App() {
             </motion.div>
           )}
 
+          {activePage === "git-admin" && (
+            <motion.div
+              key="git-admin"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <GitAdminPage
+                onBack={() => handleBack("landing")}
+                onNavigate={handleNavigate}
+              />
+            </motion.div>
+          )}
+
           {activePage === "notfound" && (
             <motion.div
               key="notfound"
@@ -623,8 +640,8 @@ export default function App() {
         </Suspense>
       </main>
 
-      {/* Floating Dock Navigation - Hidden on login page */}
-      {activePage !== "admin" && (
+      {/* Floating Dock Navigation - Hidden on admin and git-admin pages */}
+      {activePage !== "admin" && activePage !== "git-admin" && (
         <Dock
           activePage={activePage}
           onNavigate={handleNavigate}
@@ -662,14 +679,14 @@ export default function App() {
         </Suspense>
       )}
 
+      {/* PWA Native Experience Bridge (Install sheet, Offline banner, Updates) */}
+      <PwaAppBridge />
+
       {/* Double back exit toast on root screen */}
       <ExitToast isVisible={showExitToast} />
 
       {/* Interactive Touch Draggable Scroll Scrubber */}
       <ScrollScrubber scrollContainerRef={mainRef} />
-
-      {/* Floating Back to Top button */}
-      <BackToTop scrollContainerRef={mainRef} activePage={activePage} />
     </div>
   );
 }

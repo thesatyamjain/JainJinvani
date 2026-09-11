@@ -207,7 +207,43 @@ export const subCategoryMap: Record<string, SubCategoryDef[]> = {
       "label": "द्रव्यानुयोग",
       "description": "समयसार, प्रवचनसार, नियमसार, पंचास्तिकाय, छह ढाला व तत्त्वार्थ सूत्र"
     }
-  ]
+  ],
+  "vrat": [
+    {
+      "id": "all",
+      "label": "सभी विषय (174)"
+    },
+    {
+      "id": "vrat-vidhi",
+      "label": "प्रमुख व्रत विधियाँ",
+      "description": "अनंतचतुर्दशी, निर्दोषसप्तमी, रत्नत्रय, षोडशकारण, मेरु पंक्ति आदि विशिष्ट व्रत नियम व अनुष्ठान विधि"
+    },
+    {
+      "id": "vrat-soochi",
+      "label": "१०५ व्रत समुच्चय",
+      "description": "१०५ व्रतों की संपूर्ण प्रामाणिक नामावली, स्वरूप, संकल्प एवं आराधना क्रम"
+    },
+    {
+      "id": "vrat-puja",
+      "label": "व्रत पूजा व विधान",
+      "description": "संकट हरण चौथ, षट्खण्डागम, तेरहद्वीप, भक्तामर, सहस्रनाम आदि व्रत पूजन व विधान"
+    },
+    {
+      "id": "vrat-katha",
+      "label": "व्रत कथाएँ",
+      "description": "संकट हरण चौथ, जिनगुण संपत्ति, चंदनषष्ठी एवं अक्षय फल दशमी की पावन कथाएँ"
+    },
+    {
+      "id": "samskar-vidhi",
+      "label": "व्रत ग्रहण व संस्कार विधि",
+      "description": "व्रत ग्रहण विधि, उद्यापन विधि, नवजात जिनदर्शन, नाम संस्कार व फलश्रुति"
+    },
+    {
+      "id": "shravak-dharma",
+      "label": "श्रावक धर्म व नियम",
+      "description": "प्रतिक्रमण, श्रावक लक्षण, अष्टमूलगुण, २२ अभक्ष्य एवं १७ दैनिक नियम"
+    }
+  ],
 };
 
 export const contentInventory: Record<string, ContentItem[]> = {
@@ -2553,9 +2589,1579 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "author": "आचार्य वट्टकेर",
     "description": "दिगम्बर मुनि आचार संहिता"
   }
-]
+],
+  vrat: [
+  {
+    "id": "vrat-grahan-vidhi",
+    "title": "व्रत ग्रहण करने की विधी",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जैन आगम अनुसार शुभ मुहूर्त, शुद्ध वस्त्र व गुरु/जिनेन्द्र साक्षी में व्रत ग्रहण करने का शास्त्रीय संकल्प व नियम।"
+  },
+  {
+    "id": "vrat-udyapan-vidhi",
+    "title": "व्रत उद्यापन की विधी",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "उद्यापन",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "व्रत की पूर्णता पर अष्टद्रव्य पूजन, उद्यापन मण्डल विधान, शास्त्र भेंट, पात्रदान एवं प्रभावना की संपूर्ण विधि।"
+  },
+  {
+    "id": "navjat-balak-pratham-jindarshan-vidhi",
+    "title": "नवजात बालक प्रथम जिनदर्शन विधी",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "संस्कार",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "शिशु के जन्म उपरांत सूतक निवृत्ति के बाद प्रथम बार जिनालय में प्रभु दर्शन, गंधोदक व मंगल रक्षा संस्कार।"
+  },
+  {
+    "id": "putra-putri-nam-sanskar-vidhi",
+    "title": "पुत्र-पुत्री नाम संस्कार विधी",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "संस्कार",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जिनसहस्रनाम एवं धार्मिक नक्षत्रों के आधार पर बालक-बालिका का मंगल नामकरण एवं स्वस्तिवाचन संस्कार।"
+  },
+  {
+    "id": "vrat-ki-aavashyakta",
+    "title": "व्रत की आवश्यकता",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "तत्त्व",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आत्म-संयम, कर्म निर्जरा एवं इंद्रिय विजय हेतु गृहस्थ जीवन में व्रतों की अनिवार्यता एवं आध्यात्मिक महत्व।"
+  },
+  {
+    "id": "vrat-ka-lakshan",
+    "title": "व्रत का लक्षण",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "लक्षण",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य समंतभद्र व उमास्वामी अनुसार 'अशुभ निवृत्तिः शुभ प्रवृत्तिश्च'—पाप त्याग व शुभ आचरण का यथार्थ स्वरूप।"
+  },
+  {
+    "id": "vrat-ka-udyapan",
+    "title": "व्रत का उद्यापन",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "विधान",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "उद्यापन का गूढ़ अर्थ—व्रत की निर्विघ्न पूर्णता पर कृतज्ञता, जिनवाणी वितरण एवं चतुर्विध संघ की भक्ति।"
+  },
+  {
+    "id": "udyapan-vidhi-pramukh",
+    "title": "उद्यापन विधि",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कलश स्थापना, वेदी निर्माण, हवन-अर्चना, पूर्णार्घ्य समर्पण एवं व्रती के मंगल संकल्प की प्रामाणिक क्रिया।"
+  },
+  {
+    "id": "vrat-karne-ka-phal",
+    "title": "व्रत करने का फल",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "फलश्रुति",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पापों का क्षय, सातिशय पुण्य बंध, उत्तम गति की प्राप्ति और अंततः परम पद (मोक्ष) की उपलब्धि का फल।"
+  },
+  {
+    "id": "vrati-ke-bhojan-ke-antaray",
+    "title": "व्रती के भोजन के अंतराय",
+    "category": "vrat",
+    "subCategory": "samskar-vidhi",
+    "badge": "आचार",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "व्रती और साधक के भोजन काल में आने वाले ३२ प्रमुख अंतराय (दोष) और उनका आगमोक्त विवेक।"
+  },
+  {
+    "id": "sankat-haran-chauth-puja",
+    "title": "संकट हरण चौथ की पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "पूजन",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "संकट निवारण एवं विघ्न विनाशक संकट हरण चौथ का अष्टद्रव्य पूजन व विशेष अर्घ्य विधान।"
+  },
+  {
+    "id": "punyashrav-puja",
+    "title": "पुण्याश्रव पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "पूजन",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पुण्याश्रव कथा ग्रंथ आधारित सातिशय पुण्य आस्रव एवं आत्म-विशुद्धि हेतु पवित्र पूजन।"
+  },
+  {
+    "id": "shatkhandagam-puja",
+    "title": "षट्खण्डागम पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "शास्त्र पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रथम लिपिबद्ध दिगम्बर महासिद्धांत ग्रंथ षट्खण्डागम (धवला-जयधवला) की पावन श्रुत वंदना।"
+  },
+  {
+    "id": "trailokya-jinalaya-puja",
+    "title": "त्रैलोक्य जिनालय पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "अकृत्रिम चैत्यालय",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ऊर्ध्व, मध्य एवं अधोलोक में स्थित समस्त अकृत्रिम जिन चैत्यालयों व शाश्वत प्रतिमाओं की पूजा।"
+  },
+  {
+    "id": "terahdweep-puja",
+    "title": "तेरहद्वीप पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "भूगोल पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मध्यलोक के तेरह द्वीपों में विराजमान जिनालयों एवं जिनबिम्बों की भावपूर्ण अष्टद्रव्य अर्चना।"
+  },
+  {
+    "id": "nav-keval-labdhi-puja",
+    "title": "नव केवल लब्धि पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "लब्धि पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "केवलज्ञान, केवलदर्शन, अनंत दान, लाभ, भोग, उपभोग, वीर्य, क्षायिक सम्यक्त्व व चारित्र रूप ९ लब्धियों की पूजा।"
+  },
+  {
+    "id": "adinath-jin-pujan-vrat",
+    "title": "श्री आदिनाथ जिन पूजन",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तीर्थंकर पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "युगादि पुरुष प्रथम तीर्थंकर भगवान ऋषभदेव की षोडशोपचार पूजा एवं मंगल जयमाला।"
+  },
+  {
+    "id": "vasupujya-jin-pujan-vrat",
+    "title": "श्री वासुपूज्य जिन पूजन",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तीर्थंकर पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "द्वादश तीर्थंकर बालब्रह्मचारी भगवान वासुपूज्य स्वामी का पावन अर्घ्य समर्पण व स्तवन।"
+  },
+  {
+    "id": "ganadhar-valaya-puja",
+    "title": "गणधर वलय पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "वलय पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "गौतम गणधरादि प्रमुख गणधर भगवंतों के पवित्र वलय यंत्र एवं पद-कमलों की आराधना।"
+  },
+  {
+    "id": "kaval-chandrayan-puja",
+    "title": "कवलचान्द्रायण पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तप पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "चंद्रकला वृद्धि-ह्रास अनुसार एक-एक ग्रास आहार वृद्धि व त्याग रूप कवलचांद्रायण महातप की पूजा।"
+  },
+  {
+    "id": "anantnath-jin-pujan-vrat",
+    "title": "श्री अनंतनाथ जिन पूजन",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तीर्थंकर पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "चौदहवें तीर्थंकर भगवान अनंतनाथ स्वामी का अष्टकर्म दहन अर्घ्य व मंगल स्तुति पाठ।"
+  },
+  {
+    "id": "trikal-chaubisi-puja",
+    "title": "त्रिकाल चौबीसी पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "महापूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भूत, भविष्यत एवं वर्तमान काल के समस्त बहत्तर (७२) तीर्थंकर भगवंतों की महापूजा।"
+  },
+  {
+    "id": "namokar-mantra-puja-vrat",
+    "title": "णमोकार मंत्र पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "महामंत्र पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अनादि-निधन पंचपरमेष्ठी महामंत्र के ३५ अक्षरों एवं पाँच पदों की मंगलमय अष्टद्रव्य पूजा।"
+  },
+  {
+    "id": "bhaktamar-stotra-pujan-vrat",
+    "title": "भक्तामर स्तोत्र पूजन",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "स्तोत्र पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य मानतुंग कृत भक्तामर महास्तोत्र के ४८ काव्यों की पद-वार अष्टद्रव्य पूजा व अर्घ्य।"
+  },
+  {
+    "id": "sahasranama-puja-vidhan",
+    "title": "सहस्रनाम पूजा विधान",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "विधान",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जिनेन्द्र भगवान के १००८ परम पवित्र नामों की वंदना एवं सहस्रनाम मण्डल विधान।"
+  },
+  {
+    "id": "tattvartha-sutra-vidhan",
+    "title": "तत्वार्थ सूत्र विधान",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "ग्रंथ विधान",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य उमास्वामी विरचित तत्त्वार्थ सूत्र के दश अध्यायों व ३५७ सूत्रों का महाविधान।"
+  },
+  {
+    "id": "karmadahan-puja",
+    "title": "कर्मदहन पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "निर्जरा पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्ञानावरणादि आठों कर्मों के विनाश एवं शुद्ध आत्म-स्वरूप की प्राप्ति हेतु कर्मदहन पूजा।"
+  },
+  {
+    "id": "charitra-shuddhi-puja",
+    "title": "चारित्र शुद्धि पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "संयम पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कषायों के शमन एवं सम्यक्चारित्र की विशुद्धि हेतु भावपूर्ण जिनवाणी पूजा।"
+  },
+  {
+    "id": "charitra-shuddhi-1234-puja",
+    "title": "चारित्र शुद्धि (बारह सौ चौतीस)",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "महाव्रत पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "१२३४ गाथाओं एवं चारित्र अंगों की परम पवित्र आराधना हेतु विशेष चारित्र शुद्धि पूजा।"
+  },
+  {
+    "id": "samosharan-pujan-vidhan",
+    "title": "समोशरण पूजन विधान",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "समोशरण विधान",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकर भगवान के बारह सभा युक्त दिव्य समवसरण की बारह कोठों सहित भव्य पूजा।"
+  },
+  {
+    "id": "chaturvinshati-jinpuja-prarambh",
+    "title": "चतुर्विंशति जिनपूजा प्रारंभ",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "चौबीस तीर्थंकर",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ऋषभदेव से महावीर पर्यंत चौबीसों तीर्थंकरों की सम्मिलित पूजा का शास्त्रीय मंगलाचरण।"
+  },
+  {
+    "id": "anant-vrat-puja-book",
+    "title": "अनंत व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "अनंत व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद शुक्ल चतुर्दशी को १४ ग्रंथियुक्त अनंत सूत्र बंधन एवं अनंत सुख प्राप्ति पूजन।"
+  },
+  {
+    "id": "sugandh-dashami-vrat-puja",
+    "title": "सुगंध दशमी व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "दशमी व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद शुक्ल दशमी को जिनालयों में धूप खेवन, कर्म दाह एवं सुगंध दशमी व्रत पूजा।"
+  },
+  {
+    "id": "rohini-vrat-puja",
+    "title": "रोहिणी व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "नक्षत्र व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "रोहिणी नक्षत्र युक्त तिथि को शील रक्षा, उत्तम रूप व सौभाग्य हेतु रोहिणी व्रत पूजा।"
+  },
+  {
+    "id": "tees-chaubisi-puja",
+    "title": "तीस चौबीसी की पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "महापूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पाँचों भरत, पाँचों ऐरावत व विदेह क्षेत्रों की तीस चौबीसी (७२० तीर्थंकर) की महापूजा।"
+  },
+  {
+    "id": "ravi-vrat-pujan",
+    "title": "रविव्रत पूजन",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "वार व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "रविवार के दिन काय-क्लेश शमन, कुष्ठ आदि असाध्य व्याधि निवारण व रविव्रत पूजा।"
+  },
+  {
+    "id": "jingun-sampatti-vrat-puja",
+    "title": "जिनगुण संपत्ति व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "गुण पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकरों के अनंतानंत गुणों की संपदा को आत्मसात करने हेतु जिनगुण संपत्ति पूजा।"
+  },
+  {
+    "id": "chandan-shashti-vrat-puja-book",
+    "title": "चंदनषष्ठी-व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "षष्ठी व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद कृष्ण षष्ठी को मलयज चंदन से प्रभु चरणों की शीतलता व चंदनषष्ठी पूजा।"
+  },
+  {
+    "id": "ardha-dwitiya-koshtha-puja",
+    "title": "अर्ध द्वितीय कोष्ठ पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "यंत्र पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "विशिष्ट मंत्र-कोष्ठक एवं समवसरण अर्ध-द्वितीय कोष्ठ की गूढ़ तांत्रिक जिन पूजा।"
+  },
+  {
+    "id": "chaunsath-riddhi-samucchaya-puja",
+    "title": "चौंसठ ऋद्धि समुच्चय पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "ऋद्धि पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "बुद्धि, चारण, विक्रिया, तप, बल आदि ६४ ऋद्धियों के धारक मुनिराजों व गणधरों की पूजा।"
+  },
+  {
+    "id": "karma-nirjara-vrat-puja",
+    "title": "कर्म निर्जरा व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "निर्जरा व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "संवर पूर्वक पूर्व संचित कर्मों को सुखाने एवं मुक्ति पद हेतु कर्म निर्जरा व्रत पूजा।"
+  },
+  {
+    "id": "sammed-shikhar-pujan-badi",
+    "title": "सम्मेदशिखर पूजन (बड़ी)",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तीर्थ पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "शाश्वत तीर्थराज सम्मेद शिखर के समस्त ३१ कूटों एवं टोंकों की सविस्तार बड़ी पूजा।"
+  },
+  {
+    "id": "panch-parva-vrat-puja",
+    "title": "पंच पर्व व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "पर्व पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अष्टमी, चतुर्दशी, पूर्णिमा, अमावस्या आदि प्रमुख पर्व तिथियों की संयुक्त पंचपर्व पूजा।"
+  },
+  {
+    "id": "akshayanidhi-sau-das-puja",
+    "title": "अक्ष्यनिधी (सौ.10 पूजा)",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "निधि पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अक्षय निधि एवं सौभाग्य वृद्धि हेतु १०० एवं १० विशेष अर्घ्यों की महापूजा।"
+  },
+  {
+    "id": "kalyan-mandir-stotra-puja",
+    "title": "कल्याण मंदिर स्त्रोत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "स्तोत्र पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य कुमुदचंद्र कृत २३वें तीर्थंकर पार्श्वनाथ स्तुति 'कल्याणमंदिर स्तोत्र' की पूजा।"
+  },
+  {
+    "id": "karmachoor-vrat-puja",
+    "title": "कर्मचूर व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तप पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अष्ट कर्मों को चूर-चूर कर शुद्ध चेतन पद पाने हेतु कर्मचूर व्रत की विशेष पूजा।"
+  },
+  {
+    "id": "chaturvinshati-jinpuja",
+    "title": "चतुर्विंशति जिनपूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "२४ तीर्थंकर",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "वर्तमान चौबीसी के चौबीस तीर्थंकरों के पंचकल्याणक गुणों की भक्तिमय पूजा।"
+  },
+  {
+    "id": "kajika-vrat-puja",
+    "title": "काजिका व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "व्रत पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "काजिका व्रत के पावन अवसर पर आत्म-शुद्धि एवं कषाय मंदता हेतु अष्टद्रव्य अर्घ्यावली।"
+  },
+  {
+    "id": "labdhi-vidhan-vrat-puja",
+    "title": "लब्धि-विधान व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "लब्धि पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आत्मिक सामर्थ्य, क्षायोपशमिक एवं क्षायिक लब्धि प्राकट्य हेतु लब्धि-विधान व्रत पूजा।"
+  },
+  {
+    "id": "rot-teej-vrat-puja-book",
+    "title": "रोटतीज व्रत पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "तीज पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद शुक्ल तृतीया को अनशन/एकासन कर मोटे रोट व खीर भोग सहित रोटतीज पूजा।"
+  },
+  {
+    "id": "ganadharvalaya-puja-dwitiya",
+    "title": "गणधरवलय पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "वलय पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "गौतम गणधर वलय के बीजाक्षरों एवं ऋद्धि-सिद्धि युक्त द्वितीय गणधरवलय पूजा।"
+  },
+  {
+    "id": "sapta-param-sthan-puja",
+    "title": "सप्त परम स्थान पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "स्थान पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सज्जाति, सद्गृहस्थ, पारिव्राज्य, सुरेन्द्र, चक्रवर्ती, अरहंत व सिद्ध—इन ७ परम स्थानों की पूजा।"
+  },
+  {
+    "id": "shrut-panchami-puja-book",
+    "title": "श्रुतपंचमी पूजा",
+    "category": "vrat",
+    "subCategory": "vrat-puja",
+    "badge": "श्रुत पूजा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्येष्ठ शुक्ल पंचमी को जिनवाणी की ताड़पत्रीय प्रतियों की अष्टद्रव्य वंदना व श्रुतपंचमी पूजा।"
+  },
+  {
+    "id": "sankat-haran-chauth-vrat-katha",
+    "title": "व्रत कथा, संकट हरण चौथ व्रत कथा",
+    "category": "vrat",
+    "subCategory": "vrat-katha",
+    "badge": "कथा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "संकट हरण चौथ व्रत की प्राचीन पौराणिक जैन कथा, सेठ-सेठानी का आख्यान एवं संकट निवारण महात्म्य।"
+  },
+  {
+    "id": "jingun-sampatti-vrat-vidhi-katha",
+    "title": "जिनगुण संपत्ति व्रत विधि कथा",
+    "category": "vrat",
+    "subCategory": "vrat-katha",
+    "badge": "कथा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जिनगुण संपत्ति व्रत धारण करने की पूर्ण विधि, पूर्वभव की प्रेरक कथा एवं अक्षय पुण्य प्राप्ति।"
+  },
+  {
+    "id": "chandan-shashti-vrat-katha",
+    "title": "चंदनषष्ठी व्रत कथा",
+    "category": "vrat",
+    "subCategory": "vrat-katha",
+    "badge": "कथा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "चंदनषष्ठी व्रत की फलदायी कथा, सुगंधित चंदन समर्पण का अलौकिक प्रभाव एवं शील की विजय।"
+  },
+  {
+    "id": "akshaya-phal-dashami-vrat-katha",
+    "title": "अक्षय (फल)दशमी व्रत कथा",
+    "category": "vrat",
+    "subCategory": "vrat-katha",
+    "badge": "कथा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अक्षय फल दशमी (सौभाग्य दशमी) की पावन व्रत कथा, अखंड सौभाग्य व मोक्ष फल प्राप्ति का आख्यान।"
+  },
+  {
+    "id": "charitra-shuddhi-1234-vrat-vidhi",
+    "title": "1234(चारित्रशुद्धि) व्रतविधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "बारह सौ चौतीस दिनों/गाथाओं के चारित्र शुद्धि व्रत की नियम, उपवास, स्वाध्याय एवं उद्यापन विधि।"
+  },
+  {
+    "id": "brihad-jingun-sampatti-vrat",
+    "title": "वृहद् जिनगुणसम्पत्ति व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकर के गुणों की निरंतर साधना हेतु वृहद् जिनगुण संपत्ति व्रत की विस्तृत अनुष्ठान विधि।"
+  },
+  {
+    "id": "shrutaskandha-vrat-vidhi",
+    "title": "श्रुतस्कंध व्रत विधी",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "द्वादशांग जिनवाणी के अंग और पूर्वों की आराधना हेतु श्रुतस्कंध व्रत ग्रहण व पारणा विधि।"
+  },
+  {
+    "id": "aakash-panchami-vrat-vidhi",
+    "title": "आकाशपंचमी व्रत विधी",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद मास में आकाश पंचमी व्रत का संकल्प, एकासन/उपवास एवं केवलज्ञान भावना विधि।"
+  },
+  {
+    "id": "akshaya-phal-suhag-kalash-saubhagya-dashami-vidhi",
+    "title": "अक्षयफल/ सुहाग/ कलश/ सौभाग्य दशमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अखंड सौभाग्य, सुहाग कलश स्थापना, १० उपवास/एकासन एवं सौभाग्य दशमी व्रत की सरल विधि।"
+  },
+  {
+    "id": "chandan-shashti-vrat-vidhi",
+    "title": "चंदनषष्ठी व्रत विधी",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद कृष्ण षष्ठी को मलयज चंदन पूजन, मौन व्रत व चंदनषष्ठी व्रत की संपूर्ण विधि।"
+  },
+  {
+    "id": "sugandh-dashami-vrat-vidhi",
+    "title": "सुगंधदशमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दशलक्षण महापर्व के दौरान सुगंध दशमी को जिनालयों में दशांग धूप खेवन व एकासन विधि।"
+  },
+  {
+    "id": "anant-chaturdashi-vrat-vidhi",
+    "title": "अनंतचतुर्दशी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दशलक्षण पर्व के समापन दिवस अनंत चतुर्दशी को १४ वर्षों का व्रत नियम, उपवास व उद्यापन विधि।"
+  },
+  {
+    "id": "mukut-saptami-vrat-vidhi",
+    "title": "मुकुटसप्तमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "श्रावण शुक्ल सप्तमी (भगवान पार्श्वनाथ मोक्ष कल्याणक) पर मुकुटसप्तमी व्रत व लाडू समर्पण विधि।"
+  },
+  {
+    "id": "kokila-panchami-vrat-vidhi",
+    "title": "कोकिलापंचमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मधुर वाणी, कंठ शुद्धि व सरस्वती आराधना हेतु कोकिलापंचमी व्रत की प्रामाणिक विधि।"
+  },
+  {
+    "id": "karma-nirjara-vrat-vidhi",
+    "title": "कर्मनिर्जरा व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पूर्व संचित आठों कर्मों के क्षय हेतु तपस्या, स्वाध्याय व कर्मनिर्जरा व्रत साधना क्रम।"
+  },
+  {
+    "id": "kaval-chandrayan-vrat-vidhi",
+    "title": "कवलचांद्रायण व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रतिपदा से पूर्णिमा तक चंद्रकला अनुसार ग्रास वृद्धि एवं अमावस्या तक ह्रास की कठिन तप विधि।"
+  },
+  {
+    "id": "shrut-panchami-vrat-vidhi",
+    "title": "श्रुतपंचमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "शास्त्र स्वाध्याय, जिनवाणी का प्रक्षालन व वेष्टन, ज्ञान दान एवं श्रुतपंचमी व्रत विधि।"
+  },
+  {
+    "id": "nihshalya-ashtami-vrat-vidhi",
+    "title": "निःशल्य अष्टमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "माया, मिथ्या और निदान—तीनों शल्यों के त्याग पूर्वक आत्मा को निष्कलंक बनाने का अष्टमी व्रत।"
+  },
+  {
+    "id": "moksha-saptami-vrat-vidhi",
+    "title": "मोक्षसप्तमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पार्श्वनाथ भगवान के निर्वाण दिवस पर मोक्ष प्राप्ति की भावना से किया जाने वाला उपवास व्रत।"
+  },
+  {
+    "id": "rot-teej-vrat-vidhi",
+    "title": "रोटतीज व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "शुद्ध घी, बिना नमक का मोटा रोट व खीर का एक बार ग्रहण, सामायिक व रोटतीज व्रत विधि।"
+  },
+  {
+    "id": "sheel-saptami-vrat-vidhi",
+    "title": "शीलसप्तमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ब्रह्मचर्य एवं शील की रक्षा हेतु सप्तमी तिथि को विशेष नियम व शीलसप्तमी व्रत विधि।"
+  },
+  {
+    "id": "veershasan-jayanti-vrat-vidhi",
+    "title": "वीरशासनजयंती व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "श्रावण कृष्ण एकम को तीर्थंकर महावीर की प्रथम दिव्यध्वनि प्रगट होने पर शासनजयंती व्रत।"
+  },
+  {
+    "id": "nandoosh-panchami-vrat-vidhi",
+    "title": "नंदूषपंचमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आनंद एवं मंगल प्रदाता नंदूषपंचमी व्रत की तिथि, पूजन अर्घ्य व सरल उद्यापन विधि।"
+  },
+  {
+    "id": "rishi-panchami-vrat-vidhi",
+    "title": "ऋषि पंचमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद शुक्ल पंचमी को ऋषि-मुनियों की वंदना, ऋषिमंडल स्तोत्र पाठ व ऋषि पंचमी व्रत।"
+  },
+  {
+    "id": "rakshabandhan-vrat-vidhi",
+    "title": "रक्षाबंधन व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "श्रावण पूर्णिमा को अकंपनाचार्य एवं ७०० मुनिराजों के उपसर्ग निवारण स्मृति में रक्षाबंधन व्रत।"
+  },
+  {
+    "id": "kshamavani-vrat-vidhi",
+    "title": "क्षमावाणी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आश्विन कृष्ण एकम को विश्व मैत्री दिवस, सर्व जीवों से क्षमा याचना एवं क्षमावाणी व्रत विधि।"
+  },
+  {
+    "id": "deepmalika-vrat-vidhi",
+    "title": "दीपमालिका व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कार्तिक कृष्ण अमावस्या को भगवान महावीर निर्वाण लाडू, मोक्ष कल्याणक व दीपमालिका व्रत।"
+  },
+  {
+    "id": "maun-vrat-vidhi",
+    "title": "मौन व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मार्गशीर्ष शुक्ल एकादशी को दिनभर पूर्ण मौन धारण कर आत्म-चिंतन व मौन एकादशी व्रत विधि।"
+  },
+  {
+    "id": "shodashkaran-vrat-vidhi",
+    "title": "षोडशकारण व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद वदी प्रतिपदा से ३२ दिन तक तीर्थंकर प्रकृति बंध के १६ कारणों की अति पावन व्रत विधि।"
+  },
+  {
+    "id": "meghmala-vrat-vidhi",
+    "title": "मेघमाला व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "वर्षा ऋतु में मेघों के समान करुणा वृष्टि एवं शांति हेतु मेघमाला व्रत की शास्त्रीय विधि।"
+  },
+  {
+    "id": "jin-mukhavalokan-vrat-vidhi",
+    "title": "जिनमुखावलोकन व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रातः सर्वप्रथम वीतरागी जिनेन्द्र मुखकमल दर्शन के नियम पूर्वक जिनमुखावलोकन व्रत विधि।"
+  },
+  {
+    "id": "shrutaskandha-vrat-book",
+    "title": "श्रुतस्कंध व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जिनवाणी के समस्त शास्त्रों के ज्ञान अर्जन एवं श्रुत के आदर हेतु श्रुतस्कंध महाव्रत।"
+  },
+  {
+    "id": "pushpanjali-vrat-vidhi",
+    "title": "पुष्पांजलि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "जिनेन्द्र चरणों में पुष्प अर्पण के समान कोमल भाव धारण करने का पुष्पांजलि व्रत विधान।"
+  },
+  {
+    "id": "nirdosh-saptami-vrat-vidhi",
+    "title": "निर्दोषसप्तमी व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दोषों के परिहार एवं निष्पाप जीवन के संकल्प सहित निर्दोषसप्तमी व्रत की संपूर्ण विधि।"
+  },
+  {
+    "id": "anant-chaudash-vrat-vidhi",
+    "title": "अनन्त चौदश व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "चौदह नियम, चौदह उपवास एवं चौदह वर्षों तक अखंड अनंत चतुर्दशी व्रत का पालन क्रम।"
+  },
+  {
+    "id": "ratnatraya-vrat-vidhi",
+    "title": "रत्नत्रय व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद, माघ व चैत्र में सम्यग्दर्शन, ज्ञान, चारित्र के तीन दिन के अखंड रत्नत्रय व्रत की विधि।"
+  },
+  {
+    "id": "saptaparamasthan-vrat-vidhi",
+    "title": "सप्तपरमस्थान व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आत्मा के सात सर्वोच्च आध्यात्मिक पदों की प्राप्ति भावना सहित सप्तपरमस्थान व्रत।"
+  },
+  {
+    "id": "brihatpalya-vrat-vidhi",
+    "title": "वृहत्पल्य व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आयु कर्म की शुभता एवं दीर्घायु में धर्म साधना हेतु वृहत्पल्य व्रत की प्राचीन विधि।"
+  },
+  {
+    "id": "dwadash-kalpa-mushti-tandul-vrat",
+    "title": "द्वादशकल्प (मुष्टि तंदुल) व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मुट्ठी भर चावलों के त्याग व नियम द्वारा बारह कल्पों (स्वर्गों) के सुख हेतु मुष्टि तंदुल व्रत।"
+  },
+  {
+    "id": "nandishwar-pankti-vrat-vidhi",
+    "title": "नंदीश्वर पंक्ति व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अष्टान्हिका महापर्व में बावन जिनालयों की पंक्तिबद्ध आराधना रूप नंदीश्वर पंक्ति व्रत।"
+  },
+  {
+    "id": "meru-pankti-vrat-vidhi",
+    "title": "मेरु पंक्ति व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सुदर्शन आदि पाँचों मेरु पर्वतों के अस्सी अकृत्रिम जिनालयों की वंदना रूप मेरु पंक्ति व्रत।"
+  },
+  {
+    "id": "lokmangal-vrat-vidhi",
+    "title": "लोकमंगल व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "विश्व शांति, सर्व जीव रक्षा एवं पारिवारिक सुख-समृद्धि हेतु लोकमंगल व्रत की विधि।"
+  },
+  {
+    "id": "singha-nishkridit-vrat-vidhi",
+    "title": "सिंह निष्क्रीडित व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सिंह की चाल के समान आगे-पीछे उपवास-पारणा के क्रमिक संतुलन का अत्यंत कठोर सिंहनिष्क्रीडित तप।"
+  },
+  {
+    "id": "sarvasampat-putra-sampat-vrat",
+    "title": "सर्वसंपत् व्रत(पुत्र संपत व्रत)",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सद्गुण संपन्न संतति एवं संपूर्ण भौतिक व आत्मिक संपदा प्राप्ति हेतु सर्वसंपत् व्रत।"
+  },
+  {
+    "id": "sarvarthasiddhi-vrat-vidhi",
+    "title": "सवार्थसिद्धि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सर्व मनोरथ सिद्धि एवं सर्वार्थसिद्धि अनुत्तर विमान सम सुख प्राप्ति हेतु व्रत विधि।"
+  },
+  {
+    "id": "dharmachakra-vrat-vidhi",
+    "title": "धर्मचक्र व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकरों के धर्मचक्र प्रवर्तन की स्मृति एवं धर्म की अखंड विजय हेतु धर्मचक्र व्रत।"
+  },
+  {
+    "id": "muktavali-vrat-vidhi",
+    "title": "मुक्तावली व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मोतियों की माला के समान क्रमिक उपवासों की उज्ज्वल पंक्ति रूप मुक्तावली व्रत विधि।"
+  },
+  {
+    "id": "ratnavali-vrat-vidhi",
+    "title": "रत्नावली व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "रत्नमाला के समान अनुक्रमबद्ध उपवास-एकासन तपश्चर्या रूप प्रसिद्ध रत्नावली व्रत।"
+  },
+  {
+    "id": "purandar-vrat-vidhi",
+    "title": "पुरन्दर व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "इन्द्र (पुरन्दर) पद सम ऐश्वर्य एवं आत्मिक तेज की अभिवृद्धि हेतु पुरन्दर व्रत विधान।"
+  },
+  {
+    "id": "labdhi-vidhan-vrat-ki-vidhi",
+    "title": "लब्धि विधान व्रत की विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "लब्धि मण्डल रचना, विशिष्ट अर्घ्य समर्पण एवं लब्धि विधान व्रत का पूर्ण आचार।"
+  },
+  {
+    "id": "trailokya-jinalaya-vrat-vidhi",
+    "title": "त्रैलोक्य जिनालय व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीनों लोकों के समस्त ८ करोड़ ५७ लाख २५ हजार २२ अकृत्रिम चैत्यालयों की वंदना व्रत।"
+  },
+  {
+    "id": "jambudweep-vrat-vidhi",
+    "title": "जम्बूद्वीप व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "एक लाख योजन विस्तीर्ण जम्बूद्वीप के जिनालयों, भरत क्षेत्र व विदेहों की आराधना व्रत विधि।"
+  },
+  {
+    "id": "athaees-moolgun-vrat-vidhi",
+    "title": "अट्ठाईस मूलगुण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दिगम्बर मुनिराजों के २८ मूलगुणों के प्रति निष्ठा व गृहस्थ द्वारा उनके वंदन का व्रत।"
+  },
+  {
+    "id": "terahdweep-madhyalok-jinalaya-vrat",
+    "title": "तेरहद्वीप (मध्यलोक) जिनालय व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मध्यलोक के तेरह द्वीपों में स्थापित समस्त शाश्वत जिन चैत्यालयों की वंदना व्रत विधि।"
+  },
+  {
+    "id": "punyashrav-vrat-vidhi",
+    "title": "पुण्याश्रव व्रत विधि",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "पुण्याश्रव कथा श्रवण, दान, तप एवं पुण्य प्रकृतियों के बंध हेतु पुण्याश्रव व्रत विधि।"
+  },
+  {
+    "id": "nav-labdhi-nav-kaval-labdhi-vrat",
+    "title": "नवलब्धि (नवकंवललब्धि)व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "नव केवल लब्धियों के ध्यान सहित नौ दिनों का नवकंवललब्धि व्रत एवं उद्यापन क्रम।"
+  },
+  {
+    "id": "saptarshi-mrityunjaya-vrat",
+    "title": "सप्तर्षि व्रत (मुर्त्युंजय व्रत )",
+    "category": "vrat",
+    "subCategory": "vrat-vidhi",
+    "badge": "विधि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मथुरा के सात ऋद्धिवारी मुनिराजों (सप्तर्षि) का स्मरण, अकाल मृत्यु निवारण व मृत्युंजय व्रत।"
+  },
+  {
+    "id": "akshaya-tritiya-vrat",
+    "title": "अक्षय तृतीया व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "वैशाख सुदी तीज को प्रथम तीर्थंकर आदिनाथ के इक्षुरस पारणा दिवस पर दान व अक्षय तृतीया व्रत।"
+  },
+  {
+    "id": "aksha-dashami-vrat",
+    "title": "अक्श दशमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "इंद्रिय अक्षों (आँख, कान आदि) के संयम एवं निर्मल दृष्टि हेतु अक्श दशमी व्रत।"
+  },
+  {
+    "id": "ashwini-vrat",
+    "title": "अश्विनी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अश्विनी नक्षत्र योग में आत्मबल एवं आरोग्य संवर्धन हेतु अश्विनी व्रत का पालन।"
+  },
+  {
+    "id": "ashtami-vrat",
+    "title": "अष्टमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रत्येक मास के दोनों पक्षों की अष्टमी तिथि को प्रोषधोपवास एवं आत्म-साधना व्रत।"
+  },
+  {
+    "id": "ashtadhik-vrat",
+    "title": "अष्टाधिक व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आठ अधिक नियमों (अष्ट प्रवचन माता) के पालन सहित अष्टाधिक व्रत अनुष्ठान।"
+  },
+  {
+    "id": "aakash-panchami-vrat",
+    "title": "आकाश पंचमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आकाश तत्व के समान आत्मा को निर्लेप व अमूर्तिक अनुभव करने का पावन पंचमी व्रत।"
+  },
+  {
+    "id": "aachamla-vardhan-vrat",
+    "title": "आचाम्ल वर्धन व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "रस-परित्याग (आयंबिल) की अवधि को क्रमशः बढ़ाने वाला आचाम्ल वर्धन तप व्रत।"
+  },
+  {
+    "id": "aachar-vardhan-vrat",
+    "title": "आचार वर्धन व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्ञानाचार, दर्शनाचार, चारित्राचार, तपाचार व वीर्याचार की वृद्धि हेतु आचार वर्धन व्रत।"
+  },
+  {
+    "id": "adinath-jayanti-vrat",
+    "title": "आदिनाथ जयंती व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "चैत्र कृष्ण नवमी को प्रथम तीर्थंकर भगवान आदिनाथ के जन्म कल्याणक पर जयंती व्रत।"
+  },
+  {
+    "id": "adinath-nirvana-vrat",
+    "title": "आदिनाथ निर्वाण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "माघ कृष्ण चतुर्दशी को कैलाश पर्वत (अष्टापद) से ऋषभदेव मोक्ष कल्याणक पर निर्वाण व्रत।"
+  },
+  {
+    "id": "adinath-shasan-vrat",
+    "title": "आदिनाथ शासन व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आदिनाथ भगवान के धर्म शासन की प्रभावना एवं सम्यक्त्व दृढ़ता हेतु शासन व्रत।"
+  },
+  {
+    "id": "rishi-panchami-vrat",
+    "title": "ऋषि पंचमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दिगम्बर मुनिराजों के प्रति कृतज्ञता एवं ब्रह्मचर्य रक्षा हेतु ऋषि पंचमी व्रत।"
+  },
+  {
+    "id": "ekavali-vrat",
+    "title": "एकावली व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "एक-एक उपवास की क्रमबद्ध लड़ी (एकावली) बनाकर किया जाने वाला विशिष्ट कायोत्सर्ग व्रत।"
+  },
+  {
+    "id": "asonaya-vrat",
+    "title": "असोनय व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आंतरिक कषायों के शमन एवं तृष्णा निवृत्ति हेतु प्राचीन जैन परंपरा का असोनय व्रत।"
+  },
+  {
+    "id": "esodash-vrat",
+    "title": "एसोदश व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दस धर्मों के साथ आत्मा के ऐक्य का ध्यान धरते हुए एसोदश व्रत का अनुष्ठान।"
+  },
+  {
+    "id": "kanjik-vrat",
+    "title": "कंजिक व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कंजिक (सादा कांजी जल/दलिया) मात्र का अल्पाहार ग्रहण कर किया जाने वाला तप व्रत।"
+  },
+  {
+    "id": "kanakavali-vrat",
+    "title": "कनकवाली व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "स्वर्ण के समान दमकते तपश्चरण की पंक्ति रूप प्रसिद्ध कनकवाली व्रत का पालन।"
+  },
+  {
+    "id": "karmakshaya-vrat",
+    "title": "कर्मक्षय व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्ञानावरण, दर्शनावरण आदि समस्त कर्म प्रकृतियों के संपूर्ण क्षय का पावन संकल्प व्रत।"
+  },
+  {
+    "id": "karmachoor-vrat",
+    "title": "कर्मचूर व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कठिन तप, स्वाध्याय एवं इंद्रिय दमन द्वारा कर्मों को खंड-खंड करने का कर्मचूर व्रत।"
+  },
+  {
+    "id": "karma-nirjara-vrat",
+    "title": "कर्मनिर्जरा व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अकाम निर्जरा से ऊपर उठकर सकाम निर्जरा द्वारा मुक्ति मार्ग प्रशस्त करने का व्रत।"
+  },
+  {
+    "id": "kaliya-chaturdashi-vrat",
+    "title": "कलियचतुर्दशी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कलियुग के दोषों से आत्म रक्षा एवं धर्म दृढ़ता हेतु चतुर्दशी तिथि का व्रत।"
+  },
+  {
+    "id": "kalyan-vrat",
+    "title": "कल्याण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकरों के पंचकल्याणकों की मंगल भावना से परिपूर्ण सर्व कल्याणकारी व्रत।"
+  },
+  {
+    "id": "kanji-baras-vrat",
+    "title": "काँजी बारस व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भाद्रपद कृष्ण द्वादशी को केवल कांजी का एकासन कर शरीर ममता त्यागने का व्रत।"
+  },
+  {
+    "id": "kokila-panchami-vrat",
+    "title": "कोकिला पंचमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सत्य, मधुर और हितकारी वचन बोलने का नियम धारण कर कोकिला पंचमी व्रत।"
+  },
+  {
+    "id": "gandha-ashtami-vrat",
+    "title": "गंध अष्टमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "उत्तम गंध, सुगंधित विचार एवं चंदन लेपन सहित शुक्ल पक्ष अष्टमी का गंधाष्टमी व्रत।"
+  },
+  {
+    "id": "garuda-panchami-vrat",
+    "title": "गरुड़ पंचमी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "विष-विकारों के शमन, भय मुक्ति एवं एकाग्रता संवर्धन हेतु गरुड़ पंचमी व्रत।"
+  },
+  {
+    "id": "gyan-panchamisi-vrat",
+    "title": "ज्ञानपंचमीसी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्ञान के २५ भेदों (मति, श्रुत आदि) की आराधना हेतु २५ उपवासों का ज्ञानपंचमीसी व्रत।"
+  },
+  {
+    "id": "chandra-kalyan-vrat",
+    "title": "चंद्र कल्याण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आठवें तीर्थंकर भगवान चंद्रप्रभ स्वामी के पंचकल्याणकों की स्मृति में चंद्र कल्याण व्रत।"
+  },
+  {
+    "id": "chaturdashi-vrat",
+    "title": "चतुर्दशी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रत्येक पक्ष की चतुर्दशी (चौदस) को पूर्ण उपवास, आरंभ त्याग व सामायिक व्रत।"
+  },
+  {
+    "id": "chautees-atishay-vrat",
+    "title": "चौतीस अतिशय व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकर भगवान के ३४ जन्म, केवलज्ञान व देवकृत अतिशयों की महिमा रूप व्रत।"
+  },
+  {
+    "id": "jinpuja-purandar-vrat",
+    "title": "जिनपूजा पुरन्दर व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सौधर्म इन्द्र के समान निष्काम भक्ति भाव से नित्य जिनपूजा का पुरन्दर व्रत।"
+  },
+  {
+    "id": "jin-mukhavalokan-vrat",
+    "title": "जिनमुखावलोकन व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रातः शय्या त्याग कर अन्न-जल ग्रहण पूर्व जिनेंद्र मुखारविंद दर्शन का आजीवन/नियत व्रत।"
+  },
+  {
+    "id": "jin-ratri-vrat",
+    "title": "जिनरात्रि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "रात्रि जागरण, स्वाध्याय, णमोकार जाप एवं चारों प्रकार के आहार त्याग का जिनरात्रि व्रत।"
+  },
+  {
+    "id": "jeth-jinvar-vrat",
+    "title": "जेठजिनवर व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "ज्येष्ठ (जेठ) मास में ग्रीष्म ताप सहते हुए जिनेंद्र प्रभु की विशेष आराधना व्रत।"
+  },
+  {
+    "id": "taponidhi-vrat",
+    "title": "तपोनिधि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "द्वादश प्रकार के बाह्य व आभ्यंतर तपों को निज संपत्ति मानकर पालने का तपोनिधि व्रत।"
+  },
+  {
+    "id": "tapo-shuddhi-vrat",
+    "title": "तपो शुद्धि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तप में लगे दोषों का प्रतिक्रमण, विशुद्धि एवं समता धारण करने का तपो शुद्धि व्रत।"
+  },
+  {
+    "id": "tapanjali-vrat",
+    "title": "तपांजलि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तप रूपी अंजलि से आत्मा को तृप्त करने एवं कर्मों को शांत करने का तपांजलि व्रत।"
+  },
+  {
+    "id": "teen-chaubisi-vrat",
+    "title": "तीन चौबीसी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "भूत, भविष्य व वर्तमान के ७२ तीर्थंकरों के नाम स्मरण सहित तीन चौबीसी व्रत।"
+  },
+  {
+    "id": "tirthankar-vrat",
+    "title": "तीर्थंकर व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "धर्म तीर्थ के प्रवर्तक समस्त २४ तीर्थंकरों के पावन चरणों में समर्पित व्रत।"
+  },
+  {
+    "id": "tirthankar-bela-vrat",
+    "title": "तीर्थकर बेला व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दो दिन के अखंड उपवास (बेला) द्वारा तीर्थंकरों के तप कल्याणक की अनुगामी साधना।"
+  },
+  {
+    "id": "tela-vrat",
+    "title": "तेला व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "लगातार तीन दिन निर्जल/सजल उपवास (तेला तप) कर आत्मा को तपाने का कठोर व्रत।"
+  },
+  {
+    "id": "trigunsar-vrat",
+    "title": "त्रिगुणसार व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सम्यग्दर्शन, सम्यग्ज्ञान और सम्यक्चारित्र रूप रत्नत्रय त्रिगुण का सारभूत व्रत।"
+  },
+  {
+    "id": "trimushriddhi-vrat",
+    "title": "त्रिमुशृद्धि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मन, वचन और काय—तीनों योगों की पूर्ण शुद्धि पूर्वक किया जाने वाला त्रिमुशृद्धि व्रत।"
+  },
+  {
+    "id": "trilok-teej-vrat",
+    "title": "त्रिलोक तीज व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीनों लोकों के समस्त चैत्यालयों की वंदना करते हुए तृतीया तिथि का पावन व्रत।"
+  },
+  {
+    "id": "trilok-saar-vrat",
+    "title": "त्रिलोक सार व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य नेमिचंद्र सिद्धांतचक्रवर्ती कृत 'त्रिलोकसार' ग्रंथ के स्वाध्याय युक्त व्रत।"
+  },
+  {
+    "id": "traipan-kriya-vrat",
+    "title": "त्रैपन क्रिया व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आचार्य जिनसेन प्रतिपादित गर्भाधानादि ५३ क्रिया संस्कारों की शुद्धि का व्रत।"
+  },
+  {
+    "id": "darshan-vishuddhi-vrat",
+    "title": "दर्शन विशुद्धि व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "शंका, कांक्षा आदि आठ दोषों से रहित २५ मल-दोष मुक्त सम्यग्दर्शन विशुद्धि व्रत।"
+  },
+  {
+    "id": "daslakshan-vrat",
+    "title": "दशलक्षण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "उत्तम क्षमादि दस धर्मों की साधना में वर्ष में तीन बार दशलक्षण पर्व का महाव्रत।"
+  },
+  {
+    "id": "daridrya-nirvritti-vrat",
+    "title": "दारिद्रयनिर्वति व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "आत्मिक दरिद्रता (मिथ्यात्व) का नाश कर सम्यक्त्व रूपी अक्षय निधि पाने का व्रत।"
+  },
+  {
+    "id": "duhkha-haran-vrat",
+    "title": "दुःख हरण व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "संसार के जन्म-जरा-मरण रूप चतुर्गति के दुःखों का समूल नाश करने वाला व्रत।"
+  },
+  {
+    "id": "dugdharasi-vrat",
+    "title": "दुग्धरसी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "केवल दुग्ध का एकासन कर अन्य रसों का सर्वथा परित्याग करने का दुग्धरसी तप व्रत।"
+  },
+  {
+    "id": "dwadashi-vrat",
+    "title": "द्वादशी व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मास के दोनों पक्षों की द्वादशी (बारस) को धर्म ध्यान व रस त्याग युक्त व्रत।"
+  },
+  {
+    "id": "dwaravalokan-vrat",
+    "title": "द्वारावलोकन व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "समवसरण के चार मानस्तंभों व द्वारों के अवलोकन-स्मरण पूर्वक किया जाने वाला व्रत।"
+  },
+  {
+    "id": "dwikavali-vrat",
+    "title": "द्विकावली व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "दो-दो उपवासों की श्रंखलाबद्ध लड़ी बनाकर किया जाने वाला द्विकावली व्रत।"
+  },
+  {
+    "id": "divya-lakshan-pankti-vrat",
+    "title": "दिव्य लक्षण पंक्ति व्रत",
+    "category": "vrat",
+    "subCategory": "vrat-soochi",
+    "badge": "१०५ व्रत",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तीर्थंकर के १००८ दिव्य लक्षणों की पंक्तिबद्ध आराधना रूप पावन व्रत।"
+  },
+  {
+    "id": "shravak-pratikraman-book",
+    "title": "प्रतिक्रमण",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "षट् आवश्यक",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "प्रमादवश हुए दिन-रात के समस्त पापों का परिहार, ईर्यापथ शुद्धि व मिच्छामि दुक्कडम् प्रतिक्रमण।"
+  },
+  {
+    "id": "shravak-ke-lakshan",
+    "title": "श्रावकों के लक्षण",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "सदाचार",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "श्रद्धावान, विवेकवान, क्रियावान—सच्चे जैन गृहस्थ श्रावक के आवश्यक लक्षण व पहचान।"
+  },
+  {
+    "id": "shravak-ke-ashtamoolgun",
+    "title": "श्रावक के अष्टमूलगुण",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "मूलगुण",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "मद्य, मांस, मधु त्याग एवं पाँच उदुम्बर फल (बड़, पीपल, ऊमर, कठूमर, पाकर) त्याग रूप ८ मूलगुण।"
+  },
+  {
+    "id": "shravak-ki-bhavanayein",
+    "title": "श्रावक की भावनाएं",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "अनुप्रेक्षा",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "अनित्य, अशरण, संसार, एकत्व, अन्यत्व, अशुचि आदि बारह भावनाओं का नित्य चिंतन।"
+  },
+  {
+    "id": "shravak-ke-dainik-shatkaram",
+    "title": "श्रावक के दैनिक षट्कर्म",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "षट्कर्म",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "'देवपूजा गुरुपास्तिः स्वाध्यायः संयमस्तपः। दानं चेति गृहस्थानां षट्कर्माणि दिने दिने॥'"
+  },
+  {
+    "id": "shravak-ke-mukhya-bahya-chinha",
+    "title": "श्रावक के मुख्य बाह्य चिन्ह",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "पहचान",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "तिलक, धोती-दुपट्टा, छना हुआ प्रासुक जल, रात्रिभोजन त्याग एवं अहिंसक वेशभूषा।"
+  },
+  {
+    "id": "shravak-ke-22-abhakshya",
+    "title": "श्रावक के 22 अभक्ष्य",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "आहार शुद्धि",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "कंदमूल, मद्य, मांस, मधु, बासी अन्न, त्रसघातक फल आदि २२ अभक्ष्य पदार्थों का विस्तृत विवरण।"
+  },
+  {
+    "id": "shravak-ke-satrah-dainik-niyam",
+    "title": "श्रावक के सत्रह दैनिक नियम",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "दैनिक नियम",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "सचित्त त्याग, द्रव्य परिमाण, दिशा परिमाण, उपभोग-परिभोग मर्यादा आदि १७ दैनिक नियम।"
+  },
+  {
+    "id": "vrati-ke-bhojan-ke-antaray-shravak",
+    "title": "व्रती के भोजन के अंतराय",
+    "category": "vrat",
+    "subCategory": "shravak-dharma",
+    "badge": "अंतराय",
+    "author": "ब्रम्हचारी विनोद सागर शास्त्री",
+    "description": "काक-विष्ठा, रुधिर, अश्रुपात, बाल, कीट-पतंग पतन आदि भोजन काल के प्रमुख अंतरायों का शास्त्रोक्त नियम।"
+  }
+],
 };
 
 // Aliases for navigation categories
 (contentInventory as any)['tattva'] = contentInventory.philosophy;
 (contentInventory as any)['shastra'] = contentInventory.granthas;
+(contentInventory as any)['105-vrat'] = contentInventory.vrat;
+(contentInventory as any)['vrat-vidhi'] = contentInventory.vrat;

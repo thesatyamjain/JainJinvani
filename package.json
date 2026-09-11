@@ -64,7 +64,8 @@
       "dev": "vite",
       "typecheck": "tsc --noEmit",
       "check": "npm run typecheck && npm run build",
+      "icons": "node scripts/generate_pwa_icons.js",
       "sitemap": "node scripts/generate_sitemap.js",
-            "build": "node scripts/generate_sitemap.js && vite build"
+            "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
       }
 }

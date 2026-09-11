@@ -123,6 +123,15 @@ const sadhanaItems = [
     accent: 'text-amber-300',
   },
   {
+    id: 'vrat',
+    label: '१०५ व्रत व उद्यापन',
+    sub: 'पूजा, विधि व उद्यापन संग्रह',
+    icon: Sparkles,
+    color: 'from-amber-500/25 to-yellow-600/15',
+    border: 'border-amber-400/40',
+    accent: 'text-amber-200',
+  },
+  {
     id: 'dietary',
     label: 'भक्ष्य-अभक्ष्य',
     sub: 'शुद्ध अहिंसक आहार',
@@ -256,3 +265,5 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
     </div>
   );
 };
+
+export default SadhanaMenu;

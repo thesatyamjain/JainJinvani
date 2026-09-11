@@ -18,15 +18,48 @@ import {
   RotateCcw,
   Droplets,
   FileEdit,
+  GitBranch,
 } from 'lucide-react';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import { FeedbackModal } from '../components/features/FeedbackModal';
+import { DailyQuoteCard } from '../components/features/DailyQuoteCard';
 
 interface LandingProps {
   onNavigate: (page: string, params?: any) => void;
+}
+
+export interface AnnouncementData {
+  text: string;
+  badge: string;
+  link?: string;
+  active: boolean;
+  type?: 'permanent' | 'scheduled' | 'time_frame';
+  startDate?: string;
+  endDate?: string;
+  updatedAt?: string;
+}
+
+export function isAnnouncementActive(ann: AnnouncementData | null | undefined): boolean {
+  if (!ann || !ann.active || !ann.text) return false;
+  const now = Date.now();
+  if (ann.type === 'scheduled' && ann.startDate) {
+    const start = new Date(ann.startDate).getTime();
+    if (!isNaN(start) && now < start) return false;
+  }
+  if (ann.type === 'time_frame') {
+    if (ann.startDate) {
+      const start = new Date(ann.startDate).getTime();
+      if (!isNaN(start) && now < start) return false;
+    }
+    if (ann.endDate) {
+      const end = new Date(ann.endDate).getTime();
+      if (!isNaN(end) && now > end) return false;
+    }
+  }
+  return true;
 }
 
 export const Landing = ({ onNavigate }: LandingProps) => {
@@ -42,17 +75,12 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   const [recentReads, setRecentReads] = useState<RecentReadItem[]>([]);
   const [showDonateModal, setShowDonateModal] = useState(false);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [announcement, setAnnouncement] = useState<{
-    text: string;
-    badge: string;
-    link?: string;
-    active: boolean;
-  } | null>(() => {
+  const [announcement, setAnnouncement] = useState<AnnouncementData | null>(() => {
     try {
       const stored = localStorage.getItem('jinvani_admin_announcement');
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (parsed?.active && parsed?.text) {
+        if (isAnnouncementActive(parsed)) {
           return parsed;
         }
       }
@@ -66,12 +94,46 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   useEffect(() => {
     setRecentReads(getRecentReads());
 
+    // 1. Check & fetch global live announcement from static JSON / Edge API
+    const fetchGlobalAnnouncement = async () => {
+      try {
+        const res = await fetch(`/announcement.json?t=${Date.now()}`);
+        if (res.ok) {
+          const data: AnnouncementData = await res.json();
+          if (isAnnouncementActive(data)) {
+            setAnnouncement(data);
+            try {
+              localStorage.setItem('jinvani_admin_announcement', JSON.stringify(data));
+            } catch {}
+          } else {
+            // Expired or inactive
+            setAnnouncement(null);
+            try {
+              localStorage.removeItem('jinvani_admin_announcement');
+            } catch {}
+          }
+        }
+      } catch {
+        // Offline or network error: fallback to stored announcement
+        try {
+          const stored = localStorage.getItem('jinvani_admin_announcement');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            setAnnouncement(isAnnouncementActive(parsed) ? parsed : null);
+          }
+        } catch {}
+      }
+    };
+
+    fetchGlobalAnnouncement();
+
+    // 2. Listen for local admin updates
     const handleAnnouncementUpdate = () => {
       try {
         const stored = localStorage.getItem('jinvani_admin_announcement');
         if (stored) {
           const parsed = JSON.parse(stored);
-          setAnnouncement(parsed?.active && parsed?.text ? parsed : null);
+          setAnnouncement(isAnnouncementActive(parsed) ? parsed : null);
         } else {
           setAnnouncement(null);
         }
@@ -231,6 +293,9 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </p>
         </div>
       </motion.section>
+
+      {/* Daily Spiritual Quote from Samayasara, Chhahdhala & Tattvartha Sutra */}
+      <DailyQuoteCard />
 
       {/* Recent Reads Section (Shown when user has read items) */}
       {recentReads.length > 0 && (
@@ -541,6 +606,31 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
         </GlassCard>
       </motion.div>
+
+      {/* Footer Navigation & Admin Link */}
+      <footer className="w-full max-w-3xl mt-7 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400/80 font-gotu px-2">
+        <span className="text-[11px] text-slate-500">© जिनवाणी सेवा ट्रस्ट • निःशुल्क जिनवाणी महाकोश</span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => onNavigate('git-admin')}
+            className="text-amber-300/80 hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-lg hover:bg-amber-500/10 text-xs"
+            title="गिट व्यवस्थापक: स्तोत्र, ग्रंथ व घोषणा संपादक"
+          >
+            <GitBranch className="w-3.5 h-3.5 text-amber-400" />
+            <span>गिट व्यवस्थापक (CMS)</span>
+          </button>
+          <span className="text-white/20">•</span>
+          <button
+            type="button"
+            onClick={() => onNavigate('admin')}
+            className="text-slate-400 hover:text-slate-200 transition-colors cursor-pointer py-1 px-2 text-xs"
+            title="सुरक्षित व्यवस्थापक लॉगिन"
+          >
+            व्यवस्थापक
+          </button>
+        </div>
+      </footer>
 
       {/* Sahyog Donate Modal */}
       <AnimatePresence>

@@ -29,8 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   private handleReset = () => {
     this.setState({ hasError: false, error: null, errorInfo: null });
-    window.location.hash = '#landing';
-    window.location.reload();
+    window.location.href = '/';
   };
 
   public render() {
@@ -51,6 +50,18 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="text-xs text-slate-300 font-gotu mb-4">
               कृपया मुख्य पृष्ठ पर लौटकर पुनः प्रयास करें। समस्या बनी रहे तो हमें बताएं।
             </p>
+            {this.state.error && (
+              <div className="my-3 p-3 rounded-xl bg-red-950/60 border border-red-500/30 text-left overflow-auto max-h-48 custom-scrollbar">
+                <p className="text-xs text-red-300 font-mono font-bold break-words mb-1">
+                  {this.state.error.toString()}
+                </p>
+                {this.state.error.stack && (
+                  <pre className="text-[10px] text-red-200/60 font-mono whitespace-pre-wrap leading-tight">
+                    {this.state.error.stack.split('\n').slice(1, 4).join('\n')}
+                  </pre>
+                )}
+              </div>
+            )}
             <button
               onClick={this.handleReset}
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-sm font-gotu shadow-lg hover:brightness-105 active:scale-95 transition-all cursor-pointer"
