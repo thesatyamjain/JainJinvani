@@ -9,37 +9,39 @@ import { useModalBackHandler } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
 import { resetSeoToDefault } from "./utils/seoHelper";
 
-const Landing = lazy(() => import("./pages/Landing").then(({ Landing }) => ({ default: Landing })));
-const SadhanaMenu = lazy(() => import("./pages/SadhanaMenu").then(({ SadhanaMenu }) => ({ default: SadhanaMenu })));
-const LibraryMenu = lazy(() => import("./pages/LibraryMenu").then(({ LibraryMenu }) => ({ default: LibraryMenu })));
+import { Landing } from "./pages/Landing";
+import { SadhanaMenu } from "./pages/SadhanaMenu";
+import { LibraryMenu } from "./pages/LibraryMenu";
+import { MoreMenu } from "./pages/MoreMenu";
+import { ContentViewer } from "./pages/ContentViewer";
+import { CategoryListing } from "./pages/CategoryListing";
+import { Panchang } from "./pages/Panchang";
+import { ExploreMenu } from "./pages/ExploreMenu";
+import { SearchOverlay } from "./components/layout/SearchOverlay";
+import { NotFound } from "./pages/NotFound";
+import { FavoritesPage } from "./pages/FavoritesPage";
+import { FestivalsPage } from "./pages/FestivalsPage";
+import { TirthankarProfile } from "./pages/TirthankarProfile";
+import { PilgrimagePage } from "./pages/PilgrimagePage";
+import { PhilosophyPage } from "./pages/PhilosophyPage";
+import { RitualsPage } from "./pages/RitualsPage";
+import { PathshalaPage } from "./pages/PathshalaPage";
+import { GalleryPage } from "./pages/GalleryPage";
+import { SamayikPage } from "./pages/SamayikPage";
+import { DietaryPage } from "./pages/DietaryPage";
+import { AsceticsPage } from "./pages/AsceticsPage";
+import { MuniProfilesPage } from "./pages/MuniProfilesPage";
+import { JapMalaPage } from "./pages/JapMalaPage";
+import { NiyamaPage } from "./pages/NiyamaPage";
+import { DailyPujaFlow } from "./pages/DailyPujaFlow";
+
+// Heavy back-office admin pages remain code-split
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
 const GitAdminPage = lazy(() => import("./pages/GitAdminPage").then(({ GitAdminPage }) => ({ default: GitAdminPage })));
-const ContentViewer = lazy(() => import("./pages/ContentViewer").then(({ ContentViewer }) => ({ default: ContentViewer })));
-const Panchang = lazy(() => import("./pages/Panchang").then(({ Panchang }) => ({ default: Panchang })));
-const CategoryListing = lazy(() => import("./pages/CategoryListing").then(({ CategoryListing }) => ({ default: CategoryListing })));
-const MoreMenu = lazy(() => import("./pages/MoreMenu").then(({ MoreMenu }) => ({ default: MoreMenu })));
-const NotFound = lazy(() => import("./pages/NotFound").then(({ NotFound }) => ({ default: NotFound })));
-const FavoritesPage = lazy(() => import("./pages/FavoritesPage").then(({ FavoritesPage }) => ({ default: FavoritesPage })));
-const FestivalsPage = lazy(() => import("./pages/FestivalsPage").then(({ FestivalsPage }) => ({ default: FestivalsPage })));
-const TirthankarProfile = lazy(() => import("./pages/TirthankarProfile").then(({ TirthankarProfile }) => ({ default: TirthankarProfile })));
-const PilgrimagePage = lazy(() => import("./pages/PilgrimagePage").then(({ PilgrimagePage }) => ({ default: PilgrimagePage })));
-const PhilosophyPage = lazy(() => import("./pages/PhilosophyPage").then(({ PhilosophyPage }) => ({ default: PhilosophyPage })));
-const RitualsPage = lazy(() => import("./pages/RitualsPage").then(({ RitualsPage }) => ({ default: RitualsPage })));
-const PathshalaPage = lazy(() => import("./pages/PathshalaPage").then(({ PathshalaPage }) => ({ default: PathshalaPage })));
-const GalleryPage = lazy(() => import("./pages/GalleryPage").then(({ GalleryPage }) => ({ default: GalleryPage })));
-const ExploreMenu = lazy(() => import("./pages/ExploreMenu").then(({ ExploreMenu }) => ({ default: ExploreMenu })));
-const SamayikPage = lazy(() => import("./pages/SamayikPage").then(({ SamayikPage }) => ({ default: SamayikPage })));
-const DietaryPage = lazy(() => import("./pages/DietaryPage").then(({ DietaryPage }) => ({ default: DietaryPage })));
-const AsceticsPage = lazy(() => import("./pages/AsceticsPage").then(({ AsceticsPage }) => ({ default: AsceticsPage })));
-const MuniProfilesPage = lazy(() => import("./pages/MuniProfilesPage").then(({ MuniProfilesPage }) => ({ default: MuniProfilesPage })));
-const JapMalaPage = lazy(() => import("./pages/JapMalaPage").then(({ JapMalaPage }) => ({ default: JapMalaPage })));
-const NiyamaPage = lazy(() => import("./pages/NiyamaPage").then(({ NiyamaPage }) => ({ default: NiyamaPage })));
-const DailyPujaFlow = lazy(() => import("./pages/DailyPujaFlow").then(({ DailyPujaFlow }) => ({ default: DailyPujaFlow })));
-const SearchOverlay = lazy(() => import("./components/layout/SearchOverlay").then(({ SearchOverlay }) => ({ default: SearchOverlay })));
 
 const PageLoading = () => (
-  <div className="min-h-full flex items-center justify-center text-amber-200 font-gotu text-sm">
-    पृष्ठ लोड हो रहा है…
+  <div className="min-h-full flex flex-col items-center justify-center gap-3 select-none py-16">
+    <div className="w-8 h-8 rounded-full border-2 border-amber-500/20 border-t-amber-400 animate-spin" />
   </div>
 );
 
