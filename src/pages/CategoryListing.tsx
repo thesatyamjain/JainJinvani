@@ -19,6 +19,8 @@ import {
   Feather,
   CheckCircle2,
   ArrowRight,
+  Heart,
+  Music,
 } from 'lucide-react';
 import { contentInventory, ContentItem, subCategoryMap, SubCategoryDef } from '../data/inventory';
 import { matchSearchQuery } from '../utils/searchHelper';
@@ -56,6 +58,20 @@ const categoryTitles: Record<string, { title: string; sub: string }> = {
 // Subcategory icon resolver
 const getSubCategoryIcon = (subId: string) => {
   switch (subId) {
+    case 'mangal-deepak':
+      return <Flame className="w-4 h-4" />;
+    case 'tirthankar-aarti':
+      return <Crown className="w-4 h-4" />;
+    case 'jinvani-guru':
+      return <BookOpen className="w-4 h-4" />;
+    case 'tirthankar-bhajan':
+      return <Crown className="w-4 h-4" />;
+    case 'guru-tirth-bhajan':
+      return <Users className="w-4 h-4" />;
+    case 'adhyatma-vairagya':
+      return <Feather className="w-4 h-4" />;
+    case 'prarthana-samarpan':
+      return <Heart className="w-4 h-4" />;
     case 'vrat-vidhi':
       return <ListOrdered className="w-4 h-4" />;
     case 'vrat-soochi':
@@ -108,6 +124,164 @@ const getSubCategoryIcon = (subId: string) => {
       return <BookOpen className="w-4 h-4" />;
   }
 };
+
+interface SubCategoryStyle {
+  color: string;
+  border: string;
+  accent: string;
+}
+
+const getSubCategoryStyle = (subId: string): SubCategoryStyle => {
+  switch (subId) {
+    case 'tirthankar':
+    case 'tirthankar-vidhan':
+    case 'tirthankar-chalisa':
+    case 'tirthankar-aarti':
+    case 'tirthankar-bhajan':
+    case 'prathamanuyoga':
+    case 'samskar-vidhi':
+      return {
+        color: 'from-amber-500/20 to-yellow-700/10',
+        border: 'border-amber-500/30',
+        accent: 'text-amber-300',
+      };
+    case 'daily-flow':
+    case 'daily-swadhyay':
+    case 'vrat-vidhi':
+    case 'vrat-soochi':
+      return {
+        color: 'from-orange-500/20 to-amber-700/10',
+        border: 'border-orange-500/30',
+        accent: 'text-orange-300',
+      };
+    case 'shravak-dharma':
+    case 'shanti-raksha':
+    case 'charananuyoga':
+    case 'mangal-deepak':
+      return {
+        color: 'from-emerald-500/20 to-teal-700/10',
+        border: 'border-emerald-500/30',
+        accent: 'text-emerald-300',
+      };
+    case 'mahamandal-vidhan':
+    case 'daslakshan-vidhan':
+    case 'parva-vrat':
+    case 'pradhan-stotra':
+    case 'siddha-tirth':
+    case 'karnanuyoga':
+      return {
+        color: 'from-amber-400/20 to-amber-600/10',
+        border: 'border-amber-400/35',
+        accent: 'text-amber-200',
+      };
+    case 'vairagya-bhavana':
+    case 'adhyatma-stotra':
+    case 'adhyatma-vairagya':
+    case 'dravyanuyoga':
+    case 'vrat-katha':
+      return {
+        color: 'from-cyan-500/20 to-blue-700/10',
+        border: 'border-cyan-500/30',
+        accent: 'text-cyan-300',
+      };
+    case 'guru-acharya':
+    case 'guru-devi':
+    case 'jinvani-guru':
+    case 'guru-tirth-bhajan':
+      return {
+        color: 'from-purple-500/20 to-indigo-700/10',
+        border: 'border-purple-500/30',
+        accent: 'text-purple-300',
+      };
+    case 'jinendra-stuti':
+    case 'bhakti-stuti':
+    case 'ashtak-stotra':
+    case 'atishay-kshetra':
+    case 'vrat-puja':
+    case 'prarthana-samarpan':
+      return {
+        color: 'from-rose-500/20 to-amber-700/10',
+        border: 'border-rose-500/30',
+        accent: 'text-rose-300',
+      };
+    default:
+      return {
+        color: 'from-amber-500/20 to-amber-700/10',
+        border: 'border-amber-500/30',
+        accent: 'text-amber-300',
+      };
+  }
+};
+
+const CategoryDivider = ({
+  icon,
+  title,
+  subtitle,
+  count,
+  accent,
+  color,
+  border,
+  onSelectSubcategory,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  subtitle?: string;
+  count: number;
+  accent: string;
+  color: string;
+  border: string;
+  onSelectSubcategory?: () => void;
+}) => (
+  <div className="pt-6 pb-3 md:pt-9 md:pb-4">
+    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2">
+      <div className="flex items-center gap-2.5 sm:gap-3">
+        <div
+          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br ${color} border ${border} flex items-center justify-center ${accent} shadow-sm shrink-0`}
+        >
+          {icon}
+        </div>
+        <div>
+          <div className="flex items-center gap-2">
+            <h2 className="text-base sm:text-lg md:text-xl font-notoserif font-bold text-amber-200 tracking-tight leading-snug">
+              {title}
+            </h2>
+          </div>
+          {subtitle && (
+            <p className="text-[11px] sm:text-xs text-slate-300/75 font-gotu mt-0.5 line-clamp-1 max-w-xl">
+              {subtitle}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300/90 text-[11px] font-gotu backdrop-blur-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+          <span>
+            {count} {count === 1 ? 'रचना' : 'रचनाएँ'}
+          </span>
+        </div>
+        {onSelectSubcategory && (
+          <button
+            onClick={onSelectSubcategory}
+            className="hidden sm:inline-flex items-center gap-1 text-[11px] font-gotu text-slate-400 hover:text-amber-200 transition-colors px-2 py-0.5 rounded-lg hover:bg-white/5 cursor-pointer"
+            title="केवल यह अनुभाग देखें"
+          >
+            <span>विस्तार</span>
+            <ChevronRight className="w-3 h-3" />
+          </button>
+        )}
+      </div>
+    </div>
+
+    {/* Auspicious Mangal Filigree Divider Rule */}
+    <div className="relative flex items-center gap-2 pt-1">
+      <div className="h-[1.5px] w-10 sm:w-16 bg-gradient-to-r from-amber-400/90 to-amber-500/40" />
+      <span className="text-amber-400/90 text-xs select-none">❖</span>
+      <div className="h-[1px] flex-1 bg-gradient-to-r from-amber-500/35 via-amber-400/15 to-transparent" />
+    </div>
+  </div>
+);
 
 export const CategoryListing = ({
   categoryId,
@@ -183,6 +357,125 @@ export const CategoryListing = ({
   };
 
   const isDailyFlow = categoryId === 'puja' && (activeSubCategory === 'daily-flow' || viewMode === 'timeline');
+
+  const renderItemCard = (item: ContentItem, idx: number) => (
+    <motion.div
+      key={item.id}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
+      onClick={() => handleItemClick(item)}
+      className="h-full"
+    >
+      <GlassCard
+        variant="gilded"
+        className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
+      >
+        <div>
+          {/* Top Badges Row */}
+          <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
+            {item.badge ? (
+              <span className="text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
+                {item.badge}
+              </span>
+            ) : item.author ? (
+              <span className="text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
+                {item.author}
+              </span>
+            ) : (
+              <span />
+            )}
+
+            <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
+              #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
+            {item.title}
+          </h3>
+
+          {/* Short Description */}
+          {item.description && (
+            <p className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
+              {item.description}
+            </p>
+          )}
+        </div>
+
+        {/* Footer Action */}
+        <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
+          <span className="truncate">
+            {categoryId === 'puja'
+              ? 'पूजन करें'
+              : categoryId === 'vidhan'
+              ? 'विधान अनुष्ठान'
+              : categoryId === 'aarti'
+              ? 'आरती करें'
+              : categoryId === 'bhajan'
+              ? 'भजन गायन'
+              : 'स्वाध्याय'}
+          </span>
+          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
+        </div>
+      </GlassCard>
+    </motion.div>
+  );
+
+  const renderTimelineItem = (item: ContentItem, idx: number) => (
+    <motion.div
+      key={item.id}
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
+      onClick={() => handleItemClick(item)}
+      className="relative group cursor-pointer"
+    >
+      <GlassCard
+        variant="gilded"
+        className="p-5 sm:p-6 sm:pl-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl hover:-translate-y-0.5 transition-all duration-300 border border-white/10 hover:border-amber-400/50 shadow-md group"
+      >
+        <div className="sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2 w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 font-mono font-bold text-xs flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.2)] group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
+          {item.order || idx + 1 < 10 ? `0${item.order || idx + 1}` : item.order || idx + 1}
+        </div>
+
+        <div className="flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            {item.badge && (
+              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300 font-medium">
+                {item.badge}
+              </span>
+            )}
+            {item.author && (
+              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
+                {item.author}
+              </span>
+            )}
+          </div>
+
+          <h3 className="text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors leading-snug">
+            {item.title}
+          </h3>
+
+          {item.description && (
+            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-1 leading-relaxed">
+              {item.description}
+            </p>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+          <span className="text-xs font-gotu text-amber-300/90 group-hover:text-amber-200 transition-colors">
+            पूजन करें
+          </span>
+          <div className="w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 group-hover:translate-x-1 group-hover:bg-amber-400 group-hover:text-slate-950 transition-all">
+            <ChevronRight className="w-4 h-4" />
+          </div>
+        </div>
+      </GlassCard>
+    </motion.div>
+  );
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
@@ -390,7 +683,119 @@ export const CategoryListing = ({
       {/* Main Content Area */}
       <AnimatePresence mode="wait">
         {filteredItems.length > 0 ? (
-          viewMode === 'timeline' && isDailyFlow ? (
+          searchQuery.trim() ? (
+            /* ========================================================================= */
+            /* Search Results View */
+            /* ========================================================================= */
+            <motion.div
+              key="search-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+            >
+              <div className="pt-2 pb-4">
+                <div className="flex items-center justify-between text-xs font-gotu text-slate-400">
+                  <span>
+                    खोज परिणाम: &ldquo;{searchQuery}&rdquo; ({filteredItems.length}{' '}
+                    {filteredItems.length === 1 ? 'रचना' : 'रचनाएँ'})
+                  </span>
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
+                  >
+                    खोज साफ़ करें
+                  </button>
+                </div>
+                <div className="h-[1px] w-full bg-gradient-to-r from-amber-500/30 via-white/10 to-transparent mt-2" />
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4.5">
+                {filteredItems.map((item, idx) => renderItemCard(item, idx))}
+              </div>
+            </motion.div>
+          ) : activeSubCategory === 'all' && subCategories.length > 0 ? (
+            /* ========================================================================= */
+            /* Sectioned View with Category Dividers for "All" View */
+            /* ========================================================================= */
+            <motion.div
+              key="sectioned-view"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              className="space-y-6 md:space-y-8"
+            >
+              {subCategories
+                .filter((sub) => sub.id !== 'all')
+                .map((sub) => {
+                  const subItems = items.filter((item) => item.subCategory === sub.id);
+                  if (subItems.length === 0) return null;
+
+                  const style = getSubCategoryStyle(sub.id);
+                  const isThisDailyFlowTimeline =
+                    categoryId === 'puja' && sub.id === 'daily-flow' && viewMode === 'timeline';
+
+                  return (
+                    <div key={sub.id} className="space-y-3">
+                      {/* Ornamental Category Divider */}
+                      <CategoryDivider
+                        icon={getSubCategoryIcon(sub.id)}
+                        title={sub.label}
+                        subtitle={sub.description}
+                        count={subItems.length}
+                        accent={style.accent}
+                        color={style.color}
+                        border={style.border}
+                        onSelectSubcategory={() => {
+                          setActiveSubCategory(sub.id);
+                          if (sub.id !== 'daily-flow' && viewMode === 'timeline') {
+                            setViewMode('grid');
+                          }
+                        }}
+                      />
+
+                      {/* Content: Timeline or Responsive 2-Col Mobile Grid */}
+                      {isThisDailyFlowTimeline ? (
+                        <div className="relative space-y-4 md:space-y-5">
+                          <div className="absolute left-[27px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-amber-400/60 via-amber-500/30 to-amber-600/10 hidden sm:block" />
+                          {subItems.map((item, idx) => renderTimelineItem(item, idx))}
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4.5">
+                          {subItems.map((item, idx) => renderItemCard(item, idx))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+              {/* Fallback for items with unassigned or unknown subcategory */}
+              {(() => {
+                const knownSubIds = new Set(subCategories.map((s) => s.id));
+                const miscItems = items.filter(
+                  (item) => !item.subCategory || !knownSubIds.has(item.subCategory)
+                );
+                if (miscItems.length === 0) return null;
+
+                const style = getSubCategoryStyle('default');
+                return (
+                  <div className="space-y-3">
+                    <CategoryDivider
+                      icon={<BookOpen className="w-4 h-4" />}
+                      title="विविध एवं अन्य संग्रह"
+                      subtitle="अतिरिक्त प्रामाणिक रचनाएँ"
+                      count={miscItems.length}
+                      accent={style.accent}
+                      color={style.color}
+                      border={style.border}
+                    />
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4.5">
+                      {miscItems.map((item, idx) => renderItemCard(item, idx))}
+                    </div>
+                  </div>
+                );
+              })()}
+            </motion.div>
+          ) : viewMode === 'timeline' && isDailyFlow ? (
             /* ========================================================================= */
             /* Guided Timeline Stepper View for Daily Puja Flow */
             /* ========================================================================= */
@@ -403,65 +808,11 @@ export const CategoryListing = ({
             >
               {/* Stepper Guide Line */}
               <div className="absolute left-[27px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-amber-400/60 via-amber-500/30 to-amber-600/10 hidden sm:block" />
-
-              {filteredItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
-                  onClick={() => handleItemClick(item)}
-                  className="relative group cursor-pointer"
-                >
-                  <GlassCard
-                    variant="gilded"
-                    className="p-5 sm:p-6 sm:pl-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl hover:-translate-y-0.5 transition-all duration-300 border border-white/10 hover:border-amber-400/50 shadow-md group"
-                  >
-                    {/* Stepper Number Badge (Mobile & Desktop) */}
-                    <div className="sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2 w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 font-mono font-bold text-xs flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.2)] group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
-                      {item.order || idx + 1 < 10 ? `0${item.order || idx + 1}` : item.order || idx + 1}
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        {item.badge && (
-                          <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300 font-medium">
-                            {item.badge}
-                          </span>
-                        )}
-                        {item.author && (
-                          <span className="text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
-                            {item.author}
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors leading-snug">
-                        {item.title}
-                      </h3>
-
-                      {item.description && (
-                        <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-1 leading-relaxed">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-                      <span className="text-xs font-gotu text-amber-300/90 group-hover:text-amber-200 transition-colors">
-                        पूजन करें
-                      </span>
-                      <div className="w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 group-hover:translate-x-1 group-hover:bg-amber-400 group-hover:text-slate-950 transition-all">
-                        <ChevronRight className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </GlassCard>
-                </motion.div>
-              ))}
+              {filteredItems.map((item, idx) => renderTimelineItem(item, idx))}
             </motion.div>
           ) : (
             /* ========================================================================= */
-            /* Standard Grid View for All Items & Categories */
+            /* Standard Grid View for Single Subcategory or Simple Category */
             /* ========================================================================= */
             <motion.div
               key="grid-view"
@@ -470,58 +821,7 @@ export const CategoryListing = ({
               exit={{ opacity: 0, y: -15 }}
               className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4.5"
             >
-              {filteredItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
-                  onClick={() => handleItemClick(item)}
-                  className="h-full"
-                >
-                  <GlassCard
-                    variant="gilded"
-                    className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
-                  >
-                    <div>
-                      {/* Top Badges Row */}
-                      <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
-                        {item.badge ? (
-                          <span className="text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
-                            {item.badge}
-                          </span>
-                        ) : item.author ? (
-                          <span className="text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
-                            {item.author}
-                          </span>
-                        ) : <span />}
-
-                        <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
-                          #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
-                        {item.title}
-                      </h3>
-
-                      {/* Short Description */}
-                      {item.description && (
-                        <p className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
-                          {item.description}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Footer Action */}
-                    <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
-                      <span className="truncate">{categoryId === 'puja' ? 'पूजन करें' : 'स्वाध्याय'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
-                    </div>
-                  </GlassCard>
-                </motion.div>
-              ))}
+              {filteredItems.map((item, idx) => renderItemCard(item, idx))}
             </motion.div>
           )
         ) : (

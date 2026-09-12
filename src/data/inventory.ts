@@ -244,6 +244,53 @@ export const subCategoryMap: Record<string, SubCategoryDef[]> = {
       "description": "प्रतिक्रमण, श्रावक लक्षण, अष्टमूलगुण, २२ अभक्ष्य एवं १७ दैनिक नियम"
     }
   ],
+  "aarti": [
+    {
+      "id": "all",
+      "label": "सभी आरतियाँ"
+    },
+    {
+      "id": "mangal-deepak",
+      "label": "मंगल आरती व दीप वंदना",
+      "description": "जैन मंगल आरती, पंच परमेष्ठी, धूप आरती एवं जिनराज स्तुति"
+    },
+    {
+      "id": "tirthankar-aarti",
+      "label": "२४ तीर्थंकर आरती",
+      "description": "श्री आदिनाथ, महावीर स्वामी, पार्श्वनाथ, शान्तिनाथ, चंद्रप्रभु एवं चौबीसों भगवान आरती"
+    },
+    {
+      "id": "jinvani-guru",
+      "label": "जिनवाणी, गुरु व शासन देवी",
+      "description": "श्री जिनवाणी माता, गुरु महाराज, बाहुबली स्वामी एवं पद्मावती माता आरती"
+    }
+  ],
+  "bhajan": [
+    {
+      "id": "all",
+      "label": "सभी भजन"
+    },
+    {
+      "id": "tirthankar-bhajan",
+      "label": "तीर्थंकर एवं प्रभु भक्ति",
+      "description": "भगवान महावीर, पार्श्वनाथ, आदिनाथ, बाहुबली एवं जिनेन्द्र प्रभु गुणगान"
+    },
+    {
+      "id": "guru-tirth-bhajan",
+      "label": "तीर्थ वंदना एवं गुरु भक्ति",
+      "description": "गुरुवर वंदना, सम्मेद शिखरजी, तिजारा, कुण्डलपुर, जूनागढ़ एवं गिरनार भक्ति"
+    },
+    {
+      "id": "adhyatma-vairagya",
+      "label": "वैराग्य एवं आत्म भावना",
+      "description": "मेरी भावना, मैत्री भाव, जीवन की क्षणभंगुरता एवं समता रस धारा"
+    },
+    {
+      "id": "prarthana-samarpan",
+      "label": "प्रार्थना एवं प्रभु समर्पण",
+      "description": "णमोकार महामंत्र, दया दान, शांति प्रार्थना एवं प्रभु समर्पण पद"
+    }
+  ],
 };
 
 export const contentInventory: Record<string, ContentItem[]> = {
@@ -252,151 +299,176 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "id": "jain-aarti",
     "title": "जैन मंगल आरती",
     "category": "aarti",
+    "subCategory": "mangal-deepak",
     "description": "दीपक वंदना एवं मंगल आरती"
   },
   {
     "id": "adinath-aarti",
     "title": "श्री आदिनाथ आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "प्रथम तीर्थंकर आदिनाथ भगवान की आरती"
   },
   {
     "id": "parshvanath-aarti",
     "title": "श्री पार्श्वनाथ आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "२३वें तीर्थंकर पार्श्वनाथ भगवान की आरती"
   },
   {
     "id": "mahavir-aarti",
     "title": "श्री महावीर आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "२४वें तीर्थंकर महावीर स्वामी की आरती"
   },
   {
     "id": "shantinath-aarti",
     "title": "श्री शांतिनाथ आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "१६वें तीर्थंकर शांतिनाथ भगवान की आरती"
   },
   {
     "id": "padmavati-aarti",
     "title": "श्री पद्मावती माता आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "शासन देवी पद्मावती माता की आरती"
   },
   {
     "id": "nakoda-bhairav-aarti",
     "title": "श्री नाकोड़ा भैरव आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "अधिष्ठायक देव नाकोड़ा भैरव आरती"
   },
   {
     "id": "jinvani-aarti",
     "title": "श्री जिनवाणी आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "द्वादशांग जिनवाणी माता की पावन आरती"
   },
   {
     "id": "guru-aarti",
     "title": "श्री गुरु महाराज आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "परम पूज्य आचार्य श्री व गुरु महाराज की आरती"
   },
   {
     "id": "mangal-aarti",
     "title": "मंगल आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "mangal-deepak",
+    "description": "पंच मंगल दीप आराधना"
   },
   {
     "id": "adinath-arti",
     "title": "श्री आदिनाथ भगवान आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "ऋषभदेव भगवान की जय जयकार आरती"
   },
   {
     "id": "bahubali-arti",
     "title": "श्री बाहुबली स्वामी आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "गोमटेश बाहुबली स्वामी की आरती"
   },
   {
     "id": "chandraprabhu-arti",
     "title": "जय चंद्रप्रभु देवा",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "८वें तीर्थंकर चंद्रप्रभु भगवान की आरती"
   },
   {
     "id": "chaubiso-bhagwan-arti",
     "title": "चौबीसों भगवान की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "२४ तीर्थंकर भगवंतों की सम्मिलित आरती"
   },
   {
     "id": "dhoop-arti",
     "title": "धूप आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "mangal-deepak",
+    "description": "दशों दिशाओं में पावन धूप खेने की आरती"
   },
   {
     "id": "jin-padam-arti",
     "title": "आरती श्री जिन पदम तुम्हारी",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "जिनेन्द्र प्रभु चरण कमलों की आरती"
   },
   {
     "id": "jinraj-arti",
     "title": "आरती श्री जिनराज तिहारी",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "mangal-deepak",
+    "description": "वीतरागी जिनराज की मंगल आरती"
   },
   {
     "id": "jinvani-mata-arti",
     "title": "श्री जिनवाणी माता की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "jinvani-guru",
+    "description": "सरस्वती जिनवाणी माता की वंदना आरती"
   },
   {
     "id": "mahavir-swami-arti",
     "title": "श्री महावीर स्वामी की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "त्रिशलानंदन वीर प्रभु की महाआरती"
   },
   {
     "id": "munisuvratnath-arti",
     "title": "श्री मुनिसुव्रतनाथ भगवान की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "२०वें तीर्थंकर मुनिसुव्रतनाथ भगवान की आरती"
   },
   {
     "id": "padmaprabhu-arti",
     "title": "श्री पद्मप्रभु की आरती (बाड़ा)",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "६वें तीर्थंकर पद्मप्रभु भगवान की आरती"
   },
   {
     "id": "panch-parmeshthi-arti",
     "title": "पंच परमेष्ठी की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "mangal-deepak",
+    "description": "अरिहंत, सिद्ध, आचार्य, उपाध्याय, साधु पंच परमेष्ठी आरती"
   },
   {
     "id": "parshvanath-arti",
     "title": "श्री पार्श्वनाथ स्वामी आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "धरणेन्द्र-पद्मावती से पूजित पार्श्व प्रभु की आरती"
   },
   {
     "id": "shantinath-arti",
     "title": "श्री शान्तिनाथ भगवान की आरती",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "tirthankar-aarti",
+    "description": "विश्व-शांति प्रदाता शान्तिनाथ भगवान की आरती"
   },
   {
     "id": "tum-se-laagi-lagan",
     "title": "तुम से लागी लगन",
     "category": "aarti",
-    "description": "दीपक वंदना एवं मंगल आरती"
+    "subCategory": "mangal-deepak",
+    "description": "प्रभु चरणों में समर्पण व मंगल आरती पद"
   }
 ],
   bhajan: [
@@ -404,259 +476,302 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "id": "ae-malik-tere-bande-hum",
     "title": "ऐ मालिक तेरे बंदे हम",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "सद्भाव एवं पावन प्रार्थना पद"
   },
   {
     "id": "baba-tere-charno-ki",
     "title": "बाबा तेरे चरणों की",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "गुरुदेव चरणों में भक्ति वंदना"
   },
   {
     "id": "baje-kundalpur-mein-badhai",
     "title": "बजे कुण्डलपुर में बधाई",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "भगवान महावीर जन्म कल्याणक बधाई गीत"
   },
   {
     "id": "bhagwan-meri-naiya",
     "title": "भगवान मेरी नैया उस पार लगा देना",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "भवसागर पार लगाने हेतु प्रभु से विनम्र प्रार्थना"
   },
   {
     "id": "chalo-tijara-jaana-hai",
     "title": "चलो तिजारा जाना है",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "अतिशय क्षेत्र तिजारा चंद्रप्रभु तीर्थ वंदना"
   },
   {
     "id": "daya-kar-daan-bhakti-ka",
     "title": "दया कर दान भक्ति का",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रभु चरणों में अनन्य भक्ति की याचना"
   },
   {
     "id": "guruvar-ke-charno-mein",
     "title": "गुरुवर के चरणो में",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "आचार्य गुरुवर चरणों में समर्पण गीत"
   },
   {
     "id": "hey-veer-tumhare-dware-par",
     "title": "हे वीर तुम्हारे द्वारे पर",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "महावीर प्रभु के पावन द्वार पर भक्ति पद"
   },
   {
     "id": "hum-ko-man-ki-shakti-dena",
     "title": "हमको मन की शक्ति देना",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "मनोबल, धर्मनिष्ठा व आत्मबल प्रार्थना"
   },
   {
     "id": "is-duniya-mein-sabse-sachcha",
     "title": "इस दुनिया में सबसे सच्चा",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "सच्चे जिनधर्म की महिमा व स्वरूप"
   },
   {
     "id": "itni-shakti-hamein-dena-data",
     "title": "इतनी शक्ति हमें देना दाता",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "सत्य, अहिंसा व न्याय मार्ग पर चलने की प्रार्थना"
   },
   {
     "id": "jab-koi-nahi-aata",
     "title": "जब कोई नहीं आता मेरे बाबा आते है",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "संकटमोचक प्रभु व गुरु भक्ति भावना"
   },
   {
     "id": "jab-se-guru-darsh-mila",
     "title": "जब से गुरु दर्श मिला",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "सच्चे गुरु दर्शन से जीवन रूपांतरण"
   },
   {
     "id": "jai-gomtesh-jai-bahubali",
     "title": "जय गोमटेश जय बाहुबली",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "श्रवणबेलगोला गोमटेश्वर बाहुबली जयगान"
   },
   {
     "id": "jai-jinendra-bolie",
     "title": "जय जिनेन्द्र बोलिए",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "मांगलिक जय जिनेन्द्र अभिवादन गीत"
   },
   {
     "id": "jain-dharm-ke-heere-moti",
     "title": "जैन धर्म के हीरे मोती",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "रत्नत्रय एवं जैन दर्शन के अनमोल सिद्धांत"
   },
   {
     "id": "tu-mane-bhagwan-ek-vardan",
     "title": "तू माने भगवान एक वरदान",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रभु से सम्यग्दर्शन वरदान की याचना"
   },
   {
     "id": "maitri-bhav",
     "title": "मैत्री भाव (Maitri Bhav)",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "सर्व जीवों के प्रति परम मैत्री भावना"
   },
   {
     "id": "jinvani-amrit-rasat",
     "title": "जिनवाणी अमृत रसात",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "अमृतमयी जिनवाणी रस का आस्वादन"
   },
   {
     "id": "jivan-hai-pani-ki-bund",
     "title": "जीवन है पानी की बूँद",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "संसार की अनित्यता एवं क्षणभंगुरता बोध"
   },
   {
     "id": "junagadh-mein-saj-gaye",
     "title": "जूनागढ़ में सज गए देखो",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "गिरनार तीर्थ नेमिनाथ प्रभु भक्ति"
   },
   {
     "id": "kabhi-veer-ban-ke",
     "title": "कभी वीर बनके महावीर बनके",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "भगवान महावीर के विभिन्न रूपों का स्तवन"
   },
   {
     "id": "kesariya-kesariya",
     "title": "केसरिया केसरिया",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "ऋषभदेव आदिनाथ भगवान केसरिया जी भक्ति"
   },
   {
     "id": "madhuban-ke-mandiron-mein",
     "title": "मधुबन के मंदिरों में",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "श्री सम्मेद शिखरजी मधुबन भक्ति"
   },
   {
     "id": "mahaveer-tere-hi-naam-se",
     "title": "महावीर तेरे ही नाम से",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "वीर प्रभु के पावन नाम की महिमा"
   },
   {
     "id": "mantra-namokar-hamein-prano-se-pyara",
     "title": "मंत्र णमोकार हमें प्राणों से प्यारा",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "अनादिनिधन णमोकार महामंत्र गुणगान"
   },
   {
     "id": "mera-aapki-kripa-se",
     "title": "मेरा आपकी कृपा से",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रभु कृपा से जीवन कृतार्थ होने का भाव"
   },
   {
     "id": "mera-rom-rom-harshaya",
     "title": "मेरे रोम रोम हर्षाया",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रभु भक्ति में आनंद विभोर भक्ति पद"
   },
   {
     "id": "meri-bhavna",
     "title": "मेरी भावना",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "पंडित जुगलकिशोर जी विरचित अमर जीवन दृष्टि"
   },
   {
     "id": "naam-hai-tera-taran-hara",
     "title": "नाम है तेरा तारण हारा",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "भवतारक जिनेन्द्र प्रभु नाम संकीर्तन"
   },
   {
     "id": "o-gurusa-thoro-chelo-banu-mai",
     "title": "ओ गुरूसा ..थोरो चेलो बनु मै",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "गुरु चरणों में शिष्यत्व अंगीकार भाव"
   },
   {
     "id": "o-jagat-ke-shanti-data",
     "title": "ओ जगत के शांति दाता",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "शान्तिनाथ भगवान से विश्व-शांति की प्रार्थना"
   },
   {
     "id": "palken-hi-palken",
     "title": "पलकें ही पलकें हम बिछाएंगे",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "गुरुवर आगमन पर नयनों से वंदन"
   },
   {
     "id": "phoolon-ka-taron-ka",
     "title": "फूलों का तारों का सबका कहना है",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रभु के प्रति अनन्य वात्सल्य व भक्ति"
   },
   {
     "id": "rang-ma-rang-ma",
     "title": "रंग मा रंग मा रंग मा रे",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "भक्ति रंग में सराबोर रास एवं नृत्य पद"
   },
   {
     "id": "saj-dhaj-kar-jis-din",
     "title": "सज धज कर जिस दिन",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "अंतिम यात्रा एवं वैराग्य प्रेरक पद"
   },
   {
     "id": "sare-tirath-dham",
     "title": "सारे तीरथ धाम आपके चरणों में",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "गुरु चरणों में सकल तीर्थों का वास"
   },
   {
     "id": "subha-savere-le-kar-tera-naam",
     "title": "सुबह सवेरे लेकर तेरा नाम प्रभु",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "प्रातः कालीन मंगल प्रभु स्मरण"
   },
   {
     "id": "tere-paanch-hue-kalyan",
     "title": "तेरे पाँच हुए कल्याण प्रभु",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "tirthankar-bhajan",
+    "description": "तीर्थंकर पंचकल्याणक महोत्सव स्तवन"
   },
   {
     "id": "tu-pyar-ka-sagar-hai",
     "title": "तु प्यार का सागर है",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "करुणामय प्रभु से दया की एक बूँद याचना"
   },
   {
     "id": "tumhi-ho-mata-pita",
     "title": "तुम्ही हो माता पिता तुम्ही हो",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "prarthana-samarpan",
+    "description": "सर्वस्व समर्पण भाव से प्रभु स्तुति"
   },
   {
     "id": "unche-unche-shikharo-wala",
     "title": "ऊंचे ऊंचे शिखरों वाला",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "guru-tirth-bhajan",
+    "description": "श्री सम्मेद शिखरजी महातीर्थ वंदना"
   },
   {
     "id": "ye-dharam-hai-aatam-gyani-ka",
     "title": "ये धरम है आतम ज्ञानी का",
     "category": "bhajan",
-    "description": "आध्यात्मिक भक्ति पद"
+    "subCategory": "adhyatma-vairagya",
+    "description": "शुद्ध आत्म-अनुभूति का जैन धर्म"
   }
 ],
   chalisa: [
