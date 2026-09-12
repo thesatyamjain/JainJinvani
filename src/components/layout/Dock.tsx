@@ -47,6 +47,12 @@ export const Dock = ({
   const lastProgressRef = useRef(0);
   const showBackToTopRef = useRef(false);
   const isDockHiddenRef = useRef(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const fontCollapseTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const [isFontExpanded, setIsFontExpanded] = useState(false);
+  const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
 
   // Dynamic reader state when viewing content
   const [readerState, setReaderState] = useState<{
@@ -185,12 +191,6 @@ export const Dock = ({
       onNavigate('landing');
     }
   };
-
-  const [isFontExpanded, setIsFontExpanded] = useState(false);
-  const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
-  const touchStartX = useRef<number | null>(null);
-  const touchStartY = useRef<number | null>(null);
-  const fontCollapseTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const resetFontCollapseTimer = useCallback(() => {
     if (fontCollapseTimerRef.current) clearTimeout(fontCollapseTimerRef.current);

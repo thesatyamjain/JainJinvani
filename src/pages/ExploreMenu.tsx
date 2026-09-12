@@ -134,7 +134,8 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
           >
             <GlassCard
               variant="gilded"
-              className="h-full p-3.5 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
+              tilt
+              className="h-full p-3.5 sm:p-6 md:p-7 flex flex-col justify-between cursor-pointer group transition-all duration-300 rounded-2xl"
             >
               <div>
                 <div className="flex items-start justify-between mb-2.5 sm:mb-5">

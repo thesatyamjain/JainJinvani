@@ -354,10 +354,13 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           <p className="text-blue-100/85 font-gotu text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
             इस धर्म प्रभावना व जिनवाणी डिजिटलीकरण के पावन कार्य में सहयोग हेतु किसी भी UPI ऐप (GPay, PhonePe, Paytm आदि) से स्कैन करें।
           </p>
+          <div className="pt-2 border-t border-white/10 text-[11px] font-gotu text-amber-200/80">
+            संपर्क व पावती: <a href="mailto:thesoftwarecompany@zohomail.in" className="font-mono text-amber-300 hover:underline">thesoftwarecompany@zohomail.in</a>
+          </div>
         </div>
       )
     },
-    { id: 'contact', label: 'संपर्क', icon: Mail, desc: 'सुझाव व प्रतिक्रिया भेजें' },
+    { id: 'contact', label: 'संपर्क एवं सुझाव', icon: Mail, desc: 'thesoftwarecompany@zohomail.in' },
     {
       id: 'privacy',
       label: 'गोपनीयता',
@@ -367,6 +370,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
         <div className="space-y-4 text-blue-100/80 font-gotu text-sm leading-relaxed">
           <p>हम आपकी गोपनीयता का पूर्ण सम्मान करते हैं। यह एप्लिकेशन किसी भी प्रकार का व्यक्तिगत डेटा एकत्र नहीं करता है।</p>
           <p>आपकी पठन प्रगति, पसंदीदा पाठ व सेटिंग्स आपके डिवाइस पर सुरक्षित रूप से स्थानीय स्तर (Offline Local Storage) पर सहेजी जाती हैं।</p>
+          <p>किसी भी प्रश्न अथवा सुझाव हेतु आप हमें <a href="mailto:thesoftwarecompany@zohomail.in" className="text-amber-300 font-mono underline hover:text-amber-200">thesoftwarecompany@zohomail.in</a> पर लिख सकते हैं।</p>
           <p className="text-xs opacity-50 mt-4 font-sans">संस्करण 2.0.0 • संपूर्ण ऑफ़लाइन समर्थन</p>
         </div>
       )

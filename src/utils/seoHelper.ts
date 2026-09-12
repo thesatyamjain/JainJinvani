@@ -104,6 +104,7 @@ export function updateContentSeo(item: {
       '@type': 'Organization',
       'name': SITE_NAME,
       'url': BASE_URL,
+      'email': 'thesoftwarecompany@zohomail.in',
       'logo': {
         '@type': 'ImageObject',
         'url': DEFAULT_IMAGE,

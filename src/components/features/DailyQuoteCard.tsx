@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Share2, Sparkles, BookOpen, Check, Copy } from 'lucide-react';
 import { GlassCard } from '../layout/GlassCard';
+import { TiltCard } from '../layout/TiltCard';
 
 interface JainQuote {
   verse: string;
@@ -121,60 +122,68 @@ export const DailyQuoteCard = () => {
       transition={{ delay: 0.15, duration: 0.5 }}
       className="w-full max-w-xl mb-4 sm:mb-6"
     >
-      <div className="relative rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-amber-500/[0.12] via-slate-900/90 to-amber-950/20 border border-amber-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_25px_rgba(245,158,11,0.12)] backdrop-blur-xl overflow-hidden">
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/10 blur-3xl pointer-events-none rounded-full" />
-        <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
+      <TiltCard
+        maxTilt={8}
+        scale={1.015}
+        glareColor="gold"
+        glareMaxOpacity={0.22}
+        className="w-full"
+      >
+        <div className="relative rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-amber-500/[0.12] via-slate-900/90 to-amber-950/20 border border-amber-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_25px_rgba(245,158,11,0.12)] backdrop-blur-xl overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/10 blur-3xl pointer-events-none rounded-full" />
+          <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
 
-        {/* Top Header */}
-        <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 shrink-0">
-              <Sparkles className="w-3.5 h-3.5" />
+          {/* Top Header */}
+          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 shrink-0">
+                <Sparkles className="w-3.5 h-3.5" />
+              </div>
+              <h3 className="text-xs sm:text-sm font-notoserif font-bold text-amber-200 tracking-wide truncate">
+                दैनिक जिनवाणी अमृत वचन
+              </h3>
             </div>
-            <h3 className="text-xs sm:text-sm font-notoserif font-bold text-amber-200 tracking-wide truncate">
-              दैनिक जिनवाणी अमृत वचन
-            </h3>
+
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 hover:text-emerald-200 text-xs font-gotu font-bold transition-all cursor-pointer active:scale-95 shadow-sm shrink-0"
+              title="WhatsApp या मित्रों के साथ साझा करें"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3 h-3 text-emerald-400" />
+                  <span>कॉपी हुआ!</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3 h-3" />
+                  <span>साझा करें</span>
+                </>
+              )}
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={handleShare}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 hover:text-emerald-200 text-xs font-gotu font-bold transition-all cursor-pointer active:scale-95 shadow-sm shrink-0"
-            title="WhatsApp या मित्रों के साथ साझा करें"
-          >
-            {copied ? (
-              <>
-                <Check className="w-3 h-3 text-emerald-400" />
-                <span>कॉपी हुआ!</span>
-              </>
-            ) : (
-              <>
-                <Share2 className="w-3 h-3" />
-                <span>साझा करें</span>
-              </>
-            )}
-          </button>
-        </div>
+          {/* Shloka / Verse */}
+          <div className="text-center my-3 px-2">
+            <p className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-amber-100 leading-relaxed drop-shadow-[0_1px_8px_rgba(245,158,11,0.25)] whitespace-pre-line">
+              « {quote.verse} »
+            </p>
+          </div>
 
-        {/* Shloka / Verse */}
-        <div className="text-center my-3 px-2">
-          <p className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-amber-100 leading-relaxed drop-shadow-[0_1px_8px_rgba(245,158,11,0.25)] whitespace-pre-line">
-            « {quote.verse} »
+          {/* Meaning / Bhavarth */}
+          <p className="text-xs sm:text-sm font-gotu text-slate-200/90 leading-relaxed text-center px-1 mb-3">
+            {quote.meaning}
           </p>
-        </div>
 
-        {/* Meaning / Bhavarth */}
-        <p className="text-xs sm:text-sm font-gotu text-slate-200/90 leading-relaxed text-center px-1 mb-3">
-          {quote.meaning}
-        </p>
-
-        {/* Source & Author Attribution */}
-        <div className="flex items-center justify-center gap-2 pt-2 border-t border-white/5 text-[11px] font-gotu text-amber-300/80">
-          <BookOpen className="w-3 h-3" />
-          <span>{quote.source} • {quote.author}</span>
+          {/* Source & Author Attribution */}
+          <div className="flex items-center justify-center gap-2 pt-2 border-t border-white/5 text-[11px] font-gotu text-amber-300/80">
+            <BookOpen className="w-3 h-3" />
+            <span>{quote.source} • {quote.author}</span>
+          </div>
         </div>
-      </div>
+      </TiltCard>
     </motion.div>
   );
 };

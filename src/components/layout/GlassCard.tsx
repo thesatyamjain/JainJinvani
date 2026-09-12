@@ -1,17 +1,34 @@
 import React from 'react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { TiltCard, type TiltOptions } from './TiltCard';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
+function splitGridClasses(className?: string) {
+  if (!className) return { outer: '', inner: '' };
+  const tokens = className.split(/\s+/).filter(Boolean);
+  const outerTokens: string[] = [];
+  const innerTokens: string[] = [];
+  for (const token of tokens) {
+    if (/^(sm:|md:|lg:|xl:)?(col-span-|row-span-)/.test(token)) {
+      outerTokens.push(token);
+    } else {
+      innerTokens.push(token);
+    }
+  }
+  return { outer: outerTokens.join(' '), inner: innerTokens.join(' ') };
+}
+
+export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   variant?: 'default' | 'gilded' | 'cosmic' | 'sacred' | 'subtle';
   intensity?: 'low' | 'medium' | 'high';
   sheen?: boolean;
+  tilt?: boolean | TiltOptions;
 }
 
 export const GlassCard = ({
@@ -20,6 +37,7 @@ export const GlassCard = ({
   variant = 'default',
   intensity = 'high',
   sheen = true,
+  tilt = false,
   ...props
 }: GlassCardProps) => {
   const variantClasses = {
@@ -43,15 +61,15 @@ export const GlassCard = ({
 
   const isGilded = variant === 'gilded' || variant === 'sacred';
 
-  return (
+  const cardBody = (innerClasses?: string) => (
     <div
       className={cn(
         'rounded-2xl transition-all duration-300 relative overflow-hidden',
         variantClasses[variant],
         intensity !== 'high' && intensityModifier[intensity],
-        className
+        innerClasses
       )}
-      {...props}
+      {...(tilt ? {} : props)}
     >
       {/* Specular Top Light Reflection */}
       {sheen && (
@@ -71,4 +89,27 @@ export const GlassCard = ({
       {children}
     </div>
   );
+
+  if (tilt) {
+    const tiltOptions = typeof tilt === 'object' ? tilt : {};
+    const resolvedGlareColor = tiltOptions.glareColor || (isGilded ? 'amber' : 'white');
+    const { outer, inner } = splitGridClasses(className);
+
+    return (
+      <TiltCard
+        className={cn(outer, className?.includes('h-full') ? 'h-full' : '')}
+        glareColor={resolvedGlareColor}
+        contentClassName={className?.includes('h-full') ? 'h-full' : ''}
+        {...tiltOptions}
+        {...props}
+      >
+        {cardBody(cn(inner, 'w-full h-full'))}
+      </TiltCard>
+    );
+  }
+
+  return cardBody(className);
 };
+
+export { TiltCard, type TiltOptions, type TiltCardProps } from './TiltCard';
+

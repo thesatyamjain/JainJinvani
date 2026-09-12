@@ -93,7 +93,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     let incenseParticles: IncenseParticle[] = [];
     const initSanctumParticles = () => {
       incenseParticles = [];
-      const numParticles = Math.min(65, Math.floor((canvas.width * canvas.height) / 12000));
+      const numParticles = Math.min(80, Math.max(35, Math.floor((canvas.width * canvas.height) / 8000)));
       for (let i = 0; i < numParticles; i++) {
         const rand = Math.random();
         const color: 'gold' | 'amber' | 'warmWhite' =
@@ -102,8 +102,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         incenseParticles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 1.6 + 0.6,
-          baseOpacity: Math.random() * 0.35 + 0.15,
+          radius: Math.random() * 1.8 + 0.8,
+          baseOpacity: Math.random() * 0.45 + 0.2,
           phase: Math.random() * Math.PI * 2,
           swaySpeed: Math.random() * 0.7 + 0.4,
           speedY: Math.random() * 0.35 + 0.15,
@@ -128,7 +128,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
     const initCosmicStars = () => {
       stars = [];
-      const numStars = Math.min(220, Math.floor((canvas.width * canvas.height) / 4500));
+      const numStars = Math.min(220, Math.max(70, Math.floor((canvas.width * canvas.height) / 3500)));
       for (let i = 0; i < numStars; i++) {
         const rand = Math.random();
         const color: 'gold' | 'blue' | 'white' =
@@ -138,7 +138,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           radius: color === 'gold' ? Math.random() * 1.8 + 0.8 : Math.random() * 1.4 + 0.4,
-          baseOpacity: Math.random() * 0.5 + 0.2,
+          baseOpacity: Math.random() * 0.5 + 0.25,
           phase: Math.random() * Math.PI * 2,
           twinkleSpeed: Math.random() * 1.8 + 1.2,
           speed: Math.random() * 0.04 + 0.015,
@@ -159,8 +159,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       };
     };
 
-    let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
-    let lastHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
+    let lastWidth = 0;
+    let lastHeight = 0;
 
     const resizeCanvas = () => {
       const newWidth = window.innerWidth;
@@ -173,7 +173,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       const widthChanged = Math.abs(newWidth - lastWidth) > 5;
       const heightChanged = Math.abs(newHeight - lastHeight) > 120;
 
-      if (!widthChanged && !heightChanged && canvas.width > 0 && canvas.height > 0) {
+      // Guard: only skip if canvas was already initialized once (lastWidth > 0 && lastHeight > 0)
+      if (lastWidth > 0 && lastHeight > 0 && !widthChanged && !heightChanged) {
         return;
       }
 
@@ -367,7 +368,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
       scrollDebounceTimer = setTimeout(() => {
         isScrolling = false;
-      }, 120);
+      }, 90);
     };
 
     const draw = () => {
@@ -392,12 +393,10 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
-    window.addEventListener('touchmove', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('scroll', handleScroll, true);
-      window.removeEventListener('touchmove', handleScroll);
       if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
       cancelAnimationFrame(animationFrameId);
     };

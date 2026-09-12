@@ -512,6 +512,8 @@ export const ContentViewer = ({
   const audioTrack = React.useMemo(() => getContentAudioTrack(id), [id]);
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
   const autoScrollRafRef = React.useRef<number | null>(null);
+  const toastTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [toastMessage, setToastMessage] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     let isMounted = true;
@@ -678,9 +680,6 @@ export const ContentViewer = ({
       window.removeEventListener('jinvani:request-reader-state', handleRequestState as EventListener);
     };
   }, [fontSize, isAutoScrolling, isFav, scrollSpeed, data, title, id, handleFavoriteToggle]);
-
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const toastTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);

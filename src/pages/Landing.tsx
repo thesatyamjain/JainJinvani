@@ -366,6 +366,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* Featured: Daily Abhishek & Puja Full Flow */}
         <GlassCard
           variant="gilded"
+          tilt={{ maxTilt: 8, scale: 1.015, glareColor: 'amber' }}
           onClick={() => onNavigate('daily-puja')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-amber-500/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-400/40 shadow-md bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-yellow-600/10 col-span-2 md:col-span-4"
         >
@@ -390,6 +391,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 1. Samayik */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('samayik')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-blue-500/20 shadow-md"
         >
@@ -409,6 +411,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 2. Jap Mala */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('jap')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-rose-500/20 shadow-md"
         >
@@ -428,6 +431,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 3. Daily Niyama */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('niyam')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
         >
@@ -447,6 +451,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 4. Bhaktamar Stotra */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() =>
             onNavigate('viewer', {
               id: 'bhaktamar-stotra',
@@ -473,6 +478,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 5. 24 Tirthankaras */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('category', { id: 'tirthankar', source: 'landing' })}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
         >
@@ -492,6 +498,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 6. Sacred Scriptures */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('category', { id: 'granthas', source: 'landing' })}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
         >
@@ -511,6 +518,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 7. Pratikramana & Alochana */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() =>
             onNavigate('viewer', {
               id: 'daivasika-pratikramana',
@@ -537,6 +545,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         {/* 8. Tirth Yatra Guide */}
         <GlassCard
           variant="subtle"
+          tilt
           onClick={() => onNavigate('pilgrimage')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-purple-500/20 shadow-md"
         >
@@ -564,6 +573,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         <GlassCard
           variant="gilded"
           sheen
+          tilt={{ maxTilt: 6, scale: 1.008, glareColor: 'gold', glareMaxOpacity: 0.16 }}
           className="p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-400/40 bg-gradient-to-br from-[#1b1710]/95 via-[#131929]/90 to-[#0c101a]/95 hover:border-amber-400/60 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)] transition-all relative overflow-hidden"
         >
           {/* Subtle gold traditional corner markers */}
@@ -586,7 +596,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 विश्व का सबसे वृहद डिजिटल जिनवाणी संग्रह
               </h3>
               <p className="text-xs sm:text-sm text-slate-200/90 font-gotu leading-relaxed max-w-[65ch]">
-                हम अब तक का सबसे विशाल एवं प्रामाणिक डिजिटल जिनवाणी महाकोश तैयार कर रहे हैं। वर्तमान में वेबसाइट निर्माण व संवर्धन के चरण में है, अतः आगम व टंकण में अज्ञानतावश त्रुटियाँ संभव हैं। यदि आपको कोई अशुद्धि दिखे या आप कोई नया पाठ, स्तोत्र अथवा ग्रंथ जोड़ना चाहते हैं, तो कृपया यहाँ सूचित करें ताकि हम तत्काल सुधार कर सकें।
+                हम अब तक का सबसे विशाल एवं प्रामाणिक डिजिटल जिनवाणी महाकोश तैयार कर रहे हैं। वर्तमान में वेबसाइट निर्माण व संवर्धन के चरण में है, अतः आगम व टंकण में अज्ञानतावश त्रुटियाँ संभव हैं। यदि आपको कोई अशुद्धि दिखे या आप कोई नया पाठ, स्तोत्र अथवा ग्रंथ जोड़ना चाहते हैं, तो फॉर्म द्वारा या सीधे ईमेल <a href="mailto:thesoftwarecompany@zohomail.in" className="text-amber-300 font-mono font-bold hover:text-amber-200 underline">thesoftwarecompany@zohomail.in</a> पर सूचित करें।
               </p>
             </div>
 
@@ -615,6 +625,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
       >
         <GlassCard
           variant="sacred"
+          tilt={{ maxTilt: 6, scale: 1.01, glareColor: 'gold', glareMaxOpacity: 0.18 }}
           className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-white/10 active:scale-[0.99] transition-all group rounded-xl sm:rounded-2xl border-amber-500/30 bg-gradient-to-r from-amber-500/15 via-slate-900/80 to-orange-500/15 shadow-lg"
         >
           <div className="flex items-center gap-3 min-w-0">
@@ -689,6 +700,9 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                     <p className="text-blue-100/85 font-gotu text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
                       इस धर्म प्रभावना व जिनवाणी डिजिटलीकरण के पावन कार्य में सहयोग हेतु किसी भी UPI ऐप (GPay, PhonePe, Paytm आदि) से स्कैन करें।
                     </p>
+                    <div className="pt-2 border-t border-white/10 text-[11px] font-gotu text-amber-200/80">
+                      संपर्क व पावती: <a href="mailto:thesoftwarecompany@zohomail.in" className="font-mono text-amber-300 hover:underline">thesoftwarecompany@zohomail.in</a>
+                    </div>
                   </div>
                 </div>
               </GlassCard>

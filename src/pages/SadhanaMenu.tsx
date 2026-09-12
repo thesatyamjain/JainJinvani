@@ -727,7 +727,8 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                       >
                       <GlassCard
                         variant="gilded"
-                        className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
+                        tilt
+                        className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group transition-all duration-300"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div

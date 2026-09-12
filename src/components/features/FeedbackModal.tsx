@@ -16,6 +16,8 @@ import {
   PenTool,
   BookPlus,
   Lightbulb,
+  Copy,
+  Check,
 } from 'lucide-react';
 import { useModalBackHandler } from '../../lib';
 
@@ -68,6 +70,13 @@ export const FeedbackModal = ({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('thesoftwarecompany@zohomail.in');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -299,6 +308,43 @@ export const FeedbackModal = ({
                   onSubmit={handleSubmit}
                   className="flex-1 overflow-y-auto custom-scrollbar pr-1 relative z-10 space-y-3 sm:space-y-4 min-h-0"
                 >
+                  {/* Direct Contact Email Banner */}
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-amber-500/15 via-slate-900/90 to-amber-500/10 border border-amber-400/35 flex items-center justify-between gap-2.5 shadow-sm">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center justify-center shrink-0">
+                        <Mail className="w-4 h-4 text-amber-300" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-[10px] text-amber-200/80 font-gotu block leading-tight">सीधे ईमेल द्वारा संपर्क करें:</span>
+                        <a
+                          href="mailto:thesoftwarecompany@zohomail.in"
+                          className="text-xs sm:text-sm font-mono font-bold text-amber-300 hover:text-amber-100 hover:underline truncate block"
+                          title="thesoftwarecompany@zohomail.in पर ईमेल भेजें"
+                        >
+                          thesoftwarecompany@zohomail.in
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="shrink-0 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-[11px] font-gotu transition-all active:scale-95 cursor-pointer flex items-center gap-1.5"
+                      title="ईमेल कॉपी करें"
+                    >
+                      {copiedEmail ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-emerald-300 font-semibold">कॉपी हुआ</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-amber-400/80" />
+                          <span>कॉपी</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
                   {/* 1. Category / Type Selection */}
                   <div className="space-y-1 sm:space-y-1.5">
                     <label className="text-[11px] sm:text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1.5">
