@@ -79,13 +79,13 @@ const exploreCategories = [
 
 export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-8 sm:pt-12 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        onClick={onBack}
-        className="flex items-center gap-2 text-amber-300/80 hover:text-amber-200 transition-colors mb-5 group font-gotu text-sm cursor-pointer"
+        onClick={() => onNavigate('home')}
+        className="inline-flex items-center gap-2 text-xs font-gotu text-indigo-300/80 hover:text-indigo-200 transition-colors mb-3 sm:mb-4 group cursor-pointer"
       >
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         <span>मुख्य मेनू पर वापस जाएं</span>
@@ -96,7 +96,7 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-8 md:mb-10 relative rounded-3xl overflow-hidden min-h-[190px] sm:min-h-[210px] md:h-64 flex items-end p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-[#071124]/80 backdrop-blur-3xl backdrop-saturate-[190%] group"
+        className="mb-3.5 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[180px] md:h-64 flex items-end p-3.5 sm:p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] border border-indigo-500/30 bg-gradient-to-br from-indigo-950/40 via-slate-900/60 to-[#071124]/80 backdrop-blur-3xl backdrop-saturate-[190%] group"
       >
         {/* Ambient Glows */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-indigo-500/15 blur-[80px] rounded-full pointer-events-none" />
@@ -104,14 +104,14 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent pointer-events-none" />
 
         <div className="relative z-10 w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs mb-3 backdrop-blur-md">
-            <Compass className="w-3.5 h-3.5 text-indigo-300" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md">
+            <Compass className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-300" />
             <span className="font-gotu font-medium">जैन संस्कृति एवं ज्ञानकोश</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.25] pt-1 pb-1">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight">
             अन्वेषण
           </h1>
-          <p className="text-slate-200/85 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
+          <p className="hidden sm:block text-slate-200/85 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed">
             तीर्थ यात्रा, जैन दर्शन, चित्र दीर्घा, बाल संस्कार एवं गुरु परंपरा का पावन ज्ञानकोश।
           </p>
         </div>

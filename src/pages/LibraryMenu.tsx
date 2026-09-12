@@ -287,65 +287,66 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
-      {/* Grand Header Banner */}
+    <div className="w-full max-w-6xl mx-auto pt-8 sm:pt-12 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
+      {/* Header Banner - Compact on Mobile */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="mb-10 relative rounded-3xl overflow-hidden min-h-[260px] md:h-80 flex items-end p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
+        transition={{ duration: 0.5 }}
+        className="mb-4 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[170px] md:h-80 flex items-end p-3.5 sm:p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
       >
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-50"
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-40 sm:opacity-50"
             alt="Digambar Jain Granthalaya"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-transparent" />
         </div>
 
         <div className="relative z-10 w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-xs mb-3 backdrop-blur-md">
-            <Scroll className="w-3.5 h-3.5 text-amber-300" />
-            <span className="uppercase tracking-[0.2em] font-cinzel font-bold">Digambar Jain Mahagranthalaya</span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md">
+            <Scroll className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300" />
+            <span className="uppercase tracking-[0.16em] sm:tracking-[0.2em] font-cinzel font-bold">Digambar Jain Mahagranthalaya</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.25] pt-1 pb-1">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight">
             दिगम्बर जिनवाणी महा-ग्रंथालय
           </h1>
-          <p className="text-slate-200/90 max-w-2xl font-gotu text-sm md:text-base leading-relaxed mb-4">
+          <p className="text-slate-200/90 max-w-2xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed mb-2.5 sm:mb-4 hidden sm:block">
             चारों अनुयोग (प्रथमानुयोग, करणानुयोग, चरणानुयोग, द्रव्यानुयोग), प्राचीन मूल आगम, आचार्य परंपरा एवं प्रामाणिक ई-पुस्तकालय का संपूर्ण डिजिटल महा-संग्रह।
           </p>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs text-amber-300/90 font-gotu font-medium">
-            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">४ अनुयोग</span>
-            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">३९+ मूल शास्त्र</span>
-            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">प्रामाणिक ई-बुक्स</span>
-            <span className="bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">१००% दिगम्बर आम्नाय</span>
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-amber-300/90 font-gotu font-medium">
+            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg border border-white/10">४ अनुयोग</span>
+            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/10">३९+ मूल शास्त्र</span>
+            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/10">प्रामाणिक ई-बुक्स</span>
+            <span className="hidden sm:inline-block bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">१००% दिगम्बर आम्नाय</span>
           </div>
         </div>
       </motion.div>
 
       {/* Section 1: The Four Pillars (चार अनुयोग) */}
-      <div className="mb-14">
-        <div className="flex items-center justify-between mb-6">
+      <div className="mb-8 sm:mb-12 md:mb-14">
+        <div className="flex items-center justify-between mb-2.5 sm:mb-5 md:mb-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400 font-cinzel mb-1">
+            <div className="hidden sm:inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400 font-cinzel mb-1">
               <Layers className="w-3.5 h-3.5" />
               <span>The Four Pillars</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
-              चार अनुयोग (The Four Anuyogas)
+            <h2 className="text-lg sm:text-2xl md:text-3xl font-notoserif font-bold text-white flex items-center gap-2 leading-tight">
+              <span>चार अनुयोग</span>
+              <span className="text-xs uppercase tracking-wider font-cinzel text-amber-400/80 font-normal hidden sm:inline">(The Four Anuyogas)</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5 hidden sm:block">
               किसी भी अनुयोग पर क्लिक करके उसके संपूर्ण शास्त्रों की सूची एवं विस्तृत अध्ययन देखें
             </p>
           </div>
           <button
             onClick={() => onNavigate('category', { id: 'granthas', source: 'library' })}
-            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 font-gotu font-bold bg-amber-500/15 hover:bg-amber-500/25 px-4 py-2 rounded-xl border border-amber-500/30 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-amber-300 hover:text-amber-200 font-gotu font-medium sm:font-bold bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-amber-500/30 transition-all cursor-pointer"
           >
-            <span>सभी ३९ शास्त्र देखें</span>
-            <ChevronRight className="w-4 h-4" />
+            <span>सभी ३९ शास्त्र</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
 

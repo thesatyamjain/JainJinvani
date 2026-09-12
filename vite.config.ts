@@ -68,7 +68,7 @@
       port: 3000,
       open: true,
       watch: {
-        ignored: ['**/build_corrupted/**', '**/build/**'],
+        ignored: ['**/build_corrupted/**', '**/build/**', '**/build_corrupted', '**/build'],
       },
     },
   });

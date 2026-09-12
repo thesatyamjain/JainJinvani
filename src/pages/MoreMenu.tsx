@@ -425,13 +425,13 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const selectedItem = items.find(i => i.id === selectedId);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-8 sm:pt-12 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
       {/* Header Banner - Premium Frosted Glass */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="mb-8 md:mb-10 relative rounded-3xl overflow-hidden min-h-[190px] sm:min-h-[210px] md:h-64 flex items-end p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] border border-purple-500/30 bg-gradient-to-br from-purple-950/35 via-slate-900/60 to-[#071124]/80 backdrop-blur-3xl backdrop-saturate-[190%] group"
+        className="mb-3.5 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[180px] md:h-64 flex items-end p-3.5 sm:p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.18)] border border-purple-500/30 bg-gradient-to-br from-purple-950/35 via-slate-900/60 to-[#071124]/80 backdrop-blur-3xl backdrop-saturate-[190%] group"
       >
         {/* Soft Ambient Glows & Specular Rim */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/15 blur-[80px] rounded-full pointer-events-none" />
@@ -439,21 +439,21 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent pointer-events-none" />
 
         <div className="relative z-10 w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs mb-3 backdrop-blur-md">
-            <Menu className="w-3.5 h-3.5 text-purple-300" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md">
+            <Menu className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-300" />
             <span className="font-gotu font-medium">विविध सेवाएं व सेटिंग्स</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-2 leading-[1.25] pt-1 pb-1">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight">
             अधिक
           </h1>
-          <p className="text-slate-200/85 max-w-xl font-gotu text-sm md:text-base leading-relaxed">
+          <p className="hidden sm:block text-slate-200/85 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed">
             पसंदीदा संग्रह, अन्वेषण, ऐप सेटिंग्स एवं जिनवाणी सेवा से संबंधित संपूर्ण विकल्प।
           </p>
         </div>
       </motion.div>
 
       {/* Quick Actions - Favorites & Explore */}
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-6 md:mb-8">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:gap-6 mb-3.5 sm:mb-6 md:mb-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

@@ -46,6 +46,7 @@ export const Dock = ({
   const lastScrollY = useRef(0);
   const lastProgressRef = useRef(0);
   const showBackToTopRef = useRef(false);
+  const isScrollingToTopRef = useRef(false);
   const isDockHiddenRef = useRef(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -119,14 +120,21 @@ export const Dock = ({
 
           const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
 
-          // Scroll progress for back-to-top ring - only update when visible and changed significantly
-          const shouldShowBTT = currentY > 180;
-          if (shouldShowBTT !== showBackToTopRef.current) {
-            showBackToTopRef.current = shouldShowBTT;
-            setShowBackToTop(shouldShowBTT);
+          // If programmatic scroll to top was initiated, wait until near top before re-evaluating BTT
+          if (isScrollingToTopRef.current) {
+            if (currentY <= 40) {
+              isScrollingToTopRef.current = false;
+            }
+          } else {
+            // Scroll progress for back-to-top ring - only update when visible and changed significantly
+            const shouldShowBTT = currentY > 180;
+            if (shouldShowBTT !== showBackToTopRef.current) {
+              showBackToTopRef.current = shouldShowBTT;
+              setShowBackToTop(shouldShowBTT);
+            }
           }
 
-          if (shouldShowBTT) {
+          if (showBackToTopRef.current) {
             const maxScroll = container.scrollHeight - container.clientHeight;
             const progress = maxScroll > 0 ? Math.min(currentY / maxScroll, 1) : 0;
             if (Math.abs(progress - lastProgressRef.current) >= 0.015) {
@@ -177,6 +185,12 @@ export const Dock = ({
   };
 
   const handleScrollToTop = () => {
+    isScrollingToTopRef.current = true;
+    showBackToTopRef.current = false;
+    setShowBackToTop(false);
+    lastProgressRef.current = 0;
+    setScrollProgress(0);
+
     const container = scrollContainerRef?.current
       ?? document.querySelector('main') as HTMLElement
       ?? document.documentElement;
@@ -207,6 +221,7 @@ export const Dock = ({
     setIsDockHidden(false);
     showBackToTopRef.current = false;
     setShowBackToTop(false);
+    isScrollingToTopRef.current = false;
     lastProgressRef.current = 0;
     setScrollProgress(0);
     lastScrollY.current = 0;
@@ -312,6 +327,44 @@ export const Dock = ({
     />
   );
 
+  const renderBackToTopSection = (key: string, isVisible = showBackToTop) => (
+    <AnimatePresence initial={false}>
+      {isVisible && (
+        <motion.div
+          key={key}
+          layout
+          initial={{ opacity: 0, width: 0, scale: 0.8 }}
+          animate={{
+            opacity: 1,
+            width: 'auto',
+            scale: 1,
+            transition: {
+              width: { type: 'spring', stiffness: 500, damping: 32 },
+              opacity: { duration: 0.14 },
+              scale: { duration: 0.14 },
+            },
+          }}
+          exit={{
+            opacity: 0,
+            width: 0,
+            scale: 0.8,
+            transition: {
+              opacity: { duration: 0.1, ease: 'easeOut' },
+              scale: { duration: 0.1, ease: 'easeOut' },
+              width: { duration: 0.18, ease: [0.32, 0.72, 0, 1] },
+            },
+          }}
+          className="flex items-end overflow-hidden origin-right shrink-0"
+        >
+          <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 shrink-0" />
+          <div className="shrink-0">
+            {renderBackToTopIcon()}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
   const renderNavItems = () => (
     <>
       <DockIcon
@@ -386,7 +439,7 @@ export const Dock = ({
       data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-all duration-200 ${
+      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,transform,visibility] duration-200 ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible translate-y-8' : ''
       }`}
     >
@@ -399,10 +452,10 @@ export const Dock = ({
         }}
         transition={{
           type: 'spring',
-          stiffness: 380,
-          damping: 28,
+          stiffness: 450,
+          damping: 32,
         }}
-        className={`flex items-end gap-1 sm:gap-1.5 md:gap-3 rounded-2xl md:rounded-[26px] bg-[#071124]/90 px-2 sm:px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[200%] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.75),0_0_25px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-all ${
+        className={`flex items-end gap-1 sm:gap-1.5 md:gap-3 rounded-2xl md:rounded-[26px] bg-[#071124]/90 px-2 sm:px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[200%] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.75),0_0_25px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-colors duration-200 ${
           isReaderMode ? 'min-h-[66px] md:min-h-[74px] pt-2 pb-3.5' : 'min-h-[58px] md:min-h-[68px] pt-1.5 pb-2'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -425,7 +478,10 @@ export const Dock = ({
                 initial={{ opacity: 0, x: -10, scale: 0.97 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 10, scale: 0.97 }}
-                transition={{ duration: 0.16 }}
+                transition={{
+                  layout: { type: 'spring', stiffness: 450, damping: 32 },
+                  duration: 0.16,
+                }}
                 className="flex items-end gap-1 sm:gap-1.5 md:gap-2.5"
               >
                 {/* 1. Back Button */}
@@ -561,29 +617,7 @@ export const Dock = ({
                 />
 
                 {/* 6. Back To Top in Reader Mode Tools */}
-                <AnimatePresence>
-                  {showBackToTop && !isFontExpanded && (
-                    <>
-                      <motion.div
-                        key="reader-btt-divider"
-                        initial={{ opacity: 0, scaleY: 0 }}
-                        animate={{ opacity: 1, scaleY: 1 }}
-                        exit={{ opacity: 0, scaleY: 0 }}
-                        className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
-                      />
-                      <motion.div
-                        key="reader-btt-icon"
-                        layout
-                        initial={{ opacity: 0, scale: 0.6 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.6 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                      >
-                        {renderBackToTopIcon()}
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
+                {renderBackToTopSection('reader-btt-section', showBackToTop && !isFontExpanded)}
               </motion.div>
             ) : (
               /* ============================================================ */
@@ -595,34 +629,15 @@ export const Dock = ({
                 initial={{ opacity: 0, x: 10, scale: 0.97 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -10, scale: 0.97 }}
-                transition={{ duration: 0.16 }}
+                transition={{
+                  layout: { type: 'spring', stiffness: 450, damping: 32 },
+                  duration: 0.16,
+                }}
                 className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
               >
                 {renderNavItems()}
 
-                <AnimatePresence>
-                  {showBackToTop && (
-                    <>
-                      <motion.div
-                        key="reader-home-btt-divider"
-                        initial={{ opacity: 0, scaleY: 0 }}
-                        animate={{ opacity: 1, scaleY: 1 }}
-                        exit={{ opacity: 0, scaleY: 0 }}
-                        className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
-                      />
-                      <motion.div
-                        key="reader-home-btt-icon"
-                        layout
-                        initial={{ opacity: 0, scale: 0.6 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.6 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                      >
-                        {renderBackToTopIcon()}
-                      </motion.div>
-                    </>
-                  )}
-                </AnimatePresence>
+                {renderBackToTopSection('reader-home-btt-section')}
               </motion.div>
             )
           ) : (
@@ -635,34 +650,15 @@ export const Dock = ({
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
+              transition={{
+                layout: { type: 'spring', stiffness: 450, damping: 32 },
+                duration: 0.16,
+              }}
               className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
             >
               {renderNavItems()}
 
-              <AnimatePresence>
-                {showBackToTop && (
-                  <>
-                    <motion.div
-                      key="btt-divider"
-                      initial={{ opacity: 0, scaleY: 0 }}
-                      animate={{ opacity: 1, scaleY: 1 }}
-                      exit={{ opacity: 0, scaleY: 0 }}
-                      className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 origin-bottom"
-                    />
-                    <motion.div
-                      key="btt-icon"
-                      layout
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.6 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                    >
-                      {renderBackToTopIcon()}
-                    </motion.div>
-                  </>
-                )}
-              </AnimatePresence>
+              {renderBackToTopSection('standard-btt-section')}
             </motion.div>
           )}
         </AnimatePresence>
