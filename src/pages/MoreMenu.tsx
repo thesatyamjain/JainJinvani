@@ -329,12 +329,6 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
       )
     },
     {
-      id: 'admin',
-      label: 'व्यवस्थापक पोर्टल',
-      icon: Shield,
-      desc: 'स्तोत्र संपादक, घोषणाएं, सुझाव व सेटिंग्स',
-    },
-    {
       id: 'aagam-ai',
       label: 'आगम AI जिज्ञासा',
       icon: Sparkles,
@@ -381,11 +375,6 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   ];
 
   const handleItemClick = async (item: any) => {
-    if (item.id === 'admin') {
-      onNavigate('admin');
-      return;
-    }
-
     if (item.id === 'share') {
       const shareUrl = getCanonicalShareUrl('landing');
       const shareData = {

@@ -553,14 +553,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     } catch {}
   };
 
-  // 1-Tap Frictionless Quick Access
-  const handleQuickAccess = () => {
-    sessionStorage.setItem('jinvani_admin_authenticated', 'true');
-    sessionStorage.setItem('jinvani_admin_auth_time', Date.now().toString());
-    setIsAuthenticated(true);
-    showToast('व्यवस्थापक नियंत्रण कक्ष में स्वागत है!');
-  };
-
   // GitHub Repository Connection State (Saved in LocalStorage)
   const [githubRepo, setGithubRepo] = useState<string>(() => {
     return localStorage.getItem('jinvani_git_repo') || '';
@@ -1510,31 +1502,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             {/* Corner Markers */}
             <div className="absolute top-2.5 left-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
             <div className="absolute top-2.5 right-3 text-[10px] text-amber-400/40 pointer-events-none select-none">❖</div>
-
-            {/* 1-Tap Quick Access (Zero Friction) */}
-            <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/20 to-amber-500/25 border border-amber-400/50 shadow-[0_4px_25px_rgba(245,158,11,0.2)] text-center">
-              <div className="flex items-center justify-center gap-2 mb-1.5 text-amber-300 font-bold font-gotu text-xs sm:text-sm">
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                <span>त्वरित प्रवेश (Quick Admin Access)</span>
-              </div>
-              <p className="text-[11px] sm:text-xs text-slate-200/90 font-gotu mb-3 leading-relaxed">
-                बिना पासवर्ड के स्तोत्र संपादक (CMS), घोषणाएं, सुझाव एवं गिट सेटिंग्स सीधे खोलें:
-              </p>
-              <button
-                type="button"
-                onClick={handleQuickAccess}
-                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-              >
-                <span>सीधे एडमिन पोर्टल खोलें</span>
-                <span>→</span>
-              </button>
-            </div>
-
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex-1 h-px bg-white/10" />
-              <span className="text-[10px] text-slate-400 font-gotu">अथवा पासवर्ड / बायोमेट्रिक्स से</span>
-              <div className="flex-1 h-px bg-white/10" />
-            </div>
 
             {loginStep === 'password' ? (
               <>

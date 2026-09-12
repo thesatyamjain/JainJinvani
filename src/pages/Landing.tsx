@@ -606,20 +606,6 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         </GlassCard>
       </motion.div>
 
-      {/* Footer Navigation & Admin Link */}
-      <footer className="w-full max-w-3xl mt-7 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400/80 font-gotu px-2">
-        <span className="text-[11px] text-slate-500">© जिनवाणी सेवा ट्रस्ट • निःशुल्क जिनवाणी महाकोश</span>
-        <button
-          type="button"
-          onClick={() => onNavigate('admin')}
-          className="text-amber-300/80 hover:text-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer py-1 px-2.5 rounded-lg hover:bg-amber-500/10 text-xs"
-          title="व्यवस्थापक पोर्टल: स्तोत्र, घोषणाएं व सुझाव"
-        >
-          <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-          <span>व्यवस्थापक पोर्टल (Admin)</span>
-        </button>
-      </footer>
-
       {/* Sahyog Donate Modal */}
       <AnimatePresence>
         {showDonateModal && (
