@@ -1,10 +1,20 @@
 export const VALID_PAGES = new Set([
   'landing', 'sadhana', 'library', 'category', 'viewer', 'panchang',
-  'more', 'admin', 'notfound', 'favorites', 'festivals', 'tirthankar',
-  'pilgrimage', 'philosophy', 'rituals', 'pathshala', 'gallery',
-  'explore', 'samayik', 'dietary', 'ascetics', 'muni-profiles',
+  'more', 'admin', 'notfound', 'favorites', 'festivals', 'parva', 'tirthankar',
+  'pilgrimage', 'tirth', 'philosophy', 'tattva', 'rituals', 'puja', 'pathshala', 'gallery',
+  'explore', 'samayik', 'dietary', 'aahar', 'ascetics', 'muni', 'muni-profiles',
   'jap', 'niyam', 'daily-puja'
 ]);
+
+export const PAGE_ALIASES: Record<string, string> = {
+  'git-admin': 'admin',
+  'parva': 'festivals',
+  'tirth': 'pilgrimage',
+  'tattva': 'philosophy',
+  'puja': 'rituals',
+  'aahar': 'dietary',
+  'muni': 'ascetics',
+};
 
 export interface ParsedRoute {
   page: string;
@@ -53,8 +63,8 @@ export const parseHash = (hashStr: string): ParsedRoute => {
     params.id = decodeURIComponent(pathSegments[1]);
   }
 
-  // Map legacy/shortcut git-admin directly to unified admin portal
-  const targetPage = rawPage === 'git-admin' ? 'admin' : rawPage;
+  // Map aliases (e.g., git-admin -> admin, parva -> festivals, etc.)
+  const targetPage = PAGE_ALIASES[rawPage] || rawPage;
 
   if (VALID_PAGES.has(targetPage)) {
     return {
@@ -115,8 +125,8 @@ export const parseLocation = (loc?: { pathname?: string; search?: string; hash?:
     return { page: 'landing', params: null };
   }
 
-  // Map legacy/shortcut git-admin directly to unified admin portal
-  const targetPage = rawPage === 'git-admin' ? 'admin' : rawPage;
+  // Map aliases (e.g., git-admin -> admin, parva -> festivals, etc.)
+  const targetPage = PAGE_ALIASES[rawPage] || rawPage;
 
   if (VALID_PAGES.has(targetPage)) {
     return {

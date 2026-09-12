@@ -17,9 +17,10 @@ import {
 } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
 
-interface PilgrimagePageProps {
+export interface TirthPageProps {
   onBack: () => void;
 }
+export type PilgrimagePageProps = TirthPageProps;
 
 interface KshetraDef {
   id: string;
@@ -369,7 +370,7 @@ const pilgrimageData: KshetraDef[] = [
   },
 ];
 
-export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
+export const TirthPage = ({ onBack }: TirthPageProps) => {
   const [selectedPlace, setSelectedPlace] = useState<KshetraDef | null>(null);
   const [filter, setFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -647,3 +648,6 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
     </div>
   );
 };
+
+export const PilgrimagePage = TirthPage;
+

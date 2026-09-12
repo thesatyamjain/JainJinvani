@@ -5,11 +5,12 @@ import { Calendar, Sparkles, ChevronRight, X, ChevronLeft } from 'lucide-react';
 import { jainFestivals, type JainFestival } from '../data/festivals';
 import { useModalBackHandler } from '../lib';
 
-interface FestivalsPageProps {
+export interface ParvaPageProps {
   onBack: () => void;
 }
+export type FestivalsPageProps = ParvaPageProps;
 
-export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
+export const ParvaPage = ({ onBack }: ParvaPageProps) => {
   const [selectedFestival, setSelectedFestival] = React.useState<JainFestival | null>(null);
 
   // Close festival details modal on mobile back navigation
@@ -171,3 +172,5 @@ export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
     </div>
   );
 };
+
+export const FestivalsPage = ParvaPage;

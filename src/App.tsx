@@ -23,16 +23,16 @@ import { ExploreMenu } from "./pages/ExploreMenu";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { NotFound } from "./pages/NotFound";
 import { FavoritesPage } from "./pages/FavoritesPage";
-import { FestivalsPage } from "./pages/FestivalsPage";
+import { ParvaPage, FestivalsPage } from "./pages/ParvaPage";
 import { TirthankarProfile } from "./pages/TirthankarProfile";
-import { PilgrimagePage } from "./pages/PilgrimagePage";
-import { PhilosophyPage } from "./pages/PhilosophyPage";
-import { RitualsPage } from "./pages/RitualsPage";
+import { TirthPage, PilgrimagePage } from "./pages/TirthPage";
+import { TattvaPage, PhilosophyPage } from "./pages/TattvaPage";
+import { PujaPage, RitualsPage } from "./pages/PujaPage";
 import { PathshalaPage } from "./pages/PathshalaPage";
 import { GalleryPage } from "./pages/GalleryPage";
 import { SamayikPage } from "./pages/SamayikPage";
-import { DietaryPage } from "./pages/DietaryPage";
-import { AsceticsPage } from "./pages/AsceticsPage";
+import { AaharPage, DietaryPage } from "./pages/AaharPage";
+import { MuniPage, AsceticsPage } from "./pages/MuniPage";
 import { MuniProfilesPage } from "./pages/MuniProfilesPage";
 import { JapMalaPage } from "./pages/JapMalaPage";
 import { NiyamaPage } from "./pages/NiyamaPage";
@@ -441,7 +441,7 @@ export default function App() {
             </motion.div>
           )}
 
-          {activePage === "festivals" && (
+          {(activePage === "festivals" || activePage === "parva") && (
             <motion.div
               key="festivals"
               initial={{ opacity: 0, y: 8 }}
@@ -450,7 +450,7 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <FestivalsPage onBack={() => handleBack("favorites")} />
+              <ParvaPage onBack={() => handleBack("favorites")} />
             </motion.div>
           )}
 
@@ -477,7 +477,7 @@ export default function App() {
             </motion.div>
           )}
 
-          {activePage === "pilgrimage" && (
+          {(activePage === "pilgrimage" || activePage === "tirth") && (
             <motion.div
               key="pilgrimage"
               initial={{ opacity: 0, y: 8 }}
@@ -486,11 +486,11 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <PilgrimagePage onBack={() => handleBack("explore")} />
+              <TirthPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
-          {activePage === "philosophy" && (
+          {(activePage === "philosophy" || activePage === "tattva") && (
             <motion.div
               key="philosophy"
               initial={{ opacity: 0, y: 8 }}
@@ -499,11 +499,11 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <PhilosophyPage onBack={() => handleBack("explore")} />
+              <TattvaPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
-          {activePage === "rituals" && (
+          {(activePage === "rituals" || activePage === "puja") && (
             <motion.div
               key="rituals"
               initial={{ opacity: 0, y: 8 }}
@@ -512,7 +512,7 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <RitualsPage onBack={() => handleBack("explore")} />
+              <PujaPage onBack={() => handleBack("explore")} />
             </motion.div>
           )}
 
@@ -571,7 +571,7 @@ export default function App() {
             </motion.div>
           )}
 
-          {activePage === "dietary" && (
+          {(activePage === "dietary" || activePage === "aahar") && (
             <motion.div
               key="dietary"
               initial={{ opacity: 0, y: 8 }}
@@ -580,11 +580,11 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <DietaryPage onBack={() => handleBack("sadhana")} />
+              <AaharPage onBack={() => handleBack("sadhana")} />
             </motion.div>
           )}
 
-          {activePage === "ascetics" && (
+          {(activePage === "ascetics" || activePage === "muni") && (
             <motion.div
               key="ascetics"
               initial={{ opacity: 0, y: 8 }}
@@ -593,7 +593,7 @@ export default function App() {
               transition={{ duration: 0.16, ease: "easeOut" }}
               className="min-h-full overflow-x-hidden"
             >
-              <AsceticsPage
+              <MuniPage
                 onBack={() => handleBack("explore")}
                 onNavigate={handleNavigate}
               />

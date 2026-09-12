@@ -6,10 +6,6 @@ import { ChevronLeft, Clock, Flame, Droplet, Sparkles, Sun, Moon, Star, X } from
 import { useModalBackHandler } from '../lib';
 
 
-interface RitualsPageProps {
-  onBack: () => void;
-}
-
 const ritualsData = [
   {
     id: 'dev-darshan',
@@ -136,7 +132,12 @@ const ritualsData = [
   }
 ];
 
-export const RitualsPage = ({ onBack }: RitualsPageProps) => {
+export interface PujaPageProps {
+  onBack: () => void;
+}
+export type RitualsPageProps = PujaPageProps;
+
+export const PujaPage = ({ onBack }: PujaPageProps) => {
   const [selectedRitual, setSelectedRitual] = useState<any>(null);
   const [filter, setFilter] = useState<string>('all');
 
@@ -356,3 +357,5 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
     </div>
   );
 };
+
+export const RitualsPage = PujaPage;

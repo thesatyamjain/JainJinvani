@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, Search, CheckCircle, XCircle, AlertTriangle, Leaf, X } from 'lucide-react';
 import { GlassCard } from '../components/layout/GlassCard';
 
-interface DietaryPageProps {
+export interface AaharPageProps {
   onBack: () => void;
 }
+export type DietaryPageProps = AaharPageProps;
 
 type FoodStatus = 'allowed' | 'prohibited' | 'caution';
 
@@ -40,7 +41,7 @@ const foodDatabase: FoodItem[] = [
   { name: 'पनीर', englishName: 'Paneer', status: 'caution', reason: 'यदि नींबू/दही से फाड़ा गया हो तो मर्यादा अनुसार भक्ष्य', category: 'Dairy' },
 ];
 
-export const DietaryPage = ({ onBack }: DietaryPageProps) => {
+export const AaharPage = ({ onBack }: AaharPageProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState<'all' | 'allowed' | 'prohibited' | 'caution'>('all');
 
@@ -323,3 +324,6 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
     </div>
   );
 };
+
+export const DietaryPage = AaharPage;
+

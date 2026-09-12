@@ -5,9 +5,10 @@ import { ChevronLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles, X } from 'lucid
 import { useModalBackHandler } from '../lib';
 
 
-interface PhilosophyPageProps {
+export interface TattvaPageProps {
   onBack: () => void;
 }
+export type PhilosophyPageProps = TattvaPageProps;
 
 const philosophyTopics = [
   {
@@ -148,7 +149,7 @@ const philosophyTopics = [
   }
 ];
 
-export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
+export const TattvaPage = ({ onBack }: TattvaPageProps) => {
   const [selectedTopic, setSelectedTopic] = useState<any>(null);
 
   // Close philosophy topic modal on mobile back navigation
@@ -288,3 +289,6 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
     </div>
   );
 };
+
+export const PhilosophyPage = TattvaPage;
+
