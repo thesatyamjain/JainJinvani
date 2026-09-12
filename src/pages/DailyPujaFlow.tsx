@@ -238,7 +238,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="gilded" className="p-5 sm:p-7 rounded-3xl space-y-6">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
             {/* पवित्रता व संकल्प */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 font-gotu">
               <div className="text-xs font-bold text-amber-300 mb-1">॥ पवित्रता मंत्र ॥</div>
@@ -314,6 +318,34 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                 </div>
               </div>
             </div>
+
+            {/* अभिषेक प्रतिज्ञा व मंत्र */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="text-xs font-bold text-amber-300 uppercase tracking-wider font-gotu">
+                ॥ अभिषेक प्रतिज्ञा व संकल्प ॥
+              </div>
+              <p style={{ fontSize: `${fontSize - 1}px` }} className="font-gotu text-slate-300 leading-relaxed">
+                अद्येह जम्बूद्वीपे भरतक्षेत्रे आर्यखण्डे जिनेन्द्रदेवस्य पावन-चरण-कमले आत्म-विशुद्धये कर्म-क्षयार्थं च अभिषेक-कर्म करोम्यहम्।
+              </p>
+            </div>
+
+            {/* कलश मंत्र */}
+            <div className="space-y-4">
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-400 font-gotu">
+                ॥ मुख्य कलश अभिषेक महामंत्र ॥
+              </div>
+              <div className="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-sm sm:text-base font-bold text-center leading-relaxed">
+                ॐ ह्रीं श्रीं क्लीं ऐं अर्हं वं मं हं सं तं पं झं झ्वीं क्ष्वीं हं सः।<br />
+                श्री जिनेन्द्राय नमः अभिषेकं करोमि स्वाहा॥
+              </div>
+            </div>
+
+            {/* प्रासुक जल समर्पण */}
+            <div className="pt-2 border-t border-white/10 text-xs text-slate-400 font-gotu">
+              <p>
+                💡 दोनों हाथों में कलश लेकर जिनेन्द्र प्रभु की प्रतिमा के मस्तक पर धार बांधते हुए <strong>"ॐ ह्रीं अर्हं नमः"</strong> का निरंतर उच्चारण करें।
+              </p>
+            </div>
           </GlassCard>
         </div>
       )}
@@ -337,7 +369,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="sacred" className="p-5 sm:p-7 rounded-3xl space-y-6">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="sacred"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
             <div className="text-xs text-blue-300/90 font-gotu bg-blue-500/10 p-3 rounded-xl border border-blue-500/20">
               💡 झारी से अखंड जलधारा जिनेन्द्र प्रभु के मस्तक पर अर्पित करते हुए एकाग्र चित्त से इस परम मांगलिक शांतिधारा का पाठ करें।
             </div>
@@ -388,7 +424,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="gilded" className="p-5 sm:p-7 rounded-3xl space-y-4">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-4"
+          >
             <p className="text-xs sm:text-sm text-slate-300 font-gotu">
               अनामिका व मध्यमा उंगली से थोड़ा सा गंधोदक लेकर मस्तक, दोनों नेत्र, कंठ और हृदय पर धारण करें:
             </p>
@@ -426,7 +466,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="gilded" className="p-5 sm:p-7 rounded-3xl space-y-6">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
             {/* स्थापना */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30">
               <div className="text-xs font-bold text-amber-300 font-gotu mb-2">॥ स्थापना ॥</div>
@@ -596,7 +640,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="gilded" className="p-5 sm:p-7 rounded-3xl space-y-5">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-5"
+          >
             {/* पंचपरमेष्ठी अर्घ्य */}
             <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
               <div className="text-xs font-bold text-amber-300 font-gotu mb-1">॥ पंचपरमेष्ठी अर्घ्य ॥</div>
@@ -669,7 +717,11 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
           </div>
 
-          <GlassCard variant="gilded" className="p-5 sm:p-7 rounded-3xl space-y-6">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
             {/* पंचपरमेष्ठी आरती */}
             <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
               <div className="text-xs font-bold text-amber-300 font-gotu mb-2">॥ पंचपरमेष्ठी मंगल आरती ॥</div>

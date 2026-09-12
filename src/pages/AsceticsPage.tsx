@@ -158,7 +158,7 @@ export const AsceticsPage = ({ onBack, onNavigate }: AsceticsPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
           >
-            <GlassCard className="p-6 h-full border-t-4 border-t-white/20 hover:bg-white/10 transition-colors">
+            <GlassCard tilt className="p-6 h-full border-t-4 border-t-white/20 hover:bg-white/10 transition-colors">
               <div className={`w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 ${item.color}`}>
                 <item.icon className="w-6 h-6" />
               </div>

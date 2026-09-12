@@ -466,6 +466,7 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
           <GlassCard
             key={place.id}
             variant="gilded"
+            tilt={{ maxTilt: 10, glareColor: 'amber', scale: 1.02 }}
             className="p-5 flex flex-col justify-between hover:border-cyan-400/50 transition-all duration-300 rounded-2xl group cursor-pointer"
             onClick={() => setSelectedPlace(place)}
           >

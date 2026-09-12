@@ -370,7 +370,8 @@ export const CategoryListing = ({
     >
       <GlassCard
         variant="gilded"
-        className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
+        tilt
+        className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
       >
         <div>
           {/* Top Badges Row */}
@@ -435,7 +436,8 @@ export const CategoryListing = ({
     >
       <GlassCard
         variant="gilded"
-        className="p-5 sm:p-6 sm:pl-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl hover:-translate-y-0.5 transition-all duration-300 border border-white/10 hover:border-amber-400/50 shadow-md group"
+        tilt={{ maxTilt: 6, scale: 1.01 }}
+        className="p-5 sm:p-6 sm:pl-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl transition-all duration-300 border border-white/10 hover:border-amber-400/50 shadow-md group"
       >
         <div className="sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2 w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 font-mono font-bold text-xs flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.2)] group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
           {item.order || idx + 1 < 10 ? `0${item.order || idx + 1}` : item.order || idx + 1}

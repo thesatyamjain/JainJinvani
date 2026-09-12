@@ -367,7 +367,8 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             >
               <GlassCard
                 variant="gilded"
-                className={`h-full p-3.5 sm:p-5 md:p-6 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${pillar.color} border ${pillar.border}`}
+                tilt
+                className={`h-full p-3.5 sm:p-5 md:p-6 flex flex-col justify-between cursor-pointer group transition-all duration-300 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${pillar.color} border ${pillar.border}`}
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2 sm:mb-3">
@@ -432,6 +433,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
       <div className="mb-14">
         <GlassCard
           variant="sacred"
+          tilt={{ maxTilt: 5, scale: 1.008, glareColor: 'gold' }}
           className="p-6 sm:p-8 rounded-3xl border-amber-500/40 relative overflow-hidden bg-gradient-to-r from-amber-950/40 via-slate-900/60 to-amber-950/30"
         >
           <div className="relative z-10">
@@ -524,6 +526,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             <GlassCard
               key={pdf.id}
               variant="gilded"
+              tilt
               className="p-3 sm:p-4 md:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300"
             >
               <div>
@@ -551,7 +554,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                 {pdf.readGranthId ? (
                   <button
                     onClick={() => onNavigate('viewer', { id: pdf.readGranthId })}
-                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-900 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl transition-all shadow-md cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl transition-all shadow-md cursor-pointer"
                   >
                     <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     <span>
@@ -593,7 +596,8 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             >
               <GlassCard
                 variant="gilded"
-                className="h-full p-4 sm:p-5 flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300 rounded-2xl"
+                tilt
+                className="h-full p-4 sm:p-5 flex flex-col justify-between cursor-pointer group transition-all duration-300 rounded-2xl"
               >
                 <div>
                   <div className="flex items-start justify-between mb-3">

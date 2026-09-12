@@ -109,7 +109,7 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
       exit={{ y: 100, opacity: 0 }}
       className={`fixed ${isMinimized ? 'bottom-24 right-6 w-72' : 'bottom-24 left-1/2 -translate-x-1/2 w-full max-w-lg'} z-50 transition-all duration-300`}
     >
-      <GlassCard className="p-4 backdrop-blur-2xl bg-[#050a14]/80 border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+      <GlassCard tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }} className="p-4 backdrop-blur-2xl bg-[#050a14]/80 border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
         <audio
           ref={audioRef}
           onTimeUpdate={handleTimeUpdate}

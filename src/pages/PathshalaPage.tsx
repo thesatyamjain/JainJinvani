@@ -146,15 +146,15 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
-          <GlassCard className="p-4 text-center">
+          <GlassCard tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }} className="p-4 text-center">
             <div className="text-2xl font-bold text-amber-400">6</div>
             <div className="text-xs text-blue-100/60 font-gotu mt-1">कोर्स</div>
           </GlassCard>
-          <GlassCard className="p-4 text-center">
+          <GlassCard tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }} className="p-4 text-center">
             <div className="text-2xl font-bold text-green-400">24</div>
             <div className="text-xs text-blue-100/60 font-gotu mt-1">पाठ</div>
           </GlassCard>
-          <GlassCard className="p-4 text-center">
+          <GlassCard tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'white' }} className="p-4 text-center">
             <div className="text-2xl font-bold text-blue-400">2</div>
             <div className="text-xs text-blue-100/60 font-gotu mt-1">पूर्ण किए</div>
           </GlassCard>
@@ -175,6 +175,7 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
               transition={{ delay: idx * 0.05 }}
             >
               <GlassCard
+                tilt={{ maxTilt: 9, glareMaxOpacity: 0.15, glareColor: 'amber' }}
                 className="p-6 hover:bg-white/10 cursor-pointer transition-all group h-full flex flex-col"
                 onClick={() => setSelectedCourse(course)}
               >

@@ -202,7 +202,8 @@ export const DietaryPage = ({ onBack }: DietaryPageProps) => {
               >
                 <GlassCard
                   variant="gilded"
-                  className="p-5 md:p-6 h-full flex flex-col justify-between group hover:-translate-y-1 transition-all duration-300 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-md"
+                  tilt={{ maxTilt: 10, scale: 1.02 }}
+                  className="p-5 md:p-6 h-full flex flex-col justify-between group transition-all duration-300 rounded-2xl border border-white/10 hover:border-amber-400/40 shadow-md"
                 >
                   <div>
                     {/* Item Top Row */}

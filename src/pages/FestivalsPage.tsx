@@ -65,6 +65,7 @@ export const FestivalsPage = ({ onBack }: FestivalsPageProps) => {
             transition={{ delay: idx * 0.05 }}
           >
             <GlassCard
+              tilt={{ maxTilt: 8, scale: 1.015, glareColor: 'amber' }}
               className="p-6 hover:bg-white/10 cursor-pointer transition-all group"
               onClick={() => setSelectedFestival(festival)}
             >

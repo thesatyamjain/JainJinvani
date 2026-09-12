@@ -1497,6 +1497,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         >
           <GlassCard
             variant="sacred"
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.14, glareColor: 'gold' }}
             className="p-6 sm:p-10 border-amber-500/35 bg-[#0b1220]/95 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(245,158,11,0.18)] rounded-3xl relative overflow-hidden"
           >
             {/* Corner Markers */}

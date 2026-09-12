@@ -160,7 +160,10 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
           >
-            <GlassCard className="p-6 hover:bg-white/10 cursor-pointer transition-all group">
+            <GlassCard
+              tilt={{ maxTilt: 9, glareMaxOpacity: 0.15, glareColor: 'amber' }}
+              className="p-6 hover:bg-white/10 cursor-pointer transition-all group"
+            >
               <div className="text-5xl mb-4 text-center">{category.icon}</div>
               <h3 className="text-xl font-rozha text-white mb-1 text-center group-hover:text-amber-300 transition-colors">
                 {category.name}
@@ -189,7 +192,7 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
       </div>
 
       {/* Placeholder for Future Integration */}
-      <GlassCard className="p-8 text-center">
+      <GlassCard tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }} className="p-8 text-center">
         <ImageIcon className="w-16 h-16 text-blue-200/30 mx-auto mb-4" />
         <h3 className="text-xl font-rozha text-white mb-2">
           जल्द आ रहा है

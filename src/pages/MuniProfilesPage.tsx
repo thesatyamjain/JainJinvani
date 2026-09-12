@@ -186,7 +186,10 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
           >
-            <GlassCard className="group h-full flex flex-col hover:bg-white/10 transition-all duration-300 border-white/5 hover:border-amber-500/30 hover:translate-y-[-4px] overflow-hidden">
+            <GlassCard
+              tilt={{ maxTilt: 9, glareMaxOpacity: 0.15, glareColor: 'gold' }}
+              className="group h-full flex flex-col hover:bg-white/10 transition-all duration-300 border-white/5 hover:border-amber-500/30 overflow-hidden"
+            >
               {/* Image Area */}
               <div className="relative h-48 w-full bg-gradient-to-b from-slate-800 to-slate-900 overflow-hidden">
                 {muni.image ? (

@@ -248,6 +248,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
         >
           {/* Hero Header Card */}
           <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.15, glareColor: 'gold' }}
             variant="gilded"
             className="p-6 md:p-10 relative overflow-hidden text-center border-amber-500/30 shadow-2xl"
           >
@@ -387,6 +388,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Main Deck Container */}
             {activeMainTab === 'arghyavali' && (
               <GlassCard
+                tilt={{ maxTilt: 4, glareMaxOpacity: 0.12, glareColor: 'gold' }}
                 variant="gilded"
                 className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
               >
@@ -609,6 +611,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Tab 2: Ashtadravya Arpan Mantras */}
             {activeMainTab === 'dravya' && (
               <GlassCard
+                tilt={{ maxTilt: 4, glareMaxOpacity: 0.12, glareColor: 'gold' }}
                 variant="gilded"
                 className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
               >
@@ -808,6 +811,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Tab 3: Chaubis Tirthankar Samucchaya Arghyavali */}
             {activeMainTab === 'chaubisi' && (
               <GlassCard
+                tilt={{ maxTilt: 4, glareMaxOpacity: 0.12, glareColor: 'gold' }}
                 variant="gilded"
                 className="p-6 md:p-8 bg-gradient-to-br from-amber-500/15 via-orange-500/5 to-transparent border-amber-500/40 shadow-xl"
               >
@@ -881,7 +885,10 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           {/* 4-Grid Structured Canonical Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {/* Card 1: Sacred Attributes */}
-            <GlassCard className="p-6 md:p-8 border-t-4 border-t-amber-500/50">
+            <GlassCard
+              tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
+              className="p-6 md:p-8 border-t-4 border-t-amber-500/50"
+            >
               <h2 className="text-lg md:text-xl font-notoserif font-bold text-amber-200 mb-5 flex items-center gap-2.5">
                 <Book className="w-5 h-5 text-amber-400" />
                 लांछन एवं स्वरूप
@@ -913,7 +920,10 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             </GlassCard>
 
             {/* Card 2: Family & Lineage */}
-            <GlassCard className="p-6 md:p-8 border-t-4 border-t-blue-500/50">
+            <GlassCard
+              tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'white' }}
+              className="p-6 md:p-8 border-t-4 border-t-blue-500/50"
+            >
               <h2 className="text-lg md:text-xl font-notoserif font-bold text-blue-200 mb-5 flex items-center gap-2.5">
                 <MapPin className="w-5 h-5 text-blue-400" />
                 पारिवारिक एवं तीर्थ विवरण
@@ -944,7 +954,10 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           </div>
 
           {/* Card 3: Panchakalyanak Dates */}
-          <GlassCard className="p-6 md:p-8 border-t-4 border-t-emerald-500/50">
+          <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            className="p-6 md:p-8 border-t-4 border-t-emerald-500/50"
+          >
             <h2 className="text-lg md:text-xl font-notoserif font-bold text-emerald-200 mb-5 flex items-center gap-2.5">
               <Calendar className="w-5 h-5 text-emerald-400" />
               पंचकल्याणक पावन तिथियाँ
@@ -963,7 +976,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                 <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.tap}</div>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-                <div className="text-xs text-amber-300 font-bold mb-1">केवलज्ञान</div>
+                <div className="text-xs text-amber-300 font-bold mb-1">केवलज्ञान कल्याणक</div>
                 <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.gyan}</div>
               </div>
               <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 col-span-2 sm:col-span-1">
@@ -974,7 +987,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           </GlassCard>
 
           {/* Card 4: Detailed Biography */}
-          <GlassCard className="p-6 md:p-10">
+          <GlassCard tilt={{ maxTilt: 5, glareMaxOpacity: 0.1, glareColor: 'amber' }} className="p-6 md:p-10">
             <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200 mb-4 flex items-center gap-2">
               <ScrollText className="w-5 h-5 text-amber-400" />
               जीवन परिचय एवं संदेश
@@ -990,6 +1003,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           {/* Card 5: Sacred Mantra & Interactive Chanting Counter */}
           <div id="mantra-section">
             <GlassCard
+              tilt={{ maxTilt: 6, glareMaxOpacity: 0.14, glareColor: 'gold' }}
               variant="gilded"
               className="p-6 md:p-8 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border-amber-500/30"
             >

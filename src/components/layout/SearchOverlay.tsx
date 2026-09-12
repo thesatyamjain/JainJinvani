@@ -4,6 +4,7 @@ import { Search, X, ChevronRight, FileText, Sparkles, BookOpen, Flame, Compass }
 import { contentInventory, ContentItem } from '../../data/inventory';
 import { matchSearchQuery } from '../../utils/searchHelper';
 import { getRecentReads } from '../../lib/storage';
+import { TiltCard } from './TiltCard';
 
 // Helper to flatten the inventory
 const getAllItems = () => {
@@ -224,26 +225,33 @@ export const SearchOverlay = ({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {featuredItems.map((item) => (
-                      <div
+                      <TiltCard
                         key={item.id}
-                        onClick={() => handleItemClick(item)}
-                        className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/5 hover:border-amber-400/40 cursor-pointer group transition-all duration-200"
+                        maxTilt={6}
+                        glareMaxOpacity={0.12}
+                        glareColor="amber"
+                        className="rounded-xl h-full"
                       >
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
-                            <BookOpen className="w-4 h-4" />
+                        <div
+                          onClick={() => handleItemClick(item)}
+                          className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/5 hover:border-amber-400/40 cursor-pointer group transition-all duration-200 h-full"
+                        >
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
+                              <BookOpen className="w-4 h-4" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h4 className="text-white font-rozha text-sm sm:text-base group-hover:text-amber-200 transition-colors truncate">
+                                {item.title}
+                              </h4>
+                              <span className="text-[10px] text-amber-400/70 uppercase tracking-wider font-cinzel">
+                                {CATEGORY_NAMES_HI[item.category] || item.category}
+                              </span>
+                            </div>
                           </div>
-                          <div className="min-w-0 flex-1">
-                            <h4 className="text-white font-rozha text-sm sm:text-base group-hover:text-amber-200 transition-colors truncate">
-                              {item.title}
-                            </h4>
-                            <span className="text-[10px] text-amber-400/70 uppercase tracking-wider font-cinzel">
-                              {CATEGORY_NAMES_HI[item.category] || item.category}
-                            </span>
-                          </div>
+                          <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all shrink-0" />
                         </div>
-                        <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all shrink-0" />
-                      </div>
+                      </TiltCard>
                     ))}
                   </div>
                 </div>

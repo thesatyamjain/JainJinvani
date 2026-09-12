@@ -58,7 +58,11 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">Color Palette</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {colors.map((color) => (
-              <GlassCard key={color.name} className="p-4 flex flex-col gap-3 group">
+              <GlassCard
+                key={color.name}
+                tilt={{ maxTilt: 8, glareMaxOpacity: 0.15, glareColor: 'white' }}
+                className="p-4 flex flex-col gap-3 group"
+              >
                 <div className={`h-24 rounded-lg shadow-inner ${color.class} border border-white/5 relative`}>
                   <button
                     onClick={() => copyToClipboard(color.value)}
@@ -81,7 +85,11 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">Typography</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {fonts.map((font) => (
-              <GlassCard key={font.name} className="p-6">
+              <GlassCard
+                key={font.name}
+                tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+                className="p-6"
+              >
                 <div className="text-xs text-amber-500 font-bold uppercase tracking-widest mb-2">{font.type}</div>
                 <div className="text-3xl text-white mb-4 leading-tight">
                   <span className={font.class}>{font.name}</span>
@@ -103,13 +111,19 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
             {/* Cards */}
             <div className="space-y-4">
               <h3 className="text-white font-bold mb-2">Glass Cards</h3>
-              <GlassCard className="p-6">
+              <GlassCard
+                tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }}
+                className="p-6"
+              >
                 <h4 className="text-xl text-white font-rozha mb-2">Standard Glass Card</h4>
                 <p className="text-blue-100/70 text-sm">
                   Used for main content containers. Features a backdrop blur, subtle white border, and a gradient background.
                 </p>
               </GlassCard>
-              <GlassCard className="p-6 bg-amber-500/10 border-amber-500/30">
+              <GlassCard
+                tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
+                className="p-6 bg-amber-500/10 border-amber-500/30"
+              >
                 <h4 className="text-xl text-white font-rozha mb-2">Highlight Card</h4>
                 <p className="text-blue-100/70 text-sm">
                   Used for featured content or active states. Uses amber tints.
@@ -145,7 +159,10 @@ export const BrandGuide = ({ onBack }: BrandGuideProps) => {
         {/* Iconography */}
         <section>
           <h2 className="text-2xl font-rozha text-amber-200 mb-6 border-b border-white/10 pb-2">Iconography & Vibes</h2>
-          <GlassCard className="p-8">
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            className="p-8"
+          >
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="w-32 h-32 relative">
                 {/* Abstract representation of the cosmic/jain theme */}

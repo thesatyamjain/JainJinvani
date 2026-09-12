@@ -52,7 +52,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
         transition={{ delay: 0.1 }}
         className="mb-8"
       >
-        <GlassCard variant="sacred" className="p-6 md:p-8 relative overflow-hidden">
+        <GlassCard variant="sacred" tilt={{ maxTilt: 6, scale: 1.01, glareColor: 'gold' }} className="p-6 md:p-8 relative overflow-hidden">
           <div className="relative z-10">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-200 text-xs mb-3 font-gotu font-bold">
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
@@ -102,6 +102,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
                 >
                   <GlassCard
                     variant="gilded"
+                    tilt
                     className="p-4 hover:bg-white/10 cursor-pointer transition-all group flex items-center justify-between"
                     onClick={() =>
                       onNavigate('viewer', {
@@ -147,7 +148,7 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + idx * 0.04 }}
               >
-                <GlassCard variant="cosmic" className="p-4 flex items-center justify-between gap-3">
+                <GlassCard variant="cosmic" tilt className="p-4 flex items-center justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <h3 className="text-white font-rozha text-base">{festival.nameHindi}</h3>
                     <p className="text-xs text-slate-400 font-gotu mt-0.5 line-clamp-1">

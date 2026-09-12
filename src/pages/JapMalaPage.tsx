@@ -250,19 +250,31 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
 
       {/* Stats Counter Card */}
       <div className="grid grid-cols-3 gap-2.5 sm:gap-4 w-full mb-6 max-w-md">
-        <GlassCard variant="subtle" className="p-3 text-center rounded-xl border-amber-500/20">
+        <GlassCard
+          tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
+          variant="subtle"
+          className="p-3 text-center rounded-xl border-amber-500/20"
+        >
           <p className="text-[10px] text-amber-300/80 font-gotu">वर्तमान मणका</p>
           <p className="text-lg sm:text-xl font-bold font-mono text-amber-200">
             {stats.currentBead} <span className="text-xs text-slate-400">/ १०८</span>
           </p>
         </GlassCard>
-        <GlassCard variant="subtle" className="p-3 text-center rounded-xl border-emerald-500/20">
+        <GlassCard
+          tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+          variant="subtle"
+          className="p-3 text-center rounded-xl border-emerald-500/20"
+        >
           <p className="text-[10px] text-emerald-300/80 font-gotu">आज की मालाएं</p>
           <p className="text-lg sm:text-xl font-bold font-mono text-emerald-300">
             {stats.todayCount}
           </p>
         </GlassCard>
-        <GlassCard variant="subtle" className="p-3 text-center rounded-xl border-purple-500/20">
+        <GlassCard
+          tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }}
+          variant="subtle"
+          className="p-3 text-center rounded-xl border-purple-500/20"
+        >
           <p className="text-[10px] text-purple-300/80 font-gotu">कुल पूर्ण मालाएं</p>
           <p className="text-lg sm:text-xl font-bold font-mono text-purple-300">
             {stats.lifetimeCount}
@@ -326,6 +338,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
 
       {/* Active Mantra Display Box */}
       <GlassCard
+        tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
         variant="gilded"
         className="p-4 sm:p-5 w-full max-w-xl text-center rounded-2xl my-5 border-amber-500/25"
       >

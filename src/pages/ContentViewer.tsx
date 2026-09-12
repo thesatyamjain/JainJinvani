@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { TiltCard } from '../components/layout/TiltCard';
 import {
   Share2,
   BookOpen,
@@ -34,7 +35,7 @@ interface ContentViewerProps {
 // 1. HTML View (For History, Vidhi, etc.)
 const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) => {
   return (
-    <GlassCard variant="gilded" className="p-6 sm:p-10 md:p-12 min-h-full">
+    <GlassCard variant="gilded" tilt={{ maxTilt: 3, glareMaxOpacity: 0.08, glareColor: 'gold' }} className="p-6 sm:p-10 md:p-12 min-h-full">
       <div
         style={{ fontSize: `${fontSize}px` }}
         className="prose prose-invert prose-lg max-w-none font-mukta text-slate-200 leading-relaxed
@@ -309,6 +310,7 @@ const UnifiedVerseView = ({
             {(parsed.lines.length > 0 || parsed.meanings.length > 0) && (
               <GlassCard
                 variant="gilded"
+                tilt={{ maxTilt: 3.5, glareMaxOpacity: 0.1, glareColor: 'gold' }}
                 className="p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border border-amber-500/25 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
               >
                 {/* Traditional Sacred Margin Lines (हशिया) */}
@@ -434,7 +436,7 @@ const ArticleView = ({
 }) => {
   if (!data.chapters) return null;
   return (
-    <GlassCard variant="gilded" className="p-6 md:p-12 min-h-full">
+    <GlassCard variant="gilded" tilt={{ maxTilt: 3, glareMaxOpacity: 0.08, glareColor: 'gold' }} className="p-6 md:p-12 min-h-full">
       <div className="max-w-3xl mx-auto space-y-12 text-slate-200 leading-relaxed font-mukta">
         {data.chapters.map((chapter: any, chapterIdx: number) => (
           <div
@@ -790,12 +792,18 @@ export const ContentViewer = ({
       </AnimatePresence>
 
       {/* Sacred Sanctum Header Card */}
-      <motion.div
-        initial={{ opacity: 0, y: -14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-4 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] mb-6 sm:mb-8 overflow-hidden"
+      <TiltCard
+        maxTilt={4}
+        glareMaxOpacity={0.12}
+        glareColor="gold"
+        className="w-full mb-6 sm:mb-8 rounded-2xl sm:rounded-3xl"
       >
+        <motion.div
+          initial={{ opacity: 0, y: -14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-4 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] overflow-hidden"
+        >
         {/* Subtle Ambient Golden Rim Light & Specular Glow */}
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
@@ -867,6 +875,7 @@ export const ContentViewer = ({
           <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-400/40" />
         </div>
       </motion.div>
+      </TiltCard>
 
       {/* Main Content Area */}
       <motion.div
@@ -921,19 +930,26 @@ export const ContentViewer = ({
 
             {/* Reader Footer Contribution Prompt */}
             <div className="pt-8 pb-4 text-center">
-              <div className="inline-flex flex-col sm:flex-row items-center gap-3 p-4 rounded-2xl bg-[#0c1222]/80 border border-amber-500/25 max-w-md mx-auto shadow-lg">
-                <div className="text-left flex-1 min-w-0">
-                  <div className="text-xs font-bold text-amber-200 font-notoserif">क्या इस पाठ में कोई अशुद्धि मिली?</div>
-                  <div className="text-[11px] text-slate-300/80 font-gotu">शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।</div>
+              <TiltCard
+                maxTilt={5}
+                glareMaxOpacity={0.12}
+                glareColor="gold"
+                className="inline-block max-w-md w-full rounded-2xl"
+              >
+                <div className="inline-flex flex-col sm:flex-row items-center gap-3 p-4 rounded-2xl bg-[#0c1222]/80 border border-amber-500/25 w-full shadow-lg">
+                  <div className="text-left flex-1 min-w-0">
+                    <div className="text-xs font-bold text-amber-200 font-notoserif">क्या इस पाठ में कोई अशुद्धि मिली?</div>
+                    <div className="text-[11px] text-slate-300/80 font-gotu">शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।</div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowFeedbackModal(true)}
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-semibold shrink-0 cursor-pointer transition-colors"
+                  >
+                    सुधार बताएं →
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setShowFeedbackModal(true)}
-                  className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-semibold shrink-0 cursor-pointer transition-colors"
-                >
-                  सुधार बताएं →
-                </button>
-              </div>
+              </TiltCard>
             </div>
           </div>
         ) : (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { TiltCard } from '../components/layout/TiltCard';
 import { ChevronLeft, Clock, Flame, Droplet, Sparkles, Sun, Moon, Star, X } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
 
@@ -218,6 +219,7 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
             transition={{ delay: idx * 0.05 }}
           >
             <GlassCard
+              tilt={{ maxTilt: 9, glareMaxOpacity: 0.15, glareColor: 'amber' }}
               className="p-6 hover:bg-white/10 cursor-pointer transition-all group h-full"
               onClick={() => setSelectedRitual(ritual)}
             >
@@ -312,15 +314,22 @@ export const RitualsPage = ({ onBack }: RitualsPageProps) => {
                 </ol>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/25">
-                <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 font-gotu flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>पावन मंत्र / सूत्र</span>
+              <TiltCard
+                maxTilt={5}
+                glareMaxOpacity={0.12}
+                glareColor="amber"
+                className="rounded-xl"
+              >
+                <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/25 h-full">
+                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 font-gotu flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>पावन मंत्र / सूत्र</span>
+                  </div>
+                  <p className="text-white font-tiro text-base sm:text-lg leading-relaxed">
+                    {selectedRitual.mantra}
+                  </p>
                 </div>
-                <p className="text-white font-tiro text-base sm:text-lg leading-relaxed">
-                  {selectedRitual.mantra}
-                </p>
-              </div>
+              </TiltCard>
 
               <div>
                 <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5 font-gotu">

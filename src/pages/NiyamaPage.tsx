@@ -141,6 +141,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
 
       {/* Streak & Today's Progress Card */}
       <GlassCard
+        tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
         variant="gilded"
         className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl sm:rounded-3xl mb-6 border-amber-500/30 relative overflow-hidden"
       >
@@ -185,6 +186,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
           return (
             <GlassCard
               key={item.id}
+              tilt={{ maxTilt: 8, glareMaxOpacity: 0.15, glareColor: isDone ? 'gold' : 'amber' }}
               variant={isDone ? 'gilded' : 'subtle'}
               onClick={() => handleToggle(item.id)}
               className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl transition-all duration-200 active:scale-[0.98] border ${
@@ -225,6 +227,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
 
       {/* Shravak Dharma Guidance Card */}
       <GlassCard
+        tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
         variant="subtle"
         className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl border-amber-500/20 text-center"
       >

@@ -9,7 +9,10 @@ interface NotFoundProps {
 export function NotFound({ onNavigate }: NotFoundProps) {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 md:p-8">
-      <GlassCard className="max-w-2xl w-full text-center space-y-6 p-8 md:p-12">
+      <GlassCard
+        tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
+        className="max-w-2xl w-full text-center space-y-6 p-8 md:p-12"
+      >
         {/* 404 Number with glowing effect */}
         <div className="relative">
           <h1 className="text-[120px] md:text-[180px] font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 leading-none">

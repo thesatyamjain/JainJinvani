@@ -195,6 +195,7 @@ export const PhilosophyPage = ({ onBack }: PhilosophyPageProps) => {
             transition={{ delay: idx * 0.05 }}
           >
             <GlassCard
+              tilt={{ maxTilt: 12, scale: 1.025, glareColor: 'gold' }}
               className="p-6 hover:bg-white/10 cursor-pointer transition-all group text-center h-full flex flex-col"
               onClick={() => setSelectedTopic(topic)}
             >

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../layout/GlassCard';
+import { TiltCard } from '../layout/TiltCard';
 import {
   X,
   Send,
@@ -155,35 +156,42 @@ export const AagamAiModal = ({ isOpen, onClose }: AagamAiModalProps) => {
               {/* Answer Display */}
               {answer && !isLoading && (
                 <div className="space-y-3">
-                  <div className="p-4 rounded-2xl bg-black/40 border border-amber-500/20 space-y-3">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                      <span className="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
-                        <BookOpen className="w-3.5 h-3.5" />
-                        आगम उत्तर:
-                      </span>
-                      <button
-                        type="button"
-                        onClick={handleCopy}
-                        className="flex items-center gap-1 text-[11px] font-gotu px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-colors"
-                      >
-                        {copied ? (
-                          <>
-                            <Check className="w-3 h-3 text-emerald-400" />
-                            <span className="text-emerald-400">कॉपी हुआ</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>कॉपी करें</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
+                  <TiltCard
+                    maxTilt={5}
+                    glareMaxOpacity={0.12}
+                    glareColor="gold"
+                    className="rounded-2xl"
+                  >
+                    <div className="p-4 rounded-2xl bg-black/40 border border-amber-500/20 space-y-3 h-full">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <span className="text-xs font-semibold text-amber-300 flex items-center gap-1.5">
+                          <BookOpen className="w-3.5 h-3.5" />
+                          आगम उत्तर:
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleCopy}
+                          className="flex items-center gap-1 text-[11px] font-gotu px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 transition-colors"
+                        >
+                          {copied ? (
+                            <>
+                              <Check className="w-3 h-3 text-emerald-400" />
+                              <span className="text-emerald-400">कॉपी हुआ</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              <span>कॉपी करें</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
 
-                    <div className="text-sm sm:text-base font-mukta text-slate-100 leading-relaxed whitespace-pre-line">
-                      {answer}
+                      <div className="text-sm sm:text-base font-mukta text-slate-100 leading-relaxed whitespace-pre-line">
+                        {answer}
+                      </div>
                     </div>
-                  </div>
+                  </TiltCard>
 
                   <div className="flex justify-end">
                     <button

@@ -199,7 +199,11 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
 
         {/* Info & Vows Section */}
         <div className="lg:col-span-6 flex flex-col gap-5">
-          <GlassCard variant="gilded" className="p-6 sm:p-7 flex-1">
+          <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-6 sm:p-7 flex-1"
+          >
             <h3 className="text-xl font-notoserif font-bold text-amber-200 mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
               <Timer className="w-5 h-5 text-amber-400" />
               <span>सामायिक प्रतिज्ञा (संकल्प पाठ)</span>
@@ -231,6 +235,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
           </GlassCard>
 
           <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
             variant="sacred"
             className="p-5 bg-gradient-to-r from-amber-500/15 via-slate-900/80 to-amber-500/15"
           >

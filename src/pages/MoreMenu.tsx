@@ -461,7 +461,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           onClick={() => onNavigate('favorites')}
           className="h-full"
         >
-          <GlassCard className="p-4 sm:p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-3 sm:gap-4 hover:bg-white/10 cursor-pointer transition-all group bg-gradient-to-br from-rose-500/10 to-pink-500/10 border-rose-400/20 relative overflow-hidden h-full justify-center sm:justify-start rounded-2xl">
+          <GlassCard tilt={{ maxTilt: 10, glareColor: 'white' }} className="p-4 sm:p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-3 sm:gap-4 hover:bg-white/10 cursor-pointer transition-all group bg-gradient-to-br from-rose-500/10 to-pink-500/10 border-rose-400/20 relative overflow-hidden h-full justify-center sm:justify-start rounded-2xl">
             <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/20 blur-[60px] rounded-full pointer-events-none" />
             <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-rose-500/20 flex items-center justify-center text-rose-300 group-hover:scale-110 transition-transform shrink-0 relative z-10">
               <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-rose-400" />
@@ -480,7 +480,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           onClick={() => onNavigate('explore')}
           className="h-full"
         >
-          <GlassCard className="p-4 sm:p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-3 sm:gap-4 hover:bg-white/10 cursor-pointer transition-all group bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-400/20 relative overflow-hidden h-full justify-center sm:justify-start rounded-2xl">
+          <GlassCard tilt={{ maxTilt: 10, glareColor: 'white' }} className="p-4 sm:p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-3 sm:gap-4 hover:bg-white/10 cursor-pointer transition-all group bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-400/20 relative overflow-hidden h-full justify-center sm:justify-start rounded-2xl">
             <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 blur-[60px] rounded-full pointer-events-none" />
             <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform shrink-0 relative z-10">
               <Compass className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -507,6 +507,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               className={`h-full ${isShare ? 'col-span-2 md:col-span-3' : ''}`}
             >
               <GlassCard
+                tilt
                 className={`p-4 sm:p-6 flex gap-3 hover:bg-white/10 cursor-pointer transition-colors group h-full rounded-2xl ${
                   isShare
                     ? 'flex-row items-center justify-between text-left border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-slate-900/60 to-purple-500/10 shadow-md'

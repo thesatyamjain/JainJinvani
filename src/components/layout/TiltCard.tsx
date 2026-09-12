@@ -41,13 +41,21 @@ export const TiltCard = ({
   onPointerMove,
   onPointerLeave,
   onPointerEnter,
+  onPointerDown,
+  onPointerUp,
+  onPointerCancel,
   ...props
 }: TiltCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [canTilt, setCanTilt] = useState(false);
+  const [canHoverTilt, setCanHoverTilt] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Check if device supports fine hover and user has not requested reduced motion
+  // Track touch gesture state for mobile scroll safety
+  const touchStartPos = useRef<{ x: number; y: number } | null>(null);
+  const isTouchScrolling = useRef(false);
+
+  // Check device capabilities (desktop mouse hover vs mobile touch & reduced motion)
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -55,7 +63,8 @@ export const TiltCard = ({
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const updateCapability = () => {
-      setCanTilt(hoverQuery.matches && !motionQuery.matches && !disabled);
+      setCanHoverTilt(hoverQuery.matches && !disabled);
+      setIsReducedMotion(motionQuery.matches);
     };
 
     updateCapability();
@@ -82,7 +91,7 @@ export const TiltCard = ({
   const rotateX = useTransform(springY, [-0.5, 0.5], [maxTilt, -maxTilt]);
   const rotateY = useTransform(springX, [-0.5, 0.5], [-maxTilt, maxTilt]);
 
-  // Spring-smoothed scale on hover
+  // Spring-smoothed scale
   const scaleValue = useMotionValue(1);
   const springScale = useSpring(scaleValue, { stiffness: 300, damping: 24 });
 
@@ -96,21 +105,49 @@ export const TiltCard = ({
   const glareOpacityTarget = useMotionValue(0);
   const springGlareOpacity = useSpring(glareOpacityTarget, { stiffness: 250, damping: 25 });
 
+  const resetRestState = () => {
+    x.set(0);
+    y.set(0);
+    scaleValue.set(1);
+    glareOpacityTarget.set(0);
+    setIsHovered(false);
+  };
+
+  // --- Desktop Mouse / Fine Pointer Handlers ---
   const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!canTilt) return;
-    setIsHovered(true);
-    scaleValue.set(scale);
-    if (glare) glareOpacityTarget.set(glareMaxOpacity);
+    if (disabled || isReducedMotion || e.pointerType === 'touch') return;
+    if (canHoverTilt) {
+      setIsHovered(true);
+      scaleValue.set(scale);
+      if (glare) glareOpacityTarget.set(glareMaxOpacity);
+    }
     onPointerEnter?.(e);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!canTilt || !cardRef.current) return;
+    if (disabled || isReducedMotion || !cardRef.current) return;
+
+    if (e.pointerType === 'touch') {
+      // If finger moved beyond 8px, user is scrolling: cancel touch tilt immediately
+      if (isTouchScrolling.current) return;
+      if (touchStartPos.current) {
+        const dx = e.clientX - touchStartPos.current.x;
+        const dy = e.clientY - touchStartPos.current.y;
+        if (Math.hypot(dx, dy) > 8) {
+          isTouchScrolling.current = true;
+          resetRestState();
+          return;
+        }
+      }
+      return;
+    }
+
+    // Fine pointer / mouse move
+    if (!canHoverTilt) return;
 
     const rect = cardRef.current.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return;
 
-    // Relative mouse position normalized from -0.5 (left/top) to +0.5 (right/bottom)
     const normalizedX = (e.clientX - rect.left) / rect.width - 0.5;
     const normalizedY = (e.clientY - rect.top) / rect.height - 0.5;
 
@@ -121,13 +158,55 @@ export const TiltCard = ({
   };
 
   const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
-    setIsHovered(false);
-    // Smoothly settle back to level resting state
-    x.set(0);
-    y.set(0);
-    scaleValue.set(1);
-    glareOpacityTarget.set(0);
+    if (e.pointerType !== 'touch') {
+      resetRestState();
+    }
     onPointerLeave?.(e);
+  };
+
+  // --- Mobile Touch / Press Handlers (Tactile Physical Press + Sheen) ---
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (disabled || isReducedMotion) {
+      onPointerDown?.(e);
+      return;
+    }
+
+    if (e.pointerType === 'touch') {
+      touchStartPos.current = { x: e.clientX, y: e.clientY };
+      isTouchScrolling.current = false;
+
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          const normalizedX = (e.clientX - rect.left) / rect.width - 0.5;
+          const normalizedY = (e.clientY - rect.top) / rect.height - 0.5;
+
+          // Micro-tilt towards finger & tactile physical press depth
+          x.set(normalizedX * 0.35);
+          y.set(normalizedY * 0.35);
+          scaleValue.set(0.985);
+          if (glare) glareOpacityTarget.set(glareMaxOpacity * 0.7);
+        }
+      }
+    }
+
+    onPointerDown?.(e);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    touchStartPos.current = null;
+    isTouchScrolling.current = false;
+    if (e.pointerType === 'touch') {
+      resetRestState();
+    }
+    onPointerUp?.(e);
+  };
+
+  const handlePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    touchStartPos.current = null;
+    isTouchScrolling.current = false;
+    resetRestState();
+    onPointerCancel?.(e);
   };
 
   // Glare gradients matching Jain Jinvani aesthetics
@@ -146,25 +225,28 @@ export const TiltCard = ({
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
       {...props}
     >
       <motion.div
         style={{
-          rotateX: canTilt ? rotateX : 0,
-          rotateY: canTilt ? rotateY : 0,
-          scale: canTilt ? springScale : 1,
+          rotateX: isReducedMotion ? 0 : rotateX,
+          rotateY: isReducedMotion ? 0 : rotateY,
+          scale: isReducedMotion ? 1 : springScale,
           transformStyle: 'preserve-3d',
         }}
         className={cn(
           'w-full h-full relative transition-shadow duration-300 will-change-transform',
-          isHovered && canTilt ? 'shadow-[0_20px_45px_rgba(0,0,0,0.6)]' : '',
+          isHovered ? 'shadow-[0_20px_45px_rgba(0,0,0,0.6)]' : '',
           contentClassName
         )}
       >
         {children}
 
         {/* Dynamic Specular Holographic Glare Sheen */}
-        {glare && canTilt && (
+        {glare && !isReducedMotion && (
           <motion.div
             aria-hidden="true"
             style={{

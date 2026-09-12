@@ -196,6 +196,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
         {/* Live Daily Jain Timings Strip */}
         <div className="flex gap-2 w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
           <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
             variant="gilded"
             className="px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-center gap-2 border-amber-500/30 whitespace-nowrap shrink-0"
           >
@@ -207,6 +208,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           </GlassCard>
 
           <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
             variant="sacred"
             className="px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-center gap-2 border-amber-500/40 whitespace-nowrap shrink-0 bg-amber-500/10"
           >
@@ -218,6 +220,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           </GlassCard>
 
           <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
             variant="gilded"
             className="px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-center gap-2 border-rose-500/30 whitespace-nowrap shrink-0"
           >
@@ -229,6 +232,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           </GlassCard>
 
           <GlassCard
+            tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'white' }}
             variant="gilded"
             className="px-3 py-1.5 sm:px-3.5 sm:py-2 flex items-center gap-2 border-blue-500/30 whitespace-nowrap shrink-0"
           >
@@ -503,7 +507,11 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           className="lg:col-span-4 w-full space-y-4 sm:space-y-5"
         >
           {/* Selected Tithi Details Card */}
-          <GlassCard variant="sacred" className="p-5 sm:p-6 border-amber-500/35 shadow-xl">
+          <GlassCard
+            tilt={{ maxTilt: 7, glareMaxOpacity: 0.15, glareColor: 'gold' }}
+            variant="sacred"
+            className="p-5 sm:p-6 border-amber-500/35 shadow-xl"
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="text-amber-300 font-cinzel text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -585,6 +593,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
 
           {/* Authentic Jain Pachchakkhan / Sankalpa Card */}
           <GlassCard
+            tilt={{ maxTilt: 7, glareMaxOpacity: 0.14, glareColor: 'gold' }}
             variant="sacred"
             className="p-5 sm:p-6 bg-gradient-to-br from-[#061814]/90 via-slate-900/80 to-[#030712]/90 border-emerald-500/30"
           >
@@ -625,7 +634,11 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           </GlassCard>
 
           {/* Month's Jain Festivals / Parvas Card */}
-          <GlassCard variant="gilded" className="p-5 sm:p-6">
+          <GlassCard
+            tilt={{ maxTilt: 7, glareMaxOpacity: 0.12, glareColor: 'amber' }}
+            variant="gilded"
+            className="p-5 sm:p-6"
+          >
             <div className="flex items-center justify-between mb-3.5">
               <div className="flex items-center gap-2 text-amber-300">
                 <Award className="w-4 h-4" />
