@@ -76,6 +76,9 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [announcement, setAnnouncement] = useState<AnnouncementData | null>(() => {
     try {
+      if (typeof window !== 'undefined' && sessionStorage.getItem('jinvani_announcement_dismissed') === 'true') {
+        return null;
+      }
       const stored = localStorage.getItem('jinvani_admin_announcement');
       if (stored) {
         const parsed = JSON.parse(stored);
@@ -100,7 +103,9 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         if (res.ok) {
           const data: AnnouncementData = await res.json();
           if (isAnnouncementActive(data)) {
-            setAnnouncement(data);
+            if (sessionStorage.getItem('jinvani_announcement_dismissed') !== 'true') {
+              setAnnouncement(data);
+            }
             try {
               localStorage.setItem('jinvani_admin_announcement', JSON.stringify(data));
             } catch {}
@@ -189,7 +194,12 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 </button>
               )}
               <button
-                onClick={() => setAnnouncement(null)}
+                onClick={() => {
+                  setAnnouncement(null);
+                  try {
+                    sessionStorage.setItem('jinvani_announcement_dismissed', 'true');
+                  } catch {}
+                }}
                 className="p-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
                 title="हटाएं"
               >
