@@ -277,7 +277,7 @@ export default function App() {
       <main
         ref={mainRef}
         className="relative z-10 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar overscroll-y-contain pt-[env(safe-area-inset-top,0px)]"
-        style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <Suspense fallback={<PageLoading />}>
         <AnimatePresence mode="wait">

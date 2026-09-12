@@ -203,14 +203,14 @@ export const ScrollScrubber: React.FC<ScrollScrubberProps> = ({ scrollContainerR
         onTouchCancel={handleTouchEnd}
         onMouseDown={handleMouseDown}
       >
-        {/* Draggable Thumb Indicator - NO CSS transition on position so it tracks finger with 0ms latency */}
+        {/* Draggable Thumb Indicator - transform instead of top to eliminate layout reflows during scroll */}
         <div
           style={{
-            top: `${thumbTop}px`,
+            transform: `translate3d(0, ${thumbTop}px, 0)`,
             height: `${thumbHeight}px`,
             transition: isDragging ? 'none' : 'opacity 150ms ease-out',
           }}
-          className={`absolute right-1 rounded-full ${
+          className={`absolute top-0 right-1 rounded-full ${
             isDragging
               ? 'w-1.5 bg-gradient-to-b from-amber-300 to-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.9)]'
               : 'w-1 bg-amber-400/70 hover:bg-amber-400/90 shadow-[0_0_4px_rgba(245,158,11,0.3)]'
@@ -226,9 +226,9 @@ export const ScrollScrubber: React.FC<ScrollScrubberProps> = ({ scrollContainerR
               exit={{ opacity: 0, x: 4, scale: 0.9 }}
               transition={{ duration: 0.1 }}
               style={{
-                top: `${Math.max(10, Math.min(window.innerHeight - 180, thumbTop + thumbHeight / 2 - 12))}px`,
+                transform: `translate3d(0, ${Math.max(10, Math.min(window.innerHeight - 180, thumbTop + thumbHeight / 2 - 12))}px, 0)`,
               }}
-              className="absolute right-5 px-2 py-0.5 rounded-lg bg-slate-950/90 border border-amber-400/40 text-amber-200 text-[10px] font-mono font-bold shadow-md backdrop-blur-md pointer-events-none"
+              className="absolute top-0 right-5 px-2 py-0.5 rounded-lg bg-slate-950/90 border border-amber-400/40 text-amber-200 text-[10px] font-mono font-bold shadow-md backdrop-blur-md pointer-events-none"
             >
               <span>{percent}%</span>
             </motion.div>

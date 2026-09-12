@@ -359,14 +359,29 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       }
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const time = Date.now() * 0.001;
+    let isScrolling = false;
+    let scrollDebounceTimer: ReturnType<typeof setTimeout> | null = null;
 
-      if (currentTheme === 'sanctum') {
-        drawSanctum(time);
-      } else {
-        drawCosmic(time);
+    const handleScroll = () => {
+      isScrolling = true;
+      if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
+      scrollDebounceTimer = setTimeout(() => {
+        isScrolling = false;
+      }, 120);
+    };
+
+    const draw = () => {
+      // Pause clearRect and redraws during active scrolling so the canvas remains a static,
+      // pre-rendered GPU texture. This completely eliminates backdrop-filter buffer desync flicker.
+      if (!isScrolling) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const time = Date.now() * 0.001;
+
+        if (currentTheme === 'sanctum') {
+          drawSanctum(time);
+        } else {
+          drawCosmic(time);
+        }
       }
 
       animationFrameId = requestAnimationFrame(draw);
@@ -376,9 +391,14 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     draw();
 
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+    window.addEventListener('touchmove', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('touchmove', handleScroll);
+      if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
       cancelAnimationFrame(animationFrameId);
     };
   }, [currentTheme]);
@@ -393,14 +413,14 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
             ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
             : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
         }`}
-        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+        style={{ transform: 'translateZ(0)' }}
       />
 
       {/* Tactile Stone & Palm-leaf Manuscript Micro-Grain Texture (Sanctum Mode Only) */}
       {currentTheme === 'sanctum' && (
         <>
           <div
-            className="fixed inset-0 z-0 pointer-events-none opacity-[0.032] mix-blend-screen"
+            className="fixed inset-0 z-0 pointer-events-none opacity-[0.025]"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
             }}

@@ -44,6 +44,9 @@ export const Dock = ({
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const lastScrollY = useRef(0);
+  const lastProgressRef = useRef(0);
+  const showBackToTopRef = useRef(false);
+  const isDockHiddenRef = useRef(false);
 
   // Dynamic reader state when viewing content
   const [readerState, setReaderState] = useState<{
@@ -88,7 +91,7 @@ export const Dock = ({
     };
   }, [isReaderMode]);
 
-  // Smart Auto-Hide on Scroll Down, Reveal on Scroll Up
+  // Smart Auto-Hide on Scroll Down, Reveal on Scroll Up (Stabilized against touch micro-jitter)
   useEffect(() => {
     const getContainer = (): HTMLElement | null => {
       if (scrollContainerRef && scrollContainerRef.current) {
@@ -110,21 +113,43 @@ export const Dock = ({
 
           const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 30;
 
-          // Scroll progress for back-to-top ring
-          const maxScroll = container.scrollHeight - container.clientHeight;
-          const progress = maxScroll > 0 ? Math.min(currentY / maxScroll, 1) : 0;
-          setScrollProgress(progress);
-          setShowBackToTop(currentY > 180);
+          // Scroll progress for back-to-top ring - only update when visible and changed significantly
+          const shouldShowBTT = currentY > 180;
+          if (shouldShowBTT !== showBackToTopRef.current) {
+            showBackToTopRef.current = shouldShowBTT;
+            setShowBackToTop(shouldShowBTT);
+          }
+
+          if (shouldShowBTT) {
+            const maxScroll = container.scrollHeight - container.clientHeight;
+            const progress = maxScroll > 0 ? Math.min(currentY / maxScroll, 1) : 0;
+            if (Math.abs(progress - lastProgressRef.current) >= 0.015) {
+              lastProgressRef.current = progress;
+              setScrollProgress(progress);
+            }
+          } else if (lastProgressRef.current !== 0) {
+            lastProgressRef.current = 0;
+            setScrollProgress(0);
+          }
 
           // Never auto-hide when auto-scroll is actively running or when user reaches bottom of page
           if (readerState.isAutoScrolling || isAtBottom) {
-            setIsDockHidden(false);
-          } else if (diff > 8 && currentY > 30) {
-            // Scrolling down past threshold -> hide dock
-            setIsDockHidden(true);
-          } else if (diff < -6 || currentY <= 15) {
-            // Scrolling up or at page top -> reveal dock
-            setIsDockHidden(false);
+            if (isDockHiddenRef.current) {
+              isDockHiddenRef.current = false;
+              setIsDockHidden(false);
+            }
+          } else if (diff > 35 && currentY > 120) {
+            // Intentional scroll down past 120px -> hide dock
+            if (!isDockHiddenRef.current) {
+              isDockHiddenRef.current = true;
+              setIsDockHidden(true);
+            }
+          } else if (diff < -25 || currentY <= 30) {
+            // Intentional scroll up or near top -> reveal dock
+            if (isDockHiddenRef.current) {
+              isDockHiddenRef.current = false;
+              setIsDockHidden(false);
+            }
           }
 
           lastScrollY.current = currentY;
@@ -178,7 +203,12 @@ export const Dock = ({
   useEffect(() => {
     setIsFontExpanded(false);
     setReaderDockPage('reader');
+    isDockHiddenRef.current = false;
     setIsDockHidden(false);
+    showBackToTopRef.current = false;
+    setShowBackToTop(false);
+    lastProgressRef.current = 0;
+    setScrollProgress(0);
     lastScrollY.current = 0;
   }, [activePage]);
 

@@ -299,20 +299,22 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           <div className="absolute bottom-1.5 right-2 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
 
           {/* Desktop & Tablet: Full Single Line */}
-          <p className="hidden sm:block text-xs sm:text-sm font-gotu text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 text-center tracking-wide font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-3 whitespace-nowrap">
-            णमो अरिहंताणं • णमो सिद्धाणं • णमो आयरियाणं • णमो उवज्झायाणं • णमो लोए सव्व साहूणं
-          </p>
+          <div className="hidden sm:block">
+            <p className="text-xs sm:text-sm font-gotu text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 text-center tracking-wide font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-3 whitespace-nowrap">
+              णमो अरिहंताणं • णमो सिद्धाणं • णमो आयरियाणं • णमो उवज्झायाणं • णमो लोए सव्व साहूणं
+            </p>
+          </div>
 
           {/* Mobile Screens: 2 balanced lines ensuring sacred padas never split across lines */}
-          <div className="block sm:hidden text-xs font-gotu text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 text-center tracking-normal font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-1.5 space-y-1">
-            <div className="flex items-center justify-center flex-wrap gap-x-1.5">
+          <div className="block sm:hidden text-xs font-gotu text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 text-center tracking-normal font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-1.5 space-y-1.5">
+            <div className="flex items-center justify-center flex-wrap gap-x-2">
               <span className="whitespace-nowrap">णमो अरिहंताणं</span>
               <span className="text-amber-400/60 select-none text-[10px]">•</span>
               <span className="whitespace-nowrap">णमो सिद्धाणं</span>
               <span className="text-amber-400/60 select-none text-[10px]">•</span>
               <span className="whitespace-nowrap">णमो आयरियाणं</span>
             </div>
-            <div className="flex items-center justify-center flex-wrap gap-x-1.5">
+            <div className="flex items-center justify-center flex-wrap gap-x-2">
               <span className="whitespace-nowrap">णमो उवज्झायाणं</span>
               <span className="text-amber-400/60 select-none text-[10px]">•</span>
               <span className="whitespace-nowrap">णमो लोए सव्व साहूणं</span>
