@@ -50,22 +50,29 @@
 
   html {
     color-scheme: dark;
-    scroll-behavior: smooth;
     line-height: 1.6;
     -webkit-text-size-adjust: 100%;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
+    height: 100%;
     max-width: 100vw;
     width: 100%;
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
   }
 
   body {
     @apply bg-[#05060a] text-slate-100 font-noto antialiased;
     font-family: 'Noto Sans Devanagari', 'Mukta', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #05060a;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
+    position: fixed;
+    inset: 0;
+    height: 100%;
     max-width: 100vw;
     width: 100%;
     line-height: 1.6;
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -74,10 +81,10 @@
   }
 
   #root {
-    overflow-x: hidden !important;
+    overflow: hidden !important;
     max-width: 100vw;
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
   }
 
   /* Universal safety headroom for all headings with Devanagari matras */
@@ -260,6 +267,21 @@ body.has-modal-open [data-scroll-scrubber] {
 
 .safe-pb {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Generous page bottom clearance ensuring content never hides behind the floating Dock */
+.page-bottom-clearance {
+  padding-bottom: calc(8.5rem + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 640px) {
+  .page-bottom-clearance {
+    padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media (min-width: 768px) {
+  .page-bottom-clearance {
+    padding-bottom: 8rem;
+  }
 }
 
 .safe-pl {

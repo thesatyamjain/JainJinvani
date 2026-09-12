@@ -81,7 +81,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto pt-14 md:pt-16 pb-28 sm:pb-32 px-3.5 sm:px-6">
+    <div className="w-full max-w-4xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
       {/* Top Floating Control Bar (Font size, Auto-scroll, Quick jump) */}
       <div className="sticky top-14 z-30 mb-6 py-2 px-3 sm:px-4 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-amber-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.8)] flex items-center justify-between gap-2">
         <button

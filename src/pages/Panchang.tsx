@@ -160,7 +160,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
   }, [selectedPachchakkhan]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto pt-6 sm:pt-10 md:pt-14 pb-24 sm:pb-28 px-3.5 sm:px-6 md:px-8 flex flex-col h-full overflow-x-hidden">
+    <div className="w-full max-w-7xl mx-auto pt-6 sm:pt-10 md:pt-14 page-bottom-clearance px-3.5 sm:px-6 md:px-8 flex flex-col h-full overflow-x-hidden">
       {/* Top Header Bar */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}

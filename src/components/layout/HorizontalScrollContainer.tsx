@@ -109,7 +109,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
       {canScrollLeft && (
         <button
           onClick={() => scrollBy(-step)}
-          className={`absolute left-0 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer -translate-x-1 sm:-translate-x-3.5 ${arrowClassName}`}
+          className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 active:scale-95 transition-all duration-200 cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
           title="बाईं ओर स्क्रॉल करें"
           aria-label="Scroll left"
         >
@@ -130,7 +130,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
         onClickCapture={handleCaptureClick}
-        className="w-full flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth"
+        className="w-full flex items-center gap-2 overflow-x-auto py-1.5 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth"
         style={{ touchAction: 'pan-x pan-y' }}
       >
         {children}
@@ -145,7 +145,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
       {canScrollRight && (
         <button
           onClick={() => scrollBy(step)}
-          className={`absolute right-0 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer translate-x-1 sm:translate-x-3.5 ${arrowClassName}`}
+          className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 active:scale-95 transition-all duration-200 cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
           title="दाईं ओर स्क्रॉल करें"
           aria-label="Scroll right"
         >

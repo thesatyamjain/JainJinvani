@@ -174,10 +174,21 @@ export default function App() {
       setPageParams(currentRoute.params);
     };
 
+    // Force manual scroll restoration so the browser doesn't scroll the document window
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    const handleOrientation = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener("orientationchange", handleOrientation, { passive: true });
     window.addEventListener("popstate", handlePopState);
     window.addEventListener("hashchange", handleLocationChange);
 
     return () => {
+      window.removeEventListener("orientationchange", handleOrientation);
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("hashchange", handleLocationChange);
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -185,8 +196,10 @@ export default function App() {
   }, []);
 
   const handleNavigate = (page: string, params?: any) => {
-    // If navigating to the same page with identical params, do not push duplicate
+    // If navigating to the same page with identical params, scroll smoothly to top
     if (activePage === page && JSON.stringify(pageParams) === JSON.stringify(params)) {
+      mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
       return;
     }
 
@@ -217,9 +230,23 @@ export default function App() {
 
   // Scroll to top when activePage changes
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (mainRef.current) {
-      mainRef.current.scrollTo(0, 0);
+      mainRef.current.scrollTop = 0;
     }
+    const rafId = requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      if (mainRef.current) mainRef.current.scrollTop = 0;
+    });
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (mainRef.current) mainRef.current.scrollTop = 0;
+    }, 180);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timer);
+    };
   }, [activePage]);
 
   // SOTA Native Edge-Swipe Back Gesture on touchscreens
@@ -241,13 +268,17 @@ export default function App() {
   }, [activePage]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden text-slate-100 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#05060a]">
+    <div className="relative h-full w-full overflow-hidden text-slate-100 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#05060a]">
 
       {/* Background Layer */}
       <SpaceBackground />
 
       {/* Main Content Area */}
-      <main ref={mainRef} className="relative z-10 w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
+      <main
+        ref={mainRef}
+        className="relative z-10 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar overscroll-y-contain pt-[env(safe-area-inset-top,0px)]"
+        style={{ WebkitOverflowScrolling: 'touch', transform: 'translateZ(0)' }}
+      >
         <Suspense fallback={<PageLoading />}>
         <AnimatePresence mode="wait">
           {activePage === "landing" && (

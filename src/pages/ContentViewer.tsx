@@ -769,7 +769,7 @@ export const ContentViewer = ({
   const chapterCount = data?.chapters && Array.isArray(data.chapters) ? data.chapters.length : 0;
 
   return (
-    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
+    <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-3 sm:px-4 md:px-6 flex flex-col min-h-full overflow-x-hidden">
       {/* Floating In-App Feedback Toast */}
       <AnimatePresence>
         {toastMessage && (

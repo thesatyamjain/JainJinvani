@@ -53,6 +53,7 @@ const categoryTitles: Record<string, { title: string; sub: string }> = {
   vrat: { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
   '105-vrat': { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
   'vrat-vidhi': { title: '१०५ व्रत, पूजा एवं उद्यापन', sub: 'ब्रम्हचारी विनोद सागर शास्त्री • महिलाओं के लिए विशेष नवीन संकलन' },
+  tirthankar: { title: '२४ तीर्थंकर भगवान', sub: 'वर्तमान चौबीसी तीर्थंकर परिचय, कल्याणक एवं जीवन चरित्र' },
 };
 
 // Subcategory icon resolver
@@ -478,7 +479,7 @@ export const CategoryListing = ({
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
+    <div className="w-full max-w-6xl mx-auto pt-12 md:pt-16 page-bottom-clearance px-4 md:px-6 flex flex-col h-full overflow-x-hidden">
       {/* Header Bar */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}

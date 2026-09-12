@@ -39,38 +39,49 @@ if (fs.existsSync(SRC_MODULES_DIR)) {
         // We'll perform a simple regex to extract the keys from the object literal string.
         // It's safer to extract the JS object part and parse it.
 
-        const match = content.match(/export\s+const\s+\w+Data\s*=\s*(\{[\s\S]*?\});/);
+        const match = content.match(/export\s+const\s+\w+Data(?::\s*Record<[^>]+>)?\s*=\s*(\{[\s\S]*\});?\s*$/);
 
         if (match && match[1]) {
             const dataObjectCode = match[1];
             const sandbox = {};
             vm.createContext(sandbox);
             try {
-                // Using a dummy variable assignment to evaluate the object
                 vm.runInContext(`data = ${dataObjectCode}`, sandbox);
-                const keys = Object.keys(sandbox.data);
+                const items = sandbox.data;
+                const keys = Object.keys(items);
 
                 keys.forEach(key => {
-                    manifest[key] = baseName;
+                    // If conflict, prefer matching category
+                    if (manifest[key]) {
+                        const itemCat = items[key]?.category;
+                        if (itemCat === baseName) {
+                            manifest[key] = baseName;
+                        }
+                    } else {
+                        manifest[key] = baseName;
+                    }
                 });
                 console.log(`Mapped ${keys.length} items from ${baseName}`);
-
-                // Re-generate index exports just in case (though we might not need index.ts for lazy loading anymore)
-                const className = baseName.charAt(0).toUpperCase() + baseName.slice(1).replace(/_(\w)/g, (m, c) => c.toUpperCase());
-                // Simple casing might be off compared to original script but we only need manifest now.
-
             } catch (e) {
                 console.error(`Failed to parse keys for ${file}`, e);
             }
+        } else {
+            console.warn(`Could not match export in ${file}`);
         }
     });
 
+    // Sort manifest keys alphabetically for deterministic output
+    const sortedManifest = {};
+    Object.keys(manifest).sort().forEach(k => {
+        sortedManifest[k] = manifest[k];
+    });
+
     // Write manifest
-    const manifestContent = `// Auto-generated content manifest
-export const contentManifest: Record<string, string> = ${JSON.stringify(manifest, null, 2)};
+    const manifestContent = `// Auto-generated manifest mapping content IDs to their chunk modules
+export const contentManifest: Record<string, string> = ${JSON.stringify(sortedManifest, null, 2)};
 `;
     fs.writeFileSync(path.join(SRC_MODULES_DIR, 'contentManifest.ts'), manifestContent);
-    console.log('Manifest generation complete.');
+    console.log(`Manifest generation complete. Total items: ${Object.keys(sortedManifest).length}`);
 } else {
     console.error(`Directory not found: ${SRC_MODULES_DIR}`);
 }

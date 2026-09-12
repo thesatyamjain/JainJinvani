@@ -390,7 +390,7 @@ export const PilgrimagePage = ({ onBack }: PilgrimagePageProps) => {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-6 sm:pt-10 pb-24 sm:pb-28 px-4 sm:px-6 flex flex-col items-center">
+    <div className="w-full max-w-6xl mx-auto pt-6 sm:pt-10 page-bottom-clearance px-4 sm:px-6 flex flex-col items-center">
       {/* Header */}
       <div className="w-full flex items-center justify-between gap-4 mb-6">
         <button

@@ -3587,7 +3587,7 @@ export const StotraData: Record<string, any> = {
     ]
   },
   "bhaktamar-mahatmya": {
-    "id": "bhaktamar-mahima",
+    "id": "bhaktamar-mahatmya",
     "category": "stotra",
     "title": "भक्तामर महिमा एवं ऋद्धि-मंत्र फल",
     "subtitle": "आचार्य मानतुंग स्वामी विरचित ४८ काव्यों की महिमा, ऋद्धि एवं सिद्धि फल",

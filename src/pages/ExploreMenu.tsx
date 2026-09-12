@@ -79,7 +79,7 @@ const exploreCategories = [
 
 export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -10 }}

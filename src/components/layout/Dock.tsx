@@ -150,6 +150,7 @@ export const Dock = ({
       ?? document.querySelector('main') as HTMLElement
       ?? document.documentElement;
     container.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
   const handleBackClick = () => {

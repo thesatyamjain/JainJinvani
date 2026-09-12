@@ -427,7 +427,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
   }, [searchQuery]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
       {/* Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -490,73 +490,160 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mb-8 p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-slate-900/60 to-amber-500/5 border border-amber-500/20 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 text-xs font-gotu shadow-sm"
+        className="mb-7 md:mb-8 rounded-2xl bg-gradient-to-br from-amber-500/12 via-slate-900/85 to-amber-500/5 border border-amber-500/25 backdrop-blur-xl shadow-lg overflow-hidden"
       >
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-slate-300">
-          {/* Niyama Status Widget */}
-          <button
-            onClick={() => {
-              triggerHaptic('light');
-              onNavigate('niyam');
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-amber-400/40 text-slate-200 transition-all cursor-pointer group"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
-            <span>
-              दैनिक नियम:{' '}
-              <strong className="text-emerald-300 font-semibold">
-                {niyamaState.completedIds.length}/६
-              </strong>
-            </span>
-            {niyamaState.streak > 0 && (
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-sans">
-                {niyamaState.streak}d
-              </span>
-            )}
-          </button>
+        {/* Mobile View: 2-Tier Structured Card */}
+        <div className="block md:hidden p-3 sm:p-3.5 space-y-2.5">
+          {/* Top Row: Timings & Panchang Quick Jump */}
+          <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-white/10 text-xs font-gotu">
+            <div className="flex items-center gap-1.5 text-slate-300 min-w-0">
+              <Sun className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <div className="flex items-center gap-1.5 truncate text-[11px] sm:text-xs">
+                <span className="text-slate-400">नवकारसी:</span>
+                <strong className="text-amber-200 font-semibold">{timings.navkarshi}</strong>
+                <span className="text-slate-600">|</span>
+                <span className="text-slate-400">चौविहार:</span>
+                <strong className="text-amber-200 font-semibold">{timings.chauvihar}</strong>
+              </div>
+            </div>
 
-          {/* Jap Mala Widget */}
-          <button
-            onClick={() => {
-              triggerHaptic('light');
-              onNavigate('jap');
-            }}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-amber-400/40 text-slate-200 transition-all cursor-pointer group"
-          >
-            <Flame className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
-            <span>
-              जाप:{' '}
-              <strong className="text-amber-300 font-semibold">
-                {japState.todayCount > 0 ? `${japState.todayCount} माला` : 'आरम्भ करें'}
-              </strong>
-            </span>
-          </button>
+            <button
+              onClick={() => {
+                triggerHaptic('light');
+                onNavigate('panchang');
+              }}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] font-gotu shrink-0 active:scale-95 transition-transform cursor-pointer"
+              title="सम्पूर्ण पंचांग देखें"
+            >
+              <span>पंचांग</span>
+              <ChevronRight className="w-3 h-3 text-amber-300" />
+            </button>
+          </div>
 
-          {/* Navkarshi & Chauvihar Timing Widget */}
-          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/60 border border-white/5 text-slate-300">
-            <Sun className="w-3.5 h-3.5 text-yellow-400" />
-            <span>
-              नवकारसी:{' '}
-              <strong className="text-amber-200 font-medium">{timings.navkarshi}</strong>
-            </span>
-            <span className="text-slate-600">|</span>
-            <span>
-              चौविहार:{' '}
-              <strong className="text-amber-200 font-medium">{timings.chauvihar}</strong>
-            </span>
+          {/* Bottom Row: 2-Col Touch-Friendly Quick Stats Cards */}
+          <div className="grid grid-cols-2 gap-2 text-xs font-gotu">
+            {/* Niyama Card */}
+            <button
+              onClick={() => {
+                triggerHaptic('light');
+                onNavigate('niyam');
+              }}
+              className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-emerald-400/40 text-left transition-all active:scale-[0.98] cursor-pointer flex flex-col justify-between group"
+            >
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="truncate">दैनिक नियम</span>
+                </span>
+                {niyamaState.streak > 0 && (
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-sans font-semibold shrink-0">
+                    {niyamaState.streak}d
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center justify-between">
+                <strong className="text-xs sm:text-sm font-semibold text-emerald-300 font-mono">
+                  {niyamaState.completedIds.length}/६ पूर्ण
+                </strong>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-300 transition-colors shrink-0" />
+              </div>
+            </button>
+
+            {/* Jap Mala Card */}
+            <button
+              onClick={() => {
+                triggerHaptic('light');
+                onNavigate('jap');
+              }}
+              className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-amber-400/40 text-left transition-all active:scale-[0.98] cursor-pointer flex flex-col justify-between group"
+            >
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                  <Flame className="w-3.5 h-3.5 text-amber-400 shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="truncate">जाप साधना</span>
+                </span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded bg-white/5 text-slate-400 border border-white/10 shrink-0">
+                  १०८ मनके
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <strong className="text-xs sm:text-sm font-semibold text-amber-300 font-mono">
+                  {japState.todayCount > 0 ? `${japState.todayCount} माला` : 'आरम्भ करें'}
+                </strong>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-amber-300 transition-colors shrink-0" />
+              </div>
+            </button>
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            triggerHaptic('light');
-            onNavigate('panchang');
-          }}
-          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-200 hover:text-amber-100 transition-all cursor-pointer ml-auto group"
-        >
-          <span>सम्पूर्ण पंचांग व मुहूर्त</span>
-          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-        </button>
+        {/* Desktop View: Single Fluid Elegant Ribbon */}
+        <div className="hidden md:flex items-center justify-between gap-3 p-4 text-xs font-gotu">
+          <div className="flex items-center gap-3 text-slate-300">
+            {/* Niyama Status Widget */}
+            <button
+              onClick={() => {
+                triggerHaptic('light');
+                onNavigate('niyam');
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-amber-400/40 text-slate-200 transition-all cursor-pointer group"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+              <span>
+                दैनिक नियम:{' '}
+                <strong className="text-emerald-300 font-semibold">
+                  {niyamaState.completedIds.length}/६
+                </strong>
+              </span>
+              {niyamaState.streak > 0 && (
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-sans font-semibold">
+                  {niyamaState.streak}d
+                </span>
+              )}
+            </button>
+
+            {/* Jap Mala Widget */}
+            <button
+              onClick={() => {
+                triggerHaptic('light');
+                onNavigate('jap');
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 hover:border-amber-400/40 text-slate-200 transition-all cursor-pointer group"
+            >
+              <Flame className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
+              <span>
+                जाप:{' '}
+                <strong className="text-amber-300 font-semibold">
+                  {japState.todayCount > 0 ? `${japState.todayCount} माला` : 'आरम्भ करें'}
+                </strong>
+              </span>
+            </button>
+
+            {/* Navkarshi & Chauvihar Timing Widget */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/60 border border-white/5 text-slate-300">
+              <Sun className="w-3.5 h-3.5 text-yellow-400" />
+              <span>
+                नवकारसी:{' '}
+                <strong className="text-amber-200 font-medium">{timings.navkarshi}</strong>
+              </span>
+              <span className="text-slate-600">|</span>
+              <span>
+                चौविहार:{' '}
+                <strong className="text-amber-200 font-medium">{timings.chauvihar}</strong>
+              </span>
+            </div>
+          </div>
+
+          <button
+            onClick={() => {
+              triggerHaptic('light');
+              onNavigate('panchang');
+            }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-200 hover:text-amber-100 transition-all cursor-pointer group shrink-0"
+          >
+            <span>सम्पूर्ण पंचांग व मुहूर्त</span>
+            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </div>
       </motion.div>
 
       {/* Search Bar */}
@@ -627,14 +714,17 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
 
                 {/* Cards Grid - Strict 2-col on Mobile */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4.5">
-                  {itemsInPillar.map((item, idx) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, scale: 0.96 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.03, duration: 0.3 }}
-                      onClick={() => handleItemClick(item)}
-                    >
+                  {itemsInPillar.map((item, idx) => {
+                    const isOddLast = idx === itemsInPillar.length - 1 && itemsInPillar.length % 2 === 1;
+                    return (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, scale: 0.96 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: idx * 0.03, duration: 0.3 }}
+                        onClick={() => handleItemClick(item)}
+                        className={`h-full ${isOddLast ? 'col-span-2 md:col-span-1' : ''}`}
+                      >
                       <GlassCard
                         variant="gilded"
                         className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
@@ -666,7 +756,8 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                         </div>
                       </GlassCard>
                     </motion.div>
-                  ))}
+                  );
+                })}
                 </div>
               </div>
             );
@@ -689,46 +780,50 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4.5">
-            {filteredItems.map((item, idx) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: idx * 0.03, duration: 0.3 }}
-                onClick={() => handleItemClick(item)}
-              >
-                <GlassCard
-                  variant="gilded"
-                  className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
+            {filteredItems.map((item, idx) => {
+              const isOddLast = idx === filteredItems.length - 1 && filteredItems.length % 2 === 1;
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: idx * 0.03, duration: 0.3 }}
+                  onClick={() => handleItemClick(item)}
+                  className={`h-full ${isOddLast ? 'col-span-2 md:col-span-1' : ''}`}
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div
-                      className={`w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
-                    >
-                      <item.icon className="w-4.5 h-4.5 sm:w-6 sm:h-6" />
+                  <GlassCard
+                    variant="gilded"
+                    className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group hover:-translate-y-1.5 transition-all duration-300"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div
+                        className={`w-9 h-9 sm:w-11 sm:h-11 md:w-13 md:h-13 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color} border ${item.border} flex items-center justify-center ${item.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                      >
+                        <item.icon className="w-4.5 h-4.5 sm:w-6 sm:h-6" />
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
+                        <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-0.5 transition-all" />
+                        <span className="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800/80 border border-white/10 text-slate-300 font-gotu">
+                          {item.badge}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-0.5 transition-all" />
-                      <span className="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full bg-slate-800/80 border border-white/10 text-slate-300 font-gotu">
-                        {item.badge}
-                      </span>
-                    </div>
-                  </div>
 
-                  <div className="mt-3">
-                    <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-1 leading-snug">
-                      {item.label}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-300/70 font-gotu line-clamp-1 mt-0.5">
-                      {item.sub}
-                    </p>
-                    <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu line-clamp-2 mt-1 hidden sm:block">
-                      {item.description}
-                    </p>
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ))}
+                    <div className="mt-3">
+                      <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-1 leading-snug">
+                        {item.label}
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-300/70 font-gotu line-clamp-1 mt-0.5">
+                        {item.sub}
+                      </p>
+                      <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu line-clamp-2 mt-1 hidden sm:block">
+                        {item.description}
+                      </p>
+                    </div>
+                  </GlassCard>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       )}

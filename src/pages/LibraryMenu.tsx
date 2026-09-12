@@ -287,7 +287,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
       {/* Grand Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

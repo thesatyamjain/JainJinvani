@@ -2,18 +2,18 @@ const fs = require('fs');
 const path = require('path');
 
 const projectRoot = path.resolve(__dirname, '..');
-const modulesDir = path.join(projectRoot, 'public', 'modules');
+const modulesDir = path.join(projectRoot, 'src', 'data', 'modules');
 const inventoryFile = path.join(projectRoot, 'src', 'data', 'inventory.ts');
+const tirthankarasFile = path.join(projectRoot, 'src', 'data', 'tirthankaras.ts');
 
-// regex to find IDs in JS files: "id": "value" or 'id': 'value'
-const dataIdRegex = /["']id["']\s*:\s*["']([^"']+)["']/g;
-// regex for inventory: id: 'value' or id: "value" or 'id': "value" etc
-const inventoryIdRegex = /id\s*:\s*["']([^"']+)["']/g;
+// regex to find IDs: "id": "value" or 'id': 'value' or id: "value"
+const idRegex = /["']?id["']?\s*:\s*["']([^"']+)["']/g;
 
 function getAllMatches(regex, content) {
     const matches = [];
     let match;
-    while ((match = regex.exec(content)) !== null) {
+    const re = new RegExp(regex.source, regex.flags);
+    while ((match = re.exec(content)) !== null) {
         matches.push(match[1]);
     }
     return matches;
@@ -28,10 +28,11 @@ async function verify() {
         return;
     }
     const inventoryContent = fs.readFileSync(inventoryFile, 'utf-8');
-    const inventoryIds = new Set(getAllMatches(inventoryIdRegex, inventoryContent));
-    console.log(`Found ${inventoryIds.size} IDs in Inventory.`);
+    const inventorySection = inventoryContent.split('export const contentInventory')[1] || inventoryContent;
+    const inventoryIds = new Set(getAllMatches(idRegex, inventorySection));
+    console.log(`Found ${inventoryIds.size} IDs in contentInventory.`);
 
-    // 2. Read Data Modules
+    // 2. Read Data Modules & Tirthankaras
     if (!fs.existsSync(modulesDir)) {
         console.error(`Modules directory not found: ${modulesDir}`);
         return;
@@ -42,10 +43,10 @@ async function verify() {
     let duplicateIds = [];
 
     for (const file of files) {
-        if (!file.endsWith('.js')) continue;
+        if (!file.endsWith('.ts') || file === 'index.ts' || file === 'contentManifest.ts') continue;
         const filePath = path.join(modulesDir, file);
         const content = fs.readFileSync(filePath, 'utf-8');
-        const ids = getAllMatches(dataIdRegex, content);
+        const ids = getAllMatches(idRegex, content);
 
         for (const id of ids) {
             if (foundIds.has(id)) {
@@ -55,7 +56,18 @@ async function verify() {
             }
         }
     }
-    console.log(`Found ${foundIds.size} unique IDs in Data Modules.`);
+
+    // Add Tirthankaras IDs
+    if (fs.existsSync(tirthankarasFile)) {
+        const tirthankarContent = fs.readFileSync(tirthankarasFile, 'utf-8');
+        const tirthankarIds = getAllMatches(idRegex, tirthankarContent);
+        for (const id of tirthankarIds) {
+            if (!foundIds.has(id)) {
+                foundIds.set(id, 'tirthankaras.ts');
+            }
+        }
+    }
+    console.log(`Found ${foundIds.size} unique IDs in Data Modules & Tirthankaras.`);
 
     // 3. Compare
     const missingInModules = [];

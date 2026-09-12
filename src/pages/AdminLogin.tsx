@@ -102,7 +102,7 @@ export async function generateTOTP(secretBase32: string, timeStepOffset = 0): Pr
   const keyBytes = base32ToBytes(secretBase32);
   const cryptoKey = await crypto.subtle.importKey(
     'raw',
-    keyBytes,
+    keyBytes as BufferSource,
     { name: 'HMAC', hash: 'SHA-1' },
     false,
     ['sign']

@@ -159,9 +159,29 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       };
     };
 
+    let lastWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+    let lastHeight = typeof window !== 'undefined' ? window.innerHeight : 0;
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      // On mobile browsers, scrolling collapses the address bar by ~56px, which fires window 'resize'.
+      // Resetting canvas.width/height clears the canvas bitmap and re-initializes all particles,
+      // causing noticeable background flickering/flashing during scroll.
+      // We only resize if the width changes (orientation flip) or if the height change is significant (> 120px).
+      const widthChanged = Math.abs(newWidth - lastWidth) > 5;
+      const heightChanged = Math.abs(newHeight - lastHeight) > 120;
+
+      if (!widthChanged && !heightChanged && canvas.width > 0 && canvas.height > 0) {
+        return;
+      }
+
+      lastWidth = newWidth;
+      lastHeight = newHeight;
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
       if (currentTheme === 'sanctum') {
         initSanctumParticles();
       } else {
@@ -373,6 +393,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
             ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
             : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
         }`}
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
       />
 
       {/* Tactile Stone & Palm-leaf Manuscript Micro-Grain Texture (Sanctum Mode Only) */}

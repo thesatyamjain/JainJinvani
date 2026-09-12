@@ -421,7 +421,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
   const selectedItem = items.find(i => i.id === selectedId);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 pb-24 sm:pb-28 px-4 md:px-6">
+    <div className="w-full max-w-6xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6">
       {/* Header Banner - Premium Frosted Glass */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -491,26 +491,50 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
 
       {/* Grid of Other Options */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-        {items.map((item, idx) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 + idx * 0.04 }}
-            onClick={() => handleItemClick(item)}
-            className="h-full"
-          >
-            <GlassCard className="p-4 sm:p-6 flex flex-col items-center text-center gap-3 hover:bg-white/10 cursor-pointer transition-colors group h-full justify-center rounded-2xl">
-              <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center text-amber-200 group-hover:scale-110 transition-transform shrink-0 group-hover:bg-amber-500/20 border border-white/5 group-hover:border-amber-400/30">
-                <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300" />
-              </div>
-              <div className="min-w-0 w-full">
-                <h3 className="text-base sm:text-lg font-notoserif font-bold text-white break-words leading-tight">{item.label}</h3>
-                <p className="text-xs sm:text-sm text-blue-100/60 font-gotu break-words mt-1 line-clamp-1">{item.desc}</p>
-              </div>
-            </GlassCard>
-          </motion.div>
-        ))}
+        {items.map((item, idx) => {
+          const isShare = item.id === 'share';
+          return (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 + idx * 0.04 }}
+              onClick={() => handleItemClick(item)}
+              className={`h-full ${isShare ? 'col-span-2 md:col-span-3' : ''}`}
+            >
+              <GlassCard
+                className={`p-4 sm:p-6 flex gap-3 hover:bg-white/10 cursor-pointer transition-colors group h-full rounded-2xl ${
+                  isShare
+                    ? 'flex-row items-center justify-between text-left border-amber-500/30 bg-gradient-to-r from-amber-500/10 via-slate-900/60 to-purple-500/10 shadow-md'
+                    : 'flex-col items-center text-center justify-center'
+                }`}
+              >
+                <div
+                  className={`rounded-xl sm:rounded-2xl flex items-center justify-center text-amber-200 group-hover:scale-110 transition-transform shrink-0 border ${
+                    isShare
+                      ? 'w-11 h-11 sm:w-12 sm:h-12 bg-amber-500/20 text-amber-300 border-amber-400/40'
+                      : 'w-11 h-11 sm:w-13 sm:h-13 bg-white/5 border-white/5 group-hover:bg-amber-500/20 group-hover:border-amber-400/30'
+                  }`}
+                >
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300" />
+                </div>
+                <div className={`min-w-0 ${isShare ? 'flex-1' : 'w-full'}`}>
+                  <h3 className="text-base sm:text-lg font-notoserif font-bold text-white break-words leading-tight group-hover:text-amber-200 transition-colors">
+                    {item.label}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-blue-100/60 font-gotu break-words mt-1 line-clamp-1">
+                    {item.desc}
+                  </p>
+                </div>
+                {isShare && (
+                  <div className="px-3 sm:px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-gotu font-semibold shrink-0 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+                    साझा करें →
+                  </div>
+                )}
+              </GlassCard>
+            </motion.div>
+          );
+        })}
       </div>
 
 

@@ -97,15 +97,22 @@ export const SearchOverlay = ({
   }, [allItems]);
 
   const handleItemClick = (item: ContentItem) => {
-    onNavigate('viewer', {
-      id: item.id,
-      title: item.title,
-      type: item.category,
-      source: 'search',
-      previousPage: currentActivePage,
-      previousParams:
-        item.category === 'tirthankar' ? { id: 'tirthankar', source: 'sadhana' } : undefined,
-    });
+    if (item.category === 'tirthankar') {
+      onNavigate('tirthankar', {
+        id: item.id,
+        source: 'search',
+        previousPage: currentActivePage,
+        previousParams: { id: 'tirthankar', source: 'sadhana' },
+      });
+    } else {
+      onNavigate('viewer', {
+        id: item.id,
+        title: item.title,
+        type: item.category,
+        source: 'search',
+        previousPage: currentActivePage,
+      });
+    }
     onClose();
   };
 

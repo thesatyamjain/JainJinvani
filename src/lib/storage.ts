@@ -1,4 +1,4 @@
-import { Favorite, ReadingProgress, UserSettings } from '../types';
+import { Favorite, ReadingProgress, UserSettings, RecentReadItem, DailyNiyamaState, JapMalaState } from '../types';
 
 // LocalStorage utility functions for Jain Jinvani
 

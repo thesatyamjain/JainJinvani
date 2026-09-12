@@ -122,7 +122,7 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 pb-24 sm:pb-28 px-6">
+    <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-8">
         <button
