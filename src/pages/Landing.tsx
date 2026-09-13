@@ -25,6 +25,7 @@ import { RecentReadItem } from '../types';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import { FeedbackModal } from '../components/features/FeedbackModal';
 import { DailyQuoteCard } from '../components/features/DailyQuoteCard';
+import { preloadContent } from '../lib/bridge';
 
 interface LandingProps {
   onNavigate: (page: string, params?: any) => void;
@@ -363,6 +364,8 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                     source: 'landing',
                   })
                 }
+                onMouseEnter={() => preloadContent(item.id)}
+                onTouchStart={() => preloadContent(item.id)}
                 className="px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-amber-500/25 hover:border-amber-400/50 backdrop-blur-xl text-left transition-colors shrink-0 cursor-pointer group max-w-[220px]"
               >
                 <p className="text-xs font-notoserif font-semibold text-white group-hover:text-amber-200 truncate">
@@ -476,6 +479,8 @@ export const Landing = ({ onNavigate }: LandingProps) => {
               source: 'landing',
             })
           }
+          onMouseEnter={() => preloadContent('bhaktamar-stotra')}
+          onTouchStart={() => preloadContent('bhaktamar-stotra')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/30">
@@ -543,6 +548,8 @@ export const Landing = ({ onNavigate }: LandingProps) => {
               source: 'landing',
             })
           }
+          onMouseEnter={() => preloadContent('daivasika-pratikramana')}
+          onTouchStart={() => preloadContent('daivasika-pratikramana')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-cyan-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-500/30">

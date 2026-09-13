@@ -4,6 +4,7 @@ import { Search, X, ChevronRight, FileText, Sparkles, BookOpen, Flame, Compass }
 import { contentInventory, ContentItem } from '../../data/inventory';
 import { matchSearchQuery } from '../../utils/searchHelper';
 import { getRecentReads } from '../../lib/storage';
+import { preloadContent } from '../../lib/bridge';
 import { TiltCard } from './TiltCard';
 
 // Helper to flatten the inventory
@@ -210,6 +211,8 @@ export const SearchOverlay = ({
                                 category: item.type || 'stotra',
                               } as ContentItem)
                             }
+                            onMouseEnter={() => preloadContent(item.id)}
+                            onTouchStart={() => preloadContent(item.id)}
                             className="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-left shrink-0 transition-colors cursor-pointer group max-w-[200px]"
                           >
                             <p className="text-xs font-notoserif font-semibold text-white group-hover:text-amber-200 truncate">
@@ -243,6 +246,8 @@ export const SearchOverlay = ({
                         <motion.div
                           whileTap={{ scale: 0.98 }}
                           onClick={() => handleItemClick(item)}
+                          onMouseEnter={() => preloadContent(item.id)}
+                          onTouchStart={() => preloadContent(item.id)}
                           className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/5 hover:border-amber-400/40 cursor-pointer group transition-colors duration-200 h-full"
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -291,6 +296,8 @@ export const SearchOverlay = ({
                       whileTap={{ scale: 0.985 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                       onClick={() => handleItemClick(item)}
+                      onMouseEnter={() => preloadContent(item.id)}
+                      onTouchStart={() => preloadContent(item.id)}
                       className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl hover:bg-amber-500/15 border border-transparent hover:border-amber-500/30 cursor-pointer group transition-colors"
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">

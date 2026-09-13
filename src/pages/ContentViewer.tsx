@@ -12,9 +12,8 @@ import {
   Scroll,
   Check,
   FileEdit,
-  Volume2,
 } from 'lucide-react';
-import { getContentByIdAsync } from '../lib/bridge';
+import { getContentByIdAsync, getContentById } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
 import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
@@ -496,6 +495,79 @@ const getCleanHindiSubtitle = (sub?: string, author?: string): string => {
   return parts.filter(Boolean).join(' • ');
 };
 
+const ScriptureSkeletonLoader = () => (
+  <div className="w-full space-y-6 animate-pulse" aria-busy="true" aria-label="सामग्री लोड हो रही है">
+    {/* Sacred Shimmer Status Indicator */}
+    <div className="flex flex-col items-center justify-center py-4 sm:py-6 text-center space-y-2.5">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/25 text-amber-200 text-xs font-gotu shadow-sm">
+        <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '3s' }} />
+        <span>पवित्र जिनवाणी पाठ संकलित हो रहा है...</span>
+      </div>
+      <div className="h-0.5 w-48 rounded-full bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+    </div>
+
+    {/* Verse 1 Skeleton Card */}
+    <GlassCard
+      variant="gilded"
+      className="p-5 sm:p-7 md:p-9 relative rounded-2xl sm:rounded-3xl border border-amber-500/20 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
+    >
+      {/* Traditional Sacred Margin Lines (हशिया) */}
+      <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+      <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+
+      {/* Verse Header Row */}
+      <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/15">
+        <div className="flex items-center gap-2">
+          <div className="w-14 h-5 rounded-full bg-amber-500/20 border border-amber-400/30" />
+          <div className="w-16 h-3.5 rounded-md bg-white/5" />
+        </div>
+        <span className="text-amber-400/40 text-xs">❖</span>
+      </div>
+
+      {/* Shloka Verse Rhythmic Lines */}
+      <div className="space-y-3.5 my-4 px-2 sm:px-6">
+        <div className="h-5 sm:h-6 w-3/4 mx-auto rounded-lg bg-gradient-to-r from-white/5 via-amber-400/15 to-white/5" />
+        <div className="h-5 sm:h-6 w-5/6 mx-auto rounded-lg bg-gradient-to-r from-white/5 via-amber-400/15 to-white/5" />
+        <div className="h-5 sm:h-6 w-2/3 mx-auto rounded-lg bg-gradient-to-r from-white/5 via-amber-400/15 to-white/5" />
+      </div>
+
+      {/* Meaning Divider & Shimmer Lines */}
+      <div className="mt-6 pt-4 border-t border-amber-500/20 space-y-2.5 bg-gradient-to-b from-amber-950/20 to-slate-950/40 -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 md:-mx-9 md:-mb-9 p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl">
+        <div className="w-20 h-4 mx-auto rounded-full bg-amber-500/15 border border-amber-400/20 mb-2" />
+        <div className="h-4 w-4/5 mx-auto rounded-md bg-white/5" />
+        <div className="h-4 w-3/5 mx-auto rounded-md bg-white/5" />
+      </div>
+    </GlassCard>
+
+    {/* Verse 2 Skeleton Card */}
+    <GlassCard
+      variant="gilded"
+      className="p-5 sm:p-7 md:p-9 relative rounded-2xl sm:rounded-3xl border border-amber-500/20 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
+    >
+      <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+      <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+
+      <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/15">
+        <div className="flex items-center gap-2">
+          <div className="w-14 h-5 rounded-full bg-amber-500/20 border border-amber-400/30" />
+          <div className="w-16 h-3.5 rounded-md bg-white/5" />
+        </div>
+        <span className="text-amber-400/40 text-xs">❖</span>
+      </div>
+
+      <div className="space-y-3.5 my-4 px-2 sm:px-6">
+        <div className="h-5 sm:h-6 w-4/5 mx-auto rounded-lg bg-gradient-to-r from-white/5 via-amber-400/15 to-white/5" />
+        <div className="h-5 sm:h-6 w-3/4 mx-auto rounded-lg bg-gradient-to-r from-white/5 via-amber-400/15 to-white/5" />
+      </div>
+
+      <div className="mt-6 pt-4 border-t border-amber-500/20 space-y-2.5 bg-gradient-to-b from-amber-950/20 to-slate-950/40 -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 md:-mx-9 md:-mb-9 p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl">
+        <div className="w-20 h-4 mx-auto rounded-full bg-amber-500/15 border border-amber-400/20 mb-2" />
+        <div className="h-4 w-5/6 mx-auto rounded-md bg-white/5" />
+      </div>
+    </GlassCard>
+  </div>
+);
+
 export const ContentViewer = ({
   onBack,
   id,
@@ -507,8 +579,9 @@ export const ContentViewer = ({
   type?: string;
   title?: string;
 }) => {
-  const [data, setData] = React.useState<any>(null);
-  const [loading, setLoading] = React.useState(true);
+  const cachedInitial = React.useMemo(() => (id ? getContentById(id) : null), [id]);
+  const [data, setData] = React.useState<any>(cachedInitial);
+  const [loading, setLoading] = React.useState<boolean>(!cachedInitial && !!id);
   const [fontSize, setFontSize] = React.useState(18);
   const [isFav, setIsFav] = React.useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = React.useState(false);
@@ -523,6 +596,28 @@ export const ContentViewer = ({
 
   React.useEffect(() => {
     let isMounted = true;
+    const syncItem = id ? getContentById(id) : null;
+    if (syncItem) {
+      setData(syncItem);
+      setLoading(false);
+      updateContentSeo({
+        id: id!,
+        title: syncItem.title || title,
+        subtitle: syncItem.subtitle,
+        author: syncItem.author,
+        category: type || syncItem.category,
+        description: syncItem.description,
+      });
+      if (syncItem?.title || title) {
+        addRecentRead({
+          id: id!,
+          title: syncItem?.title || title || '',
+          type: type || syncItem?.category || 'stotra',
+        });
+      }
+      return;
+    }
+
     const loadContent = async () => {
       if (!id) {
         setLoading(false);
@@ -840,24 +935,6 @@ export const ContentViewer = ({
               {chapterCount} अध्याय
             </span>
           )}
-          {audioTrack && (
-            <motion.button
-              type="button"
-              whileTap={{ scale: 0.94 }}
-              whileHover={{ scale: 1.04 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-              onClick={() => setIsAudioPlayerActive((prev) => !prev)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-gotu font-bold cursor-pointer shadow-md transition-[background-color,border-color,box-shadow] ${
-                isAudioPlayerActive
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-[0_0_18px_rgba(245,158,11,0.4)]'
-                  : 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.15)]'
-              }`}
-              title="पवित्र उच्चारण व ऑडियो पाठ सुनें"
-            >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>{isAudioPlayerActive ? 'ऑडियो सक्रिय' : 'ऑडियो पाठ'}</span>
-            </motion.button>
-          )}
           <motion.button
             type="button"
             whileTap={{ scale: 0.94 }}
@@ -903,10 +980,7 @@ export const ContentViewer = ({
         className="w-full"
       >
         {loading ? (
-          <div className="flex flex-col items-center justify-center min-h-[50vh]">
-            <Loader2 className="w-12 h-12 text-amber-400 animate-spin mb-4" />
-            <p className="text-amber-200/70 font-gotu">सामग्री लोड हो रही है...</p>
-          </div>
+          <ScriptureSkeletonLoader />
         ) : data ? (
           <div className="w-full space-y-6">
             {/* Table of Contents for Articles with Chapters */}

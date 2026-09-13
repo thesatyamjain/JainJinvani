@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { Heart, Calendar, Sparkles, ChevronLeft, ChevronRight, Bookmark } from 'lucide-react';
-import { getFavorites, type Favorite } from '../lib';
+import { getFavorites, type Favorite, preloadContent } from '../lib';
 import { getUpcomingFestivals } from '../data/festivals';
 import { getDailyThought } from '../data/festivals';
 
@@ -107,6 +107,8 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
                     variant="gilded"
                     tilt
                     className="p-4 hover:bg-white/10 cursor-pointer transition-all group flex items-center justify-between"
+                    onMouseEnter={() => preloadContent(fav.id)}
+                    onTouchStart={() => preloadContent(fav.id)}
                     onClick={() =>
                       onNavigate('viewer', {
                         id: fav.id,

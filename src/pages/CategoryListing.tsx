@@ -25,6 +25,7 @@ import {
 import { contentInventory, ContentItem, subCategoryMap, SubCategoryDef } from '../data/inventory';
 import { matchSearchQuery } from '../utils/searchHelper';
 import { updateCategorySeo } from '../utils/seoHelper';
+import { preloadContent } from '../lib/bridge';
 
 interface CategoryListingProps {
   categoryId: string;
@@ -369,6 +370,8 @@ export const CategoryListing = ({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
       onClick={() => handleItemClick(item)}
+      onMouseEnter={() => preloadContent(item.id)}
+      onTouchStart={() => preloadContent(item.id)}
       className="h-full"
     >
       <GlassCard
@@ -435,6 +438,8 @@ export const CategoryListing = ({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.15, delay: Math.min(0.08, idx * 0.01) }}
       onClick={() => handleItemClick(item)}
+      onMouseEnter={() => preloadContent(item.id)}
+      onTouchStart={() => preloadContent(item.id)}
       className="relative group cursor-pointer"
     >
       <GlassCard
