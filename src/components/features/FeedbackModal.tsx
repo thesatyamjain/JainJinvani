@@ -146,7 +146,10 @@ export const FeedbackModal = ({
 
       // 2. Fallback to direct Google Sheets Webhook if edge endpoint was not reached
       if (!submissionSuccess) {
-        await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+        const activeUrl =
+          (typeof window !== 'undefined' && localStorage.getItem('jinvani_custom_webhook_url')?.trim()) ||
+          GOOGLE_SHEET_WEBHOOK_URL;
+        await fetch(activeUrl, {
           method: 'POST',
           mode: 'no-cors',
           headers: {

@@ -68,6 +68,7 @@ export const getSettings = (): UserSettings => {
                 notifications: Boolean(parsed.notifications),
                 autoPlay: Boolean(parsed.autoPlay),
                 backgroundTheme: parsed.backgroundTheme === 'cosmic' ? 'cosmic' : 'sanctum',
+                dockTheme: parsed.dockTheme === 'classic' ? 'classic' : 'frosted',
             };
         }
     } catch {}
@@ -76,6 +77,7 @@ export const getSettings = (): UserSettings => {
         notifications: false,
         autoPlay: false,
         backgroundTheme: 'sanctum',
+        dockTheme: 'frosted',
     };
 };
 

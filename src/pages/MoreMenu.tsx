@@ -161,6 +161,45 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             </div>
           </div>
 
+          {/* Dock Background Theme - Frosted Glass vs Classic Navy */}
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+            <div className="flex items-center gap-2 mb-3">
+              <Compass className="w-4 h-4 text-amber-400" />
+              <span className="text-white font-gotu">डॉक बैकग्राउंड शैली</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onClick={() => handleSettingChange('dockTheme', 'frosted')}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.dockTheme !== 'classic'
+                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif">फ़्रॉस्टेड ग्लास (नया)</div>
+                <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
+                  आधुनिक पारदर्शी काँच, अतिरिक्त ब्लर व ग्लो
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSettingChange('dockTheme', 'classic')}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.dockTheme === 'classic'
+                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif">क्लासिक नेवी (पुराना)</div>
+                <div className="text-[11px] text-slate-300/80 mt-1 line-clamp-2">
+                  गहरा नेवी बैकग्राउंड व स्वर्णिम किनारा
+                </div>
+              </button>
+            </div>
+          </div>
+
           {/* Notifications */}
           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-2">

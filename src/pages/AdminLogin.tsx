@@ -44,6 +44,8 @@ import {
   Calendar,
   Send,
   GitBranch,
+  Settings,
+  RotateCcw,
 } from 'lucide-react';
 import { GOOGLE_SHEET_WEBHOOK_URL } from '../components/features/FeedbackModal';
 import { ContentCmsTab } from '../components/admin/ContentCmsTab';
@@ -80,6 +82,170 @@ const MASTER_PASSWORD_HASH = '74e32bd5469e4a917307e6c2555e00eb8c6014615f543adf4a
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 minutes lockout
 const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes auto-logout
+
+// Complete Google Apps Script Two-Way Sync Template
+export const GOOGLE_APPS_SCRIPT_TEMPLATE = `/**
+ * जैन जिनवाणी — Google Apps Script द्वि-मार्गी सिंक (Two-Way Sync Web App)
+ * 1. doGet(e)      : वेबसाइट/एडमिन पैनल को शुद्ध डेटा प्रदान करता है।
+ * 2. doPost(e)     : नया सुझाव जोड़ना, स्थिति (Status) बदलना, व प्रविष्टि डिलीट करना।
+ */
+
+function doGet(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var rows = sheet.getDataRange().getValues();
+  var data = [];
+  
+  // पहली पंक्ति हेडर होती है (row 0), डेटा row 1 (शीट पंक्ति 2) से शुरू होता है
+  for (var i = 1; i < rows.length; i++) {
+    var row = rows[i];
+    var timestamp = row[0] ? String(row[0]) : '';
+    var type = row[1] ? String(row[1]) : 'सामान्य सुझाव';
+    var scriptureName = row[2] ? String(row[2]) : '';
+    var details = row[3] ? String(row[3]) : '';
+    var email = row[4] ? String(row[4]) : '';
+    var status = row[5] ? String(row[5]) : 'प्राप्त हुआ';
+    
+    // केवल वही पंक्तियाँ लें जिनमें विवरण या ग्रंथ का नाम मौजूद हो (खाली घोस्ट पंक्तियों को छोड़ें)
+    if (details.trim() !== '' || scriptureName.trim() !== '') {
+      data.push({
+        id: i + 1, // Google Sheet की वास्तविक पंक्ति संख्या (Row Number)
+        timestamp: timestamp,
+        type: type,
+        scriptureName: scriptureName,
+        details: details,
+        status: status
+      });
+    }
+  }
+  
+  // नए सुझाव सबसे ऊपर दिखें (Reverse Order)
+  return ContentService.createTextOutput(JSON.stringify(data.reverse()))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = {};
+    
+    if (e && e.postData && e.postData.contents) {
+      data = JSON.parse(e.postData.contents);
+    }
+    
+    // सुनिश्चित करें कि हेडर पंक्ति मौजूद है
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "दिनांक व समय (Timestamp)",
+        "सुझाव का प्रकार (Type)",
+        "पाठ / ग्रंथ का नाम (Scripture)",
+        "अशुद्धि / सुझाव का विवरण (Details)",
+        "ईमेल (Email)",
+        "स्थिति (Status)"
+      ]);
+    }
+    
+    // 1. स्थिति अद्यतन (Update Status Action)
+    if (data.action === 'updateStatus' && data.rowId) {
+      var targetRow = Number(data.rowId);
+      var totalRows = sheet.getLastRow();
+      
+      if (targetRow >= 2 && targetRow <= totalRows) {
+        sheet.getRange(targetRow, 6).setValue(data.newStatus || 'प्राप्त हुआ');
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "success",
+          action: "updateStatus",
+          rowId: targetRow,
+          newStatus: data.newStatus
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      // बैकअप: टाइमस्टैम्प से खोजकर स्थिति अपडेट करें
+      var allRows = sheet.getDataRange().getValues();
+      for (var r = 1; r < allRows.length; r++) {
+        if (data.timestamp && String(allRows[r][0]) === String(data.timestamp)) {
+          sheet.getRange(r + 1, 6).setValue(data.newStatus);
+          return ContentService.createTextOutput(JSON.stringify({
+            status: "success",
+            action: "updateStatus",
+            matchedRow: r + 1
+          })).setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+    }
+    
+    // 2. प्रविष्टि हटाना (Delete Row Action)
+    if (data.action === 'delete' && data.rowId) {
+      var delRow = Number(data.rowId);
+      var maxRows = sheet.getLastRow();
+      
+      if (delRow >= 2 && delRow <= maxRows) {
+        sheet.deleteRow(delRow);
+        return ContentService.createTextOutput(JSON.stringify({
+          status: "success",
+          action: "delete",
+          deletedRow: delRow
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      
+      // बैकअप: टाइमस्टैम्प से खोजकर हटाएं
+      var rowsToCheck = sheet.getDataRange().getValues();
+      for (var d = 1; d < rowsToCheck.length; d++) {
+        if (data.timestamp && String(rowsToCheck[d][0]) === String(data.timestamp)) {
+          sheet.deleteRow(d + 1);
+          return ContentService.createTextOutput(JSON.stringify({
+            status: "success",
+            action: "delete",
+            matchedRow: d + 1
+          })).setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+    }
+    
+    // 3. खाली पंक्तियाँ साफ़ करना (Cleanup Ghost Rows Action)
+    if (data.action === 'cleanup') {
+      var currentRows = sheet.getDataRange().getValues();
+      var deletedCount = 0;
+      for (var c = currentRows.length - 1; c >= 1; c--) {
+        var rowContent = currentRows[c];
+        var sName = rowContent[2] ? String(rowContent[2]).trim() : '';
+        var dText = rowContent[3] ? String(rowContent[3]).trim() : '';
+        if (sName === '' && dText === '') {
+          sheet.deleteRow(c + 1);
+          deletedCount++;
+        }
+      }
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "success",
+        action: "cleanup",
+        deletedCount: deletedCount
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // 4. नया सुझाव जोड़ना (Default Submission from Website)
+    if (!data.details && !data.scriptureName) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ignored_empty",
+        message: "No details or scripture name provided"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    sheet.appendRow([
+      new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+      data.type || 'सामान्य सुझाव',
+      data.scriptureName || '',
+      data.details || '',
+      data.email || '',
+      'प्राप्त हुआ'
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
 
 // --- Web Crypto TOTP (RFC 6238 / RFC 4226) Helpers ---
 function base32ToBytes(base32: string): Uint8Array {
@@ -285,12 +451,13 @@ export async function authenticatePasskeyCredential(savedRawIdBase64?: string): 
 }
 
 export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
-  // Authentication state with 60-minute session expiration
+  // Authentication state with dynamic session expiration
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     if (typeof window !== 'undefined') {
       const isAuth = sessionStorage.getItem('jinvani_admin_authenticated') === 'true';
       const authTime = Number(sessionStorage.getItem('jinvani_admin_auth_time') || 0);
-      if (isAuth && Date.now() - authTime < SESSION_TIMEOUT_MS) {
+      const savedTimeoutMin = Number(localStorage.getItem('jinvani_session_timeout_min') || 60);
+      if (isAuth && Date.now() - authTime < savedTimeoutMin * 60 * 1000) {
         return true;
       }
       sessionStorage.removeItem('jinvani_admin_authenticated');
@@ -364,7 +531,79 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   const [lastSyncTime, setLastSyncTime] = useState<string>('');
 
   // Active Admin Tab
-  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'content' | 'tools' | 'guide'>('announcement');
+  const [adminTab, setAdminTab] = useState<'feedback' | 'announcement' | 'content' | 'settings' | 'guide'>('feedback');
+
+  // Settings Tab State
+  const [activeSettingCategory, setActiveSettingCategory] = useState<'security' | 'display' | 'sheet' | 'data' | 'git'>('security');
+
+  const [sessionTimeoutMin, setSessionTimeoutMin] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('jinvani_session_timeout_min');
+      if (saved) return Number(saved);
+    }
+    return 60;
+  });
+
+  const [autoRefreshSec, setAutoRefreshSec] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('jinvani_auto_refresh_sec');
+      if (saved) return Number(saved);
+    }
+    return 0; // 0 = disabled
+  });
+
+  // Live session remaining seconds countdown
+  const [sessionRemainingSec, setSessionRemainingSec] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const authTime = Number(sessionStorage.getItem('jinvani_admin_auth_time') || 0);
+      const savedTimeoutMin = Number(localStorage.getItem('jinvani_session_timeout_min') || 60);
+      if (authTime > 0) {
+        const elapsedSec = Math.floor((Date.now() - authTime) / 1000);
+        return Math.max(0, savedTimeoutMin * 60 - elapsedSec);
+      }
+      return savedTimeoutMin * 60;
+    }
+    return 60 * 60;
+  });
+
+  // Live auto-refresh countdown
+  const [autoRefreshCountdownSec, setAutoRefreshCountdownSec] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('jinvani_auto_refresh_sec');
+      if (saved) return Number(saved);
+    }
+    return 0;
+  });
+
+  // Format seconds to MM:SS or HH:MM:SS
+  const formatSessionTime = (seconds: number): string => {
+    if (seconds <= 0) return '00:00';
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    if (hrs > 0) {
+      return `${hrs}:${pad(mins)}:${pad(secs)}`;
+    }
+    return `${pad(mins)}:${pad(secs)}`;
+  };
+
+  const [customWebhookUrl, setCustomWebhookUrl] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('jinvani_custom_webhook_url') || '';
+    }
+    return '';
+  });
+
+  const [customSheetUrl, setCustomSheetUrl] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('jinvani_custom_sheet_url') || '';
+    }
+    return '';
+  });
+
+  const activeWebhookUrl = customWebhookUrl.trim() || GOOGLE_SHEET_WEBHOOK_URL;
+  const activeSheetUrl = customSheetUrl.trim() || 'https://docs.google.com/spreadsheets/';
 
   // Guide Tab: Live Cryptographic SHA-256 Hash Tool & Clipboard State
   const [hashInput, setHashInput] = useState('');
@@ -605,8 +844,9 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   // Direct GitHub Commit via API
   const handleCommitToGitHub = async () => {
     if (!githubRepo.trim() || !githubToken.trim()) {
-      showToast('सीधे GitHub पर कमिट हेतु "गिट व सिस्टम टूल्स" में Repository और Token दर्ज करें, अथवा "JSON डाउनलोड" का उपयोग करें।');
-      setAdminTab('tools');
+      showToast('सीधे GitHub पर कमिट हेतु "सेटिंग्स" -> "गिटहब कनेक्शन" में Repository और Token दर्ज करें, अथवा "JSON डाउनलोड" का उपयोग करें।');
+      setAdminTab('settings');
+      setActiveSettingCategory('git');
       return;
     }
 
@@ -708,7 +948,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     setPingLatency(null);
     const start = performance.now();
     try {
-      const res = await fetch(GOOGLE_SHEET_WEBHOOK_URL, { method: 'GET' });
+      const res = await fetch(activeWebhookUrl, { method: 'GET' });
       const lat = Math.round(performance.now() - start);
       setPingLatency(lat);
       if (res.ok) {
@@ -839,6 +1079,16 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     }, 2800);
   };
 
+  // Manual session reset & extend helper
+  const handleExtendSession = (extraMinutes?: number) => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+    }
+    const mins = extraMinutes || sessionTimeoutMin;
+    setSessionRemainingSec(mins * 60);
+    showToast(`सत्र समय ${mins} मिनट के लिए नवीनीकृत किया गया।`);
+  };
+
   // Rate-limiting / lockout ticker
   useEffect(() => {
     const checkLockout = () => {
@@ -867,20 +1117,39 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Session Inactivity Monitoring (auto-logout after 60 mins idle)
+  // Session Inactivity Monitoring with 1-second live countdown ticker
   useEffect(() => {
     if (!isAuthenticated) return;
+    const timeoutSec = sessionTimeoutMin * 60;
 
-    const sessionTimer = setInterval(() => {
+    const checkAndTick = () => {
       const authTime = Number(sessionStorage.getItem('jinvani_admin_auth_time') || 0);
-      if (Date.now() - authTime > SESSION_TIMEOUT_MS) {
+      if (!authTime) {
+        sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+        setSessionRemainingSec(timeoutSec);
+        return;
+      }
+      const elapsedSec = Math.floor((Date.now() - authTime) / 1000);
+      const remaining = Math.max(0, timeoutSec - elapsedSec);
+      setSessionRemainingSec(remaining);
+
+      if (remaining <= 0) {
         handleLogout('सत्र समाप्त हो गया (Session Expired)। सुरक्षा कारणों से पुनः लॉगिन करें।');
       }
-    }, 15000);
+    };
 
+    checkAndTick();
+    const sessionTimer = setInterval(checkAndTick, 1000);
+
+    let lastActivityRecord = 0;
     const onUserActivity = () => {
-      if (sessionStorage.getItem('jinvani_admin_authenticated') === 'true') {
-        sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+      const now = Date.now();
+      // Record user activity at most once every 5 seconds to prevent excessive state writes
+      if (now - lastActivityRecord > 5000) {
+        lastActivityRecord = now;
+        if (sessionStorage.getItem('jinvani_admin_authenticated') === 'true') {
+          sessionStorage.setItem('jinvani_admin_auth_time', String(now));
+        }
       }
     };
 
@@ -892,7 +1161,32 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       window.removeEventListener('click', onUserActivity);
       window.removeEventListener('keydown', onUserActivity);
     };
-  }, [isAuthenticated]);
+  }, [isAuthenticated, sessionTimeoutMin]);
+
+  // Auto-refresh Feedback Entries with 1-second live ticking countdown
+  useEffect(() => {
+    if (!isAuthenticated || autoRefreshSec <= 0) {
+      setAutoRefreshCountdownSec(0);
+      return;
+    }
+
+    setAutoRefreshCountdownSec(autoRefreshSec);
+    let nextRefreshTime = Date.now() + autoRefreshSec * 1000;
+
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const remaining = Math.max(0, Math.ceil((nextRefreshTime - now) / 1000));
+      setAutoRefreshCountdownSec(remaining);
+
+      if (remaining <= 0) {
+        fetchData(false);
+        nextRefreshTime = Date.now() + autoRefreshSec * 1000;
+        setAutoRefreshCountdownSec(autoRefreshSec);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, autoRefreshSec]);
 
   // Handle Failed Attempt
   const handleFailedAttempt = () => {
@@ -916,6 +1210,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     localStorage.removeItem('jinvani_admin_lockout_until');
     sessionStorage.setItem('jinvani_admin_authenticated', 'true');
     sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+    setSessionRemainingSec(sessionTimeoutMin * 60);
     setIsAuthenticated(true);
     setLoginStep('password');
     setPassword('');
@@ -1081,6 +1376,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         localStorage.removeItem('jinvani_admin_lockout_until');
         sessionStorage.setItem('jinvani_admin_authenticated', 'true');
         sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+        setSessionRemainingSec(sessionTimeoutMin * 60);
         setIsAuthenticated(true);
         setLoginStep('password');
         setPassword('');
@@ -1218,17 +1514,16 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
   // Fetch entries from Google Apps Script Web App
   const fetchData = async (isManualRefresh = false) => {
-    if (isManualRefresh) setIsRefreshing(true);
-    else setIsLoading(true);
+    if (isManualRefresh) {
+      setIsRefreshing(true);
+      if (autoRefreshSec > 0) setAutoRefreshCountdownSec(autoRefreshSec);
+    } else {
+      setIsLoading(true);
+    }
     setFetchError(null);
 
     try {
-      const res = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
+      const res = await fetch(activeWebhookUrl);
 
       if (!res.ok) {
         throw new Error(`सर्वर से उत्तर नहीं मिला (${res.status})`);
@@ -1236,11 +1531,16 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
       const data = await res.json();
       if (Array.isArray(data)) {
+        // Filter out blank ghost entries (where both details and scriptureName are empty)
+        const validData = data.filter(
+          (item) => item && ((item.details && item.details.trim() !== '') || (item.scriptureName && item.scriptureName.trim() !== ''))
+        );
+
         // Apply any locally saved status overrides and filter out deleted items
         try {
           const deletedStr = localStorage.getItem('jinvani_deleted_items');
           const deletedIds: Record<string, boolean> = deletedStr ? JSON.parse(deletedStr) : {};
-          const activeData = data.filter((item) => !deletedIds[String(item.id)]);
+          const activeData = validData.filter((item) => !deletedIds[String(item.id)]);
 
           const overridesStr = localStorage.getItem('jinvani_status_overrides');
           const overrides: Record<string, string> = overridesStr ? JSON.parse(overridesStr) : {};
@@ -1250,7 +1550,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
           });
           setItems(merged);
         } catch {
-          setItems(data);
+          setItems(validData);
         }
       } else {
         setItems([]);
@@ -1259,7 +1559,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       if (isManualRefresh) showToast('गूगल शीट से ताज़ा डेटा लोड हुआ!');
     } catch (err: any) {
       console.error('Admin dashboard failed to fetch from Google Sheet:', err);
-      setFetchError('डेटा लोड करने में असमर्थ। कृपया पुनः प्रयास करें।');
+      setFetchError('डेटा लोड करने में असमर्थ। कृपया इंटरनेट या वेबहुक URL जाँचें।');
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -1291,13 +1591,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
     // 3. Attempt to update in Google Sheet via Apps Script
     try {
-      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+      await fetch(activeWebhookUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           action: 'updateStatus',
           rowId: item.id,
+          timestamp: item.timestamp,
+          scriptureName: item.scriptureName,
           newStatus: newStatus,
         }),
       });
@@ -1309,7 +1611,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   // Delete item handler
   const handleDeleteItem = async (item: AdminContributionItem) => {
     const confirmDelete = window.confirm(
-      `क्या आप प्रविष्टि #${item.id} (${item.scriptureName || 'सुझाव'}) को हटाना चाहते हैं?\n\nयह प्रविष्टि डैशबोर्ड से हटा दी जाएगी।`
+      `क्या आप प्रविष्टि #${item.id} (${item.scriptureName || 'सुझाव'}) को हटाना चाहते हैं?\n\nयह प्रविष्टि डैशबोर्ड और गूगल शीट से हटा दी जाएगी।`
     );
     if (!confirmDelete) return;
 
@@ -1338,17 +1640,42 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
     // 3. Attempt background delete in Google Sheet via Apps Script webhook
     try {
-      await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+      await fetch(activeWebhookUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           action: 'delete',
           rowId: item.id,
+          timestamp: item.timestamp,
+          scriptureName: item.scriptureName,
         }),
       });
     } catch (err) {
       console.warn('Background sync delete to sheet failed, stored locally:', err);
+    }
+  };
+
+  // State & handler for cleaning blank/ghost rows in Google Sheet
+  const [isCleaningSheet, setIsCleaningSheet] = useState(false);
+  const handleCleanupGhostRows = async () => {
+    if (!window.confirm('क्या आप Google Sheet से सभी खाली (Ghost) पंक्तियाँ साफ़ करना चाहते हैं?')) return;
+    setIsCleaningSheet(true);
+    try {
+      await fetch(activeWebhookUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'cleanup',
+        }),
+      });
+      showToast('Google Sheet खाली पंक्तियाँ साफ़ करने का अनुरोध भेजा गया! 2 सेकंड में ताज़ा डेटा लोड होगा...');
+      setTimeout(() => fetchData(true), 2500);
+    } catch {
+      showToast('सफ़ाई अनुरोध भेजने में त्रुटि हुई।');
+    } finally {
+      setIsCleaningSheet(false);
     }
   };
 
@@ -2258,61 +2585,52 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             </span>
           )}
 
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-[10px] text-emerald-300 font-gotu">
-            <ShieldCheck className="w-3 h-3 text-emerald-400" />
-            <span>सुरक्षित सत्र (60m)</span>
-          </div>
+          {/* Live Session Inactivity Countdown Timer */}
+          <button
+            type="button"
+            onClick={() => handleExtendSession()}
+            title={`सत्र समाप्त होने में शेष समय (${formatSessionTime(sessionRemainingSec)})। क्लिक करके समय बढ़ाएं।`}
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[10px] sm:text-xs font-gotu transition-all cursor-pointer active:scale-95 select-none ${
+              sessionRemainingSec <= 120
+                ? 'bg-rose-500/20 border-rose-500/40 text-rose-300 hover:bg-rose-500/30 animate-pulse'
+                : sessionRemainingSec <= 300
+                ? 'bg-amber-500/15 border-amber-500/35 text-amber-300 hover:bg-amber-500/25'
+                : 'bg-emerald-500/10 border-emerald-500/25 text-emerald-300 hover:bg-emerald-500/20'
+            }`}
+          >
+            {sessionRemainingSec <= 300 ? (
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+            ) : (
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            )}
+            <span className="hidden md:inline text-slate-400 font-medium">सत्र:</span>
+            <span className="font-mono font-bold tracking-wide">
+              {formatSessionTime(sessionRemainingSec)}
+            </span>
+            {sessionRemainingSec <= 120 && (
+              <span className="text-[9px] bg-rose-500/30 text-rose-200 px-1 py-0.5 rounded font-sans ml-0.5">
+                +15m
+              </span>
+            )}
+          </button>
 
           <button
             onClick={() => fetchData(true)}
             disabled={isRefreshing || isLoading}
-            title="डेटा रीफ्रेश करें"
+            title={autoRefreshSec > 0 ? `डेटा रीफ्रेश करें (अगला ऑटो-सिंक ${autoRefreshCountdownSec}s में)` : 'डेटा रीफ्रेश करें'}
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-amber-300 border border-white/10 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-amber-400' : ''}`} />
             <span className="hidden sm:inline">रीफ्रेश</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setIsChangePassOpen(true);
-              setPassModalError('');
-            }}
-            title="एडमिन पासवर्ड बदलें"
-            className="px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
-          >
-            <KeyRound className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">पासवर्ड</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setIs2FAModalOpen(true);
-              setTestOtpInput('');
-              setTestOtpResult(null);
-            }}
-            title="Passkey एवं 2FA सुरक्षा सेटिंग्स"
-            className="px-2.5 sm:px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
-          >
-            <Fingerprint className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">सुरक्षा केंद्र (Passkey/2FA)</span>
-          </button>
-
-          <button
-            onClick={() => setAdminTab('guide')}
-            title="प्रशासक मार्गदर्शिका एवं सुरक्षा निर्देश"
-            className={`px-2.5 sm:px-3 py-2 rounded-xl border transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer active:scale-95 ${
-              adminTab === 'guide'
-                ? 'bg-amber-500/30 text-amber-200 border-amber-400/60 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
-                : 'bg-white/5 hover:bg-white/10 text-amber-300/90 border-white/10'
-            }`}
-          >
-            <FileText className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">एडमिन गाइड</span>
+            {autoRefreshSec > 0 && (
+              <span className="text-[10px] font-mono text-amber-400/90 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 rounded ml-0.5" title="ऑटो-सिंक उलटी गिनती">
+                {autoRefreshCountdownSec}s
+              </span>
+            )}
           </button>
 
           <a
-            href="https://docs.google.com/spreadsheets/"
+            href={activeSheetUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="px-2.5 sm:px-3 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition-colors font-gotu text-xs sm:text-sm flex items-center gap-1.5 cursor-pointer"
@@ -2338,7 +2656,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
           { id: 'announcement', label: 'सार्वजनिक घोषणा', icon: Megaphone, badge: announcementActive ? 'LIVE' : undefined },
           { id: 'content', label: 'स्तोत्र व ग्रंथ संपादक', icon: BookOpen, badge: 'CMS' },
           { id: 'feedback', label: 'अशुद्धि व सुझाव', icon: CheckCircle2, badge: stats.total },
-          { id: 'tools', label: 'गिट व सिस्टम टूल्स', icon: Wrench },
+          { id: 'settings', label: 'सेटिंग्स', icon: Settings },
           { id: 'guide', label: 'एडमिन गाइड व सुरक्षा', icon: FileText, badge: 'IMP' },
         ].map((tab) => {
           const Icon = tab.icon;
@@ -2571,29 +2889,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                         (रीसेट)
                       </button>
                     )}
-                  </div>
-
-                  {/* Responsive Quick Column Switcher */}
-                  <div className="flex items-center gap-1 bg-slate-950/80 p-0.5 sm:p-1 rounded-xl border border-white/10 shadow-sm">
-                    <span className="text-[10px] text-slate-400 font-gotu px-1.5 hidden xs:inline">कॉलम:</span>
-                    {[
-                      { cols: 1 as const, label: '1 Col' },
-                      { cols: 2 as const, label: '2 Col' },
-                      { cols: 3 as const, label: '3 Col' },
-                    ].map((layout) => (
-                      <button
-                        key={layout.cols}
-                        onClick={() => handleSetColumns(layout.cols)}
-                        title={`${layout.cols} कॉलम में प्रदर्शित करें`}
-                        className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-gotu transition-all cursor-pointer ${
-                          columns === layout.cols
-                            ? 'bg-amber-500/30 text-amber-200 font-bold shadow-sm border border-amber-400/40'
-                            : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-                        }`}
-                      >
-                        {layout.label}
-                      </button>
-                    ))}
                   </div>
                 </div>
 
@@ -3052,276 +3347,1033 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
         <ContentCmsTab showToast={showToast} />
       )}
 
-
-
-      {/* TAB 5: सिस्टम स्वास्थ्य, बैकअप व टूल्स (System Diagnostics & Tools) */}
-      {adminTab === 'tools' && (
+      {/* TAB 4: प्रशासक सेटिंग्स व नियंत्रण केंद्र (Admin Control Settings) */}
+      {adminTab === 'settings' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-4xl space-y-6 relative z-10"
+          className="w-full max-w-5xl space-y-6 relative z-10"
         >
-          <div className="text-center max-w-2xl mx-auto mb-4">
+          {/* Header Banner */}
+          <div className="text-center max-w-2xl mx-auto mb-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2 backdrop-blur-md">
-              <Wrench className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-gotu">गिट व सिस्टम मेंटेनेंस • Git & Diagnostics Tools</span>
+              <Settings className="w-3.5 h-3.5 text-amber-400" />
+              <span className="font-gotu">प्रशासक नियंत्रण एवं विन्यास • Admin Settings</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
-              गिट कनेक्शन, बैकअप एवं सिस्टम टूल्स
+              प्रशासक सेटिंग्स व नियंत्रण केंद्र
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
-              GitHub रिपॉजिटरी कनेक्शन, स्टोरेज उपयोग, गूगल शीट वेबहुक कनेक्शन स्थिति एवं डेटा बैकअप।
+              सुरक्षा, लेआउट, गूगल शीट कनेक्शन और स्थानीय डेटा बैकअप को सुव्यवस्थित रूप से प्रबंधित करें।
             </p>
           </div>
 
-          {/* GitHub Repository Connection Settings */}
-          <GlassCard variant="sacred" className="p-5 sm:p-6 rounded-3xl border-amber-500/30 bg-[#0b1220]/95 shadow-xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <GitBranch className="w-5 h-5 text-amber-400" />
-                <h3 className="text-sm sm:text-base font-bold text-white font-notoserif">
-                  GitHub रिपॉजिटरी कनेक्शन सेटिंग्स (Direct Web Commit)
-                </h3>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 border border-amber-400/30 text-[11px] font-gotu">
-                <span className={connectionStatus === 'connected' ? 'text-emerald-400 font-bold' : 'text-amber-300'}>
-                  {connectionStatus === 'connected' ? '🟢 कनेक्टेड' : '⚪ अनकनेक्टेड (लोकल/Desktop मोड)'}
+          {/* 5 Interactive Category Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
+            {/* 1. सुरक्षा व क्रेडेंशियल्स */}
+            <button
+              type="button"
+              onClick={() => setActiveSettingCategory('security')}
+              className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer ${
+                activeSettingCategory === 'security'
+                  ? 'bg-gradient-to-b from-amber-500/25 to-amber-950/40 border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.25)] scale-[1.02]'
+                  : 'bg-slate-900/60 hover:bg-slate-850/80 border-white/10 hover:border-amber-400/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-xl ${activeSettingCategory === 'security' ? 'bg-amber-400 text-slate-950 shadow-md' : 'bg-amber-500/15 text-amber-300'}`}>
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <span className={`text-[10px] font-gotu px-2 py-0.5 rounded-full border ${
+                  is2FAEnabled
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                    : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}>
+                  {is2FAEnabled ? '2FA सक्रिय' : '2FA बंद'}
                 </span>
               </div>
-            </div>
-
-            <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-              वेबसाइट से सीधे 1-क्लिक में <code>public/announcement.json</code> को GitHub पर Commit & Push करने हेतु अपनी रिपॉजिटरी का नाम और Personal Access Token दर्ज करें:
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-amber-200 font-gotu">
-                  GitHub Repository (उदा. username/repo):
-                </label>
-                <input
-                  type="text"
-                  value={githubRepo}
-                  onChange={(e) => setGithubRepo(e.target.value)}
-                  placeholder="उदा. username/JainJinvani"
-                  className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-amber-200 font-gotu">
-                  ब्रांच नाम (Branch Name):
-                </label>
-                <input
-                  type="text"
-                  value={githubBranch}
-                  onChange={(e) => setGithubBranch(e.target.value)}
-                  placeholder="main"
-                  className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center justify-between">
-                <span>GitHub Personal Access Token (PAT):</span>
-                <span className="text-[10px] text-slate-400">केवल आपके ब्राउज़र में सुरक्षित रहता है</span>
-              </label>
-              <input
-                type="password"
-                value={githubToken}
-                onChange={(e) => setGithubToken(e.target.value)}
-                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                className="w-full bg-slate-950/80 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
-              />
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              <button
-                type="button"
-                onClick={handleTestConnection}
-                disabled={isTestingConnection}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer disabled:opacity-50"
-              >
-                {isTestingConnection ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
-                <span>{isTestingConnection ? 'जाँच रहे हैं...' : 'सहेजें एवं कनेक्शन टेस्ट करें'}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setGithubToken('');
-                  localStorage.removeItem('jinvani_git_token');
-                  setConnectionStatus('idle');
-                  showToast('GitHub टोकन हटा दिया गया।');
-                }}
-                className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-rose-300 border border-white/10 text-xs font-gotu transition-colors cursor-pointer"
-              >
-                टोकन हटाएं
-              </button>
-            </div>
-          </GlassCard>
-
-          {/* System Diagnostics — LocalStorage only */}
-          <GlassCard
-            variant="sacred"
-            className="p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 flex items-center gap-5"
-          >
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-400/20 shrink-0">
-              <Database className="w-5 h-5 text-amber-400" />
-            </div>
-            <div>
-              <div className="text-xs text-slate-400 font-gotu">लोकल स्टोरेज उपयोग</div>
-              <div className="text-2xl font-bold text-white font-mono">{storageUsageKB} KB</div>
-              <div className="text-[10px] text-slate-500 font-gotu">ब्राउज़र सीमा: ~5,120 KB</div>
-            </div>
-          </GlassCard>
-
-          {/* Google Sheet Webhook Ping Test */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0b1220]/90 shadow-xl space-y-3"
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div>
-                <h3 className="text-sm sm:text-base font-bold text-white font-notoserif flex items-center gap-2">
-                  <Wifi className="w-4 h-4 text-emerald-400" />
-                  <span>गूगल स्प्रेडशीट वेबहुक कनेक्टिविटी परीक्षण</span>
-                </h3>
-                <p className="text-xs text-slate-300 font-gotu mt-0.5">
-                  Google Apps Script वेबहुक से लेटेंसी व कनेक्शन की जांच करें।
-                </p>
-              </div>
-
-              <button
-                type="button"
-                disabled={pingStatus === 'testing'}
-                onClick={handlePingGoogleSheet}
-                className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-bold transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
-              >
-                {pingStatus === 'testing' ? (
-                  <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>जाँच रहे हैं...</span>
-                  </>
-                ) : (
-                  <>
-                    <Activity className="w-3.5 h-3.5" />
-                    <span>कनेक्शन पिंग टेस्ट (Ping)</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            {pingStatus === 'success' && (
-              <div className="p-3 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-200 text-xs font-gotu flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>गूगल शीट वेबहुक पूरी तरह सक्रिय है। लेटेंसी: <b>{pingLatency}ms</b> (उत्कृष्ट)</span>
-              </div>
-            )}
-            {pingStatus === 'failed' && (
-              <div className="p-3 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-200 text-xs font-gotu flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
-                <span>वेबहुक से कनेक्शन विफल हुआ। कृपया इंटरनेट कनेक्शन एवं स्क्रिप्ट यूआरएल जांचें।</span>
-              </div>
-            )}
-          </GlassCard>
-
-          {/* Backup & Restore Section */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0b1220]/90 shadow-xl space-y-4"
-          >
-            <div>
-              <h3 className="text-sm sm:text-base font-bold text-white font-notoserif flex items-center gap-2">
-                <Database className="w-4 h-4 text-amber-400" />
-                <span>एडमिन डेटा बैकअप एवं पुनर्स्थापना (Export & Import)</span>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                सुरक्षा व क्रेडेंशियल्स
               </h3>
-              <p className="text-xs text-slate-300 font-gotu mt-0.5">
-                सभी स्टेटस ओवरराइड्स, सार्वजनिक घोषणा सेटिंग्स एवं लेआउट का बैकअप एक क्लिक में JSON फ़ाइल में डाउनलोड या रीस्टोर करें।
+              <p className="text-[11px] text-slate-400 font-gotu mt-1 leading-relaxed">
+                पासवर्ड परिवर्तन, 2FA OTP प्रमाणीकरण एवं बायोमेट्रिक Passkey।
               </p>
-            </div>
+              {activeSettingCategory === 'security' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500" />
+              )}
+            </button>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handleExportBackup}
-                className="p-4 rounded-2xl bg-slate-950/70 border border-amber-500/25 hover:border-amber-400 text-left transition-all cursor-pointer flex items-center gap-3.5 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
-                  <Download className="w-5 h-5" />
+            {/* 2. डैशबोर्ड व लेआउट */}
+            <button
+              type="button"
+              onClick={() => setActiveSettingCategory('display')}
+              className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer ${
+                activeSettingCategory === 'display'
+                  ? 'bg-gradient-to-b from-amber-500/25 to-amber-950/40 border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.25)] scale-[1.02]'
+                  : 'bg-slate-900/60 hover:bg-slate-850/80 border-white/10 hover:border-amber-400/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-xl ${activeSettingCategory === 'display' ? 'bg-amber-400 text-slate-950 shadow-md' : 'bg-amber-500/15 text-amber-300'}`}>
+                  <SlidersHorizontal className="w-5 h-5" />
                 </div>
-                <div>
-                  <span className="text-xs sm:text-sm font-bold text-white font-gotu block">
-                    बैकअप डाउनलोड करें (Export JSON)
-                  </span>
-                  <span className="text-[11px] text-slate-400 font-gotu">
-                    सुरक्षित बैकअप फ़ाइल अपने कंप्यूटर पर सहेजें
-                  </span>
-                </div>
-              </button>
-
-              <label className="p-4 rounded-2xl bg-slate-950/70 border border-amber-500/25 hover:border-amber-400 text-left transition-all cursor-pointer flex items-center gap-3.5 group">
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleImportBackup}
-                  className="hidden"
-                />
-                <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300 shrink-0 group-hover:scale-105 transition-transform">
-                  <Upload className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs sm:text-sm font-bold text-white font-gotu block">
-                    बैकअप पुनर्स्थापित करें (Import JSON)
-                  </span>
-                  <span className="text-[11px] text-slate-400 font-gotu">
-                    पूर्व में डाउनलोड की गई फ़ाइल चुनें
-                  </span>
-                </div>
-              </label>
-            </div>
-          </GlassCard>
-
-          {/* Cache Purge & Overrides Reset */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-6 rounded-3xl border-rose-500/20 bg-rose-950/10 shadow-xl space-y-3"
-          >
-            <div>
-              <h3 className="text-sm sm:text-base font-bold text-rose-200 font-notoserif flex items-center gap-2">
-                <Trash2 className="w-4 h-4 text-rose-400" />
-                <span>कैश शुद्धिकरण एवं रीसेट क्रियाएँ</span>
+                <span className="text-[10px] font-gotu px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                  {columns} Col • {sessionTimeoutMin}m
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                डैशबोर्ड व लेआउट
               </h3>
-              <p className="text-xs text-slate-300 font-gotu mt-0.5">
-                नया अपडेट आने पर सर्विस वर्कर कैश साफ़ करें या सभी कस्टम ओवरराइड्स को डिफ़ॉल्ट पर रीसेट करें।
+              <p className="text-[11px] text-slate-400 font-gotu mt-1 leading-relaxed">
+                ग्रिड कॉलम संख्या, ऑटो-रिफ्रेश अंतराल एवं सत्र निष्क्रियता समय।
               </p>
-            </div>
+              {activeSettingCategory === 'display' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500" />
+              )}
+            </button>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-              <button
-                type="button"
-                onClick={handlePurgeCache}
-                className="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>कैश साफ़ करें एवं ताज़ा लोड करें (Purge Cache)</span>
-              </button>
+            {/* 3. गूगल शीट व वेबहुक */}
+            <button
+              type="button"
+              onClick={() => setActiveSettingCategory('sheet')}
+              className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer ${
+                activeSettingCategory === 'sheet'
+                  ? 'bg-gradient-to-b from-amber-500/25 to-amber-950/40 border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.25)] scale-[1.02]'
+                  : 'bg-slate-900/60 hover:bg-slate-850/80 border-white/10 hover:border-amber-400/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-xl ${activeSettingCategory === 'sheet' ? 'bg-amber-400 text-slate-950 shadow-md' : 'bg-amber-500/15 text-amber-300'}`}>
+                  <Wifi className="w-5 h-5" />
+                </div>
+                <span className={`text-[10px] font-gotu px-2 py-0.5 rounded-full border ${
+                  pingStatus === 'success'
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                    : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}>
+                  {pingLatency ? `${pingLatency}ms` : customWebhookUrl ? 'कस्टम URL' : 'डिफ़ॉल्ट API'}
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                गूगल शीट व वेबहुक
+              </h3>
+              <p className="text-[11px] text-slate-400 font-gotu mt-1 leading-relaxed">
+                Apps Script वेबहुक URL विन्यास, स्प्रेडशीट लिंक एवं लेटेंसी पिंग।
+              </p>
+              {activeSettingCategory === 'sheet' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500" />
+              )}
+            </button>
 
-              <button
-                type="button"
-                onClick={handleResetOverrides}
-                className="px-4 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 text-xs font-gotu font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+            {/* 4. डेटा बैकअप व शुद्धिकरण */}
+            <button
+              type="button"
+              onClick={() => setActiveSettingCategory('data')}
+              className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer ${
+                activeSettingCategory === 'data'
+                  ? 'bg-gradient-to-b from-amber-500/25 to-amber-950/40 border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.25)] scale-[1.02]'
+                  : 'bg-slate-900/60 hover:bg-slate-850/80 border-white/10 hover:border-amber-400/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-xl ${activeSettingCategory === 'data' ? 'bg-amber-400 text-slate-950 shadow-md' : 'bg-amber-500/15 text-amber-300'}`}>
+                  <Database className="w-5 h-5" />
+                </div>
+                <span className="text-[10px] font-gotu px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                  {storageUsageKB} KB प्रयुक्त
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                डेटा बैकअप व शुद्धिकरण
+              </h3>
+              <p className="text-[11px] text-slate-400 font-gotu mt-1 leading-relaxed">
+                JSON डेटा बैकअप एक्सपोर्ट/इम्पोर्ट, ऐप कैश साफ़ एवं ओवरराइड्स रीसेट।
+              </p>
+              {activeSettingCategory === 'data' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500" />
+              )}
+            </button>
+
+            {/* 5. गिटहब कनेक्शन */}
+            <button
+              type="button"
+              onClick={() => setActiveSettingCategory('git')}
+              className={`p-4 rounded-2xl border text-left transition-all relative overflow-hidden group cursor-pointer ${
+                activeSettingCategory === 'git'
+                  ? 'bg-gradient-to-b from-amber-500/25 to-amber-950/40 border-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,0.25)] scale-[1.02]'
+                  : 'bg-slate-900/60 hover:bg-slate-850/80 border-white/10 hover:border-amber-400/40'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2.5 rounded-xl ${activeSettingCategory === 'git' ? 'bg-amber-400 text-slate-950 shadow-md' : 'bg-amber-500/15 text-amber-300'}`}>
+                  <GitBranch className="w-5 h-5" />
+                </div>
+                <span className={`text-[10px] font-gotu px-2 py-0.5 rounded-full border ${
+                  connectionStatus === 'connected'
+                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                    : 'bg-slate-800 text-slate-400 border-slate-700'
+                }`}>
+                  {connectionStatus === 'connected' ? 'कनेक्टेड' : 'अनकनेक्टेड'}
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
+                गिटहब कनेक्शन
+              </h3>
+              <p className="text-[11px] text-slate-400 font-gotu mt-1 leading-relaxed">
+                Repository, PAT टोकन एवं Direct Web Commit विन्यास।
+              </p>
+              {activeSettingCategory === 'git' && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-500" />
+              )}
+            </button>
+          </div>
+
+          {/* ACTIVE CATEGORY VIEW */}
+          <AnimatePresence mode="wait">
+            {activeSettingCategory === 'security' && (
+              <motion.div
+                key="security"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
               >
-                <Trash2 className="w-3.5 h-3.5" />
-                <span>सभी स्थिति ओवरराइड्स रीसेट करें</span>
-              </button>
-            </div>
-          </GlassCard>
+                <GlassCard className="p-5 sm:p-7 border border-white/10 bg-slate-900/70 backdrop-blur-xl rounded-2xl shadow-xl space-y-6">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                        <ShieldCheck className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-notoserif font-bold text-white">
+                          सुरक्षा व क्रेडेंशियल सेटिंग्स (Security & Credentials)
+                        </h3>
+                        <p className="text-xs text-slate-400 font-gotu">
+                          मास्टर पासवर्ड, 2-फ़ैक्टर TOTP ऑथेंटिकेटर एवं FIDO2 Passkey बायोमेट्रिक्स का प्रबंधन।
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {/* Section 1: पासवर्ड प्रबंधन */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                            <KeyRound className="w-4 h-4 text-amber-400" />
+                            <span>एडमिन पासवर्ड</span>
+                          </div>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-gotu">
+                            {Boolean(localStorage.getItem('jinvani_admin_custom_hash')) ? 'कस्टम पासवर्ड' : 'डिफ़ॉल्ट'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          सुरक्षित SHA-256 हैशिंग के साथ अपना व्यवस्थापक पासवर्ड बदलें या ज़रूरत पड़ने पर डिफ़ॉल्ट पर रीसेट करें।
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIsChangePassOpen(true);
+                            setPassModalError('');
+                          }}
+                          className="w-full py-2.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 font-gotu text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                        >
+                          <KeyRound className="w-3.5 h-3.5" />
+                          <span>नया पासवर्ड सेट करें</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleResetPasswordToDefault}
+                          className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-rose-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                        >
+                          <RotateCcw className="w-3 h-3" />
+                          <span>डिफ़ॉल्ट पासवर्ड पर रीसेट</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Section 2: 2-फ़ैक्टर प्रमाणीकरण */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                            <ShieldAlert className="w-4 h-4 text-amber-400" />
+                            <span>2FA प्रमाणीकरण</span>
+                          </div>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-gotu ${
+                            is2FAEnabled ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                          }`}>
+                            {is2FAEnabled ? 'सक्रिय (ON)' : 'निष्क्रिय (OFF)'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          Google Authenticator / Authy द्वारा 6-अंकों का समय आधारित सुरक्षा कोड। पासवर्ड के बाद अतिरिक्त सुरक्षा परत।
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setIs2FAModalOpen(true);
+                            setTestOtpInput('');
+                            setTestOtpResult(null);
+                          }}
+                          className="w-full py-2.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 font-gotu text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                        >
+                          <QrCode className="w-3.5 h-3.5" />
+                          <span>2FA सेटअप व क्यूआर कोड</span>
+                        </button>
+
+                        {is2FAEnabled ? (
+                          <button
+                            type="button"
+                            onClick={handleDisable2FA}
+                            className="w-full py-2 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                          >
+                            <ShieldAlert className="w-3 h-3" />
+                            <span>2FA सुरक्षा बंद करें</span>
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={handleEnable2FA}
+                            className="w-full py-2 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                          >
+                            <ShieldCheck className="w-3 h-3" />
+                            <span>2FA तुरंत सक्रिय करें</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Section 3: Passkey बायोमेट्रिक */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                            <Fingerprint className="w-4 h-4 text-amber-400" />
+                            <span>Passkey बायोमेट्रिक</span>
+                          </div>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-gotu ${
+                            hasPasskey ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-slate-800 text-slate-400 border border-slate-700'
+                          }`}>
+                            {hasPasskey ? 'पंजीकृत' : 'अपंजीकृत'}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          फ़िंगरप्रिंट, फ़ेस आईडी या Windows Hello द्वारा बिना पासवर्ड 1-टैप में अत्यंत तेज़ एवं सुरक्षित लॉगिन।
+                        </p>
+                        {hasPasskey && passkeyCreatedAt && (
+                          <p className="text-[10px] text-slate-400 font-gotu mt-1">
+                            पंजीकरण: {passkeyCreatedAt}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2 pt-3">
+                        {!hasPasskey ? (
+                          <button
+                            type="button"
+                            onClick={handleRegisterPasskey}
+                            disabled={isRegisteringPasskey}
+                            className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-gotu text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-50"
+                          >
+                            <Fingerprint className="w-4 h-4" />
+                            <span>{isRegisteringPasskey ? 'पंजीकरण हो रहा है...' : 'नई Passkey जोड़ें'}</span>
+                          </button>
+                        ) : (
+                          <>
+                            <button
+                              type="button"
+                              onClick={handleTestPasskey}
+                              className="w-full py-2 px-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-200 font-gotu text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                            >
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>बायोमेट्रिक टेस्ट करें</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleRemovePasskey}
+                              className="w-full py-2 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                              <span>Passkey हटाएं</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+
+            {activeSettingCategory === 'display' && (
+              <motion.div
+                key="display"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <GlassCard className="p-5 sm:p-7 border border-white/10 bg-slate-900/70 backdrop-blur-xl rounded-2xl shadow-xl space-y-6">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                        <SlidersHorizontal className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-notoserif font-bold text-white">
+                          डैशबोर्ड व लेआउट सेटिंग्स (Dashboard & Layout)
+                        </h3>
+                        <p className="text-xs text-slate-400 font-gotu">
+                          ग्रिड कॉलम लेआउट, ऑटो-रिफ्रेश अंतराल एवं सत्र निष्क्रियता समय सीमा का विन्यास।
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {/* Section 1: डिफ़ॉल्ट ग्रिड कॉलम */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm mb-2">
+                          <SlidersHorizontal className="w-4 h-4 text-amber-400" />
+                          <span>डिफ़ॉल्ट ग्रिड कॉलम</span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          सुझाव एवं अशुद्धि तालिका में कार्ड्स को अपनी स्क्रीन के अनुसार 1, 2 या 3 कॉलम में व्यवस्थित करें।
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-2">
+                        <div className="grid grid-cols-3 gap-2">
+                          {([1, 2, 3] as const).map((colNum) => (
+                            <button
+                              key={colNum}
+                              type="button"
+                              onClick={() => {
+                                handleSetColumns(colNum);
+                                showToast(`${colNum} कॉलम ग्रिड लेआउट सक्रिय किया गया।`);
+                              }}
+                              className={`py-2 px-2 rounded-xl text-xs font-gotu font-medium transition-all cursor-pointer text-center border ${
+                                columns === colNum
+                                  ? 'bg-amber-500/30 text-amber-200 border-amber-400/80 shadow-[0_0_15px_rgba(245,158,11,0.25)] font-bold'
+                                  : 'bg-white/5 hover:bg-white/10 text-slate-400 border-white/10'
+                              }`}
+                            >
+                              {colNum} कॉलम
+                            </button>
+                          ))}
+                        </div>
+                        <p className="text-[11px] text-amber-300/80 font-gotu pt-1">
+                          वर्तमान: <b>{columns} कॉलम</b> ({columns === 1 ? 'विस्तृत दृश्य' : columns === 2 ? 'मानक दृश्य' : 'सघन दृश्य'})
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Section 2: सत्र निष्क्रियता समय */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm mb-2">
+                          <Clock className="w-4 h-4 text-amber-400" />
+                          <span>सत्र समय सीमा (Session Timeout)</span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          यदि व्यवस्थापक इतनी देर तक निष्क्रिय रहता है, तो सुरक्षा के लिए स्वतः सुरक्षित लॉगआउट हो जाएगा।
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-2">
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { label: '15 मिनट', val: 15 },
+                            { label: '30 मिनट', val: 30 },
+                            { label: '60 मिनट', val: 60 },
+                            { label: '120 मिनट', val: 120 },
+                          ].map((item) => (
+                            <button
+                              key={item.val}
+                              type="button"
+                              onClick={() => {
+                                setSessionTimeoutMin(item.val);
+                                localStorage.setItem('jinvani_session_timeout_min', String(item.val));
+                                sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
+                                setSessionRemainingSec(item.val * 60);
+                                showToast(`सत्र निष्क्रियता समय ${item.label} सेट किया गया।`);
+                              }}
+                              className={`py-2 px-2 rounded-xl text-xs font-gotu font-medium transition-all cursor-pointer text-center border ${
+                                sessionTimeoutMin === item.val
+                                  ? 'bg-amber-500/30 text-amber-200 border-amber-400/80 shadow-[0_0_15px_rgba(245,158,11,0.25)] font-bold'
+                                  : 'bg-white/5 hover:bg-white/10 text-slate-400 border-white/10'
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Live Session Countdown Status Widget */}
+                        <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-gotu mt-2">
+                          <div className="flex items-center gap-2">
+                            <Clock className={`w-3.5 h-3.5 ${sessionRemainingSec <= 300 ? 'text-rose-400' : 'text-emerald-400'}`} />
+                            <span className="text-slate-400">सत्र शेष:</span>
+                            <span className={`font-mono font-bold ${
+                              sessionRemainingSec <= 120
+                                ? 'text-rose-400 animate-pulse'
+                                : sessionRemainingSec <= 300
+                                ? 'text-amber-400'
+                                : 'text-emerald-400'
+                            }`}>
+                              {formatSessionTime(sessionRemainingSec)}
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleExtendSession()}
+                            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px] font-gotu transition-colors cursor-pointer active:scale-95 flex items-center gap-1"
+                            title="सत्र समय रीसेट करें"
+                          >
+                            <RotateCcw className="w-3 h-3" />
+                            <span>समय बढ़ाएं</span>
+                          </button>
+                        </div>
+
+                        <p className="text-[11px] text-emerald-300/80 font-gotu pt-1">
+                          वर्तमान: <b>{sessionTimeoutMin} मिनट</b> के बाद स्वतः सुरक्षित लॉगआउट
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Section 3: ऑटो-रिफ्रेश अंतराल */}
+                    <div className="p-4 rounded-xl bg-slate-950/60 border border-white/10 space-y-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm mb-2">
+                          <RefreshCw className="w-4 h-4 text-amber-400" />
+                          <span>ऑटो-रिफ्रेश (Auto-Sync)</span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          Google Sheet से सुझाव व अशुद्धि प्रविष्टियों को पृष्ठभूमि में स्वतः ताज़ा करने का अंतराल।
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-2">
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { label: 'बंद (मैनुअल)', val: 0 },
+                            { label: '1 मिनट', val: 60 },
+                            { label: '3 मिनट', val: 180 },
+                            { label: '5 मिनट', val: 300 },
+                          ].map((item) => (
+                            <button
+                              key={item.val}
+                              type="button"
+                              onClick={() => {
+                                setAutoRefreshSec(item.val);
+                                localStorage.setItem('jinvani_auto_refresh_sec', String(item.val));
+                                setAutoRefreshCountdownSec(item.val);
+                                showToast(`ऑटो-रिफ्रेश अंतराल: ${item.label}`);
+                              }}
+                              className={`py-2 px-2 rounded-xl text-xs font-gotu font-medium transition-all cursor-pointer text-center border ${
+                                autoRefreshSec === item.val
+                                  ? 'bg-amber-500/30 text-amber-200 border-amber-400/80 shadow-[0_0_15px_rgba(245,158,11,0.25)] font-bold'
+                                  : 'bg-white/5 hover:bg-white/10 text-slate-400 border-white/10'
+                              }`}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Live Auto-Refresh Countdown Status Widget */}
+                        {autoRefreshSec > 0 && (
+                          <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-gotu mt-2">
+                            <div className="flex items-center gap-2">
+                              <RefreshCw className="w-3.5 h-3.5 text-amber-400 animate-spin" style={{ animationDuration: '4s' }} />
+                              <span className="text-slate-400">अगला सिंक:</span>
+                              <span className="font-mono font-bold text-amber-400">
+                                {autoRefreshCountdownSec}s
+                              </span>
+                            </div>
+                            <span className="text-[10px] text-slate-400 font-mono">
+                              प्रत्येक {autoRefreshSec / 60} मिनट
+                            </span>
+                          </div>
+                        )}
+
+                        <p className="text-[11px] text-amber-300/80 font-gotu pt-1">
+                          वर्तमान: <b>{autoRefreshSec === 0 ? 'बंद (मैनुअल)' : `${autoRefreshSec / 60} मिनट में स्वतः सिंक`}</b>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+
+            {activeSettingCategory === 'sheet' && (
+              <motion.div
+                key="sheet"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <GlassCard className="p-5 sm:p-7 border border-white/10 bg-slate-900/70 backdrop-blur-xl rounded-2xl shadow-xl space-y-6">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                        <Wifi className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-notoserif font-bold text-white">
+                          गूगल शीट व वेबहुक विन्यास (Google Sheet & Webhook API)
+                        </h3>
+                        <p className="text-xs text-slate-400 font-gotu">
+                          Google Apps Script वेबहुक एंडपॉइंट, स्प्रेडशीट दृश्य लिंक एवं लाइव कनेक्शन लेटेंसी।
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    {/* 1. Apps Script Webhook URL */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-white/10 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                          <Radio className="w-4 h-4 text-amber-400" />
+                          <span>Google Apps Script Webhook URL</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {pingStatus === 'success' && (
+                            <span className="text-[11px] font-gotu px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>कनेक्टेड ({pingLatency}ms)</span>
+                            </span>
+                          )}
+                          {pingStatus === 'error' && (
+                            <span className="text-[11px] font-gotu px-2.5 py-1 rounded-lg bg-rose-500/20 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
+                              <AlertCircle className="w-3.5 h-3.5" />
+                              <span>कनेक्शन त्रुटि</span>
+                            </span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={handlePingGoogleSheet}
+                            disabled={pingStatus === 'pinging'}
+                            className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-gotu text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-colors"
+                          >
+                            <Activity className={`w-3.5 h-3.5 ${pingStatus === 'pinging' ? 'animate-spin text-amber-400' : ''}`} />
+                            <span>{pingStatus === 'pinging' ? 'पिंग हो रहा है...' : 'लेटेंसी पिंग टेस्ट'}</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <input
+                          type="url"
+                          value={customWebhookUrl}
+                          onChange={(e) => setCustomWebhookUrl(e.target.value)}
+                          placeholder="https://script.google.com/macros/s/.../exec (खाली छोड़ने पर प्रोजेक्ट का डिफ़ॉल्ट URL प्रयुक्त होगा)"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white placeholder-slate-500 font-mono text-xs focus:outline-none focus:border-amber-400/70"
+                        />
+                        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+                          <p className="text-[11px] text-slate-400 font-gotu truncate max-w-md">
+                            सक्रिय एंडपॉइंट: <span className="font-mono text-amber-300/80">{activeWebhookUrl.slice(0, 50)}...</span>
+                          </p>
+                          <div className="flex items-center gap-2">
+                            {customWebhookUrl && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCustomWebhookUrl('');
+                                  localStorage.removeItem('jinvani_custom_webhook_url');
+                                  showToast('डिफ़ॉल्ट वेबहुक बहाल किया गया।');
+                                  fetchData(true);
+                                }}
+                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 font-gotu text-xs cursor-pointer transition-colors"
+                              >
+                                डिफ़ॉल्ट पर रीसेट
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                localStorage.setItem('jinvani_custom_webhook_url', customWebhookUrl.trim());
+                                showToast('वेबहुक URL सहेज लिया गया!');
+                                fetchData(true);
+                              }}
+                              className="px-4 py-1.5 rounded-lg bg-amber-500/25 hover:bg-amber-500/35 border border-amber-400/50 text-amber-200 font-gotu text-xs font-semibold cursor-pointer transition-colors"
+                            >
+                              सहेजें (Save Webhook)
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 2. Google Sheet View Link */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-white/10 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                          <Globe className="w-4 h-4 text-amber-400" />
+                          <span>Google Sheet View URL (स्प्रेडशीट सीधा लिंक)</span>
+                        </div>
+                        <a
+                          href={activeSheetUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-gotu text-xs cursor-pointer transition-colors"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>नई विंडो में शीट खोलें</span>
+                        </a>
+                      </div>
+
+                      <div className="space-y-2">
+                        <input
+                          type="url"
+                          value={customSheetUrl}
+                          onChange={(e) => setCustomSheetUrl(e.target.value)}
+                          placeholder="https://docs.google.com/spreadsheets/d/.../edit"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white placeholder-slate-500 font-mono text-xs focus:outline-none focus:border-amber-400/70"
+                        />
+                        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+                          <p className="text-[11px] text-slate-400 font-gotu truncate max-w-md">
+                            सक्रिय शीट लिंक: <span className="font-mono text-emerald-300/80">{activeSheetUrl.slice(0, 50)}...</span>
+                          </p>
+                          <div className="flex items-center gap-2">
+                            {customSheetUrl && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCustomSheetUrl('');
+                                  localStorage.removeItem('jinvani_custom_sheet_url');
+                                  showToast('डिफ़ॉल्ट शीट लिंक बहाल किया गया।');
+                                }}
+                                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-slate-200 font-gotu text-xs cursor-pointer transition-colors"
+                              >
+                                डिफ़ॉल्ट पर रीसेट
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                localStorage.setItem('jinvani_custom_sheet_url', customSheetUrl.trim());
+                                showToast('शीट लिंक सहेज लिया गया!');
+                              }}
+                              className="px-4 py-1.5 rounded-lg bg-emerald-500/25 hover:bg-emerald-500/35 border border-emerald-400/50 text-emerald-200 font-gotu text-xs font-semibold cursor-pointer transition-colors"
+                            >
+                              सहेजें (Save Sheet Link)
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 3. Google Sheet द्वि-मार्गी सिंक (Two-Way Sync) कोड व निर्देश */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-amber-500/20 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                          <FileCode className="w-4 h-4 text-amber-400" />
+                          <span>Google Apps Script द्वि-मार्गी सिंक कोड (Two-Way Sync Script)</span>
+                        </div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <button
+                            type="button"
+                            onClick={handleCleanupGhostRows}
+                            disabled={isCleaningSheet}
+                            className="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 font-gotu text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-colors"
+                            title="शीट से सभी खाली पंक्तियाँ हटाएं"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>{isCleaningSheet ? 'साफ़ हो रहा है...' : 'खाली पंक्तियाँ साफ़ करें'}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => copyGuideText(GOOGLE_APPS_SCRIPT_TEMPLATE, 'apps_script_code', 'Apps Script कोड कॉपी हो गया!')}
+                            className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-gotu text-xs flex items-center gap-1.5 cursor-pointer transition-colors"
+                          >
+                            {copiedKey === 'apps_script_code' ? (
+                              <>
+                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>कॉपी हुआ!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3.5 h-3.5" />
+                                <span>पूर्ण कोड कॉपी करें</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-slate-300 font-gotu leading-relaxed space-y-2">
+                        <p className="font-semibold text-amber-300">
+                          ⚠️ Google Sheet में डेटा सिंक क्यों नहीं हो रहा था?
+                        </p>
+                        <p>
+                          वर्तमान में आपकी Google Apps Script में केवल नया सुझाव जोड़ने का कोड था। जब एडमिन पैनल से <b>स्थिति (Status) बदली जाती है</b> या <b>प्रविष्टि डिलीट की जाती है</b>, तो उस बदलाव को Google Sheet में लिखने के लिए Apps Script में 2-वे सिंक कोड होना अनिवार्य है।
+                        </p>
+                        <div className="text-[11px] text-slate-400 space-y-1 pt-1 border-t border-white/5">
+                          <p className="font-semibold text-slate-200">🛠️ 1 मिनट में 2-वे सिंक कैसे सक्रिय करें:</p>
+                          <p>1. अपनी Google Sheet खोलें &gt; मेनू में <b>Extensions &gt; Apps Script</b> पर क्लिक करें।</p>
+                          <p>2. वहाँ मौजूद पुराने कोड को हटाकर ऊपर दिए गए <b>'पूर्ण कोड कॉपी करें'</b> बटन से कोड पेस्ट करें।</p>
+                          <p>3. ऊपर <b>Save (💾)</b> दबाएँ &gt; <b>Deploy &gt; Manage deployments</b> (या New deployment) पर क्लिक करें।</p>
+                          <p>4. <b>Who has access: Anyone</b> रखकर Deploy करें। इसके बाद हर स्थिति बदलाव व डिलीट सीधा आपकी Google Sheet में सिंक होगा!</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+
+            {activeSettingCategory === 'data' && (
+              <motion.div
+                key="data"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <GlassCard className="p-5 sm:p-7 border border-white/10 bg-slate-900/70 backdrop-blur-xl rounded-2xl shadow-xl space-y-6">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                        <Database className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-notoserif font-bold text-white">
+                          डेटा बैकअप, रिस्टोर एवं शुद्धिकरण (Data & Cache Management)
+                        </h3>
+                        <p className="text-xs text-slate-400 font-gotu">
+                          स्थानीय व्यवस्थापक स्थिति, घोषणाओं एवं कॉन्फ़िगरेशन का बैकअप एवं ऐप कैश शुद्धिकरण।
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Section 1: JSON बैकअप एक्सपोर्ट व इम्पोर्ट */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-white/10 space-y-4 flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-amber-300 font-gotu font-semibold text-sm">
+                            <Download className="w-4 h-4 text-amber-400" />
+                            <span>डेटा बैकअप (JSON Export / Import)</span>
+                          </div>
+                          <span className="text-[10px] font-gotu px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                            सुरक्षित ऑफ़लाइन
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          अपनी सभी समीक्षा स्थिति ओवरराइड्स, सार्वजनिक घोषणा सेटिंग्स, एवं प्राथमिकताओं को एकल JSON फ़ाइल में बैकअप करें या किसी अन्य डिवाइस पर पुनर्स्थापित करें।
+                        </p>
+
+                        {/* Storage Bar */}
+                        <div className="space-y-1.5 pt-1">
+                          <div className="flex items-center justify-between text-[11px] font-gotu text-slate-400">
+                            <span>ब्राउज़र लोकल स्टोरेज:</span>
+                            <span className="text-amber-300 font-bold">{storageUsageKB} KB / ~5,120 KB</span>
+                          </div>
+                          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden border border-white/5">
+                            <div
+                              className="h-full bg-gradient-to-r from-amber-400 to-teal-400 rounded-full transition-all duration-500"
+                              style={{ width: `${Math.min(100, Math.max(2, (Number(storageUsageKB) / 5120) * 100))}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3">
+                        <button
+                          type="button"
+                          onClick={handleExportBackup}
+                          className="py-2.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-gotu text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>JSON बैकअप डाउनलोड</span>
+                        </button>
+
+                        <label className="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-gotu text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors text-center">
+                          <Upload className="w-3.5 h-3.5 text-slate-400" />
+                          <span>बैकअप इम्पोर्ट करें</span>
+                          <input
+                            type="file"
+                            accept=".json"
+                            onChange={handleImportBackup}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Section 2: सिस्टम कैश एवं ओवरराइड्स शुद्धिकरण */}
+                    <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-white/10 space-y-4 flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-rose-300 font-gotu font-semibold text-sm">
+                            <Trash2 className="w-4 h-4 text-rose-400" />
+                            <span>कैश व स्थानीय शुद्धिकरण (Purge & Reset)</span>
+                          </div>
+                          <span className="text-[10px] font-gotu px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-300 border border-rose-500/30">
+                            सावधानीपूर्वक
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+                          ब्राउज़र सर्विस वर्कर द्वारा कैश की गई फ़ाइलें साफ़ करें या केवल स्थानीय ओवरराइड्स को हटाकर गूगल शीट के मूल डेटा को पुनः सक्रिय करें।
+                        </p>
+
+                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200/90 font-gotu space-y-1">
+                          <p><b>ध्यान दें:</b> कैश साफ़ करने से गूगल शीट का मूल डेटा डिलीट नहीं होता। केवल इस ब्राउज़र की स्थानीय प्रतियां रीफ़्रेश होती हैं।</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3">
+                        <button
+                          type="button"
+                          onClick={handlePurgeCache}
+                          className="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/30 text-slate-300 hover:text-rose-200 font-gotu text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                        >
+                          <RotateCcw className="w-3.5 h-3.5 text-rose-400" />
+                          <span>ऐप कैश साफ़ करें</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleResetOverrides}
+                          className="py-2.5 px-3 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-200 font-gotu text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>ओवरराइड्स रीसेट करें</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+
+            {activeSettingCategory === 'git' && (
+              <motion.div
+                key="git"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <GlassCard className="p-5 sm:p-7 border border-white/10 bg-slate-900/70 backdrop-blur-xl rounded-2xl shadow-xl space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/10 gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/30">
+                        <GitBranch className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-notoserif font-bold text-white">
+                          GitHub रिपॉजिटरी कनेक्शन सेटिंग्स (Direct Web Commit)
+                        </h3>
+                        <p className="text-xs text-slate-400 font-gotu">
+                          वेबसाइट से सीधे 1-क्लिक में घोषणाओं को GitHub रिपॉजिटरी पर Commit & Push करें।
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 border border-amber-400/30 text-[11px] font-gotu">
+                      <span className={connectionStatus === 'connected' ? 'text-emerald-400 font-bold' : 'text-amber-300'}>
+                        {connectionStatus === 'connected' ? '🟢 कनेक्टेड' : '⚪ अनकनेक्टेड (लोकल/Desktop मोड)'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 sm:p-5 rounded-xl bg-slate-950/60 border border-white/10 space-y-4">
+                    <p className="text-xs text-slate-300 font-gotu leading-relaxed">
+                      वेबसाइट से सीधे 1-क्लिक में <code>public/announcement.json</code> को GitHub पर Commit & Push करने हेतु अपनी रिपॉजिटरी का नाम और Personal Access Token दर्ज करें:
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-amber-200 font-gotu">
+                          GitHub Repository (उदा. username/repo):
+                        </label>
+                        <input
+                          type="text"
+                          value={githubRepo}
+                          onChange={(e) => setGithubRepo(e.target.value)}
+                          placeholder="उदा. username/JainJinvani"
+                          className="w-full bg-slate-900 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-amber-200 font-gotu">
+                          ब्रांच नाम (Branch Name):
+                        </label>
+                        <input
+                          type="text"
+                          value={githubBranch}
+                          onChange={(e) => setGithubBranch(e.target.value)}
+                          placeholder="main"
+                          className="w-full bg-slate-900 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center justify-between">
+                        <span>GitHub Personal Access Token (PAT):</span>
+                        <span className="text-[10px] text-slate-400">केवल आपके ब्राउज़र में सुरक्षित रहता है</span>
+                      </label>
+                      <input
+                        type="password"
+                        value={githubToken}
+                        onChange={(e) => setGithubToken(e.target.value)}
+                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                        className="w-full bg-slate-900 border border-amber-500/25 rounded-xl p-2.5 text-xs text-amber-100 font-mono focus:outline-none focus:border-amber-400"
+                      />
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleTestConnection}
+                        disabled={isTestingConnection}
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs flex items-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer disabled:opacity-50"
+                      >
+                        {isTestingConnection ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                        <span>{isTestingConnection ? 'जाँच रहे हैं...' : 'सहेजें एवं कनेक्शन टेस्ट करें'}</span>
+                      </button>
+
+                      {githubToken && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setGithubToken('');
+                            localStorage.removeItem('jinvani_git_token');
+                            setConnectionStatus('idle');
+                            showToast('GitHub टोकन हटा दिया गया।');
+                          }}
+                          className="px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-rose-300 border border-white/10 text-xs font-gotu transition-colors cursor-pointer"
+                        >
+                          टोकन हटाएं
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </GlassCard>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
 
-      {/* TAB 6: प्रशासक मार्गदर्शिका एवं सुरक्षा संदर्भ (Admin Guide & Security Manual) */}
+      {/* TAB 5: प्रशासक मार्गदर्शिका एवं सुरक्षा संदर्भ (Admin Guide & Security Manual) */}
       {adminTab === 'guide' && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -3465,7 +4517,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                   </div>
                   <h4 className="text-sm font-bold text-white font-gotu">एडमिन डैशबोर्ड से बदलें</h4>
                   <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                    शीर्ष हेडर में <strong>"पासवर्ड"</strong> बटन दबाएं, वर्तमान पासवर्ड व नया पासवर्ड दर्ज करके सेव करें।
+                    <strong>"सेटिंग्स"</strong> टैब में <strong>"सुरक्षा व क्रेडेंशियल्स"</strong> में जाकर <strong>"नया पासवर्ड सेट करें"</strong> बटन दबाएं, वर्तमान व नया पासवर्ड दर्ज करके सेव करें।
                   </p>
                 </div>
                 <div className="pt-2 border-t border-white/5 text-[11px] text-slate-400 font-gotu">
@@ -3789,7 +4841,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                 </li>
                 <li className="flex items-start gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>बैकअप:</strong> 'सिस्टम टूल्स' टैब से एक क्लिक में संपूर्ण डेटा JSON में निर्यात/आयात करें।</span>
+                  <span><strong>बैकअप:</strong> 'सेटिंग्स' टैब के <strong>'डेटा बैकअप व शुद्धिकरण'</strong> से एक क्लिक में संपूर्ण डेटा JSON में निर्यात/आयात करें।</span>
                 </li>
               </ul>
             </GlassCard>

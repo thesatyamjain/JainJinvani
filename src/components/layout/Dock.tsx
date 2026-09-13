@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
 import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Play, Pause } from 'lucide-react';
-import { useIsModalOpen } from '../../lib';
+import { useIsModalOpen, getSettings, type UserSettings } from '../../lib';
 import { triggerHaptic } from '../../utils/pwaManager';
 
 // FontAwesome Duotone Solid text-size Icon (https://fontawesome.com/icons/duotone/solid/text-size)
@@ -54,6 +54,9 @@ export const Dock = ({
 
   const [isFontExpanded, setIsFontExpanded] = useState(false);
   const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
+  const [dockTheme, setDockTheme] = useState<'frosted' | 'classic'>(() => {
+    return getSettings().dockTheme || 'frosted';
+  });
 
   // Dynamic reader state when viewing content
   const [readerState, setReaderState] = useState<{
@@ -97,6 +100,34 @@ export const Dock = ({
       window.removeEventListener('jinvani:reader-state', handleReaderState);
     };
   }, [isReaderMode]);
+
+  // Listen for live dockTheme updates from Settings
+  useEffect(() => {
+    const handleSettingsUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<UserSettings>;
+      if (customEvent.detail?.dockTheme) {
+        setDockTheme(customEvent.detail.dockTheme);
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jain_settings' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed.dockTheme) {
+            setDockTheme(parsed.dockTheme);
+          }
+        } catch {}
+      }
+    };
+
+    window.addEventListener('jain_settings_updated', handleSettingsUpdate);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('jain_settings_updated', handleSettingsUpdate);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
 
   // Smart Auto-Hide on Scroll Down, Reveal on Scroll Up (Stabilized against touch micro-jitter)
   useEffect(() => {
@@ -354,9 +385,9 @@ export const Dock = ({
               width: { duration: 0.18, ease: [0.32, 0.72, 0, 1] },
             },
           }}
-          className="flex items-end overflow-hidden origin-right shrink-0"
+          className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5 overflow-hidden origin-right shrink-0"
         >
-          <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5 shrink-0" />
+          <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
           <div className="shrink-0">
             {renderBackToTopIcon()}
           </div>
@@ -379,7 +410,7 @@ export const Dock = ({
         }}
       />
 
-      <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
+      <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
 
       <DockIcon
         mouseX={mouseX}
@@ -417,7 +448,7 @@ export const Dock = ({
         }}
       />
 
-      <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
+      <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
 
       <DockIcon
         mouseX={mouseX}
@@ -455,16 +486,27 @@ export const Dock = ({
           stiffness: 450,
           damping: 32,
         }}
-        className={`flex items-end gap-1 sm:gap-1.5 md:gap-3 rounded-2xl md:rounded-[26px] bg-[#071124]/90 px-2 sm:px-3 md:px-5 backdrop-blur-2xl backdrop-saturate-[200%] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.75),0_0_25px_rgba(245,158,11,0.12),inset_0_1px_1px_rgba(255,255,255,0.25)] w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-colors duration-200 ${
-          isReaderMode ? 'min-h-[66px] md:min-h-[74px] pt-2 pb-3.5' : 'min-h-[58px] md:min-h-[68px] pt-1.5 pb-2'
+        className={`flex items-end rounded-2xl md:rounded-[26px] ${
+          dockTheme === 'classic' ? 'classic-dock' : 'frosted-glass-dock'
+        } px-2.5 sm:px-3.5 md:px-4 w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-all duration-200 ${
+          isReaderMode ? 'min-h-[66px] md:min-h-[76px] pt-2.5 md:pt-3.5 pb-3.5 md:pb-4' : 'min-h-[58px] md:min-h-[68px] pt-2 md:pt-3 pb-2 md:pb-2.5'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         onTouchStart={handleDockTouchStart}
         onTouchEnd={handleDockTouchEnd}
       >
-        {/* Subtle Ambient Golden Rim Light */}
-        <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent pointer-events-none" />
+        {/* Subtle Ambient Specular Glass Rim Lights */}
+        <div
+          className={`absolute ${dockTheme === 'classic' ? 'inset-x-5' : 'inset-x-6'} top-0 h-[1px] bg-gradient-to-r from-transparent ${
+            dockTheme === 'classic' ? 'via-white/40' : 'via-white/50'
+          } to-transparent pointer-events-none transition-all duration-300`}
+        />
+        <div
+          className={`absolute inset-x-12 top-0 h-[1px] bg-gradient-to-r from-transparent ${
+            dockTheme === 'classic' ? 'via-amber-400/25' : 'via-amber-400/30'
+          } to-transparent pointer-events-none transition-all duration-300`}
+        />
 
         <AnimatePresence mode="wait">
           {isReaderMode ? (
@@ -482,7 +524,7 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1 sm:gap-1.5 md:gap-2.5"
+                className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
               >
                 {/* 1. Back Button */}
                 <DockIcon
@@ -496,7 +538,7 @@ export const Dock = ({
                   onClick={handleBackClick}
                 />
 
-                <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2 md:mb-2.5 mx-0.5" />
+                <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
 
                 {/* 2. Expanding Font Sizing Control (Aa -> [A- 18 A+ ✓]) */}
                 <div id="dock-font-controls" className="relative flex flex-col items-center">
@@ -509,7 +551,7 @@ export const Dock = ({
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                        className="flex items-center bg-[#081225]/95 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_0_20px_rgba(245,158,11,0.25)] mb-2.5 h-[39px] sm:h-[42px]"
+                        className="flex items-center bg-[#071224]/80 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px]"
                       >
                         <button
                           onClick={(e) => {
@@ -633,7 +675,7 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
+                className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
               >
                 {renderNavItems()}
 
@@ -654,7 +696,7 @@ export const Dock = ({
                 layout: { type: 'spring', stiffness: 450, damping: 32 },
                 duration: 0.16,
               }}
-              className="flex items-end gap-1 sm:gap-1.5 md:gap-3"
+              className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
             >
               {renderNavItems()}
 
@@ -665,7 +707,7 @@ export const Dock = ({
 
         {/* 2-Page Pagination Dots INSIDE Dock when in Reader Mode */}
         {isReaderMode && (
-          <div className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-1 px-3 cursor-pointer transition-opacity duration-200 ${
+          <div className={`absolute bottom-1 md:bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-0.5 px-3 cursor-pointer transition-opacity duration-200 ${
             isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}>
             <button
