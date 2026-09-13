@@ -489,9 +489,11 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                       key={item.id}
                       initial={{ opacity: 0, scale: 0.96 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.03, duration: 0.3 }}
+                      whileHover={{ y: -3 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ delay: idx * 0.03, duration: 0.25 }}
                       onClick={() => handleItemClick(item)}
-                      className={`h-full ${isOddLast ? 'col-span-2 md:col-span-1' : ''}`}
+                      className={`h-full cursor-pointer ${isOddLast ? 'col-span-2 md:col-span-1' : ''}`}
                     >
                       <GlassCard
                         variant="gilded"

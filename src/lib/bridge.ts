@@ -31,14 +31,10 @@ export const getContentByIdAsync = async (id: string) => {
     // Check cache first
     if (MODULE_CACHE[moduleName]) {
         const modData = MODULE_CACHE[moduleName];
-        // The module exports { XData: { ... } } or just the data?
-        // Our migration script created: export const ArtiData = { ... }
-        // We need to access the export. Dynamic import returns a Module Namespace Object.
-        // Let's assume the first export is our data.
-        const values = Object.values(modData);
-        if (values.length > 0) {
-            const dataMap = values[0] as Record<string, any>;
-            return dataMap[id];
+        for (const exp of Object.values(modData)) {
+            if (exp && typeof exp === 'object' && (exp as any)[id]) {
+                return (exp as any)[id];
+            }
         }
     }
 
@@ -47,10 +43,10 @@ export const getContentByIdAsync = async (id: string) => {
         MODULE_CACHE[moduleName] = mod;
 
         // Extract the data object from the module
-        const values = Object.values(mod);
-        if (values.length > 0) {
-            const dataMap = values[0] as Record<string, any>;
-            return dataMap[id];
+        for (const exp of Object.values(mod)) {
+            if (exp && typeof exp === 'object' && (exp as any)[id]) {
+                return (exp as any)[id];
+            }
         }
     } catch (error) {
         console.error(`Failed to load module ${moduleName} for content ${id}`, error);

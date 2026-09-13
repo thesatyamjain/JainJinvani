@@ -35,7 +35,7 @@ const SCRIPTURE_MODULES = [
 ];
 
 const ESSENTIAL_AUDIO = [
-  'https://ia800302.us.archive.org/10/items/NamokarMantra/Namokar%20Mantra.mp3'
+  'https://archive.org/download/namokar-mantra/Namokaar%20Mantra%20Hai%20Nyaara%20_%20Lata%20Mangeshkar%20_%20Rajendra%20Jain%20_%20Full%20Audio%20Song_WqD-nyNdW3o.mp3'
 ];
 
 // Install: Precache app shell & essential icons
@@ -184,6 +184,10 @@ self.addEventListener('fetch', (event) => {
 
   // 2. Audio and media files (.mp3, .wav, or media domain)
   if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.wav') || url.hostname.includes('archive.org') || url.hostname.includes('r2.dev')) {
+    // Range requests cannot be cached with cache.put in Cache API
+    if (event.request.headers.has('range')) {
+      return; // Let browser natively handle Range request over network
+    }
     event.respondWith(
       caches.open(MEDIA_CACHE).then((cache) => {
         return cache.match(event.request).then((cached) => {

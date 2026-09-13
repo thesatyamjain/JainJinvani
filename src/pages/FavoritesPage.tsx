@@ -25,12 +25,15 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
         className="flex items-center justify-between mb-8 relative"
       >
         {onBack ? (
-          <button
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group shrink-0"
+            className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group shrink-0 cursor-pointer"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-          </button>
+          </motion.button>
         ) : (
           <div className="w-12" />
         )}
@@ -165,13 +168,16 @@ export const FavoritesPage = ({ onNavigate, onBack }: FavoritesPageProps) => {
               </motion.div>
             ))}
 
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => onNavigate('festivals')}
-              className="w-full mt-3 py-3 rounded-2xl border border-amber-500/30 text-amber-200 hover:bg-amber-500/10 font-gotu text-xs font-bold transition-all flex items-center justify-center gap-2"
+              className="w-full mt-3 py-3 rounded-2xl border border-amber-500/30 text-amber-200 hover:bg-amber-500/10 font-gotu text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>सभी पर्व एवं तिथियाँ देखें</span>
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </div>

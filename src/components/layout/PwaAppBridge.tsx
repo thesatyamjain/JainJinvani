@@ -165,12 +165,14 @@ export const PwaAppBridge = () => {
                   <p className="text-[11px] text-slate-300 font-gotu">नवीनतम सामग्री हेतु रीलोड करें</p>
                 </div>
               </div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={handleUpdateClick}
-                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-gotu font-bold text-xs shrink-0 shadow-md active:scale-95 transition-all cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-gotu font-bold text-xs shrink-0 shadow-md transition-colors cursor-pointer"
               >
                 अपडेट करें
-              </button>
+              </motion.button>
             </div>
           </motion.aside>
         )}
@@ -188,13 +190,15 @@ export const PwaAppBridge = () => {
               className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
             >
               {/* Close Button */}
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setShowInstallModal(false)}
                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 transition-colors cursor-pointer"
                 title="बंद करें"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
 
               <div className="flex items-center gap-3.5 mb-4">
                 <img
@@ -229,19 +233,23 @@ export const PwaAppBridge = () => {
               </div>
 
               <div className="flex items-center gap-3 mt-5">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => setShowInstallModal(false)}
                   className="flex-1 py-3 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-300 font-gotu text-xs font-medium transition-colors cursor-pointer"
                 >
                   अभी नहीं
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={handleInstallClick}
-                  className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:brightness-110 text-black font-gotu text-xs font-bold flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(245,158,11,0.4)] active:scale-95 transition-all cursor-pointer"
+                  className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:brightness-110 text-black font-gotu text-xs font-bold flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-all cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   ऐप इंस्टॉल करें
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           </div>
@@ -259,13 +267,15 @@ export const PwaAppBridge = () => {
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
               className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
             >
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setShowIOSGuide(false)}
                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 transition-colors cursor-pointer"
                 title="बंद करें"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
 
               <div className="flex items-center gap-3.5 mb-5">
                 <img
@@ -321,12 +331,14 @@ export const PwaAppBridge = () => {
                 </div>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={() => setShowIOSGuide(false)}
-                className="mt-5 w-full py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-black font-gotu text-xs font-bold transition-all cursor-pointer shadow-md"
+                className="mt-5 w-full py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-black font-gotu text-xs font-bold transition-colors cursor-pointer shadow-md"
               >
                 समझ गया
-              </button>
+              </motion.button>
             </motion.div>
           </div>
         )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { TiltCard, type TiltOptions } from './TiltCard';
@@ -61,16 +62,8 @@ export const GlassCard = ({
 
   const isGilded = variant === 'gilded' || variant === 'sacred';
 
-  const cardBody = (innerClasses?: string) => (
-    <div
-      className={cn(
-        'rounded-2xl transition-all duration-300 relative overflow-hidden',
-        variantClasses[variant],
-        intensity !== 'high' && intensityModifier[intensity],
-        innerClasses
-      )}
-      {...(tilt ? {} : props)}
-    >
+  const cardContent = (
+    <>
       {/* Specular Top Light Reflection */}
       {sheen && (
         <div
@@ -87,8 +80,41 @@ export const GlassCard = ({
       <div className="absolute -inset-px rounded-2xl bg-radial-gradient from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {children}
-    </div>
+    </>
   );
+
+  const cardClasses = (innerClasses?: string) =>
+    cn(
+      'rounded-2xl transition-[background-color,border-color,box-shadow] duration-300 relative overflow-hidden',
+      variantClasses[variant],
+      intensity !== 'high' && intensityModifier[intensity],
+      innerClasses
+    );
+
+  const cardBody = (innerClasses?: string) => {
+    // If card is interactive (has onClick) and tilt is not active, apply Framer Motion tactile spring
+    if (props.onClick && !tilt) {
+      return (
+        <motion.div
+          whileTap={{ scale: 0.985 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          className={cardClasses(innerClasses)}
+          {...(props as any)}
+        >
+          {cardContent}
+        </motion.div>
+      );
+    }
+
+    return (
+      <div
+        className={cardClasses(innerClasses)}
+        {...(tilt ? {} : props)}
+      >
+        {cardContent}
+      </div>
+    );
+  };
 
   if (tilt) {
     const tiltOptions = typeof tilt === 'object' ? tilt : {};

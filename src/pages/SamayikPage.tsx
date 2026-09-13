@@ -82,12 +82,15 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
     <div className="w-full max-w-5xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-4 md:px-6 flex flex-col items-center">
       {/* Header */}
       <div className="w-full flex items-center justify-between mb-8">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.90 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 25 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group cursor-pointer"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <div className="text-center">
           <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-1.5 pb-0.5 leading-[1.35]">सामायिक समता साधना</h1>
@@ -113,56 +116,63 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
 
             <div className="relative z-10 flex flex-col items-center w-full">
               {/* Circular Progress Gauge */}
-              <div className="relative w-60 h-60 sm:w-68 sm:h-68 mb-8 flex items-center justify-center">
-                <svg className="w-full h-full -rotate-90">
+              <div className="relative w-64 h-64 flex items-center justify-center mb-8">
+                {/* SVG Progress Circle */}
+                <svg className="w-full h-full transform -rotate-90">
                   <circle
-                    cx="50%"
-                    cy="50%"
-                    r="44%"
-                    className="stroke-white/10"
+                    cx="128"
+                    cy="128"
+                    r="110"
+                    className="text-white/5"
                     strokeWidth="8"
-                    fill="none"
+                    stroke="currentColor"
+                    fill="transparent"
                   />
                   <circle
-                    cx="50%"
-                    cy="50%"
-                    r="44%"
-                    className="stroke-amber-400"
+                    cx="128"
+                    cy="128"
+                    r="110"
+                    className="text-amber-400 transition-all duration-1000 ease-linear"
                     strokeWidth="8"
-                    fill="none"
-                    strokeDasharray={2 * Math.PI * 115}
-                    strokeDashoffset={2 * Math.PI * 115 * (1 - progress / 100)}
+                    strokeDasharray={2 * Math.PI * 110}
+                    strokeDashoffset={2 * Math.PI * 110 * (1 - progress / 100)}
                     strokeLinecap="round"
-                    style={{
-                      transition: 'stroke-dashoffset 1s linear',
-                      filter: 'drop-shadow(0 0 10px rgba(245,158,11,0.6))',
-                    }}
+                    stroke="currentColor"
+                    fill="transparent"
                   />
                 </svg>
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-5xl sm:text-6xl font-mono font-bold text-white tracking-tight drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                {/* Inner Content */}
+                <div className="absolute flex flex-col items-center justify-center">
+                  <span className="text-5xl font-notoserif font-bold text-white tracking-wider">
                     {formatTime(timeLeft)}
                   </span>
-                  <span className="text-xs uppercase tracking-widest text-amber-300 font-cinzel font-bold mt-2 bg-amber-500/15 px-2.5 py-0.5 rounded-full border border-amber-500/25">
-                    {isActive ? 'साधना जारी...' : 'अवधि शेष'}
+                  <span className="text-xs text-amber-300/80 font-gotu uppercase tracking-widest mt-2 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    {isActive ? 'साधना प्रगति पर' : 'विश्राम अवस्था'}
                   </span>
                 </div>
               </div>
 
               {/* Controls */}
               <div className="flex items-center gap-5">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.90 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={resetTimer}
-                  className="w-13 h-13 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-all"
+                  className="w-13 h-13 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                   title="पुनः सेट करें (Reset)"
                 >
                   <RotateCcw className="w-5 h-5" />
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   onClick={toggleTimer}
-                  className={`px-8 py-4 rounded-2xl font-bold font-gotu text-base transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2.5 shadow-xl ${
+                  className={`px-8 py-4 rounded-2xl font-bold font-gotu text-base flex items-center gap-2.5 shadow-xl cursor-pointer select-none ${
                     isActive
                       ? 'bg-amber-500/20 text-amber-200 border border-amber-400/50 shadow-[0_0_25px_rgba(245,158,11,0.3)]'
                       : 'bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 text-slate-950 shadow-[0_0_30px_rgba(245,158,11,0.4)]'
@@ -179,11 +189,14 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                       <span>प्रारंभ करें</span>
                     </>
                   )}
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.90 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={() => setIsAudioPlaying(!isAudioPlaying)}
-                  className={`w-13 h-13 rounded-2xl border transition-all flex items-center justify-center ${
+                  className={`w-13 h-13 rounded-2xl border transition-colors flex items-center justify-center cursor-pointer ${
                     isAudioPlaying
                       ? 'bg-amber-500/20 border-amber-400/40 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
                       : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
@@ -191,7 +204,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                   title="णमोकार महामंत्र ध्वनि"
                 >
                   {isAudioPlaying ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
-                </button>
+                </motion.button>
               </div>
             </div>
           </GlassCard>

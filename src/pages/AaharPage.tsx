@@ -76,13 +76,15 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
         className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-6"
       >
         <div className="flex items-center gap-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-          </button>
+          </motion.button>
           <div className="py-1">
             <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
               भक्ष्य-अभक्ष्य विवेक
@@ -105,13 +107,15 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
               className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
             />
             {searchTerm && (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setSearchTerm('')}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
                 title="खोज साफ़ करें"
               >
                 <X className="w-3.5 h-3.5" />
-              </button>
+              </motion.button>
             )}
           </div>
         </div>
@@ -123,9 +127,11 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-wrap items-center gap-2 mb-7 overflow-x-auto custom-scrollbar pb-1"
       >
-        <button
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => setFilter('all')}
-          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-all duration-300 border cursor-pointer shrink-0 ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
             filter === 'all'
               ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/20 text-amber-200 border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.2)] font-semibold'
               : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-white/20 hover:bg-slate-800/60'
@@ -135,11 +141,13 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
           <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-white/10 text-amber-300/90 ml-1">
             {countAll}
           </span>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => setFilter('allowed')}
-          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-all duration-300 border cursor-pointer shrink-0 ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
             filter === 'allowed'
               ? 'bg-emerald-500/20 text-emerald-200 border-emerald-400/50 shadow-[0_0_20px_rgba(16,185,129,0.2)] font-semibold'
               : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-emerald-500/30 hover:bg-slate-800/60'
@@ -150,11 +158,13 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
           <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-emerald-500/15 text-emerald-300 ml-1">
             {countAllowed}
           </span>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => setFilter('prohibited')}
-          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-all duration-300 border cursor-pointer shrink-0 ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
             filter === 'prohibited'
               ? 'bg-rose-500/20 text-rose-200 border-rose-400/50 shadow-[0_0_20px_rgba(244,63,94,0.2)] font-semibold'
               : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-rose-500/30 hover:bg-slate-800/60'
@@ -165,11 +175,13 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
           <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-rose-500/15 text-rose-300 ml-1">
             {countProhibited}
           </span>
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => setFilter('caution')}
-          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-all duration-300 border cursor-pointer shrink-0 ${
+          className={`flex items-center gap-1.5 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
             filter === 'caution'
               ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.2)] font-semibold'
               : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-amber-500/30 hover:bg-slate-800/60'
@@ -180,7 +192,7 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
           <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-amber-500/15 text-amber-300 ml-1">
             {countCaution}
           </span>
-        </button>
+        </motion.button>
       </motion.div>
 
       {/* Grid of Food Items */}
@@ -286,7 +298,9 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
             <p className="text-slate-400 font-gotu text-sm max-w-sm">
               "{searchTerm}" के लिए कोई परिणाम नहीं मिला। कृपया कोई अन्य शब्द खोजें।
             </p>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 setSearchTerm('');
                 setFilter('all');
@@ -294,7 +308,7 @@ export const AaharPage = ({ onBack }: AaharPageProps) => {
               className="mt-5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-300 text-xs font-gotu transition-colors cursor-pointer"
             >
               सभी सामग्री देखें
-            </button>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

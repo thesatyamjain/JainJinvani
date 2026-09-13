@@ -127,13 +127,15 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group cursor-pointer shadow-md shrink-0"
+            className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group cursor-pointer shadow-md shrink-0"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-          </button>
+          </motion.button>
 
           <div>
             <h1 className="text-3xl font-rozha text-transparent bg-clip-text bg-gradient-to-r from-amber-100 to-orange-200 pt-1.5 pb-0.5 leading-[1.35]">
@@ -162,16 +164,18 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
           {/* Filter */}
           <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
             {['All', 'Digambar', 'Shwetambar'].map((sect) => (
-              <button
+              <motion.button
                 key={sect}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setFilterSect(sect as any)}
-                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${filterSect === sect
+                className={`px-4 py-1.5 rounded-full text-xs font-bold transition-[background-color,color] cursor-pointer ${filterSect === sect
                     ? 'bg-amber-500/20 text-amber-200'
                     : 'text-white/50 hover:text-white'
                   }`}
               >
                 {sect}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>

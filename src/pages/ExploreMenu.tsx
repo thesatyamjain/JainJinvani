@@ -84,6 +84,8 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
       <motion.button
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
+        whileHover={{ x: -3 }}
+        whileTap={{ scale: 0.96 }}
         onClick={() => onNavigate('home')}
         className="inline-flex items-center gap-2 text-xs font-gotu text-indigo-300/80 hover:text-indigo-200 transition-colors mb-3 sm:mb-4 group cursor-pointer"
       >
@@ -124,7 +126,9 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
             key={category.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.05, duration: 0.4 }}
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ delay: idx * 0.05, duration: 0.3 }}
             onClick={() => {
               if (category.page) {
                 onNavigate(category.page);

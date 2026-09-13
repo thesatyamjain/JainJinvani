@@ -248,7 +248,9 @@ export const FeedbackModal = ({
                 </div>
 
                 <div className="flex items-center gap-1.5 shrink-0">
-                  <a
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     href={GOOGLE_FORM_VIEW_URL}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -256,14 +258,16 @@ export const FeedbackModal = ({
                     title="गूगल फॉर्म में देखें"
                   >
                     <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </a>
-                  <button
+                  </motion.a>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={onClose}
                     className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-rose-500/20 text-slate-400 hover:text-rose-200 border border-white/10 transition-colors cursor-pointer"
                     title="बंद करें"
                   >
                     <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
@@ -288,21 +292,27 @@ export const FeedbackModal = ({
                   </div>
 
                   <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3">
-                    <button
+                    <motion.button
                       type="button"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                       onClick={handleReset}
                       className="w-full sm:w-auto px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 font-gotu text-xs sm:text-sm flex items-center justify-center gap-2 border border-white/10 transition-colors cursor-pointer"
                     >
                       <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       एक और सुझाव दें
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
                       type="button"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                       onClick={onClose}
-                      className="w-full sm:w-auto px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm shadow-[0_4px_16px_rgba(245,158,11,0.35)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                      className="w-full sm:w-auto px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm shadow-[0_4px_16px_rgba(245,158,11,0.35)] cursor-pointer select-none"
                     >
                       पूर्ण (बंद करें)
-                    </button>
+                    </motion.button>
                   </div>
                 </motion.div>
               ) : (
@@ -328,10 +338,13 @@ export const FeedbackModal = ({
                         </a>
                       </div>
                     </div>
-                    <button
+                    <motion.button
                       type="button"
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.92 }}
+                      transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                       onClick={handleCopyEmail}
-                      className="shrink-0 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-[11px] font-gotu transition-all active:scale-95 cursor-pointer flex items-center gap-1.5"
+                      className="shrink-0 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-[11px] font-gotu transition-colors cursor-pointer flex items-center gap-1.5 select-none"
                       title="ईमेल कॉपी करें"
                     >
                       {copiedEmail ? (
@@ -345,7 +358,7 @@ export const FeedbackModal = ({
                           <span>कॉपी</span>
                         </>
                       )}
-                    </button>
+                    </motion.button>
                   </div>
 
                   {/* 1. Category / Type Selection */}
@@ -359,11 +372,14 @@ export const FeedbackModal = ({
                         const isSelected = feedbackType === type.id;
                         const Icon = type.icon;
                         return (
-                          <button
+                          <motion.button
                             key={type.id}
                             type="button"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                             onClick={() => setFeedbackType(type.id)}
-                            className={`p-2 sm:p-2.5 rounded-xl text-left font-gotu transition-all border cursor-pointer relative overflow-hidden flex flex-col justify-between ${
+                            className={`p-2 sm:p-2.5 rounded-xl text-left font-gotu transition-colors border cursor-pointer relative overflow-hidden flex flex-col justify-between select-none ${
                               isSelected
                                 ? 'bg-amber-500/20 border-amber-400/60 text-white shadow-[0_0_15px_rgba(245,158,11,0.2)] ring-1 ring-amber-400/50'
                                 : 'bg-slate-900/60 border-white/10 text-slate-300 hover:bg-slate-800/80 hover:border-white/20'
@@ -379,7 +395,7 @@ export const FeedbackModal = ({
                             <span className="hidden sm:block text-[10px] text-slate-400 leading-tight">
                               {type.shortDesc}
                             </span>
-                          </button>
+                          </motion.button>
                         );
                       })}
                     </div>
@@ -459,10 +475,13 @@ export const FeedbackModal = ({
                       ❖ डेटा सुरक्षित रूप से गूगल स्प्रेडशीट में दर्ज होगा।
                     </p>
 
-                    <button
+                    <motion.button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_22px_rgba(245,158,11,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                      className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_22px_rgba(245,158,11,0.5)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none"
                     >
                       {isSubmitting ? (
                         <>
@@ -475,7 +494,7 @@ export const FeedbackModal = ({
                           <span>सुझाव प्रेषित करें</span>
                         </>
                       )}
-                    </button>
+                    </motion.button>
                   </div>
                 </form>
               )}

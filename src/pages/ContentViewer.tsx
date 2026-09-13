@@ -330,14 +330,16 @@ const UnifiedVerseView = ({
                     </div>
                     <div className="flex items-center gap-2">
                       {onShareVerse && (
-                        <button
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
+                          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                           onClick={() => onShareVerse(parsed.numberDisplay, parsed.lines, parsed.meanings)}
-                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-all active:scale-90 cursor-pointer"
+                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
                           title="यह पद साझा करें"
                           aria-label="यह पद साझा करें"
                         >
                           <Share2 className="w-3.5 h-3.5" />
-                        </button>
+                        </motion.button>
                       )}
                       <span className="text-amber-400/40 text-xs">❖</span>
                     </div>
@@ -349,14 +351,16 @@ const UnifiedVerseView = ({
                       <span>❖</span>
                     </div>
                     {onShareVerse && (
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.88 }}
+                        transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                         onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
-                        className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-all active:scale-90 cursor-pointer"
+                        className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
                         title="यह भाग साझा करें"
                         aria-label="यह भाग साझा करें"
                       >
                         <Share2 className="w-3.5 h-3.5" />
-                      </button>
+                      </motion.button>
                     )}
                   </div>
                 )}
@@ -636,6 +640,8 @@ export const ContentViewer = ({
             scrollSpeed,
             title: data?.title || title || '',
             id,
+            hasAudio: !!audioTrack,
+            isAudioActive: isAudioPlayerActive,
           },
         })
       );
@@ -654,6 +660,10 @@ export const ContentViewer = ({
       handleFavoriteToggle();
     };
 
+    const handleToggleAudio = () => {
+      setIsAudioPlayerActive((prev) => !prev);
+    };
+
     const handleFontSize = (e: any) => {
       if (e.detail?.mode === 'cycle') {
         const sizes = [16, 18, 20, 22, 24];
@@ -670,6 +680,7 @@ export const ContentViewer = ({
 
     window.addEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
     window.addEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
+    window.addEventListener('jinvani:toggle-audio', handleToggleAudio as EventListener);
     window.addEventListener('jinvani:reader-font-size', handleFontSize as EventListener);
     window.addEventListener('jinvani:reader-share', handleShare as EventListener);
     window.addEventListener('jinvani:request-reader-state', handleRequestState as EventListener);
@@ -677,11 +688,12 @@ export const ContentViewer = ({
     return () => {
       window.removeEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
       window.removeEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
+      window.removeEventListener('jinvani:toggle-audio', handleToggleAudio as EventListener);
       window.removeEventListener('jinvani:reader-font-size', handleFontSize as EventListener);
       window.removeEventListener('jinvani:reader-share', handleShare as EventListener);
       window.removeEventListener('jinvani:request-reader-state', handleRequestState as EventListener);
     };
-  }, [fontSize, isAutoScrolling, isFav, scrollSpeed, data, title, id, handleFavoriteToggle]);
+  }, [fontSize, isAutoScrolling, isFav, scrollSpeed, data, title, id, handleFavoriteToggle, audioTrack, isAudioPlayerActive]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -829,10 +841,13 @@ export const ContentViewer = ({
             </span>
           )}
           {audioTrack && (
-            <button
+            <motion.button
               type="button"
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => setIsAudioPlayerActive((prev) => !prev)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-gotu font-bold transition-all cursor-pointer active:scale-95 shadow-md ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-gotu font-bold cursor-pointer shadow-md transition-[background-color,border-color,box-shadow] ${
                 isAudioPlayerActive
                   ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-[0_0_18px_rgba(245,158,11,0.4)]'
                   : 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border-amber-400/40 shadow-[0_0_12px_rgba(245,158,11,0.15)]'
@@ -841,17 +856,20 @@ export const ContentViewer = ({
             >
               <Volume2 className="w-3.5 h-3.5" />
               <span>{isAudioPlayerActive ? 'ऑडियो सक्रिय' : 'ऑडियो पाठ'}</span>
-            </button>
+            </motion.button>
           )}
-          <button
+          <motion.button
             type="button"
+            whileTap={{ scale: 0.94 }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setShowFeedbackModal(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-xs font-gotu backdrop-blur-md transition-all cursor-pointer active:scale-95"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-xs font-gotu backdrop-blur-md cursor-pointer transition-[background-color,border-color,color]"
             title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
           >
             <FileEdit className="w-3 h-3 text-amber-400/80 shrink-0" />
             <span>सुधार बताएं</span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Grand Sacred Title */}
@@ -941,13 +959,16 @@ export const ContentViewer = ({
                     <div className="text-xs font-bold text-amber-200 font-notoserif">क्या इस पाठ में कोई अशुद्धि मिली?</div>
                     <div className="text-[11px] text-slate-300/80 font-gotu">शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।</div>
                   </div>
-                  <button
+                  <motion.button
                     type="button"
+                    whileTap={{ scale: 0.94 }}
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                     onClick={() => setShowFeedbackModal(true)}
                     className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-semibold shrink-0 cursor-pointer transition-colors"
                   >
                     सुधार बताएं →
-                  </button>
+                  </motion.button>
                 </div>
               </TiltCard>
             </div>
@@ -961,12 +982,15 @@ export const ContentViewer = ({
               {title || 'सामग्री उपलब्ध नहीं है'}
             </h1>
             <p className="text-slate-400 font-gotu text-base mb-6">यह रचना अभी उपलब्ध नहीं है अथवा लिंक अधूरा है।</p>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={onBack}
-              className="px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-sm font-gotu font-semibold transition-all shadow-md active:scale-95 cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-sm font-gotu font-semibold shadow-md cursor-pointer transition-[background-color,border-color,box-shadow]"
             >
               ← वापस जाएँ
-            </button>
+            </motion.button>
           </div>
         )}
       </motion.div>

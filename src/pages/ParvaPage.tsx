@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { Calendar, Sparkles, ChevronRight, X, ChevronLeft } from 'lucide-react';
 import { jainFestivals, type JainFestival } from '../data/festivals';
@@ -30,13 +30,15 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
     <div className="w-full max-w-4xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-8">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group mb-6 cursor-pointer shadow-md"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group mb-6 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -96,45 +98,49 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
       </div>
 
       {/* Festival Detail Modal */}
-      {selectedFestival && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedFestival(null)}
-            className="fixed inset-0 bg-black/85 backdrop-blur-md z-0"
-          />
+      <AnimatePresence>
+        {selectedFestival && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedFestival(null)}
+              className="fixed inset-0 bg-black/85 backdrop-blur-md z-0"
+            />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 16 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-lg z-10 my-auto"
-          >
-            <GlassCard className="p-4 sm:p-7 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,680px)] flex flex-col">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-lg z-10 my-auto"
+            >
+              <GlassCard className="p-4 sm:p-7 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,680px)] flex flex-col">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-              <div className="flex justify-between items-start mb-4 border-b border-white/10 pb-3 relative z-10 shrink-0">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="text-3xl sm:text-4xl shrink-0">{getFestivalIcon(selectedFestival.type)}</div>
-                  <div className="min-w-0">
-                    <h2 className="text-xl sm:text-2xl font-rozha text-white truncate">
-                      {selectedFestival.nameHindi}
-                    </h2>
-                    <p className="text-blue-100/60 font-gotu text-xs sm:text-sm truncate">
-                      {selectedFestival.name}
-                    </p>
+                <div className="flex justify-between items-start mb-4 border-b border-white/10 pb-3 relative z-10 shrink-0">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="text-3xl sm:text-4xl shrink-0">{getFestivalIcon(selectedFestival.type)}</div>
+                    <div className="min-w-0">
+                      <h2 className="text-xl sm:text-2xl font-rozha text-white truncate">
+                        {selectedFestival.nameHindi}
+                      </h2>
+                      <p className="text-blue-100/60 font-gotu text-xs sm:text-sm truncate">
+                        {selectedFestival.name}
+                      </p>
+                    </div>
                   </div>
+                  <motion.button
+                    whileHover={{ scale: 1.15 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setSelectedFestival(null)}
+                    className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer shrink-0"
+                    title="बंद करें"
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.button>
                 </div>
-                <button
-                  onClick={() => setSelectedFestival(null)}
-                  className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors shrink-0"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
 
               <div className="space-y-4 relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0">
                 <div>
@@ -169,6 +175,7 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
           </motion.div>
         </div>
       )}
+      </AnimatePresence>
     </div>
   );
 };

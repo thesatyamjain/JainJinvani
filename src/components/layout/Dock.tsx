@@ -1,8 +1,68 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
-import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Play, Pause } from 'lucide-react';
+import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Volume2 } from 'lucide-react';
 import { useIsModalOpen, getSettings, type UserSettings } from '../../lib';
 import { triggerHaptic } from '../../utils/pwaManager';
+
+// Custom Auto-Scroll Scripture Flow Duotone Icon (Idle: text guide lines + downward flow stream; Active: serene ambient breathing aura + pause bars + flow chevrons)
+export const AutoScrollIcon: React.FC<{
+  isScrolling?: boolean;
+  className?: string;
+}> = ({ isScrolling = false, className = 'w-5 h-5' }) => {
+  if (isScrolling) {
+    return (
+      <div className="relative flex items-center justify-center">
+        {/* Soft serene ambient amber aura breathing calmly (no jarring ping) */}
+        <span className="absolute -inset-1 rounded-full bg-amber-400/25 animate-pulse pointer-events-none" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className={className}
+          aria-hidden="true"
+        >
+          {/* Bold, prominent, high-contrast pause bars with 5px clean negative space */}
+          <rect x="5.5" y="4" width="4" height="16" rx="1.5" />
+          <rect x="14.5" y="4" width="4" height="16" rx="1.5" />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Flanking Shloka/Scripture Guide Lines (Duotone secondary layer) */}
+      <g opacity="0.45" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
+        <line x1="3" y1="6" x2="8" y2="6" />
+        <line x1="16" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="7" y2="12" />
+        <line x1="17" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="8" y2="18" />
+        <line x1="16" y1="18" x2="21" y2="18" />
+      </g>
+
+      {/* Downward Auto-Scroll Flow Arrow & Trailing Momentum Chevron */}
+      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        <path
+          d="M12 3.5V16M8.5 12.5L12 16.5L15.5 12.5"
+          strokeWidth="2.2"
+          className="transition-transform duration-200 group-hover:translate-y-0.5"
+        />
+        <path
+          d="M9 19.5L12 21.5L15 19.5"
+          strokeWidth="1.8"
+          opacity="0.65"
+          className="transition-transform duration-200 group-hover:translate-y-0.5"
+        />
+      </g>
+    </svg>
+  );
+};
 
 // FontAwesome Duotone Solid text-size Icon (https://fontawesome.com/icons/duotone/solid/text-size)
 export const TextSizeDuotoneIcon: React.FC<{ className?: string }> = ({ className = 'w-5 h-5' }) => (
@@ -54,7 +114,7 @@ export const Dock = ({
 
   const [isFontExpanded, setIsFontExpanded] = useState(false);
   const [readerDockPage, setReaderDockPage] = useState<'reader' | 'home'>('reader');
-  const [dockTheme, setDockTheme] = useState<'frosted' | 'classic'>(() => {
+  const [dockTheme, setDockTheme] = useState<'frosted' | 'crystal' | 'gilded' | 'classic'>(() => {
     return getSettings().dockTheme || 'frosted';
   });
 
@@ -65,12 +125,16 @@ export const Dock = ({
     isFav: boolean;
     scrollSpeed: number;
     title: string;
+    hasAudio?: boolean;
+    isAudioActive?: boolean;
   }>({
     fontSize: 18,
     isAutoScrolling: false,
     isFav: false,
     scrollSpeed: 1,
     title: '',
+    hasAudio: false,
+    isAudioActive: false,
   });
 
   const isReaderMode = activePage === 'viewer' || activePage === 'content';
@@ -142,6 +206,7 @@ export const Dock = ({
     if (!container) return;
 
     let ticking = false;
+    let accumulatedDiff = 0;
 
     const handleScroll = () => {
       if (!ticking) {
@@ -177,20 +242,27 @@ export const Dock = ({
             setScrollProgress(0);
           }
 
+          // Direction switch resets accumulator
+          if ((diff > 0 && accumulatedDiff < 0) || (diff < 0 && accumulatedDiff > 0)) {
+            accumulatedDiff = 0;
+          }
+          accumulatedDiff += diff;
+
           // Never auto-hide when auto-scroll is actively running or when user reaches bottom of page
           if (readerState.isAutoScrolling || isAtBottom) {
             if (isDockHiddenRef.current) {
               isDockHiddenRef.current = false;
               setIsDockHidden(false);
             }
-          } else if (diff > 35 && currentY > 120) {
-            // Intentional scroll down past 120px -> hide dock
+            accumulatedDiff = 0;
+          } else if (accumulatedDiff > 50 && currentY > 110) {
+            // Intentional continuous scroll down past 110px -> smooth hide dock
             if (!isDockHiddenRef.current) {
               isDockHiddenRef.current = true;
               setIsDockHidden(true);
             }
-          } else if (diff < -25 || currentY <= 30) {
-            // Intentional scroll up or near top -> reveal dock
+          } else if (accumulatedDiff < -28 || currentY <= 35) {
+            // Intentional continuous scroll up or near top -> smooth reveal dock
             if (isDockHiddenRef.current) {
               isDockHiddenRef.current = false;
               setIsDockHidden(false);
@@ -315,6 +387,11 @@ export const Dock = ({
   const handleToggleAutoScroll = () => {
     triggerHaptic('medium');
     window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-autoscroll'));
+  };
+
+  const handleToggleAudio = () => {
+    triggerHaptic('light');
+    window.dispatchEvent(new CustomEvent('jinvani:toggle-audio'));
   };
 
   const handleToggleFavorite = () => {
@@ -465,30 +542,44 @@ export const Dock = ({
     </>
   );
 
+  const isHidden = (isDockHidden || isModalOpen) && !isHovered && !readerState.isAutoScrolling && !isFontExpanded;
+
   return (
     <div
       data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,transform,visibility] duration-200 ${
-        isModalOpen ? 'opacity-0 pointer-events-none invisible translate-y-8' : ''
+      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,visibility] duration-200 ${
+        isModalOpen ? 'opacity-0 pointer-events-none invisible' : ''
       }`}
     >
       <motion.div
-        layout
         animate={{
-          y: (isDockHidden || isModalOpen) && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 85 : 0,
-          opacity: isModalOpen ? 0 : (isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0 : 1),
-          scale: isDockHidden && !isHovered && !readerState.isAutoScrolling && !isFontExpanded ? 0.94 : 1,
+          y: isHidden ? 130 : 0,
+          opacity: isModalOpen ? 0 : 1,
         }}
         transition={{
-          type: 'spring',
-          stiffness: 450,
-          damping: 32,
+          y: isHidden
+            ? { duration: 0.28, ease: [0.32, 0.72, 0, 1] }
+            : { type: 'spring', stiffness: 260, damping: 24, mass: 0.75 },
+          opacity: {
+            duration: 0.18,
+            ease: 'easeInOut',
+          },
+        }}
+        style={{
+          willChange: 'transform',
+          pointerEvents: isHidden ? 'none' : 'auto',
         }}
         className={`flex items-end rounded-2xl md:rounded-[26px] ${
-          dockTheme === 'classic' ? 'classic-dock' : 'frosted-glass-dock'
-        } px-2.5 sm:px-3.5 md:px-4 w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none pointer-events-auto transition-all duration-200 ${
+          dockTheme === 'classic'
+            ? 'classic-dock'
+            : dockTheme === 'crystal'
+            ? 'crystal-glass-dock'
+            : dockTheme === 'gilded'
+            ? 'gilded-glass-dock'
+            : 'frosted-glass-dock'
+        } px-2.5 sm:px-3.5 md:px-4 w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
           isReaderMode ? 'min-h-[66px] md:min-h-[76px] pt-2.5 md:pt-3.5 pb-3.5 md:pb-4' : 'min-h-[58px] md:min-h-[68px] pt-2 md:pt-3 pb-2 md:pb-2.5'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -499,12 +590,24 @@ export const Dock = ({
         {/* Subtle Ambient Specular Glass Rim Lights */}
         <div
           className={`absolute ${dockTheme === 'classic' ? 'inset-x-5' : 'inset-x-6'} top-0 h-[1px] bg-gradient-to-r from-transparent ${
-            dockTheme === 'classic' ? 'via-white/40' : 'via-white/50'
+            dockTheme === 'crystal'
+              ? 'via-white/70'
+              : dockTheme === 'gilded'
+              ? 'via-amber-300/60'
+              : dockTheme === 'classic'
+              ? 'via-white/40'
+              : 'via-white/30'
           } to-transparent pointer-events-none transition-all duration-300`}
         />
         <div
           className={`absolute inset-x-12 top-0 h-[1px] bg-gradient-to-r from-transparent ${
-            dockTheme === 'classic' ? 'via-amber-400/25' : 'via-amber-400/30'
+            dockTheme === 'crystal'
+              ? 'via-white/30'
+              : dockTheme === 'gilded'
+              ? 'via-amber-400/30'
+              : dockTheme === 'classic'
+              ? 'via-amber-400/25'
+              : 'via-white/15'
           } to-transparent pointer-events-none transition-all duration-300`}
         />
 
@@ -553,17 +656,19 @@ export const Dock = ({
                         transition={{ type: 'spring', stiffness: 420, damping: 26 }}
                         className="flex items-center bg-[#071224]/80 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px]"
                       >
-                        <button
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleAdjustFontSize(-2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg active:scale-95 transition-all"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर छोटा करें (A-)"
                         >
                           A-
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
+                          whileTap={{ scale: 0.92 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             setIsFontExpanded(false);
@@ -572,28 +677,30 @@ export const Dock = ({
                           title="क्लिक करके बंद करें"
                         >
                           {readerState.fontSize}
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleAdjustFontSize(2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg active:scale-95 transition-all"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर बड़ा करें (A+)"
                         >
                           A+
-                        </button>
+                        </motion.button>
                         <div className="h-4 w-[1px] bg-white/15 mx-1" />
-                        <button
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs transition-all active:scale-95"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs cursor-pointer transition-colors"
                           title="संपन्न"
                         >
                           ✓
-                        </button>
+                        </motion.button>
                       </motion.div>
                     ) : (
                       <DockIcon
@@ -615,20 +722,41 @@ export const Dock = ({
                 <DockIcon
                   mouseX={mouseX}
                   icon={
-                    readerState.isAutoScrolling ? (
-                      <div className="relative flex items-center justify-center">
-                        <span className="absolute -inset-1 rounded-full bg-amber-400/30 animate-ping pointer-events-none" />
-                        <Pause className="w-5 h-5 md:w-5.5 md:h-5.5 text-amber-300 fill-current" />
-                      </div>
-                    ) : (
-                      <Play className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 fill-white/10 group-hover:text-amber-200 group-hover:fill-amber-400/20 transition-colors ml-0.5" />
-                    )
+                    <AutoScrollIcon
+                      isScrolling={readerState.isAutoScrolling}
+                      className={`w-5 h-5 md:w-5.5 md:h-5.5 transition-colors ${
+                        readerState.isAutoScrolling
+                          ? 'text-amber-300'
+                          : 'text-slate-300 group-hover:text-amber-200'
+                      }`}
+                    />
                   }
                   label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
                   subLabel={readerState.isAutoScrolling ? "Pause Scroll" : "Auto Scroll"}
                   isActive={readerState.isAutoScrolling}
                   onClick={handleToggleAutoScroll}
                 />
+
+                {/* 3b. Audio Read-Along Toggle (when scripture has audio track) */}
+                {readerState.hasAudio && (
+                  <DockIcon
+                    mouseX={mouseX}
+                    icon={
+                      readerState.isAudioActive ? (
+                        <div className="relative flex items-center justify-center">
+                          <span className="absolute -inset-1 rounded-full bg-amber-400/30 animate-ping pointer-events-none" />
+                          <Volume2 className="w-5 h-5 md:w-5.5 md:h-5.5 text-amber-300" />
+                        </div>
+                      ) : (
+                        <Volume2 className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                      )
+                    }
+                    label={readerState.isAudioActive ? "ऑडियो सक्रिय" : "ऑडियो पाठ"}
+                    subLabel={readerState.isAudioActive ? "Audio Active" : "Audio Track"}
+                    isActive={!!readerState.isAudioActive}
+                    onClick={handleToggleAudio}
+                  />
+                )}
 
                 {/* 4. Bookmark / Favorite */}
                 <DockIcon
@@ -710,7 +838,8 @@ export const Dock = ({
           <div className={`absolute bottom-1 md:bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-0.5 px-3 cursor-pointer transition-opacity duration-200 ${
             isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.75 }}
               onClick={(e) => {
                 e.stopPropagation();
                 setReaderDockPage('reader');
@@ -722,7 +851,8 @@ export const Dock = ({
               }`}
               title="स्वाध्याय टूल्स (Reader)"
             />
-            <button
+            <motion.button
+              whileTap={{ scale: 0.75 }}
               onClick={(e) => {
                 e.stopPropagation();
                 setReaderDockPage('home');
@@ -825,6 +955,8 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
               }
             : { y: 0 }
         }
+        whileTap={{ scale: 0.90 }}
+        whileHover={{ scale: 1.04 }}
         onClick={handleClick}
         className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none ${
           isActive
@@ -832,8 +964,8 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
             : isSpecial
             ? 'bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/35 hover:border-amber-400/70 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
             : isSearch
-            ? 'bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/35 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
-            : 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
+            ? 'dock-tile-standard bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/35 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
+            : 'dock-tile-standard bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
         }`}
       >
         <motion.div

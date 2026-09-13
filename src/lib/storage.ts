@@ -68,7 +68,7 @@ export const getSettings = (): UserSettings => {
                 notifications: Boolean(parsed.notifications),
                 autoPlay: Boolean(parsed.autoPlay),
                 backgroundTheme: parsed.backgroundTheme === 'cosmic' ? 'cosmic' : 'sanctum',
-                dockTheme: parsed.dockTheme === 'classic' ? 'classic' : 'frosted',
+                dockTheme: (parsed.dockTheme === 'classic' || parsed.dockTheme === 'crystal' || parsed.dockTheme === 'gilded' || parsed.dockTheme === 'frosted') ? parsed.dockTheme : 'frosted',
             };
         }
     } catch {}

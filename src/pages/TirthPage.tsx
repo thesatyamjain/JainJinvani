@@ -394,13 +394,15 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
     <div className="w-full max-w-6xl mx-auto pt-6 sm:pt-10 page-bottom-clearance px-4 sm:px-6 flex flex-col items-center">
       {/* Header */}
       <div className="w-full flex items-center justify-between gap-4 mb-6">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <div className="text-center flex-1 min-w-0">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-[11px] font-gotu mb-1">
@@ -446,17 +448,19 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
         ].map((tab) => {
           const isActive = filter === tab.id;
           return (
-            <button
+            <motion.button
               key={tab.id}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setFilter(tab.id)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-all border cursor-pointer shrink-0 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
                 isActive
                   ? 'bg-cyan-500/20 text-cyan-200 border-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.2)] font-bold'
                   : 'bg-slate-900/60 text-slate-400 border-white/10 hover:border-white/20'
               }`}
             >
               {tab.label}
-            </button>
+            </motion.button>
           );
         })}
       </div>
@@ -552,13 +556,15 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   </div>
                 </div>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
                   onClick={() => setSelectedPlace(null)}
                   className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
                   title="बंद करें"
                 >
                   <X className="w-5 h-5" />
-                </button>
+                </motion.button>
               </div>
 
               {/* Scrollable Content Body */}
@@ -621,7 +627,9 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
 
               {/* Pinned Action Footer */}
               <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     selectedPlace.mapQuery
                   )}`}
@@ -632,14 +640,16 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   <Navigation className="w-4 h-4" />
                   <span>गूगल मैप्स पर देखें</span>
                   <ExternalLink className="w-3.5 h-3.5 ml-1" />
-                </a>
+                </motion.a>
 
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => setSelectedPlace(null)}
                   className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-gotu text-xs transition-colors cursor-pointer"
                 >
                   बंद करें
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           </div>

@@ -202,22 +202,28 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
     <div className="w-full max-w-6xl mx-auto pt-4 md:pt-8 page-bottom-clearance px-4 sm:px-6 overflow-x-hidden">
       {/* Top Navigation Bar */}
       <div className="flex items-center justify-between gap-4 mb-6">
-        <button
+        <motion.button
+          whileTap={{ scale: 0.90 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group cursor-pointer shadow-md shrink-0"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group cursor-pointer shadow-md shrink-0"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         {/* Tirthankar Counter Badge & Actions */}
         <div className="flex items-center gap-2">
           <div className="px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
             तीर्थंकर {tirthankar.number} / २४
           </div>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.88 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={handleFavoriteToggle}
-            className={`p-2.5 rounded-xl border transition-all ${
+            className={`p-2.5 rounded-xl border cursor-pointer transition-colors ${
               favorite
                 ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
                 : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
@@ -225,14 +231,17 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             title="पसंदीदा में जोड़ें"
           >
             <Heart className={`w-4 h-4 ${favorite ? 'fill-rose-400 text-rose-400' : ''}`} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.88 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={handleShare}
-            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:text-white transition-all"
+            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:text-white cursor-pointer transition-colors"
             title="शेयर करें"
           >
             <Share2 className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -278,55 +287,70 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
 
             {/* Quick Spiritual Action Links */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 max-w-4xl mx-auto pt-2 border-t border-white/10">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => {
                   setActiveMainTab('arghyavali');
                   const elem = document.getElementById('ritual-deck-section');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/30 to-orange-500/20 hover:from-amber-500/40 hover:to-orange-500/30 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 transition-all hover:scale-[1.02] shadow-sm"
+                className="px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/30 to-orange-500/20 hover:from-amber-500/40 hover:to-orange-500/30 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
                 <span>अर्घ्यावली</span>
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => {
                   setActiveMainTab('dravya');
                   const elem = document.getElementById('ritual-deck-section');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu font-medium flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
                 <Layers className="w-4 h-4 text-amber-400" />
                 <span>द्रव्य अर्पण मंत्र</span>
-              </button>
+              </motion.button>
 
               {tirthankar.chalisaId && (
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.94 }}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => onNavigate('viewer', { id: tirthankar.chalisaId, type: 'chalisa', title: `${tirthankar.nameHindi} चालीसा` })}
-                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
                 >
                   <ScrollText className="w-4 h-4 text-amber-400" />
                   <span>चालीसा पढ़ें</span>
-                </button>
+                </motion.button>
               )}
               {tirthankar.artiId && (
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.94 }}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => onNavigate('viewer', { id: tirthankar.artiId, type: 'aarti', title: `${tirthankar.nameHindi} आरती` })}
-                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
                 >
                   <Flame className="w-4 h-4 text-amber-400" />
                   <span>आरती करें</span>
-                </button>
+                </motion.button>
               )}
-              <button
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: tirthankar.pujaId || 'chaubis-tirthankar-puja', type: 'puja', title: `${tirthankar.nameHindi} पूजन` })}
-                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
                 <Sun className="w-4 h-4 text-amber-400" />
                 <span>पूजन विधान</span>
-              </button>
+              </motion.button>
             </div>
           </GlassCard>
 
@@ -335,9 +359,11 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Top Deck Mode Switcher Tabs */}
             <div className="flex flex-wrap items-center justify-between gap-3 bg-black/40 p-1.5 rounded-2xl border border-amber-500/30 shadow-lg">
               <div className="flex items-center gap-1.5 overflow-x-auto">
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => setActiveMainTab('arghyavali')}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 cursor-pointer transition-colors shrink-0 ${
                     activeMainTab === 'arghyavali'
                       ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
                       : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -348,11 +374,13 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   <span className="px-1.5 py-0.2 rounded-full bg-amber-950/40 text-[10px] text-amber-200 font-bold">
                     ६ अर्घ्य
                   </span>
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => setActiveMainTab('dravya')}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 cursor-pointer transition-colors shrink-0 ${
                     activeMainTab === 'dravya'
                       ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
                       : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -363,11 +391,13 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   <span className="px-1.5 py-0.2 rounded-full bg-amber-950/40 text-[10px] text-amber-200 font-bold">
                     ९ द्रव्य
                   </span>
-                </button>
+                </motion.button>
 
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => setActiveMainTab('chaubisi')}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 transition-all shrink-0 ${
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu font-medium flex items-center gap-2 cursor-pointer transition-colors shrink-0 ${
                     activeMainTab === 'chaubisi'
                       ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
                       : 'text-white/70 hover:text-white hover:bg-white/5'
@@ -375,7 +405,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                 >
                   <Crown className="w-4 h-4" />
                   <span>२४ तीर्थंकर समुच्चय अर्घ्य</span>
-                </button>
+                </motion.button>
               </div>
 
               <div className="text-xs text-amber-300/80 font-gotu px-3 hidden sm:block">
@@ -407,19 +437,23 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={() => setViewAllArghyas(!viewAllArghyas)}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu transition-all"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu cursor-pointer transition-colors"
                     >
                       {viewAllArghyas ? 'टैब दृश्य' : 'सभी ६ अर्घ्य देखें'}
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={handleCopyAllArghyas}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu cursor-pointer transition-colors"
                     >
                       {copiedAllArghya ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedAllArghya ? 'सम्पूर्ण कॉपी हुई' : 'सम्पूर्ण अर्घ्यावली कॉपी करें'}</span>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
 
@@ -433,10 +467,12 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                           const isOffered = !!offeredArghyas[item.id];
                           const isSelected = activeArghyaTab === idx;
                           return (
-                            <button
+                            <motion.button
                               key={item.id}
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.96 }}
                               onClick={() => setActiveArghyaTab(idx)}
-                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 cursor-pointer transition-[background-color,border-color,color] shrink-0 ${
                                 isSelected
                                   ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
                                   : isOffered
@@ -447,7 +483,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <span>{item.emoji}</span>
                               <span>{item.kalyanakName}</span>
                               {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
-                            </button>
+                            </motion.button>
                           );
                         })}
                       </HorizontalScrollContainer>
@@ -486,9 +522,11 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                             </div>
                           </div>
 
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => handleCopyArghya(activeArghya)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu cursor-pointer transition-colors"
                           >
                             {copiedArghyaId === activeArghya.id ? (
                               <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -496,7 +534,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <Copy className="w-3.5 h-3.5" />
                             )}
                             <span>{copiedArghyaId === activeArghya.id ? 'कॉपी हो गया' : 'अर्घ्य कॉपी करें'}</span>
-                          </button>
+                          </motion.button>
                         </div>
 
                         {/* Poetic Verse Lines */}
@@ -527,23 +565,27 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                           </div>
 
                           <div className="flex items-center gap-3 w-full sm:w-auto">
-                            <button
+                            <motion.button
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.96 }}
                               onClick={() => handleOfferArghya(activeArghya.id)}
-                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md ${
+                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors ${
                                 offeredArghyas[activeArghya.id]
                                   ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
                                   : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
                               }`}
                             >
                               <span>{offeredArghyas[activeArghya.id] ? '✓ अर्घ्य अर्पित किया गया' : `${activeArghya.emoji} अर्घ्य समर्पित करें (स्वाहा)`}</span>
-                            </button>
+                            </motion.button>
                             {activeArghyaTab < arghyavaliList.length - 1 && (
-                              <button
+                              <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.96 }}
                                 onClick={() => setActiveArghyaTab(prev => prev + 1)}
-                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu transition-all"
+                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu cursor-pointer transition-colors"
                               >
                                 अगला अर्घ्य →
-                              </button>
+                              </motion.button>
                             )}
                           </div>
                         </div>
@@ -571,23 +613,27 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <span className="text-xs font-gotu font-normal text-amber-300/80">({item.tithi})</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <button
+                              <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.92 }}
                                 onClick={() => handleCopyArghya(item)}
-                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white cursor-pointer transition-colors"
                                 title="कॉपी करें"
                               >
                                 {copiedArghyaId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                              </button>
-                              <button
+                              </motion.button>
+                              <motion.button
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={() => handleOfferArghya(item.id)}
-                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium transition-all ${
+                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium cursor-pointer transition-colors ${
                                   isOffered
                                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                                     : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30'
                                 }`}
                               >
                                 {isOffered ? '✓ अर्पित' : 'स्वाहा (अर्पित करें)'}
-                              </button>
+                              </motion.button>
                             </div>
                           </div>
 
@@ -630,19 +676,23 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={() => setViewAllDravyas(!viewAllDravyas)}
-                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu transition-all"
+                      className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-xs font-gotu cursor-pointer transition-colors"
                     >
                       {viewAllDravyas ? 'टैब दृश्य' : 'सभी ९ मंत्र देखें'}
-                    </button>
-                    <button
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
                       onClick={handleCopyAllDravyas}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-gotu cursor-pointer transition-colors"
                     >
                       {copiedAllDravya ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedAllDravya ? 'सभी कॉपी हुए' : 'सभी मंत्र कॉपी करें'}</span>
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
 
@@ -656,10 +706,12 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                           const isOffered = !!offeredDravyas[item.id];
                           const isSelected = activeDravyaTab === idx;
                           return (
-                            <button
+                            <motion.button
                               key={item.id}
+                              whileHover={{ scale: 1.03 }}
+                              whileTap={{ scale: 0.96 }}
                               onClick={() => setActiveDravyaTab(idx)}
-                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                              className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap flex items-center gap-2 cursor-pointer transition-[background-color,border-color,color] shrink-0 ${
                                 isSelected
                                   ? 'bg-amber-500 text-slate-950 font-bold shadow-lg shadow-amber-500/20 scale-105'
                                   : isOffered
@@ -670,7 +722,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <span>{item.emoji}</span>
                               <span>{item.nameHindi.split(' ')[1]}</span>
                               {isOffered && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
-                            </button>
+                            </motion.button>
                           );
                         })}
                       </HorizontalScrollContainer>
@@ -702,9 +754,11 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                             </div>
                           </div>
 
-                          <button
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => handleCopyDravya(activeDravya)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu transition-all"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-xs font-gotu cursor-pointer transition-colors"
                           >
                             {copiedDravyaId === activeDravya.id ? (
                               <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -712,7 +766,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <Copy className="w-3.5 h-3.5" />
                             )}
                             <span>{copiedDravyaId === activeDravya.id ? 'कॉपी हो गया' : 'मंत्र कॉपी करें'}</span>
-                          </button>
+                          </motion.button>
                         </div>
 
                         {/* Gilded Sacred Sanskrit Mantra Box */}
@@ -734,23 +788,27 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                           </div>
 
                           <div className="flex items-center gap-3 w-full sm:w-auto">
-                            <button
+                            <motion.button
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.96 }}
                               onClick={() => handleOfferDravya(activeDravya.id)}
-                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md ${
+                              className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-bold font-gotu text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors ${
                                 offeredDravyas[activeDravya.id]
                                   ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300'
                                   : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-amber-500/25'
                               }`}
                             >
                               <span>{offeredDravyas[activeDravya.id] ? '✓ द्रव्य अर्पित किया गया' : `${activeDravya.emoji} द्रव्य अर्पित करें (स्वाहा)`}</span>
-                            </button>
+                            </motion.button>
                             {activeDravyaTab < dravyaList.length - 1 && (
-                              <button
+                              <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.96 }}
                                 onClick={() => setActiveDravyaTab(prev => prev + 1)}
-                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu transition-all"
+                                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 text-sm font-gotu cursor-pointer transition-colors"
                               >
                                 अगला द्रव्य →
-                              </button>
+                              </motion.button>
                             )}
                           </div>
                         </div>
@@ -778,23 +836,27 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                               <span className="text-xs font-gotu font-normal text-amber-300/80">({item.purpose})</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <button
+                              <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.92 }}
                                 onClick={() => handleCopyDravya(item)}
-                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-all"
+                                className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white cursor-pointer transition-colors"
                                 title="कॉपी करें"
                               >
                                 {copiedDravyaId === item.id ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                              </button>
-                              <button
+                              </motion.button>
+                              <motion.button
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={() => handleOfferDravya(item.id)}
-                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium transition-all ${
+                                className={`px-3 py-1 rounded-lg text-xs font-gotu font-medium cursor-pointer transition-colors ${
                                   isOffered
                                     ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                                     : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30'
                                 }`}
                               >
                                 {isOffered ? '✓ अर्पित' : 'अर्पित करें'}
-                              </button>
+                              </motion.button>
                             </div>
                           </div>
                           <p className="text-amber-100 font-notoserif font-semibold text-base sm:text-lg leading-relaxed pl-7">
@@ -829,13 +891,15 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                     </p>
                   </div>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.96 }}
                     onClick={() => onNavigate('viewer', { id: 'chaubis-tirthankar-puja', type: 'puja', title: 'चौबीस तीर्थंकर पूजन' })}
-                    className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center gap-2 transition-all"
+                    className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center gap-2 cursor-pointer transition-colors"
                   >
                     <Flower2 className="w-4 h-4 text-amber-400" />
                     <span>सम्पूर्ण चौबीसी पूजन पढ़ें</span>
-                  </button>
+                  </motion.button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
@@ -862,12 +926,14 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                           </div>
 
                           {!isCurrent && (
-                            <button
+                            <motion.button
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
                               onClick={() => setCurrentId(item.id)}
-                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-amber-500/20 text-white/70 hover:text-amber-200 text-xs font-gotu transition-all"
+                              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-amber-500/20 text-white/70 hover:text-amber-200 text-xs font-gotu cursor-pointer transition-colors"
                             >
                               प्रोफ़ाइल देखें →
-                            </button>
+                            </motion.button>
                           )}
                         </div>
 
@@ -1012,13 +1078,15 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   <Sparkles className="w-5 h-5 text-amber-400" />
                   मूल बीज मंत्र
                 </h2>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={handleCopyMantra}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-gotu transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-gotu cursor-pointer transition-colors"
                 >
                   {copiedMantra ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedMantra ? 'कॉपी हो गया' : 'मंत्र कॉपी करें'}</span>
-                </button>
+                </motion.button>
               </div>
 
               {/* Glowing Sacred Mantra Box */}
@@ -1038,20 +1106,24 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                 </div>
 
                 <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setChantCount(prev => prev + 1)}
-                    className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold font-gotu text-sm shadow-lg hover:shadow-amber-500/25 transition-all active:scale-95"
+                    className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold font-gotu text-sm shadow-lg hover:shadow-amber-500/25 cursor-pointer transition-colors"
                   >
                     🕉️ जाप गिनें (+१)
-                  </button>
+                  </motion.button>
                   {chantCount > 0 && (
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={() => setChantCount(0)}
-                      className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white transition-all"
+                      className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white cursor-pointer transition-colors"
                       title="रीसेट करें"
                     >
                       <RotateCcw className="w-4 h-4" />
-                    </button>
+                    </motion.button>
                   )}
                 </div>
               </div>
@@ -1060,9 +1132,11 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
 
           {/* Bottom Previous / Next Switcher */}
           <div className="grid grid-cols-2 gap-3 md:gap-4 pt-4 border-t border-white/10">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               onClick={goToPrevious}
-              className="p-3.5 md:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left transition-all group flex items-center gap-3"
+              className="p-3.5 md:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left cursor-pointer transition-colors group flex items-center gap-3"
             >
               <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/60 group-hover:text-amber-300 group-hover:-translate-x-1 transition-all shrink-0">
                 <ChevronLeft className="w-5 h-5" />
@@ -1073,11 +1147,13 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   {prevTirthankar.number}. {prevTirthankar.nameHindi}
                 </div>
               </div>
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               onClick={goToNext}
-              className="p-3.5 md:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-right transition-all group flex items-center justify-end gap-3"
+              className="p-3.5 md:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-right cursor-pointer transition-colors group flex items-center justify-end gap-3"
             >
               <div className="overflow-hidden">
                 <div className="text-[11px] text-white/40 font-gotu">अगला तीर्थंकर</div>
@@ -1088,7 +1164,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
               <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-white/60 group-hover:text-amber-300 group-hover:translate-x-1 transition-all shrink-0">
                 <ChevronRight className="w-5 h-5" />
               </div>
-            </button>
+            </motion.button>
           </div>
         </motion.div>
       </AnimatePresence>

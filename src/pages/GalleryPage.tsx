@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ArrowLeft, Image as ImageIcon, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
@@ -125,13 +125,15 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
     <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-8">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group mb-6 cursor-pointer shadow-md"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group mb-6 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -203,58 +205,71 @@ export const GalleryPage = ({ onBack }: GalleryPageProps) => {
       </GlassCard>
 
       {/* Image Viewer Modal */}
-      {selectedImage && selectedCategory && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-md overflow-hidden">
-          <button
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors z-20 cursor-pointer"
-          >
-            <X className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-
-          {/* Previous Button */}
-          {currentIndex > 0 && (
-            <button
-              onClick={handlePrev}
-              className="absolute left-2 sm:left-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all z-20 cursor-pointer"
+      <AnimatePresence>
+        {selectedImage && selectedCategory && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-md overflow-hidden">
+            <motion.button
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors z-20 cursor-pointer"
+              title="बंद करें"
             >
-              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-          )}
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            </motion.button>
 
-          {/* Next Button */}
-          {currentIndex < selectedCategory.images.length - 1 && (
-            <button
-              onClick={handleNext}
-              className="absolute right-2 sm:right-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-all z-20 cursor-pointer"
+            {/* Previous Button */}
+            {currentIndex > 0 && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handlePrev}
+                className="absolute left-2 sm:left-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors z-20 cursor-pointer"
+                title="पिछला"
+              >
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+              </motion.button>
+            )}
+
+            {/* Next Button */}
+            {currentIndex < selectedCategory.images.length - 1 && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleNext}
+                className="absolute right-2 sm:right-4 p-2 sm:p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors z-20 cursor-pointer"
+                title="अगला"
+              >
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+              </motion.button>
+            )}
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-4xl max-h-[min(88vh,680px)] flex flex-col items-center justify-center p-2"
             >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-          )}
+              <div className="w-full max-w-xl aspect-video rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center mb-4 text-6xl sm:text-8xl shadow-2xl">
+                {selectedImage.placeholder}
+              </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-4xl max-h-[min(88vh,680px)] flex flex-col items-center justify-center p-2"
-          >
-            <div className="w-full max-w-xl aspect-video rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 flex items-center justify-center mb-4 text-6xl sm:text-8xl shadow-2xl">
-              {selectedImage.placeholder}
-            </div>
-
-            <div className="text-center">
-              <h3 className="text-xl sm:text-2xl font-rozha text-white mb-1">
-                {selectedImage.title}
-              </h3>
-              <p className="text-blue-100/60 font-gotu text-xs sm:text-sm">
-                {selectedImage.location}
-              </p>
-              <p className="text-xs text-blue-100/40 font-gotu mt-1.5">
-                {currentIndex + 1} / {selectedCategory.images.length}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      )}
+              <div className="text-center">
+                <h3 className="text-xl sm:text-2xl font-rozha text-white mb-1">
+                  {selectedImage.title}
+                </h3>
+                <p className="text-blue-100/60 font-gotu text-xs sm:text-sm">
+                  {selectedImage.location}
+                </p>
+                <p className="text-xs text-blue-100/40 font-gotu mt-1.5">
+                  {currentIndex + 1} / {selectedCategory.images.length}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -26,28 +26,28 @@ export const MEDIA_TRACKS: Record<string, MediaTrack> = {
     title: 'णमोकार महामंत्र (धुन)',
     artist: 'पारंपरिक जैन स्वर',
     r2Path: '/audio/Namokar_Mantra.mp3',
-    fallbackUrl: 'https://ia800302.us.archive.org/10/items/NamokarMantra/Namokar%20Mantra.mp3',
+    fallbackUrl: '/audio/Namokar_Mantra.mp3',
   },
   SAMAYIK_BELL: {
     id: 'samayik-bell',
     title: 'सामायिक पूर्णता घंटिका',
     artist: 'मंदिर घंटिका',
     r2Path: '/audio/temple_bell.mp3',
-    fallbackUrl: 'https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3',
+    fallbackUrl: '/audio/temple_bell.mp3',
   },
   BHAKTAMAR_STOTRA: {
     id: 'bhaktamar-stotra',
     title: 'श्री भक्तामर स्तोत्र (संस्कृत)',
     artist: 'पूज्य मुनि श्री / विदुषी स्वर',
     r2Path: '/audio/Bhaktamar_Stotra.mp3',
-    fallbackUrl: '',
+    fallbackUrl: '/audio/Bhaktamar_Stotra.mp3',
   },
   AARTI_MANGAL: {
     id: 'aarti-mangal',
     title: 'पंच परमेष्ठी मंगल आरती',
     artist: 'जैन समाज',
     r2Path: '/audio/Panch_Parmeshthi_Aarti.mp3',
-    fallbackUrl: '',
+    fallbackUrl: '/audio/Panch_Parmeshthi_Aarti.mp3',
   },
 };
 
@@ -86,7 +86,7 @@ export function getContentAudioTrack(contentId?: string): { title: string; artis
 
   const url = R2_BASE_URL
     ? `${R2_BASE_URL}${track.r2Path}`
-    : (track.fallbackUrl || MEDIA_TRACKS.NAMOKAR_MANTRA.fallbackUrl);
+    : (track.fallbackUrl || track.r2Path);
 
   if (!url) return null;
 

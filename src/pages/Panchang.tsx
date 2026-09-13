@@ -168,13 +168,16 @@ export const Panchang = ({ onBack }: PanchangProps) => {
         className="flex flex-col lg:flex-row items-start lg:items-center gap-4 sm:gap-5 mb-6 sm:mb-8 justify-between"
       >
         <div className="flex items-center gap-3 sm:gap-4 w-full lg:w-auto">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300 group-hover:text-amber-200" />
-          </button>
+          </motion.button>
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-gotu font-bold">
@@ -184,17 +187,17 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                 विक्रम संवत् {todayJainInfo.vikramYear}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-white pt-1 pb-1 leading-[1.3] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
-              जैन पंचांग एवं तिथि दर्पण
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-white pt-1.5 pb-1 leading-snug">
+              दिगम्बर जैन पंचांग
             </h1>
-            <p className="text-slate-300/85 text-xs sm:text-sm font-gotu">
-              मास: <span className="text-amber-200 font-semibold">{todayJainInfo.jainMonth} मास</span> • {todayJainInfo.pakshaLabel} पक्ष • {todayJainInfo.tithiLabel}
+            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu">
+              तिथि, नक्षत्र, सूर्योदय-सूर्यास्त, पर्व एवं नवकारशी समय
             </p>
           </div>
         </div>
 
-        {/* Live Daily Jain Timings Strip */}
-        <div className="flex gap-2 w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0 no-scrollbar">
+        {/* Timings summary pill badges */}
+        <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto py-1 no-scrollbar">
           <GlassCard
             tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
             variant="gilded"
@@ -271,47 +274,62 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               </div>
 
               <div className="flex items-center gap-2">
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.92 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={handleResetToToday}
                   title="आज का दिन"
                   className="px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-200 hover:bg-amber-500/30 text-xs font-gotu font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>आज</span>
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.88 }}
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={handlePrevMonth}
                   aria-label="पिछला माह"
                   className="p-1.5 sm:p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/15 text-slate-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.88 }}
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={handleNextMonth}
                   aria-label="अगला माह"
                   className="p-1.5 sm:p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/15 text-slate-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <ChevronRight className="w-5 h-5" />
-                </button>
+                </motion.button>
               </div>
             </div>
 
             {/* Parva Filter Chips */}
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4 sm:mb-5 pb-3 border-b border-white/5">
               <span className="text-xs text-slate-400 font-gotu mr-1">पर्व फ़िल्टर:</span>
-              <button
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setFilterType('all')}
-                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer border ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border transition-[background-color,border-color,color] ${
                   filterType === 'all'
                     ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
                     : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
                 }`}
               >
                 सभी दिन ({daysData.length})
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setFilterType('parva')}
-                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer border flex items-center gap-1 ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border flex items-center gap-1 transition-[background-color,border-color,color] ${
                   filterType === 'parva'
                     ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
                     : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
@@ -319,10 +337,13 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               >
                 <span>⭐ अष्टमी/चौदस</span>
                 <span className="text-[10px] px-1 rounded-full bg-white/10 font-mono">{parvaDaysCount}</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setFilterType('mahapara')}
-                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer border flex items-center gap-1 ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border flex items-center gap-1 transition-[background-color,border-color,color] ${
                   filterType === 'mahapara'
                     ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
                     : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
@@ -330,10 +351,13 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               >
                 <span>🚩 महापर्व</span>
                 <span className="text-[10px] px-1 rounded-full bg-white/10 font-mono">{mahaparaDaysCount}</span>
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setFilterType('kalyanak')}
-                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer border flex items-center gap-1 ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border flex items-center gap-1 transition-[background-color,border-color,color] ${
                   filterType === 'kalyanak'
                     ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
                     : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
@@ -341,7 +365,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               >
                 <span>🙏 कल्याणक</span>
                 <span className="text-[10px] px-1 rounded-full bg-white/10 font-mono">{kalyanakDaysCount}</span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Desktop / Tablet Calendar Grid */}
@@ -372,11 +396,13 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                   const isDimmed = filterType !== 'all' && !filteredDaysData.some((fd) => fd.day === d.day);
 
                   return (
-                    <button
+                    <motion.button
                       key={d.day}
                       type="button"
+                      whileHover={{ scale: 1.02, y: -1 }}
+                      whileTap={{ scale: 0.97 }}
                       onClick={() => setSelectedDay(d.day)}
-                      className={`min-h-[85px] md:min-h-[96px] p-2 rounded-xl border transition-all flex flex-col justify-between text-left relative group cursor-pointer ${
+                      className={`min-h-[85px] md:min-h-[96px] p-2 rounded-xl border transition-colors flex flex-col justify-between text-left relative group cursor-pointer ${
                         isDimmed ? 'opacity-30' : ''
                       } ${
                         isSelected
@@ -440,7 +466,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                           </span>
                         )}
                       </div>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -466,10 +492,11 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                   {daysData.map((d) => {
                     const isSelected = selectedDay === d.day;
                     return (
-                      <button
+                      <motion.button
                         key={d.day}
+                        whileTap={{ scale: 0.92 }}
                         onClick={() => setSelectedDay(d.day)}
-                        className={`h-11 rounded-xl flex flex-col items-center justify-center relative transition-all cursor-pointer ${
+                        className={`h-11 rounded-xl flex flex-col items-center justify-center relative transition-colors cursor-pointer ${
                           isSelected
                             ? 'bg-amber-500 text-slate-950 font-bold shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-105 z-10'
                             : d.current
@@ -490,7 +517,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                             }`}
                           />
                         )}
-                      </button>
+                      </motion.button>
                     );
                   })}
                 </div>
@@ -608,17 +635,20 @@ export const Panchang = ({ onBack }: PanchangProps) => {
             {/* Pachchakkhan Selector Tabs */}
             <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar">
               {PACHCHAKKHAN_LIST.map((item) => (
-                <button
+                <motion.button
                   key={item.id}
+                  whileTap={{ scale: 0.94 }}
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => setSelectedPachchakkhan(item.id)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-gotu whitespace-nowrap transition-all cursor-pointer border ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-gotu whitespace-nowrap cursor-pointer border transition-[background-color,border-color,color] ${
                     selectedPachchakkhan === item.id
                       ? 'bg-emerald-500/30 text-emerald-200 border-emerald-400/60 font-semibold shadow-sm'
                       : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
                   }`}
                 >
                   {item.title.replace(' पच्चक्खाण', '')}
-                </button>
+                </motion.button>
               ))}
             </div>
 

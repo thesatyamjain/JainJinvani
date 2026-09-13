@@ -184,13 +184,16 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
     <div className="w-full max-w-4xl mx-auto pt-6 sm:pt-10 page-bottom-clearance px-4 sm:px-6 flex flex-col items-center select-none">
       {/* Header Bar */}
       <div className="w-full flex items-center justify-between gap-4 mb-6 relative z-10">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.90 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 25 }}
           onClick={onBack}
-          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <div className="text-center flex-1 min-w-0">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-300 text-[11px] font-gotu mb-1">
@@ -203,9 +206,11 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         </div>
 
         <div className="flex items-center gap-1.5">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
+            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
               soundEnabled
                 ? 'bg-amber-500/15 border-amber-400/30 text-amber-300'
                 : 'bg-white/5 border-white/10 text-slate-400'
@@ -213,10 +218,12 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             title={soundEnabled ? 'ध्वनि चालू' : 'ध्वनि बंद'}
           >
             {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setVibrationEnabled(!vibrationEnabled)}
-            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
+            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
               vibrationEnabled
                 ? 'bg-amber-500/15 border-amber-400/30 text-amber-300'
                 : 'bg-white/5 border-white/10 text-slate-400'
@@ -224,7 +231,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             title={vibrationEnabled ? 'कंपन चालू' : 'कंपन बंद'}
           >
             <Smartphone className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -233,17 +240,20 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         {MANTRAS.map((mantra) => {
           const isActive = mantra.id === stats.selectedMantraId;
           return (
-            <button
+            <motion.button
               key={mantra.id}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
               onClick={() => handleMantraSelect(mantra.id)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-all border cursor-pointer shrink-0 ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-colors border cursor-pointer shrink-0 select-none ${
                 isActive
                   ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/20 text-amber-200 border-amber-400/50 shadow-[0_0_15px_rgba(245,158,11,0.2)] font-bold'
                   : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-white/20'
               }`}
             >
               {mantra.name}
-            </button>
+            </motion.button>
           );
         })}
       </div>
@@ -285,11 +295,11 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       {/* Central Interactive Jap Mala Wheel */}
       <div className="relative flex flex-col items-center justify-center my-2 sm:my-4">
         {/* Outer Glowing Ring with SVG Progress */}
-        <div
+        <motion.div
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           onClick={handleTap}
-          className={`relative w-72 h-72 sm:w-84 sm:h-84 rounded-full flex flex-col items-center justify-center cursor-pointer transition-transform active:scale-95 duration-100 ${
-            tapEffect ? 'scale-[0.97]' : 'scale-100'
-          }`}
+          className="relative w-72 h-72 sm:w-84 sm:h-84 rounded-full flex flex-col items-center justify-center cursor-pointer select-none"
           style={{ touchAction: 'manipulation' }}
         >
           {/* Subtle Ambient Glow */}
@@ -329,36 +339,41 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             <span className="text-4xl sm:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 to-amber-400">
               {stats.currentBead}
             </span>
-            <span className="text-[11px] text-amber-300/80 font-gotu mt-0.5">
-              स्पर्श करें • जाप आगे बढ़ाएं
+            <span className="text-[11px] font-gotu text-amber-300/80 uppercase tracking-widest mt-1">
+              / १०८ जाप
+            </span>
+            <span className="text-[10px] text-slate-400 font-gotu mt-1 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+              टैप कर गिनें
             </span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Active Mantra Display Box */}
+      {/* Active Mantra Banner & Meaning */}
       <GlassCard
-        tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
         variant="gilded"
-        className="p-4 sm:p-5 w-full max-w-xl text-center rounded-2xl my-5 border-amber-500/25"
+        className="w-full p-4 sm:p-5 text-center mb-4 rounded-2xl border-amber-500/30"
       >
-        <p className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-amber-200/95 leading-relaxed mb-2">
+        <p className="text-base sm:text-lg font-notoserif font-bold text-amber-100 leading-relaxed">
           {activeMantra.text}
         </p>
-        <p className="text-xs sm:text-sm text-slate-300/80 font-gotu leading-relaxed">
+        <p className="text-xs sm:text-sm font-gotu text-slate-300/90 mt-2 max-w-xl mx-auto leading-relaxed">
           {activeMantra.bhavarth}
         </p>
       </GlassCard>
 
       {/* Reset Current Count Button */}
       {stats.currentBead > 0 && (
-        <button
+        <motion.button
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.94 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 25 }}
           onClick={handleResetCurrent}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-amber-200 hover:border-amber-400/40 text-xs font-gotu transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-amber-200 hover:border-amber-400/40 text-xs font-gotu transition-colors cursor-pointer select-none"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>इस माला को पुनः प्रारम्भ से गिनें</span>
-        </button>
+        </motion.button>
       )}
 
       {/* Mala Completion Modal */}
@@ -376,13 +391,15 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               exit={{ scale: 0.95, y: 15 }}
               className="bg-slate-900/95 border border-amber-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,620px)] flex flex-col text-center shadow-[0_0_50px_rgba(245,158,11,0.3)] relative overflow-hidden"
             >
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setShowCelebration(false)}
                 className="absolute top-3.5 right-3.5 w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 z-10"
                 title="बंद करें"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
 
               <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 py-1">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.4)]">
@@ -412,12 +429,15 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               </div>
 
               <div className="pt-3 border-t border-white/10 shrink-0">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   onClick={() => setShowCelebration(false)}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-slate-950 font-gotu font-bold text-sm shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer select-none"
                 >
                   अगली माला प्रारम्भ करें
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           </motion.div>

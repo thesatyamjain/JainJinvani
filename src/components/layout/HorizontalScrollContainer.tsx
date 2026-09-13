@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface HorizontalScrollContainerProps {
@@ -106,16 +107,23 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
   return (
     <div className={`relative group/hscroll w-full flex items-center ${className}`}>
       {/* Left Navigation Arrow */}
-      {canScrollLeft && (
-        <button
-          onClick={() => scrollBy(-step)}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 active:scale-95 transition-all duration-200 cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
-          title="बाईं ओर स्क्रॉल करें"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
-        </button>
-      )}
+      <AnimatePresence>
+        {canScrollLeft && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => scrollBy(-step)}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
+            title="बाईं ओर स्क्रॉल करें"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Left Edge Fade Mask */}
       {canScrollLeft && (
@@ -142,16 +150,23 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
       )}
 
       {/* Right Navigation Arrow */}
-      {canScrollRight && (
-        <button
-          onClick={() => scrollBy(step)}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 active:scale-95 transition-all duration-200 cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
-          title="दाईं ओर स्क्रॉल करें"
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
-        </button>
-      )}
+      <AnimatePresence>
+        {canScrollRight && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => scrollBy(step)}
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
+            title="दाईं ओर स्क्रॉल करें"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

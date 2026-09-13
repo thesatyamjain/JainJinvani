@@ -263,14 +263,17 @@ const CategoryDivider = ({
           </span>
         </div>
         {onSelectSubcategory && (
-          <button
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onSelectSubcategory}
             className="hidden sm:inline-flex items-center gap-1 text-[11px] font-gotu text-slate-400 hover:text-amber-200 transition-colors px-2 py-0.5 rounded-lg hover:bg-white/5 cursor-pointer"
             title="केवल यह अनुभाग देखें"
           >
             <span>विस्तार</span>
             <ChevronRight className="w-3 h-3" />
-          </button>
+          </motion.button>
         )}
       </div>
     </div>
@@ -489,13 +492,16 @@ export const CategoryListing = ({
         className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-6"
       >
         <div className="flex items-center gap-4">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-          </button>
+          </motion.button>
           <div className="py-1">
             <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
               {meta.title}
@@ -518,21 +524,26 @@ export const CategoryListing = ({
               className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
             />
             {searchQuery && (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.88 }}
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
-              </button>
+              </motion.button>
             )}
           </div>
 
           {/* Timeline / Grid View Toggle for Puja */}
           {categoryId === 'puja' && (
             <div className="flex items-center bg-slate-900/90 border border-white/15 rounded-2xl p-1 shrink-0 shadow-inner">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.92 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setViewMode('grid')}
-                className={`p-2.5 rounded-xl transition-all ${
+                className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                   viewMode === 'grid'
                     ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
                     : 'text-slate-400 hover:text-white'
@@ -540,13 +551,15 @@ export const CategoryListing = ({
                 title="ग्रिड दृश्य (Grid View)"
               >
                 <LayoutGrid className="w-4 h-4" />
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.92 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => {
                   setViewMode('timeline');
                   setActiveSubCategory('daily-flow');
                 }}
-                className={`p-2.5 rounded-xl transition-all ${
+                className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                   viewMode === 'timeline'
                     ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
                     : 'text-slate-400 hover:text-white'
@@ -554,7 +567,7 @@ export const CategoryListing = ({
                 title="नित्य क्रम दृश्य (Timeline View)"
               >
                 <ListOrdered className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
           )}
         </div>
@@ -623,15 +636,18 @@ export const CategoryListing = ({
               const count = subCategoryCounts[sub.id] || 0;
               const isActive = activeSubCategory === sub.id;
               return (
-                <button
+                <motion.button
                   key={sub.id}
+                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => {
                     setActiveSubCategory(sub.id);
                     if (sub.id !== 'daily-flow' && viewMode === 'timeline') {
                       setViewMode('grid');
                     }
                   }}
-                  className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap transition-all duration-300 border cursor-pointer shrink-0 ${
+                  className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap border cursor-pointer shrink-0 transition-[background-color,border-color,color] ${
                     isActive
                       ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/20 text-amber-200 border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.2)] font-semibold'
                       : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-white/20 hover:bg-slate-800/60'
@@ -650,7 +666,7 @@ export const CategoryListing = ({
                   >
                     {count}
                   </span>
-                </button>
+                </motion.button>
               );
             })}
           </HorizontalScrollContainer>
@@ -670,13 +686,16 @@ export const CategoryListing = ({
               </div>
 
               {activeSubCategory === 'daily-flow' && items.length > 0 && (
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.94 }}
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => handleItemClick(filteredItems[0] || items[0])}
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-gotu font-bold text-xs hover:bg-amber-300 transition-colors shadow-md cursor-pointer"
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-gotu font-bold text-xs hover:bg-amber-300 shadow-md cursor-pointer transition-colors"
                 >
                   <span>प्रारम्भ से पूजन करें</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </motion.button>
               )}
             </motion.div>
           )}
@@ -702,12 +721,14 @@ export const CategoryListing = ({
                     खोज परिणाम: &ldquo;{searchQuery}&rdquo; ({filteredItems.length}{' '}
                     {filteredItems.length === 1 ? 'रचना' : 'रचनाएँ'})
                   </span>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setSearchQuery('')}
                     className="text-amber-300 hover:text-amber-200 transition-colors cursor-pointer"
                   >
                     खोज साफ़ करें
-                  </button>
+                  </motion.button>
                 </div>
                 <div className="h-[1px] w-full bg-gradient-to-r from-amber-500/30 via-white/10 to-transparent mt-2" />
               </div>
@@ -844,7 +865,10 @@ export const CategoryListing = ({
             <p className="text-slate-400 font-gotu text-sm max-w-sm">
               "{searchQuery}" के लिए कोई रचना उपलब्ध नहीं है। कृपया दूसरा शब्द खोजें।
             </p>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => {
                 setSearchQuery('');
                 setActiveSubCategory('all');
@@ -852,7 +876,7 @@ export const CategoryListing = ({
               className="mt-5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-amber-300 text-xs font-gotu transition-colors cursor-pointer"
             >
               सभी रचनाएँ देखें
-            </button>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

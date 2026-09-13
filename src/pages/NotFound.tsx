@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "motion/react";
 import { GlassCard } from "../components/layout/GlassCard";
 import { Home, Search, BookOpen } from "lucide-react";
 
@@ -54,29 +55,35 @@ export function NotFound({ onNavigate }: NotFoundProps) {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate("landing")}
-            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/30 hover:border-amber-400/50 text-amber-100 font-gotu transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/20"
+            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 border border-amber-500/30 hover:border-amber-400/50 text-amber-100 font-gotu transition-colors shadow-lg shadow-amber-500/10 cursor-pointer"
           >
             <Home className="w-4 h-4 group-hover:scale-110 transition-transform" />
             <span>गृह पृष्ठ</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate("sadhana")}
-            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500/30 hover:to-purple-600/30 border border-purple-500/30 hover:border-purple-400/50 text-purple-100 font-gotu transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20"
+            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500/30 hover:to-purple-600/30 border border-purple-500/30 hover:border-purple-400/50 text-purple-100 font-gotu transition-colors shadow-lg shadow-purple-500/10 cursor-pointer"
           >
             <BookOpen className="w-4 h-4 group-hover:scale-110 transition-transform" />
             <span>साधना</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onNavigate("library")}
-            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 hover:from-blue-500/30 hover:to-blue-600/30 border border-blue-500/30 hover:border-blue-400/50 text-blue-100 font-gotu transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+            className="group flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-blue-600/20 hover:from-blue-500/30 hover:to-blue-600/30 border border-blue-500/30 hover:border-blue-400/50 text-blue-100 font-gotu transition-colors shadow-lg shadow-blue-500/10 cursor-pointer"
           >
             <Search className="w-4 h-4 group-hover:scale-110 transition-transform" />
             <span>ग्रंथालय</span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Floating particles decoration */}

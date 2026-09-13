@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { ChevronLeft, BookOpen, Star, Award, Play, Users, X } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
@@ -119,13 +119,15 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
     <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-8">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group mb-6 cursor-pointer shadow-md"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group mb-6 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -222,119 +224,125 @@ export const PathshalaPage = ({ onBack }: PathshalaPageProps) => {
       </div>
 
       {/* Course Detail Modal */}
-      {selectedCourse && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedCourse(null)}
-            className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
-          />
+      <AnimatePresence>
+        {selectedCourse && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedCourse(null)}
+              className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
+            />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            className="relative w-full max-w-xl max-h-[min(90vh,700px)] flex flex-col z-10 bg-slate-900/95 border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
-          >
-            {/* Pinned Modal Header */}
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-gotu border border-amber-400/30">
-                    {selectedCourse.level}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-gotu border border-blue-400/30">
-                    आयु: {selectedCourse.age}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-gotu border border-emerald-400/30">
-                    {selectedCourse.lessons.length} पाठ
-                  </span>
-                </div>
-                <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white leading-snug break-words">
-                  {selectedCourse.title}
-                </h2>
-                <p className="text-xs text-blue-100/60 font-gotu mt-0.5">{selectedCourse.titleEn}</p>
-              </div>
-
-              <button
-                onClick={() => setSelectedCourse(null)}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
-                title="बंद करें"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Scrollable Content Body */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-4 min-h-0">
-              <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs sm:text-sm text-blue-100/90 font-gotu leading-relaxed">
-                {selectedCourse.description}
-              </div>
-
-              <div>
-                <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 font-gotu flex items-center gap-2">
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>पाठ्यक्रम सूची ({selectedCourse.lessons.length} पाठ)</span>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-xl max-h-[min(90vh,700px)] flex flex-col z-10 bg-slate-900/95 border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
+            >
+              {/* Pinned Modal Header */}
+              <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-gotu border border-amber-400/30">
+                      {selectedCourse.level}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-gotu border border-blue-400/30">
+                      आयु: {selectedCourse.age}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-gotu border border-emerald-400/30">
+                      {selectedCourse.lessons.length} पाठ
+                    </span>
+                  </div>
+                  <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white leading-snug break-words">
+                    {selectedCourse.title}
+                  </h2>
+                  <p className="text-xs text-blue-100/60 font-gotu mt-0.5">{selectedCourse.titleEn}</p>
                 </div>
 
-                <div className="space-y-2">
-                  {selectedCourse.lessons.map((lesson: any) => (
-                    <div
-                      key={lesson.id}
-                      className={`p-3 rounded-xl border transition-all ${
-                        lesson.completed
-                          ? 'bg-emerald-500/10 border-emerald-400/30'
-                          : 'bg-white/5 border-white/10 hover:bg-white/10'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div
-                            className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                              lesson.completed
-                                ? 'bg-emerald-500/20 text-emerald-400'
-                                : 'bg-white/10 text-blue-300'
-                            }`}
-                          >
-                            {lesson.completed ? (
-                              <Award className="w-4 h-4" />
-                            ) : (
-                              <Play className="w-3.5 h-3.5" />
-                            )}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="text-xs sm:text-sm text-white font-gotu font-medium break-words">
-                              {lesson.name}
+                <motion.button
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedCourse(null)}
+                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                  title="बंद करें"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              {/* Scrollable Content Body */}
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-4 min-h-0">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs sm:text-sm text-blue-100/90 font-gotu leading-relaxed">
+                  {selectedCourse.description}
+                </div>
+
+                <div>
+                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 font-gotu flex items-center gap-2">
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>पाठ्यक्रम सूची ({selectedCourse.lessons.length} पाठ)</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    {selectedCourse.lessons.map((lesson: any) => (
+                      <div
+                        key={lesson.id}
+                        className={`p-3 rounded-xl border transition-all ${
+                          lesson.completed
+                            ? 'bg-emerald-500/10 border-emerald-400/30'
+                            : 'bg-white/5 border-white/10 hover:bg-white/10'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <div
+                              className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
+                                lesson.completed
+                                  ? 'bg-emerald-500/20 text-emerald-400'
+                                  : 'bg-white/10 text-blue-300'
+                              }`}
+                            >
+                              {lesson.completed ? (
+                                <Award className="w-4 h-4" />
+                              ) : (
+                                <Play className="w-3.5 h-3.5" />
+                              )}
                             </div>
-                            <div className="text-[11px] text-blue-100/50 font-gotu">
-                              अवधि: {lesson.duration}
+                            <div className="min-w-0 flex-1">
+                              <div className="text-xs sm:text-sm text-white font-gotu font-medium break-words">
+                                {lesson.name}
+                              </div>
+                              <div className="text-[11px] text-blue-100/50 font-gotu">
+                                अवधि: {lesson.duration}
+                              </div>
                             </div>
                           </div>
+                          {lesson.completed && (
+                            <Star className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
+                          )}
                         </div>
-                        {lesson.completed && (
-                          <Star className="w-4 h-4 text-amber-400 fill-amber-400 shrink-0" />
-                        )}
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Pinned Action Footer */}
-            <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 shrink-0">
-              <button
-                onClick={() => setSelectedCourse(null)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
-              >
-                कोर्स शुरू करें
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
+              {/* Pinned Action Footer */}
+              <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 shrink-0">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => setSelectedCourse(null)}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 transition-colors shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+                >
+                  कोर्स शुरू करें
+                </motion.button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

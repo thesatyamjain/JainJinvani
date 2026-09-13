@@ -3957,7 +3957,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                               <span>कनेक्टेड ({pingLatency}ms)</span>
                             </span>
                           )}
-                          {pingStatus === 'error' && (
+                          {pingStatus === 'failed' && (
                             <span className="text-[11px] font-gotu px-2.5 py-1 rounded-lg bg-rose-500/20 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
                               <AlertCircle className="w-3.5 h-3.5" />
                               <span>कनेक्शन त्रुटि</span>
@@ -3966,11 +3966,11 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                           <button
                             type="button"
                             onClick={handlePingGoogleSheet}
-                            disabled={pingStatus === 'pinging'}
+                            disabled={pingStatus === 'testing'}
                             className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-gotu text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-colors"
                           >
-                            <Activity className={`w-3.5 h-3.5 ${pingStatus === 'pinging' ? 'animate-spin text-amber-400' : ''}`} />
-                            <span>{pingStatus === 'pinging' ? 'पिंग हो रहा है...' : 'लेटेंसी पिंग टेस्ट'}</span>
+                            <Activity className={`w-3.5 h-3.5 ${pingStatus === 'testing' ? 'animate-spin text-amber-400' : ''}`} />
+                            <span>{pingStatus === 'testing' ? 'पिंग हो रहा है...' : 'लेटेंसी पिंग टेस्ट'}</span>
                           </button>
                         </div>
                       </div>

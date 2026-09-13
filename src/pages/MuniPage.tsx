@@ -78,13 +78,15 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
     <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-10 relative">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group z-10 cursor-pointer shadow-md"
+          className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group z-10 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <div className="text-center w-full">
           <div className="inline-flex items-center gap-2 mb-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-widest">
@@ -98,13 +100,15 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
             मोक्ष मार्ग के पथिक: निर्ग्रन्थ मुनिराज
           </p>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => onNavigate('muni-profiles')}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 hover:bg-amber-500/20 text-white border border-white/10 hover:border-amber-500/50 transition-all font-gotu text-sm"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 hover:bg-amber-500/20 text-white border border-white/10 hover:border-amber-500/50 transition-colors font-gotu text-sm cursor-pointer"
           >
             <Users className="w-4 h-4" />
             <span>प्रमुख आचार्य एवं मुनि परिचय</span>
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -176,16 +180,18 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
         {/* Sidebar Tabs */}
         <div className="w-full md:w-1/3 flex flex-col gap-3">
           {moolGunas.map((section, idx) => (
-            <button
+            <motion.button
               key={idx}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => setActiveTab(idx)}
-              className={`p-4 rounded-xl text-left transition-all border ${activeTab === idx
-                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-200'
+              className={`p-4 rounded-xl text-left transition-[background-color,border-color,color] border cursor-pointer ${activeTab === idx
+                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-200 shadow-md shadow-amber-500/10'
                   : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:text-white'
                 }`}
             >
               <h3 className="font-bold text-lg font-gotu">{section.category}</h3>
-            </button>
+            </motion.button>
           ))}
           <div className="p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 mt-4">
             <h4 className="font-bold text-blue-200 mb-2 font-gotu">दिगम्बर वेष</h4>

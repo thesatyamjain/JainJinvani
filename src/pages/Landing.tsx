@@ -186,14 +186,18 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             </div>
             <div className="flex items-center gap-2 shrink-0">
               {announcement.link && announcement.link !== 'none' && (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => onNavigate(announcement.link!)}
-                  className="px-2.5 py-1 rounded-xl bg-amber-500/30 hover:bg-amber-500/45 border border-amber-400/50 text-amber-200 text-xs font-gotu font-semibold transition-all cursor-pointer whitespace-nowrap"
+                  className="px-2.5 py-1 rounded-xl bg-amber-500/30 hover:bg-amber-500/45 border border-amber-400/50 text-amber-200 text-xs font-gotu font-semibold transition-colors cursor-pointer whitespace-nowrap"
                 >
                   देखें →
-                </button>
+                </motion.button>
               )}
-              <button
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => {
                   setAnnouncement(null);
                   try {
@@ -203,8 +207,8 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 className="p-1 text-slate-400 hover:text-white transition-colors cursor-pointer"
                 title="हटाएं"
               >
-                <X className="w-3.5 h-3.5" />
-              </button>
+                <X className="w-4 h-4" />
+              </motion.button>
             </div>
           </motion.div>
         )}
@@ -232,21 +236,27 @@ export const Landing = ({ onNavigate }: LandingProps) => {
 
         {/* Primary Action Buttons */}
         <div className="grid grid-cols-2 gap-3 sm:gap-5 w-full max-w-md sm:max-w-lg mb-4 sm:mb-6">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.025 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={() => onNavigate('sadhana')}
-            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(245,158,11,0.35)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer"
+            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden shadow-[0_4px_24px_rgba(245,158,11,0.35)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer select-none"
           >
             <span className="truncate">नित्य साधना</span>
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.025 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={() => onNavigate('library')}
-            className="group h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-semibold text-amber-100 bg-[#0c101c]/80 hover:bg-[#121828]/90 border border-amber-500/35 hover:border-amber-400/60 backdrop-blur-xl transition-all duration-200 active:scale-[0.97] shadow-[0_4px_24px_rgba(0,0,0,0.5)] font-gotu text-sm sm:text-base flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer"
+            className="group h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-semibold text-amber-100 bg-[#0c101c]/80 hover:bg-[#121828]/90 border border-amber-500/35 hover:border-amber-400/60 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.5)] font-gotu text-sm sm:text-base flex items-center justify-center gap-2 sm:gap-2.5 cursor-pointer select-none"
           >
             <BookOpen className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-400 shrink-0" />
             <span className="truncate">शास्त्र ग्रंथालय</span>
-          </button>
+          </motion.button>
         </div>
 
         {/* Dynamic Today's Parva & Tithi Auspicious Banner */}
@@ -282,12 +292,15 @@ export const Landing = ({ onNavigate }: LandingProps) => {
               </p>
             </div>
           </div>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.93 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={() => onNavigate('panchang')}
-            className="shrink-0 px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 text-xs font-gotu font-bold hover:bg-amber-300 transition-colors cursor-pointer shadow-md"
+            className="shrink-0 px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 text-xs font-gotu font-bold hover:bg-amber-300 transition-colors cursor-pointer shadow-md select-none"
           >
             पंचांग
-          </button>
+          </motion.button>
         </motion.div>
 
         {/* Sacred Mahamantra Inscription Plaque (स्वर्ण-शिला पट्टिका) */}
@@ -337,8 +350,11 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
           <div className="flex items-center gap-2.5 overflow-x-auto pb-1.5 scrollbar-none">
             {recentReads.map((item) => (
-              <button
+              <motion.button
                 key={item.id}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 onClick={() =>
                   onNavigate('viewer', {
                     id: item.id,
@@ -347,7 +363,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                     source: 'landing',
                   })
                 }
-                className="px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-amber-500/25 hover:border-amber-400/50 backdrop-blur-xl text-left transition-all shrink-0 cursor-pointer group max-w-[220px]"
+                className="px-3.5 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-amber-500/25 hover:border-amber-400/50 backdrop-blur-xl text-left transition-colors shrink-0 cursor-pointer group max-w-[220px]"
               >
                 <p className="text-xs font-notoserif font-semibold text-white group-hover:text-amber-200 truncate">
                   {item.title}
@@ -355,7 +371,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 <p className="text-[10px] text-amber-300/80 font-gotu truncate">
                   पुनः स्वाध्याय करें →
                 </p>
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -368,7 +384,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="gilded"
           tilt={{ maxTilt: 8, scale: 1.015, glareColor: 'amber' }}
           onClick={() => onNavigate('daily-puja')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-amber-500/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-400/40 shadow-md bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-yellow-600/10 col-span-2 md:col-span-4"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-amber-500/10 group rounded-xl sm:rounded-2xl border-amber-400/40 shadow-md bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-yellow-600/10 col-span-2 md:col-span-4"
         >
           <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/25 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
             <Droplets className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -393,7 +409,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('samayik')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-blue-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-blue-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center shrink-0 border border-blue-500/30">
             <Timer className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -413,7 +429,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('jap')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-rose-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-rose-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-rose-500/20 text-rose-300 flex items-center justify-center shrink-0 border border-rose-500/30">
             <Flame className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -433,7 +449,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('niyam')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 border border-emerald-500/30">
             <ShieldCheck className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -460,7 +476,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
               source: 'landing',
             })
           }
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/30">
             <Feather className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -480,7 +496,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('category', { id: 'tirthankar', source: 'landing' })}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/30">
             <Crown className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -500,7 +516,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('category', { id: 'granthas', source: 'landing' })}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-emerald-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 border border-emerald-500/30">
             <Scroll className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -527,7 +543,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
               source: 'landing',
             })
           }
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-cyan-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-cyan-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-500/30">
             <RotateCcw className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -547,7 +563,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('pilgrimage')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 active:scale-[0.98] transition-all group rounded-xl sm:rounded-2xl border-purple-500/20 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-purple-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0 border border-purple-500/30">
             <MapPin className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -574,7 +590,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="gilded"
           sheen
           tilt={{ maxTilt: 6, scale: 1.008, glareColor: 'gold', glareMaxOpacity: 0.16 }}
-          className="p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-400/40 bg-gradient-to-br from-[#1b1710]/95 via-[#131929]/90 to-[#0c101a]/95 hover:border-amber-400/60 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)] transition-all relative overflow-hidden"
+          className="p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-400/40 bg-gradient-to-br from-[#1b1710]/95 via-[#131929]/90 to-[#0c101a]/95 hover:border-amber-400/60 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)] relative overflow-hidden"
         >
           {/* Subtle gold traditional corner markers */}
           <div className="absolute top-2 left-2.5 text-[10px] text-amber-400/50 pointer-events-none select-none">❖</div>
@@ -601,15 +617,18 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             </div>
 
             <div className="shrink-0 flex items-center">
-              <button
+              <motion.button
                 type="button"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 onClick={() => setShowFeedbackModal(true)}
-                className="w-full md:w-auto px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_25px_rgba(245,158,11,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+                className="w-full md:w-auto px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_25px_rgba(245,158,11,0.5)] cursor-pointer select-none"
               >
                 <FileEdit className="w-4 h-4 text-slate-950 shrink-0" />
                 <span>सुधार या सुझाव बताएं</span>
                 <span className="text-xs">→</span>
-              </button>
+              </motion.button>
             </div>
           </div>
         </GlassCard>
@@ -626,7 +645,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         <GlassCard
           variant="sacred"
           tilt={{ maxTilt: 6, scale: 1.01, glareColor: 'gold', glareMaxOpacity: 0.18 }}
-          className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-white/10 active:scale-[0.99] transition-all group rounded-xl sm:rounded-2xl border-amber-500/30 bg-gradient-to-r from-amber-500/15 via-slate-900/80 to-orange-500/15 shadow-lg"
+          className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/30 bg-gradient-to-r from-amber-500/15 via-slate-900/80 to-orange-500/15 shadow-lg"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:scale-110 transition-transform">
@@ -677,12 +696,14 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                     </div>
                     <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">सहयोग</h2>
                   </div>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setShowDonateModal(false)}
                     className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
                   >
                     <X className="w-5 h-5" />
-                  </button>
+                  </motion.button>
                 </div>
 
                 <div className="text-blue-50 relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0">

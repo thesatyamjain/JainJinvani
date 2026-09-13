@@ -118,13 +118,15 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
     <div className="w-full max-w-4xl mx-auto pt-6 sm:pt-10 page-bottom-clearance px-4 sm:px-6 flex flex-col items-center select-none">
       {/* Header Bar */}
       <div className="w-full flex items-center justify-between gap-4 mb-6 relative z-10">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <div className="text-center flex-1 min-w-0">
           <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20 text-amber-300 text-[11px] font-gotu mb-1">
@@ -241,18 +243,22 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
 
         {onNavigate && (
           <div className="flex items-center justify-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => onNavigate('jap')}
-              className="px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-gotu hover:bg-amber-500/25 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-gotu hover:bg-amber-500/25 transition-colors cursor-pointer"
             >
               १०८ जाप माला प्रारम्भ करें
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => onNavigate('samayik')}
-              className="px-4 py-2 rounded-xl bg-blue-500/15 border border-blue-400/30 text-blue-200 text-xs font-gotu hover:bg-blue-500/25 transition-all cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-blue-500/15 border border-blue-400/30 text-blue-200 text-xs font-gotu hover:bg-blue-500/25 transition-colors cursor-pointer"
             >
               सामायिक साधना
-            </button>
+            </motion.button>
           </div>
         )}
       </GlassCard>
@@ -272,13 +278,15 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               exit={{ scale: 0.95, y: 15 }}
               className="bg-slate-900/95 border border-emerald-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,600px)] flex flex-col text-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative overflow-hidden"
             >
-              <button
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setShowAllCompleted(false)}
                 className="absolute top-3.5 right-3.5 w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0 z-10"
                 title="बंद करें"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
 
               <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 py-1">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
@@ -299,12 +307,14 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               </div>
 
               <div className="pt-3 border-t border-white/10 shrink-0">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => setShowAllCompleted(false)}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(16,185,129,0.3)] cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 transition-colors shadow-[0_4px_16px_rgba(16,185,129,0.3)] cursor-pointer"
                 >
                   जय जिनेन्द्र
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           </motion.div>

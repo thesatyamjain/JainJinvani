@@ -16,7 +16,7 @@ export interface UserSettings {
     notifications: boolean;
     autoPlay: boolean;
     backgroundTheme: 'sanctum' | 'cosmic';
-    dockTheme?: 'frosted' | 'classic';
+    dockTheme?: 'frosted' | 'crystal' | 'gilded' | 'classic';
 }
 
 export interface JainDate {

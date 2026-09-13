@@ -148,13 +148,15 @@ export const SearchOverlay = ({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
-              <button
+              <motion.button
+                whileTap={{ scale: 0.90 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={onClose}
                 className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 hover:bg-white/10 rounded-xl transition-colors text-slate-400 hover:text-white cursor-pointer"
                 title="बंद करें (Esc)"
               >
                 <X className="w-5 h-5" />
-              </button>
+              </motion.button>
             </div>
 
             {/* Quick Suggestions Chips */}
@@ -163,17 +165,20 @@ export const SearchOverlay = ({
                 <Sparkles className="w-3 h-3 text-amber-400" /> लोकप्रिय खोजें:
               </span>
               {popularSuggestions.map((tag) => (
-                <button
+                <motion.button
                   key={tag}
+                  whileTap={{ scale: 0.93 }}
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={() => setQuery(tag)}
-                  className={`text-xs px-2.5 py-0.5 rounded-full font-gotu transition-all cursor-pointer ${
+                  className={`text-xs px-2.5 py-0.5 rounded-full font-gotu transition-colors cursor-pointer select-none ${
                     query === tag
                       ? 'bg-amber-500 text-slate-950 font-bold border border-amber-400'
                       : 'bg-white/5 hover:bg-amber-500/20 text-slate-300 hover:text-amber-200 border border-white/10 hover:border-amber-500/30'
                   }`}
                 >
                   {tag}
-                </button>
+                </motion.button>
               ))}
             </div>
 
@@ -193,8 +198,11 @@ export const SearchOverlay = ({
                       </div>
                       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                         {getRecentReads().map((item) => (
-                          <button
+                          <motion.button
                             key={item.id}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                             onClick={() =>
                               handleItemClick({
                                 id: item.id,
@@ -202,12 +210,12 @@ export const SearchOverlay = ({
                                 category: item.type || 'stotra',
                               } as ContentItem)
                             }
-                            className="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-left shrink-0 transition-all cursor-pointer group max-w-[200px]"
+                            className="px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/25 text-left shrink-0 transition-colors cursor-pointer group max-w-[200px]"
                           >
                             <p className="text-xs font-notoserif font-semibold text-white group-hover:text-amber-200 truncate">
                               {item.title}
                             </p>
-                          </button>
+                          </motion.button>
                         ))}
                       </div>
                     </div>
@@ -232,9 +240,10 @@ export const SearchOverlay = ({
                         glareColor="amber"
                         className="rounded-xl h-full"
                       >
-                        <div
+                        <motion.div
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => handleItemClick(item)}
-                          className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/5 hover:border-amber-400/40 cursor-pointer group transition-all duration-200 h-full"
+                          className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.03] hover:bg-amber-500/15 border border-white/5 hover:border-amber-400/40 cursor-pointer group transition-colors duration-200 h-full"
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
@@ -250,7 +259,7 @@ export const SearchOverlay = ({
                             </div>
                           </div>
                           <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all shrink-0" />
-                        </div>
+                        </motion.div>
                       </TiltCard>
                     ))}
                   </div>
@@ -276,10 +285,13 @@ export const SearchOverlay = ({
                     <span className="text-amber-400/70 font-gotu text-[11px]">खोज: "{query}"</span>
                   </div>
                   {filteredItems.map((item) => (
-                    <div
+                    <motion.div
                       key={item.id}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.985 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                       onClick={() => handleItemClick(item)}
-                      className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl hover:bg-amber-500/15 border border-transparent hover:border-amber-500/30 cursor-pointer group transition-all"
+                      className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl hover:bg-amber-500/15 border border-transparent hover:border-amber-500/30 cursor-pointer group transition-colors"
                     >
                       <div className="flex items-center gap-3 min-w-0 flex-1">
                         <div className="w-9 h-9 rounded-xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
@@ -302,7 +314,7 @@ export const SearchOverlay = ({
                         </div>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-300 group-hover:translate-x-1 transition-all shrink-0" />
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}

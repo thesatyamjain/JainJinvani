@@ -341,13 +341,16 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
               किसी भी अनुयोग पर क्लिक करके उसके संपूर्ण शास्त्रों की सूची एवं विस्तृत अध्ययन देखें
             </p>
           </div>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.94 }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => onNavigate('category', { id: 'granthas', source: 'library' })}
-            className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-amber-300 hover:text-amber-200 font-gotu font-medium sm:font-bold bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-amber-500/30 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-amber-300 hover:text-amber-200 font-gotu font-medium sm:font-bold bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-amber-500/30 cursor-pointer transition-[background-color,border-color,color]"
           >
             <span>सभी ३९ शास्त्र</span>
             <ChevronRight className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
@@ -450,9 +453,12 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             </p>
 
             <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
-              <div
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.015 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: 'shatkhandagama' })}
-                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group flex flex-col justify-between"
+                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color]"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
@@ -468,11 +474,14 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                     आचार्य पुष्पदंत व भूतबलि विरचित ६ खण्ड एवं वीरसेनाचार्य कृत धवला टीका।
                   </p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.015 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: 'kashayaprabhrita' })}
-                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 transition-all cursor-pointer group flex flex-col justify-between"
+                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color]"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
@@ -488,7 +497,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                     आचार्य गुणधर विरचित २३३ गाथाएं एवं जिनसेन-वीरसेन कृत जयधवला महाटीका।
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </GlassCard>
@@ -553,16 +562,19 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
 
               <div className="pt-2 sm:pt-3 border-t border-white/10 flex items-center justify-between gap-2">
                 {pdf.readGranthId ? (
-                  <button
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                     onClick={() => onNavigate('viewer', { id: pdf.readGranthId })}
-                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl transition-all shadow-md cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl shadow-md cursor-pointer transition-colors"
                   >
                     <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     <span>
                       <span className="sm:hidden">पढ़ें</span>
                       <span className="hidden sm:inline">इन-ऐप शास्त्र पढ़ें</span>
                     </span>
-                  </button>
+                  </motion.button>
                 ) : null}
               </div>
             </GlassCard>

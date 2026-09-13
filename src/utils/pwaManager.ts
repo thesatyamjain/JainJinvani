@@ -265,6 +265,8 @@ export function setupMediaSession(options: {
   onPlay?: () => void;
   onPause?: () => void;
   onSeek?: (time: number) => void;
+  onSeekForward?: () => void;
+  onSeekBackward?: () => void;
 }): void {
   if (typeof navigator === 'undefined' || !('mediaSession' in navigator)) {
     return;
@@ -297,12 +299,12 @@ export function setupMediaSession(options: {
       });
     }
 
-    navigator.mediaSession.setActionHandler('seekforward', () => {
-      // Seek forward 10s
-    });
-    navigator.mediaSession.setActionHandler('seekbackward', () => {
-      // Seek backward 10s
-    });
+    if (options.onSeekForward) {
+      navigator.mediaSession.setActionHandler('seekforward', options.onSeekForward);
+    }
+    if (options.onSeekBackward) {
+      navigator.mediaSession.setActionHandler('seekbackward', options.onSeekBackward);
+    }
   } catch (e) {
     console.warn('MediaSession setup failed:', e);
   }

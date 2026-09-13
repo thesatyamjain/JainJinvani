@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { TiltCard } from '../components/layout/TiltCard';
 import { ChevronLeft, Clock, Flame, Droplet, Sparkles, Sun, Moon, Star, X } from 'lucide-react';
@@ -153,13 +153,15 @@ export const PujaPage = ({ onBack }: PujaPageProps) => {
     <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
       {/* Header */}
       <div className="mb-8">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05, x: -2 }}
+          whileTap={{ scale: 0.94 }}
           onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-all flex items-center justify-center group mb-6 cursor-pointer shadow-md"
+          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group mb-6 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </button>
+        </motion.button>
 
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -180,33 +182,39 @@ export const PujaPage = ({ onBack }: PujaPageProps) => {
 
         {/* Filter */}
         <div className="flex gap-3 justify-center flex-wrap">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'all'
-                ? 'bg-amber-500 text-black font-bold'
-                : 'bg-white/5 text-blue-100 hover:bg-white/10'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-colors cursor-pointer ${filter === 'all'
+                ? 'bg-amber-500 text-black font-bold shadow-[0_2px_10px_rgba(245,158,11,0.3)]'
+                : 'bg-white/5 text-blue-100 hover:bg-white/10 border border-white/10'
               }`}
           >
             सभी
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => setFilter('daily')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'daily'
-                ? 'bg-amber-500 text-black font-bold'
-                : 'bg-white/5 text-blue-100 hover:bg-white/10'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-colors cursor-pointer ${filter === 'daily'
+                ? 'bg-amber-500 text-black font-bold shadow-[0_2px_10px_rgba(245,158,11,0.3)]'
+                : 'bg-white/5 text-blue-100 hover:bg-white/10 border border-white/10'
               }`}
           >
             दैनिक
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={() => setFilter('special')}
-            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-all ${filter === 'special'
-                ? 'bg-amber-500 text-black font-bold'
-                : 'bg-white/5 text-blue-100 hover:bg-white/10'
+            className={`px-4 py-2 rounded-lg font-gotu text-sm transition-colors cursor-pointer ${filter === 'special'
+                ? 'bg-amber-500 text-black font-bold shadow-[0_2px_10px_rgba(245,158,11,0.3)]'
+                : 'bg-white/5 text-blue-100 hover:bg-white/10 border border-white/10'
               }`}
           >
             विशेष
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -253,107 +261,113 @@ export const PujaPage = ({ onBack }: PujaPageProps) => {
       </div>
 
       {/* Detail Modal */}
-      {selectedRitual && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedRitual(null)}
-            className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
-          />
+      <AnimatePresence>
+        {selectedRitual && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-2.5 sm:p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedRitual(null)}
+              className="absolute inset-0 bg-slate-950/85 backdrop-blur-md"
+            />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            className="relative w-full max-w-xl max-h-[min(90vh,700px)] flex flex-col z-10 bg-slate-900/95 border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
-          >
-            {/* Pinned Modal Header */}
-            <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-gotu border border-amber-400/30 flex items-center gap-1.5">
-                    <Clock className="w-3 h-3" />
-                    <span>{selectedRitual.time}</span>
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-gotu border border-blue-400/30">
-                    समय: {selectedRitual.duration}
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-xs font-gotu border border-white/10">
-                    {selectedRitual.category === 'daily' ? 'दैनिक चर्या' : 'विशेष पर्व'}
-                  </span>
-                </div>
-                <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white leading-snug break-words">
-                  {selectedRitual.title}
-                </h2>
-                <p className="text-xs text-blue-100/60 font-gotu mt-0.5">{selectedRitual.titleEn}</p>
-              </div>
-
-              <button
-                onClick={() => setSelectedRitual(null)}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
-                title="बंद करें"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Scrollable Content Body */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-4 min-h-0">
-              <div>
-                <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 font-gotu">
-                  विधि एवं क्रिया क्रम
-                </div>
-                <ol className="space-y-2">
-                  {selectedRitual.steps.map((step: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-blue-100/90 font-gotu bg-white/5 p-2.5 sm:p-3 rounded-xl border border-white/5">
-                      <span className="text-amber-400 font-bold mt-0.5 shrink-0">{idx + 1}.</span>
-                      <span className="leading-relaxed">{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <TiltCard
-                maxTilt={5}
-                glareMaxOpacity={0.12}
-                glareColor="amber"
-                className="rounded-xl"
-              >
-                <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/25 h-full">
-                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 font-gotu flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>पावन मंत्र / सूत्र</span>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="relative w-full max-w-xl max-h-[min(90vh,700px)] flex flex-col z-10 bg-slate-900/95 border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden"
+            >
+              {/* Pinned Modal Header */}
+              <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-gotu border border-amber-400/30 flex items-center gap-1.5">
+                      <Clock className="w-3 h-3" />
+                      <span>{selectedRitual.time}</span>
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-gotu border border-blue-400/30">
+                      समय: {selectedRitual.duration}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-slate-300 text-xs font-gotu border border-white/10">
+                      {selectedRitual.category === 'daily' ? 'दैनिक चर्या' : 'विशेष पर्व'}
+                    </span>
                   </div>
-                  <p className="text-white font-tiro text-base sm:text-lg leading-relaxed">
-                    {selectedRitual.mantra}
+                  <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white leading-snug break-words">
+                    {selectedRitual.title}
+                  </h2>
+                  <p className="text-xs text-blue-100/60 font-gotu mt-0.5">{selectedRitual.titleEn}</p>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedRitual(null)}
+                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                  title="बंद करें"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              {/* Scrollable Content Body */}
+              <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 space-y-4 min-h-0">
+                <div>
+                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2.5 font-gotu">
+                    विधि एवं क्रिया क्रम
+                  </div>
+                  <ol className="space-y-2">
+                    {selectedRitual.steps.map((step: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-blue-100/90 font-gotu bg-white/5 p-2.5 sm:p-3 rounded-xl border border-white/5">
+                        <span className="text-amber-400 font-bold mt-0.5 shrink-0">{idx + 1}.</span>
+                        <span className="leading-relaxed">{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+
+                <TiltCard
+                  maxTilt={5}
+                  glareMaxOpacity={0.12}
+                  glareColor="amber"
+                  className="rounded-xl"
+                >
+                  <div className="p-3.5 sm:p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/25 h-full">
+                    <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 font-gotu flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>पावन मंत्र / सूत्र</span>
+                    </div>
+                    <p className="text-white font-tiro text-base sm:text-lg leading-relaxed">
+                      {selectedRitual.mantra}
+                    </p>
+                  </div>
+                </TiltCard>
+
+                <div>
+                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5 font-gotu">
+                    साधना फल एवं लाभ
+                  </div>
+                  <p className="text-xs sm:text-sm text-blue-100/80 font-gotu leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5">
+                    {selectedRitual.benefits}
                   </p>
                 </div>
-              </TiltCard>
-
-              <div>
-                <div className="text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5 font-gotu">
-                  साधना फल एवं लाभ
-                </div>
-                <p className="text-xs sm:text-sm text-blue-100/80 font-gotu leading-relaxed bg-white/5 p-3 rounded-xl border border-white/5">
-                  {selectedRitual.benefits}
-                </p>
               </div>
-            </div>
 
-            {/* Pinned Action Footer */}
-            <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 shrink-0">
-              <button
-                onClick={() => setSelectedRitual(null)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
-              >
-                साधना सम्पन्न करें
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
+              {/* Pinned Action Footer */}
+              <div className="p-3.5 sm:p-4 border-t border-white/10 bg-slate-950/80 shrink-0">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => setSelectedRitual(null)}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-gotu font-bold text-sm hover:brightness-110 transition-all shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer"
+                >
+                  साधना सम्पन्न करें
+                </motion.button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

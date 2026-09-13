@@ -108,16 +108,18 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             </div>
             <div className="flex gap-2">
               {(['small', 'medium', 'large', 'xl'] as const).map(size => (
-                <button
+                <motion.button
                   key={size}
+                  whileTap={{ scale: 0.92 }}
+                  whileHover={{ scale: 1.04 }}
                   onClick={() => handleSettingChange('fontSize', size)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-gotu transition-colors ${settings.fontSize === size
+                  className={`px-3 py-1.5 rounded-lg text-xs font-gotu transition-colors cursor-pointer ${settings.fontSize === size
                     ? 'bg-amber-500 text-black font-bold'
                     : 'bg-white/5 text-white hover:bg-white/10'
                     }`}
                 >
                   {size === 'small' ? 'छोटा' : size === 'medium' ? 'मध्यम' : size === 'large' ? 'बड़ा' : 'बहुत बड़ा'}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -129,8 +131,10 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               <span className="text-white font-gotu">पृष्ठभूमि परिवेश</span>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
                 onClick={() => handleSettingChange('backgroundTheme', 'sanctum')}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.backgroundTheme !== 'cosmic'
@@ -142,10 +146,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
                   अखंड दीप ज्योति, धूप सुवास व पाषाण आभा
                 </div>
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
                 onClick={() => handleSettingChange('backgroundTheme', 'cosmic')}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.backgroundTheme === 'cosmic'
@@ -157,46 +163,112 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 <div className="text-[11px] text-blue-300/80 mt-1 line-clamp-2">
                   टिमटिमाते तारे, नेबुला व टूटते उल्कापिंड
                 </div>
-              </button>
+              </motion.button>
             </div>
           </div>
 
-          {/* Dock Background Theme - Frosted Glass vs Classic Navy */}
+          {/* Dock Background Theme - Frosted Glass vs Crystal vs Gilded vs Classic Navy */}
           <div className="p-4 rounded-xl bg-white/5 border border-white/10">
             <div className="flex items-center gap-2 mb-3">
               <Compass className="w-4 h-4 text-amber-400" />
-              <span className="text-white font-gotu">डॉक बैकग्राउंड शैली</span>
+              <span className="text-white font-gotu">डॉक बैकग्राउंड शैली (Dock Style)</span>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
-              <button
+              {/* Option 1: Frosted Matching Glass */}
+              <motion.button
                 type="button"
-                onClick={() => handleSettingChange('dockTheme', 'frosted')}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  triggerHaptic('light');
+                  handleSettingChange('dockTheme', 'frosted');
+                }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
-                  settings.dockTheme !== 'classic'
-                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                  settings.dockTheme === 'frosted' || !settings.dockTheme
+                    ? 'bg-sky-500/20 border-sky-400/60 text-sky-200 shadow-[0_0_15px_rgba(56,189,248,0.2)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <div className="text-xs font-bold text-white font-notoserif">फ़्रॉस्टेड ग्लास (नया)</div>
-                <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
-                  आधुनिक पारदर्शी काँच, अतिरिक्त ब्लर व ग्लो
+                <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                  फ़्रॉस्टेड (मैचिंग)
                 </div>
-              </button>
+                <div className="text-[11px] text-slate-200/80 mt-1 line-clamp-2">
+                  ऐप के कार्ड्स जैसा डार्क पारदर्शी काँच
+                </div>
+              </motion.button>
 
-              <button
+              {/* Option 2: Crystal Luminous Glass */}
+              <motion.button
                 type="button"
-                onClick={() => handleSettingChange('dockTheme', 'classic')}
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  triggerHaptic('light');
+                  handleSettingChange('dockTheme', 'crystal');
+                }}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.dockTheme === 'crystal'
+                    ? 'bg-white/20 border-white/60 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+                  क्रिस्टल (ल्युमिनस)
+                </div>
+                <div className="text-[11px] text-slate-200/80 mt-1 line-clamp-2">
+                  स्वच्छ काँच, सफ़ेद चमक व तीव्र ब्लर
+                </div>
+              </motion.button>
+
+              {/* Option 3: Sacred Gilded Glass */}
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  triggerHaptic('light');
+                  handleSettingChange('dockTheme', 'gilded');
+                }}
+                className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
+                  settings.dockTheme === 'gilded'
+                    ? 'bg-amber-500/25 border-amber-400/70 text-amber-200 shadow-[0_0_18px_rgba(245,158,11,0.25)]'
+                    : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
+                }`}
+              >
+                <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.9)]" />
+                  स्वर्णिम (गिल्डेड)
+                </div>
+                <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
+                  गर्भगृह काँच, स्वर्णिम किनारा व चमक
+                </div>
+              </motion.button>
+
+              {/* Option 4: Classic Navy Dock */}
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => {
+                  triggerHaptic('light');
+                  handleSettingChange('dockTheme', 'classic');
+                }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.dockTheme === 'classic'
-                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                    ? 'bg-indigo-500/25 border-indigo-400/70 text-indigo-200 shadow-[0_0_18px_rgba(99,102,241,0.25)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
-                <div className="text-xs font-bold text-white font-notoserif">क्लासिक नेवी (पुराना)</div>
-                <div className="text-[11px] text-slate-300/80 mt-1 line-clamp-2">
-                  गहरा नेवी बैकग्राउंड व स्वर्णिम किनारा
+                <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.9)]" />
+                  क्लासिक नेवी (पुराना)
                 </div>
-              </button>
+                <div className="text-[11px] text-indigo-200/80 mt-1 line-clamp-2">
+                  मूल गहरा नेवी बैकग्राउंड व सौम्य किनारा
+                </div>
+              </motion.button>
             </div>
           </div>
 
@@ -206,14 +278,20 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               <Bell className="w-4 h-4 text-blue-400" />
               <span className="text-white font-gotu">पर्व एवं दैनिक सूचनाएं</span>
             </div>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => handleSettingChange('notifications', !settings.notifications)}
-              className={`w-12 h-6 rounded-full relative transition-colors ${settings.notifications ? 'bg-amber-500' : 'bg-white/10'
-                }`}
+              className={`w-12 h-6 rounded-full relative flex items-center p-1 transition-colors cursor-pointer ${
+                settings.notifications ? 'bg-amber-500 justify-end' : 'bg-white/10 justify-start'
+              }`}
             >
-              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings.notifications ? 'left-7' : 'left-1'
-                }`} />
-            </button>
+              <motion.div
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="w-4 h-4 rounded-full bg-white shadow-md pointer-events-none"
+              />
+            </motion.button>
           </div>
 
           {/* Auto Play Audio */}
@@ -222,14 +300,20 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               <Volume2 className="w-4 h-4 text-green-400" />
               <span className="text-white font-gotu">ऑटो प्ले ऑडियो</span>
             </div>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.92 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => handleSettingChange('autoPlay', !settings.autoPlay)}
-              className={`w-12 h-6 rounded-full relative transition-colors ${settings.autoPlay ? 'bg-amber-500' : 'bg-white/10'
-                }`}
+              className={`w-12 h-6 rounded-full relative flex items-center p-1 transition-colors cursor-pointer ${
+                settings.autoPlay ? 'bg-amber-500 justify-end' : 'bg-white/10 justify-start'
+              }`}
             >
-              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings.autoPlay ? 'left-7' : 'left-1'
-                }`} />
-            </button>
+              <motion.div
+                layout
+                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                className="w-4 h-4 rounded-full bg-white shadow-md pointer-events-none"
+              />
+            </motion.button>
           </div>
 
           {/* Dark Mode - Always On */}
@@ -271,23 +355,29 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                   <CheckCircle2 className="w-4 h-4" />
                   संपूर्ण सामग्री ऑफ़लाइन सुरक्षित है
                 </span>
-                <button
+                <motion.button
                   type="button"
+                  whileTap={{ scale: 0.92 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={handleDownloadTempleMode}
                   className="text-[11px] font-gotu text-amber-300 hover:text-amber-200 underline cursor-pointer"
                 >
                   पुनः सिंक करें
-                </button>
+                </motion.button>
               </div>
             ) : (
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={handleDownloadTempleMode}
                 className="mt-3 w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold font-gotu text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 एक क्लिक में ऑफ़लाइन डाउनलोड करें
-              </button>
+              </motion.button>
             )}
           </div>
 
@@ -312,17 +402,20 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 <span>ऐप मोड सक्रिय • पूर्ण स्क्रीन अनुभव</span>
               </div>
             ) : (
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.96 }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => {
                   triggerHaptic('medium');
                   window.dispatchEvent(new CustomEvent('jinvani:open-install-prompt'));
                 }}
-                className="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold font-gotu text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-98 cursor-pointer"
+                className="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold font-gotu text-xs flex items-center justify-center gap-1.5 shadow-md cursor-pointer transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 फ़ोन में ऐप इंस्टॉल करें
-              </button>
+              </motion.button>
             )}
           </div>
 
@@ -350,15 +443,18 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                     <span className="text-slate-300/90">
                       सभी स्तोत्र व ऑडियो फ़ोन में सुरक्षित हैं। डिस्क स्पेस कम होने पर फ़ोन द्वारा डेटा हटाए जाने से बचाने के लिए स्थायी सुरक्षा ऑन करें।
                     </span>
-                    <button
+                    <motion.button
                       type="button"
+                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                       onClick={handleRequestPersist}
                       disabled={isRequestingPersist}
-                      className="self-start py-1.5 px-3 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-gotu text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-98"
+                      className="self-start py-1.5 px-3 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-gotu text-xs flex items-center gap-1.5 cursor-pointer transition-colors"
                     >
                       <Shield className="w-3.5 h-3.5" />
                       {isRequestingPersist ? 'अनुरोध भेजा जा रहा है...' : 'स्थायी सुरक्षा (Persistent Storage) सक्रिय करें'}
-                    </button>
+                    </motion.button>
                   </div>
                 )}
               </div>
@@ -611,12 +707,15 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                     </div>
                     <h2 className="text-lg sm:text-xl font-notoserif font-bold text-white truncate">{selectedItem.label}</h2>
                   </div>
-                  <button
+                  <motion.button
+                    whileTap={{ scale: 0.90 }}
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                     onClick={() => setSelectedId(null)}
                     className="p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer shrink-0"
                   >
                     <X className="w-5 h-5" />
-                  </button>
+                  </motion.button>
                 </div>
 
                 <div className="text-blue-50 relative z-10 flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0">
