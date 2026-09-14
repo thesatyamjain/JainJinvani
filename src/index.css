@@ -361,48 +361,12 @@
 /* Instantly hide all floating navigation, scrubber rails, and back-to-top buttons whenever any popup/modal is open */
 body.has-modal-open [data-floating-dock],
 body.has-modal-open [data-back-to-top],
-body.has-modal-open [data-scroll-scrubber],
-body.has-modal-open [data-system-nav-scrim] {
+body.has-modal-open [data-scroll-scrubber] {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
   transform: translateY(24px) !important;
   transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease !important;
-}
-
-/* Mobile System Gesture Navigation Scrim / Floor Shield
-   Grounds the region behind the phone's system gesture bar / home indicator
-   with a serene #05060a ambient gradient and soft feather blur. */
-.system-nav-scrim {
-  height: calc(env(safe-area-inset-bottom, 0px) + 3.25rem);
-  background: linear-gradient(
-    to top,
-    #05060a 0%,
-    rgba(5, 6, 10, 0.96) 28%,
-    rgba(5, 6, 10, 0.75) 60%,
-    rgba(5, 6, 10, 0.25) 85%,
-    transparent 100%
-  );
-  background: linear-gradient(
-    to top,
-    #05060a 0%,
-    #05060a calc(env(safe-area-inset-bottom, 0px) + 0.35rem),
-    rgba(5, 6, 10, 0.94) calc(env(safe-area-inset-bottom, 0px) + 1rem),
-    rgba(5, 6, 10, 0.7) calc(env(safe-area-inset-bottom, 0px) + 1.85rem),
-    rgba(5, 6, 10, 0.25) calc(env(safe-area-inset-bottom, 0px) + 2.5rem),
-    transparent 100%
-  );
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  mask-image: linear-gradient(to top, black 45%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to top, black 45%, transparent 100%);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-@media (min-width: 768px) {
-  .system-nav-scrim {
-    display: none;
-  }
 }
 
 /* PWA Edge-to-Edge Safe Area Inset Helpers */

@@ -677,15 +677,6 @@ export default function App() {
         </Suspense>
       </main>
 
-      {/* Mobile System Gesture Navigation Scrim (Ambient Bottom Gradient Floor Shield) */}
-      {activePage !== "admin" && (
-        <div
-          data-system-nav-scrim="true"
-          className="fixed bottom-0 inset-x-0 pointer-events-none z-30 select-none system-nav-scrim"
-          aria-hidden="true"
-        />
-      )}
-
       {/* Floating Dock Navigation - Hidden on admin portal */}
       {activePage !== "admin" && (
         <Dock
