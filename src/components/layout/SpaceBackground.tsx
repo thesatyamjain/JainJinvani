@@ -192,19 +192,26 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
     // Draw Sanctum (Temple Diya + Incense Embers)
     const drawSanctum = (time: number) => {
-      // 1. Akhand Diya Sacred Radiance
-      const pulse = Math.sin(time * 0.7) * 0.015;
+      // 1. Akhand Diya Sacred Radiance (Physical Inverse-Square Optical Decay)
+      const pulse = Math.sin(time * 0.7) * 0.012;
       const diyaGlow = ctx.createRadialGradient(
         canvas.width * 0.5,
         canvas.height * 0.02,
-        20,
+        15,
         canvas.width * 0.5,
         canvas.height * 0.02,
-        Math.max(canvas.width * 0.65, 500)
+        Math.max(canvas.width * 0.70, 560)
       );
-      diyaGlow.addColorStop(0, `rgba(245, 158, 11, ${0.11 + pulse})`);
-      diyaGlow.addColorStop(0.35, `rgba(217, 119, 6, ${0.05 + pulse * 0.5})`);
-      diyaGlow.addColorStop(0.7, 'rgba(120, 53, 15, 0.02)');
+      // Incandescent warm core
+      diyaGlow.addColorStop(0, `rgba(255, 248, 235, ${0.16 + pulse * 0.8})`);
+      // Golden corona
+      diyaGlow.addColorStop(0.12, `rgba(251, 191, 36, ${0.09 + pulse})`);
+      // Warm amber halo
+      diyaGlow.addColorStop(0.30, `rgba(245, 158, 11, ${0.045 + pulse * 0.4})`);
+      // Deep temple bronze
+      diyaGlow.addColorStop(0.55, 'rgba(217, 119, 6, 0.02)');
+      // Diffuse atmospheric penumbra
+      diyaGlow.addColorStop(0.80, 'rgba(180, 83, 9, 0.007)');
       diyaGlow.addColorStop(1, 'transparent');
 
       ctx.fillStyle = diyaGlow;

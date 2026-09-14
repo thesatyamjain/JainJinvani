@@ -174,8 +174,8 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                   onClick={toggleTimer}
                   className={`px-8 py-4 rounded-2xl font-bold font-gotu text-base flex items-center gap-2.5 shadow-xl cursor-pointer select-none ${
                     isActive
-                      ? 'bg-amber-500/20 text-amber-200 border border-amber-400/50 shadow-[0_0_25px_rgba(245,158,11,0.3)]'
-                      : 'bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 text-slate-950 shadow-[0_0_30px_rgba(245,158,11,0.4)]'
+                      ? 'bg-amber-500/20 text-amber-200 border border-amber-400/40 shadow-[0_4px_20px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.15)]'
+                      : 'bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 text-slate-950 shadow-[0_4px_24px_rgba(245,158,11,0.25),0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.4)]'
                   }`}
                 >
                   {isActive ? (
@@ -198,7 +198,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                   onClick={() => setIsAudioPlaying(!isAudioPlaying)}
                   className={`w-13 h-13 rounded-2xl border transition-colors flex items-center justify-center cursor-pointer ${
                     isAudioPlaying
-                      ? 'bg-amber-500/20 border-amber-400/40 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                      ? 'bg-amber-500/20 border-amber-400/40 text-amber-300 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_14px_rgba(245,158,11,0.15)]'
                       : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
                   }`}
                   title="णमोकार महामंत्र ध्वनि"

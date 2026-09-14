@@ -846,7 +846,7 @@ export const Dock = ({
               }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 readerDockPage === 'reader'
-                  ? 'bg-amber-400 scale-110 shadow-[0_0_10px_rgba(245,158,11,0.95),0_0_2px_#ffffff]'
+                  ? 'bg-amber-300 scale-110 shadow-[0_0_6px_rgba(245,158,11,0.6),0_1px_2px_rgba(0,0,0,0.4)]'
                   : 'bg-white/30 hover:bg-white/60 scale-100'
               }`}
               title="स्वाध्याय टूल्स (Reader)"
@@ -859,7 +859,7 @@ export const Dock = ({
               }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 readerDockPage === 'home'
-                  ? 'bg-amber-400 scale-110 shadow-[0_0_10px_rgba(245,158,11,0.95),0_0_2px_#ffffff]'
+                  ? 'bg-amber-300 scale-110 shadow-[0_0_6px_rgba(245,158,11,0.6),0_1px_2px_rgba(0,0,0,0.4)]'
                   : 'bg-white/30 hover:bg-white/60 scale-100'
               }`}
               title="होम नेविगेशन (Home)"
@@ -960,9 +960,9 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         onClick={handleClick}
         className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none ${
           isActive
-            ? 'bg-gradient-to-b from-amber-500/25 via-amber-600/15 to-amber-700/10 border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.3),inset_0_1px_1px_rgba(255,255,255,0.25)]'
+            ? 'bg-gradient-to-b from-amber-500/20 via-amber-600/10 to-amber-700/05 border border-amber-400/40 shadow-[0_4px_16px_rgba(245,158,11,0.18),0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.22)]'
             : isSpecial
-            ? 'bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/35 hover:border-amber-400/70 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+            ? 'bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/30 hover:border-amber-400/55 shadow-[0_2px_10px_rgba(245,158,11,0.10)]'
             : isSearch
             ? 'dock-tile-standard bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/35 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
             : 'dock-tile-standard bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.25)]'
@@ -983,7 +983,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         {isActive && (
           <motion.div
             layoutId="macos-dock-active-dot"
-            className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,1),0_0_2px_#ffffff]"
+            className="w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(245,158,11,0.55),0_1px_2px_rgba(0,0,0,0.5)]"
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
           />
         )}

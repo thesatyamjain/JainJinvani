@@ -44,7 +44,7 @@ const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) 
                    [&_.fact-box]:grid [&_.fact-box]:grid-cols-2 [&_.fact-box]:gap-4 [&_.fact-box]:bg-amber-500/10 [&_.fact-box]:border [&_.fact-box]:border-amber-500/20 [&_.fact-box]:p-6 [&_.fact-box]:rounded-2xl [&_.fact-box]:mb-8
                    [&_.fact-item]:flex [&_.fact-item]:flex-col [&_.fact-item_strong]:text-amber-400 [&_.fact-item_strong]:text-xs [&_.fact-item_strong]:uppercase [&_.fact-item_strong]:tracking-wider
                    [&_.bio-header]:text-center [&_.bio-header]:mb-10 [&_.tirthankara-symbol]:text-6xl [&_.tirthankara-symbol]:block [&_.tirthankara-symbol]:mb-4
-                   [&_.mantra-box]:bg-gradient-to-r [&_.mantra-box]:from-amber-500/15 [&_.mantra-box]:via-slate-900/60 [&_.mantra-box]:to-amber-500/15 [&_.mantra-box]:p-6 [&_.mantra-box]:rounded-2xl [&_.mantra-box]:text-center [&_.mantra-box]:border [&_.mantra-box]:border-amber-400/30 [&_.mantra-box]:my-6 [&_.mantra-box]:shadow-[0_0_20px_rgba(245,158,11,0.15)]
+                   [&_.mantra-box]:bg-gradient-to-r [&_.mantra-box]:from-amber-500/15 [&_.mantra-box]:via-slate-900/80 [&_.mantra-box]:to-amber-500/15 [&_.mantra-box]:p-6 [&_.mantra-box]:rounded-2xl [&_.mantra-box]:text-center [&_.mantra-box]:border [&_.mantra-box]:border-amber-400/35 [&_.mantra-box]:my-6 [&_.mantra-box]:shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(254,240,138,0.2)]
                    [&_.steps-grid]:grid [&_.steps-grid]:gap-6 [&_.steps-grid]:md:grid-cols-1
                    [&_.step-card]:bg-slate-900/60 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-white/10
                    [&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
@@ -312,6 +312,12 @@ const UnifiedVerseView = ({
                 tilt={{ maxTilt: 3.5, glareMaxOpacity: 0.1, glareColor: 'gold' }}
                 className="p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border border-amber-500/25 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
               >
+                {/* Traditional Manuscript Ornamental Corner Fillets (पांडुलिपि कोने) */}
+                <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-amber-400/30 rounded-tl pointer-events-none" />
+                <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t border-r border-amber-400/30 rounded-tr pointer-events-none" />
+                <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b border-l border-amber-400/30 rounded-bl pointer-events-none" />
+                <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b border-r border-amber-400/30 rounded-br pointer-events-none" />
+
                 {/* Traditional Sacred Margin Lines (हशिया) */}
                 <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
                 <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
@@ -320,7 +326,7 @@ const UnifiedVerseView = ({
                 {parsed.numberDisplay ? (
                   <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/15">
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-600/20 border border-amber-400/40 text-amber-200 font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                      <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-600/20 border border-amber-400/40 text-amber-200 font-mono text-xs font-bold flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.4),0_0_8px_rgba(245,158,11,0.12),inset_0_1px_0_rgba(255,255,255,0.2)]">
                         {parsed.numberDisplay}
                       </span>
                       <span className="text-[11px] uppercase tracking-widest text-amber-300/80 font-gotu font-medium">
@@ -382,7 +388,7 @@ const UnifiedVerseView = ({
                         <div
                           key={lIdx}
                           style={{ fontSize: `${fontSize + 1}px` }}
-                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-amber-600/20 to-amber-500/15 border border-amber-400/40 text-amber-100 font-notoserif font-bold text-center shadow-[inset_0_1px_10px_rgba(245,158,11,0.15)] tracking-wide leading-relaxed"
+                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-[#0e1526]/90 to-amber-500/15 border border-amber-400/40 text-amber-100 font-notoserif font-bold text-center shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.5)] tracking-wide leading-relaxed"
                         >
                           {lineObj.text}
                         </div>

@@ -149,7 +149,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_12px_rgba(245,158,11,0.15)]">
               <Flame className="w-5 h-5" />
             </div>
             <div>
@@ -193,7 +193,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               onClick={() => handleToggle(item.id)}
               className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl transition-all duration-200 active:scale-[0.98] border ${
                 isDone
-                  ? 'border-emerald-500/40 bg-emerald-950/20 shadow-[0_0_20px_rgba(16,185,129,0.15)]'
+                  ? 'border-emerald-500/40 bg-emerald-950/20 shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_14px_rgba(16,185,129,0.12)]'
                   : 'border-white/10 hover:border-white/20 hover:bg-white/5'
               }`}
             >
@@ -276,7 +276,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="bg-slate-900/95 border border-emerald-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,600px)] flex flex-col text-center shadow-[0_0_50px_rgba(16,185,129,0.3)] relative overflow-hidden"
+              className="bg-slate-900/95 border border-emerald-400/40 rounded-2xl sm:rounded-3xl p-5 sm:p-7 max-w-md w-full max-h-[min(90vh,600px)] flex flex-col text-center shadow-[0_24px_64px_rgba(0,0,0,0.85),0_0_32px_rgba(16,185,129,0.15)] relative overflow-hidden"
             >
               <motion.button
                 whileHover={{ scale: 1.15 }}
@@ -289,7 +289,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               </motion.button>
 
               <div className="flex-1 overflow-y-auto custom-scrollbar min-h-0 py-1">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center mx-auto mb-3 sm:mb-4 text-emerald-300 shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_16px_rgba(16,185,129,0.2)]">
                   <Award className="w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
 

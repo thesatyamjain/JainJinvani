@@ -162,18 +162,19 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="w-full text-center mb-5 sm:mb-8 relative z-10 max-w-3xl flex flex-col items-center"
       >
-        {/* Sacred Archway Toran Silhouette & Diya Radiance */}
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] sm:w-[480px] h-[180px] sm:h-[240px] bg-gradient-to-b from-amber-500/20 via-amber-600/10 to-transparent rounded-t-[150px] sm:rounded-t-[240px] blur-2xl pointer-events-none -z-10" />
+        {/* Sacred Temple Diya & Golden Radiance (Multi-stage physical falloff) */}
+        <div className="absolute -top-10 sm:-top-16 left-1/2 -translate-x-1/2 w-[260px] sm:w-[380px] h-[140px] sm:h-[180px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-200/20 via-amber-400/08 to-transparent blur-2xl pointer-events-none -z-10" />
+        <div className="absolute -top-16 sm:-top-24 left-1/2 -translate-x-1/2 w-[420px] sm:w-[640px] h-[220px] sm:h-[300px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/08 via-amber-700/03 to-transparent blur-[70px] pointer-events-none -z-10" />
 
         {/* Global Admin Broadcast Announcement Banner */}
         {announcement && (
           <motion.div
             initial={{ opacity: 0, y: -10, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="w-full max-w-xl mb-4 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-[#0d1527]/95 to-amber-500/20 border border-amber-400/40 shadow-[0_4px_25px_rgba(245,158,11,0.25)] backdrop-blur-xl flex items-center justify-between gap-3 text-left relative overflow-hidden"
+            className="w-full max-w-xl mb-4 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#0d1527]/95 to-amber-500/15 border border-amber-400/35 shadow-[0_8px_24px_rgba(0,0,0,0.5),0_0_20px_rgba(245,158,11,0.12)] backdrop-blur-xl flex items-center justify-between gap-3 text-left relative overflow-hidden"
           >
             <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-8 h-8 rounded-xl bg-amber-500/25 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/35 flex items-center justify-center text-amber-300 shrink-0">
                 <Sparkles className="w-4 h-4 text-amber-300" />
               </div>
               <div className="min-w-0">
@@ -191,7 +192,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => onNavigate(announcement.link!)}
-                  className="px-2.5 py-1 rounded-xl bg-amber-500/30 hover:bg-amber-500/45 border border-amber-400/50 text-amber-200 text-xs font-gotu font-semibold transition-colors cursor-pointer whitespace-nowrap"
+                  className="px-2.5 py-1 rounded-xl bg-amber-500/25 hover:bg-amber-500/40 border border-amber-400/40 text-amber-200 text-xs font-gotu font-semibold transition-colors cursor-pointer whitespace-nowrap"
                 >
                   देखें →
                 </motion.button>
@@ -219,14 +220,14 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.05, duration: 0.4 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-200 text-xs sm:text-sm font-medium mb-3 sm:mb-4 backdrop-blur-xl shadow-[0_0_24px_rgba(245,158,11,0.2)]"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/12 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-medium mb-3 sm:mb-4 backdrop-blur-xl shadow-[0_2px_12px_rgba(0,0,0,0.35),0_0_16px_rgba(245,158,11,0.10),inset_0_1px_0_rgba(255,255,255,0.15)]"
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span className="font-gotu tracking-wide font-semibold">दिगम्बर जैन महा-पोर्टल • जिनेन्द्र अमृतवाणी</span>
         </motion.div>
 
         {/* Grand Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] sm:leading-[1.2] tracking-normal py-1 mb-2.5 sm:mb-4 drop-shadow-[0_4px_30px_rgba(245,158,11,0.3)] select-none inline-block">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] sm:leading-[1.2] tracking-normal py-1 mb-2.5 sm:mb-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] drop-shadow-[0_0_28px_rgba(245,158,11,0.18)] select-none inline-block">
           जैन जिनवाणी
         </h1>
 
@@ -242,7 +243,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             whileTap={{ scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={() => onNavigate('sadhana')}
-            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden shadow-[0_4px_24px_rgba(245,158,11,0.35)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer select-none"
+            className="group relative h-12 sm:h-14 px-4 sm:px-7 rounded-xl sm:rounded-2xl font-bold text-slate-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 overflow-hidden shadow-[0_4px_18px_rgba(245,158,11,0.22),0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.45)] flex items-center justify-center font-gotu text-sm sm:text-base cursor-pointer select-none"
           >
             <span className="truncate">नित्य साधना</span>
             <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -266,7 +267,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           animate={{ opacity: 1, scale: 1 }}
           className={`w-full max-w-xl mb-3.5 sm:mb-4 p-3.5 sm:p-4 rounded-2xl border backdrop-blur-xl flex items-center justify-between gap-3 shadow-xl ${
             isSpecialParva
-              ? 'bg-gradient-to-r from-amber-500/25 via-slate-900/90 to-amber-500/25 border-amber-400/50 shadow-[0_0_30px_rgba(245,158,11,0.25)]'
+              ? 'bg-gradient-to-r from-amber-500/20 via-slate-900/90 to-amber-500/20 border-amber-400/40 shadow-[0_8px_24px_rgba(0,0,0,0.5),0_0_24px_rgba(245,158,11,0.14)]'
               : 'bg-gradient-to-r from-amber-500/10 via-slate-900/80 to-cyan-500/10 border-white/10 hover:border-amber-400/30'
           }`}
         >
@@ -274,7 +275,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             <div
               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                 isSpecialParva
-                  ? 'bg-amber-500/25 text-amber-300 border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+                  ? 'bg-amber-500/20 text-amber-300 border-amber-400/35 shadow-[0_2px_8px_rgba(0,0,0,0.4),0_0_12px_rgba(245,158,11,0.16)]'
                   : 'bg-white/5 text-amber-300 border-white/10'
               }`}
             >
@@ -389,7 +390,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           onClick={() => onNavigate('daily-puja')}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-amber-500/10 group rounded-xl sm:rounded-2xl border-amber-400/40 shadow-md bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-yellow-600/10 col-span-2 md:col-span-4"
         >
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/25 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/35 shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_12px_rgba(245,158,11,0.15)]">
             <Droplets className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div className="min-w-0 flex-1">
@@ -607,7 +608,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
 
           {/* Top Pill / Badge */}
           <div className="flex items-center gap-2 mb-2.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] sm:text-xs font-semibold font-gotu shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/35 text-amber-300 text-[11px] sm:text-xs font-semibold font-gotu shadow-[0_2px_8px_rgba(0,0,0,0.3),0_0_10px_rgba(245,158,11,0.12)]">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               डिजिटल जिनवाणी महा-संकलन • सहभागिता आमंत्रण
             </span>

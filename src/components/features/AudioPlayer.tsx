@@ -556,7 +556,7 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
                   whileTap={{ scale: 0.92 }}
                   transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={togglePlay}
-                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 text-slate-950 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[0_0_26px_rgba(245,158,11,0.6)] transition-all cursor-pointer shrink-0 select-none"
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 text-slate-950 flex items-center justify-center shadow-[0_4px_16px_rgba(245,158,11,0.25),0_1px_2px_rgba(0,0,0,0.4),inset_0_1.5px_1.5px_rgba(255,255,255,0.7)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.35),0_1px_2px_rgba(0,0,0,0.4),inset_0_1.5px_1.5px_rgba(255,255,255,0.8)] active:shadow-[0_1px_4px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(0,0,0,0.3)] transition-all cursor-pointer shrink-0 select-none"
                   title={isPlaying ? 'रोकें (Pause)' : 'आरंभ करें (Play)'}
                 >
                   {isLoading ? (

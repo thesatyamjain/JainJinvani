@@ -138,7 +138,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 onClick={() => handleSettingChange('backgroundTheme', 'sanctum')}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.backgroundTheme !== 'cosmic'
-                    ? 'bg-amber-500/20 border-amber-400/60 text-amber-200 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                    ? 'bg-amber-500/20 border-amber-400/50 text-amber-200 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(245,158,11,0.12)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
@@ -155,7 +155,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 onClick={() => handleSettingChange('backgroundTheme', 'cosmic')}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.backgroundTheme === 'cosmic'
-                    ? 'bg-blue-500/20 border-blue-400/60 text-blue-200 shadow-[0_0_15px_rgba(59,130,246,0.2)]'
+                    ? 'bg-blue-500/20 border-blue-400/50 text-blue-200 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(59,130,246,0.12)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
@@ -167,14 +167,13 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             </div>
           </div>
 
-          {/* Dock Background Theme - Frosted Glass vs Crystal vs Gilded vs Classic Navy */}
-          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-            <div className="flex items-center gap-2 mb-3">
-              <Compass className="w-4 h-4 text-amber-400" />
-              <span className="text-white font-gotu">डॉक बैकग्राउंड शैली (Dock Style)</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2.5">
-              {/* Option 1: Frosted Matching Glass */}
+          {/* Section 2: Dock Visual Style */}
+          <div>
+            <label className="text-xs font-gotu font-semibold text-slate-300 block mb-2">
+              निचला नेविगेशन बार (Dock Style)
+            </label>
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+              {/* Option 1: Frosted Glass */}
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.96 }}
@@ -185,12 +184,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.dockTheme === 'frosted' || !settings.dockTheme
-                    ? 'bg-sky-500/20 border-sky-400/60 text-sky-200 shadow-[0_0_15px_rgba(56,189,248,0.2)]'
+                    ? 'bg-sky-500/20 border-sky-400/50 text-sky-200 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(56,189,248,0.12)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
+                  <span className="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.5),0_1px_2px_rgba(0,0,0,0.5)]" />
                   फ़्रॉस्टेड (मैचिंग)
                 </div>
                 <div className="text-[11px] text-slate-200/80 mt-1 line-clamp-2">
@@ -209,12 +208,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.dockTheme === 'crystal'
-                    ? 'bg-white/20 border-white/60 text-white shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                    ? 'bg-white/20 border-white/50 text-white shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(255,255,255,0.12)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+                  <span className="w-2 h-2 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.5),0_1px_2px_rgba(0,0,0,0.5)]" />
                   क्रिस्टल (ल्युमिनस)
                 </div>
                 <div className="text-[11px] text-slate-200/80 mt-1 line-clamp-2">
@@ -233,12 +232,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.dockTheme === 'gilded'
-                    ? 'bg-amber-500/25 border-amber-400/70 text-amber-200 shadow-[0_0_18px_rgba(245,158,11,0.25)]'
+                    ? 'bg-amber-500/20 border-amber-400/50 text-amber-200 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(245,158,11,0.14)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.9)]" />
+                  <span className="w-2 h-2 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(245,158,11,0.55),0_1px_2px_rgba(0,0,0,0.5)]" />
                   स्वर्णिम (गिल्डेड)
                 </div>
                 <div className="text-[11px] text-amber-300/80 mt-1 line-clamp-2">
@@ -257,12 +256,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 }}
                 className={`p-3 rounded-xl text-left font-gotu transition-all border cursor-pointer ${
                   settings.dockTheme === 'classic'
-                    ? 'bg-indigo-500/25 border-indigo-400/70 text-indigo-200 shadow-[0_0_18px_rgba(99,102,241,0.25)]'
+                    ? 'bg-indigo-500/20 border-indigo-400/50 text-indigo-200 shadow-[0_2px_10px_rgba(0,0,0,0.3),0_0_12px_rgba(99,102,241,0.14)]'
                     : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                 }`}
               >
                 <div className="text-xs font-bold text-white font-notoserif flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.9)]" />
+                  <span className="w-2 h-2 rounded-full bg-indigo-400 shadow-[0_0_6px_rgba(129,140,248,0.5),0_1px_2px_rgba(0,0,0,0.5)]" />
                   क्लासिक नेवी (पुराना)
                 </div>
                 <div className="text-[11px] text-indigo-200/80 mt-1 line-clamp-2">

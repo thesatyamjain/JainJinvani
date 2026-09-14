@@ -406,9 +406,9 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                         isDimmed ? 'opacity-30' : ''
                       } ${
                         isSelected
-                          ? 'bg-amber-500/25 border-amber-400 text-white shadow-[0_0_20px_rgba(245,158,11,0.35)] ring-1 ring-amber-400 z-10'
+                          ? 'bg-amber-500/20 border-amber-400 text-white shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_16px_rgba(245,158,11,0.2)] ring-1 ring-amber-400 z-10'
                           : d.current
-                          ? 'bg-amber-500/10 border-amber-400/60 text-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                          ? 'bg-amber-500/10 border-amber-400/60 text-amber-200 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_0_10px_rgba(245,158,11,0.10)]'
                           : d.isParvaTithi
                           ? 'bg-slate-900/80 border-amber-500/30 text-amber-100 hover:border-amber-400/50'
                           : 'bg-slate-900/60 border-white/5 hover:bg-white/[0.08] hover:border-white/20 text-slate-200'
@@ -418,7 +418,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                         <div className="flex items-center gap-1">
                           <span
                             className={`text-sm font-bold font-notoserif ${
-                              isSelected || d.current ? 'text-amber-300 font-extrabold' : 'text-white'
+                              d.current ? 'text-amber-300 font-extrabold' : ''
                             }`}
                           >
                             {d.day}
@@ -430,12 +430,12 @@ export const Panchang = ({ onBack }: PanchangProps) => {
 
                         {d.paksha === 'शुक्ल' ? (
                           <span
-                            className="w-2.5 h-2.5 rounded-full bg-amber-100 shadow-[0_0_6px_rgba(251,191,36,0.9)] shrink-0"
+                            className="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-amber-200 via-amber-100 to-white shadow-[0_0_6px_rgba(254,243,199,0.5),0_1px_2px_rgba(0,0,0,0.5)] shrink-0"
                             title="शुक्ल पक्ष (सुद)"
                           />
                         ) : (
                           <span
-                            className="w-2.5 h-2.5 rounded-full border border-slate-400 bg-slate-800 shrink-0"
+                            className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-amber-500/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] shrink-0"
                             title="कृष्ण पक्ष (वद)"
                           />
                         )}
@@ -498,7 +498,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                         onClick={() => setSelectedDay(d.day)}
                         className={`h-11 rounded-xl flex flex-col items-center justify-center relative transition-colors cursor-pointer ${
                           isSelected
-                            ? 'bg-amber-500 text-slate-950 font-bold shadow-[0_0_15px_rgba(245,158,11,0.5)] scale-105 z-10'
+                            ? 'bg-amber-400 text-slate-950 font-bold shadow-[0_2px_10px_rgba(245,158,11,0.35),0_1px_2px_rgba(0,0,0,0.4)] scale-105 z-10'
                             : d.current
                             ? 'bg-amber-500/20 text-amber-300 border border-amber-400/50'
                             : d.isParvaTithi
