@@ -22,15 +22,21 @@ import {
   isIOSDevice,
   triggerHaptic,
 } from '../../utils/pwaManager';
+import { useModalBackHandler } from '../../lib';
 
 export const PwaAppBridge = () => {
   const [isOnline, setIsOnline] = useState(true);
   const [showOnlineToast, setShowOnlineToast] = useState(false);
   const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [isUpdateDismissed, setIsUpdateDismissed] = useState(false);
   const [installAvailable, setInstallAvailable] = useState(false);
   const [showInstallModal, setShowInstallModal] = useState(false);
   const [showIOSGuide, setShowIOSGuide] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
+
+  // Intercept hardware back button on mobile when install sheets are open
+  useModalBackHandler(showInstallModal, () => setShowInstallModal(false), 'pwa-install');
+  useModalBackHandler(showIOSGuide, () => setShowIOSGuide(false), 'pwa-ios-guide');
 
   useEffect(() => {
     setIsStandalone(isStandaloneMode());
@@ -143,36 +149,72 @@ export const PwaAppBridge = () => {
         )}
       </AnimatePresence>
 
-      {/* 2. Zero-Downtime App Update Toast */}
+      {/* 2. Zero-Downtime App Update Toast / Heads-Up Banner */}
       <AnimatePresence>
-        {updateAvailable && (
+        {updateAvailable && !isUpdateDismissed && (
           <motion.aside
             key="pwa-update-toast"
             aria-label="ऐप अपडेट सूचना"
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            initial={{ opacity: 0, y: -35, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-            className="fixed bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-sm pointer-events-auto select-none safe-pb"
+            exit={{ opacity: 0, y: -25, scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 420, damping: 28 }}
+            className="fixed top-2.5 sm:top-4 left-1/2 -translate-x-1/2 z-[70] w-[calc(100%-1.25rem)] max-w-md pointer-events-auto select-none safe-pt"
           >
-            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-slate-900/95 via-amber-950/90 to-slate-900/95 border border-amber-400/50 shadow-[0_16px_40px_rgba(0,0,0,0.8),0_0_25px_rgba(245,158,11,0.25)] backdrop-blur-2xl flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0">
-                  <RefreshCw className="w-4 h-4 text-amber-300 animate-spin" />
+            <div className="p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628]/98 via-[#09101d]/98 to-[#050811]/98 border border-amber-400/40 shadow-[0_16px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(245,158,11,0.2)] backdrop-blur-2xl">
+              {/* Header Row: Icon + Title + Close Button */}
+              <div className="flex items-start justify-between gap-2.5">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+                    <RefreshCw className="w-4 h-4 text-amber-300 animate-spin" style={{ animationDuration: '4s' }} />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className="text-xs sm:text-sm font-bold font-notoserif text-amber-100">
+                        नया संस्करण तैयार है
+                      </p>
+                      <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30 shrink-0">
+                        Update
+                      </span>
+                    </div>
+                    <p className="text-[11px] sm:text-xs text-slate-300 font-gotu leading-snug mt-0.5">
+                      नवीनतम जिनवाणी पाठ व सुधार प्राप्त करने हेतु अपडेट करें
+                    </p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-xs font-bold font-gotu text-amber-100 truncate">नया संस्करण तैयार है</p>
-                  <p className="text-[11px] text-slate-300 font-gotu">नवीनतम सामग्री हेतु रीलोड करें</p>
-                </div>
+
+                {/* Dismiss Button */}
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setIsUpdateDismissed(true)}
+                  className="w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors shrink-0 cursor-pointer"
+                  title="हटाएं"
+                  aria-label="सूचना बंद करें"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </motion.button>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleUpdateClick}
-                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-gotu font-bold text-xs shrink-0 shadow-md transition-colors cursor-pointer"
-              >
-                अपडेट करें
-              </motion.button>
+
+              {/* Action Buttons Row */}
+              <div className="flex items-center justify-end gap-2 mt-3 pt-2.5 border-t border-white/5">
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsUpdateDismissed(true)}
+                  className="px-3 py-1.5 rounded-xl text-slate-400 hover:text-slate-200 font-gotu text-xs transition-colors cursor-pointer"
+                >
+                  बाद में
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleUpdateClick}
+                  className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-gotu font-bold text-xs shadow-md transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <RefreshCw className="w-3 h-3 text-slate-950" />
+                  <span>अपडेट करें</span>
+                </motion.button>
+              </div>
             </div>
           </motion.aside>
         )}
@@ -181,14 +223,16 @@ export const PwaAppBridge = () => {
       {/* 3. In-App Install Sheet (Android / Chromium WebAPK) */}
       <AnimatePresence>
         {showInstallModal && !isStandalone && (
-          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-md">
+          <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 80 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-              className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
+              className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-5 sm:p-6 max-h-[90vh] overflow-y-auto shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
             >
+              {/* Mobile bottom sheet grab handle */}
+              <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-3 sm:hidden" />
               {/* Close Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -259,14 +303,16 @@ export const PwaAppBridge = () => {
       {/* 4. iOS Safari Guided "Add to Home Screen" Modal */}
       <AnimatePresence>
         {showIOSGuide && !isStandalone && (
-          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md">
+          <div className="fixed inset-0 z-[80] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md">
             <motion.div
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 80 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-              className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
+              className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl bg-gradient-to-b from-[#0e1628] to-[#050811] border border-amber-500/30 p-5 sm:p-6 max-h-[90vh] overflow-y-auto shadow-[0_24px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(245,158,11,0.18)] relative safe-pb"
             >
+              {/* Mobile bottom sheet grab handle */}
+              <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-3 sm:hidden" />
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

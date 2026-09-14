@@ -78,7 +78,7 @@ export function getContentAudioTrack(contentId?: string): { title: string; artis
     track = MEDIA_TRACKS.BHAKTAMAR_STOTRA;
   } else if (cleanId.includes('namokar') || cleanId.includes('navkar')) {
     track = MEDIA_TRACKS.NAMOKAR_MANTRA;
-  } else if (cleanId.includes('aarti') || cleanId.includes('arti')) {
+  } else if (/(^|[-_])(aarti|arti)([-_]|$)/.test(cleanId)) {
     track = MEDIA_TRACKS.AARTI_MANGAL;
   }
 
