@@ -1,8 +1,8 @@
 // Service Worker for Jain Jinvani (Temple Mode & Offline PWA)
-const SHELL_CACHE = 'jinvani-shell-v4';
-const DATA_CACHE = 'jinvani-data-v4';
-const MEDIA_CACHE = 'jinvani-media-v4';
-const FONT_CACHE = 'jinvani-fonts-v4';
+const SHELL_CACHE = 'jinvani-shell-v5';
+const DATA_CACHE = 'jinvani-data-v5';
+const MEDIA_CACHE = 'jinvani-media-v5';
+const FONT_CACHE = 'jinvani-fonts-v5';
 
 const PRECACHE_SHELL = [
   '/',

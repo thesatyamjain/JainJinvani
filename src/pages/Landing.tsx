@@ -501,7 +501,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
         <GlassCard
           variant="subtle"
           tilt
-          onClick={() => onNavigate('category', { id: 'tirthankar', source: 'landing' })}
+          onClick={() => onNavigate('trikal-tirthankar', { source: 'landing' })}
           className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/20 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/30">
@@ -509,10 +509,10 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
           <div className="min-w-0">
             <h4 className="text-xs sm:text-sm font-notoserif font-bold text-white group-hover:text-amber-200 truncate">
-              २४ तीर्थंकर
+              त्रिकाल तीर्थंकर
             </h4>
             <p className="text-[10px] sm:text-[11px] text-amber-300/80 font-gotu truncate">
-              जीवन चरित्र व कल्याणक
+              भूत, वर्तमान, भविष्य चौबीसी
             </p>
           </div>
         </GlassCard>

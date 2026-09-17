@@ -629,6 +629,31 @@ export const CategoryListing = ({
         </motion.div>
       )}
 
+      {/* Special Feature Banner: Trikal Tirthankar */}
+      {categoryId === 'tirthankar' && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          onClick={() => onNavigate('trikal-tirthankar', { source: 'category' })}
+          className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-orange-500/15 to-amber-500/10 border border-amber-400/40 flex items-center justify-between gap-3 cursor-pointer hover:border-amber-400 group transition-all shadow-lg"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0">
+              <Crown className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-sm sm:text-base font-notoserif font-bold text-amber-200 group-hover:text-amber-100">
+                त्रिकाल तीर्थंकर दर्शन (भूत, वर्तमान, भविष्य एवं विद्यमान तीर्थंकर)
+              </h3>
+              <p className="text-xs text-slate-300 font-gotu mt-0.5">
+                तीनों कालों की चौबीसी (७२ तीर्थंकर), महाविदेह के २० तीर्थंकर एवं कालचक्र देखें →
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="w-5 h-5 text-amber-300 group-hover:translate-x-1 transition-transform shrink-0" />
+        </motion.div>
+      )}
+
       {/* Subcategory Filter Tabs (if available) */}
       {subCategories.length > 0 && (
         <motion.div

@@ -833,34 +833,48 @@ export const Dock = ({
           )}
         </AnimatePresence>
 
-        {/* 2-Page Pagination Dots INSIDE Dock when in Reader Mode */}
+        {/* 2-Page Pagination Dash Indicator (-- instead of ..) INSIDE Dock when in Reader Mode */}
         {isReaderMode && (
-          <div className={`absolute bottom-1 md:bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-0.5 px-3 cursor-pointer transition-opacity duration-200 ${
-            isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-          }`}>
+          <div
+            role="tablist"
+            aria-label="Reader dock page navigation"
+            className={`absolute bottom-1.5 md:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-1 px-3 cursor-pointer transition-opacity duration-200 ${
+              isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+          >
             <motion.button
-              whileTap={{ scale: 0.75 }}
+              type="button"
+              role="tab"
+              aria-selected={readerDockPage === 'reader'}
+              aria-label="स्वाध्याय टूल्स (Reader Tools)"
+              whileTap={{ scale: 0.9 }}
               onClick={(e) => {
                 e.stopPropagation();
+                triggerHaptic();
                 setReaderDockPage('reader');
               }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 readerDockPage === 'reader'
-                  ? 'bg-amber-300 scale-110 shadow-[0_0_6px_rgba(245,158,11,0.6),0_1px_2px_rgba(0,0,0,0.4)]'
-                  : 'bg-white/30 hover:bg-white/60 scale-100'
+                  ? 'w-6 sm:w-7 bg-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.8),0_1px_3px_rgba(0,0,0,0.6)]'
+                  : 'w-4 sm:w-5 bg-white/40 hover:bg-white/70 border border-white/20'
               }`}
               title="स्वाध्याय टूल्स (Reader)"
             />
             <motion.button
-              whileTap={{ scale: 0.75 }}
+              type="button"
+              role="tab"
+              aria-selected={readerDockPage === 'home'}
+              aria-label="होम नेविगेशन (Home Navigation)"
+              whileTap={{ scale: 0.9 }}
               onClick={(e) => {
                 e.stopPropagation();
+                triggerHaptic();
                 setReaderDockPage('home');
               }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 readerDockPage === 'home'
-                  ? 'bg-amber-300 scale-110 shadow-[0_0_6px_rgba(245,158,11,0.6),0_1px_2px_rgba(0,0,0,0.4)]'
-                  : 'bg-white/30 hover:bg-white/60 scale-100'
+                  ? 'w-6 sm:w-7 bg-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.8),0_1px_3px_rgba(0,0,0,0.6)]'
+                  : 'w-4 sm:w-5 bg-white/40 hover:bg-white/70 border border-white/20'
               }`}
               title="होम नेविगेशन (Home)"
             />

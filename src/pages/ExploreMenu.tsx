@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ArrowLeft, MapPin, Lightbulb, Flame, BookOpen, Image, Users, Compass, ChevronRight } from 'lucide-react';
+import { ArrowLeft, MapPin, Lightbulb, Flame, BookOpen, Image, Users, Compass, ChevronRight, Crown } from 'lucide-react';
 
 interface ExploreMenuProps {
   onBack: () => void;
@@ -74,6 +74,17 @@ const exploreCategories = [
     border: 'border-amber-400/40',
     accent: 'text-amber-200',
     page: 'ascetics'
+  },
+  {
+    id: 'trikal-tirthankar',
+    icon: Crown,
+    title: 'त्रिकाल तीर्थंकर',
+    sub: 'तीनों काल की चौबीसी एवं विदेह',
+    description: 'भूतकाल, वर्तमान काल, भविष्यत् काल के २४-२४ जिनवर एवं महाविदेह के २० तीर्थंकर।',
+    color: 'from-amber-500/25 to-yellow-600/15',
+    border: 'border-amber-400/40',
+    accent: 'text-amber-200',
+    page: 'trikal-tirthankar'
   }
 ];
 

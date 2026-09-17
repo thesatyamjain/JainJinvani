@@ -25,6 +25,7 @@ import { NotFound } from "./pages/NotFound";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { ParvaPage, FestivalsPage } from "./pages/ParvaPage";
 import { TirthankarProfile } from "./pages/TirthankarProfile";
+import { TrikalTirthankarPage } from "./pages/TrikalTirthankarPage";
 import { TirthPage, PilgrimagePage } from "./pages/TirthPage";
 import { TattvaPage, PhilosophyPage } from "./pages/TattvaPage";
 import { PujaPage, RitualsPage } from "./pages/PujaPage";
@@ -82,6 +83,18 @@ export default function App() {
 
   // Handle mobile back button closing the search overlay
   useModalBackHandler(isSearchOpen, () => setIsSearchOpen(false), 'search-overlay');
+
+  // Global keyboard shortcut to toggle search overlay (Ctrl+K / Cmd+K)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
 
   // Sync with browser history & root exit prevention
   useEffect(() => {
@@ -470,6 +483,29 @@ export default function App() {
                     handleBack(pageParams.previousPage, pageParams.previousParams);
                   } else {
                     handleBack(pageParams?.source || "sadhana");
+                  }
+                }}
+                onNavigate={handleNavigate}
+              />
+            </motion.div>
+          )}
+
+          {(activePage === "trikal-tirthankar" || activePage === "tirthankars" || activePage === "tirthankar-list") && (
+            <motion.div
+              key="trikal-tirthankar"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: "easeOut" }}
+              className="min-h-full overflow-x-hidden"
+            >
+              <TrikalTirthankarPage
+                initialEra={pageParams?.initialEra || 'present'}
+                onBack={() => {
+                  if (pageParams?.previousPage) {
+                    handleBack(pageParams.previousPage, pageParams.previousParams);
+                  } else {
+                    handleBack(pageParams?.source || "explore");
                   }
                 }}
                 onNavigate={handleNavigate}

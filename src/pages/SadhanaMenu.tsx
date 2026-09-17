@@ -289,14 +289,14 @@ const sadhanaItems: SadhanaItem[] = [
   },
   {
     id: 'tirthankar',
-    label: '२४ तीर्थंकर',
-    sub: 'जीवन चरित्र व कल्याणक',
-    description: 'भगवान ऋषभदेव से भगवान महावीर तक २४ तीर्थंकरों के लांछन, कल्याणक व चरित्र।',
+    label: 'त्रिकाल तीर्थंकर',
+    sub: 'तीनों काल की चौबीसी',
+    description: 'भूत, वर्तमान व भविष्य तीनों कालों के २४-२४ तीर्थंकर तथा महाविदेह के २० विद्यमान तीर्थंकर।',
     icon: Crown,
     color: 'from-amber-500/20 to-orange-700/10',
     border: 'border-amber-500/30',
     accent: 'text-amber-300',
-    badge: '२४ तीर्थंकर',
+    badge: 'त्रिकाल चौबीसी',
     category: 'conduct-philosophy',
   },
 ];
@@ -388,6 +388,8 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
       onNavigate('samayik');
     } else if (item.id === 'dietary') {
       onNavigate('dietary');
+    } else if (item.id === 'tirthankar') {
+      onNavigate('trikal-tirthankar', { source: 'sadhana' });
     } else if (item.id === 'namokar') {
       onNavigate('viewer', {
         id: 'namokar-mantra',

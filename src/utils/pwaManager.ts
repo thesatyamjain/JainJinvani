@@ -47,6 +47,16 @@ export function registerPwaServiceWorker(): void {
     return;
   }
 
+  // In development mode, unregister any active service worker to prevent stale cached bundles
+  if (import.meta.env.DEV) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    }).catch(() => {});
+    return;
+  }
+
   window.addEventListener('load', async () => {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });

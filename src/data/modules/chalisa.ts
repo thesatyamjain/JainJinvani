@@ -2230,33 +2230,6 @@ export const ChalisaData: Record<string, any> = {
           "सम्यक् श्रद्धा से चालीसा, चालीस दिन पढिये नर-नार।",
           "मुक्ति पथ के राही बन, भक्ति से होवे भव पार।।"
         ]
-      },
-      {
-        "lines": [
-          "Related Sadhana"
-        ]
-      },
-      {
-        "lines": [
-          "📿"
-        ]
-      },
-      {
-        "lines": [
-          "Bhaktamar Stotra",
-          "Powerful devotional hymn"
-        ]
-      },
-      {
-        "lines": [
-          "🕉️"
-        ]
-      },
-      {
-        "lines": [
-          "Namokar Chalisa",
-          "Universal prayer"
-        ]
       }
     ]
   },
@@ -3371,33 +3344,6 @@ export const ChalisaData: Record<string, any> = {
           "होय कुबेर समान, जन्म दरिद्री होय जो।",
           "जिसके नहिं संतान, नाम वंश जग में चले॥"
         ]
-      },
-      {
-        "lines": [
-          "Related Sadhana"
-        ]
-      },
-      {
-        "lines": [
-          "🪔"
-        ]
-      },
-      {
-        "lines": [
-          "Parshvanath Puja",
-          "Complete worship ritual"
-        ]
-      },
-      {
-        "lines": [
-          "🐍"
-        ]
-      },
-      {
-        "lines": [
-          "Uvasaggaharam",
-          "Removes obstacles"
-        ]
       }
     ]
   },
@@ -3843,7 +3789,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "shantinath-chalisa",
     "category": "chalisa",
     "title": "श्री शान्तिनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -3923,7 +3869,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "sheetalnath-chalisa",
     "category": "chalisa",
     "title": "श्री शीतलनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -4027,7 +3973,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "shreyansnath-chalisa",
     "category": "chalisa",
     "title": "श्री श्रेयांसनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -4131,7 +4077,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "sumatinath-chalisa",
     "category": "chalisa",
     "title": "श्री सुमतिनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -4235,7 +4181,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "suparshvanath-chalisa",
     "category": "chalisa",
     "title": "श्री सुपार्श्वनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -4339,7 +4285,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "vasupujya-chalisa",
     "category": "chalisa",
     "title": "श्री वासुपूज्य चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {
@@ -4443,7 +4389,7 @@ export const ChalisaData: Record<string, any> = {
     "id": "vimalnath-chalisa",
     "category": "chalisa",
     "title": "श्री विमलनाथ चालीसा",
-    "subtitle": "४० पद्य स्तुति एवं भक्ति पाठ",
+    "subtitle": "स्तुति एवं भक्ति पाठ",
     "type": "structured",
     "verses": [
       {

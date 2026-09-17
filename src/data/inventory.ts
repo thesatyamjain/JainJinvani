@@ -1,3 +1,5 @@
+import { TIRTHANKARAS } from './tirthankaras';
+
 export interface ContentItem {
   id: string;
   title: string;
@@ -1479,7 +1481,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "title": "दर्शन स्तोत्र पाठ (संस्कृत)",
     "category": "stotra",
     "subCategory": "bhakti-stuti",
-    "description": "सकलगलुषविध्वंसं जिनदर्शनम् - संस्कृत जिनदर्शन स्तोत्र"
+    "description": "सकलकलुषविध्वंसं जिनदर्शनम् - सम्पूर्ण प्रामाणिक २० श्लोक पाठ मय हिंदी भावार्थ"
   },
   {
     "id": "suprabhat-stotram",
@@ -1602,7 +1604,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
     "title": "दर्शन पाठ (संस्कृत)",
     "category": "path",
     "subCategory": "daily-swadhyay",
-    "description": "सकलज्ञेय ज्ञायकं वन्दे - संस्कृत दर्शन पाठ",
+    "description": "सकलकलुषविध्वंसं जिनदर्शनम् - सम्पूर्ण प्रामाणिक २० श्लोक पाठ मय हिंदी भावार्थ",
     "badge": "संस्कृत"
   },
   {
@@ -4280,3 +4282,19 @@ export const contentInventory: Record<string, ContentItem[]> = {
 (contentInventory as any)['shastra'] = contentInventory.granthas;
 (contentInventory as any)['105-vrat'] = contentInventory.vrat;
 (contentInventory as any)['vrat-vidhi'] = contentInventory.vrat;
+
+// 24 Tirthankars inventory for search & catalog indexing
+(contentInventory as any)['tirthankar'] = TIRTHANKARAS.map((t) => ({
+  id: t.id,
+  title: `${t.number}. ${t.nameHindi}`,
+  category: 'tirthankar',
+  subCategory: 'tirthankar',
+  badge: t.symbol,
+  order: t.number,
+  description: `${t.subtitleHindi} • लांछन: ${t.symbol} • जन्म: ${t.birthPlace} • निर्वाण: ${t.nirvanaPlace}`,
+}));
+
+subCategoryMap['tirthankar'] = [
+  { id: 'all', label: 'सभी २४ तीर्थंकर' },
+  { id: 'tirthankar', label: 'वर्तमान चौबीसी', description: 'भगवान ऋषभदेव से भगवान महावीर तक २४ तीर्थंकर' },
+];
