@@ -3097,7 +3097,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "akshayanidhi-sau-das-puja",
-    "title": "अक्ष्यनिधी (सौ.10 पूजा)",
+    "title": "अक्षयनिधि (सौ. १० पूजा)",
     "category": "vrat",
     "subCategory": "vrat-puja",
     "badge": "निधि पूजा",
@@ -3106,7 +3106,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "kalyan-mandir-stotra-puja",
-    "title": "कल्याण मंदिर स्त्रोत पूजा",
+    "title": "कल्याण मंदिर स्तोत्र पूजा",
     "category": "vrat",
     "subCategory": "vrat-puja",
     "badge": "स्तोत्र पूजा",
@@ -3583,7 +3583,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "sarvarthasiddhi-vrat-vidhi",
-    "title": "सवार्थसिद्धि व्रत",
+    "title": "सर्वार्थसिद्धि व्रत",
     "category": "vrat",
     "subCategory": "vrat-vidhi",
     "badge": "विधि",
@@ -3691,7 +3691,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "saptarshi-mrityunjaya-vrat",
-    "title": "सप्तर्षि व्रत (मुर्त्युंजय व्रत )",
+    "title": "सप्तर्षि व्रत (मृत्युंजय व्रत)",
     "category": "vrat",
     "subCategory": "vrat-vidhi",
     "badge": "विधि",
@@ -3844,12 +3844,12 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "kanakavali-vrat",
-    "title": "कनकवाली व्रत",
+    "title": "कनकावली व्रत",
     "category": "vrat",
     "subCategory": "vrat-soochi",
     "badge": "१०५ व्रत",
     "author": "ब्रम्हचारी विनोद सागर शास्त्री",
-    "description": "स्वर्ण के समान दमकते तपश्चरण की पंक्ति रूप प्रसिद्ध कनकवाली व्रत का पालन।"
+    "description": "स्वर्ण के समान दमकते तपश्चरण की पंक्ति रूप प्रसिद्ध कनकावली व्रत का पालन।"
   },
   {
     "id": "karmakshaya-vrat",
@@ -4051,7 +4051,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "tirthankar-bela-vrat",
-    "title": "तीर्थकर बेला व्रत",
+    "title": "तीर्थंकर बेला व्रत",
     "category": "vrat",
     "subCategory": "vrat-soochi",
     "badge": "१०५ व्रत",
@@ -4078,12 +4078,12 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "trimushriddhi-vrat",
-    "title": "त्रिमुशृद्धि व्रत",
+    "title": "त्रिशुद्धि व्रत",
     "category": "vrat",
     "subCategory": "vrat-soochi",
     "badge": "१०५ व्रत",
     "author": "ब्रम्हचारी विनोद सागर शास्त्री",
-    "description": "मन, वचन और काय—तीनों योगों की पूर्ण शुद्धि पूर्वक किया जाने वाला त्रिमुशृद्धि व्रत।"
+    "description": "मन, वचन और काय—तीनों योगों की पूर्ण शुद्धि पूर्वक किया जाने वाला त्रिशुद्धि व्रत।"
   },
   {
     "id": "trilok-teej-vrat",
@@ -4132,7 +4132,7 @@ export const contentInventory: Record<string, ContentItem[]> = {
   },
   {
     "id": "daridrya-nirvritti-vrat",
-    "title": "दारिद्रयनिर्वति व्रत",
+    "title": "दारिद्र्य-निवृत्ति व्रत",
     "category": "vrat",
     "subCategory": "vrat-soochi",
     "badge": "१०५ व्रत",

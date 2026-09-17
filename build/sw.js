@@ -16,24 +16,6 @@ const PRECACHE_SHELL = [
   '/icons/apple-touch-icon.png'
 ];
 
-const SCRIPTURE_MODULES = [
-  '/modules/arti_data.js',
-  '/modules/bhajan_data.js',
-  '/modules/calendar_data.js',
-  '/modules/chalisa_data.js',
-  '/modules/cosmology_data.js',
-  '/modules/data_loader.js',
-  '/modules/history_data.js',
-  '/modules/kids_data.js',
-  '/modules/parva_data.js',
-  '/modules/path_data.js',
-  '/modules/philosophy_data.js',
-  '/modules/ritual_data.js',
-  '/modules/shastra_data.js',
-  '/modules/stotra_data.js',
-  '/modules/vidhi_data.js'
-];
-
 const ESSENTIAL_AUDIO = [
   'https://archive.org/download/namokar-mantra/Namokaar%20Mantra%20Hai%20Nyaara%20_%20Lata%20Mangeshkar%20_%20Rajendra%20Jain%20_%20Full%20Audio%20Song_WqD-nyNdW3o.mp3'
 ];
@@ -69,7 +51,7 @@ self.addEventListener('message', async (event) => {
   }
 
   if (event.data.type === 'DOWNLOAD_TEMPLE_MODE') {
-    const totalItems = SCRIPTURE_MODULES.length + ESSENTIAL_AUDIO.length;
+    const totalItems = PRECACHE_SHELL.length + ESSENTIAL_AUDIO.length;
     let completedItems = 0;
 
     const notifyProgress = () => {
@@ -84,23 +66,23 @@ self.addEventListener('message', async (event) => {
       }
     };
 
-    // 1. Cache all scripture modules
+    // 1. Cache app shell
     try {
-      const dataCache = await caches.open(DATA_CACHE);
-      for (const moduleUrl of SCRIPTURE_MODULES) {
+      const shellCache = await caches.open(SHELL_CACHE);
+      for (const shellUrl of PRECACHE_SHELL) {
         try {
-          const res = await fetch(moduleUrl, { cache: 'reload' });
+          const res = await fetch(shellUrl, { cache: 'reload' });
           if (res.ok) {
-            await dataCache.put(moduleUrl, res);
+            await shellCache.put(shellUrl, res);
           }
         } catch (e) {
-          console.warn('Failed to cache module:', moduleUrl, e);
+          console.warn('Failed to precache shell item:', shellUrl, e);
         }
         completedItems++;
         notifyProgress();
       }
     } catch (e) {
-      console.error('Error opening data cache:', e);
+      console.error('Error opening shell cache:', e);
     }
 
     // 2. Cache essential audio
@@ -137,8 +119,8 @@ self.addEventListener('message', async (event) => {
 
   if (event.data.type === 'CHECK_TEMPLE_MODE_STATUS') {
     try {
-      const dataCache = await caches.open(DATA_CACHE);
-      const match = await dataCache.match(SCRIPTURE_MODULES[0]);
+      const shellCache = await caches.open(SHELL_CACHE);
+      const match = await shellCache.match('/index.html');
       if (event.source) {
         event.source.postMessage({
           type: 'TEMPLE_MODE_STATUS',
@@ -204,27 +186,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Scripture Data Modules (/modules/*)
-  if (url.pathname.startsWith('/modules/')) {
-    event.respondWith(
-      caches.open(DATA_CACHE).then((cache) => {
-        return cache.match(event.request).then((cached) => {
-          const fetchPromise = fetch(event.request)
-            .then((networkRes) => {
-              if (networkRes && networkRes.status === 200) {
-                cache.put(event.request, networkRes.clone());
-              }
-              return networkRes;
-            })
-            .catch(() => cached);
-          return cached || fetchPromise;
-        });
-      })
-    );
-    return;
-  }
-
-  // 4. Navigation requests (HTML pages)
+  // 3. Navigation requests (HTML pages)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {

@@ -1,6 +1,5 @@
 export { ArtiData } from './arti';
 export { BhajanData } from './bhajan';
-export { PanchangData, CalendarData } from './panchang';
 export { ChalisaData } from './chalisa';
 export { BhugolData, CosmologyData } from './bhugol';
 export { ItihasData, HistoryData } from './itihas';
