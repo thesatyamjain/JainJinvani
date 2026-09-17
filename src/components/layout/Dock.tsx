@@ -883,7 +883,7 @@ interface DockIconProps {
 }
 
 function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, isSpecial }: DockIconProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const [isBouncing, setIsBouncing] = useState(false);
   const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1024));
 
@@ -944,8 +944,9 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
       </div>
 
       {/* macOS Baseline-anchored Icon Tile */}
-      <motion.div
+      <motion.button
         ref={ref}
+        aria-label={label}
         style={{ width, height: width }}
         animate={
           isBouncing
@@ -958,7 +959,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         whileTap={{ scale: 0.90 }}
         whileHover={{ scale: 1.04 }}
         onClick={handleClick}
-        className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none ${
+        className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
           isActive
             ? 'bg-gradient-to-b from-amber-500/20 via-amber-600/10 to-amber-700/05 border border-amber-400/40 shadow-[0_4px_16px_rgba(245,158,11,0.18),0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.22)]'
             : isSpecial
@@ -976,7 +977,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         >
           {icon}
         </motion.div>
-      </motion.div>
+      </motion.button>
 
       {/* macOS Active App Glowing Dot Indicator */}
       <div className="h-1.5 flex items-center justify-center mt-1 select-none pointer-events-none">
