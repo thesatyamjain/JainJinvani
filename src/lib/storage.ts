@@ -196,6 +196,8 @@ export const getJapMalaState = (): JapMalaState => {
         lastDate: today,
         currentBead: 0,
         selectedMantraId: 'namokar',
+        targetCount: 108,
+        customTarget: 21,
     };
     try {
         const stored = localStorage.getItem('jain_jap_mala');
@@ -204,6 +206,8 @@ export const getJapMalaState = (): JapMalaState => {
             return {
                 ...defaultState,
                 ...data,
+                targetCount: data.targetCount || 108,
+                customTarget: data.customTarget || 21,
                 todayCount: data.lastDate === today ? data.todayCount : 0,
                 lastDate: today,
             };

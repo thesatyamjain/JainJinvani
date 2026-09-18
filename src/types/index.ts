@@ -58,4 +58,19 @@ export interface JapMalaState {
     lastDate: string; // YYYY-MM-DD
     currentBead: number;
     selectedMantraId: string;
+    targetCount?: number; // 7, 27, 108, or custom count
+    customTarget?: number; // saved custom target
 }
+
+export interface PujaItem {
+    id: string;
+    category: string;
+    title: string;
+    subtitle?: string;
+    type?: string;
+    verses?: any[];
+    content?: string;
+    [key: string]: any;
+}
+
+
