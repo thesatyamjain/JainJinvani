@@ -25,6 +25,7 @@ import {
 import { getRecentReads } from '../../lib/storage';
 import { preloadContent } from '../../lib/bridge';
 import { TiltCard } from './TiltCard';
+import { useDebounce } from '../../hooks/useDebounce';
 
 // Helper to flatten the inventory
 const getAllItems = (): ContentItem[] => {
@@ -111,6 +112,8 @@ export const SearchOverlay = ({
   currentActivePage,
 }: SearchOverlayProps) => {
   const [query, setQuery] = useState('');
+  // ⚡ BOLT OPTIMIZATION: Debounce search input to prevent expensive filtering on every keystroke
+  const debouncedQuery = useDebounce(query, 250);
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isListening, setIsListening] = useState(false);
@@ -228,23 +231,25 @@ export const SearchOverlay = ({
     setSelectedIndex(0);
   }, [query, activeCategory]);
 
+  // ⚡ BOLT OPTIMIZATION: Category counts now depend on debouncedQuery to prevent main thread blocking
   // Category counts
   const categoryCounts = useMemo(() => {
-    if (!query.trim()) return {};
+    if (!debouncedQuery.trim()) return {};
     const counts: Record<string, number> = { all: 0 };
     allItems.forEach((item) => {
-      if (matchSearchQuery(item, query)) {
+      if (matchSearchQuery(item, debouncedQuery)) {
         counts.all = (counts.all || 0) + 1;
         const cat = item.category === 'shastra' ? 'granthas' : item.category;
         counts[cat] = (counts[cat] || 0) + 1;
       }
     });
     return counts;
-  }, [query, allItems]);
+  }, [debouncedQuery, allItems]);
 
+  // ⚡ BOLT OPTIMIZATION: Heavy filtering now depends on debouncedQuery to improve typing responsiveness
   // Filtered & Ranked Items
   const filteredItems = useMemo(() => {
-    if (!query.trim()) return [];
+    if (!debouncedQuery.trim()) return [];
     const catFilter =
       activeCategory === 'all'
         ? undefined
@@ -260,8 +265,8 @@ export const SearchOverlay = ({
         ? allItems.filter((i) => i.category === catFilter)
         : allItems;
 
-    return searchAndRankItems(pool, query);
-  }, [query, allItems, activeCategory]);
+    return searchAndRankItems(pool, debouncedQuery);
+  }, [debouncedQuery, allItems, activeCategory]);
 
   // Auto scroll highlighted item into view
   useEffect(() => {
@@ -441,10 +446,10 @@ export const SearchOverlay = ({
             <div className="flex items-center gap-1 overflow-x-auto scrollbar-none px-1 py-0.5">
               {SEARCH_CATEGORIES.map((cat) => {
                 const isSelected = activeCategory === cat.id;
-                const count = query.trim() ? categoryCounts[cat.id] || 0 : null;
+                const count = debouncedQuery.trim() ? categoryCounts[cat.id] || 0 : null;
 
                 // Hide category chips with 0 results when searching (except 'all')
-                if (query.trim() && count === 0 && cat.id !== 'all') {
+                if (debouncedQuery.trim() && count === 0 && cat.id !== 'all') {
                   return null;
                 }
 
@@ -477,7 +482,7 @@ export const SearchOverlay = ({
 
             {/* Content & Results Scroll Area */}
             <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/90 backdrop-blur-2xl rounded-2xl border border-amber-500/20 p-3 sm:p-4 shadow-2xl min-h-[300px] max-h-[62vh] flex flex-col">
-              {query.trim() === '' ? (
+              {debouncedQuery.trim() === '' ? (
                 /* Empty Query State: Recents, Popular Queries, and Curated Essentials */
                 <div className="space-y-4 flex-1">
                   {/* Recent Searches (इतिहास) */}
@@ -630,7 +635,7 @@ export const SearchOverlay = ({
                   </div>
                   <div className="space-y-1 max-w-sm">
                     <p className="font-gotu text-sm text-slate-200 font-semibold">
-                      "{query}" के लिए कोई पाठ नहीं मिला
+                      "{debouncedQuery}" के लिए कोई पाठ नहीं मिला
                     </p>
                     <p className="text-xs text-slate-400 font-gotu leading-relaxed">
                       शायद वर्तनी में अंतर हो। आप माइक बटन दबाकर बोल सकते हैं अथवा नीचे दिए गए लोकप्रिय पाठों में से चुनें:
@@ -712,7 +717,7 @@ export const SearchOverlay = ({
                                 isSelected ? 'text-amber-200' : 'text-white group-hover:text-amber-200'
                               }`}
                             >
-                              <HighlightMatch text={item.title} query={query} />
+                              <HighlightMatch text={item.title} query={debouncedQuery} />
                             </h4>
 
                             <div className="flex flex-wrap items-center gap-2 mt-0.5">
@@ -723,13 +728,13 @@ export const SearchOverlay = ({
                               {item.author && (
                                 <span className="text-[11px] text-amber-200/80 font-gotu flex items-center gap-1 truncate">
                                   <User className="w-2.5 h-2.5 text-amber-400" />
-                                  <HighlightMatch text={item.author} query={query} />
+                                  <HighlightMatch text={item.author} query={debouncedQuery} />
                                 </span>
                               )}
 
                               {item.description && (
                                 <span className="text-[11px] text-slate-400 font-gotu truncate max-w-[200px] sm:max-w-[320px]">
-                                  • <HighlightMatch text={item.description} query={query} />
+                                  • <HighlightMatch text={item.description} query={debouncedQuery} />
                                 </span>
                               )}
                             </div>
