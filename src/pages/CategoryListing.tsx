@@ -87,12 +87,15 @@ const getSubCategoryIcon = (subId: string) => {
     case 'shravak-dharma':
       return <Flame className="w-4 h-4" />;
     case 'daily-flow':
+    case 'nitya-niyam':
     case 'daily-swadhyay':
       return <ListOrdered className="w-4 h-4" />;
     case 'vairagya-bhavana':
     case 'bhakti-stuti':
     case 'adhyatma-stotra':
       return <Feather className="w-4 h-4" />;
+    case 'siddha-puja':
+    case 'siddhachakra-vidhan':
     case 'atma-sadhana':
     case 'tattva-guna':
     case 'pradhan-stotra':
@@ -100,19 +103,22 @@ const getSubCategoryIcon = (subId: string) => {
     case 'siddha-tirth':
     case 'karnanuyoga':
       return <Sparkles className="w-4 h-4" />;
+    case 'shanti-vidhan':
     case 'jinendra-stuti':
     case 'vishesh-chalisa':
     case 'atishay-kshetra':
       return <Flower2 className="w-4 h-4" />;
     case 'tirth-vandana':
     case 'tirthankar':
+    case 'tirthankar-puja':
     case 'tirthankar-vidhan':
     case 'tirthankar-chalisa':
     case 'prathamanuyoga':
       return <Crown className="w-4 h-4" />;
+    case 'dashlakshan-puja':
+    case 'daslakshan-vidhan':
     case 'parva-vrat':
     case 'mahamandal-vidhan':
-    case 'daslakshan-vidhan':
       return <Calendar className="w-4 h-4" />;
     case 'guru-acharya':
     case 'guru-devi':
@@ -361,7 +367,9 @@ export const CategoryListing = ({
     }
   };
 
-  const isDailyFlow = categoryId === 'puja' && (activeSubCategory === 'daily-flow' || viewMode === 'timeline');
+  const isDailyFlow =
+    categoryId === 'puja' &&
+    (activeSubCategory === 'daily-flow' || activeSubCategory === 'nitya-niyam' || viewMode === 'timeline');
 
   const renderItemCard = (item: ContentItem, idx: number) => (
     <motion.div
@@ -409,6 +417,20 @@ export const CategoryListing = ({
             <p className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
               {item.description}
             </p>
+          )}
+
+          {/* Tag Badges */}
+          {item.tags && item.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {item.tags.slice(0, 2).map((tag, tIdx) => (
+                <span
+                  key={tIdx}
+                  className="text-[9px] font-gotu px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/85"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
           )}
         </div>
 
@@ -462,6 +484,18 @@ export const CategoryListing = ({
               <span className="text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
                 {item.author}
               </span>
+            )}
+            {item.tags && item.tags.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5">
+                {item.tags.slice(0, 3).map((tag, tIdx) => (
+                  <span
+                    key={tIdx}
+                    className="text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/80"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
             )}
           </div>
 
@@ -562,7 +596,7 @@ export const CategoryListing = ({
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => {
                   setViewMode('timeline');
-                  setActiveSubCategory('daily-flow');
+                  setActiveSubCategory('nitya-niyam');
                 }}
                 className={`p-2.5 rounded-xl transition-colors cursor-pointer ${
                   viewMode === 'timeline'
@@ -673,7 +707,7 @@ export const CategoryListing = ({
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => {
                     setActiveSubCategory(sub.id);
-                    if (sub.id !== 'daily-flow' && viewMode === 'timeline') {
+                    if (sub.id !== 'daily-flow' && sub.id !== 'nitya-niyam' && viewMode === 'timeline') {
                       setViewMode('grid');
                     }
                   }}
@@ -715,7 +749,7 @@ export const CategoryListing = ({
                 </p>
               </div>
 
-              {activeSubCategory === 'daily-flow' && items.length > 0 && (
+              {(activeSubCategory === 'daily-flow' || activeSubCategory === 'nitya-niyam') && items.length > 0 && (
                 <motion.button
                   whileTap={{ scale: 0.94 }}
                   whileHover={{ scale: 1.04 }}
@@ -786,7 +820,9 @@ export const CategoryListing = ({
 
                   const style = getSubCategoryStyle(sub.id);
                   const isThisDailyFlowTimeline =
-                    categoryId === 'puja' && sub.id === 'daily-flow' && viewMode === 'timeline';
+                    categoryId === 'puja' &&
+                    (sub.id === 'daily-flow' || sub.id === 'nitya-niyam') &&
+                    viewMode === 'timeline';
 
                   return (
                     <div key={sub.id} className="space-y-3">
@@ -801,7 +837,7 @@ export const CategoryListing = ({
                         border={style.border}
                         onSelectSubcategory={() => {
                           setActiveSubCategory(sub.id);
-                          if (sub.id !== 'daily-flow' && viewMode === 'timeline') {
+                          if (sub.id !== 'daily-flow' && sub.id !== 'nitya-niyam' && viewMode === 'timeline') {
                             setViewMode('grid');
                           }
                         }}

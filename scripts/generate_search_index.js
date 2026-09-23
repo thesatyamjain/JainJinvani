@@ -81,8 +81,48 @@ function generateIndex() {
 
     console.log(`Processing ${Object.keys(contentData).length} content items...`);
 
+// Helper to extract content from verses, lyrics, chapters, or string content
+function extractContent(item) {
+    if (!item) return '';
+    const parts = [];
+    if (typeof item.content === 'string') {
+        parts.push(item.content);
+    }
+    if (Array.isArray(item.verses)) {
+        item.verses.forEach(v => {
+            if (typeof v === 'string') parts.push(v);
+            else if (v && typeof v === 'object') {
+                if (v.hindi) parts.push(Array.isArray(v.hindi) ? v.hindi.join(' ') : v.hindi);
+                if (v.original) parts.push(Array.isArray(v.original) ? v.original.join(' ') : v.original);
+                if (v.meaning) parts.push(Array.isArray(v.meaning) ? v.meaning.join(' ') : v.meaning);
+                if (v.translation) parts.push(Array.isArray(v.translation) ? v.translation.join(' ') : v.translation);
+                if (v.title) parts.push(v.title);
+            }
+        });
+    }
+    if (Array.isArray(item.lyrics)) {
+        item.lyrics.forEach(l => {
+            if (typeof l === 'string') parts.push(l);
+            else if (l && typeof l === 'object') {
+                if (l.text) parts.push(l.text);
+                if (l.hindi) parts.push(l.hindi);
+                if (l.meaning) parts.push(l.meaning);
+            }
+        });
+    }
+    if (Array.isArray(item.chapters)) {
+        item.chapters.forEach(ch => {
+            if (ch.title) parts.push(ch.title);
+            if (Array.isArray(ch.content)) parts.push(ch.content.join(' '));
+            else if (typeof ch.content === 'string') parts.push(ch.content);
+        });
+    }
+    return stripHtml(parts.join(' '));
+}
+
     Object.values(contentData).forEach(item => {
         const catMeta = CATEGORY_MAP[item.category] || { en: item.category, hi: item.category, icon: '📄' };
+        const tagText = Array.isArray(item.tags) ? item.tags.join(' ') : '';
 
         newItems.push({
             title: item.title,
@@ -91,8 +131,8 @@ function generateIndex() {
             category: catMeta.en,
             categoryHi: catMeta.hi,
             icon: catMeta.icon,
-            keywords: generateKeywords(item.title, item.subtitle, item.category),
-            content: stripHtml(item.content)
+            keywords: generateKeywords(item.title, `${item.subtitle || ''} ${tagText}`, item.category),
+            content: extractContent(item)
         });
     });
 

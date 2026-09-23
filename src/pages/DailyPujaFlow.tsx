@@ -30,6 +30,10 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
   const abhishekRef = useRef<HTMLDivElement>(null);
   const shantidharaRef = useRef<HTMLDivElement>(null);
   const gandhodakRef = useRef<HTMLDivElement>(null);
+  const pithikaRef = useRef<HTMLDivElement>(null);
+  const pratigyaRef = useRef<HTMLDivElement>(null);
+  const swastiRef = useRef<HTMLDivElement>(null);
+  const parmarshiRef = useRef<HTMLDivElement>(null);
   const devPujaRef = useRef<HTMLDivElement>(null);
   const arghyavaliRef = useRef<HTMLDivElement>(null);
   const aartiRef = useRef<HTMLDivElement>(null);
@@ -122,6 +126,42 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             className="px-2.5 py-1 rounded-lg bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-200 whitespace-nowrap cursor-pointer transition-colors"
           >
             गंधोदक
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+            onClick={() => scrollToSection(pithikaRef)}
+            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 whitespace-nowrap cursor-pointer transition-colors"
+          >
+            पूजा पीठिका
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+            onClick={() => scrollToSection(pratigyaRef)}
+            className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-200 whitespace-nowrap cursor-pointer transition-colors"
+          >
+            प्रतिज्ञा पाठ
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+            onClick={() => scrollToSection(swastiRef)}
+            className="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 whitespace-nowrap cursor-pointer transition-colors"
+          >
+            स्वस्ति पाठ
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+            onClick={() => scrollToSection(parmarshiRef)}
+            className="px-2.5 py-1 rounded-lg bg-violet-500/15 hover:bg-violet-500/25 border border-violet-500/30 text-violet-200 whitespace-nowrap cursor-pointer transition-colors"
+          >
+            परमर्षि पाठ
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.92 }}
@@ -483,7 +523,438 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       )}
 
       {/* ========================================================================= */}
-      {/* 4. देव-शास्त्र-गुरु पूजन (नित्य अष्टद्रव्य पूजन) */}
+      {/* 4. पूजा पीठिका एवं सामान्य अर्घ्यावली (विद्यापूजाञ्जलि) */}
+      {/* ========================================================================= */}
+      {(activeStage === 'all' || activeStage === 'puja') && (
+        <div ref={pithikaRef} className="mb-12 scroll-mt-28">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center border border-amber-500/30">
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-amber-400 font-cinzel">
+                Stage 4 • Puja Pithika & Samanya Arghyavali
+              </span>
+              <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
+                ४. पूजा पीठिका एवं सामान्य अर्घ्यावली
+              </h2>
+            </div>
+          </div>
+
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
+            {/* मंगलाचरण (कविवर नाथूराम जी) */}
+            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30">
+              <div className="text-xs font-bold text-amber-300 font-gotu mb-2">॥ मंगलाचरण (कविवर नाथूराम जी) ॥</div>
+              <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed mb-2">
+                मंगल सरस्वती मात का, मंगल जिनवर धर्म।<br />
+                मंगलमय मंगलकरो, हरो असाता कर्म॥२६॥<br />
+                या विधि मंगल से सदा जग में मंगल होत।<br />
+                मंगल 'नाथूराम' यह भव सागर दृढ़ पोत॥२७॥
+              </p>
+              <div className="text-xs text-amber-300 font-gotu italic">॥ पुष्पांजलिं क्षिपेत् ॥</div>
+            </div>
+
+            {/* अर्हत्-पूजा-प्रतिज्ञा एवं कायोत्सर्ग */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+              <div className="text-xs font-bold text-amber-400 font-gotu">॥ अर्हत्-पूजा-प्रतिज्ञा एवं कायोत्सर्ग ॥</div>
+              <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed font-semibold">
+                अथ अर्हत्-पूजा-प्रतिज्ञायां पूर्वाचार्यानुक्रमेण सकलकर्मक्षयार्थं भावपूजावंदनास्तव-समेतं पञ्चमहागुरुभक्ति-कायोत्सर्गं करोम्यहम्।
+              </p>
+              <p className="text-xs text-amber-300 font-gotu">
+                (पूजा की प्रतिज्ञा करते हुए नौ बार णमोकार मंत्र का विधिपूर्वक ध्यान करें)
+              </p>
+            </div>
+
+            {/* पूजा पीठिका */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="text-xs font-bold text-amber-400 font-gotu">॥ पूजा पीठिका ॥</div>
+              <p style={{ fontSize: `${fontSize + 1}px` }} className="font-notoserif text-white font-bold leading-relaxed">
+                ॐ जय जय जय नमोऽस्तु नमोऽस्तु नमोऽस्तु<br />
+                णमो अरिहंताणं, णमो सिद्धाणं, णमो आइरियाणं।<br />
+                णमो उवज्झायाणं, णमो लोए सव्वसाहूणं॥
+              </p>
+              <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                ॐ ह्रीं अनादिमूलमंत्रेभ्यो नमः पुष्पाञ्जलिं क्षिपेत्।
+              </div>
+            </div>
+
+            {/* चत्तारि मंगल पाठ */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="text-xs font-bold text-amber-400 font-gotu">॥ चत्तारि मंगल पाठ ॥</div>
+              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-2">
+                <p>
+                  चत्तारि मंगलं, अरिहंता मंगलं, सिद्धा मंगलं, साहू मंगलं, केवलि पण्णत्तो धम्मो मंगलं।
+                </p>
+                <p>
+                  चत्तारि लोगुत्तमा, अरिहंता लोगुत्तमा, सिद्धा लोगुत्तमा, साहू लोगुत्तमा, केवलिपण्णत्तो धम्मो लोगुत्तमो।
+                </p>
+                <p>
+                  चत्तारि सरणं पव्वज्जामि, अरहंते सरणं पव्वज्जामि, सिद्धे सरणं पव्वज्जामि, साहू सरणं पव्वज्जामि, केवलि पण्णत्तं धम्मं सरणं पव्वज्जामि।
+                </p>
+              </div>
+              <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                ॐ नमोऽर्हते स्वाहा पुष्पाञ्जलिं क्षिपेत्।
+              </div>
+            </div>
+
+            {/* पवित्रकरण एवं मंगलाष्टक (श्लोक १ से ७, अर्थ सहित) */}
+            <div className="space-y-4 pt-2">
+              <div className="text-sm font-bold text-amber-300 font-gotu">॥ पवित्रकरण एवं मंगलाष्टक (अर्थ सहित) ॥</div>
+
+              {/* १ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">१. पाप प्रमुक्ति श्लोक</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  अपवित्रः पवित्रो वा, सुस्थितो दुःस्थितोऽपि वा।<br />
+                  ध्यायतेत्पंच-नमस्कारं, सर्वपापैः प्रमुच्यते॥१॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र यहाँ तक कि सुस्थित या दुःस्थित भी पाँच नमस्कार मन्त्र का ध्यान करता है वह सब पापों से छूट जाता है॥१॥
+                </p>
+              </div>
+
+              {/* २ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">२. बाह्याभ्यंतर शुद्धि श्लोक</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  अपवित्रः पवित्रो वा, सर्वावस्थां गतोऽपि वा।<br />
+                  यः स्मरेत्परमात्मानं, स बाह्याभ्यंतरे शुचिः॥२॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र सब अवस्थाओं में स्थित होकर परमात्मा का स्मरण करता है वह भीतर और बाहर सर्वत्र पवित्र है॥२॥
+                </p>
+              </div>
+
+              {/* ३ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">३. अपराजित मन्त्र महिमा</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  अपराजित मंत्रोऽयं, सर्व-विघ्न-विनाशनः।<br />
+                  मङ्गलेषु च सर्वेषु, प्रथमं मङ्गलं मतः॥३॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> यह पंच नमस्कार मन्त्र अजेय है, सब विघ्नों का विनाश करनेवाला है और सब मंगलों में पहला मंगल है॥३॥
+                </p>
+              </div>
+
+              {/* ४ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">४. प्राकृत मंगलाष्टक पद</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  एसो पंच - णमोयारो, सव्व-पावप्पणासणो।<br />
+                  मंगलाणं च सव्वेसिं, पढमं होई मंगलं॥४॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> यह पंच नमस्कार मन्त्र सब पापों का नाश करनेवाला और सब मंगलों में पहला मंगल है॥४॥
+                </p>
+              </div>
+
+              {/* ५ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">५. अर्हम् बीजाक्षर वंदना</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  अर्ह-मित्यक्षरं ब्रह्म, - वाचकं परमेष्ठिनः।<br />
+                  सिद्धचक्रस्य सद्बीजं, सर्वतः प्रणमाम्यहम्॥५॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> 'अर्हम्' ये अक्षर परब्रह्म परमेष्ठी के वाचक हैं और सिद्ध समूह के सुन्दर बीजाक्षर हैं। मैं इनको मन, वचन, काय से नमस्कार करता हूँ॥५॥
+                </p>
+              </div>
+
+              {/* ६ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
+                <div className="text-xs font-bold text-amber-400 font-gotu">६. सिद्धचक्र नमस्कार</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  कर्माष्टक-विनिर्मुक्तं, मोक्ष-लक्ष्मी-निकेतनं।<br />
+                  सम्यक्त्वादि-गुणोपेतं, सिद्धचक्रं नमाम्यहम्॥६॥
+                </p>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> आठों कर्मों से रहित, मुक्तिरूपी लक्ष्मी के मन्दिर और सम्यक्त्वादि आठ गुणों से युक्त सिद्ध-समूह को मैं नमस्कार करता हूँ॥६॥
+                </p>
+              </div>
+
+              {/* ७ */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+                <div className="text-xs font-bold text-amber-400 font-gotu">७. विघ्न-विनाशक श्लोक</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  विघ्नौघाः प्रलयं यान्ति, शाकिनी-भूत-पन्नगाः।<br />
+                  विषं निर्विषतां याति, स्तूयमाने जिनेश्वरे॥७॥
+                </p>
+                <div className="p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs font-bold">
+                  ॥ पुष्पाञ्जलिं क्षिपेत् ॥
+                </div>
+                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="text-amber-300 font-semibold">अर्थ:</span> भगवान् जिनेन्द्र की स्तुति करने पर विघ्नसमूह नष्ट हो जाते हैं, शाकिनी, भूत और पन्नगों का भय नहीं रहता तथा विष निर्विष हो जाता है॥७॥
+                </p>
+              </div>
+            </div>
+
+            {/* सामान्य अर्घ्यावली */}
+            <div className="space-y-4 pt-4 border-t border-white/10">
+              <div className="text-sm font-bold text-amber-300 font-gotu">॥ सामान्य अर्घ्यावली ॥</div>
+
+              {/* १. पंचकल्याणक अर्घ्य */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">१. पंचकल्याणक अर्घ्य</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  उदक-चन्दन-तन्दुल-पुष्पकैश्च, चरू-सुदीप-सुधूप-फलार्घ्यकैः।<br />
+                  धवल-मङ्गल-गान-रवाकुले, जिनगृहे कल्याणमहं यजे॥
+                </p>
+                <div className="mt-2.5 p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                  ॐ ह्रीं भगवतो गर्भजन्मतपज्ञाननिर्वाणपञ्चकल्याणकेभ्यो अर्घ्यं निर्वपामीति स्वाहा।
+                </div>
+              </div>
+
+              {/* २. पंचपरमेष्ठी अर्घ्य */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">२. पंचपरमेष्ठी का अर्घ्य</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  उदक-चन्दन-तन्दुल-पुष्पकैश्च, चरू-सुदीप-सुधूप-फलार्घ्यकैः।<br />
+                  धवल-मङ्गल-गान-रवाकुले, जिनगृहे जिननाथमहं यजे॥
+                </p>
+                <div className="mt-2.5 p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                  ॐ ह्रीं श्री अर्हत्-सिद्धाचार्योपाध्याय-सर्वसाधु पंचपरमेष्ठीभ्योऽर्घ्यं निर्वपामीति स्वाहा।
+                </div>
+              </div>
+
+              {/* ३. जिनसहस्रनाम अर्घ्य */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">३. जिनसहस्रनाम अर्घ्य</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  उदक-चन्दन-तन्दुल-पुष्पकैश्च, चरू-सुदीप-सुधूप-फलार्घ्यकैः।<br />
+                  धवल-मङ्गल-गान रवाकुले, जिनगृहे जिननाम यजामहे॥
+                </p>
+                <div className="mt-2.5 p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                  ॐ ह्रीं श्री भगवज्जिन अष्टोत्तरसहस्रनामेभ्योऽर्घ्यं निर्वपामीति स्वाहा।
+                </div>
+              </div>
+
+              {/* ४. जिनवाणी का अर्घ्य */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">४. जिनवाणी का अर्घ्य</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  उदक-चन्दन-तन्दुल-पुष्पकैश्च, चरू-सुदीप-सुधूप-फलार्घ्यकैः।<br />
+                  धवल-मङ्गल-गान-रवाकुले, जिनगृहे जिनसूत्रमहं यजे॥
+                </p>
+                <div className="mt-2.5 p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                  ॐ ह्रीं सम्यग्दर्शनज्ञानचारित्राणि तत्त्वार्थसूत्रदशाध्याय अर्घ्य निर्वपामीति स्वाहा॥
+                </div>
+              </div>
+
+              {/* ५. गुरु अर्घ्य */}
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">५. गुरु अर्घ्य</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                  उदक-चन्दन-तन्दुल-पुष्पकैश्च, चरू-सुदीप-सुधूप-फलार्घ्यकैः।<br />
+                  धवल-मङ्गल-गान-रवाकुले, जिनगृहे सूरिन्द्र यजामहे॥
+                </p>
+                <div className="mt-2.5 p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                  ॐ ह्रीं आचार्य श्री विद्यासागरजी एवं तीन कम नव कोटि मुनिवरेभ्योऽर्घ्यं निर्वपामीति स्वाहा॥
+                </div>
+              </div>
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 5. पूजा प्रतिज्ञा पाठ */}
+      {/* ========================================================================= */}
+      {(activeStage === 'all' || activeStage === 'puja') && (
+        <div ref={pratigyaRef} className="mb-12 scroll-mt-28">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center border border-indigo-500/30">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-400 font-cinzel">
+                Stage 5 • Puja Pratigya Path
+              </span>
+              <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
+                ५. पूजा प्रतिज्ञा पाठ
+              </h2>
+            </div>
+          </div>
+
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
+            <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-4">
+              <p>
+                श्रीमज्जिनेंद्र-मभिवन्द्य-जगत्-त्रयेशम्, स्याद्वाद-नायक-मनन्त चतुष्टयार्हम्।<br />
+                श्रीमूल-संघ-सुदृशां सुकृतैक-हेतुर्, जैनेन्द्रयज्ञ-विधि-रेष मयाभ्यधायि॥१॥
+              </p>
+              <p>
+                स्वस्ति त्रिलोक-गुरवे जिन-पुङ्गवाय, स्वस्ति स्वभाव-महिमोदय-सुस्थिताय।<br />
+                स्वस्ति प्रकाश-सहजोजित-दृङ्मयाय, स्वस्ति प्रसन्न-ललिताद्भुत-वैभवाय॥२॥
+              </p>
+              <p>
+                स्वस्-त्युच्छलद्-विमलबोधसुधा-प्लवाय, स्वस्ति स्वभाव-परभाव-विभास-काय।<br />
+                स्वस्ति त्रिलोक-विततैक-चिदुद्गमाय, स्वस्ति त्रिकाल-सकलायत-विस्तृताय॥३॥
+              </p>
+              <p>
+                द्रव्यस्य शुद्धि-मधि-गम्य यथानुरूपं, भावस्य शुद्धि-मधिका-मधि-गन्तुकामः।<br />
+                आलम्बनानि विविधान्यवलम्ब्य वलान्, भूतार्थ-यज्ञ-पुरुषस्य करोमि यज्ञम्॥४॥
+              </p>
+              <p>
+                अर्हन् पुराण-पुरुषोत्तम-पावनानि, वस्तून्य-नून-मखिलान्यय-मेक एव।<br />
+                अस्मिन्-ज्वलद्विमल-केवल-बोध वह्नौ, पुण्यं समग्र मह मेक-मना जुहोमि॥५॥
+              </p>
+            </div>
+            <div className="p-3 rounded-2xl bg-indigo-500/15 border border-indigo-400/30 text-center text-indigo-200 font-mono text-xs sm:text-sm font-bold">
+              ॐ विधिद्यज्ञप्रतिज्ञानाय जिनप्रतिमाग्रे पुष्पाञ्जलिं क्षिपेत्।
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 6. स्वस्ति मंगलपाठ (२४ तीर्थंकर) */}
+      {/* ========================================================================= */}
+      {(activeStage === 'all' || activeStage === 'puja') && (
+        <div ref={swastiRef} className="mb-12 scroll-mt-28">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center border border-cyan-500/30">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-400 font-cinzel">
+                Stage 6 • Swasti Mangal Path
+              </span>
+              <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
+                ६. स्वस्ति मंगलपाठ (२४ तीर्थंकर)
+              </h2>
+            </div>
+          </div>
+
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-5"
+          >
+            <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div>श्रीवृषभो नः स्वस्ति, स्वस्ति श्रीअजितः।</div>
+              <div>श्रीसंभवः स्वस्ति, स्वस्ति श्रीअभिनन्दनः।</div>
+              <div>श्रीसुमतिः स्वस्ति, स्वस्ति श्रीपद्मप्रभः।</div>
+              <div>श्रीसुपार्श्वः स्वस्ति, स्वस्ति श्रीचंद्रप्रभः।</div>
+              <div>श्रीपुष्पदन्तः स्वस्ति, स्वस्ति श्रीशीतलः।</div>
+              <div>श्रीश्रेयान् स्वस्ति, स्वस्ति श्रीवासुपूज्यः।</div>
+              <div>श्रीविमलः स्वस्ति, स्वस्ति श्रीअनन्त:।</div>
+              <div>श्रीधर्मः स्वस्ति, स्वस्ति श्रीशान्तिः।</div>
+              <div>श्रीकुन्थुः स्वस्ति, स्वस्ति श्रीअरनाथः।</div>
+              <div>श्रीमल्लिः स्वस्ति, स्वस्ति श्रीमुनिसुव्रतः।</div>
+              <div>श्रीनमिः स्वस्ति, स्वस्ति श्रीनेमिनाथः।</div>
+              <div>श्रीपार्श्वः स्वस्ति, स्वस्ति श्रीवर्द्धमानः॥</div>
+            </div>
+            <div className="p-3 rounded-2xl bg-cyan-500/15 border border-cyan-400/30 text-center text-cyan-200 font-mono text-xs sm:text-sm font-bold">
+              ॥ इति चतुर्विंशति तीर्थंकर स्वस्ति मंगलपाठ पुष्पाञ्जलिं क्षिपेत् ॥
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 7. परमर्षि स्वस्ति मंगल पाठ */}
+      {/* ========================================================================= */}
+      {(activeStage === 'all' || activeStage === 'puja') && (
+        <div ref={parmarshiRef} className="mb-12 scroll-mt-28">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-xl bg-violet-500/20 text-violet-300 flex items-center justify-center border border-violet-500/30">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-violet-400 font-cinzel">
+                Stage 7 • Parmarshi Swasti Mangal Path
+              </span>
+              <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
+                ७. परमर्षि स्वस्ति मंगल पाठ
+              </h2>
+            </div>
+          </div>
+
+          <GlassCard
+            tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
+            variant="gilded"
+            className="p-5 sm:p-7 rounded-3xl space-y-6"
+          >
+            <div className="text-xs text-slate-400 font-gotu italic">(प्रत्येक श्लोक के बाद पुष्प क्षेपण करें)</div>
+            <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-3.5">
+              <p>
+                नित्या-प्रकंपद-भुत-केवलौघाः, स्फुरन्मनः पर्यय-शुद्धबोधाः।<br />
+                दिव्यावधिज्ञान-बलप्रबोधाः, स्वस्ति क्रियासुः परमर्षयो नः॥१॥
+              </p>
+              <p>
+                कोष्ठस्थ-धान्योप-ममेक बीजं, संभिन्न-संश्रोत्-पदानुसारि।<br />
+                चतुर्विधं बुद्धि-बलं दधानाः, स्वस्ति क्रियासुः परमर्षयो नः॥२॥
+              </p>
+              <p>
+                संस्पर्शनं संश्रवणं च दूरा-, दास्वादन-घ्राण-विलोकलानि।<br />
+                दिव्यान्-मतिज्ञान-बलाद्वहन्तः, स्वस्ति क्रियासुः परमर्षयो नः॥३॥
+              </p>
+              <p>
+                प्रज्ञा-प्रधानाः श्रमणाः समृद्धाः, प्रत्येक-बुद्धाः दशसर्वपूर्वैः।<br />
+                प्रवादिनोऽष्टाङ्ग-निमित्त-विज्ञाः, स्वस्ति क्रियासुः परमर्षयो नः॥४॥
+              </p>
+              <p>
+                जङ्घानल-श्रेणि-फलाम्बु-तन्तु,-प्रसून-बीजाङ्कुर-चार-णाद्धाः।<br />
+                नमोऽङ्गण-स्वैर-विहारिणश्च, स्वस्ति क्रियासुः परमर्षयो नः॥५॥
+              </p>
+              <p>
+                आणिम्नि दक्षाः कुशला महिम्नि, लघिम्नि शक्ताः कृतिनो गरिम्णि।<br />
+                मनो-वपु-र्वाग्बलिनश्च नित्यं, स्वस्ति क्रियासुः परमर्षयो नः॥६॥
+              </p>
+              <p>
+                सकाम-रूपित्व-वशित्व-मैश्यं, प्राकाम्य-मन्तर्द्धि-मथाप्ति-माप्ताः।<br />
+                तथाऽप्रतीघातगुणप्रधानाः, स्वस्ति क्रियासुः परमर्षयो नः॥७॥
+              </p>
+              <p>
+                दीप्तं च तप्तं च तथामहोग्रं, घोरं तपो घोरपराक्रमस्थाः।<br />
+                ब्रह्मापरं घोर-गुणाश्चरन्तः, स्वस्ति क्रियासुः परमर्षयो नः॥८॥
+              </p>
+              <p>
+                आमर्ष-सर्वौषधयस्तथाशी-, र्विषाविषा दृष्टिविषाविषाश्च।<br />
+                सखिल्ल-विड्जल्ल-मलौषधीशाः, स्वस्ति क्रियासुः परमर्षयो नः॥९॥
+              </p>
+              <p>
+                क्षीरं स्रवन्तोऽत्र-घृतं स्रवन्तो, मधु-स्रवन्तोऽप्यमृतं स्रवन्तः।<br />
+                अक्षीण-संवास-महानसाश्च, स्वस्ति क्रियासुः परमर्षयो नः॥१०॥
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-2xl bg-violet-500/15 border border-violet-400/30 text-center space-y-1.5">
+              <div className="text-violet-200 font-mono text-xs sm:text-sm font-bold">
+                ॥ इति परमर्षि स्वस्ति मङ्गलविधानं परिपुष्पाञ्जलिं क्षिपेत् ॥
+              </div>
+              <div className="text-xs text-violet-300 font-gotu">
+                (यहाँ पर नौ बार णमोकार मंत्र जपना चाहिये)
+              </div>
+              <div className="text-violet-100 font-mono text-xs">
+                ॐ ह्रीं चतुःषष्टि-ऋद्धि-प्राप्तेभ्यः श्रीपरमर्षिभ्यो नमः स्वस्ति भवतु (पुष्पांजलिं क्षिपेत्)।
+              </div>
+            </div>
+
+            {/* शांति धारा की परंपरा एवं विशेषार्थ */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+              <div className="text-xs font-bold text-amber-400 font-gotu">॥ शांति धारा की परंपरा ॥</div>
+              <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
+                वृषभनाथ से पुष्पदन्त तीर्थंकर पर्यंत धर्म की परंपरा अनवरत रूप से चलती रही, मगर पुष्पदन्त भगवान् के तीर्थ में पावपल्य का अभाव रहा, इसके पश्चात् शीतलनाथ भगवान तक धर्म चलता रहा, फिर उनके तीर्थ में अद्र्धपल्य पर्यंत धर्म का अभाव रहा। श्रेयांसनाथ भगवान् के तीर्थ में पौन पल्य का अभाव रहा। वासुपूज्य भगवान् के तीर्थ में एकपल्य का अभाव रहा। विमलनाथ भगवान् के तीर्थ में पौन पल्य का अभाव रहा। फिर इसके पश्चात् अनन्तनाथ भगवान के तीर्थ में अद्र्धपल्य का अभाव रहा। धर्मनाथ भगवान् के तीर्थ में पाव पल्य का अभाव रहा। इस प्रकार से पुष्पदन्त भगवान् से लेकर धर्मनाथ भगवान् पर्यंत धर्म का बीच बीच में अभाव रहा। मगर शांतिनाथ भगवान् से लेकर महावीर स्वामीपर्यंत अखण्ड सतत् रूप से धर्म की परंपरा चलती रही। इसी वजह से शान्तिधारा करने का प्रचलन हो गया। ऐसा अनुमानतः माना जाता है।
+              </p>
+              <div className="pt-2 border-t border-white/10 text-xs text-amber-200/90 font-gotu">
+                <span className="font-bold text-amber-300">विशेषार्थ:</span> पुष्पदन्त भगवान् के तीर्थ में धर्म का विच्छेद हो जाने से इस भरत क्षेत्र की भूमि में जिनमार्ग के ज्ञाता, भव्य जीव का अभाव हो गया था। जिससे दिगम्बर दीक्षा लेने वाला कोई नहीं था।
+              </div>
+            </div>
+          </GlassCard>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 8. देव-शास्त्र-गुरु पूजन (नित्य अष्टद्रव्य पूजन) */}
       {/* ========================================================================= */}
       {(activeStage === 'all' || activeStage === 'puja') && (
         <div ref={devPujaRef} className="mb-12 scroll-mt-28">
@@ -493,10 +964,10 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
             <div>
               <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-400 font-cinzel">
-                Stage 4 • Nitya Ashta Dravya Puja
+                Stage 8 • Nitya Ashta Dravya Puja
               </span>
               <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
-                ४. श्री देव-शास्त्र-गुरु पूजन (पं. जुगल किशोर जी)
+                ८. श्री देव-शास्त्र-गुरु पूजन (पं. जुगल किशोर जी)
               </h2>
             </div>
           </div>
@@ -598,8 +1069,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
                 <div className="text-xs font-bold text-purple-400 font-gotu mb-1">७. धूप (अष्टकर्म दहनाय)</div>
                 <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
-                  धूपं घृतं वर-सुगन्धि-दशाङ्ग-युक्तं, प्रज्वाल्य पावकमहो शिखिनो मुखेऽस्मिन्।<br />
-                  अष्टप्रकार-दुरितौघ-विनाशनाय, पूजां करोमि परमात्म-पदे जिनेन्द्रे॥
+                  धूपं दशांग-सहितं सुकृताग्निकुण्डे, प्रक्षाल्य कर्म-दहनं प्रवरं सुगन्धम्।<br />
+                  श्रीसर्वज्ञ-चरणाम्बुज-सन्निधाने, भक्त्या जुहोमि भव-बन्धन-मुक्तयेऽहम्॥
                 </p>
                 <div className="mt-2.5 p-2 rounded-xl bg-purple-500/15 text-purple-200 font-mono text-xs sm:text-sm font-bold">
                   ॐ ह्रीं श्री देवशास्त्रगुरुभ्यो अष्टकर्म-दहनाय धूपं निर्वपामीति स्वाहा॥
@@ -608,12 +1079,12 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
 
               {/* ८. फल */}
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-xs font-bold text-emerald-400 font-gotu mb-1">८. फल (मोक्षफल प्राप्तये)</div>
+                <div className="text-xs font-bold text-green-400 font-gotu mb-1">८. फल (मोक्षफल प्राप्तये)</div>
                 <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
-                  जातीफलाम्र-कदली-फल-नारिकेलैः, पूगादि-सुन्दर-फलोत्तम-जात-पुञ्जैः।<br />
-                  पूजां करोमि फल-सम्पद-हेतुभूतां, मोक्षाख्य-शाश्वत-सुखस्य फलस्य हेतोः॥
+                  दिव्यानि रम्य-फलानि सुगन्धीनि, स्वादूनि पक्व-ललितानि मनोहराणि।<br />
+                  पूजां विधामि जगदीश्वर-पाद-पद्मे, निर्वाण-सौख्य-फल-सम्पद-हेतुभूते॥
                 </p>
-                <div className="mt-2.5 p-2 rounded-xl bg-emerald-500/15 text-emerald-200 font-mono text-xs sm:text-sm font-bold">
+                <div className="mt-2.5 p-2 rounded-xl bg-green-500/15 text-green-200 font-mono text-xs sm:text-sm font-bold">
                   ॐ ह्रीं श्री देवशास्त्रगुरुभ्यो मोक्षफल-प्राप्तये फलं निर्वपामीति स्वाहा॥
                 </div>
               </div>
@@ -657,7 +1128,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       )}
 
       {/* ========================================================================= */}
-      {/* 5. नित्य अर्घ्यावली (पंचपरमेष्ठी व २४ तीर्थंकर) */}
+      {/* 9. नित्य अर्घ्यावली (पंचपरमेष्ठी व २४ तीर्थंकर) */}
       {/* ========================================================================= */}
       {(activeStage === 'all' || activeStage === 'puja') && (
         <div ref={arghyavaliRef} className="mb-12 scroll-mt-28">
@@ -667,10 +1138,10 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
             <div>
               <span className="text-[10px] uppercase font-bold tracking-wider text-purple-400 font-cinzel">
-                Stage 5 • Nitya Arghyavali
+                Stage 9 • Nitya Arghyavali
               </span>
               <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
-                ५. नित्य नियम अर्घ्यावली
+                ९. नित्य नियम अर्घ्यावली
               </h2>
             </div>
           </div>
@@ -734,7 +1205,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       )}
 
       {/* ========================================================================= */}
-      {/* 6. आरती, जिनवाणी स्तुति एवं विसर्जन पाठ */}
+      {/* 10. आरती, जिनवाणी स्तुति एवं विसर्जन पाठ */}
       {/* ========================================================================= */}
       {(activeStage === 'all' || activeStage === 'puja') && (
         <div ref={aartiRef} className="mb-12 scroll-mt-28">
@@ -744,10 +1215,10 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             </div>
             <div>
               <span className="text-[10px] uppercase font-bold tracking-wider text-rose-400 font-cinzel">
-                Stage 6 • Aarti & Visarjan
+                Stage 10 • Aarti & Visarjan
               </span>
               <h2 className="text-xl sm:text-2xl font-notoserif font-bold text-white">
-                ६. मंगल आरती, जिनवाणी स्तुति एवं क्षमा-प्रार्थना
+                १०. मंगल आरती, जिनवाणी स्तुति एवं क्षमा-प्रार्थना
               </h2>
             </div>
           </div>
@@ -758,82 +1229,51 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             className="p-5 sm:p-7 rounded-3xl space-y-6"
           >
             {/* पंचपरमेष्ठी आरती */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-              <div className="text-xs font-bold text-amber-300 font-gotu mb-2">॥ पंचपरमेष्ठी मंगल आरती ॥</div>
-              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-2.5">
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="text-xs font-bold text-rose-300 font-gotu">॥ श्री पंचपरमेष्ठी आरती ॥</div>
+              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-2">
                 <p>
-                  पंच परमेष्ठी की आरती कीजै, भव-जलनिधि पार उतर मन रीझै॥टेक॥<br />
-                  पहिली आरती श्री अरिहंता, केवलज्ञान-दिवाकर संता॥<br />
-                  दूजी आरती सिद्धन केरी, अष्टकर्म-मल नाशन हेरी॥<br />
-                  तीजी आरती सूरिवरा की, आचार-धरम के धीरा की॥<br />
-                  चौथी आरती पाठक ज्ञानी, द्वादशांग के ज्ञाता ध्यानी॥<br />
-                  पांचवीं आरती साधु मुनीशा, निशदिन आतम-रस के ईशा॥
+                  ॐ जय महावीर प्रभो, स्वामी जय महावीर प्रभो।<br />
+                  कुण्डलपुर अवतारी, त्रिशलानन्द विभो॥ ॐ जय...
+                </p>
+                <p>
+                  सिद्धारथ घर जन्मे, वैभव था भारी।<br />
+                  बालब्रह्मचारी प्रभु, जग-हित-अवतारी॥ ॐ जय...
+                </p>
+                <p>
+                  आतम-ज्ञान जगाया, जग को सन्मार्ग दिया।<br />
+                  जीवों पर करुणा कर, पावन धर्म किया॥ ॐ जय...
                 </p>
               </div>
             </div>
 
             {/* जिनवाणी स्तुति */}
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/25">
-              <div className="text-xs font-bold text-amber-300 font-gotu mb-2">॥ जिनवाणी स्तुति ॥</div>
-              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed space-y-2.5">
-                <p>
-                  मिथ्यातम नाशवे को ज्ञान के प्रकाशवे को,<br />
-                  आपा पर भासवे को भानु सी बखानी है।<br />
-                  छहों द्रव्य जानवे को बंध विधि भानवे को,<br />
-                  जीव के जितावे को न जीवे को न सानी है॥
-                </p>
-                <p className="pt-2 font-bold text-amber-200">
-                  जा वाणी के ज्ञान ते सूझे लोकालोक।<br />
-                  सो वाणी मस्तक धरूँ सदा देत हूँ ढोक॥
-                </p>
-              </div>
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+              <div className="text-xs font-bold text-amber-300 font-gotu">॥ जिनवाणी स्तुति (जा वाणी के ज्ञान तें) ॥</div>
+              <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+                जा वाणी के ज्ञान तें, सूझै लोकालोक।<br />
+                सो वाणी मस्तक धरौं, सदा देत हूँ ढोक॥<br />
+                हे जिनवाणी भारती, तोहि जपूँ दिन-रैन।<br />
+                जो तेरी शरणा गहें, सो पावै सुख-चैन॥
+              </p>
             </div>
 
-            {/* विसर्जन पाठ एवं क्षमा याचना */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 font-gotu text-slate-300 text-xs sm:text-sm leading-relaxed space-y-2">
-              <div className="text-xs font-bold text-slate-200 font-gotu mb-1">॥ विसर्जन पाठ एवं क्षमा-प्रार्थना ॥</div>
+            {/* क्षमा-प्रार्थना एवं विसर्जन */}
+            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30 space-y-3">
+              <div className="text-xs font-bold text-amber-300 font-gotu">॥ विसर्जन पाठ एवं क्षमा-प्रार्थना ॥</div>
               <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
-                आह्वानं नैव जानामि नैव जानामि पूजनम्।<br />
-                विसर्जनं न जानामि क्षमस्व परमेश्वर॥<br />
-                यदक्षरपदभ्रष्टं मात्राहीनं च यद्भवेत्।<br />
-                तत्सर्वं क्षम्यतां देव जिनेन्द्र परमेश्वर॥
+                आह्वानं नैव जानामि, नैव जानामि पूजनम्।<br />
+                विसर्जनं न जानामि, क्षमस्व परमेश्वर॥<br />
+                मंत्रहीनं क्रियाहीनं, भक्तिहीनं जिनेश्वर।<br />
+                यत्पूजितं मया देव! परिपूर्णं तदस्तु मे॥
               </p>
-              <div className="mt-3 p-3 rounded-xl bg-amber-500/15 text-amber-200 text-center font-notoserif font-bold text-sm sm:text-base">
-                खामेमि सव्वे जीवा, सव्वे जीवा खमंतु मे।<br />
-                मित्ती मे सव्व भूएसु, वेरं मज्झं न केणवि॥
+              <div className="p-2.5 rounded-xl bg-amber-400 text-slate-950 font-mono text-xs sm:text-sm font-bold text-center">
+                ॐ ह्रीं श्री जिनेन्द्र-देव-शास्त्र-गुरुभ्यो नमो नमः। क्षमा-प्रार्थनां समर्पयामि स्वाहा॥
               </div>
             </div>
           </GlassCard>
         </div>
       )}
-
-      {/* Quick Navigation Footer */}
-      <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
-        <div>
-          <h4 className="text-sm font-notoserif font-bold text-white">दैनिक स्वाध्याय पूर्ण हुआ?</h4>
-          <p className="text-xs text-slate-400 font-gotu">अब आप १०८ जाप माला या सामायिक साधना प्रारंभ कर सकते हैं।</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <motion.button
-            whileTap={{ scale: 0.94 }}
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => onNavigate('jap')}
-            className="px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-gotu text-xs font-bold border border-amber-500/30 cursor-pointer transition-[background-color,border-color,color]"
-          >
-            १०८ जाप माला
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.94 }}
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => onNavigate('samayik')}
-            className="px-3.5 py-2 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 font-gotu text-xs font-bold border border-blue-500/30 cursor-pointer transition-[background-color,border-color,color]"
-          >
-            सामायिक
-          </motion.button>
-        </div>
-      </div>
     </div>
   );
 };

@@ -12,6 +12,8 @@ import {
   Scroll,
   Check,
   FileEdit,
+  Volume2,
+  Play,
 } from 'lucide-react';
 import { getContentByIdAsync, getContentById } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
@@ -19,10 +21,11 @@ import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/s
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
+import { repairDevanagariUnicode } from '../utils/unicodeFixer';
 import { FeedbackModal } from '../components/features/FeedbackModal';
 import { requestScreenWakeLock, releaseScreenWakeLock } from '../utils/pwaManager';
 import { AudioPlayer } from '../components/features/AudioPlayer';
-import { getContentAudioTrack } from '../config/media';
+import { getContentAudioTrack, AudioTimestamp } from '../config/media';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -33,6 +36,10 @@ interface ContentViewerProps {
 
 // 1. HTML View (For History, Vidhi, etc.)
 const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) => {
+  const sanitizedRepairedContent = React.useMemo(() => {
+    return sanitizeHtml(repairDevanagariUnicode(content || ''));
+  }, [content]);
+
   return (
     <GlassCard variant="gilded" tilt={{ maxTilt: 3, glareMaxOpacity: 0.08, glareColor: 'gold' }} className="p-6 sm:p-10 md:p-12 min-h-full">
       <div
@@ -154,21 +161,21 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
 
   const rawMeaning = v.meaning || v.translation || v.explanation || '';
   let meanings = Array.isArray(rawMeaning)
-    ? rawMeaning.map(stripHtml).filter(Boolean)
-    : [stripHtml(rawMeaning)].filter(Boolean);
+    ? rawMeaning.map(stripHtml).map(repairDevanagariUnicode).filter(Boolean)
+    : [repairDevanagariUnicode(stripHtml(rawMeaning))].filter(Boolean);
 
   let sectionTitle = '';
   if (v.title && typeof v.title === 'string' && !v.title.includes('http')) {
-    sectionTitle = stripHtml(v.title);
+    sectionTitle = repairDevanagariUnicode(stripHtml(v.title));
   } else if (v.heading && typeof v.heading === 'string') {
-    sectionTitle = stripHtml(v.heading);
+    sectionTitle = repairDevanagariUnicode(stripHtml(v.heading));
   }
 
   // Extract <div class="shloka-title"> or other title classes from raw HTML
   let number = v.number;
   const secMatch = rawText.match(/<div class=["'](?:shloka-title|section-title|reflection-title|heading|title)["']>([\s\S]*?)<\/div>/i);
   if (secMatch) {
-    const titleText = stripHtml(secMatch[1]);
+    const titleText = repairDevanagariUnicode(stripHtml(secMatch[1]));
     rawText = rawText.replace(secMatch[0], '').trim();
     const numMatch = titleText.match(/^॥?\s*([०-९\d]+)\s*॥?$/);
     if (numMatch && (number === undefined || number === null)) {
@@ -177,7 +184,7 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
       sectionTitle = titleText;
     }
   } else if (!sectionTitle) {
-    const cleanRaw = stripHtml(rawText);
+    const cleanRaw = repairDevanagariUnicode(stripHtml(rawText));
     if (/^\s*॥\s*[^॥\n]+\s*॥\s*$/.test(cleanRaw) && cleanRaw.length < 60) {
       sectionTitle = cleanRaw;
       rawText = '';
@@ -188,7 +195,7 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
   if (meanings.length === 0) {
     const meaningMatch = rawText.match(/<div class=["'](?:hindi-meaning|meaning|translation|explanation)["']>([\s\S]*?)<\/div>/i);
     if (meaningMatch) {
-      const extractedMeaning = stripHtml(meaningMatch[1]);
+      const extractedMeaning = repairDevanagariUnicode(stripHtml(meaningMatch[1]));
       if (extractedMeaning) {
         meanings = [extractedMeaning];
       }
@@ -200,7 +207,7 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
   let numberDisplay: string | null = null;
   if (typeof number === 'string' && /॥\s*[^\d०-९॥\s]+\s*॥/.test(number)) {
     if (!sectionTitle) {
-      sectionTitle = number.replace(/[॥]/g, '').trim();
+      sectionTitle = repairDevanagariUnicode(number.replace(/[॥]/g, '').trim());
     }
     number = null;
   } else if (number !== undefined && number !== null) {
@@ -220,7 +227,7 @@ const parseVerseData = (v: any, idx: number, category?: string): ParsedVerse => 
 
   const lines: ParsedLine[] = [];
   for (const line of rawLineArray) {
-    const cleanLine = stripHtml(line);
+    const cleanLine = repairDevanagariUnicode(stripHtml(line));
     if (!cleanLine) continue;
 
     const rawClean = cleanLine.replace(/[:：]/g, '').trim();
@@ -267,10 +274,18 @@ const UnifiedVerseView = ({
   item,
   fontSize,
   onShareVerse,
+  activeVerseIndex,
+  onSeekToVerse,
+  audioTrack,
+  isAudioActive,
 }: {
   item: any;
   fontSize: number;
   onShareVerse?: (numberDisplay?: string | null, lines?: ParsedLine[], meanings?: string[]) => void;
+  activeVerseIndex?: number | null;
+  onSeekToVerse?: (seconds: number) => void;
+  audioTrack?: { timestamps?: AudioTimestamp[] } | null;
+  isAudioActive?: boolean;
 }) => {
   const verses = item.verses || item.lyrics || [];
 
@@ -280,11 +295,15 @@ const UnifiedVerseView = ({
       {item.introHtml && (
         <div
           className="book-content font-gotu text-slate-200 mb-8"
-          dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.introHtml) }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(repairDevanagariUnicode(item.introHtml)) }}
         />
       )}
       {verses.map((verse: any, idx: number) => {
         const parsed = parseVerseData(verse, idx, item.category);
+        const verseTimestamp =
+          audioTrack?.timestamps?.find((t) => t.verseIndex === idx) ||
+          (verse.timestamp !== undefined ? { start: Number(verse.timestamp), label: verse.label } : undefined);
+        const isActive = Boolean(isAudioActive && activeVerseIndex === idx);
 
         return (
           <React.Fragment key={idx}>
@@ -310,7 +329,11 @@ const UnifiedVerseView = ({
               <GlassCard
                 variant="gilded"
                 tilt={{ maxTilt: 3.5, glareMaxOpacity: 0.1, glareColor: 'gold' }}
-                className="p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border border-amber-500/25 shadow-[0_16px_44px_rgba(6,3,1,0.7)]"
+                className={`p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border shadow-[0_16px_44px_rgba(6,3,1,0.7)] ${
+                  isActive
+                    ? 'border-amber-400/90 bg-amber-500/10 ring-2 ring-amber-400/40 shadow-[0_0_35px_rgba(245,158,11,0.25)]'
+                    : 'border-amber-500/25'
+                }`}
               >
                 {/* Traditional Manuscript Ornamental Corner Fillets (पांडुलिपि कोने) */}
                 <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-amber-400/30 rounded-tl pointer-events-none" />
@@ -332,8 +355,30 @@ const UnifiedVerseView = ({
                       <span className="text-[11px] uppercase tracking-widest text-amber-300/80 font-gotu font-medium">
                         पद / श्लोक
                       </span>
+                      {isActive && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-semibold animate-pulse">
+                          <Volume2 className="w-3 h-3 text-amber-400 shrink-0" />
+                          वाचन चालू
+                        </span>
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
+                      {verseTimestamp !== undefined && onSeekToVerse && (
+                        <motion.button
+                          type="button"
+                          whileTap={{ scale: 0.92 }}
+                          onClick={() => onSeekToVerse(verseTimestamp.start)}
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer ${
+                            isActive
+                              ? 'bg-amber-400 text-slate-950 font-bold shadow'
+                              : 'bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-400/30'
+                          }`}
+                          title="यहाँ से ऑडियो चलाएँ"
+                        >
+                          <Play className="w-2.5 h-2.5 fill-current" />
+                          <span>{Math.floor(verseTimestamp.start / 60)}:{(Math.floor(verseTimestamp.start % 60) < 10 ? '0' : '') + Math.floor(verseTimestamp.start % 60)}</span>
+                        </motion.button>
+                      )}
                       {onShareVerse && (
                         <motion.button
                           whileTap={{ scale: 0.88 }}
@@ -354,19 +399,43 @@ const UnifiedVerseView = ({
                     <div className="flex items-center gap-2">
                       <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-400/30" />
                       <span>❖</span>
+                      {isActive && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-semibold animate-pulse">
+                          <Volume2 className="w-3 h-3 text-amber-400 shrink-0" />
+                          वाचन चालू
+                        </span>
+                      )}
                     </div>
-                    {onShareVerse && (
-                      <motion.button
-                        whileTap={{ scale: 0.88 }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-                        onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
-                        className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
-                        title="यह भाग साझा करें"
-                        aria-label="यह भाग साझा करें"
-                      >
-                        <Share2 className="w-3.5 h-3.5" />
-                      </motion.button>
-                    )}
+                    <div className="flex items-center gap-2">
+                      {verseTimestamp !== undefined && onSeekToVerse && (
+                        <motion.button
+                          type="button"
+                          whileTap={{ scale: 0.92 }}
+                          onClick={() => onSeekToVerse(verseTimestamp.start)}
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer ${
+                            isActive
+                              ? 'bg-amber-400 text-slate-950 font-bold shadow'
+                              : 'bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-400/30'
+                          }`}
+                          title="यहाँ से ऑडियो चलाएँ"
+                        >
+                          <Play className="w-2.5 h-2.5 fill-current" />
+                          <span>{Math.floor(verseTimestamp.start / 60)}:{(Math.floor(verseTimestamp.start % 60) < 10 ? '0' : '') + Math.floor(verseTimestamp.start % 60)}</span>
+                        </motion.button>
+                      )}
+                      {onShareVerse && (
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
+                          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                          onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
+                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
+                          title="यह भाग साझा करें"
+                          aria-label="यह भाग साझा करें"
+                        >
+                          <Share2 className="w-3.5 h-3.5" />
+                        </motion.button>
+                      )}
+                    </div>
                   </div>
                 )}
 
@@ -594,7 +663,32 @@ export const ContentViewer = ({
   const [scrollSpeed, setScrollSpeed] = React.useState(1);
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
   const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
-  const audioTrack = React.useMemo(() => getContentAudioTrack(id), [id]);
+  const [audioPlaybackTime, setAudioPlaybackTime] = React.useState(0);
+  const [audioSeekTarget, setAudioSeekTarget] = React.useState<number | null>(null);
+  const audioTrack = React.useMemo(() => getContentAudioTrack(id, data), [id, data]);
+
+  // Synchronized active verse index from audio playback time
+  const activeVerseIndex = React.useMemo(() => {
+    if (!isAudioPlayerActive || !audioTrack) return null;
+    const timestamps = audioTrack.timestamps;
+    if (!timestamps || timestamps.length === 0) return null;
+
+    for (let i = timestamps.length - 1; i >= 0; i--) {
+      if (audioPlaybackTime >= timestamps[i].start) {
+        if (timestamps[i].end === undefined || audioPlaybackTime < timestamps[i].end!) {
+          return timestamps[i].verseIndex;
+        }
+        return timestamps[i].verseIndex;
+      }
+    }
+    return 0;
+  }, [isAudioPlayerActive, audioTrack, audioPlaybackTime]);
+
+  const handleSeekToVerse = React.useCallback((seconds: number) => {
+    setAudioSeekTarget(seconds);
+    setIsAudioPlayerActive(true);
+  }, []);
+
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
   const autoScrollRafRef = React.useRef<number | null>(null);
   const toastTimerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -1019,7 +1113,15 @@ export const ContentViewer = ({
               data.type === 'stotra' ||
               data.verses ||
               data.lyrics ? (
-              <UnifiedVerseView item={data} fontSize={fontSize} onShareVerse={handleShareVerse} />
+              <UnifiedVerseView
+                item={data}
+                fontSize={fontSize}
+                onShareVerse={handleShareVerse}
+                activeVerseIndex={activeVerseIndex}
+                onSeekToVerse={handleSeekToVerse}
+                audioTrack={audioTrack}
+                isAudioActive={isAudioPlayerActive}
+              />
             ) : data.chapters ? (
               <ArticleView data={data} sectionRefs={sectionRefs} fontSize={fontSize} />
             ) : (
@@ -1089,6 +1191,8 @@ export const ContentViewer = ({
             track={audioTrack}
             onClose={() => setIsAudioPlayerActive(false)}
             autoPlay={true}
+            onTimeUpdate={(time) => setAudioPlaybackTime(time)}
+            seekTime={audioSeekTarget}
           />
         )}
       </AnimatePresence>

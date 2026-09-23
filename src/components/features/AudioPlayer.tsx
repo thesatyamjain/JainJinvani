@@ -26,9 +26,12 @@ interface AudioPlayerProps {
     title: string;
     artist?: string;
     url: string;
+    timestamps?: { verseIndex: number; start: number; end?: number; label?: string }[];
   } | null;
   onClose: () => void;
   autoPlay?: boolean;
+  onTimeUpdate?: (currentTime: number) => void;
+  seekTime?: number | null;
 }
 
 const PLAYBACK_RATES = [1, 1.25, 1.5, 0.75];
@@ -99,7 +102,13 @@ function setupWebAudio(audio: HTMLAudioElement): {
   }
 }
 
-export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProps) => {
+export const AudioPlayer = ({
+  track,
+  onClose,
+  autoPlay = true,
+  onTimeUpdate,
+  seekTime,
+}: AudioPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -111,6 +120,14 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
   const [hasError, setHasError] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
   const [seekPreviewTime, setSeekPreviewTime] = useState(0);
+
+  // Sync seekTime prop if updated from external component (e.g. verse tap)
+  useEffect(() => {
+    if (seekTime !== null && seekTime !== undefined && audioRef.current) {
+      audioRef.current.currentTime = seekTime;
+      setCurrentTime(seekTime);
+    }
+  }, [seekTime]);
 
   // Web Audio Analyser reference for live waveform analysis
   const [audioNodes, setAudioNodes] = useState<{
@@ -289,9 +306,13 @@ export const AudioPlayer = ({ track, onClose, autoPlay = true }: AudioPlayerProp
   // Native audio event handlers
   const handleTimeUpdate = () => {
     if (audioRef.current && !isSeeking) {
-      setCurrentTime(audioRef.current.currentTime);
+      const time = audioRef.current.currentTime;
+      setCurrentTime(time);
       if (audioRef.current.duration && isFinite(audioRef.current.duration)) {
         setDuration(audioRef.current.duration);
+      }
+      if (onTimeUpdate) {
+        onTimeUpdate(time);
       }
     }
   };

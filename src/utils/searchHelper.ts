@@ -1,3 +1,5 @@
+import { repairDevanagariUnicode } from './unicodeFixer';
+
 /**
  * Jain Jinvani Smart Bilingual (Hindi & English/Hinglish) Search Engine
  * Provides phonetic transliteration, Devanagari orthographic normalization,
@@ -69,7 +71,7 @@ export function transliterateHindiToEnglish(hindiText: string): string {
  */
 export function normalizeDevanagari(text: string): string {
   if (!text) return '';
-  let s = text.trim();
+  let s = repairDevanagariUnicode(text).trim();
 
   // Replace Chandrabindu (ँ) with Anusvara (ं)
   s = s.replace(/\u0901/g, '\u0902');
@@ -171,7 +173,76 @@ export interface SearchableItem {
   subCategory?: string;
   author?: string;
   badge?: string;
+  tags?: string[];
+  content?: string;
+  verses?: any[];
+  lyrics?: any[];
+  chapters?: any[];
   [key: string]: any;
+}
+
+/**
+ * Unified content extractor across all scripture data schemas:
+ * - string content (HTML or plain text)
+ * - verses array: [{ hindi, meaning, english, ... }] or string[] (pujas, stotras, chalisas, paths)
+ * - lyrics array (bhajans)
+ * - chapters array (shastras)
+ * - introHtml & descriptions
+ */
+export function extractSearchableText(item: any): string {
+  if (!item) return '';
+  const parts: string[] = [];
+
+  if (typeof item.content === 'string') {
+    parts.push(item.content);
+  }
+
+  if (Array.isArray(item.verses)) {
+    for (const v of item.verses) {
+      if (typeof v === 'string') {
+        parts.push(v);
+      } else if (v && typeof v === 'object') {
+        if (v.hindi) parts.push(Array.isArray(v.hindi) ? v.hindi.join(' ') : String(v.hindi));
+        if (v.original) parts.push(Array.isArray(v.original) ? v.original.join(' ') : String(v.original));
+        if (v.meaning) parts.push(Array.isArray(v.meaning) ? v.meaning.join(' ') : String(v.meaning));
+        if (v.translation) parts.push(Array.isArray(v.translation) ? v.translation.join(' ') : String(v.translation));
+        if (v.title) parts.push(String(v.title));
+        if (v.heading) parts.push(String(v.heading));
+      }
+    }
+  }
+
+  if (Array.isArray(item.lyrics)) {
+    for (const l of item.lyrics) {
+      if (typeof l === 'string') parts.push(l);
+      else if (l && typeof l === 'object') {
+        if (l.text) parts.push(String(l.text));
+        if (l.hindi) parts.push(String(l.hindi));
+        if (l.meaning) parts.push(String(l.meaning));
+      }
+    }
+  }
+
+  if (Array.isArray(item.chapters)) {
+    for (const ch of item.chapters) {
+      if (ch && typeof ch === 'object') {
+        if (ch.title) parts.push(String(ch.title));
+        if (Array.isArray(ch.content)) parts.push(ch.content.join(' '));
+        else if (typeof ch.content === 'string') parts.push(ch.content);
+      }
+    }
+  }
+
+  if (typeof item.introHtml === 'string') {
+    parts.push(item.introHtml);
+  }
+
+  const rawJoined = parts.join(' ');
+  return rawJoined
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**
@@ -198,6 +269,7 @@ export function calculateRelevanceScore(item: SearchableItem, query: string): nu
   const author = (item.author || '').toLowerCase();
   const devAuthor = normalizeDevanagari(author);
   const badge = (item.badge || '').toLowerCase();
+  const tags = Array.isArray(item.tags) ? item.tags : [];
 
   let score = 0;
 
@@ -221,36 +293,59 @@ export function calculateRelevanceScore(item: SearchableItem, query: string): nu
     score += 380;
   }
 
-  // 4. ID Match (e.g., "bhaktamar-stotra")
+  // 4. Tags Match (High Relevance for categorization like 'दशलक्षण', 'तीर्थंकर', 'नित्य-नियम')
+  for (const tag of tags) {
+    const rawTag = String(tag).toLowerCase().trim();
+    const devTag = normalizeDevanagari(rawTag);
+    if (devTag === devQuery || rawTag === rawQuery) {
+      score += 450;
+      break;
+    } else if (devTag.includes(devQuery) || rawTag.includes(rawQuery) || devQuery.includes(devTag)) {
+      score += 320;
+      break;
+    }
+  }
+
+  // 5. ID Match (e.g., "bhaktamar-stotra")
   if (id.includes(rawQuery) || id.includes(phoneticQuery)) {
     score += 320;
   }
 
-  // 5. Category or SubCategory Exact Match
-  if (cat.includes(rawQuery) || subCat.includes(rawQuery) || devQuery.includes(cat)) {
-    score += 240;
+  // 6. Category or SubCategory Exact Match
+  if (cat.includes(rawQuery) || subCat.includes(rawQuery) || devQuery.includes(cat) || devQuery.includes(subCat)) {
+    score += 260;
   }
 
-  // 6. Author Match
+  // 7. Author Match
   if (devAuthor.includes(devQuery) || author.includes(rawQuery)) {
     score += 200;
   }
 
-  // 7. Badge Match
+  // 8. Badge Match
   if (badge.includes(rawQuery)) {
     score += 150;
   }
 
-  // 8. Description Match
+  // 9. Description Match
   if (devDesc.includes(devQuery) || desc.includes(rawQuery)) {
     score += 120;
   }
 
-  // 9. Token-level matching: every word in multi-word query
+  // 10. Verses / Lyrics / Body Content Match (ensures pujas/stotras with verses are discoverable)
+  const bodyText = extractSearchableText(item);
+  if (bodyText) {
+    const normBody = normalizeDevanagari(bodyText.toLowerCase());
+    if (normBody.includes(devQuery) || bodyText.toLowerCase().includes(rawQuery)) {
+      score += 240;
+    }
+  }
+
+  // 11. Token-level matching: every word in multi-word query
   const queryTokens = rawQuery.split(/\s+/).filter(Boolean);
   if (queryTokens.length > 1) {
     let matchedTokens = 0;
-    const directCorpus = `${devTitle} ${id} ${devDesc} ${cat} ${subCat} ${devAuthor} ${badge}`;
+    const tagString = tags.join(' ');
+    const directCorpus = `${devTitle} ${id} ${devDesc} ${cat} ${subCat} ${devAuthor} ${badge} ${tagString} ${bodyText.slice(0, 3000)}`;
     const englishCorpus = `${id} ${transTitle} ${phonTitle} ${cat}`;
 
     for (const token of queryTokens) {

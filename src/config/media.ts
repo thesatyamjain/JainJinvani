@@ -66,12 +66,71 @@ export function getMediaUrl(trackKey: keyof typeof MEDIA_TRACKS): string {
   return track.fallbackUrl || track.r2Path;
 }
 
+export interface AudioTimestamp {
+  verseIndex: number;
+  start: number;
+  end?: number;
+  label?: string;
+}
+
+export interface ContentAudioTrack {
+  title: string;
+  artist?: string;
+  url: string;
+  timestamps?: AudioTimestamp[];
+}
+
+// Canonical verse timestamp mappings for synchronized read-along
+export const CANONICAL_TIMESTAMPS: Record<string, AudioTimestamp[]> = {
+  'namokar-mantra': [
+    { verseIndex: 0, start: 0, end: 8, label: 'नमो अरिहंताणं' },
+    { verseIndex: 1, start: 8, end: 15, label: 'नमो सिद्धाणं' },
+    { verseIndex: 2, start: 15, end: 22, label: 'नमो आइरियाणं' },
+    { verseIndex: 3, start: 22, end: 30, label: 'नमो उवज्झायाणं' },
+    { verseIndex: 4, start: 30, end: 39, label: 'नमो लोए सव्वसाहूणं' },
+    { verseIndex: 5, start: 39, end: 55, label: 'एसोपञ्चणमोक्कारो' },
+  ],
+  'aarti-mangal': [
+    { verseIndex: 0, start: 0, end: 18, label: 'दीप मंगलीक' },
+    { verseIndex: 1, start: 18, end: 42, label: 'प्रथम आरति' },
+    { verseIndex: 2, start: 42, end: 68, label: 'दूजी आरति' },
+    { verseIndex: 3, start: 68, end: 94, label: 'तीजी आरति' },
+    { verseIndex: 4, start: 94, end: 120, label: 'चौथी आरति' },
+    { verseIndex: 5, start: 120, end: 150, label: 'पांचवी आरति' },
+  ],
+  'jain-aarti': [
+    { verseIndex: 0, start: 0, end: 18, label: 'दीप मंगलीक' },
+    { verseIndex: 1, start: 18, end: 42, label: 'प्रथम आरति' },
+    { verseIndex: 2, start: 42, end: 68, label: 'दूजी आरति' },
+    { verseIndex: 3, start: 68, end: 94, label: 'तीजी आरति' },
+    { verseIndex: 4, start: 94, end: 120, label: 'चौथी आरति' },
+    { verseIndex: 5, start: 120, end: 150, label: 'पांचवी आरति' },
+  ],
+};
+
 /**
  * Resolves whether a scripture has an associated audio track available for read-along playback.
+ * Checks item-level audioUrl / audioTimestamps first, then falls back to built-in tracks.
  */
-export function getContentAudioTrack(contentId?: string): { title: string; artist?: string; url: string } | null {
-  if (!contentId) return null;
-  const cleanId = contentId.toLowerCase().replace(/_/g, '-');
+export function getContentAudioTrack(
+  contentId?: string,
+  item?: { audioUrl?: string; audio?: string; title?: string; author?: string; artist?: string; audioTimestamps?: AudioTimestamp[]; [key: string]: any }
+): ContentAudioTrack | null {
+  const cleanId = (contentId || (item && item.id) || '').toLowerCase().replace(/_/g, '-');
+
+  // 1. Direct item audioUrl
+  if (item?.audioUrl || item?.audio) {
+    const rawUrl = item.audioUrl || item.audio || '';
+    const resolvedUrl = rawUrl.startsWith('/') && R2_BASE_URL ? `${R2_BASE_URL}${rawUrl}` : rawUrl;
+    return {
+      title: item.title || 'ऑडियो पाठ',
+      artist: item.author || item.artist || 'पारंपरिक जैन स्वर',
+      url: resolvedUrl,
+      timestamps: item.audioTimestamps || CANONICAL_TIMESTAMPS[cleanId],
+    };
+  }
+
+  if (!cleanId) return null;
 
   let track: MediaTrack | null = null;
   if (cleanId.includes('bhaktamar')) {
@@ -94,5 +153,6 @@ export function getContentAudioTrack(contentId?: string): { title: string; artis
     title: track.title,
     artist: track.artist,
     url,
+    timestamps: CANONICAL_TIMESTAMPS[cleanId] || (track.id ? CANONICAL_TIMESTAMPS[track.id] : undefined),
   };
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import {
   ChevronLeft,
@@ -13,6 +13,9 @@ import {
   BookOpen,
   Feather,
   ShieldAlert,
+  Search,
+  X,
+  Filter,
 } from 'lucide-react';
 import {
   getJainDate,
@@ -21,6 +24,8 @@ import {
   PACHCHAKKHAN_LIST,
   MONTH_NAMES_HINDI,
   WEEK_DAYS_SHORT,
+  JAIN_MONTHS,
+  DIGAMBARA_FESTIVALS,
   type FestivalInfo,
 } from '../lib/panchang';
 
@@ -44,8 +49,28 @@ interface DayData {
 export const Panchang = ({ onBack }: PanchangProps) => {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [selectedDay, setSelectedDay] = useState<number>(() => new Date().getDate());
-  const [filterType, setFilterType] = useState<'all' | 'parva' | 'mahapara' | 'kalyanak'>('all');
+  const [filterType, setFilterType] = useState<'all' | 'parva' | 'mahapara' | 'kalyanak' | 'vrata'>('all');
   const [selectedPachchakkhan, setSelectedPachchakkhan] = useState<string>('navkarshi');
+  const [showAnnualModal, setShowAnnualModal] = useState(false);
+  const [annualSearch, setAnnualSearch] = useState('');
+  const [annualMonthFilter, setAnnualMonthFilter] = useState<string>('all');
+  const [annualCategoryFilter, setAnnualCategoryFilter] = useState<'all' | 'mahapara' | 'kalyanak' | 'vrata'>('all');
+
+  const filteredAnnualFestivals = useMemo(() => {
+    return DIGAMBARA_FESTIVALS.filter((f) => {
+      if (annualMonthFilter !== 'all' && f.jainMonth !== annualMonthFilter) return false;
+      if (annualCategoryFilter !== 'all' && f.category !== annualCategoryFilter) return false;
+      if (annualSearch.trim()) {
+        const q = annualSearch.trim().toLowerCase();
+        const matchName = f.name.toLowerCase().includes(q);
+        const matchDesc = f.description?.toLowerCase().includes(q) ?? false;
+        const matchRules = f.rules?.toLowerCase().includes(q) ?? false;
+        const matchMonth = f.jainMonth.toLowerCase().includes(q);
+        if (!matchName && !matchDesc && !matchRules && !matchMonth) return false;
+      }
+      return true;
+    });
+  }, [annualMonthFilter, annualCategoryFilter, annualSearch]);
 
   // Compute all day details for the current month synchronously with useMemo (no empty initial render)
   const daysData = useMemo<DayData[]>(() => {
@@ -145,12 +170,17 @@ export const Panchang = ({ onBack }: PanchangProps) => {
     () => daysData.filter((d) => d.festival?.category === 'kalyanak').length,
     [daysData]
   );
+  const vrataDaysCount = useMemo(
+    () => daysData.filter((d) => d.festival?.category === 'vrata').length,
+    [daysData]
+  );
 
   const filteredDaysData = useMemo(() => {
     return daysData.filter((d) => {
       if (filterType === 'parva') return d.isParvaTithi;
       if (filterType === 'mahapara') return d.festival?.category === 'mahapara';
       if (filterType === 'kalyanak') return d.festival?.category === 'kalyanak';
+      if (filterType === 'vrata') return d.festival?.category === 'vrata';
       return true;
     });
   }, [daysData, filterType]);
@@ -196,8 +226,19 @@ export const Panchang = ({ onBack }: PanchangProps) => {
           </div>
         </div>
 
-        {/* Timings summary pill badges */}
+        {/* Timings summary pill badges & Annual Directory Button */}
         <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto py-1 no-scrollbar">
+          <motion.button
+            whileTap={{ scale: 0.94 }}
+            whileHover={{ scale: 1.04 }}
+            onClick={() => setShowAnnualModal(true)}
+            className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl bg-gradient-to-r from-amber-500/25 to-amber-600/20 hover:from-amber-500/35 hover:to-amber-600/30 border border-amber-400/50 text-amber-200 text-xs sm:text-sm font-gotu font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg shadow-amber-500/10 shrink-0"
+            title="सभी १२ जैन महीनों के पर्व व कल्याणक"
+          >
+            <Award className="w-4 h-4 text-amber-400" />
+            <span>वार्षिक पर्व निर्देशिका ({DIGAMBARA_FESTIVALS.length})</span>
+          </motion.button>
+
           <GlassCard
             tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
             variant="gilded"
@@ -365,6 +406,20 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               >
                 <span>🙏 कल्याणक</span>
                 <span className="text-[10px] px-1 rounded-full bg-white/10 font-mono">{kalyanakDaysCount}</span>
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                onClick={() => setFilterType('vrata')}
+                className={`px-2.5 sm:px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border flex items-center gap-1 transition-[background-color,border-color,color] ${
+                  filterType === 'vrata'
+                    ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
+                    : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
+                }`}
+              >
+                <span>🪷 व्रत व साधना</span>
+                <span className="text-[10px] px-1 rounded-full bg-white/10 font-mono">{vrataDaysCount}</span>
               </motion.button>
             </div>
 
@@ -707,9 +762,206 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                   </li>
                 ))}
             </ul>
+
+            <button
+              onClick={() => setShowAnnualModal(true)}
+              className="w-full mt-3 py-2.5 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-amber-200 text-xs font-gotu font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            >
+              <Award className="w-3.5 h-3.5 text-amber-400" />
+              <span>सम्पूर्ण दिगम्बर जैन वार्षिक पर्व देखें (12 मास)</span>
+            </button>
           </GlassCard>
         </motion.div>
       </div>
+
+      {/* Annual Digambara Festivals Directory Modal */}
+      <AnimatePresence>
+        {showAnnualModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 bg-slate-950/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="w-full max-w-4xl max-h-[90vh] flex flex-col rounded-3xl bg-gradient-to-b from-slate-900/95 via-slate-950/95 to-black/95 border border-amber-500/30 shadow-2xl shadow-amber-950/40 overflow-hidden"
+            >
+              {/* Modal Header */}
+              <div className="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between shrink-0 bg-white/[0.02]">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
+                    <Award className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold font-notoserif text-white flex items-center gap-2">
+                      <span>सम्पूर्ण दिगम्बर जैन वार्षिक पर्व निर्देशिका</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-mono">
+                        {DIGAMBARA_FESTIVALS.length} पर्व
+                      </span>
+                    </h2>
+                    <p className="text-xs text-slate-400 font-gotu">
+                      १२ जैन मास के सभी महापर्व, कल्याणक, अष्टान्हिका, दशलक्षण एवं व्रत
+                    </p>
+                  </div>
+                </div>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.1 }}
+                  onClick={() => setShowAnnualModal(false)}
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              {/* Search & Filters */}
+              <div className="p-4 sm:p-6 border-b border-white/10 space-y-3 shrink-0 bg-white/[0.01]">
+                {/* Search Bar */}
+                <div className="relative w-full">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={annualSearch}
+                    onChange={(e) => setAnnualSearch(e.target.value)}
+                    placeholder="पर्व, तीर्थंकर, कल्याणक या मास खोजें (जैसे: महावीर, दशलक्षण, पार्श्वनाथ, श्रुतपंचमी)..."
+                    className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-white/5 border border-white/10 focus:border-amber-400/60 focus:bg-amber-500/5 text-sm text-white placeholder-slate-400 font-gotu outline-none transition-all"
+                  />
+                  {annualSearch && (
+                    <button
+                      onClick={() => setAnnualSearch('')}
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Category Filters */}
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                  <span className="text-xs text-slate-400 font-gotu mr-1 flex items-center gap-1">
+                    <Filter className="w-3 h-3 text-amber-400" /> श्रेणी:
+                  </span>
+                  {[
+                    { id: 'all', label: 'सभी पर्व' },
+                    { id: 'mahapara', label: '🚩 महापर्व' },
+                    { id: 'kalyanak', label: '🕊️ कल्याणक' },
+                    { id: 'vrata', label: '🪷 व्रत व आराधना' },
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setAnnualCategoryFilter(cat.id as any)}
+                      className={`px-3 py-1 rounded-xl text-xs font-gotu cursor-pointer border transition-colors ${
+                        annualCategoryFilter === cat.id
+                          ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 font-bold'
+                          : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Jain Months Filter Row */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs font-gotu">
+                  <button
+                    onClick={() => setAnnualMonthFilter('all')}
+                    className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border transition-colors ${
+                      annualMonthFilter === 'all'
+                        ? 'bg-amber-500 text-slate-950 font-bold border-amber-400'
+                        : 'bg-white/5 text-slate-300 border-white/5 hover:text-white'
+                    }`}
+                  >
+                    सभी १२ मास
+                  </button>
+                  {JAIN_MONTHS.map((m) => (
+                    <button
+                      key={m}
+                      onClick={() => setAnnualMonthFilter(m)}
+                      className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border transition-colors ${
+                        annualMonthFilter === m
+                          ? 'bg-amber-500 text-slate-950 font-bold border-amber-400'
+                          : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
+                      }`}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Festivals List */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 custom-scrollbar">
+                {filteredAnnualFestivals.length === 0 ? (
+                  <div className="text-center py-12 text-slate-400 font-gotu">
+                    <p className="text-base text-slate-300">कोई पर्व नहीं मिला</p>
+                    <p className="text-xs mt-1 text-slate-500">कृपया खोज शब्द या फ़िल्टर बदलकर पुनः प्रयास करें।</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {filteredAnnualFestivals.map((fest) => {
+                      const pakshaLabel = fest.paksha === 'Shukla' ? 'शुक्ल' : 'कृष्ण';
+                      return (
+                        <div
+                          key={fest.id}
+                          className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-2 group"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-2 mb-1.5">
+                              <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[11px] font-gotu font-bold">
+                                {fest.jainMonth} {pakshaLabel} {fest.tithi === 15 ? (fest.paksha === 'Shukla' ? 'पूर्णिमा' : 'अमावस्या') : `${fest.tithi}`}
+                              </span>
+                              <span
+                                className={`text-[10px] font-gotu px-2 py-0.5 rounded-full border ${
+                                  fest.category === 'mahapara'
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-400/40 font-bold'
+                                    : fest.category === 'kalyanak'
+                                    ? 'bg-blue-500/20 text-blue-300 border-blue-400/30'
+                                    : 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30'
+                                }`}
+                              >
+                                {fest.category === 'mahapara'
+                                  ? '🚩 महापर्व'
+                                  : fest.category === 'kalyanak'
+                                  ? '🕊️ कल्याणक'
+                                  : '🪷 व्रत/साधना'}
+                              </span>
+                            </div>
+
+                            <h3 className="text-base font-bold font-notoserif text-white group-hover:text-amber-200 transition-colors leading-snug">
+                              {fest.name}
+                            </h3>
+
+                            <p className="text-xs text-slate-300 font-gotu mt-1 leading-relaxed">
+                              {fest.description}
+                            </p>
+                          </div>
+
+                          {fest.rules && (
+                            <div className="pt-2 border-t border-white/5 text-[11px] text-amber-300/90 font-gotu flex items-center gap-1.5">
+                              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+                              <span>नियम / अनुष्ठान: {fest.rules}</span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-3.5 sm:p-4 border-t border-white/10 flex items-center justify-between bg-white/[0.02] text-xs font-gotu text-slate-400">
+                <span>कुल प्रदर्शित पर्व: {filteredAnnualFestivals.length}</span>
+                <button
+                  onClick={() => setShowAnnualModal(false)}
+                  className="px-4 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-colors cursor-pointer"
+                >
+                  बंद करें
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

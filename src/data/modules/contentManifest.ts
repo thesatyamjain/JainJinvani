@@ -435,6 +435,7 @@ export const contentManifest: Record<string, string> = {
   "puja-pratigya-path": "puja",
   "puja-vidhi": "vidhi",
   "puja-vidhi-prarambh": "puja",
+  "vidyapoojaanjali-puja-pithika": "puja",
   "punyashrav-puja": "vrat",
   "punyashrav-vrat-vidhi": "vrat",
   "purandar-vrat-vidhi": "vrat",

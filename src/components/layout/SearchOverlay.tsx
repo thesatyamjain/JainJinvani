@@ -39,6 +39,9 @@ const popularSuggestions = [
   'अभिषेक व शांतिधारा',
   'भक्तामर स्तोत्र',
   'णमोकार महामंत्र',
+  'दशलक्षण',
+  'सिद्धपूजा',
+  'शांति-विधान',
   'समयसार',
   'तत्त्वार्थ सूत्र',
   'मेरी भावना',
@@ -733,6 +736,19 @@ export const SearchOverlay = ({
                                 </span>
                               )}
                             </div>
+
+                            {item.tags && item.tags.length > 0 && (
+                              <div className="flex flex-wrap items-center gap-1 mt-1">
+                                {item.tags.slice(0, 3).map((tag, tIdx) => (
+                                  <span
+                                    key={tIdx}
+                                    className="text-[9px] font-gotu px-1.5 py-0.2 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/80"
+                                  >
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
 
