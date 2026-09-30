@@ -1,0 +1,89 @@
+name: Build & Release Mobile APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Web Dependencies
+        run: npm ci
+
+      - name: Build Web App & Sync to Mobile Assets
+        run: npm run sync:mobile
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Flutter Dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Build Android Release APK
+        working-directory: mobile
+        run: flutter build apk --release
+
+      - name: Prepare APK Asset
+        id: prep
+        run: |
+          VERSION="${{ github.event.inputs.version || github.ref_name }}"
+          cp mobile/build/app/outputs/flutter-apk/app-release.apk "JainJinvani-${VERSION}.apk"
+          echo "tag_name=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.prep.outputs.tag_name }}
+          name: Jain Jinvani Mobile App ${{ steps.prep.outputs.tag_name }}
+          body: |
+            ## 📱 जैन जिनवाणी मोबाइल ऐप (${{ steps.prep.outputs.tag_name }})
+
+            जैन जिनवाणी (Jain Jinvani) का आधिकारिक एंड्रॉइड ऐप संस्करण।
+
+            ### ✨ मुख्य विशेषताएं (Key Features):
+            - **100% ऑफ़लाइन (Offline First):** बिना इंटरनेट कनेक्शन के संपूर्ण जैन पूजा, आरती, स्तोत्र, पाठ एवं चालीसा।
+            - **विशाल संग्रह:** 700+ धार्मिक रचनाएं, तीर्थंकर परिचय एवं नित्य नियम।
+            - **ऑडियो प्लेयर:** णमोकार महामंत्र एवं भक्तामर स्तोत्र शुद्ध उच्चारण सहित।
+            - **दिव्य डार्क मोड:** पढ़ने में अत्यंत सुगम एवं मनमोहक इंटरफ़ेस।
+
+            ---
+
+            ### 📥 कैसे इंस्टॉल करें (How to Install):
+            1. नीचे **Assets** में से **`JainJinvani-${{ steps.prep.outputs.tag_name }}.apk`** पर क्लिक करके डाउनलोड करें।
+            2. फ़ोन में डाउनलोड हुई फ़ाइल खोलें और **Install** दबाएं।
+            3. यदि फ़ोन पूछे तो *"Allow installation from this source / Chrome"* को चालू करें।
+          files: |
+            JainJinvani-*.apk
+            mobile/build/app/outputs/flutter-apk/app-release.apk
+          draft: false
+          prerelease: false

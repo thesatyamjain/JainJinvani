@@ -66,6 +66,8 @@
       "check": "npm run typecheck && npm run build",
       "icons": "node scripts/generate_pwa_icons.js",
       "sitemap": "node scripts/generate_sitemap.js",
-            "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
+      "export:mobile-data": "node scripts/export_data_to_json.js",
+      "sync:mobile": "npm run build && node scripts/sync_to_mobile.js",
+      "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
       }
 }

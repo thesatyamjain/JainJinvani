@@ -1,0 +1,225 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
+import 'services/local_asset_server.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Dark immersive status bar & navigation bar
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Color(0xFF05060A),
+      systemNavigationBarIconBrightness: Brightness.light,
+    ),
+  );
+
+  runApp(const JainJinvaniApp());
+}
+
+class JainJinvaniApp extends StatelessWidget {
+  const JainJinvaniApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'जैन जिनवाणी',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF05060A),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFFFFB800),
+          surface: Color(0xFF05060A),
+        ),
+      ),
+      home: const WebAppShell(),
+    );
+  }
+}
+
+class WebAppShell extends StatefulWidget {
+  const WebAppShell({super.key});
+
+  @override
+  State<WebAppShell> createState() => _WebAppShellState();
+}
+
+class _WebAppShellState extends State<WebAppShell> {
+  final LocalAssetServer _server = LocalAssetServer();
+  WebViewController? _controller;
+  bool _isLoading = true;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _initController();
+    _startServerAndLoad();
+  }
+
+  void _initController() {
+    try {
+      final controller = WebViewController()
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setBackgroundColor(const Color(0xFF05060A))
+        ..setNavigationDelegate(
+          NavigationDelegate(
+            onPageStarted: (String url) {
+              if (mounted) setState(() => _isLoading = true);
+            },
+            onPageFinished: (String url) {
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                  _errorMessage = null;
+                });
+              }
+            },
+            onWebResourceError: (WebResourceError error) {
+              debugPrint('WebResource error: ${error.description}');
+            },
+          ),
+        );
+
+      if (controller.platform is AndroidWebViewController) {
+        AndroidWebViewController.enableDebugging(false);
+        (controller.platform as AndroidWebViewController)
+            .setMediaPlaybackRequiresUserGesture(false);
+      }
+
+      _controller = controller;
+    } catch (e) {
+      debugPrint('Controller init note: $e');
+    }
+  }
+
+  Future<void> _startServerAndLoad() async {
+    try {
+      final port = await _server.start();
+      if (_controller != null) {
+        await _controller!.loadRequest(
+          Uri.parse('http://127.0.0.1:$port/index.html'),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _server.stop();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+        if (didPop) return;
+        if (_controller != null && await _controller!.canGoBack()) {
+          await _controller!.goBack();
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFF05060A),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: Stack(
+            children: [
+              if (_errorMessage == null && _controller != null)
+                WebViewWidget(controller: _controller!)
+              else if (_errorMessage != null)
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.error_outline,
+                          size: 48,
+                          color: Color(0xFFFFB800),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'लोड करने में समस्या आई',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _errorMessage!,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            color: Colors.white70,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _isLoading = true;
+                              _errorMessage = null;
+                            });
+                            _startServerAndLoad();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFFB800),
+                            foregroundColor: Colors.black,
+                          ),
+                          child: const Text('पुनः प्रयास करें'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (_isLoading)
+                Container(
+                  color: const Color(0xFF05060A),
+                  child: const Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFFFFB800),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'जैन जिनवाणी लोड हो रहा है...',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 14,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
