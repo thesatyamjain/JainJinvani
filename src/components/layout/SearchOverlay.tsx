@@ -127,7 +127,6 @@ export const SearchOverlay = ({
 
   const allItems = useMemo(() => getAllItems(), []);
 
-  const debouncedQuery = useDebounce(query, 300);
 
   // Recent Search History in localStorage
   const [recentSearches, setRecentSearches] = useState<string[]>(() => {
@@ -785,4 +784,4 @@ export const SearchOverlay = ({
       )}
     </AnimatePresence>
   );
-};
+};

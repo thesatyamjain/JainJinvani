@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'services/local_asset_server.dart';
+import 'services/update_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +63,13 @@ class _WebAppShellState extends State<WebAppShell> {
     super.initState();
     _initController();
     _startServerAndLoad();
+
+    // Check for OTA updates silently in the background after launch
+    Future.delayed(const Duration(seconds: 4), () {
+      if (mounted) {
+        UpdateService.checkForUpdates(context, silent: true);
+      }
+    });
   }
 
   void _initController() {
@@ -89,6 +97,14 @@ class _WebAppShellState extends State<WebAppShell> {
               debugPrint('WebResource error: ${error.description}');
             },
           ),
+        )
+        ..addJavaScriptChannel(
+          'JinvaniNative',
+          onMessageReceived: (JavaScriptMessage message) {
+            if (message.message == 'check_update') {
+              UpdateService.checkForUpdates(context, silent: false);
+            }
+          },
         );
 
       if (controller.platform is AndroidWebViewController) {
