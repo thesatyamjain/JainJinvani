@@ -65,6 +65,7 @@
       "typecheck": "tsc --noEmit",
       "check": "npm run typecheck && npm run build",
       "icons": "node scripts/generate_pwa_icons.js",
+      "icons:mobile": "powershell -ExecutionPolicy Bypass -File scripts/generate_mobile_icons.ps1",
       "sitemap": "node scripts/generate_sitemap.js",
       "export:mobile-data": "node scripts/export_data_to_json.js",
       "sync:mobile": "npm run build && node scripts/sync_to_mobile.js",
