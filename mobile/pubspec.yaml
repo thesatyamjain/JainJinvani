@@ -79,8 +79,6 @@ flutter:
     - assets/web/audio/
     - assets/web/icons/
     - assets/web/screenshots/
-    - assets/data/
-    - assets/audio/
     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
