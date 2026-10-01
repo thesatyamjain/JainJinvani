@@ -127,6 +127,8 @@ export const SearchOverlay = ({
 
   const allItems = useMemo(() => getAllItems(), []);
 
+  const debouncedQuery = useDebounce(query, 300);
+
   // Recent Search History in localStorage
   const [recentSearches, setRecentSearches] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
@@ -232,7 +234,7 @@ export const SearchOverlay = ({
   // Reset selected item index on query or category change
   useEffect(() => {
     setSelectedIndex(0);
-  }, [query, activeCategory]);
+  }, [debouncedQuery, activeCategory]);
 
   // ⚡ BOLT OPTIMIZATION: Category counts now depend on debouncedQuery to prevent main thread blocking
   // Category counts
