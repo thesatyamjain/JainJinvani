@@ -39,6 +39,7 @@ export const GlassCard = ({
   intensity = 'high',
   sheen = true,
   tilt = false,
+  onClick,
   ...props
 }: GlassCardProps) => {
   const variantClasses = {
@@ -61,6 +62,7 @@ export const GlassCard = ({
   };
 
   const isGilded = variant === 'gilded' || variant === 'sacred';
+  const isInteractive = Boolean(onClick);
 
   const cardContent = (
     <>
@@ -91,14 +93,27 @@ export const GlassCard = ({
       innerClasses
     );
 
-  const cardBody = (innerClasses?: string) => {
-    // If card is interactive (has onClick) and tilt is not active, apply Framer Motion tactile spring
-    if (props.onClick && !tilt) {
+  // If card is interactive (has onClick), ensure click handler is always attached & tactile feedback provided
+  if (isInteractive) {
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    if (!tilt || isTouchDevice) {
       return (
         <motion.div
-          whileTap={{ scale: 0.985 }}
+          whileTap={{ scale: 0.982 }}
           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-          className={cardClasses(innerClasses)}
+          className={cardClasses(className)}
+          onClick={onClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onClick?.(e as any);
+            }
+          }}
           {...(props as any)}
         >
           {cardContent}
@@ -106,20 +121,47 @@ export const GlassCard = ({
       );
     }
 
-    return (
-      <div
-        className={cardClasses(innerClasses)}
-        {...(tilt ? {} : props)}
-      >
-        {cardContent}
-      </div>
-    );
-  };
+    // Desktop fine pointer with 3D tilt
+    const tiltOptions = typeof tilt === 'object' ? tilt : {};
+    const resolvedGlareColor = tiltOptions.glareColor || (isGilded ? 'amber' : 'white');
+    const { outer, inner } = splitGridClasses(className);
 
+    return (
+      <TiltCard
+        className={cn(outer, className?.includes('h-full') ? 'h-full' : '', 'cursor-pointer')}
+        glareColor={resolvedGlareColor}
+        contentClassName={className?.includes('h-full') ? 'h-full' : ''}
+        onClick={onClick}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick?.(e as any);
+          }
+        }}
+        {...tiltOptions}
+        {...props}
+      >
+        <div className={cardClasses(cn(inner, 'w-full h-full'))}>
+          {cardContent}
+        </div>
+      </TiltCard>
+    );
+  }
+
+  // Non-interactive container
   if (tilt) {
-    // On touch/mobile devices, skip 3D tilt calculations to preserve 60/120 FPS scrolling performance
-    if (typeof window !== 'undefined' && window.matchMedia('(hover: none), (pointer: coarse)').matches) {
-      return cardBody(className);
+    const isTouchDevice =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    if (isTouchDevice) {
+      return (
+        <div className={cardClasses(className)} {...props}>
+          {cardContent}
+        </div>
+      );
     }
 
     const tiltOptions = typeof tilt === 'object' ? tilt : {};
@@ -134,13 +176,18 @@ export const GlassCard = ({
         {...tiltOptions}
         {...props}
       >
-        {cardBody(cn(inner, 'w-full h-full'))}
+        <div className={cardClasses(cn(inner, 'w-full h-full'))}>
+          {cardContent}
+        </div>
       </TiltCard>
     );
   }
 
-  return cardBody(className);
+  return (
+    <div className={cardClasses(className)} {...props}>
+      {cardContent}
+    </div>
+  );
 };
 
 export { TiltCard, type TiltOptions, type TiltCardProps } from './TiltCard';
-
