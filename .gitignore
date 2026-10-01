@@ -137,3 +137,8 @@ dist-ssr
 scratch/
 antigravity_skills_temp/
 build_corrupted/
+
+# Android signing keys & secrets
+*.jks
+*.keystore
+key.properties

@@ -48,3 +48,5 @@ app.*.map.json
 key.properties
 *.jks
 *.keystore
+keystore_base64.txt
+*_base64.txt

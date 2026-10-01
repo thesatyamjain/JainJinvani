@@ -41,8 +41,12 @@ android {
             if (keystorePropertiesFile.exists()) {
                 keyAlias = keystoreProperties.getProperty("keyAlias")
                 keyPassword = keystoreProperties.getProperty("keyPassword")
-                storeFile = keystoreProperties.getProperty("storeFile")?.let { file(it) }
                 storePassword = keystoreProperties.getProperty("storePassword")
+                val storePath = keystoreProperties.getProperty("storeFile")
+                if (storePath != null) {
+                    val appFile = file(storePath)
+                    storeFile = if (appFile.exists()) appFile else rootProject.file(storePath)
+                }
             }
         }
     }
@@ -55,8 +59,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
+            val releaseSigning = signingConfigs.getByName("release")
+            signingConfig = if (keystorePropertiesFile.exists() && releaseSigning.storeFile?.exists() == true) {
+                releaseSigning
             } else {
                 signingConfigs.getByName("debug")
             }

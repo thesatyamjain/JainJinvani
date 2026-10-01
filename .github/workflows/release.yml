@@ -49,11 +49,32 @@ jobs:
         working-directory: mobile
         run: flutter pub get
 
+      - name: Configure Keystore Signing
+        working-directory: mobile/android
+        run: |
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "Configuring release signing from GitHub Secrets..."
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > upload-keystore.jks
+            cat <<EOF > key.properties
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=upload-keystore.jks
+          EOF
+            echo "Release keystore configured successfully."
+          else
+            echo "::warning::ANDROID_KEYSTORE_BASE64 secret not found. Releases will fall back to debug signing. Add GitHub Secrets to guarantee seamless in-place app updates!"
+          fi
+
       - name: Build Android Release APK & App Bundle
         working-directory: mobile
         run: |
-          flutter build apk --release
-          flutter build appbundle --release
+          RAW_VERSION="${{ github.event.inputs.version || github.ref_name }}"
+          CLEAN_VERSION="${RAW_VERSION#v}"
+          BUILD_NUMBER="${{ github.run_number }}"
+          echo "Building Version: $CLEAN_VERSION (Version Code / Build Number: $BUILD_NUMBER)"
+          flutter build apk --release --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
+          flutter build appbundle --release --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
 
       - name: Prepare Release Assets
         id: prep
