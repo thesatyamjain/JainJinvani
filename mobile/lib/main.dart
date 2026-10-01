@@ -7,13 +7,14 @@ import 'services/local_asset_server.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Dark immersive status bar & navigation bar
+  // Dark immersive edge-to-edge status bar & navigation bar
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Color(0xFF05060A),
       systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarDividerColor: Colors.transparent,
     ),
   );
 
@@ -53,6 +54,7 @@ class _WebAppShellState extends State<WebAppShell> {
   WebViewController? _controller;
   bool _isLoading = true;
   String? _errorMessage;
+  DateTime? _lastBackPressTime;
 
   @override
   void initState() {
@@ -129,6 +131,37 @@ class _WebAppShellState extends State<WebAppShell> {
         if (didPop) return;
         if (_controller != null && await _controller!.canGoBack()) {
           await _controller!.goBack();
+          return;
+        }
+
+        final now = DateTime.now();
+        if (_lastBackPressTime == null ||
+            now.difference(_lastBackPressTime!) > const Duration(seconds: 2)) {
+          _lastBackPressTime = now;
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'ऐप बंद करने के लिए दोबारा बैक दबाएं',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                backgroundColor: const Color(0xFF141724),
+                duration: const Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: const BorderSide(color: Color(0x33FFB800)),
+                ),
+                margin: const EdgeInsets.only(bottom: 24, left: 48, right: 48),
+              ),
+            );
+          }
         } else {
           SystemNavigator.pop();
         }
