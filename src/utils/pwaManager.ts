@@ -47,8 +47,12 @@ export function registerPwaServiceWorker(): void {
     return;
   }
 
-  // In development mode, unregister any active service worker to prevent stale cached bundles
-  if (import.meta.env.DEV) {
+  // In development mode or inside native mobile app shell, unregister any active service worker
+  const isNativeApp =
+    (window as any).JinvaniNative !== undefined ||
+    navigator.userAgent.includes('JainJinvaniApp');
+
+  if (import.meta.env.DEV || isNativeApp) {
     navigator.serviceWorker.getRegistrations().then((registrations) => {
       for (const registration of registrations) {
         registration.unregister();

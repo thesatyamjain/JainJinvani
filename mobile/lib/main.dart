@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -57,6 +58,8 @@ class _WebAppShellState extends State<WebAppShell> {
   bool _hasInitiallyLoaded = false;
   String? _errorMessage;
   DateTime? _lastBackPressTime;
+  Timer? _watchdogTimer;
+  Timer? _updateTimer;
 
   @override
   void initState() {
@@ -65,7 +68,7 @@ class _WebAppShellState extends State<WebAppShell> {
     _startServerAndLoad();
 
     // Check for OTA updates silently in the background after launch
-    Future.delayed(const Duration(seconds: 4), () {
+    _updateTimer = Timer(const Duration(seconds: 4), () {
       if (mounted) {
         UpdateService.checkForUpdates(context, silent: true);
       }
@@ -77,6 +80,7 @@ class _WebAppShellState extends State<WebAppShell> {
       final controller = WebViewController()
         ..setJavaScriptMode(JavaScriptMode.unrestricted)
         ..setBackgroundColor(const Color(0xFF05060A))
+        ..setUserAgent('JainJinvaniApp/1.0.1 (Android; Mobile)')
         ..setNavigationDelegate(
           NavigationDelegate(
             onPageStarted: (String url) {
@@ -94,7 +98,15 @@ class _WebAppShellState extends State<WebAppShell> {
               }
             },
             onWebResourceError: (WebResourceError error) {
-              debugPrint('WebResource error: ${error.description}');
+              debugPrint('WebResource error: ${error.errorCode} - ${error.description}');
+              if (error.isForMainFrame ?? false) {
+                if (mounted && !_hasInitiallyLoaded) {
+                  setState(() {
+                    _isLoading = false;
+                    _errorMessage = 'लोड करने में असमर्थ (${error.errorCode}): ${error.description}';
+                  });
+                }
+              }
             },
           ),
         )
@@ -116,6 +128,12 @@ class _WebAppShellState extends State<WebAppShell> {
       _controller = controller;
     } catch (e) {
       debugPrint('Controller init note: $e');
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -127,6 +145,16 @@ class _WebAppShellState extends State<WebAppShell> {
           Uri.parse('http://127.0.0.1:$port/index.html'),
         );
       }
+
+      // Safety watchdog: ensure loading spinner is dismissed after at most 3.5 seconds
+      _watchdogTimer = Timer(const Duration(milliseconds: 3500), () {
+        if (mounted && _isLoading && _errorMessage == null) {
+          setState(() {
+            _isLoading = false;
+            _hasInitiallyLoaded = true;
+          });
+        }
+      });
     } catch (e) {
       if (mounted) {
         setState(() {
@@ -139,6 +167,8 @@ class _WebAppShellState extends State<WebAppShell> {
 
   @override
   void dispose() {
+    _watchdogTimer?.cancel();
+    _updateTimer?.cancel();
     _server.stop();
     super.dispose();
   }

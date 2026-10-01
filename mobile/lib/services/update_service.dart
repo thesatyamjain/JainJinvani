@@ -323,7 +323,7 @@ class _UpdateDialogState extends State<_UpdateDialog> {
               constraints: const BoxConstraints(maxHeight: 120),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.04),
+                color: const Color(0x0AFFFFFF),
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: Colors.white10),
               ),

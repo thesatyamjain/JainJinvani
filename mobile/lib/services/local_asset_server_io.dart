@@ -3,14 +3,43 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class LocalAssetServer {
+  static const int defaultPort = 24861; // Fixed origin keeps localStorage, bookmarks & settings intact
   HttpServer? _server;
   int? port;
   final Map<String, Uint8List> _cache = {};
 
   Future<int> start() async {
-    _server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+    if (_server != null && port != null) {
+      return port!;
+    }
+
+    try {
+      _server = await HttpServer.bind(
+        InternetAddress.loopbackIPv4,
+        defaultPort,
+        shared: true,
+      );
+    } catch (_) {
+      try {
+        _server = await HttpServer.bind(
+          InternetAddress.anyIPv4,
+          defaultPort,
+          shared: true,
+        );
+      } catch (_) {
+        // Fallback to random ephemeral port if default port is occupied
+        _server = await HttpServer.bind(
+          InternetAddress.loopbackIPv4,
+          0,
+          shared: true,
+        );
+      }
+    }
+
     port = _server!.port;
-    _server!.listen(_handleRequest);
+    _server!.listen(_handleRequest, onError: (e) {
+      debugPrint('LocalAssetServer error: $e');
+    });
     debugPrint('LocalAssetServer running at http://127.0.0.1:$port');
     return port!;
   }
@@ -39,7 +68,7 @@ class LocalAssetServer {
           _cache[assetPath] = bytes;
         } catch (_) {
           // SPA Routing Fallback: If not a static file with an extension, fallback to index.html
-          if (!path.contains('.')) {
+          if (!path.contains('.') || path.endsWith('.html')) {
             assetPath = 'assets/web/index.html';
             bytes = _cache[assetPath];
             if (bytes == null) {
@@ -67,16 +96,21 @@ class LocalAssetServer {
       request.response.headers.contentType = contentType;
       request.response.headers.set(HttpHeaders.etagHeader, etag);
       request.response.headers.add('Access-Control-Allow-Origin', '*');
+      request.response.headers.add('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+      request.response.headers.add('Access-Control-Allow-Headers', '*');
       if (assetPath.contains('/assets/')) {
         request.response.headers.set(HttpHeaders.cacheControlHeader, 'public, max-age=31536000, immutable');
       } else {
-        request.response.headers.set(HttpHeaders.cacheControlHeader, 'public, max-age=3600');
+        request.response.headers.set(HttpHeaders.cacheControlHeader, 'no-cache');
       }
       request.response.add(bytes);
       await request.response.close();
     } catch (e) {
-      request.response.statusCode = HttpStatus.internalServerError;
-      await request.response.close();
+      debugPrint('LocalAssetServer request error: $e');
+      try {
+        request.response.statusCode = HttpStatus.internalServerError;
+        await request.response.close();
+      } catch (_) {}
     }
   }
 
