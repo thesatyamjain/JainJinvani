@@ -49,15 +49,18 @@ jobs:
         working-directory: mobile
         run: flutter pub get
 
-      - name: Build Android Release APK
+      - name: Build Android Release APK & App Bundle
         working-directory: mobile
-        run: flutter build apk --release
+        run: |
+          flutter build apk --release
+          flutter build appbundle --release
 
-      - name: Prepare APK Asset
+      - name: Prepare Release Assets
         id: prep
         run: |
           VERSION="${{ github.event.inputs.version || github.ref_name }}"
           cp mobile/build/app/outputs/flutter-apk/app-release.apk "JainJinvani-${VERSION}.apk"
+          cp mobile/build/app/outputs/bundle/release/app-release.aab "JainJinvani-${VERSION}.aab"
           echo "tag_name=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release
@@ -84,6 +87,8 @@ jobs:
             3. यदि फ़ोन पूछे तो *"Allow installation from this source / Chrome"* को चालू करें।
           files: |
             JainJinvani-*.apk
+            JainJinvani-*.aab
             mobile/build/app/outputs/flutter-apk/app-release.apk
+            mobile/build/app/outputs/bundle/release/app-release.aab
           draft: false
           prerelease: false
