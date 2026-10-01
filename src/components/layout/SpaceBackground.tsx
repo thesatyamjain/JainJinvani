@@ -93,7 +93,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     let incenseParticles: IncenseParticle[] = [];
     const initSanctumParticles = () => {
       incenseParticles = [];
-      const numParticles = Math.min(80, Math.max(35, Math.floor((canvas.width * canvas.height) / 8000)));
+      const isMobile = canvas.width < 768;
+      const numParticles = isMobile ? 22 : Math.min(50, Math.max(25, Math.floor((canvas.width * canvas.height) / 14000)));
       for (let i = 0; i < numParticles; i++) {
         const rand = Math.random();
         const color: 'gold' | 'amber' | 'warmWhite' =
@@ -102,7 +103,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         incenseParticles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 1.8 + 0.8,
+          radius: Math.random() * 1.6 + 0.8,
           baseOpacity: Math.random() * 0.45 + 0.2,
           phase: Math.random() * Math.PI * 2,
           swaySpeed: Math.random() * 0.7 + 0.4,
@@ -128,7 +129,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
     const initCosmicStars = () => {
       stars = [];
-      const numStars = Math.min(220, Math.max(70, Math.floor((canvas.width * canvas.height) / 3500)));
+      const isMobile = canvas.width < 768;
+      const numStars = isMobile ? 35 : Math.min(100, Math.max(40, Math.floor((canvas.width * canvas.height) / 7000)));
       for (let i = 0; i < numStars; i++) {
         const rand = Math.random();
         const color: 'gold' | 'blue' | 'white' =
@@ -137,7 +139,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: color === 'gold' ? Math.random() * 1.8 + 0.8 : Math.random() * 1.4 + 0.4,
+          radius: color === 'gold' ? Math.random() * 1.6 + 0.8 : Math.random() * 1.2 + 0.4,
           baseOpacity: Math.random() * 0.5 + 0.25,
           phase: Math.random() * Math.PI * 2,
           twinkleSpeed: Math.random() * 1.8 + 1.2,
@@ -231,7 +233,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       ctx.fillStyle = floorGlow;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 3. Floating sacred incense particles
+      // 3. Floating sacred incense particles (without GPU-heavy shadowBlur)
       incenseParticles.forEach((p) => {
         ctx.beginPath();
         const currentX = p.x + Math.sin(time * p.swaySpeed + p.phase) * p.swayAmplitude * 12;
@@ -242,20 +244,13 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
         if (p.color === 'gold') {
           ctx.fillStyle = `rgba(251, 191, 36, ${opacity})`;
-          ctx.shadowBlur = 6;
-          ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
         } else if (p.color === 'amber') {
           ctx.fillStyle = `rgba(245, 158, 11, ${opacity * 0.9})`;
-          ctx.shadowBlur = 4;
-          ctx.shadowColor = 'rgba(217, 119, 6, 0.3)';
         } else {
           ctx.fillStyle = `rgba(254, 243, 199, ${opacity * 0.8})`;
-          ctx.shadowBlur = 2;
-          ctx.shadowColor = 'rgba(251, 191, 36, 0.2)';
         }
 
         ctx.fill();
-        ctx.shadowBlur = 0;
 
         p.y -= p.speedY;
         if (p.y < -10) {
@@ -305,20 +300,13 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
         if (star.color === 'gold') {
           ctx.fillStyle = `rgba(251, 191, 36, ${opacity})`;
-          if (star.radius > 1.2) {
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
-          }
         } else if (star.color === 'blue') {
           ctx.fillStyle = `rgba(147, 197, 253, ${opacity})`;
-          ctx.shadowBlur = 0;
         } else {
           ctx.fillStyle = `rgba(248, 250, 252, ${opacity})`;
-          ctx.shadowBlur = 0;
         }
 
         ctx.fill();
-        ctx.shadowBlur = 0;
 
         star.y -= star.speed;
         if (star.y < 0) {
@@ -379,6 +367,12 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     };
 
     const draw = () => {
+      // Pause drawing if page is hidden to save battery & GPU
+      if (document.hidden) {
+        animationFrameId = requestAnimationFrame(draw);
+        return;
+      }
+
       // Pause clearRect and redraws during active scrolling so the canvas remains a static,
       // pre-rendered GPU texture. This completely eliminates backdrop-filter buffer desync flicker.
       if (!isScrolling) {
@@ -422,17 +416,9 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         style={{ transform: 'translateZ(0)' }}
       />
 
-      {/* Tactile Stone & Palm-leaf Manuscript Micro-Grain Texture (Sanctum Mode Only) */}
+      {/* Subtle depth vignette (Sanctum Mode Only, zero CPU overhead) */}
       {currentTheme === 'sanctum' && (
-        <>
-          <div
-            className="fixed inset-0 z-0 pointer-events-none opacity-[0.025]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            }}
-          />
-          <div className="fixed inset-0 z-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/60" />
-        </>
+        <div className="fixed inset-0 z-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/60" />
       )}
     </>
   );

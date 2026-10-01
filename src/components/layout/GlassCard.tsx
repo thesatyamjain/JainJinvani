@@ -117,6 +117,11 @@ export const GlassCard = ({
   };
 
   if (tilt) {
+    // On touch/mobile devices, skip 3D tilt calculations to preserve 60/120 FPS scrolling performance
+    if (typeof window !== 'undefined' && window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+      return cardBody(className);
+    }
+
     const tiltOptions = typeof tilt === 'object' ? tilt : {};
     const resolvedGlareColor = tiltOptions.glareColor || (isGilded ? 'amber' : 'white');
     const { outer, inner } = splitGridClasses(className);

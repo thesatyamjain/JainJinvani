@@ -53,6 +53,7 @@ class _WebAppShellState extends State<WebAppShell> {
   final LocalAssetServer _server = LocalAssetServer();
   WebViewController? _controller;
   bool _isLoading = true;
+  bool _hasInitiallyLoaded = false;
   String? _errorMessage;
   DateTime? _lastBackPressTime;
 
@@ -71,12 +72,15 @@ class _WebAppShellState extends State<WebAppShell> {
         ..setNavigationDelegate(
           NavigationDelegate(
             onPageStarted: (String url) {
-              if (mounted) setState(() => _isLoading = true);
+              if (!_hasInitiallyLoaded && mounted) {
+                setState(() => _isLoading = true);
+              }
             },
             onPageFinished: (String url) {
               if (mounted) {
                 setState(() {
                   _isLoading = false;
+                  _hasInitiallyLoaded = true;
                   _errorMessage = null;
                 });
               }
@@ -88,9 +92,9 @@ class _WebAppShellState extends State<WebAppShell> {
         );
 
       if (controller.platform is AndroidWebViewController) {
+        final androidController = controller.platform as AndroidWebViewController;
         AndroidWebViewController.enableDebugging(false);
-        (controller.platform as AndroidWebViewController)
-            .setMediaPlaybackRequiresUserGesture(false);
+        androidController.setMediaPlaybackRequiresUserGesture(false);
       }
 
       _controller = controller;
