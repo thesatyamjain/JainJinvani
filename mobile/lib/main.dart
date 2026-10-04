@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -8,6 +9,21 @@ import 'services/update_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Framework & Platform Error hooks for observability
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    debugPrint('[FLUTTER_ERROR] ${details.exceptionAsString()}');
+    if (details.stack != null) {
+      debugPrint('[STACK] ${details.stack}');
+    }
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('[PLATFORM_ERROR] $error');
+    debugPrint('[STACK] $stack');
+    return true;
+  };
 
   // Dark immersive edge-to-edge status bar & navigation bar
   SystemChrome.setSystemUIOverlayStyle(
@@ -227,7 +243,6 @@ class _WebAppShellState extends State<WebAppShell> {
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              _isLoading = true;
                               _errorMessage = null;
                             });
                             _startServerAndLoad();

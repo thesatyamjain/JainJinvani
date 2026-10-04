@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import '../models/content_item.dart';
 import '../models/tirthankar.dart';
@@ -17,7 +18,9 @@ class DataRepository {
   List<JainFestival> _festivals = [];
 
   bool _initialized = false;
+  String? _initError;
   bool get isInitialized => _initialized;
+  String? get initError => _initError;
 
   Future<void> init() async {
     if (_initialized) return;
@@ -62,8 +65,11 @@ class DataRepository {
       _festivals = fList.map((e) => JainFestival.fromJson(Map<String, dynamic>.from(e))).toList();
 
       _initialized = true;
-    } catch (e) {
-      // Ignore or log in development
+      _initError = null;
+    } catch (e, stack) {
+      _initError = e.toString();
+      debugPrint('[DataRepository] Initialization error: $e');
+      debugPrint('[DataRepository] Stack: $stack');
     }
   }
 
@@ -78,6 +84,7 @@ class DataRepository {
       _moduleCache[moduleName] = data;
       return data;
     } catch (e) {
+      debugPrint('[DataRepository] Failed to load module $moduleName: $e');
       return {};
     }
   }

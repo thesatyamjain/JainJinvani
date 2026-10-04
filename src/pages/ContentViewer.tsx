@@ -26,6 +26,7 @@ import { FeedbackModal } from '../components/features/FeedbackModal';
 import { requestScreenWakeLock, releaseScreenWakeLock } from '../utils/pwaManager';
 import { AudioPlayer } from '../components/features/AudioPlayer';
 import { getContentAudioTrack, AudioTimestamp } from '../config/media';
+import { useAutoScroll } from '../hooks/useAutoScroll';
 
 interface ContentViewerProps {
   onBack: () => void;
@@ -55,7 +56,7 @@ const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) 
                    [&_.steps-grid]:grid [&_.steps-grid]:gap-6 [&_.steps-grid]:md:grid-cols-1
                    [&_.step-card]:bg-slate-900/60 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-white/10
                    [&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
+        dangerouslySetInnerHTML={{ __html: sanitizedRepairedContent }}
       />
     </GlassCard>
   );
@@ -289,6 +290,13 @@ const UnifiedVerseView = ({
 }) => {
   const verses = item.verses || item.lyrics || [];
 
+  const parsedVerses = React.useMemo(() => {
+    return verses.map((verse: any, idx: number) => ({
+      verse,
+      parsed: parseVerseData(verse, idx, item.category),
+    }));
+  }, [verses, item.category]);
+
   return (
     <div className="space-y-6">
       {/* Rich Introduction / Fact Box if present */}
@@ -298,8 +306,7 @@ const UnifiedVerseView = ({
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(repairDevanagariUnicode(item.introHtml)) }}
         />
       )}
-      {verses.map((verse: any, idx: number) => {
-        const parsed = parseVerseData(verse, idx, item.category);
+      {parsedVerses.map(({ verse, parsed }: { verse: any; parsed: ParsedVerse }, idx: number) => {
         const verseTimestamp =
           audioTrack?.timestamps?.find((t) => t.verseIndex === idx) ||
           (verse.timestamp !== undefined ? { start: Number(verse.timestamp), label: verse.label } : undefined);
@@ -659,30 +666,40 @@ export const ContentViewer = ({
   const [loading, setLoading] = React.useState<boolean>(!cachedInitial && !!id);
   const [fontSize, setFontSize] = React.useState(18);
   const [isFav, setIsFav] = React.useState(false);
-  const [isAutoScrolling, setIsAutoScrolling] = React.useState(false);
-  const [scrollSpeed, setScrollSpeed] = React.useState(1);
+  const { isAutoScrolling, setIsAutoScrolling, scrollSpeed, setScrollSpeed } = useAutoScroll(1);
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
   const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
-  const [audioPlaybackTime, setAudioPlaybackTime] = React.useState(0);
+  const [activeVerseIndex, setActiveVerseIndex] = React.useState<number | null>(null);
   const [audioSeekTarget, setAudioSeekTarget] = React.useState<number | null>(null);
   const audioTrack = React.useMemo(() => getContentAudioTrack(id, data), [id, data]);
 
-  // Synchronized active verse index from audio playback time
-  const activeVerseIndex = React.useMemo(() => {
-    if (!isAudioPlayerActive || !audioTrack) return null;
-    const timestamps = audioTrack.timestamps;
-    if (!timestamps || timestamps.length === 0) return null;
+  // Synchronized active verse index from audio playback time (only triggers state re-render when verse changes)
+  const handleAudioTimeUpdate = React.useCallback(
+    (currentTime: number) => {
+      if (!isAudioPlayerActive || !audioTrack) return;
+      const timestamps = audioTrack.timestamps;
+      if (!timestamps || timestamps.length === 0) return;
 
-    for (let i = timestamps.length - 1; i >= 0; i--) {
-      if (audioPlaybackTime >= timestamps[i].start) {
-        if (timestamps[i].end === undefined || audioPlaybackTime < timestamps[i].end!) {
-          return timestamps[i].verseIndex;
+      let targetIndex = 0;
+      for (let i = timestamps.length - 1; i >= 0; i--) {
+        if (currentTime >= timestamps[i].start) {
+          if (timestamps[i].end === undefined || currentTime < timestamps[i].end!) {
+            targetIndex = timestamps[i].verseIndex;
+            break;
+          }
+          targetIndex = timestamps[i].verseIndex;
+          break;
         }
-        return timestamps[i].verseIndex;
       }
-    }
-    return 0;
-  }, [isAudioPlayerActive, audioTrack, audioPlaybackTime]);
+      setActiveVerseIndex((prev) => (prev !== targetIndex ? targetIndex : prev));
+    },
+    [isAudioPlayerActive, audioTrack]
+  );
+
+  const handleCloseAudio = React.useCallback(() => {
+    setIsAudioPlayerActive(false);
+    setActiveVerseIndex(null);
+  }, []);
 
   const handleSeekToVerse = React.useCallback((seconds: number) => {
     setAudioSeekTarget(seconds);
@@ -690,7 +707,6 @@ export const ContentViewer = ({
   }, []);
 
   const sectionRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
-  const autoScrollRafRef = React.useRef<number | null>(null);
   const toastTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   const [toastMessage, setToastMessage] = React.useState<string | null>(null);
 
@@ -767,42 +783,6 @@ export const ContentViewer = ({
       releaseScreenWakeLock();
     };
   }, [id, isAutoScrolling]);
-
-  // Smooth Auto-Scroll Engine using requestAnimationFrame
-  React.useEffect(() => {
-    if (!isAutoScrolling) {
-      if (autoScrollRafRef.current) cancelAnimationFrame(autoScrollRafRef.current);
-      return;
-    }
-
-    const container = document.querySelector('main') || document.documentElement;
-    let lastTime = performance.now();
-
-    const scrollStep = (now: number) => {
-      const delta = now - lastTime;
-      lastTime = now;
-
-      if (container) {
-        // ~35px/second at speed 1, smooth fluid reading rate
-        const pixelsToScroll = (35 * scrollSpeed * delta) / 1000;
-        container.scrollTop += pixelsToScroll;
-
-        // Check if reached bottom
-        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 8) {
-          setIsAutoScrolling(false);
-          return;
-        }
-      }
-
-      autoScrollRafRef.current = requestAnimationFrame(scrollStep);
-    };
-
-    autoScrollRafRef.current = requestAnimationFrame(scrollStep);
-
-    return () => {
-      if (autoScrollRafRef.current) cancelAnimationFrame(autoScrollRafRef.current);
-    };
-  }, [isAutoScrolling, scrollSpeed]);
 
   const scrollToSection = (secId: string) => {
     sectionRefs.current[secId]?.scrollIntoView({ behavior: 'smooth' });
@@ -1189,9 +1169,9 @@ export const ContentViewer = ({
         {isAudioPlayerActive && audioTrack && (
           <AudioPlayer
             track={audioTrack}
-            onClose={() => setIsAudioPlayerActive(false)}
+            onClose={handleCloseAudio}
             autoPlay={true}
-            onTimeUpdate={(time) => setAudioPlaybackTime(time)}
+            onTimeUpdate={handleAudioTimeUpdate}
             seekTime={audioSeekTarget}
           />
         )}

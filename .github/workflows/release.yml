@@ -61,6 +61,14 @@ jobs:
         working-directory: mobile
         run: flutter pub get
 
+      - name: Run Flutter Static Analysis
+        working-directory: mobile
+        run: flutter analyze
+
+      - name: Run Flutter Tests
+        working-directory: mobile
+        run: flutter test
+
       - name: Configure Keystore Signing
         working-directory: mobile/android
         run: |

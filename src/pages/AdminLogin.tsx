@@ -49,6 +49,9 @@ import {
 } from 'lucide-react';
 import { GOOGLE_SHEET_WEBHOOK_URL } from '../components/features/FeedbackModal';
 import { ContentCmsTab } from '../components/admin/ContentCmsTab';
+import { FeedbackTab } from '../components/admin/FeedbackTab';
+import { AnnouncementTab } from '../components/admin/AnnouncementTab';
+import { AdminGuideTab } from '../components/admin/AdminGuideTab';
 
 
 export interface AdminContributionItem {
@@ -76,9 +79,6 @@ async function sha256Hex(str: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Single Master Security Hash:
-// Default Password: 'Jinvani@2026#Admin'
-const MASTER_PASSWORD_HASH = '74e32bd5469e4a917307e6c2555e00eb8c6014615f543adf4aa7117338de9834';
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 5 * 60 * 1000; // 5 minutes lockout
 const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes auto-logout
@@ -247,103 +247,6 @@ function doPost(e) {
   }
 }`;
 
-// --- Web Crypto TOTP (RFC 6238 / RFC 4226) Helpers ---
-function base32ToBytes(base32: string): Uint8Array {
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-  const clean = base32.toUpperCase().replace(/[^A-Z2-7]/g, '');
-  let bits = '';
-  for (let i = 0; i < clean.length; i++) {
-    const val = alphabet.indexOf(clean[i]);
-    if (val === -1) continue;
-    bits += val.toString(2).padStart(5, '0');
-  }
-  const bytes = new Uint8Array(Math.floor(bits.length / 8));
-  for (let i = 0; i < bytes.length; i++) {
-    bytes[i] = parseInt(bits.substr(i * 8, 8), 2);
-  }
-  return bytes;
-}
-
-export async function generateTOTP(secretBase32: string, timeStepOffset = 0): Promise<string> {
-  const keyBytes = base32ToBytes(secretBase32);
-  const cryptoKey = await crypto.subtle.importKey(
-    'raw',
-    keyBytes as BufferSource,
-    { name: 'HMAC', hash: 'SHA-1' },
-    false,
-    ['sign']
-  );
-
-  const epochSeconds = Math.floor(Date.now() / 1000);
-  const timeStep = Math.floor(epochSeconds / 30) + timeStepOffset;
-
-  const timeBuffer = new ArrayBuffer(8);
-  const timeView = new DataView(timeBuffer);
-  timeView.setUint32(0, Math.floor(timeStep / 0x100000000), false);
-  timeView.setUint32(4, timeStep & 0xffffffff, false);
-
-  const hmac = await crypto.subtle.sign('HMAC', cryptoKey, timeBuffer);
-  const hmacBytes = new Uint8Array(hmac);
-
-  const offset = hmacBytes[hmacBytes.length - 1] & 0x0f;
-  const binaryCode =
-    ((hmacBytes[offset] & 0x7f) << 24) |
-    ((hmacBytes[offset + 1] & 0xff) << 16) |
-    ((hmacBytes[offset + 2] & 0xff) << 8) |
-    (hmacBytes[offset + 3] & 0xff);
-
-  const otp = binaryCode % 1000000;
-  return otp.toString().padStart(6, '0');
-}
-
-export async function verifyTOTP(secretBase32: string, userCode: string): Promise<boolean> {
-  const cleanCode = userCode.replace(/\s+/g, '').trim();
-  if (cleanCode.length !== 6 || !/^\d{6}$/.test(cleanCode)) return false;
-
-  for (const offset of [0, -1, 1]) {
-    const expected = await generateTOTP(secretBase32, offset);
-    if (expected === cleanCode) {
-      return true;
-    }
-  }
-  return false;
-}
-
-// Master 2FA Secret Key (Standard Base32 for Google Authenticator)
-export const MASTER_2FA_SECRET = 'JINVANISACRED26A';
-export const TOTP_ISSUER = 'Jain Jinvani';
-export const TOTP_ACCOUNT = 'admin';
-export const TOTP_AUTH_URI = `otpauth://totp/${encodeURIComponent(TOTP_ISSUER)}:${encodeURIComponent(TOTP_ACCOUNT)}?secret=${MASTER_2FA_SECRET}&issuer=${encodeURIComponent(TOTP_ISSUER)}`;
-
-// Cryptographically Hashed Emergency Recovery Codes (SHA-256)
-// Raw recovery codes are strictly offline secrets and never committed in plaintext.
-export const EMERGENCY_RECOVERY_CODE_HASHES = [
-  '7be95f6ef2c6828ad36a1ef3f48be2226fdee80138e3889c12f946285ca67e56',
-  '272f85b11e0a2bd0e426d1e6233058902c0056e7b65decd1bbe8c00f48916cf2',
-  'd22fdacd4496ce52a143603eb975acf222d85a229fecaa0e0c404dea3f83508f',
-];
-
-// Password Verification against Custom (if changed by user), .env, or Master Hash
-const verifyPassword = async (inputPass: string): Promise<boolean> => {
-  const inputHash = await sha256Hex(inputPass.trim());
-  if (!inputHash) return false;
-
-  // 1. Check custom password if changed by admin in dashboard
-  const customHash = localStorage.getItem('jinvani_admin_custom_hash');
-  if (customHash) {
-    return inputHash === customHash;
-  }
-
-  // 2. Check Vite environment variable if configured (.env)
-  const envPassHash = (import.meta as any).env?.VITE_ADMIN_PASSWORD_HASH;
-  if (envPassHash) {
-    if (inputHash === String(envPassHash).trim().toLowerCase()) return true;
-  }
-
-  // 3. Check single master default password
-  return inputHash === MASTER_PASSWORD_HASH;
-};
-
 // --- WebAuthn Passkey (Biometrics / Platform Authenticator) Helpers ---
 function bufferToBase64(buf: ArrayBuffer): string {
   const bytes = new Uint8Array(buf);
@@ -453,13 +356,13 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
   // Authentication state with dynamic session expiration
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     if (typeof window !== 'undefined') {
-      const isAuth = sessionStorage.getItem('jinvani_admin_authenticated') === 'true';
+      const isAuth = Number((sessionStorage.getItem('jinvani_admin_token') || '').split('.')[0]) > Date.now();
       const authTime = Number(sessionStorage.getItem('jinvani_admin_auth_time') || 0);
       const savedTimeoutMin = Number(localStorage.getItem('jinvani_session_timeout_min') || 60);
       if (isAuth && Date.now() - authTime < savedTimeoutMin * 60 * 1000) {
         return true;
       }
-      sessionStorage.removeItem('jinvani_admin_authenticated');
+      sessionStorage.removeItem('jinvani_admin_token');
       sessionStorage.removeItem('jinvani_admin_auth_time');
     }
     return false;
@@ -732,7 +635,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       window.dispatchEvent(new CustomEvent('jinvani_announcement_updated'));
 
       // 2. Publish to Cloudflare Edge API
-      const authHash = localStorage.getItem('jinvani_admin_custom_hash') || MASTER_PASSWORD_HASH;
+      const authHash = sessionStorage.getItem('jinvani_admin_token') || '';
       const res = await fetch('/api/announcement', {
         method: 'POST',
         headers: {
@@ -1146,7 +1049,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       // Record user activity at most once every 5 seconds to prevent excessive state writes
       if (now - lastActivityRecord > 5000) {
         lastActivityRecord = now;
-        if (sessionStorage.getItem('jinvani_admin_authenticated') === 'true') {
+        if (sessionStorage.getItem('jinvani_admin_token')) {
           sessionStorage.setItem('jinvani_admin_auth_time', String(now));
         }
       }
@@ -1203,13 +1106,24 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     }
   };
 
-  // Direct login helper (when 2FA is not enabled or code succeeds)
-  const handleDirectLogin = (msg = 'सफलतापूर्वक एडमिन पोर्टल में प्रवेश हुआ!') => {
+  // All verification happens server-side (POST /api/auth). The server returns an HMAC-signed
+  // session token; no password hash, TOTP secret or recovery code exists in this bundle.
+  const authCall = async (body: object, token?: string): Promise<{ status: number; data: any }> => {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+      body: JSON.stringify(body),
+    });
+    return { status: res.status, data: await res.json().catch(() => ({})) };
+  };
+
+  const handleDirectLogin = (token: string, totp: boolean, msg = 'सफलतापूर्वक एडमिन पोर्टल में प्रवेश हुआ!') => {
     localStorage.removeItem('jinvani_admin_attempts');
     localStorage.removeItem('jinvani_admin_lockout_until');
-    sessionStorage.setItem('jinvani_admin_authenticated', 'true');
+    sessionStorage.setItem('jinvani_admin_token', token);
     sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
     setSessionRemainingSec(sessionTimeoutMin * 60);
+    setIs2FAEnabled(totp);
     setIsAuthenticated(true);
     setLoginStep('password');
     setPassword('');
@@ -1218,29 +1132,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     showToast(msg);
   };
 
-  const handleEnable2FA = () => {
-    try {
-      localStorage.setItem('jinvani_admin_2fa_enabled', 'true');
-      setIs2FAEnabled(true);
-      showToast('2FA सुरक्षा सक्रिय कर दी गई! अब प्रत्येक लॉगिन पर OTP कोड आवश्यक होगा।');
-    } catch {
-      showToast('2FA सक्रिय करने में त्रुटि हुई।');
-    }
-  };
-
-  const handleDisable2FA = () => {
-    if (window.confirm('क्या आप 2FA सुरक्षा निष्क्रिय करना चाहते हैं? इसके बाद केवल पासवर्ड से लॉगिन हो सकेगा।')) {
-      try {
-        localStorage.removeItem('jinvani_admin_2fa_enabled');
-        setIs2FAEnabled(false);
-        showToast('2FA सुरक्षा निष्क्रिय कर दी गई। अब केवल पासवर्ड से लॉगिन होगा।');
-      } catch {
-        showToast('त्रुटि हुई।');
-      }
-    }
-  };
-
-  // Step 1: Handle Password Submit -> Advances to 2FA OTP Step ONLY IF 2FA IS ENABLED
+  // Step 1: password -> token, or "needOtp" when the server has 2FA configured
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
@@ -1257,37 +1149,29 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       return;
     }
 
-    const validUsername = ((import.meta as any).env?.VITE_ADMIN_USERNAME || 'admin').trim().toLowerCase();
-    if (username.trim().toLowerCase() !== validUsername) {
-      handleFailedAttempt();
-      return;
-    }
-
     setIsLoggingIn(true);
     try {
-      const isValid = await verifyPassword(password);
-      if (isValid) {
-        if (is2FAEnabled) {
-          // Step 1 Successful -> Proceed to Step 2: 2FA Verification (only if enabled)
-          setLoginStep('totp');
-          setLoginError('');
-          setOtpInput('');
-          setIsUsingRecovery(false);
-        } else {
-          // 2FA is not enabled yet -> Log in directly!
-          handleDirectLogin();
-        }
+      const { status, data } = await authCall({ password });
+      if (data.ok && data.token) {
+        handleDirectLogin(data.token, Boolean(data.totp));
+      } else if (data.needOtp) {
+        setIs2FAEnabled(true);
+        setLoginStep('totp');
+        setOtpInput('');
+        setIsUsingRecovery(false);
+      } else if (status === 429 || status >= 500) {
+        setLoginError(data.error || 'सर्वर त्रुटि। कृपया पुनः प्रयास करें।');
       } else {
         handleFailedAttempt();
       }
-    } catch (err) {
-      setLoginError('सत्यापन में तकनीकी त्रुटि। कृपया पुनः प्रयास करें।');
+    } catch {
+      setLoginError('सर्वर से संपर्क नहीं हो सका। कृपया पुनः प्रयास करें।');
     } finally {
       setIsLoggingIn(false);
     }
   };
 
-  // Step 2: Handle 2FA OTP / Recovery Code Submit
+  // Step 2: OTP / recovery code, sent together with the password and verified server-side
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
 
   const handleOtpSubmit = async (e: React.FormEvent) => {
@@ -1309,25 +1193,18 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
     setIsVerifyingOtp(true);
     try {
-      if (isUsingRecovery) {
-        // Verify emergency recovery code via SHA-256 cryptographic hash
-        const inputCodeHash = await sha256Hex(cleanInput);
-        const isRecoveryValid = EMERGENCY_RECOVERY_CODE_HASHES.includes(inputCodeHash);
-        if (isRecoveryValid) {
-          handleDirectLogin('आपातकालीन रिकवरी कोड द्वारा प्रवेश सफल!');
-        } else {
-          handleFailedAttempt();
-          setLoginError('अमान्य आपातकालीन रिकवरी कोड!');
-        }
+      const { status, data } = await authCall({ password, otp: cleanInput });
+      if (data.ok && data.token) {
+        handleDirectLogin(
+          data.token,
+          true,
+          isUsingRecovery ? 'आपातकालीन रिकवरी कोड द्वारा प्रवेश सफल!' : '2FA सत्यापन सफल! डैशबोर्ड में स्वागत है।'
+        );
+      } else if (status === 429 || status >= 500) {
+        setLoginError(data.error || 'सर्वर त्रुटि। कृपया पुनः प्रयास करें।');
       } else {
-        // Verify standard RFC 6238 TOTP
-        const isValidOtp = await verifyTOTP(MASTER_2FA_SECRET, cleanInput);
-        if (isValidOtp) {
-          handleDirectLogin('2FA सत्यापन सफल! डैशबोर्ड में स्वागत है।');
-        } else {
-          handleFailedAttempt();
-          setLoginError('अमान्य OTP कोड! कृपया Google Authenticator में वर्तमान 6-अंकों का कोड देखें।');
-        }
+        handleFailedAttempt();
+        setLoginError(isUsingRecovery ? 'अमान्य आपातकालीन रिकवरी कोड!' : 'अमान्य OTP कोड! कृपया Google Authenticator में वर्तमान 6-अंकों का कोड देखें।');
       }
     } catch {
       setLoginError('2FA सत्यापन में तकनीकी त्रुटि। कृपया पुनः प्रयास करें।');
@@ -1343,56 +1220,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     setLoginError('');
   };
 
-  // Test OTP in 2FA Setup Modal
+  // Test OTP in the security dialog (needs a live session; server checks the code)
   const handleTestOtp = async () => {
-    if (!testOtpInput.trim()) return;
-    const isValid = await verifyTOTP(MASTER_2FA_SECRET, testOtpInput.trim());
-    setTestOtpResult(isValid);
-  };
-
-  // 1-Tap Passkey Biometric Login Handler
-  const handlePasskeyLogin = async () => {
-    setLoginError('');
-
-    const lockoutUntil = Number(localStorage.getItem('jinvani_admin_lockout_until') || 0);
-    if (Date.now() < lockoutUntil) {
-      const rem = Math.ceil((lockoutUntil - Date.now()) / 1000);
-      setLoginError(`सुरक्षा प्रतिबंध: अत्यधिक गलत प्रयासों के कारण लॉगिन लॉक है। कृपया ${rem} सेकंड बाद प्रयास करें।`);
-      return;
-    }
-
-    const savedRawId = localStorage.getItem('jinvani_admin_passkey_rawid');
-    if (!savedRawId) {
-      setLoginError('इस डिवाइस पर कोई Passkey पंजीकृत नहीं है। पहले पासवर्ड से लॉगिन करके Passkey जोड़ें।');
-      return;
-    }
-
-    setIsVerifyingPasskey(true);
+    const token = sessionStorage.getItem('jinvani_admin_token') || '';
+    if (!testOtpInput.trim() || !token) return;
     try {
-      const isVerified = await authenticatePasskeyCredential(savedRawId);
-      if (isVerified) {
-        localStorage.removeItem('jinvani_admin_attempts');
-        localStorage.removeItem('jinvani_admin_lockout_until');
-        sessionStorage.setItem('jinvani_admin_authenticated', 'true');
-        sessionStorage.setItem('jinvani_admin_auth_time', String(Date.now()));
-        setSessionRemainingSec(sessionTimeoutMin * 60);
-        setIsAuthenticated(true);
-        setLoginStep('password');
-        setPassword('');
-        setOtpInput('');
-        setLoginError('');
-        showToast('🔑 Passkey (बायोमेट्रिक) सत्यापन सफल! डैशबोर्ड में स्वागत है।');
-      } else {
-        setLoginError('Passkey सत्यापन असफल रहा। कृपया पुनः प्रयास करें।');
-      }
-    } catch (err: any) {
-      if (err.name === 'NotAllowedError') {
-        setLoginError('बायोमेट्रिक प्रमाणीकरण रद्द किया गया। आप पासवर्ड से लॉगिन कर सकते हैं।');
-      } else {
-        setLoginError(err.message || 'Passkey सत्यापन में तकनीकी त्रुटि।');
-      }
-    } finally {
-      setIsVerifyingPasskey(false);
+      const { data } = await authCall({ otp: testOtpInput.trim() }, token);
+      setTestOtpResult(Boolean(data.ok));
+    } catch {
+      setTestOtpResult(false);
     }
   };
 
@@ -1457,14 +1293,15 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
   // Handle Logout
   const handleLogout = (msg?: string) => {
-    sessionStorage.removeItem('jinvani_admin_authenticated');
+    sessionStorage.removeItem('jinvani_admin_token');
     sessionStorage.removeItem('jinvani_admin_auth_time');
     setIsAuthenticated(false);
     setPassword('');
     if (msg) setLoginError(msg);
   };
 
-  // Handle Change Password Submit
+  // Change password: the password is a Cloudflare secret, so this only verifies the current one
+  // against the server and hands back the new hash to paste into ADMIN_PASSWORD_HASH.
   const handleChangePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPassModalError('');
@@ -1474,14 +1311,19 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       return;
     }
 
-    const isCurrentValid = await verifyPassword(currentPass);
-    if (!isCurrentValid) {
-      setPassModalError('वर्तमान पासवर्ड गलत है!');
+    try {
+      const { data } = await authCall({ password: currentPass });
+      if (!data.ok && !data.needOtp) {
+        setPassModalError('वर्तमान पासवर्ड गलत है!');
+        return;
+      }
+    } catch {
+      setPassModalError('सर्वर से संपर्क नहीं हो सका।');
       return;
     }
 
-    if (newPass.length < 6) {
-      setPassModalError('नया पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।');
+    if (newPass.length < 12) {
+      setPassModalError('नया पासवर्ड कम से कम 12 अक्षरों का होना चाहिए।');
       return;
     }
 
@@ -1491,24 +1333,14 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
     }
 
     const newHash = await sha256Hex(newPass);
-    localStorage.setItem('jinvani_admin_custom_hash', newHash);
-    showToast('एडमिन पासवर्ड सफलतापूर्वक बदल दिया गया!');
+    try {
+      await navigator.clipboard.writeText(newHash);
+    } catch {}
+    showToast('नया हैश कॉपी हो गया। इसे Cloudflare में ADMIN_PASSWORD_HASH के रूप में सेट कर पुनः डिप्लॉय करें।');
     setIsChangePassOpen(false);
     setCurrentPass('');
     setNewPass('');
     setConfirmPass('');
-  };
-
-  // Reset to Default Password
-  const handleResetPasswordToDefault = () => {
-    if (window.confirm('क्या आप पासवर्ड को डिफ़ॉल्ट पर रीसेट करना चाहते हैं?')) {
-      localStorage.removeItem('jinvani_admin_custom_hash');
-      showToast('पासवर्ड डिफ़ॉल्ट पर रीसेट कर दिया गया!');
-      setIsChangePassOpen(false);
-      setCurrentPass('');
-      setNewPass('');
-      setConfirmPass('');
-    }
   };
 
   // Fetch entries from Google Apps Script Web App
@@ -1844,27 +1676,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                   </p>
                 </div>
 
-                {/* 1-Tap Passkey (Biometric) Login Button */}
-                {hasPasskey && (
-                  <div className="mb-5">
-                    <button
-                      type="button"
-                      onClick={handlePasskeyLogin}
-                      disabled={isVerifyingPasskey || lockoutRemaining > 0}
-                      className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500/25 via-amber-400/30 to-amber-500/25 border border-amber-400/50 hover:border-amber-400 text-amber-100 hover:text-white font-gotu text-xs sm:text-sm font-semibold transition-all flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(245,158,11,0.25)] hover:shadow-[0_0_35px_rgba(245,158,11,0.4)] active:scale-[0.98] cursor-pointer disabled:opacity-50"
-                    >
-                      <Fingerprint className={`w-5 h-5 text-amber-300 shrink-0 ${isVerifyingPasskey ? 'animate-spin' : 'animate-pulse'}`} />
-                      <span>{isVerifyingPasskey ? 'बायोमेट्रिक्स जांची जा रही है...' : 'Passkey (Fingerprint / Face ID) से लॉगिन'}</span>
-                    </button>
-
-                    <div className="flex items-center gap-3 my-3.5">
-                      <div className="flex-1 h-px bg-white/10" />
-                      <span className="text-[10px] text-slate-400 font-gotu">या पासवर्ड से लॉगिन करें</span>
-                      <div className="flex-1 h-px bg-white/10" />
-                    </div>
-                  </div>
-                )}
-
                 <form onSubmit={handleLoginSubmit} className="space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1.5">
@@ -2090,17 +1901,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                     )}
                   </button>
 
-                  {!is2FAEnabled && (
-                    <button
-                      type="button"
-                      onClick={() => handleDirectLogin('सफलतापूर्वक लॉगिन हुआ!')}
-                      className="w-full py-2.5 px-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/40 text-xs font-gotu font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                      <span>2FA अभी सेटअप नहीं है? सीधे लॉगिन करें</span>
-                    </button>
-                  )}
-
                   <button
                     type="button"
                     onClick={handleBackToPassword}
@@ -2255,15 +2055,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                       type="submit"
                       className="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-gotu font-bold py-2.5 rounded-xl shadow-[0_4px_15px_rgba(245,158,11,0.3)] hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer text-xs sm:text-sm"
                     >
-                      नया पासवर्ड सहेजें (Save)
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleResetPasswordToDefault}
-                      className="w-full py-1.5 text-[11px] text-slate-400 hover:text-amber-300 transition-colors font-gotu cursor-pointer"
-                    >
-                      डिफ़ॉल्ट पासवर्ड पर रीसेट करें
+                      नया हैश बनाएँ व कॉपी करें
                     </button>
                   </div>
                 </form>
@@ -2385,91 +2177,13 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                       </div>
                     )}
                   </div>
-                  {/* Step Guide & 2FA Status */}
-                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-100/90 font-gotu space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="font-semibold text-amber-300 flex items-center gap-1.5">
-                        <QrCode className="w-3.5 h-3.5" />
-                        <span>Google Authenticator (2FA TOTP)</span>
-                      </div>
-                      {is2FAEnabled ? (
-                        <span className="text-[10px] text-emerald-300 font-mono px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 font-semibold flex items-center gap-1">
-                          <Check className="w-3 h-3 text-emerald-400" />
-                          सक्रिय (Active)
-                        </span>
-                      ) : (
-                        <span className="text-[10px] text-amber-300 font-mono px-2 py-0.5 rounded-md bg-amber-500/20 border border-amber-500/40 font-semibold">
-                          निष्क्रिय (Not Enabled)
-                        </span>
-                      )}
+                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-100/90 font-gotu space-y-1.5">
+                    <div className="font-semibold text-amber-300 flex items-center gap-1.5">
+                      <QrCode className="w-3.5 h-3.5" />
+                      <span>Google Authenticator (2FA TOTP)</span>
                     </div>
-                    <ol className="list-decimal list-inside space-y-1 text-[11px] text-slate-300 pl-1">
-                      <li>अपने फोन में <b>Google Authenticator</b> या <b>Microsoft Authenticator</b> ऐप खोलें।</li>
-                      <li>ऐप में <b>+</b> दबाएं और नीचे दिया गया QR कोड स्कैन करें (या मैन्युअल की दर्ज करें)।</li>
-                      <li>नीचे 6-अंकों का टेस्ट कोड डालकर पुष्टि करें और <b>"2FA सुरक्षा सक्रिय करें"</b> बटन दबाएं।</li>
-                    </ol>
-                  </div>
-
-                  {/* QR Code & Manual Key */}
-                  <div className="flex flex-col sm:flex-row items-center gap-4 p-4 rounded-2xl bg-slate-950/80 border border-amber-500/20">
-                    <div className="w-36 h-36 bg-white p-2 rounded-xl flex items-center justify-center shadow-lg shrink-0">
-                      <img
-                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(TOTP_AUTH_URI)}`}
-                        alt="2FA QR Code"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                    <div className="flex-1 space-y-2 text-left w-full">
-                      <div className="text-xs text-slate-300 font-gotu">
-                        <span className="text-amber-300 font-semibold block mb-1">मैनुअल सेटअप की (Setup Key):</span>
-                        <div className="flex items-center gap-1.5 bg-slate-900 border border-amber-500/25 px-2.5 py-1.5 rounded-lg">
-                          <code className="text-amber-200 font-mono font-bold tracking-widest text-xs flex-1 select-all">
-                            {MASTER_2FA_SECRET}
-                          </code>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              navigator.clipboard.writeText(MASTER_2FA_SECRET);
-                              showToast('2FA सीक्रेट की कॉपी हो गई!');
-                            }}
-                            className="p-1 text-slate-400 hover:text-amber-300 transition-colors"
-                            title="सीक्रेट की कॉपी करें"
-                          >
-                            <Copy className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="text-[11px] text-slate-400 font-gotu">
-                        अल्गोरिद्म: <span className="text-slate-200">SHA-1 (30s)</span> • अंक: <span className="text-slate-200">6</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Emergency Recovery Codes */}
-                  <div className="p-3.5 rounded-2xl bg-amber-950/20 border border-amber-500/30 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-amber-300 font-gotu flex items-center gap-1.5">
-                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                        आपातकालीन बैकअप कोड्स (SHA-256 Hashed)
-                      </span>
-                      <span className="text-[10px] text-emerald-400 font-mono px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/30 font-semibold">
-                        3 कोड्स सुरक्षित
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-slate-300 font-gotu leading-relaxed">
-                      सर्वोच्च सुरक्षा हेतु बैकअप कोड्स को क्लाइंट-साइड जावास्क्रिप्ट में कभी भी सादे अक्षरों में नहीं रखा जाता, बल्कि वे <strong>SHA-256 क्रिप्टोग्राफिक हैश</strong> में सुरक्षित हैं।
-                    </p>
-                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-[11px] font-gotu space-y-1.5">
-                      <div className="flex items-center justify-between text-slate-400 text-[10px]">
-                        <span>सुरक्षा प्रकार:</span>
-                        <span className="text-emerald-300 font-semibold">अपरिवर्तनीय हैश (Zero-Knowledge)</span>
-                      </div>
-                      <div className="text-[10px] text-slate-400">
-                        अधिकृत स्लॉट्स: <span className="font-mono text-amber-200 font-semibold">JIN-****-**** (3 स्लॉट सक्रिय)</span>
-                      </div>
-                    </div>
-                    <p className="text-[10px] text-amber-200/80 font-gotu">
-                      💡 यदि फोन खो जाए, तो लॉगिन स्क्रीन पर अपना गुप्त बैकअप कोड दर्ज करें। ब्राउज़र इसे तुरंत हैश करके सत्यापित कर लेगा।
+                    <p className="text-[11px] text-slate-300">
+                      2FA अब सर्वर पर लागू है: <code className="text-amber-200">ADMIN_TOTP_SECRET</code> सेट होने पर हर लॉगिन में OTP या रिकवरी कोड अनिवार्य है। सीक्रेट व रिकवरी कोड ब्राउज़र में उपलब्ध नहीं हैं।
                     </p>
                   </div>
 
@@ -2510,29 +2224,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                         <span>अमान्य कोड! कृपया फोन का समय (Time Sync) और 6-अंकों का कोड जांचें।</span>
                       </div>
                     )}
-
-                    {/* Toggle 2FA Enable/Disable Button */}
-                    <div className="pt-2">
-                      {!is2FAEnabled ? (
-                        <button
-                          type="button"
-                          onClick={handleEnable2FA}
-                          className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-500 text-slate-950 font-gotu font-bold text-xs shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center gap-1.5"
-                        >
-                          <ShieldCheck className="w-4 h-4" />
-                          <span>2FA सुरक्षा सक्रिय करें (Enable 2FA Protection)</span>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={handleDisable2FA}
-                          className="w-full py-2.5 px-4 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-200 font-gotu font-bold text-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-                        >
-                          <ShieldAlert className="w-3.5 h-3.5" />
-                          <span>2FA सुरक्षा बंद करें (Disable 2FA)</span>
-                        </button>
-                      )}
-                    </div>
                   </div>
                 </div>
 
@@ -2686,659 +2377,18 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
       {/* TAB 1: अशुद्धि व सुझाव प्रबंधन (Feedback & Corrections) */}
       {adminTab === 'feedback' && (
-        <>
-          {/* Page Title & Clean Header Layout */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="w-full flex flex-col items-center text-center mb-6 relative z-10 max-w-2xl mx-auto"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-3 backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="font-gotu">प्रशासक नियंत्रण कक्ष • Admin Panel</span>
-            </div>
-
-            <h1 className="w-full text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-200 to-amber-300 leading-tight mb-2.5">
-              जिनवाणी संवर्धन एवं अशुद्धि प्रबंधन
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-200/85 font-gotu leading-relaxed max-w-[65ch] mx-auto px-2">
-              उपयोगकर्ताओं द्वारा भेजे गए समस्त सुझाव व अशुद्धि रिपोर्ट सीधे आपकी Google Sheet से सुरक्षित रूप से लोड हो रहे हैं। आप यहीं से स्थिति बदल सकते हैं।
-            </p>
-          </motion.div>
-
-          {/* Live Stats Bento Grid */}
-          <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 mb-6 relative z-10">
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-white/10 bg-[#0c1222]/80 flex flex-col justify-between hover:border-amber-400/40 transition-colors"
-            >
-              <div className="text-[11px] sm:text-xs text-slate-400 font-gotu">कुल सुझाव</div>
-              <div className="text-xl sm:text-3xl font-notoserif font-bold text-white mt-1">
-                {isLoading ? '...' : stats.total}
-              </div>
-              <div className="text-[10px] text-amber-400/80 font-gotu mt-1 flex items-center gap-1">
-                <Tag className="w-3 h-3" />
-                <span>गूगल शीट से लाइव</span>
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-emerald-500/25 bg-emerald-950/20 flex flex-col justify-between hover:border-emerald-500/50 transition-colors"
-            >
-              <div className="text-[11px] sm:text-xs text-emerald-300 font-gotu">सुधारा गया / पूर्ण</div>
-              <div className="text-xl sm:text-3xl font-notoserif font-bold text-emerald-200 mt-1">
-                {isLoading ? '...' : stats.resolved}
-              </div>
-              <div className="text-[10px] text-emerald-400/80 font-gotu mt-1 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" />
-                <span>स्थिति: पूर्ण</span>
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-amber-500/25 bg-amber-950/20 flex flex-col justify-between hover:border-amber-500/50 transition-colors"
-            >
-              <div className="text-[11px] sm:text-xs text-amber-300 font-gotu">समीक्षाधीन</div>
-              <div className="text-xl sm:text-3xl font-notoserif font-bold text-amber-200 mt-1">
-                {isLoading ? '...' : stats.inReview}
-              </div>
-              <div className="text-[10px] text-amber-400/80 font-gotu mt-1 flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                <span>जांच प्रक्रिया जारी</span>
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-blue-500/25 bg-blue-950/20 flex flex-col justify-between hover:border-blue-500/50 transition-colors"
-            >
-              <div className="text-[11px] sm:text-xs text-blue-300 font-gotu">नवीन प्राप्त</div>
-              <div className="text-xl sm:text-3xl font-notoserif font-bold text-blue-200 mt-1">
-                {isLoading ? '...' : stats.pending}
-              </div>
-              <div className="text-[10px] text-blue-400/80 font-gotu mt-1 flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                <span>समीक्षा प्रतीक्षित</span>
-              </div>
-            </GlassCard>
-          </div>
-
-          {/* Filter and Search Bar with Clear Separation */}
-          <div className="w-full space-y-3 mb-6 relative z-10">
-            {/* Search Bar */}
-            <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="ग्रंथ का नाम, अशुद्धि या विवरण खोजें..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl sm:rounded-2xl bg-slate-900/80 border border-amber-500/25 text-amber-100 placeholder:text-slate-500 text-xs sm:text-sm font-gotu focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400/40 transition-all shadow-inner"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-gotu"
-                >
-                  ✕ साफ़ करें
-                </button>
-              )}
-            </div>
-
-            {/* Separated Two-Tier Filter Bar with Column Layout Toggle */}
-            <div className="p-3 sm:p-4 rounded-2xl bg-[#0c1222]/80 border border-white/10 space-y-3">
-              {/* Row 1: Type Filters */}
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[11px] sm:text-xs text-amber-300 font-semibold font-gotu min-w-[50px]">
-                  प्रकार:
-                </span>
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {[
-                    { id: 'all', label: 'सभी प्रकार' },
-                    { id: 'correction', label: '✍️ अशुद्धि सुधार' },
-                    { id: 'new_text', label: '📖 नया पाठ' },
-                    { id: 'general', label: '💡 सामान्य' },
-                  ].map((filter) => (
-                    <button
-                      key={filter.id}
-                      onClick={() => setActiveTypeFilter(filter.id)}
-                      className={`px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer ${
-                        activeTypeFilter === filter.id
-                          ? 'bg-amber-500/30 text-amber-200 border border-amber-400/50 shadow-[0_0_12px_rgba(245,158,11,0.2)] font-semibold'
-                          : 'bg-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10 border border-transparent'
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Row 2: Status Filters */}
-              <div className="flex items-center gap-3 pt-2.5 border-t border-white/5 flex-wrap">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[11px] sm:text-xs text-amber-300 font-semibold font-gotu min-w-[50px]">
-                    स्थिति:
-                  </span>
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    {[
-                      { id: 'all', label: 'सभी स्थिति' },
-                      { id: 'resolved', label: '🟢 पूर्ण (Resolved)' },
-                      { id: 'in_review', label: '🟡 समीक्षा में' },
-                      { id: 'pending', label: '⚪ नवीन' },
-                    ].map((filter) => (
-                      <button
-                        key={filter.id}
-                        onClick={() => setActiveStatusFilter(filter.id)}
-                        className={`px-3 py-1 rounded-xl text-xs font-gotu transition-all cursor-pointer ${
-                          activeStatusFilter === filter.id
-                            ? 'bg-amber-500/30 text-amber-200 border border-amber-400/50 shadow-[0_0_12px_rgba(245,158,11,0.2)] font-semibold'
-                            : 'bg-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10 border border-transparent'
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Submissions List / Multi-Column Grid */}
-          <div className="w-full relative z-10">
-            {isLoading && items.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <RefreshCw className="w-8 h-8 text-amber-400 animate-spin" />
-                <p className="text-sm font-gotu text-amber-200/80">गूगल शीट से सुझाव लोड हो रहे हैं...</p>
-              </div>
-            ) : fetchError && items.length === 0 ? (
-              <div className="p-6 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-center text-rose-200 text-sm font-gotu">
-                <AlertCircle className="w-8 h-8 text-rose-400 mx-auto mb-2" />
-                <p>{fetchError}</p>
-                <button
-                  onClick={() => fetchData(true)}
-                  className="mt-3 px-4 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 text-xs font-gotu transition-colors cursor-pointer"
-                >
-                  पुनः प्रयास करें
-                </button>
-              </div>
-            ) : filteredItems.length === 0 ? (
-              <div className="p-12 rounded-3xl bg-[#0c1222]/50 border border-white/5 text-center text-slate-400 text-sm font-gotu">
-                <BookOpen className="w-10 h-10 text-slate-500 mx-auto mb-3 opacity-50" />
-                <p className="text-slate-300 font-medium">कोई सुझाव या रिपोर्ट नहीं मिली।</p>
-                <p className="text-xs text-slate-500 mt-1">फ़िल्टर बदलकर देखें या सर्च रीसेट करें।</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 font-gotu px-1">
-                  <div className="flex items-center gap-2">
-                    <span>कुल {filteredItems.length} प्रविष्टियाँ प्रदर्शित</span>
-                    {(activeTypeFilter !== 'all' || activeStatusFilter !== 'all' || searchQuery) && (
-                      <button
-                        onClick={() => {
-                          setActiveTypeFilter('all');
-                          setActiveStatusFilter('all');
-                          setSearchQuery('');
-                        }}
-                        className="text-amber-400 hover:underline cursor-pointer text-xs"
-                      >
-                        (रीसेट)
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                <div
-                  className={`grid gap-2.5 sm:gap-4 ${
-                    columns === 1
-                      ? 'grid-cols-1'
-                      : columns === 2
-                      ? 'grid-cols-2'
-                      : 'grid-cols-2 sm:grid-cols-3'
-                  }`}
-                >
-                  {filteredItems.map((item, idx) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: Math.min(idx * 0.03, 0.3) }}
-                      className="h-full"
-                    >
-                      <GlassCard
-                        variant="sacred"
-                        className="p-3 sm:p-5 rounded-2xl sm:rounded-3xl border-white/10 bg-[#0c1222]/85 hover:border-amber-500/40 transition-all flex flex-col justify-between h-full shadow-lg"
-                      >
-                        <div>
-                          {/* Card Header: Type Badge, Row ID & Status Tag + Delete Button */}
-                          <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2.5">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              {getTypeBadge(item.type)}
-                              <span className="text-[9px] sm:text-[10px] text-slate-400 font-mono bg-white/5 px-1.5 py-0.5 rounded-md">
-                                #{item.id}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              {getStatusBadge(item.status)}
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDeleteItem(item);
-                                }}
-                                title="प्रविष्टि हटाएं (Delete)"
-                                className="p-1 rounded-lg text-slate-400 hover:text-rose-300 hover:bg-rose-500/20 border border-white/5 hover:border-rose-500/30 transition-all cursor-pointer"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* Scripture / Text Name */}
-                          <h3 className="text-sm sm:text-base lg:text-lg font-notoserif font-bold text-amber-100 mb-1 leading-snug line-clamp-2" title={item.scriptureName}>
-                            {item.scriptureName || 'अनाम शास्त्र / सामान्य सुझाव'}
-                          </h3>
-
-                          {/* Timestamp */}
-                          <div className="text-[10px] sm:text-[11px] text-slate-400 font-gotu mb-2.5 flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-500 shrink-0" />
-                            <span className="truncate">{item.timestamp || 'दिनांक अनुपलब्ध'}</span>
-                          </div>
-
-                          {/* User Suggestion Content Box */}
-                          <div className="p-2.5 sm:p-3.5 rounded-xl bg-slate-950/60 border border-white/10 text-slate-200 text-[11px] sm:text-xs md:text-sm font-gotu leading-relaxed break-words line-clamp-4 hover:line-clamp-none transition-all">
-                            {item.details}
-                          </div>
-                        </div>
-
-                        {/* Admin Direct Status Action Toolbar (Pinned at bottom) */}
-                        <div className="pt-2 sm:pt-2.5 border-t border-white/5 mt-3 sm:mt-4">
-                          <div className="grid grid-cols-3 gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] font-gotu">
-                            <button
-                              onClick={() => handleUpdateStatus(item, 'सुधारा गया')}
-                              title="स्थिति को 'सुधारा गया' चिह्नित करें"
-                              className={`py-1 px-1 rounded-lg border transition-all cursor-pointer flex items-center justify-center gap-1 text-center truncate ${
-                                item.status?.includes('सुधारा') || item.status?.includes('स्वीकृत')
-                                  ? 'bg-emerald-500/25 border-emerald-500/60 text-emerald-200 font-bold'
-                                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-emerald-500/20 hover:text-emerald-300'
-                              }`}
-                            >
-                              <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
-                              <span className="truncate">सुधारा</span>
-                            </button>
-
-                            <button
-                              onClick={() => handleUpdateStatus(item, 'समीक्षा में')}
-                              title="स्थिति को 'समीक्षा में' चिह्नित करें"
-                              className={`py-1 px-1 rounded-lg border transition-all cursor-pointer flex items-center justify-center gap-1 text-center truncate ${
-                                item.status?.includes('समीक्षा')
-                                  ? 'bg-amber-500/25 border-amber-500/60 text-amber-200 font-bold'
-                                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-amber-500/20 hover:text-amber-300'
-                              }`}
-                            >
-                              <Clock className="w-3 h-3 text-amber-400 shrink-0" />
-                              <span className="truncate">समीक्षा</span>
-                            </button>
-
-                            <button
-                              onClick={() => handleUpdateStatus(item, 'प्राप्त हुआ')}
-                              title="स्थिति को 'नवीन प्राप्त' चिह्नित करें"
-                              className={`py-1 px-1 rounded-lg border transition-all cursor-pointer flex items-center justify-center gap-1 text-center truncate ${
-                                !item.status?.includes('सुधारा') && !item.status?.includes('समीक्षा')
-                                  ? 'bg-blue-500/25 border-blue-500/60 text-blue-200 font-bold'
-                                  : 'bg-white/5 border-white/10 text-slate-300 hover:bg-blue-500/20 hover:text-blue-300'
-                              }`}
-                            >
-                              <Clock className="w-3 h-3 text-blue-400 shrink-0" />
-                              <span className="truncate">नवीन</span>
-                            </button>
-                          </div>
-                        </div>
-                      </GlassCard>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Admin Quick Guide Banner */}
-          <div className="w-full mt-8 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 max-w-xl text-center space-y-1.5 text-xs font-gotu text-amber-200/90">
-            <div className="font-bold text-amber-300 flex items-center justify-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
-              <span>प्रशासक नियंत्रण (Admin Control Info)</span>
-            </div>
-            <p className="leading-relaxed text-[11px] text-slate-300">
-              आप सीधे ऊपर दिए गए <strong>"Quick Status"</strong> बटनों पर क्लिक करके स्थिति को "सुधारा गया" या "समीक्षा में" सेट कर सकते हैं। यह परिवर्तन आपके डैशबोर्ड में तुरंत दिखेगा और आपकी Google Sheet से भी सिंक रहेगा।
-            </p>
-          </div>
-        </>
+        <FeedbackTab showToast={showToast} />
       )}
 
       {/* TAB 2: सार्वजनिक उद्घोषणा (Site Announcement & Broadcast) */}
       {adminTab === 'announcement' && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-4xl space-y-6 relative z-10"
-        >
-          <div className="text-center max-w-2xl mx-auto mb-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2 backdrop-blur-md">
-              <Megaphone className="w-3.5 h-3.5 text-amber-400" />
-              <span className="font-gotu">लाइव उद्घोषणा • Broadcast Banner</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
-              सार्वजनिक सूचना एवं पर्व घोषणा
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
-              यहाँ से आप जिनवाणी के मुख्य पृष्ठ (Landing Page) के शीर्ष पर समस्त आगंतुकों हेतु लाइव पर्व सन्देश या विशेष घोषणा प्रकाशित कर सकते हैं।
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left Form */}
-            <div className="lg:col-span-7 space-y-4">
-              <GlassCard
-                variant="sacred"
-                className="p-5 sm:p-6 rounded-3xl border-amber-500/30 bg-[#0b1220]/90 shadow-xl space-y-4"
-              >
-                {/* Active Switch */}
-                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-950/70 border border-amber-500/20">
-                  <div>
-                    <span className="text-xs sm:text-sm font-bold text-amber-200 font-gotu block">
-                      वेबसाइट पर घोषणा प्रदर्शित करें (Active Status)
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-gotu">
-                      {announcementActive ? '🟢 घोषणा अभी मुख्य पृष्ठ पर सक्रिय है' : '⚪ घोषणा अभी निष्क्रिय है'}
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setAnnouncementActive(!announcementActive)}
-                    className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                      announcementActive ? 'bg-amber-400' : 'bg-slate-700'
-                    }`}
-                  >
-                    <span
-                      className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-slate-950 shadow-lg ring-0 transition duration-200 ease-in-out ${
-                        announcementActive ? 'translate-x-5' : 'translate-x-0'
-                      }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Announcement Type Selector (Permanent, Scheduled, Time-Frame) */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-amber-200 font-gotu">
-                    घोषणा का प्रकार (Schedule Type):
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { id: 'permanent', label: '🌟 स्थायी', desc: 'हमेशा दिखेगी' },
-                      { id: 'scheduled', label: '⏰ पूर्व-निर्धारित', desc: 'तय समय से शुरू' },
-                      { id: 'time_frame', label: '⏳ समय-सीमा', desc: 'स्वतः गायब होगी' },
-                    ].map((t) => (
-                      <button
-                        key={t.id}
-                        type="button"
-                        onClick={() => setAnnouncementType(t.id as any)}
-                        className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
-                          announcementType === t.id
-                            ? 'bg-amber-500/25 border-amber-400 text-amber-200 font-bold'
-                            : 'bg-slate-950/60 border-white/10 text-slate-300 hover:border-amber-400/30'
-                        }`}
-                      >
-                        <span className="text-xs font-gotu block">{t.label}</span>
-                        <span className="text-[10px] text-slate-400 block font-gotu mt-0.5">{t.desc}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Date & Time Pickers for Scheduled and Time-Frame */}
-                {announcementType !== 'permanent' && (
-                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="space-y-1">
-                        <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                          <span>प्रारंभ तिथि व समय:</span>
-                        </label>
-                        <input
-                          type="datetime-local"
-                          value={announcementStartDate}
-                          onChange={(e) => setAnnouncementStartDate(e.target.value)}
-                          className="w-full bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 text-xs text-amber-100 focus:outline-none focus:border-amber-400 font-mono"
-                        />
-                      </div>
-
-                      {announcementType === 'time_frame' && (
-                        <div className="space-y-1">
-                          <label className="text-xs font-semibold text-amber-200 font-gotu flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-rose-400" />
-                            <span>समाप्ति तिथि व समय:</span>
-                          </label>
-                          <input
-                            type="datetime-local"
-                            value={announcementEndDate}
-                            onChange={(e) => setAnnouncementEndDate(e.target.value)}
-                            className="w-full bg-slate-950/80 border border-amber-500/30 rounded-xl p-2 text-xs text-amber-100 focus:outline-none focus:border-amber-400 font-mono"
-                          />
-                        </div>
-                      )}
-                    </div>
-                    {announcementType === 'time_frame' && (
-                      <p className="text-[11px] text-amber-200/80 font-gotu leading-tight">
-                        ✨ <b>स्मार्ट ऑटो-एक्सपायरी:</b> यह समय पूरा होते ही घोषणा वेबसाइट से खुद-ब-खुद दिखना बंद हो जाएगी। आपको मैन्युअली हटाने की आवश्यकता नहीं होगी।
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* Badge Category */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-amber-200 font-gotu">
-                    सूचना का प्रकार (Badge Type):
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      '🪔 पर्व एवं महोत्सव',
-                      '📢 महत्वपूर्ण सूचना',
-                      '📖 नवीन ग्रंथ संकलन',
-                      '✨ विशेष सन्देश',
-                    ].map((badge) => (
-                      <button
-                        key={badge}
-                        type="button"
-                        onClick={() => setAnnouncementBadge(badge)}
-                        className={`p-2 rounded-xl text-xs font-gotu text-left border transition-all cursor-pointer ${
-                          announcementBadge === badge
-                            ? 'bg-amber-500/25 border-amber-400 text-amber-200 font-bold'
-                            : 'bg-slate-950/60 border-white/10 text-slate-300 hover:border-amber-400/30'
-                        }`}
-                      >
-                        {badge}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs font-semibold text-amber-200 font-gotu">
-                    <label>घोषणा का मुख्य सन्देश:</label>
-                    <span className="text-[10px] text-slate-400 font-mono">
-                      {announcementText.length}/200 अक्षर
-                    </span>
-                  </div>
-                  <textarea
-                    rows={3}
-                    maxLength={200}
-                    value={announcementText}
-                    onChange={(e) => setAnnouncementText(e.target.value)}
-                    placeholder="उदा. पर्युषण महापर्व के पावन अवसर पर 10 दिवसीय विशेष स्वाध्याय एवं शांतिधारा विधान उपलब्ध है।"
-                    className="w-full bg-slate-950/70 border border-amber-500/25 rounded-2xl p-3 text-xs sm:text-sm text-amber-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-400 font-gotu leading-relaxed"
-                  />
-                </div>
-
-                {/* Action Link */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-amber-200 font-gotu">
-                    क्लिक पर खुलने वाला पृष्ठ (Action Link):
-                  </label>
-                  <select
-                    value={announcementLink}
-                    onChange={(e) => setAnnouncementLink(e.target.value)}
-                    className="w-full bg-slate-950/70 border border-amber-500/25 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-amber-100 focus:outline-none focus:border-amber-400 font-gotu"
-                  >
-                    <option value="none">कोई बटन नहीं (केवल सूचना)</option>
-                    <option value="festivals">पर्व एवं उत्सव पृष्ठ (festivals)</option>
-                    <option value="library">शास्त्र ग्रंथालय (library)</option>
-                    <option value="panchang">दैनिक पंचांग (panchang)</option>
-                    <option value="daily-puja">नित्य पूजा प्रवाह (daily-puja)</option>
-                    <option value="jap">जाप माला (jap)</option>
-                    <option value="samayik">सामायिक (samayik)</option>
-                  </select>
-                </div>
-
-                {/* Actions Grid */}
-                <div className="pt-2 space-y-2.5">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <button
-                      type="button"
-                      onClick={handleCommitToGitHub}
-                      disabled={isCommittingGit}
-                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-amber-500/20 hover:from-amber-500/30 hover:to-orange-500/30 text-amber-200 border border-amber-500/40 font-gotu font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
-                      title="GitHub API द्वारा सीधे main ब्रांच पर Commit & Push करें"
-                    >
-                      <GitBranch className={`w-3.5 h-3.5 text-amber-400 ${isCommittingGit ? 'animate-spin' : ''}`} />
-                      <span>{isCommittingGit ? 'कमिट हो रहा है...' : '🚀 सीधे GitHub पर Push'}</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleDownloadAnnouncementJSON}
-                      className="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15 font-gotu text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-                      title="announcement.json डाउनलोड करें ताकि GitHub Desktop से Push कर सकें"
-                    >
-                      <Download className="w-3.5 h-3.5 text-amber-400" />
-                      <span>JSON डाउनलोड (Desktop)</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handlePublishGlobalAnnouncement}
-                      disabled={isPublishingAnnouncement}
-                      className="px-3.5 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border border-amber-500/30 font-gotu text-xs flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
-                      title="Cloudflare Edge API पर लाइव पब्लिश करें"
-                    >
-                      {isPublishingAnnouncement ? (
-                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                      ) : (
-                        <Send className="w-3.5 h-3.5 text-amber-400" />
-                      )}
-                      <span>{isPublishingAnnouncement ? 'पब्लिशिंग...' : 'Edge API'}</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleClearAnnouncement}
-                      className="px-3 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 transition-colors font-gotu text-xs cursor-pointer flex items-center gap-1"
-                      title="घोषणा हटाएं"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">हटाएं</span>
-                    </button>
-                  </div>
-
-                  <p className="text-[11px] text-slate-400 font-gotu">
-                    💡 <b>गिट सिंक:</b> आप <b>"सीधे GitHub पर Push"</b> से 1-क्लिक में वेब से ही कमिट कर सकते हैं, या <b>"JSON डाउनलोड"</b> करके GitHub Desktop से <code>public/announcement.json</code> को Push कर सकते हैं!
-                  </p>
-                </div>
-              </GlassCard>
-            </div>
-
-            {/* Right Live Preview */}
-            <div className="lg:col-span-5 space-y-4">
-              <GlassCard
-                variant="sacred"
-                className="p-5 sm:p-6 rounded-3xl border-white/10 bg-[#0b1220]/80 shadow-xl space-y-3 sticky top-4"
-              >
-                <div className="flex items-center justify-between pb-2 border-b border-white/10 text-xs font-bold text-amber-300 font-gotu">
-                  <div className="flex items-center gap-2">
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>लाइव पूर्वावलोकन (Preview)</span>
-                  </div>
-                  {/* Status Indicator */}
-                  {(() => {
-                    if (!announcementActive || !announcementText.trim()) {
-                      return <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-400 font-gotu">⚪ निष्क्रिय</span>;
-                    }
-                    const now = Date.now();
-                    if (announcementType === 'scheduled' && announcementStartDate) {
-                      const s = new Date(announcementStartDate).getTime();
-                      if (!isNaN(s) && now < s) {
-                        return <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-gotu">⏰ आगामी</span>;
-                      }
-                    }
-                    if (announcementType === 'time_frame') {
-                      if (announcementStartDate) {
-                        const s = new Date(announcementStartDate).getTime();
-                        if (!isNaN(s) && now < s) {
-                          return <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 font-gotu">⏰ आगामी</span>;
-                        }
-                      }
-                      if (announcementEndDate) {
-                        const e = new Date(announcementEndDate).getTime();
-                        if (!isNaN(e) && now > e) {
-                          return <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/30 font-gotu">🔴 समाप्त (Expired)</span>;
-                        }
-                      }
-                    }
-                    return <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 font-gotu">🟢 सक्रिय (Live)</span>;
-                  })()}
-                </div>
-
-                <p className="text-[11px] text-slate-400 font-gotu">
-                  उपयोगकर्ताओं को मुख्य पृष्ठ पर घोषणा ठीक इसी रूप में दिखाई देगी:
-                </p>
-
-                {/* Live Replica Banner */}
-                <div className="mt-3 p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-[#0d1527]/95 to-amber-500/20 border border-amber-400/40 shadow-[0_4px_25px_rgba(245,158,11,0.25)] text-left relative overflow-hidden">
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-amber-500/25 border border-amber-400/40 flex items-center justify-center text-amber-300 shrink-0 mt-0.5">
-                      <Sparkles className="w-4 h-4 text-amber-300" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                        {announcementBadge}
-                      </span>
-                      <p className="text-xs text-slate-100 font-gotu mt-1.5 font-medium leading-snug">
-                        {announcementText || 'यहाँ आपकी घोषणा का सन्देश प्रदर्शित होगा...'}
-                      </p>
-                    </div>
-                  </div>
-                  {announcementLink && announcementLink !== 'none' && (
-                    <div className="mt-3 pt-2 border-t border-white/10 flex justify-end">
-                      <span className="px-3 py-1 rounded-xl bg-amber-500/30 border border-amber-400/50 text-amber-200 text-[11px] font-gotu font-semibold">
-                        देखें →
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-[11px] text-slate-400 font-gotu space-y-1">
-                  <p>✨ <b>घोषणा प्रकार:</b> {announcementType === 'permanent' ? 'स्थायी (हमेशा दिखेगी)' : announcementType === 'scheduled' ? 'पूर्व-निर्धारित (तय समय से शुरू)' : 'समय-सीमा युक्त (समाप्ति समय पर स्वतः गायब)'}</p>
-                  {announcementStartDate && <p>📅 <b>प्रारंभ:</b> {announcementStartDate.replace('T', ' ')}</p>}
-                  {announcementEndDate && <p>⌛ <b>समाप्ति:</b> {announcementEndDate.replace('T', ' ')}</p>}
-                </div>
-              </GlassCard>
-            </div>
-          </div>
-        </motion.div>
+        <AnnouncementTab
+          showToast={showToast}
+          onNavigateToGitSettings={() => {
+            setAdminTab('settings');
+            setActiveSettingCategory('git');
+          }}
+        />
       )}
 
       {/* TAB 3: सामग्री एवं स्तोत्र संपादक (Content CMS) */}
@@ -3564,11 +2614,11 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                             <span>एडमिन पासवर्ड</span>
                           </div>
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-gotu">
-                            {Boolean(localStorage.getItem('jinvani_admin_custom_hash')) ? 'कस्टम पासवर्ड' : 'डिफ़ॉल्ट'}
+                            सर्वर सीक्रेट
                           </span>
                         </div>
                         <p className="text-xs text-slate-400 font-gotu leading-relaxed">
-                          सुरक्षित SHA-256 हैशिंग के साथ अपना व्यवस्थापक पासवर्ड बदलें या ज़रूरत पड़ने पर डिफ़ॉल्ट पर रीसेट करें।
+                          पासवर्ड Cloudflare के <code className="text-amber-200">ADMIN_PASSWORD_HASH</code> में रहता है। नया पासवर्ड सेट करने पर उसका हैश कॉपी होगा जिसे Cloudflare में अपडेट करें।
                         </p>
                       </div>
 
@@ -3583,15 +2633,6 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                         >
                           <KeyRound className="w-3.5 h-3.5" />
                           <span>नया पासवर्ड सेट करें</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={handleResetPasswordToDefault}
-                          className="w-full py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-rose-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
-                        >
-                          <RotateCcw className="w-3 h-3" />
-                          <span>डिफ़ॉल्ट पासवर्ड पर रीसेट</span>
                         </button>
                       </div>
                     </div>
@@ -3626,28 +2667,8 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
                           className="w-full py-2.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 font-gotu text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
                         >
                           <QrCode className="w-3.5 h-3.5" />
-                          <span>2FA सेटअप व क्यूआर कोड</span>
+                          <span>2FA जाँच (OTP टेस्ट)</span>
                         </button>
-
-                        {is2FAEnabled ? (
-                          <button
-                            type="button"
-                            onClick={handleDisable2FA}
-                            className="w-full py-2 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
-                          >
-                            <ShieldAlert className="w-3 h-3" />
-                            <span>2FA सुरक्षा बंद करें</span>
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={handleEnable2FA}
-                            className="w-full py-2 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-gotu text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
-                          >
-                            <ShieldCheck className="w-3 h-3" />
-                            <span>2FA तुरंत सक्रिय करें</span>
-                          </button>
-                        )}
                       </div>
                     </div>
 
@@ -4374,478 +3395,16 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
 
       {/* TAB 5: प्रशासक मार्गदर्शिका एवं सुरक्षा संदर्भ (Admin Guide & Security Manual) */}
       {adminTab === 'guide' && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-5xl space-y-6 relative z-10"
-        >
-          {/* Header Banner */}
-          <div className="text-center max-w-3xl mx-auto mb-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-[11px] sm:text-xs font-semibold mb-2.5 backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span className="font-gotu">प्रशासक संदर्भ निर्देशिका • Admin Handbook & Security Manual</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-200 to-amber-300 mb-2.5 leading-tight">
-              सिस्टम विन्यास, सुरक्षा निर्देश एवं एडमिन गाइड
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-200/85 font-gotu leading-relaxed max-w-[65ch] mx-auto">
-              पासवर्ड बदलने के 3 माध्यम (.env, कोड व UI), 2FA & Passkey सक्रियण, ऑफलाइन आपातकालीन रिकवरी कोड्स, तथा लाइव SHA-256 हैश जनरेटर के संपूर्ण निर्देश।
-            </p>
-          </div>
-
-          {/* Quick Overview Bento Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-amber-500/25 bg-[#0c1222]/90 flex flex-col justify-between"
-            >
-              <div className="text-xs text-amber-300 font-gotu flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-amber-400" />
-                <span>मास्टर पासवर्ड</span>
-              </div>
-              <div className="text-sm sm:text-base font-bold text-white font-mono mt-2 truncate">
-                SHA-256 Protected
-              </div>
-              <div className="text-[10px] text-amber-400/80 font-gotu mt-1">
-                UI / .env / Code समर्थित
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-emerald-500/25 bg-emerald-950/20 flex flex-col justify-between"
-            >
-              <div className="text-xs text-emerald-300 font-gotu flex items-center gap-1.5">
-                <Fingerprint className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Passkey (FIDO2)</span>
-              </div>
-              <div className="text-sm sm:text-base font-bold text-emerald-200 font-mono mt-2">
-                1-टैप बायोमेट्रिक
-              </div>
-              <div className="text-[10px] text-emerald-400/80 font-gotu mt-1">
-                {hasPasskey ? 'सक्रिय (Active)' : 'पंजीकरण योग्य'}
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-cyan-500/25 bg-cyan-950/20 flex flex-col justify-between"
-            >
-              <div className="text-xs text-cyan-300 font-gotu flex items-center gap-1.5">
-                <QrCode className="w-3.5 h-3.5 text-cyan-400" />
-                <span>2FA TOTP (6-अंक)</span>
-              </div>
-              <div className="text-sm sm:text-base font-bold text-cyan-200 font-mono mt-2">
-                Google Authenticator
-              </div>
-              <div className="text-[10px] text-cyan-400/80 font-gotu mt-1">
-                {is2FAEnabled ? 'सक्रिय (Active)' : 'वैकल्पिक / निष्क्रिय'}
-              </div>
-            </GlassCard>
-
-            <GlassCard
-              variant="sacred"
-              className="p-3.5 sm:p-4 rounded-2xl border-purple-500/25 bg-purple-950/20 flex flex-col justify-between"
-            >
-              <div className="text-xs text-purple-300 font-gotu flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-                <span>आपातकालीन रिकवरी</span>
-              </div>
-              <div className="text-sm sm:text-base font-bold text-purple-200 font-mono mt-2">
-                3 सुरक्षित स्लॉट्स
-              </div>
-              <div className="text-[10px] text-purple-400/80 font-gotu mt-1">
-                0% प्लेनटेक्स्ट स्टोरेज
-              </div>
-            </GlassCard>
-          </div>
-
-          {/* Section 1: Password Configuration & 3 Methods */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-7 rounded-3xl border-amber-500/30 bg-[#0b1220]/95 shadow-xl space-y-5"
-          >
-            <div className="border-b border-white/10 pb-4">
-              <div className="flex items-center gap-2 text-amber-400 text-xs font-gotu font-semibold">
-                <KeyRound className="w-4 h-4" />
-                <span>क्रेडेंशियल्स & पासवर्ड विन्यास (Password Architecture)</span>
-              </div>
-              <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white mt-1">
-                डिफ़ॉल्ट क्रेडेंशियल्स एवं पासवर्ड बदलने के 3 सुरक्षित तरीके
-              </h3>
-              <p className="text-xs text-slate-300 font-gotu mt-1">
-                चूँकि यह ओपन-सोर्स और क्लाइंट-साइड प्रोटेक्टेड एप्लिकेशन है, आप पासवर्ड को अपनी आवश्यकतानुसार 3 अलग-अलग स्तरों पर बदल सकते हैं:
-              </p>
-            </div>
-
-            {/* Current Default Credentials Box */}
-            <div className="p-4 rounded-2xl bg-amber-950/25 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div>
-                <span className="text-xs font-semibold text-amber-300 font-gotu block">
-                  सिस्टम प्रारंभिक डिफ़ॉल्ट पासवर्ड:
-                </span>
-                <div className="flex items-center gap-2 mt-1">
-                  <code className="text-sm sm:text-base font-mono font-bold text-amber-100 bg-slate-950/80 px-3 py-1 rounded-lg border border-amber-500/30">
-                    Jinvani@2026#Admin
-                  </code>
-                  <button
-                    type="button"
-                    onClick={() => copyGuideText('Jinvani@2026#Admin', 'default_pass', 'डिफ़ॉल्ट पासवर्ड कॉपी हो गया!')}
-                    className="p-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 transition-colors cursor-pointer"
-                    title="पासवर्ड कॉपी करें"
-                  >
-                    {copiedKey === 'default_pass' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-              <div className="text-[11px] text-amber-200/80 font-gotu max-w-sm">
-                ⚠️ <strong>महत्वपूर्ण:</strong> वेबसाइट को पब्लिक डोमेन पर लाइव करने से पूर्व कृपया अपना पासवर्ड नीचे दिए गए तरीकों में से किसी एक द्वारा अवश्य बदल लें।
-              </div>
-            </div>
-
-            {/* 3 Methods Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
-              {/* Method 1: UI */}
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono font-bold">
-                      विधि 1 (त्वरित UI)
-                    </span>
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
-                  </div>
-                  <h4 className="text-sm font-bold text-white font-gotu">एडमिन डैशबोर्ड से बदलें</h4>
-                  <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                    <strong>"सेटिंग्स"</strong> टैब में <strong>"सुरक्षा व क्रेडेंशियल्स"</strong> में जाकर <strong>"नया पासवर्ड सेट करें"</strong> बटन दबाएं, वर्तमान व नया पासवर्ड दर्ज करके सेव करें।
-                  </p>
-                </div>
-                <div className="pt-2 border-t border-white/5 text-[11px] text-slate-400 font-gotu">
-                  • तुरंत लागू होता है<br />
-                  • ब्राउज़र में SHA-256 हैश सहेजता है
-                </div>
-              </div>
-
-              {/* Method 2: .env File */}
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono font-bold">
-                      विधि 2 (अनुशंसित)
-                    </span>
-                    <FileCode className="w-3.5 h-3.5 text-cyan-400" />
-                  </div>
-                  <h4 className="text-sm font-bold text-white font-gotu">.env फ़ाइल द्वारा विन्यास</h4>
-                  <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                    प्रोजेक्ट के मुख्य फोल्डर में <code className="text-amber-200">.env</code> फ़ाइल में पर्यावरण चर (Environment Variable) जोड़ें:
-                  </p>
-                  <div className="bg-slate-900 border border-white/10 p-2 rounded-xl flex items-center justify-between gap-1 text-[11px] font-mono text-cyan-200">
-                    <span className="truncate">VITE_ADMIN_PASSWORD_HASH="आपका_हैश"</span>
-                    <button
-                      type="button"
-                      onClick={() => copyGuideText('VITE_ADMIN_PASSWORD_HASH="आपका_मजबूत_पासवर्ड_हैश"', 'env_code', '.env सिंटैक्स कॉपी हो गया!')}
-                      className="p-1 text-slate-400 hover:text-cyan-300"
-                      title="कॉपी करें"
-                    >
-                      {copiedKey === 'env_code' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                  </div>
-                </div>
-                <div className="pt-2 border-t border-white/5 text-[11px] text-slate-400 font-gotu">
-                  • कोड को छुए बिना सुरक्षित<br />
-                  • Vercel/Netlify पर आसानी से सेट करें
-                </div>
-              </div>
-
-              {/* Method 3: Source Code Hardening */}
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/10 hover:border-amber-400/40 transition-all flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono font-bold">
-                      विधि 3 (स्थायी कोड)
-                    </span>
-                    <Lock className="w-3.5 h-3.5 text-emerald-400" />
-                  </div>
-                  <h4 className="text-sm font-bold text-white font-gotu">सोर्स कोड में हैश बदलना</h4>
-                  <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                    फ़ाइल: <code className="text-amber-200">src/pages/AdminLogin.tsx</code><br />
-                    लाइन 74 पर <code className="text-amber-300">MASTER_PASSWORD_HASH</code> को अपने नए पासवर्ड के 64-अक्षर SHA-256 हैश से बदलें।
-                  </p>
-                </div>
-                <div className="pt-2 border-t border-white/5 text-[11px] text-slate-400 font-gotu">
-                  • कभी प्लेनटेक्स्ट कोड में नहीं दिखता<br />
-                  • 100% अपरिवर्तनीय क्रिप्टोग्राफिक लॉक
-                </div>
-              </div>
-            </div>
-          </GlassCard>
-
-          {/* Section 2: Interactive Live SHA-256 Hash Generator */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-7 rounded-3xl border-emerald-500/30 bg-[#0b1220]/95 shadow-xl space-y-4"
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
-              <div>
-                <div className="flex items-center gap-2 text-emerald-400 text-xs font-gotu font-semibold">
-                  <Sparkles className="w-4 h-4" />
-                  <span>लाइव क्रिप्टोग्राफिक टूल (Built-in SHA-256 Generator)</span>
-                </div>
-                <h3 className="text-base sm:text-lg font-notoserif font-bold text-white mt-0.5">
-                  नया पासवर्ड हैश जनरेटर (Instant Hash Calculator)
-                </h3>
-              </div>
-              <span className="text-[11px] text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-mono">
-                Web Crypto API • क्लाइंट-साइड 100%
-              </span>
-            </div>
-
-            <p className="text-xs text-slate-300 font-gotu">
-              किसी असुरक्षित बाहरी वेबसाइट पर जाने की आवश्यकता नहीं है। यहाँ अपना नया गुप्त पासवर्ड टाइप करें, और उसका 64-अक्षरों का वास्तविक SHA-256 हैश नीचे तुरंत प्राप्त करें:
-            </p>
-
-            <div className="space-y-3">
-              <div>
-                <label className="text-xs font-semibold text-amber-200 font-gotu block mb-1.5">
-                  नया पासवर्ड टाइप करें:
-                </label>
-                <input
-                  type="text"
-                  value={hashInput}
-                  onChange={(e) => setHashInput(e.target.value)}
-                  placeholder="उदा. Mahavira@Jinvani#2026"
-                  className="w-full bg-slate-950/80 border border-emerald-500/30 focus:border-emerald-400 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-emerald-200 placeholder:text-slate-600 font-mono focus:outline-none"
-                />
-              </div>
-
-              {generatedHash ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-3.5 rounded-2xl bg-slate-950/90 border border-emerald-500/40 space-y-2"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-emerald-300 font-gotu flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      जनरेटेड 256-बिट क्रिप्टोग्राफिक हैश (SHA-256):
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => copyGuideText(generatedHash, 'gen_hash', 'SHA-256 हैश कॉपी हो गया!')}
-                      className="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 text-xs font-gotu flex items-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      {copiedKey === 'gen_hash' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>हैश कॉपी करें</span>
-                    </button>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-slate-900 border border-white/10 font-mono text-xs text-amber-200 break-all select-all">
-                    {generatedHash}
-                  </div>
-                  <p className="text-[10px] text-slate-400 font-gotu">
-                    👉 इस हैश को कॉपी करके <code className="text-amber-300">src/pages/AdminLogin.tsx</code> के <code className="text-amber-300">MASTER_PASSWORD_HASH</code> में पेस्ट कर दें।
-                  </p>
-                </motion.div>
-              ) : (
-                <div className="p-3 rounded-xl bg-slate-950/40 border border-dashed border-white/10 text-center text-xs text-slate-500 font-gotu">
-                  पासवर्ड टाइप करते ही वास्तविक समय में SHA-256 हैश यहाँ प्रदर्शित होगा।
-                </div>
-              )}
-            </div>
-          </GlassCard>
-
-          {/* Section 3: Passkeys (WebAuthn / Biometrics) Guide */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-7 rounded-3xl border-cyan-500/30 bg-[#0b1220]/95 shadow-xl space-y-4"
-          >
-            <div className="border-b border-white/10 pb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-              <div>
-                <div className="flex items-center gap-2 text-cyan-400 text-xs font-gotu font-semibold">
-                  <Fingerprint className="w-4 h-4" />
-                  <span>Passkeys • बायोमेट्रिक व हार्डवेयर कुंजी (FIDO2)</span>
-                </div>
-                <h3 className="text-base sm:text-lg font-notoserif font-bold text-white mt-0.5">
-                  बिना पासवर्ड 1-टैप बायोमेट्रिक लॉगिन (Windows Hello / Touch ID / Face ID)
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setIs2FAModalOpen(true);
-                  setTestOtpInput('');
-                  setTestOtpResult(null);
-                }}
-                className="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-400/40 text-xs font-gotu font-bold transition-all flex items-center gap-1.5 cursor-pointer"
-              >
-                <Fingerprint className="w-3.5 h-3.5" />
-                <span>सुरक्षा केंद्र में Passkey प्रबंधित करें</span>
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2">
-                <h4 className="text-xs sm:text-sm font-bold text-cyan-200 font-gotu flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Passkey कैसे चालू व उपयोग करें?</span>
-                </h4>
-                <ol className="list-decimal list-inside text-xs text-slate-300 font-gotu space-y-1.5 pl-1 leading-relaxed">
-                  <li>शीर्ष हेडर में <strong>"सुरक्षा केंद्र (Passkey/2FA)"</strong> बटन पर क्लिक करें।</li>
-                  <li><strong>"इस डिवाइस पर Passkey जोड़ें"</strong> बटन दबाएं और डिवाइस का बायोमेट्रिक स्कैन करें।</li>
-                  <li>हरा टिक आने पर Passkey सक्रिय हो जाएगी।</li>
-                  <li>अगली बार लॉगिन स्क्रीन पर सबसे ऊपर <strong>"Passkey से 1-टैप लॉगिन करें"</strong> बटन आएगा। उस पर 1 क्लिक करते ही बिना पासवर्ड डाले डैशबोर्ड खुल जाएगा।</li>
-                </ol>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2">
-                <h4 className="text-xs sm:text-sm font-bold text-cyan-200 font-gotu flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>यह 100% फ़िशिंग-प्रूफ क्यों है?</span>
-                </h4>
-                <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                  Passkey FIDO2/WebAuthn क्रिप्टोग्राफिक पब्लिक-की एल्गोरिद्म पर काम करती है। आपकी बायोमेट्रिक जानकारी (फिंगरप्रिंट/चेहरा) कभी भी आपके फोन या लैपटॉप के हार्डवेयर सिक्योर एन्क्लेव (TPM / TEE) से बाहर नहीं निकलती। 
-                </p>
-                <div className="pt-2 text-[11px] text-slate-400 font-gotu">
-                  ✓ कोई पासवर्ड लीक होने का डर नहीं<br />
-                  ✓ कीलॉगर या स्पाईवेयर से अभेद्य
-                </div>
-              </div>
-            </div>
-          </GlassCard>
-
-          {/* Section 4: Emergency Recovery Codes & Storage Safety */}
-          <GlassCard
-            variant="sacred"
-            className="p-5 sm:p-7 rounded-3xl border-purple-500/30 bg-[#0b1220]/95 shadow-xl space-y-4"
-          >
-            <div className="border-b border-white/10 pb-3">
-              <div className="flex items-center gap-2 text-purple-400 text-xs font-gotu font-semibold">
-                <ShieldAlert className="w-4 h-4" />
-                <span>आपातकालीन रिकवरी कोड्स (Offline Recovery System)</span>
-              </div>
-              <h3 className="text-base sm:text-lg font-notoserif font-bold text-white mt-0.5">
-                फोन खोने या ऐप हटने की स्थिति में रिकवरी कोड्स एवं उनकी सुरक्षा
-              </h3>
-              <p className="text-xs text-slate-300 font-gotu mt-1">
-                यदि आप पासवर्ड भूल जाएं या आपका Authenticator ऐप मोबाइल से अनइंस्टॉल हो जाए, तो ये 3 अधिकृत कोड्स अंतिम सुरक्षा कवच हैं:
-              </p>
-            </div>
-
-            {/* 3 Recovery Codes Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { code: 'JIN-8492-SAFE', key: 'rec1', desc: 'प्राथमिक बैकअप कोड' },
-                { code: 'JIN-3174-OMMM', key: 'rec2', desc: 'द्वितीयक बैकअप कोड' },
-                { code: 'JIN-9518-MOKS', key: 'rec3', desc: 'तृतीयक बैकअप कोड' },
-              ].map((item) => (
-                <div
-                  key={item.key}
-                  className="p-3.5 rounded-2xl bg-slate-950/80 border border-purple-500/30 flex items-center justify-between"
-                >
-                  <div>
-                    <span className="text-[10px] text-purple-300 font-gotu block">{item.desc}</span>
-                    <code className="text-sm font-mono font-bold text-amber-200">{item.code}</code>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => copyGuideText(item.code, item.key, `${item.code} कॉपी हो गया!`)}
-                    className="p-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 transition-colors cursor-pointer"
-                    title="कोड कॉपी करें"
-                  >
-                    {copiedKey === item.key ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Crucial Security Explanation */}
-            <div className="p-4 rounded-2xl bg-purple-950/20 border border-purple-500/25 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-purple-200 font-gotu">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>ये कोड कहाँ स्टोर हैं? क्या यह सुरक्षित है? (Security Verification)</span>
-              </div>
-              <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                यह कोड कोडबेस या क्लाइंट जावास्क्रिप्ट बंडल में <strong>सादे अक्षरों (plaintext) में कभी भी स्टोर नहीं होते</strong>। कोडबेस में केवल इनके क्रिप्टोग्राफिक <strong>SHA-256 हैश</strong> सुरक्षित हैं। 
-              </p>
-              <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                जब आप लॉगिन में रिकवरी कोड दर्ज करते हैं, तो आपका ब्राउज़र आपके इनपुट को तुरंत हैश करके मिलान करता है। इसलिए इंटरनेट पर कोई भी व्यक्ति पेज का 'Source Code' या 'Inspect Element' करके भी इन कोड्स को नहीं देख सकता।
-              </p>
-              <div className="p-2.5 rounded-xl bg-slate-950/80 border border-white/5 font-mono text-[11px] text-slate-400 space-y-1">
-                <div>Hash 1: <span className="text-slate-300">7be95f6ef2c6828ad36a1ef3f48be2226fdee80138e3889c12f946285ca67e56</span></div>
-                <div>Hash 2: <span className="text-slate-300">272f85b11e0a2bd0e426d1e6233058902c0056e7b65decd1bbe8c00f48916cf2</span></div>
-                <div>Hash 3: <span className="text-slate-300">d22fdacd4496ce52a143603eb975acf222d85a229fecaa0e0c404dea3f83508f</span></div>
-              </div>
-            </div>
-          </GlassCard>
-
-          {/* Section 5: 2FA & Serverless Architecture Details */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* 2FA Authenticator Info */}
-            <GlassCard
-              variant="sacred"
-              className="p-5 sm:p-6 rounded-3xl border-amber-500/25 bg-[#0b1220]/95 shadow-xl space-y-3"
-            >
-              <h3 className="text-sm sm:text-base font-bold text-white font-notoserif flex items-center gap-2">
-                <QrCode className="w-4 h-4 text-amber-400" />
-                <span>2FA Authenticator कुंजी एवं टाइम सिंक</span>
-              </h3>
-              <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                Google Authenticator, Microsoft Authenticator या Aegis में QR कोड या इस सीक्रेट कुंजी से खाता जोड़ें:
-              </p>
-              <div className="flex items-center justify-between bg-slate-950/80 border border-amber-500/30 p-2.5 rounded-xl">
-                <div>
-                  <span className="text-[10px] text-slate-400 font-gotu block">मास्टर 2FA सीक्रेट:</span>
-                  <code className="text-xs sm:text-sm font-mono font-bold text-amber-200 tracking-wider">
-                    {MASTER_2FA_SECRET}
-                  </code>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => copyGuideText(MASTER_2FA_SECRET, 'guide_2fa_secret', '2FA सीक्रेट कुंजी कॉपी हो गई!')}
-                  className="p-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 transition-colors cursor-pointer"
-                >
-                  {copiedKey === 'guide_2fa_secret' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </div>
-              <div className="text-[11px] text-slate-300 font-gotu space-y-1 pt-1">
-                <span className="font-semibold text-amber-300">💡 यदि OTP "अमान्य" बताए:</span>
-                <p className="text-slate-400">
-                  Authenticator ऐप्स डिवाइस की घड़ी (Time Sync) पर निर्भर करती हैं। फोन की Authenticator ऐप सेटिंग्स में जाकर <strong>"Time sync"</strong> / <strong>"Sync now"</strong> करें।
-                </p>
-              </div>
-            </GlassCard>
-
-            {/* Serverless & Google Sheet Architecture */}
-            <GlassCard
-              variant="sacred"
-              className="p-5 sm:p-6 rounded-3xl border-emerald-500/25 bg-[#0b1220]/95 shadow-xl space-y-3"
-            >
-              <h3 className="text-sm sm:text-base font-bold text-white font-notoserif flex items-center gap-2">
-                <Globe className="w-4 h-4 text-emerald-400" />
-                <span>बिना सर्वर के पूर्ण स्वायत्तता (Zero-Server Architecture)</span>
-              </h3>
-              <p className="text-xs text-slate-300 font-gotu leading-relaxed">
-                यह संपूर्ण पोर्टल बिना किसी अतिरिक्त बैकएंड सर्वर के स्वतः संचालित होता है:
-              </p>
-              <ul className="text-xs text-slate-300 font-gotu space-y-1.5 pl-1">
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>प्रमाणीकरण:</strong> ब्राउज़र का नेटिव Web Crypto API (SHA-256 + TOTP + WebAuthn Passkeys)।</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>डेटा सिंक:</strong> उपयोगकर्ताओं के अशुद्धि सुझाव सीधे आपकी Google Sheet से सुरक्षित वेबहुक द्वारा लोड होते हैं।</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>ब्रूट फोर्स सुरक्षा:</strong> 5 गलत प्रयासों पर 5 मिनट का ऑटोमैटिक लॉकआउट।</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>बैकअप:</strong> 'सेटिंग्स' टैब के <strong>'डेटा बैकअप व शुद्धिकरण'</strong> से एक क्लिक में संपूर्ण डेटा JSON में निर्यात/आयात करें।</span>
-                </li>
-              </ul>
-            </GlassCard>
-          </div>
-        </motion.div>
+        <AdminGuideTab
+          hasPasskey={hasPasskey}
+          is2FAEnabled={is2FAEnabled}
+          onOpenSecurityModal={() => {
+            setIs2FAModalOpen(true);
+            setTestOtpInput('');
+            setTestOtpResult(null);
+          }}
+          showToast={showToast}
+        />
       )}
     </div>
   );

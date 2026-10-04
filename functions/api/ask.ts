@@ -66,27 +66,54 @@ const CURATED_ANSWERS: Record<string, string> = {
 7. **मोक्ष (Liberation):** समस्त कर्मों के सर्वथा नाश से पूर्ण स्वाधीनता व केवलज्ञान प्राप्त होना।`,
 };
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Content-Type': 'application/json; charset=utf-8',
-};
+import { getCorsHeaders, handleOptionsResponse } from './cors.ts';
+import { isRateLimited } from './rateLimit.ts';
+
+export async function onRequestOptions(context: { request: Request; env: Record<string, any> }): Promise<Response> {
+  return handleOptionsResponse(context.request, context.env, 'POST, OPTIONS');
+}
 
 export async function onRequestPost(context: {
   request: Request;
   env: Record<string, any>;
 }): Promise<Response> {
   const { request, env } = context;
+  const cors = getCorsHeaders(request, env, 'POST, OPTIONS');
+  const headers = { ...cors, 'Content-Type': 'application/json; charset=utf-8' };
 
   try {
-    const data: AskPayload = await request.json();
+    // Rate limiting: 15 questions per 60 seconds per IP
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (await isRateLimited(env, 'ask', ip, 15, 60)) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'अत्यधिक प्रश्न पूछे गए। कृपया 1 मिनट बाद पुनः प्रयास करें।' }),
+        { status: 429, headers }
+      );
+    }
+
+    let data: AskPayload;
+    try {
+      data = await request.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'अमान्य JSON अनुरोध।' }),
+        { status: 400, headers }
+      );
+    }
+
     const question = (data.question || '').trim();
 
     if (!question) {
       return new Response(
         JSON.stringify({ ok: false, error: 'कृपया अपना आध्यात्मिक प्रश्न दर्ज करें।' }),
-        { status: 400, headers: corsHeaders }
+        { status: 400, headers }
+      );
+    }
+
+    if (question.length > 500) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'प्रश्न बहुत लंबा है। कृपया अधिकतम 500 अक्षरों में पूछें।' }),
+        { status: 400, headers }
       );
     }
 
@@ -109,7 +136,7 @@ export async function onRequestPost(context: {
               answer: aiResponse.response,
               source: 'workers-ai',
             }),
-            { status: 200, headers: corsHeaders }
+            { status: 200, headers }
           );
         }
       } catch (aiErr) {
@@ -126,7 +153,7 @@ export async function onRequestPost(context: {
             answer,
             source: 'aagam-dictionary',
           }),
-          { status: 200, headers: corsHeaders }
+          { status: 200, headers }
         );
       }
     }
@@ -146,7 +173,7 @@ export async function onRequestPost(context: {
         answer: genericResponse,
         source: 'jain-library',
       }),
-      { status: 200, headers: corsHeaders }
+      { status: 200, headers }
     );
   } catch (err: any) {
     return new Response(
@@ -154,14 +181,7 @@ export async function onRequestPost(context: {
         ok: false,
         error: 'अनुरोध प्रक्रिया में त्रुटि हुई। कृपया पुनः प्रयास करें।',
       }),
-      { status: 500, headers: corsHeaders }
+      { status: 500, headers }
     );
   }
-}
-
-export async function onRequestOptions(): Promise<Response> {
-  return new Response(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
 }

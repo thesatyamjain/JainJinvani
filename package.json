@@ -63,7 +63,8 @@
       "scripts": {
       "dev": "vite",
       "typecheck": "tsc --noEmit",
-      "check": "npm run typecheck && npm run build",
+      "test": "node scripts/auth.check.ts && node --test test/*.test.ts",
+      "check": "npm run typecheck && npm run test && npm run build",
       "icons": "node scripts/generate_pwa_icons.js",
       "icons:mobile": "powershell -ExecutionPolicy Bypass -File scripts/generate_mobile_icons.ps1",
       "sitemap": "node scripts/generate_sitemap.js",

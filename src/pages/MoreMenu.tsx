@@ -418,6 +418,46 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             )}
           </div>
 
+          {/* App Version & OTA In-App Update Checker */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-600/10 to-yellow-500/10 border border-amber-400/30 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span className="text-white font-bold font-gotu text-sm">ऐप संस्करण एवं अपडेट</span>
+              </div>
+              <span className="text-[11px] font-mono font-bold text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-400/30">
+                v1.0.3
+              </span>
+            </div>
+
+            <p className="text-[11px] text-slate-300 font-gotu leading-relaxed">
+              नवीनतम संस्करण, बग सुधार और नए जिनवाणी पाठ तुरंत प्राप्त करने हेतु अपडेट जांचें।
+            </p>
+
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              onClick={() => {
+                triggerHaptic('medium');
+                if ((window as any).JinvaniNative) {
+                  (window as any).JinvaniNative.postMessage('check_update');
+                } else if ('serviceWorker' in navigator) {
+                  navigator.serviceWorker.getRegistrations().then((regs) => {
+                    for (const r of regs) r.update();
+                  });
+                  alert('नवीनतम संस्करण की जाँच की जा रही है...');
+                } else {
+                  window.location.reload();
+                }
+              }}
+              className="w-full py-2.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-300 font-bold font-gotu text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" />
+              नए अपडेट की जाँच करें (Check for Update)
+            </motion.button>
+          </div>
+
           {/* Storage Quota & Persistent Storage Dashboard */}
           {storageInfo && (
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">

@@ -32,8 +32,8 @@ interface FeedbackModalProps {
   defaultScriptureName?: string;
 }
 
-export const GOOGLE_SHEET_WEBHOOK_URL =
-  'https://script.google.com/macros/s/AKfycbzuu8oiNAXX6NFrzeIxk32g2FWrJQOBdIID2uUezafAFz9lnMZQJ0yMH1Kbg6zuCJ6lHQ/exec';
+export const GOOGLE_SHEET_WEBHOOK_URL: string =
+  ((typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GOOGLE_SHEET_WEBHOOK_URL) || '').trim();
 
 export const GOOGLE_FORM_VIEW_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSdLPc-5LVA1zwqDrw32K4D-fgDGAtGoDG1NAn2vbJhf9ot4FA/viewform';

@@ -122,6 +122,7 @@ dist
 # Vite
 dist
 dist-ssr
+build/
 *.local
 
 # Editor directories and files

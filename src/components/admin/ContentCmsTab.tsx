@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 
 interface VerseItem {
+  id?: string;
   number?: string;
   hindi: string;
   meaning?: string;
@@ -101,8 +102,14 @@ export const ContentCmsTab: React.FC<ContentCmsTabProps> = ({ showToast }) => {
           subtitle: data.subtitle || '',
           type: data.type || 'structured',
           verses: Array.isArray(data.verses)
-            ? JSON.parse(JSON.stringify(data.verses))
-            : [{ hindi: typeof data.verses === 'string' ? data.verses : '' }],
+            ? data.verses.map((v: any, i: number) => ({
+                id: v.id || `v-${i}-${Date.now()}`,
+                number: v.number,
+                hindi: v.hindi || (typeof v === 'string' ? v : ''),
+                meaning: v.meaning,
+                english: v.english,
+              }))
+            : [{ id: `v-0-${Date.now()}`, hindi: typeof data.verses === 'string' ? data.verses : '' }],
         });
       } else {
         showToast('पाठ लोड करने में त्रुटि हुई।');
@@ -125,8 +132,8 @@ export const ContentCmsTab: React.FC<ContentCmsTabProps> = ({ showToast }) => {
       subtitle: 'भक्ति एवं स्तुति',
       type: 'structured',
       verses: [
-        { hindi: 'यहाँ प्रथम छंद या मंगलाचरण लिखें...', meaning: 'सरल भावार्थ...' },
-        { number: '१', hindi: 'यहाँ द्वितीय छंद लिखें...', meaning: '' },
+        { id: `v-0-${Date.now()}`, hindi: 'यहाँ प्रथम छंद या मंगलाचरण लिखें...', meaning: 'सरल भावार्थ...' },
+        { id: `v-1-${Date.now()}`, number: '१', hindi: 'यहाँ द्वितीय छंद लिखें...', meaning: '' },
       ],
     });
     showToast('नया पाठ प्रारूप तैयार है! नीचे विवरण भरें।');
@@ -145,7 +152,10 @@ export const ContentCmsTab: React.FC<ContentCmsTabProps> = ({ showToast }) => {
     const nextNum = (activeContent.verses.length + 1).toString();
     setActiveContent({
       ...activeContent,
-      verses: [...activeContent.verses, { number: nextNum, hindi: '', meaning: '' }],
+      verses: [
+        ...activeContent.verses,
+        { id: `v-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`, number: nextNum, hindi: '', meaning: '' },
+      ],
     });
   };
 
@@ -337,7 +347,7 @@ export const ContentCmsTab: React.FC<ContentCmsTabProps> = ({ showToast }) => {
                 <div className="max-h-[460px] overflow-y-auto space-y-3 pr-1">
                   {activeContent.verses.map((verse, idx) => (
                     <div
-                      key={idx}
+                      key={verse.id || `v-${idx}`}
                       className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/10 space-y-2 relative group"
                     >
                       <div className="flex items-center justify-between text-xs">

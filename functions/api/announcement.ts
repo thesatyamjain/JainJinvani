@@ -3,6 +3,9 @@
  * Endpoint: GET /api/announcement, POST /api/announcement
  */
 
+import { verifySession } from './auth.ts';
+import { getCorsHeaders, handleOptionsResponse } from './cors.ts';
+
 interface AnnouncementPayload {
   active: boolean;
   type?: 'permanent' | 'scheduled' | 'time_frame';
@@ -14,15 +17,8 @@ interface AnnouncementPayload {
   updatedAt?: string;
 }
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Content-Type': 'application/json; charset=utf-8',
-};
-
-export async function onRequestOptions(): Promise<Response> {
-  return new Response(null, { headers: corsHeaders });
+export async function onRequestOptions(context: { request: Request; env: Record<string, any> }): Promise<Response> {
+  return handleOptionsResponse(context.request, context.env, 'GET, POST, OPTIONS');
 }
 
 export async function onRequestGet(context: {
@@ -30,6 +26,7 @@ export async function onRequestGet(context: {
   env: Record<string, any>;
 }): Promise<Response> {
   const { request, env } = context;
+  const cors = getCorsHeaders(request, env, 'GET, POST, OPTIONS');
 
   try {
     // 1. Check Cloudflare KV if bound (fastest live edge store)
@@ -38,7 +35,8 @@ export async function onRequestGet(context: {
       if (kvData) {
         return new Response(kvData, {
           headers: {
-            ...corsHeaders,
+            ...cors,
+            'Content-Type': 'application/json; charset=utf-8',
             'Cache-Control': 'public, max-age=30, s-maxage=30',
           },
         });
@@ -53,7 +51,8 @@ export async function onRequestGet(context: {
       const text = await assetRes.text();
       return new Response(text, {
         headers: {
-          ...corsHeaders,
+          ...cors,
+          'Content-Type': 'application/json; charset=utf-8',
           'Cache-Control': 'public, max-age=60, s-maxage=60',
         },
       });
@@ -70,12 +69,12 @@ export async function onRequestGet(context: {
     };
 
     return new Response(JSON.stringify(fallback), {
-      headers: corsHeaders,
+      headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' },
     });
   } catch (error: any) {
     return new Response(
       JSON.stringify({ ok: false, error: error?.message || 'Failed to fetch announcement' }),
-      { status: 500, headers: corsHeaders }
+      { status: 500, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } }
     );
   }
 }
@@ -85,18 +84,14 @@ export async function onRequestPost(context: {
   env: Record<string, any>;
 }): Promise<Response> {
   const { request, env } = context;
+  const cors = getCorsHeaders(request, env, 'GET, POST, OPTIONS');
 
   try {
-    // Verify admin token / authorization
-    const authHeader = request.headers.get('Authorization') || '';
-    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
-
-    // Default admin password sha256 hash or env secret
-    const expectedHash = env.ADMIN_PASSWORD_HASH || '74e32bd5469e4a917307e6c2555e00eb8c6014615f543adf4aa7117338de9834';
-    if (!token || (token !== expectedHash && token !== env.ADMIN_SECRET)) {
+    // Requires a session token issued by POST /api/auth
+    if (!(await verifySession(request, env))) {
       return new Response(
         JSON.stringify({ ok: false, error: 'अनधिकृत प्रवेश (Unauthorized): कृपया सही क्रेडेंशियल दर्ज करें।' }),
-        { status: 401, headers: corsHeaders }
+        { status: 401, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } }
       );
     }
 
@@ -105,7 +100,7 @@ export async function onRequestPost(context: {
     if (!body.text || !body.text.trim()) {
       return new Response(
         JSON.stringify({ ok: false, error: 'कृपया घोषणा का मुख्य सन्देश अवश्य लिखें।' }),
-        { status: 400, headers: corsHeaders }
+        { status: 400, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } }
       );
     }
 
@@ -179,12 +174,12 @@ export async function onRequestPost(context: {
         gitCommitted,
         message: 'घोषणा सफलतापूर्वक सहेज ली गई!',
       }),
-      { status: 200, headers: corsHeaders }
+      { status: 200, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } }
     );
   } catch (error: any) {
     return new Response(
       JSON.stringify({ ok: false, error: error?.message || 'घोषणा सहेजने में त्रुटि हुई।' }),
-      { status: 500, headers: corsHeaders }
+      { status: 500, headers: { ...cors, 'Content-Type': 'application/json; charset=utf-8' } }
     );
   }
 }

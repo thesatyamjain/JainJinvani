@@ -4,7 +4,8 @@ import { Dock } from "./components/layout/Dock";
 import { ExitToast } from "./components/layout/ExitToast";
 import { ScrollScrubber } from "./components/layout/ScrollScrubber";
 import { PwaAppBridge } from "./components/layout/PwaAppBridge";
-import { AnimatePresence, motion } from "motion/react";
+import { PageTransition } from "./components/layout/PageTransition";
+import { AnimatePresence } from "motion/react";
 import { useModalBackHandler } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
 import { resetSeoToDefault } from "./utils/seoHelper";
@@ -12,34 +13,41 @@ import { useEdgeSwipeBack } from "./hooks/useEdgeSwipeBack";
 import { setAppNotificationBadge, clearAppNotificationBadge } from "./utils/pwaManager";
 import { getDailyNiyamaState } from "./lib/storage";
 
+// Critical initial render components
 import { Landing } from "./pages/Landing";
-import { SadhanaMenu } from "./pages/SadhanaMenu";
-import { LibraryMenu } from "./pages/LibraryMenu";
-import { MoreMenu } from "./pages/MoreMenu";
-import { ContentViewer } from "./pages/ContentViewer";
-import { CategoryListing } from "./pages/CategoryListing";
-import { Panchang } from "./pages/Panchang";
-import { ExploreMenu } from "./pages/ExploreMenu";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
-import { NotFound } from "./pages/NotFound";
-import { FavoritesPage } from "./pages/FavoritesPage";
-import { ParvaPage, FestivalsPage } from "./pages/ParvaPage";
-import { TirthankarProfile } from "./pages/TirthankarProfile";
-import { TrikalTirthankarPage } from "./pages/TrikalTirthankarPage";
-import { TirthPage, PilgrimagePage } from "./pages/TirthPage";
-import { TattvaPage, PhilosophyPage } from "./pages/TattvaPage";
-import { PujaPage, RitualsPage } from "./pages/PujaPage";
-import { PathshalaPage } from "./pages/PathshalaPage";
-import { GalleryPage } from "./pages/GalleryPage";
-import { SamayikPage } from "./pages/SamayikPage";
-import { AaharPage, DietaryPage } from "./pages/AaharPage";
-import { MuniPage, AsceticsPage } from "./pages/MuniPage";
-import { MuniProfilesPage } from "./pages/MuniProfilesPage";
-import { JapMalaPage } from "./pages/JapMalaPage";
-import { NiyamaPage } from "./pages/NiyamaPage";
-import { DailyPujaFlow } from "./pages/DailyPujaFlow";
 
-// Heavy back-office admin pages remain code-split
+// Code-split secondary routes on demand (faster initial bundle & first paint)
+const SadhanaMenu = lazy(() => import("./pages/SadhanaMenu").then((m) => ({ default: m.SadhanaMenu })));
+const LibraryMenu = lazy(() => import("./pages/LibraryMenu").then((m) => ({ default: m.LibraryMenu })));
+const MoreMenu = lazy(() => import("./pages/MoreMenu").then((m) => ({ default: m.MoreMenu })));
+const ContentViewer = lazy(() => import("./pages/ContentViewer").then((m) => ({ default: m.ContentViewer })));
+const CategoryListing = lazy(() => import("./pages/CategoryListing").then((m) => ({ default: m.CategoryListing })));
+const Panchang = lazy(() => import("./pages/Panchang").then((m) => ({ default: m.Panchang })));
+const ExploreMenu = lazy(() => import("./pages/ExploreMenu").then((m) => ({ default: m.ExploreMenu })));
+const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
+const FavoritesPage = lazy(() => import("./pages/FavoritesPage").then((m) => ({ default: m.FavoritesPage })));
+const ParvaPage = lazy(() => import("./pages/ParvaPage").then((m) => ({ default: m.ParvaPage })));
+const FestivalsPage = lazy(() => import("./pages/ParvaPage").then((m) => ({ default: m.FestivalsPage })));
+const TirthankarProfile = lazy(() => import("./pages/TirthankarProfile").then((m) => ({ default: m.TirthankarProfile })));
+const TrikalTirthankarPage = lazy(() => import("./pages/TrikalTirthankarPage").then((m) => ({ default: m.TrikalTirthankarPage })));
+const TirthPage = lazy(() => import("./pages/TirthPage").then((m) => ({ default: m.TirthPage })));
+const PilgrimagePage = lazy(() => import("./pages/TirthPage").then((m) => ({ default: m.PilgrimagePage })));
+const TattvaPage = lazy(() => import("./pages/TattvaPage").then((m) => ({ default: m.TattvaPage })));
+const PhilosophyPage = lazy(() => import("./pages/TattvaPage").then((m) => ({ default: m.PhilosophyPage })));
+const PujaPage = lazy(() => import("./pages/PujaPage").then((m) => ({ default: m.PujaPage })));
+const RitualsPage = lazy(() => import("./pages/PujaPage").then((m) => ({ default: m.RitualsPage })));
+const PathshalaPage = lazy(() => import("./pages/PathshalaPage").then((m) => ({ default: m.PathshalaPage })));
+const GalleryPage = lazy(() => import("./pages/GalleryPage").then((m) => ({ default: m.GalleryPage })));
+const SamayikPage = lazy(() => import("./pages/SamayikPage").then((m) => ({ default: m.SamayikPage })));
+const AaharPage = lazy(() => import("./pages/AaharPage").then((m) => ({ default: m.AaharPage })));
+const DietaryPage = lazy(() => import("./pages/AaharPage").then((m) => ({ default: m.DietaryPage })));
+const MuniPage = lazy(() => import("./pages/MuniPage").then((m) => ({ default: m.MuniPage })));
+const AsceticsPage = lazy(() => import("./pages/MuniPage").then((m) => ({ default: m.AsceticsPage })));
+const MuniProfilesPage = lazy(() => import("./pages/MuniProfilesPage").then((m) => ({ default: m.MuniProfilesPage })));
+const JapMalaPage = lazy(() => import("./pages/JapMalaPage").then((m) => ({ default: m.JapMalaPage })));
+const NiyamaPage = lazy(() => import("./pages/NiyamaPage").then((m) => ({ default: m.NiyamaPage })));
+const DailyPujaFlow = lazy(() => import("./pages/DailyPujaFlow").then((m) => ({ default: m.DailyPujaFlow })));
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
 
 const PageLoading = () => (
@@ -295,71 +303,36 @@ export default function App() {
         <Suspense fallback={<PageLoading />}>
         <AnimatePresence mode="wait">
           {activePage === "landing" && (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="landing">
               <Landing onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "sadhana" && (
-            <motion.div
-              key="sadhana"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="sadhana">
               <SadhanaMenu onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "library" && (
-            <motion.div
-              key="library"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="library">
               <LibraryMenu onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "category" && (
-            <motion.div
-              key="category"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="category">
               <CategoryListing
                 categoryId={pageParams?.id}
                 initialSubCategory={pageParams?.subCategory}
                 onNavigate={handleNavigate}
                 onBack={() => handleBack(pageParams?.source || "sadhana")}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "viewer" && (
-            <motion.div
-              key="viewer"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="viewer">
               <ContentViewer
                 onBack={() => {
                   if (pageParams?.previousPage) {
@@ -378,104 +351,55 @@ export default function App() {
                 title={pageParams?.title}
                 type={pageParams?.type || pageParams?.source}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "panchang" && (
-            <motion.div
-              key="panchang"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="panchang">
               <Panchang
                 onBack={() => handleBack("sadhana")}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "more" && (
-            <motion.div
-              key="more"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="more">
               <MoreMenu onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "admin" && (
-            <motion.div
-              key="admin"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="admin">
               <AdminLogin
                 onBack={() => handleBack("landing")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "notfound" && (
-            <motion.div
-              key="notfound"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="notfound">
               <NotFound onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "favorites" && (
-            <motion.div
-              key="favorites"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="favorites">
               <FavoritesPage
                 onNavigate={handleNavigate}
                 onBack={() => handleBack("more")}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "festivals" || activePage === "parva") && (
-            <motion.div
-              key="festivals"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="festivals">
               <ParvaPage onBack={() => handleBack("favorites")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "tirthankar" && (
-            <motion.div
-              key="tirthankar"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="tirthankar">
               <TirthankarProfile
                 tirthankarId={pageParams?.id || 'adinath'}
                 onBack={() => {
@@ -487,18 +411,11 @@ export default function App() {
                 }}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "trikal-tirthankar" || activePage === "tirthankars" || activePage === "tirthankar-list") && (
-            <motion.div
-              key="trikal-tirthankar"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="trikal-tirthankar">
               <TrikalTirthankarPage
                 initialEra={pageParams?.initialEra || 'present'}
                 onBack={() => {
@@ -510,204 +427,106 @@ export default function App() {
                 }}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "pilgrimage" || activePage === "tirth") && (
-            <motion.div
-              key="pilgrimage"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="pilgrimage">
               <TirthPage onBack={() => handleBack("explore")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "philosophy" || activePage === "tattva") && (
-            <motion.div
-              key="philosophy"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="philosophy">
               <TattvaPage onBack={() => handleBack("explore")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "rituals" || activePage === "puja") && (
-            <motion.div
-              key="rituals"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="rituals">
               <PujaPage onBack={() => handleBack("explore")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "pathshala" && (
-            <motion.div
-              key="pathshala"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="pathshala">
               <PathshalaPage onBack={() => handleBack("explore")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "gallery" && (
-            <motion.div
-              key="gallery"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="gallery">
               <GalleryPage onBack={() => handleBack("explore")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "explore" && (
-            <motion.div
-              key="explore"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="explore">
               <ExploreMenu
                 onBack={() => handleBack("more")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "samayik" && (
-            <motion.div
-              key="samayik"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="samayik">
               <SamayikPage onBack={() => handleBack("sadhana")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "dietary" || activePage === "aahar") && (
-            <motion.div
-              key="dietary"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="dietary">
               <AaharPage onBack={() => handleBack("sadhana")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {(activePage === "ascetics" || activePage === "muni") && (
-            <motion.div
-              key="ascetics"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="ascetics">
               <MuniPage
                 onBack={() => handleBack("explore")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "muni-profiles" && (
-            <motion.div
-              key="muni-profiles"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="muni-profiles">
               <MuniProfilesPage
                 onBack={() => handleBack("ascetics")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "jap" && (
-            <motion.div
-              key="jap"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="jap">
               <JapMalaPage onBack={() => handleBack("sadhana")} />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "niyam" && (
-            <motion.div
-              key="niyam"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="niyam">
               <NiyamaPage
                 onBack={() => handleBack("sadhana")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {activePage === "daily-puja" && (
-            <motion.div
-              key="daily-puja"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="daily-puja">
               <DailyPujaFlow
                 onBack={() => handleBack("sadhana")}
                 onNavigate={handleNavigate}
               />
-            </motion.div>
+            </PageTransition>
           )}
 
           {!VALID_PAGES.has(activePage) && (
-            <motion.div
-              key="fallback-notfound"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.16, ease: "easeOut" }}
-              className="min-h-full overflow-x-hidden"
-            >
+            <PageTransition pageKey="fallback-notfound">
               <NotFound onNavigate={handleNavigate} />
-            </motion.div>
+            </PageTransition>
           )}
         </AnimatePresence>
         </Suspense>

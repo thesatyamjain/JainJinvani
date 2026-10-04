@@ -3,6 +3,9 @@
  * Endpoint: POST /api/feedback
  */
 
+import { getCorsHeaders, handleOptionsResponse } from './cors.ts';
+import { isRateLimited } from './rateLimit.ts';
+
 interface FeedbackPayload {
   type: string;
   scriptureName: string;
@@ -11,64 +14,99 @@ interface FeedbackPayload {
   timestamp?: string;
 }
 
-const GOOGLE_SHEET_WEBHOOK_URL =
-  'https://script.google.com/macros/s/AKfycbzuu8oiNAXX6NFrzeIxk32g2FWrJQOBdIID2uUezafAFz9lnMZQJ0yMH1Kbg6zuCJ6lHQ/exec';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Content-Type': 'application/json; charset=utf-8',
-};
+export async function onRequestOptions(context: { request: Request; env: Record<string, any> }): Promise<Response> {
+  return handleOptionsResponse(context.request, context.env, 'POST, OPTIONS');
+}
 
 export async function onRequestPost(context: {
   request: Request;
   env: Record<string, any>;
 }): Promise<Response> {
   const { request, env } = context;
+  const cors = getCorsHeaders(request, env, 'POST, OPTIONS');
+  const headers = { ...cors, 'Content-Type': 'application/json; charset=utf-8' };
 
   try {
-    const data: FeedbackPayload = await request.json();
-
-    // Input validation
-    if (!data.details || !data.details.trim()) {
+    // 1. Rate limiting: max 5 submissions per 60s per IP
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    if (await isRateLimited(env, 'feedback', ip, 5, 60)) {
       return new Response(
-        JSON.stringify({ ok: false, error: 'कृपया अशुद्धि या सुझाव का विवरण अवश्य लिखें।' }),
-        { status: 400, headers: corsHeaders }
+        JSON.stringify({ ok: false, error: 'अत्यधिक अनुरोध। कृपया 1 मिनट बाद पुनः प्रयास करें।' }),
+        { status: 429, headers }
       );
     }
 
-    if (!data.email || !data.email.includes('@')) {
+    let data: FeedbackPayload;
+    try {
+      data = await request.json();
+    } catch {
       return new Response(
-        JSON.stringify({ ok: false, error: 'कृपया एक वैध ईमेल पता दर्ज करें।' }),
-        { status: 400, headers: corsHeaders }
+        JSON.stringify({ ok: false, error: 'अमान्य JSON अनुरोध।' }),
+        { status: 400, headers }
+      );
+    }
+
+    // 2. Input validation
+    const details = (data.details || '').trim();
+    const email = (data.email || '').trim();
+    const scriptureName = (data.scriptureName || '').trim() || 'अज्ञात';
+    const type = (data.type || '').trim() || 'सामान्य सुझाव';
+
+    if (!details) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'कृपया अशुद्धि या सुझाव का विवरण अवश्य लिखें।' }),
+        { status: 400, headers }
+      );
+    }
+
+    if (details.length > 2000) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'सुझाव का विवरण अधिकतम 2000 अक्षरों का होना चाहिए।' }),
+        { status: 400, headers }
+      );
+    }
+
+    if (scriptureName.length > 200) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'ग्रंथ का नाम अधिकतम 200 अक्षरों का होना चाहिए।' }),
+        { status: 400, headers }
+      );
+    }
+
+    if (!email || !email.includes('@') || email.length > 100) {
+      return new Response(
+        JSON.stringify({ ok: false, error: 'कृपया एक वैध ईमेल पता (अधिकतम 100 अक्षर) दर्ज करें।' }),
+        { status: 400, headers }
       );
     }
 
     const payload = {
-      type: data.type || 'सामान्य सुझाव',
-      scriptureName: data.scriptureName || 'अज्ञात',
-      details: data.details.trim(),
-      email: data.email.trim(),
+      type,
+      scriptureName,
+      details,
+      email,
       timestamp: data.timestamp || new Date().toISOString(),
     };
 
-    // 1. Forward to Google Sheets via server-side fetch (no client CORS limits)
+    // 3. Forward to Google Sheets if configured in Cloudflare environment
     let sheetForwardSuccess = false;
-    try {
-      const gRes = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      });
-      sheetForwardSuccess = gRes.ok;
-    } catch (gErr) {
-      console.error('Failed to forward to Google Sheets:', gErr);
+    const webhookUrl = env?.GOOGLE_SHEET_WEBHOOK_URL;
+    if (webhookUrl) {
+      try {
+        const gRes = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          },
+          body: JSON.stringify(payload),
+        });
+        sheetForwardSuccess = gRes.ok;
+      } catch (gErr) {
+        console.error('Failed to forward to Google Sheets:', gErr);
+      }
     }
 
-    // 2. Optional: Forward to Telegram if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID exist in Cloudflare environment
+    // 4. Optional: Forward to Telegram if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID exist
     if (env && env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
       try {
         const text =
@@ -99,7 +137,7 @@ export async function onRequestPost(context: {
         message: 'आपका सुझाव सफलतापूर्वक प्राप्त हुआ। जिनवाणी सेवा में योगदान के लिए धन्यवाद!',
         syncedToSheet: sheetForwardSuccess,
       }),
-      { status: 200, headers: corsHeaders }
+      { status: 200, headers }
     );
   } catch (err: any) {
     return new Response(
@@ -107,14 +145,7 @@ export async function onRequestPost(context: {
         ok: false,
         error: 'सर्वर पर अनुरोध प्रक्रिया में त्रुटि हुई। कृपया पुनः प्रयास करें।',
       }),
-      { status: 500, headers: corsHeaders }
+      { status: 500, headers }
     );
   }
-}
-
-export async function onRequestOptions(): Promise<Response> {
-  return new Response(null, {
-    status: 204,
-    headers: corsHeaders,
-  });
 }
