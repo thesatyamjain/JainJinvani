@@ -55,6 +55,7 @@
       outDir: 'build',
       sourcemap: false,
       cssCodeSplit: true,
+      chunkSizeWarningLimit: 2000,
       rollupOptions: {
         output: {
           manualChunks: {

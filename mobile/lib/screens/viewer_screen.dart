@@ -305,16 +305,16 @@ class _ViewerScreenState extends State<ViewerScreen> {
 
         // Closing blessing banner
         const SizedBox(height: 24),
-        Center(
+        const Center(
           child: Column(
             children: [
-              const Text('卐', style: TextStyle(fontSize: 28, color: AppTheme.goldLight)),
-              const SizedBox(height: 4),
-              const Text(
+              Text('卐', style: TextStyle(fontSize: 28, color: AppTheme.goldLight)),
+              SizedBox(height: 4),
+              Text(
                 '॥ जय जिनेंद्र • जिनवाणी माता की जय ॥',
                 style: TextStyle(fontSize: 13, color: AppTheme.textMuted, letterSpacing: 0.5),
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: 32),
             ],
           ),
         ),

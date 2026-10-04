@@ -43,6 +43,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+        <!-- Disable Impeller on Android to prevent Vulkan PlatformView synchronization stalls with WebView -->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
+
         <!-- OTA In-App Update FileProvider -->
         <provider
             android:name="sk.fourq.otaupdate.OtaUpdateFileProvider"

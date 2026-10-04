@@ -61,15 +61,22 @@
             "vite": "6.3.5"
       },
       "scripts": {
-      "dev": "vite",
-      "typecheck": "tsc --noEmit",
-      "test": "node scripts/auth.check.ts && node --test test/*.test.ts",
-      "check": "npm run typecheck && npm run test && npm run build",
-      "icons": "node scripts/generate_pwa_icons.js",
-      "icons:mobile": "powershell -ExecutionPolicy Bypass -File scripts/generate_mobile_icons.ps1",
-      "sitemap": "node scripts/generate_sitemap.js",
-      "export:mobile-data": "node scripts/export_data_to_json.js",
-      "sync:mobile": "npm run build && node scripts/sync_to_mobile.js",
-      "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
+            "dev": "vite",
+            "typecheck": "tsc --noEmit",
+            "test": "node scripts/auth.check.ts && node --test test/*.test.ts",
+            "test:web": "node scripts/auth.check.ts && node --test test/*.test.ts",
+            "test:mobile": "cd mobile && flutter test",
+            "analyze:mobile": "cd mobile && flutter analyze --fatal-infos",
+            "check:web": "npm run typecheck && npm run test:web && npm run build",
+            "check:mobile": "cd mobile && flutter analyze --fatal-infos && flutter test",
+            "check:all": "npm run check:web && npm run check:mobile",
+            "check": "npm run typecheck && npm run test && npm run build",
+            "icons": "node scripts/generate_pwa_icons.js",
+            "icons:mobile": "powershell -ExecutionPolicy Bypass -File scripts/generate_mobile_icons.ps1",
+            "sitemap": "node scripts/generate_sitemap.js",
+            "export:mobile-data": "node scripts/export_data_to_json.js",
+            "sync:mobile": "npm run build && node scripts/sync_to_mobile.js",
+            "sync:full": "node scripts/export_data_to_json.js && npm run sync:mobile",
+            "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
       }
 }

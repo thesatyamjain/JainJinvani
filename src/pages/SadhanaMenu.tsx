@@ -415,6 +415,8 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1659263240327-20af29178b91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqYWluJTIwcHVqYSUyMGFhcnRpJTIwZGl5YSUyMGxhbXB8ZW58MXx8fHwxNzY4OTY3MDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-55"
             alt="Sadhana Header"
           />

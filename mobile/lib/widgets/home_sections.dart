@@ -117,10 +117,10 @@ class DailyThoughtCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
-      padding: const EdgeInsets.all(16),
+    return const GlassCard(
+      padding: EdgeInsets.all(16),
       borderColor: AppTheme.borderSubtle,
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('✨', style: TextStyle(fontSize: 24)),

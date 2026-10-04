@@ -248,6 +248,10 @@ export const PwaAppBridge = () => {
                 <img
                   src="/icons/pwa-192x192.png"
                   alt="जैन जिनवाणी"
+                  loading="lazy"
+                  decoding="async"
+                  width={56}
+                  height={56}
                   className="w-14 h-14 rounded-2xl border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)] object-cover bg-[#05060a]"
                 />
                 <div>
@@ -327,6 +331,10 @@ export const PwaAppBridge = () => {
                 <img
                   src="/icons/apple-touch-icon.png"
                   alt="जैन जिनवाणी"
+                  loading="lazy"
+                  decoding="async"
+                  width={56}
+                  height={56}
                   className="w-14 h-14 rounded-2xl border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.3)] object-cover bg-[#05060a]"
                 />
                 <div>

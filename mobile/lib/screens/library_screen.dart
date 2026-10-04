@@ -184,9 +184,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
             const SizedBox(height: 12),
             _buildSearchResults(),
           ] else ...[
-            Text(
+            const Text(
               'सभी अनुयोग एवं श्रेणियाँ',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.goldLight),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppTheme.goldLight),
             ),
             const SizedBox(height: 12),
             _buildCategoryCards(),
@@ -198,14 +198,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   Widget _buildSearchResults() {
     if (_searchResults.isEmpty) {
-      return Center(
+      return const Center(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: EdgeInsets.all(32.0),
           child: Column(
             children: [
-              const Icon(Icons.search_off_rounded, size: 48, color: AppTheme.textMuted),
-              const SizedBox(height: 12),
-              const Text(
+              Icon(Icons.search_off_rounded, size: 48, color: AppTheme.textMuted),
+              SizedBox(height: 12),
+              Text(
                 'कोई परिणाम नहीं मिला। कृपया भिन्न शब्द लिखकर खोजें।',
                 style: TextStyle(fontSize: 13, color: AppTheme.textMuted),
                 textAlign: TextAlign.center,

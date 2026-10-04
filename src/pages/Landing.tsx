@@ -720,6 +720,10 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                       <img
                         src={upiQrCode}
                         alt="UPI QR Code - Satyam Jain"
+                        loading="lazy"
+                        decoding="async"
+                        width={224}
+                        height={224}
                         className="w-full aspect-square object-contain rounded-xl"
                       />
                       <div className="mt-2.5 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-lg text-slate-800 text-xs font-mono font-bold select-all">

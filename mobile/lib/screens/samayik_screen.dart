@@ -225,11 +225,11 @@ class _SamayikScreenState extends State<SamayikScreen> {
               const SizedBox(height: 28),
 
               // Samayik Pratigya (संकल्प पाठ)
-              GlassCard(
-                padding: const EdgeInsets.all(18),
+              const GlassCard(
+                padding: EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const [
+                  children: [
                     Text(
                       'सामायिक प्रतिज्ञा (संकल्प)',
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppTheme.goldLight),
@@ -251,11 +251,11 @@ class _SamayikScreenState extends State<SamayikScreen> {
               const SizedBox(height: 14),
 
               // Iryavahi Sutra (इर्यावही सूत्र)
-              GlassCard(
-                padding: const EdgeInsets.all(18),
+              const GlassCard(
+                padding: EdgeInsets.all(18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: const [
+                  children: [
                     Text(
                       'इर्यावही सूत्र (मार्ग गमन शुद्धि)',
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppTheme.goldLight),

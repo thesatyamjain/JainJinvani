@@ -157,6 +157,19 @@ class _WebAppShellState extends State<WebAppShell> {
     super.dispose();
   }
 
+  Widget _buildWebView() {
+    if (_controller == null) return const SizedBox.shrink();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return WebViewWidget.fromPlatformCreationParams(
+        params: AndroidWebViewWidgetCreationParams(
+          controller: _controller!.platform,
+          displayWithHybridComposition: true,
+        ),
+      );
+    }
+    return WebViewWidget(controller: _controller!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -197,7 +210,7 @@ class _WebAppShellState extends State<WebAppShell> {
             );
           }
         } else {
-          SystemNavigator.pop();
+          unawaited(SystemNavigator.pop());
         }
       },
       child: Scaffold(
@@ -208,7 +221,7 @@ class _WebAppShellState extends State<WebAppShell> {
           child: Stack(
             children: [
               if (_errorMessage == null && _controller != null)
-                WebViewWidget(controller: _controller!)
+                _buildWebView()
               else if (_errorMessage != null)
                 Center(
                   child: Padding(

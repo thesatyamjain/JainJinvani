@@ -298,6 +298,8 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-40 sm:opacity-50"
             alt="Digambar Jain Granthalaya"
           />

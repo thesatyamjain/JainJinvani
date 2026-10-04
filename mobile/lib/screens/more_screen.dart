@@ -100,11 +100,11 @@ class MoreScreen extends StatelessWidget {
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppTheme.goldLight),
           ),
           const SizedBox(height: 10),
-          GlassCard(
-            padding: const EdgeInsets.all(16),
+          const GlassCard(
+            padding: EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   '॥ शत-प्रतिशत सम्पूर्ण रचना नियम ॥',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppTheme.goldLight),
@@ -140,11 +140,11 @@ class MoreScreen extends StatelessWidget {
                   },
                 ),
                 const Divider(color: AppTheme.borderSubtle, height: 1),
-                ListTile(
+                const ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.info_outline_rounded, color: AppTheme.goldLight),
-                  title: const Text('ऍप संस्करण', style: TextStyle(fontSize: 14, color: AppTheme.textPrimary)),
-                  trailing: const Text('v1.0.0 (Native)', style: TextStyle(fontSize: 12, color: AppTheme.textMuted)),
+                  leading: Icon(Icons.info_outline_rounded, color: AppTheme.goldLight),
+                  title: Text('ऍप संस्करण', style: TextStyle(fontSize: 14, color: AppTheme.textPrimary)),
+                  trailing: Text('v1.0.0 (Native)', style: TextStyle(fontSize: 12, color: AppTheme.textMuted)),
                 ),
               ],
             ),

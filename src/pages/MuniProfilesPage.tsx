@@ -200,6 +200,8 @@ export const MuniProfilesPage = ({ onBack }: MuniProfilesPageProps) => {
                   <img
                     src={muni.image}
                     alt={muni.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                   />
                 ) : (

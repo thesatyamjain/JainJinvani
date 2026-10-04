@@ -58,10 +58,10 @@ class PanchangScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             // 2. Parva Tithi Alert (अष्टमी / चतुर्दशी)
-            GlassCard(
-              padding: const EdgeInsets.all(14),
+            const GlassCard(
+              padding: EdgeInsets.all(14),
               child: Row(
-                children: const [
+                children: [
                   Text('🌙', style: TextStyle(fontSize: 24)),
                   SizedBox(width: 12),
                   Expanded(
@@ -86,12 +86,12 @@ class PanchangScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             // 3. Surya-Kala (Sunrise / Sunset Guide for Night Eating)
-            GlassCard(
-              padding: const EdgeInsets.all(16),
+            const GlassCard(
+              padding: EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Icon(Icons.wb_sunny_rounded, color: AppTheme.goldLight, size: 20),
                       SizedBox(width: 8),
@@ -101,8 +101,8 @@ class PanchangScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
+                  SizedBox(height: 10),
+                  Text(
                     'सूर्यास्त से २ घड़ी (४८ मिनट) पूर्व ही भोजन एवं जल ग्रहण कर लेना चाहिए। रात्रि में चारों प्रकार के आहार का त्याग ही जैन धर्म का मूल आधार है।',
                     style: TextStyle(fontSize: 12, color: AppTheme.textMuted, height: 1.5),
                   ),

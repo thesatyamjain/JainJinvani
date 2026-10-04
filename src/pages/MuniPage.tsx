@@ -121,6 +121,8 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
         <img
           src="https://images.unsplash.com/photo-1619616030121-fc704e016e47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZWFjb2NrJTIwZmVhdGhlciUyMGJyb29tJTIwamFpbnxlbnwxfHx8fDE3NjkwODUxODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Pichhi"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/60 to-transparent flex flex-col justify-end p-8 md:p-12">

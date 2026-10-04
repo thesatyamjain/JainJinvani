@@ -25,12 +25,12 @@ class FavoritesScreen extends StatelessWidget {
             final favoriteIds = favService.favoriteIds.toList();
 
             if (favoriteIds.isEmpty) {
-              return Center(
+              return const Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: EdgeInsets.all(32.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.favorite_border_rounded, size: 56, color: AppTheme.textMuted),
                       SizedBox(height: 16),
                       Text(
