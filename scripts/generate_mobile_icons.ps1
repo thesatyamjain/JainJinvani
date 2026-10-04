@@ -73,10 +73,10 @@ $androidDensities = @{
 foreach ($density in $androidDensities.Keys) {
     $size = $androidDensities[$density]
     $iconPath = Join-Path $androidResDir "$density\ic_launcher.png"
-    Save-ResizedImage -destinationPath $iconPath -width $size -height $size -hasBackground $true -scaleFactor 0.85
+    Save-ResizedImage -destinationPath $iconPath -width $size -height $size -hasBackground $true -scaleFactor 0.72
 }
 
-# 2. Android Adaptive Icon Foregrounds (108x108 base grid, 66% safe scale on transparent)
+# 2. Android Adaptive Icon Foregrounds (108x108 base grid, 66% safe mask, 50% logo scale)
 $adaptiveDensities = @{
     "mipmap-mdpi"    = 108
     "mipmap-hdpi"    = 162
@@ -88,7 +88,7 @@ $adaptiveDensities = @{
 foreach ($density in $adaptiveDensities.Keys) {
     $size = $adaptiveDensities[$density]
     $fgPath = Join-Path $androidResDir "$density\ic_launcher_foreground.png"
-    Save-ResizedImage -destinationPath $fgPath -width $size -height $size -hasBackground $false -scaleFactor 0.68
+    Save-ResizedImage -destinationPath $fgPath -width $size -height $size -hasBackground $false -scaleFactor 0.50
 }
 
 # 3. Android Adaptive XML Definitions & Colors
@@ -147,7 +147,7 @@ foreach ($fileName in $iosIcons.Keys) {
 
 # 5. Mobile Project Asset Images & Web Icons
 Save-ResizedImage -destinationPath (Join-Path $mobileAssetsDir "app_icon.png") -width 1024 -height 1024 -hasBackground $false
-Save-ResizedImage -destinationPath (Join-Path $mobileAssetsDir "app_icon_square.png") -width 512 -height 512 -hasBackground $true -scaleFactor 0.85
+Save-ResizedImage -destinationPath (Join-Path $mobileAssetsDir "app_icon_square.png") -width 512 -height 512 -hasBackground $true -scaleFactor 0.72
 Save-ResizedImage -destinationPath (Join-Path $mobileWebIconsDir "Icon-192.png") -width 192 -height 192 -hasBackground $false
 Save-ResizedImage -destinationPath (Join-Path $mobileWebIconsDir "Icon-512.png") -width 512 -height 512 -hasBackground $false
 Save-ResizedImage -destinationPath (Join-Path $mobileWebIconsDir "Icon-maskable-192.png") -width 192 -height 192 -hasBackground $true -scaleFactor 0.72

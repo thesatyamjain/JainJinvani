@@ -29,7 +29,7 @@ class JainJinvaniApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'जैन जिनवाणी',
+      title: 'जिनवाणी',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,

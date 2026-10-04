@@ -29,7 +29,7 @@
   <!-- iOS Safari & Android WebAPK Native PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="जैन जिनवाणी" />
+  <meta name="apple-mobile-web-app-title" content="जिनवाणी" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="format-detection" content="telephone=no" />
 
@@ -86,7 +86,28 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <header style="padding: 24px; text-align: center; font-family: sans-serif;">
+      <h1 style="font-size: 28px; margin-bottom: 8px;">जैन जिनवाणी - Jain Jinvani</h1>
+      <p style="font-size: 16px; color: #888; max-width: 640px; margin: 0 auto;">सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का डिजिटल संग्रह।</p>
+    </header>
+    <main style="padding: 16px; max-width: 800px; margin: 0 auto; font-family: sans-serif;">
+      <nav aria-label="मुख्य नेविगेशन">
+        <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <li><a href="/sadhana" style="color: #c9933e; text-decoration: none;">दैनिक साधना</a></li>
+          <li><a href="/library" style="color: #c9933e; text-decoration: none;">जिनवाणी साहित्य</a></li>
+          <li><a href="/panchang" style="color: #c9933e; text-decoration: none;">जैन पंचांग</a></li>
+          <li><a href="/tirthankar" style="color: #c9933e; text-decoration: none;">24 तीर्थंकर</a></li>
+        </ul>
+      </nav>
+    </main>
+  </div>
+
+  <noscript>
+    <div style="padding: 20px; text-align: center; font-family: sans-serif; color: #888;">
+      <p>इस वेबसाइट का संपूर्ण अनुभव प्राप्त करने के लिए कृपया अपने ब्राउज़र में जावास्क्रिप्ट (JavaScript) सक्षम करें।</p>
+    </div>
+  </noscript>
 
   <!-- Load React app -->
   <script type="module" src="/src/main.tsx"></script>
