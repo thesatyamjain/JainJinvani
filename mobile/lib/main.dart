@@ -146,8 +146,8 @@ class _WebAppShellState extends State<WebAppShell> {
         );
       }
 
-      // Safety watchdog: ensure loading spinner is dismissed after at most 3.5 seconds
-      _watchdogTimer = Timer(const Duration(milliseconds: 3500), () {
+      // Safety watchdog: ensure loading spinner is dismissed after at most 2.0 seconds
+      _watchdogTimer = Timer(const Duration(milliseconds: 2000), () {
         if (mounted && _isLoading && _errorMessage == null) {
           setState(() {
             _isLoading = false;
