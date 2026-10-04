@@ -160,6 +160,30 @@
     box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.6), 0 0 25px -4px rgba(245, 158, 11, 0.08), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16);
   }
 
+  /* Mobile WebView & Touch Performance Optimization */
+  @media (max-width: 768px), (pointer: coarse) {
+    /* Clamping massive 32px-64px blur shaders to 8px eliminates GPU thermal throttling and lag */
+    .backdrop-blur-2xl,
+    .backdrop-blur-3xl {
+      backdrop-filter: blur(8px) saturate(140%) !important;
+      -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
+    }
+
+    .frosted-glass,
+    .frosted-glass-gilded,
+    .frosted-glass-dock,
+    .crystal-glass-dock {
+      backdrop-filter: blur(8px) saturate(140%) !important;
+      -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
+    }
+  }
+
+  /* GPU Composite Layer Promotion for Smooth 60-120 FPS Touch Scrolling */
+  main {
+    transform: translateZ(0);
+    -webkit-overflow-scrolling: touch;
+  }
+
   /* 1. Standard Matched Frosted Glass Dock */
   .frosted-glass-dock {
     background: rgba(10, 18, 36, 0.58);

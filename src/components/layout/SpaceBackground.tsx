@@ -94,7 +94,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     const initSanctumParticles = () => {
       incenseParticles = [];
       const isMobile = canvas.width < 768;
-      const numParticles = isMobile ? 22 : Math.min(50, Math.max(25, Math.floor((canvas.width * canvas.height) / 14000)));
+      const numParticles = isMobile ? 14 : Math.min(40, Math.max(20, Math.floor((canvas.width * canvas.height) / 16000)));
       for (let i = 0; i < numParticles; i++) {
         const rand = Math.random();
         const color: 'gold' | 'amber' | 'warmWhite' =
@@ -130,7 +130,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     const initCosmicStars = () => {
       stars = [];
       const isMobile = canvas.width < 768;
-      const numStars = isMobile ? 35 : Math.min(100, Math.max(40, Math.floor((canvas.width * canvas.height) / 7000)));
+      const numStars = isMobile ? 22 : Math.min(80, Math.max(35, Math.floor((canvas.width * canvas.height) / 8000)));
       for (let i = 0; i < numStars; i++) {
         const rand = Math.random();
         const color: 'gold' | 'blue' | 'white' =
@@ -192,48 +192,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       }
     };
 
-    // Draw Sanctum (Temple Diya + Incense Embers)
+    // Sanctum Incense Embers (Particle dots only, no heavy full-screen radial gradient per frame)
     const drawSanctum = (time: number) => {
-      // 1. Akhand Diya Sacred Radiance (Physical Inverse-Square Optical Decay)
-      const pulse = Math.sin(time * 0.7) * 0.012;
-      const diyaGlow = ctx.createRadialGradient(
-        canvas.width * 0.5,
-        canvas.height * 0.02,
-        15,
-        canvas.width * 0.5,
-        canvas.height * 0.02,
-        Math.max(canvas.width * 0.70, 560)
-      );
-      // Incandescent warm core
-      diyaGlow.addColorStop(0, `rgba(255, 248, 235, ${0.16 + pulse * 0.8})`);
-      // Golden corona
-      diyaGlow.addColorStop(0.12, `rgba(251, 191, 36, ${0.09 + pulse})`);
-      // Warm amber halo
-      diyaGlow.addColorStop(0.30, `rgba(245, 158, 11, ${0.045 + pulse * 0.4})`);
-      // Deep temple bronze
-      diyaGlow.addColorStop(0.55, 'rgba(217, 119, 6, 0.02)');
-      // Diffuse atmospheric penumbra
-      diyaGlow.addColorStop(0.80, 'rgba(180, 83, 9, 0.007)');
-      diyaGlow.addColorStop(1, 'transparent');
-
-      ctx.fillStyle = diyaGlow;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 2. Secondary subtle sanctum floor warmth
-      const floorGlow = ctx.createRadialGradient(
-        canvas.width * 0.5,
-        canvas.height * 0.95,
-        30,
-        canvas.width * 0.5,
-        canvas.height * 0.95,
-        canvas.width * 0.5
-      );
-      floorGlow.addColorStop(0, 'rgba(180, 83, 9, 0.025)');
-      floorGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = floorGlow;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 3. Floating sacred incense particles (without GPU-heavy shadowBlur)
       incenseParticles.forEach((p) => {
         ctx.beginPath();
         const currentX = p.x + Math.sin(time * p.swaySpeed + p.phase) * p.swayAmplitude * 12;
@@ -260,37 +220,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       });
     };
 
-    // Draw Cosmic (Original Stars + Nebula + Shooting Stars)
+    // Cosmic Stars + Shooting Stars (Particle dots only, nebula clouds handled by CSS layer)
     const drawCosmic = (time: number) => {
-      // 1. Celestial nebula clouds
-      const grad1 = ctx.createRadialGradient(
-        canvas.width * 0.8,
-        canvas.height * 0.2,
-        20,
-        canvas.width * 0.8,
-        canvas.height * 0.2,
-        canvas.width * 0.45
-      );
-      grad1.addColorStop(0, 'rgba(245, 158, 11, 0.035)');
-      grad1.addColorStop(0.5, 'rgba(180, 83, 9, 0.015)');
-      grad1.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad1;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const grad2 = ctx.createRadialGradient(
-        canvas.width * 0.2,
-        canvas.height * 0.7,
-        30,
-        canvas.width * 0.2,
-        canvas.height * 0.7,
-        canvas.width * 0.5
-      );
-      grad2.addColorStop(0, 'rgba(30, 58, 138, 0.04)');
-      grad2.addColorStop(1, 'transparent');
-      ctx.fillStyle = grad2;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 2. Stars
       stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
@@ -315,7 +246,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         }
       });
 
-      // 3. Shooting star
+      // Shooting star
       const now = Date.now();
       if (!shootingStar.active && now - lastShootingStarTime > 8000 + Math.random() * 5000) {
         triggerShootingStar();
@@ -363,26 +294,37 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
       scrollDebounceTimer = setTimeout(() => {
         isScrolling = false;
-      }, 90);
+      }, 120);
     };
 
-    const draw = () => {
+    const isMobileDevice =
+      typeof window !== 'undefined' &&
+      (window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches);
+
+    // On mobile devices, 30 FPS for floating ambient particles is visually smooth and cuts GPU cycles by 50%
+    const minFrameInterval = isMobileDevice ? 1000 / 30 : 1000 / 60;
+    let lastRenderTime = 0;
+
+    const draw = (timestamp: number) => {
       // Pause drawing if page is hidden to save battery & GPU
       if (document.hidden) {
         animationFrameId = requestAnimationFrame(draw);
         return;
       }
 
-      // Pause clearRect and redraws during active scrolling so the canvas remains a static,
-      // pre-rendered GPU texture. This completely eliminates backdrop-filter buffer desync flicker.
+      // During active touch/scroll gestures, pause canvas updates completely to give 100% GPU budget to 60-120fps scrolling
       if (!isScrolling) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const time = Date.now() * 0.001;
+        const elapsed = timestamp - lastRenderTime;
+        if (elapsed >= minFrameInterval) {
+          lastRenderTime = timestamp - (elapsed % minFrameInterval);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const time = Date.now() * 0.001;
 
-        if (currentTheme === 'sanctum') {
-          drawSanctum(time);
-        } else {
-          drawCosmic(time);
+          if (currentTheme === 'sanctum') {
+            drawSanctum(time);
+          } else {
+            drawCosmic(time);
+          }
         }
       }
 
@@ -390,14 +332,17 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     };
 
     resizeCanvas();
-    draw();
+    animationFrameId = requestAnimationFrame(draw);
 
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+    // Listen on document with capture to detect scrolling inside any child container (e.g. main)
+    document.addEventListener('scroll', handleScroll, { capture: true, passive: true });
+    document.addEventListener('touchmove', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('scroll', handleScroll, true);
+      document.removeEventListener('scroll', handleScroll, true);
+      document.removeEventListener('touchmove', handleScroll);
       if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
       cancelAnimationFrame(animationFrameId);
     };
@@ -405,7 +350,49 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
   return (
     <>
-      {/* Canvas Layer */}
+      {/* Hardware-Accelerated CSS Ambient Layer (Zero Canvas Re-draw Overhead) */}
+      {currentTheme === 'sanctum' ? (
+        <>
+          <div
+            className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-700"
+            style={{
+              background:
+                'radial-gradient(circle 650px at 50% 0%, rgba(255, 248, 235, 0.14) 0%, rgba(251, 191, 36, 0.08) 18%, rgba(245, 158, 11, 0.04) 35%, rgba(217, 119, 6, 0.015) 60%, transparent 80%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+          <div
+            className="fixed inset-0 z-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle 500px at 50% 100%, rgba(180, 83, 9, 0.02) 0%, transparent 60%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+          <div className="fixed inset-0 z-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/60" />
+        </>
+      ) : (
+        <>
+          <div
+            className="fixed inset-0 z-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle 500px at 80% 20%, rgba(245, 158, 11, 0.035) 0%, rgba(180, 83, 9, 0.015) 50%, transparent 75%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+          <div
+            className="fixed inset-0 z-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle 550px at 20% 70%, rgba(30, 58, 138, 0.04) 0%, transparent 65%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+        </>
+      )}
+
+      {/* Canvas Layer for Floating Embers & Twinkling Stars */}
       <canvas
         ref={canvasRef}
         className={`fixed inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ${
@@ -413,13 +400,8 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
             ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
             : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
         }`}
-        style={{ transform: 'translateZ(0)' }}
+        style={{ transform: 'translateZ(0)', willChange: 'transform' }}
       />
-
-      {/* Subtle depth vignette (Sanctum Mode Only, zero CPU overhead) */}
-      {currentTheme === 'sanctum' && (
-        <div className="fixed inset-0 z-0 pointer-events-none bg-radial-gradient from-transparent via-transparent to-black/60" />
-      )}
     </>
   );
 });

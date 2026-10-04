@@ -77,7 +77,6 @@ class _WebAppShellState extends State<WebAppShell> {
       final controller = WebViewController()
         ..setJavaScriptMode(JavaScriptMode.unrestricted)
         ..setBackgroundColor(const Color(0xFF05060A))
-        ..setUserAgent('JainJinvaniApp/1.0.1 (Android; Mobile)')
         ..setNavigationDelegate(
           NavigationDelegate(
             onWebResourceError: (WebResourceError error) {
