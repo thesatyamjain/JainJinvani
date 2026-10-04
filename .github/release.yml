@@ -1,0 +1,61 @@
+# GitHub Release Notes Configuration
+# https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+
+changelog:
+  categories:
+    - title: "🚀 Features & Enhancements"
+      labels:
+        - "feature"
+        - "enhancement"
+      keywords:
+        - "feat"
+        - "feature"
+        - "add"
+    - title: "🐛 Bug Fixes & Stability"
+      labels:
+        - "bug"
+        - "fix"
+      keywords:
+        - "fix"
+        - "bug"
+        - "patch"
+        - "resolve"
+    - title: "🎨 Design & User Experience"
+      labels:
+        - "design"
+        - "ui"
+        - "a11y"
+      keywords:
+        - "ui"
+        - "style"
+        - "design"
+        - "icon"
+        - "a11y"
+        - "palette"
+    - title: "⚡ Performance & Optimization"
+      labels:
+        - "performance"
+        - "optimization"
+      keywords:
+        - "perf"
+        - "optimize"
+        - "cache"
+        - "speed"
+    - title: "🛠️ CI/CD & Build Infrastructure"
+      labels:
+        - "ci"
+        - "build"
+        - "dependencies"
+      keywords:
+        - "ci"
+        - "actions"
+        - "workflow"
+        - "build"
+        - "deps"
+  exclude:
+    labels:
+      - "ignore-for-release"
+    keywords:
+      - "merge branch"
+      - "merge remote"
+      - "Merge remote-tracking"
