@@ -2,15 +2,6 @@ name: Build & Release Mobile APK
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'mobile/**'
-      - 'src/**'
-      - 'public/**'
-      - 'index.html'
-      - 'package.json'
-      - '.github/workflows/release.yml'
     tags:
       - 'v*'
   workflow_dispatch:
@@ -168,5 +159,6 @@ jobs:
             4. यदि फ़ोन पूछे तो *"Allow installation from this source / Chrome"* को चालू करें।
           files: |
             JainJinvani-*.apk
+          generate_release_notes: true
           draft: false
           prerelease: false
