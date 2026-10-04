@@ -138,47 +138,77 @@ jobs:
           flutter build apk --release --split-per-abi --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
           flutter build apk --release --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
 
-      - name: Prepare Release Assets
+      - name: Prepare Release Assets & Checksums
         id: prep
         run: |
           VERSION="${{ steps.versioning.outputs.tag }}"
-          # Lightweight arm64 APK (recommended for 99% of modern Android devices)
+          
+          # 1. Standardize APK filenames
           if [ -f mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ]; then
             cp mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "JainJinvani-${VERSION}-arm64.apk"
           fi
-          # Universal APK (works on all architectures)
           cp mobile/build/app/outputs/flutter-apk/app-release.apk "JainJinvani-${VERSION}-universal.apk"
-          # Standard name fallback
-          cp mobile/build/app/outputs/flutter-apk/app-release.apk "JainJinvani-${VERSION}.apk"
-          echo "tag_name=${VERSION}" >> $GITHUB_OUTPUT
+          
+          # 2. Generate SHA-256 Checksums (Industry Security Standard)
+          sha256sum JainJinvani-${VERSION}-*.apk > SHA256SUMS.txt
+          
+          # 3. Extract exact file size and hash for release verification table
+          ARM64_SIZE="~35 MB"
+          ARM64_HASH="N/A"
+          if [ -f "JainJinvani-${VERSION}-arm64.apk" ]; then
+            ARM64_SIZE=$(du -h "JainJinvani-${VERSION}-arm64.apk" | cut -f1)
+            ARM64_HASH=$(sha256sum "JainJinvani-${VERSION}-arm64.apk" | awk '{print $1}')
+          fi
+          
+          UNI_SIZE=$(du -h "JainJinvani-${VERSION}-universal.apk" | cut -f1)
+          UNI_HASH=$(sha256sum "JainJinvani-${VERSION}-universal.apk" | awk '{print $1}')
+          
+          # 4. Generate structured Industry-Standard Release Notes
+          cat << 'EOF' > RELEASE_BODY.md
+## 📱 जिनवाणी (Jain Jinvani) - ${{ steps.versioning.outputs.tag }}
+
+सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का 100% ऑफ़लाइन डिजिटल संग्रह।
+
+### 📦 पैकेज विवरण (Package Metadata):
+- **Package Name:** `com.jainjinvani.app`
+- **Minimum Requirements:** Android 6.0 (API 23)+
+- **Target SDK:** Android 15 (API 35)
+- **Build Number:** `${{ github.run_number }}`
+- **Signing Scheme:** Verified Release Keystore (v1 + v2 + v3 Signature Scheme)
+
+---
+
+### 🔐 सुरक्षा एवं चेकसम (Verification & Checksums):
+| पैकेज (Package) | आर्किटेक्चर (Architecture) | साइज़ (Size) | SHA-256 Checksum |
+| :--- | :--- | :--- | :--- |
+EOF
+
+          echo "| \`JainJinvani-${VERSION}-arm64.apk\` | **ARM64-v8a** *(Recommended)* | ${ARM64_SIZE} | \`${ARM64_HASH}\` |" >> RELEASE_BODY.md
+          echo "| \`JainJinvani-${VERSION}-universal.apk\` | **Universal** *(All Devices)* | ${UNI_SIZE} | \`${UNI_HASH}\` |" >> RELEASE_BODY.md
+
+          cat << 'EOF' >> RELEASE_BODY.md
+
+> 💡 **टिप:** सभी आधुनिक स्मार्टफ़ोन (99% डिवाइस) के लिए **`arm64`** वर्ज़न सबसे हल्का और सबसे तेज़ चलता है। पुराना फ़ोन होने पर ही **`universal`** का उपयोग करें।
+
+---
+
+### 📥 इंस्टॉलेशन निर्देश (Installation Guide):
+1. नीचे **Assets** में से अपने डिवाइस के अनुसार APK डाउनलोड करें।
+2. डाउनलोड पूरी होने पर फ़ाइल खोलें और **Install** दबाएं।
+3. यदि Google Play Protect पूछे, तो *"Install without scanning"* या *"Scan app"* चुनें।
+4. भविष्य के सभी नए अपडेट सीधे ऐप के भीतर **1-क्लिक इन-ऐप OTA** से अपने आप मिल जाएंगे।
+
+EOF
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.versioning.outputs.tag }}
           name: Jain Jinvani Mobile App ${{ steps.versioning.outputs.tag }}
-          body: |
-            ## 📱 जिनवाणी मोबाइल ऐप (${{ steps.prep.outputs.tag_name }})
-
-            जिनवाणी (Jain Jinvani) का आधिकारिक एंड्रॉइड ऐप संस्करण।
-
-            ### ✨ मुख्य विशेषताएं (Key Features):
-            - **100% ऑफ़लाइन (Offline First):** बिना इंटरनेट कनेक्शन के संपूर्ण जैन पूजा, आरती, स्तोत्र, पाठ एवं चालीसा।
-            - **विशाल संग्रह:** 700+ धार्मिक रचनाएं, तीर्थंकर परिचय एवं नित्य नियम।
-            - **ऑडियो प्लेयर:** णमोकार महामंत्र एवं भक्तामर स्तोत्र शुद्ध उच्चारण सहित।
-            - **दिव्य डार्क मोड:** पढ़ने में अत्यंत सुगम एवं मनमोहक इंटरफ़ेस।
-            - **सुपरफास्ट एवं हल्का:** 60/120 FPS स्मूथ स्क्रॉलिंग और न्यूनतम स्टोरेज उपयोग।
-            - **इन-ऐप OTA अपडेट:** भविष्य के सभी अपडेट्स सीधे ऐप के अंदर 1-क्लिक में।
-
-            ---
-
-            ### 📥 कैसे इंस्टॉल करें (How to Install):
-            1. **अनुशंसित (Recommended):** नीचे **Assets** में से **`JainJinvani-${{ steps.prep.outputs.tag_name }}-arm64.apk`** डाउनलोड करें (सभी आधुनिक फ़ोन के लिए सबसे हल्का ~35MB एवं सबसे तेज़)।
-            2. **सभी फ़ोन्स के लिए (Universal):** यदि पुराना फ़ोन हो तो **`JainJinvani-${{ steps.prep.outputs.tag_name }}-universal.apk`** डाउनलोड करें।
-            3. फ़ोन में डाउनलोड हुई फ़ाइल खोलें और **Install** दबाएं।
-            4. यदि फ़ोन पूछे तो *"Allow installation from this source / Chrome"* को चालू करें।
+          body_path: RELEASE_BODY.md
           files: |
             JainJinvani-*.apk
+            SHA256SUMS.txt
           generate_release_notes: true
           draft: false
           prerelease: false
