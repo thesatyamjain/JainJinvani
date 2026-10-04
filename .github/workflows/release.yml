@@ -6,8 +6,18 @@ on:
       - 'v*'
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Release version (खाली छोड़ें ऑटो-इंक्रीमेंट के लिए / Leave empty for auto v1.0.x)'
+      bump_type:
+        description: 'Release Type (वर्ज़न का प्रकार चुनें)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - 'patch'
+          - 'minor'
+          - 'major'
+          - 'custom'
+      custom_version:
+        description: 'Custom Version (यदि "custom" चुना हो, उदा. v2.1.0)'
         required: false
         default: ''
 
@@ -75,19 +85,20 @@ jobs:
         run: |
           git fetch --tags --force 2>/dev/null || true
           
-          INPUT_VERSION="${{ github.event.inputs.version }}"
+          BUMP_TYPE="${{ github.event.inputs.bump_type || 'patch' }}"
+          CUSTOM_VER="${{ github.event.inputs.custom_version }}"
           
-          if [ -n "$INPUT_VERSION" ]; then
-            TAG_NAME="$INPUT_VERSION"
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG_NAME="${{ github.ref_name }}"
+            echo "Using pushed git tag: $TAG_NAME"
+          elif [ "$BUMP_TYPE" = "custom" ] && [ -n "$CUSTOM_VER" ]; then
+            TAG_NAME="$CUSTOM_VER"
             if [[ ! "$TAG_NAME" =~ ^v ]]; then
               TAG_NAME="v$TAG_NAME"
             fi
-            echo "Using manual version from input: $TAG_NAME"
-          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
-            TAG_NAME="${{ github.ref_name }}"
-            echo "Using pushed git tag: $TAG_NAME"
+            echo "Using custom version from input: $TAG_NAME"
           else
-            # Auto-increment: find highest existing semantic tag
+            # Find highest existing semantic tag (e.g. v1.0.1)
             LATEST_TAG=$(git tag -l "v*" --sort=-v:refname | head -n 1)
             if [ -z "$LATEST_TAG" ]; then
               LATEST_TAG="v1.0.0"
@@ -100,9 +111,18 @@ jobs:
             MINOR=${MINOR:-0}
             PATCH=${PATCH:-0}
             
-            NEW_PATCH=$((PATCH + 1))
-            TAG_NAME="v${MAJOR}.${MINOR}.${NEW_PATCH}"
-            echo "Auto-incremented release tag to: $TAG_NAME"
+            if [ "$BUMP_TYPE" = "major" ]; then
+              NEW_MAJOR=$((MAJOR + 1))
+              TAG_NAME="v${NEW_MAJOR}.0.0"
+            elif [ "$BUMP_TYPE" = "minor" ]; then
+              NEW_MINOR=$((MINOR + 1))
+              TAG_NAME="v${MAJOR}.${NEW_MINOR}.0"
+            else
+              # Default: patch (e.g. 1.0.1 -> 1.0.2)
+              NEW_PATCH=$((PATCH + 1))
+              TAG_NAME="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+            fi
+            echo "Calculated [$BUMP_TYPE] release tag: $TAG_NAME"
           fi
           
           CLEAN_VERSION="${TAG_NAME#v}"
