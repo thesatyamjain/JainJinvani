@@ -54,11 +54,8 @@ class WebAppShell extends StatefulWidget {
 class _WebAppShellState extends State<WebAppShell> {
   final LocalAssetServer _server = LocalAssetServer();
   WebViewController? _controller;
-  bool _isLoading = true;
-  bool _hasInitiallyLoaded = false;
   String? _errorMessage;
   DateTime? _lastBackPressTime;
-  Timer? _watchdogTimer;
   Timer? _updateTimer;
 
   @override
@@ -83,26 +80,11 @@ class _WebAppShellState extends State<WebAppShell> {
         ..setUserAgent('JainJinvaniApp/1.0.1 (Android; Mobile)')
         ..setNavigationDelegate(
           NavigationDelegate(
-            onPageStarted: (String url) {
-              if (!_hasInitiallyLoaded && mounted) {
-                setState(() => _isLoading = true);
-              }
-            },
-            onPageFinished: (String url) {
-              if (mounted) {
-                setState(() {
-                  _isLoading = false;
-                  _hasInitiallyLoaded = true;
-                  _errorMessage = null;
-                });
-              }
-            },
             onWebResourceError: (WebResourceError error) {
               debugPrint('WebResource error: ${error.errorCode} - ${error.description}');
               if (error.isForMainFrame ?? false) {
-                if (mounted && !_hasInitiallyLoaded) {
+                if (mounted) {
                   setState(() {
-                    _isLoading = false;
                     _errorMessage = 'लोड करने में असमर्थ (${error.errorCode}): ${error.description}';
                   });
                 }
@@ -131,7 +113,6 @@ class _WebAppShellState extends State<WebAppShell> {
       if (mounted) {
         setState(() {
           _errorMessage = e.toString();
-          _isLoading = false;
         });
       }
     }
@@ -145,21 +126,10 @@ class _WebAppShellState extends State<WebAppShell> {
           Uri.parse('http://127.0.0.1:$port/index.html'),
         );
       }
-
-      // Safety watchdog: ensure loading spinner is dismissed after at most 2.0 seconds
-      _watchdogTimer = Timer(const Duration(milliseconds: 2000), () {
-        if (mounted && _isLoading && _errorMessage == null) {
-          setState(() {
-            _isLoading = false;
-            _hasInitiallyLoaded = true;
-          });
-        }
-      });
     } catch (e) {
       if (mounted) {
         setState(() {
           _errorMessage = e.toString();
-          _isLoading = false;
         });
       }
     }
@@ -167,7 +137,6 @@ class _WebAppShellState extends State<WebAppShell> {
 
   @override
   void dispose() {
-    _watchdogTimer?.cancel();
     _updateTimer?.cancel();
     _server.stop();
     super.dispose();
@@ -269,31 +238,6 @@ class _WebAppShellState extends State<WebAppShell> {
                             foregroundColor: Colors.black,
                           ),
                           child: const Text('पुनः प्रयास करें'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              if (_isLoading)
-                Container(
-                  color: const Color(0xFF05060A),
-                  child: const Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFFFFB800),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'जैन जिनवाणी लोड हो रहा है...',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 14,
-                            letterSpacing: 0.5,
-                          ),
                         ),
                       ],
                     ),
