@@ -6,7 +6,69 @@ const bookImgPath = path.resolve(__dirname, '..', 'src', 'assets', '52d9a82ed189
 const bookBase64 = fs.readFileSync(bookImgPath).toString('base64');
 const bookDataUri = `data:image/png;base64,${bookBase64}`;
 
-const htmlContent = `<!DOCTYPE html>
+const BANNER_CONFIGS = [
+  {
+    fileName: 'og-image.png',
+    badge: '॥ णमो जिणाणं ॥ • ४५०+ प्रामाणिक ग्रंथ',
+    title: 'जैन जिनवाणी',
+    subBrand: 'JAIN JINVANI',
+    lead: 'भक्तामर स्तोत्र, तत्त्वार्थ सूत्र, समयसार, पूजा, आरती, चालीसा, २४ तीर्थंकर परिचय व पंचांग।',
+    tags: ['📖 शुद्ध देवनागरी', '🕊️ १००% विज्ञापन-मुक्त', '⚡ ऑफ़लाइन समर्थित'],
+  },
+  {
+    fileName: 'og-bhaktamar.png',
+    badge: 'स्तोत्र शिरोमणि • आचार्य मानतुंग विरचित',
+    title: 'श्री भक्तामर स्तोत्र',
+    subBrand: 'BHAKTAMAR STOTRA',
+    lead: '४८ काव्यों का अलौकिक व चमत्कारी स्तोत्र, संस्कृत मूल, अन्वयार्थ, पद्यानुवाद व ऋद्धि-मंत्र सहित।',
+    tags: ['✨ ४८ पावन काव्य', '📜 संस्कृत मूल व अर्थ', '🎧 ऑडियो सहित'],
+  },
+  {
+    fileName: 'og-panchang.png',
+    badge: 'दैनिक जैन पंचांग • वीर निर्वाण संवत्',
+    title: 'जैन पंचांग व पर्व',
+    subBrand: 'JAIN PANCHANG',
+    lead: 'दैनिक तिथि, जैन महापर्व, अष्टान्हिका, दशलक्षण, सूर्योदय, सूर्यास्त एवं नवकारसी समय।',
+    tags: ['📅 दैनिक तिथि व नक्षत्र', '🪔 जैन महापर्व कैलेंडर', '⏰ सूर्योदय व चौघड़िया'],
+  },
+  {
+    fileName: 'og-samayik.png',
+    badge: 'समता साधना • ४८ मिनट आत्म-विशुद्धि',
+    title: 'सामायिक व नियम',
+    subBrand: 'SAMAYIK & NIYAMA',
+    lead: 'इर्यावही पाठ, कायोत्सर्ग, णमोकार ध्यान, दैनिक नियम व श्रावक के १२ व्रतों का डिजिटल संकलन।',
+    tags: ['🧘 ४८ मिनट सामायिक', '⏱️ मेडिटेशन टाइमर', '✅ दैनिक नियम ट्रैकर'],
+  },
+  {
+    fileName: 'og-tirthankar.png',
+    badge: 'पंचकल्याणक • तीर्थंकर परिचय',
+    title: '२४ तीर्थंकर दर्शन',
+    subBrand: '24 TIRTHANKARAS',
+    lead: 'भगवान ऋषभदेव से भगवान महावीर स्वामी तक २४ तीर्थंकरों का जीवन चरित्र, लांछन व निर्वाण स्थल।',
+    tags: ['🌸 २४ तीर्थंकर चरित्र', '🏛️ सिद्धक्षेत्र दर्शन', '✨ कल्याणक विवरण'],
+  },
+  {
+    fileName: 'og-puja.png',
+    badge: 'नित्य देव-शास्त्र-गुरु पूजन • विधान संग्रह',
+    title: 'जैन पूजा व आरती',
+    subBrand: 'PUJA & AARTI',
+    lead: 'देव-शास्त्र-गुरु पूजा, तीर्थंकर पूजन, दशलक्षण पर्व पूजा एवं मंगल दीप आरती का संपूर्ण संग्रह।',
+    tags: ['🪔 नित्य अष्टद्रव्य पूजा', '🔔 मंगल दीप आरती', '📜 संपूर्ण विधान पाठ'],
+  },
+  {
+    fileName: 'og-shastra.png',
+    badge: 'परमागम व सिद्धांत ग्रंथ • स्वाध्याय',
+    title: 'जैन शास्त्र व आगम',
+    subBrand: 'JAIN SHASTRA & AGAM',
+    lead: 'समयसार, तत्त्वार्थ सूत्र, छहढाला, नियमसार, प्रवचनसार एवं मोक्षमार्ग प्रकाशक अर्थ सहित।',
+    tags: ['📚 परमागम समयसार', '🔍 तत्त्वार्थ सूत्र १० अध्याय', '🌿 पंडित दौलतराम छहढाला'],
+  },
+];
+
+function buildHtml(config) {
+  const tagsHtml = config.tags.map(t => `<div class="feature-tag">${t}</div>`).join('');
+
+  return `<!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
@@ -30,7 +92,6 @@ const htmlContent = `<!DOCTYPE html>
       position: relative;
     }
 
-    /* Ambient background lighting */
     .glow-gold-hero {
       position: absolute;
       top: 50%;
@@ -54,7 +115,6 @@ const htmlContent = `<!DOCTYPE html>
       pointer-events: none;
     }
 
-    /* Fine subtle dot watermark across canvas */
     .canvas-grid {
       position: absolute;
       inset: 0;
@@ -64,7 +124,6 @@ const htmlContent = `<!DOCTYPE html>
       opacity: 0.7;
     }
 
-    /* Outer luxury border */
     .outer-frame {
       position: absolute;
       inset: 18px;
@@ -87,7 +146,6 @@ const htmlContent = `<!DOCTYPE html>
     .c-bl { bottom: 14px; left: 14px; border-width: 0 0 3px 3px; border-bottom-left-radius: 8px; }
     .c-br { bottom: 14px; right: 14px; border-width: 0 3px 3px 0; border-bottom-right-radius: 8px; }
 
-    /* Content Layout */
     .main-wrapper {
       position: relative;
       z-index: 2;
@@ -134,7 +192,7 @@ const htmlContent = `<!DOCTYPE html>
     }
 
     .title-primary {
-      font-size: 82px;
+      font-size: 80px;
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -1px;
@@ -146,7 +204,7 @@ const htmlContent = `<!DOCTYPE html>
 
     .title-secondary {
       font-family: 'Cinzel', serif;
-      font-size: 26px;
+      font-size: 25px;
       font-weight: 800;
       color: rgba(253, 230, 138, 0.9);
       letter-spacing: 5px;
@@ -155,7 +213,7 @@ const htmlContent = `<!DOCTYPE html>
     }
 
     .lead-text {
-      font-size: 23px;
+      font-size: 22px;
       line-height: 1.45;
       color: #E2E8F0;
       font-weight: 600;
@@ -258,22 +316,20 @@ const htmlContent = `<!DOCTYPE html>
       <div>
         <div class="badge-pill">
           <span class="badge-dot"></span>
-          <span>॥ णमो जिणाणं ॥ • ४५०+ प्रामाणिक ग्रंथ</span>
+          <span>${config.badge}</span>
         </div>
 
         <div class="heading-block">
-          <h1 class="title-primary">जैन जिनवाणी</h1>
-          <div class="title-secondary">JAIN JINVANI</div>
+          <h1 class="title-primary">${config.title}</h1>
+          <div class="title-secondary">${config.subBrand}</div>
         </div>
 
         <p class="lead-text">
-          भक्तामर स्तोत्र, तत्त्वार्थ सूत्र, समयसार, पूजा, आरती, चालीसा, २४ तीर्थंकर परिचय व पंचांग।
+          ${config.lead}
         </p>
 
         <div class="badges-row">
-          <div class="feature-tag">📖 शुद्ध देवनागरी</div>
-          <div class="feature-tag">🕊️ १००% विज्ञापन-मुक्त</div>
-          <div class="feature-tag">⚡ ऑफ़लाइन समर्थित</div>
+          ${tagsHtml}
         </div>
       </div>
 
@@ -290,17 +346,13 @@ const htmlContent = `<!DOCTYPE html>
     <div class="right-section">
       <div class="book-container">
         <div class="book-halo-ring"></div>
-        <img src="${bookDataUri}" alt="जैन जिनवाणी ग्रंथ" class="hero-book-img" />
+        <img src="${bookDataUri}" alt="${config.title}" class="hero-book-img" />
       </div>
     </div>
   </div>
 </body>
 </html>`;
-
-const tempHtmlPath = path.resolve(__dirname, 'temp_og.html');
-const outputPath = path.resolve(__dirname, '..', 'public', 'og-image.png');
-
-fs.writeFileSync(tempHtmlPath, htmlContent, 'utf8');
+}
 
 const chromeCandidates = [
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -313,29 +365,36 @@ const chromeCandidates = [
 const chromePath = chromeCandidates.find(p => fs.existsSync(p));
 
 if (!chromePath) {
-  if (fs.existsSync(outputPath)) {
-    console.log('[og-image] Chrome not detected, but public/og-image.png already exists. Skipping regeneration.');
-    process.exit(0);
-  } else {
-    console.warn('[og-image] Warning: Chrome not detected to generate og-image.png.');
-    process.exit(0);
+  console.log('[og-image] Chrome not detected. Using pre-generated assets.');
+  process.exit(0);
+}
+
+const tempHtmlPath = path.resolve(__dirname, 'temp_og.html');
+const publicDir = path.resolve(__dirname, '..', 'public');
+const buildDir = path.resolve(__dirname, '..', 'build');
+
+for (const config of BANNER_CONFIGS) {
+  const outputPath = path.resolve(publicDir, config.fileName);
+  console.log(`[og-image] Generating ${config.fileName} (${config.title})...`);
+
+  fs.writeFileSync(tempHtmlPath, buildHtml(config), 'utf8');
+
+  try {
+    const cmd = `"${chromePath}" --headless=new --screenshot="${outputPath}" --window-size=1200,630 --hide-scrollbars --default-background-color=00000000 "file://${tempHtmlPath.replace(/\\/g, '/')}"`;
+    execSync(cmd, { stdio: 'inherit' });
+    console.log(`[og-image] Success! Created ${outputPath} (1200x630)`);
+
+    // Copy to build directory if it exists
+    if (fs.existsSync(buildDir)) {
+      fs.copyFileSync(outputPath, path.resolve(buildDir, config.fileName));
+    }
+  } catch (err) {
+    console.warn(`[og-image] Warning creating ${config.fileName}: ${err.message}`);
   }
 }
 
-console.log('[og-image] Generating 1200x630 Open Graph preview image (Full-bleed Bold Edition)...');
-
-try {
-  const cmd = `"${chromePath}" --headless=new --screenshot="${outputPath}" --window-size=1200,630 --hide-scrollbars --default-background-color=00000000 "file://${tempHtmlPath.replace(/\\/g, '/')}"`;
-  execSync(cmd, { stdio: 'inherit' });
-  console.log(`[og-image] Success! Created ${outputPath} (1200x630)`);
-} catch (err) {
-  if (fs.existsSync(outputPath)) {
-    console.warn('[og-image] Chrome rendering encountered a warning, but og-image.png exists.');
-  } else {
-    console.error('[og-image] Error rendering image with Chrome:', err.message);
-  }
-} finally {
-  if (fs.existsSync(tempHtmlPath)) {
-    fs.unlinkSync(tempHtmlPath);
-  }
+if (fs.existsSync(tempHtmlPath)) {
+  fs.unlinkSync(tempHtmlPath);
 }
+
+console.log('[og-image] All custom page & category OG preview banners generated successfully!');

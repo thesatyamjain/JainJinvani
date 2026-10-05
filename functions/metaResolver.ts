@@ -10,66 +10,137 @@ export interface MetaData {
   url: string;
 }
 
-const SITE_NAME = 'जैन जिनवाणी (Jain Jinvani)';
-const DEFAULT_IMAGE = 'https://jainjinvani.pages.dev/icons/pwa-512x512.png';
+const SITE_NAME = 'जैन जिनवाणी';
+const BASE_URL = 'https://jainjinvani.pages.dev';
+const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
+
+function resolveOgImage(identifier: string, category?: string): string {
+  const id = (identifier || '').toLowerCase();
+  const cat = (category || '').toLowerCase();
+
+  // 1. Bhaktamar Stotra / Stotras
+  if (id.includes('bhaktamar') || id.includes('kalyanmandir') || cat === 'stotra') {
+    return `${BASE_URL}/og-bhaktamar.png`;
+  }
+
+  // 2. Panchang & Parva
+  if (id === 'panchang' || cat === 'panchang' || id.includes('festival') || id.includes('calendar')) {
+    return `${BASE_URL}/og-panchang.png`;
+  }
+
+  // 3. Samayik, Sadhana, Jap, Niyam
+  if (
+    ['samayik', 'niyam', 'jap', 'sadhana', 'pratikraman'].includes(id) ||
+    ['samayik', 'niyam', 'jap', 'sadhana'].includes(cat) ||
+    id.includes('samayik')
+  ) {
+    return `${BASE_URL}/og-samayik.png`;
+  }
+
+  // 4. Tirthankars, Pilgrimage & Tirth Kshetras
+  if (
+    id.startsWith('tirthankar') ||
+    ['tirthankar', 'pilgrimage', 'tirth'].includes(cat) ||
+    ['pilgrimage', 'gallery'].includes(id)
+  ) {
+    return `${BASE_URL}/og-tirthankar.png`;
+  }
+
+  // 5. Puja, Aarti, Vidhan, Chalisa
+  if (
+    ['puja', 'arti', 'aarti', 'vidhan', 'chalisa'].includes(cat) ||
+    ['puja', 'arti', 'aarti', 'vidhan', 'chalisa'].includes(id) ||
+    id.includes('puja') ||
+    id.includes('arti') ||
+    id.includes('aarti')
+  ) {
+    return `${BASE_URL}/og-puja.png`;
+  }
+
+  // 6. Shastra, Granthas, Philosophy
+  if (
+    ['shastra', 'granthas', 'philosophy'].includes(cat) ||
+    ['shastra', 'granthas', 'library', 'philosophy'].includes(id) ||
+    ['samaysar', 'tattvarthasutra', 'chhahdhala', 'dravyasangraha', 'gommatsar'].includes(id)
+  ) {
+    return `${BASE_URL}/og-shastra.png`;
+  }
+
+  // Default fallback
+  return DEFAULT_IMAGE;
+}
 
 // Pre-mapped prominent scriptures and sadhana items
-const KNOWN_ITEMS: Record<string, { title: string; desc: string }> = {
+const KNOWN_ITEMS: Record<string, { title: string; desc: string; category?: string }> = {
   'bhaktamar-stotra': {
     title: 'श्री भक्तामर स्तोत्र (४८ काव्य)',
     desc: 'आचार्य मानतुंग विरचित श्री भक्तामर स्तोत्र, संस्कृत मूल, अन्वयार्थ एवं भावार्थ सहित।',
+    category: 'stotra',
   },
   'bhaktamar_stotra': {
     title: 'श्री भक्तामर स्तोत्र (४८ काव्य)',
     desc: 'आचार्य मानतुंग विरचित श्री भक्तामर स्तोत्र, संस्कृत मूल, अन्वयार्थ एवं भावार्थ सहित।',
+    category: 'stotra',
   },
   'meri-bhavna': {
     title: 'मेरी भावना (जिसने राग-द्वेष कामादिक...)',
     desc: 'पंडित जुगलकिशोर जी ‘युगल’ विरचित प्रसिद्ध आत्म-कल्याणकारी मेरी भावना पाठ।',
+    category: 'path',
   },
   'meri_bhavna': {
     title: 'मेरी भावना',
     desc: 'पंडित जुगलकिशोर जी ‘युगल’ विरचित प्रसिद्ध आत्म-कल्याणकारी मेरी भावना पाठ।',
+    category: 'path',
   },
   'samadhi-maran': {
     title: 'समाधिमरण पाठ (ईशोपनिषद्)',
     desc: 'आचार्य पूज्यपाद विरचित समाधि भावना एवं आत्म-शांति पाठ।',
+    category: 'path',
   },
   'samayik-path': {
     title: 'सामायिक पाठ',
     desc: '४८ मिनट समता साधना, इर्यावही एवं आत्म-विशुद्धि पाठ।',
+    category: 'samayik',
   },
   'alochana-path': {
     title: 'आलोचना पाठ',
     desc: 'दिन-प्रतिदिन के प्रमाद व दोषों की क्षमा याचना हेतु आलोचना पाठ।',
+    category: 'path',
   },
   'chhahdhala': {
     title: 'पंडित दौलतराम जी विरचित छहढाला',
     desc: 'चार गति दुःख, सम्यग्दर्शन-ज्ञान-चारित्र एवं मोक्षमार्ग का सार।',
+    category: 'shastra',
   },
   'tattvarthasutra': {
     title: 'तत्त्वार्थ सूत्र (आचार्य उमास्वामी)',
     desc: 'मोक्षमार्गस्य नेतारं भेत्तारं कर्मभूभृताम् - संपूर्ण १० अध्याय सूत्र व अर्थ।',
+    category: 'shastra',
   },
   'samaysar': {
     title: 'परमागम समयसार (आचार्य कुन्दकुन्द)',
     desc: 'शुद्ध जीवास्तिकाय एवं अध्यात्म का शिरोमणि ग्रंथ।',
+    category: 'shastra',
   },
   'barah-bhavna': {
     title: 'बारह भावना (अनित्य, अशरण, संसार...)',
     desc: 'वैराग्य एवं चित्त की निर्मलता हेतु १२ भावनाओं का चिंतन।',
+    category: 'path',
   },
   'namokar-mantra': {
     title: 'णमोकार महामंत्र महिमा व ध्यान',
     desc: 'नमो अरिहंताणं, नमो सिद्धाणं, नमो आयरियाणं, नमो उवज्झायाणं, नमो लोए सव्वसाहूणं।',
+    category: 'jap',
   },
   'kalyanmandir-stotra': {
     title: 'श्री कल्याणमंदिर स्तोत्र',
     desc: 'आचार्य कुमुदचंद्र (सिद्धसेन दिवाकर) विरचित श्री पार्श्वनाथ स्तोत्र।',
+    category: 'stotra',
   },
   'ekibhaav-stotra': {
     title: 'श्री एकीभाव स्तोत्र',
     desc: 'आचार्य वादिराज विरचित आध्यात्मिक भक्ति स्तोत्र।',
+    category: 'stotra',
   },
 };
 
@@ -105,9 +176,9 @@ export function resolveMetadata(url: URL): MetaData {
     if (KNOWN_ITEMS[cleanId] || KNOWN_ITEMS[id]) {
       const item = KNOWN_ITEMS[cleanId] || KNOWN_ITEMS[id];
       return {
-        title: `${item.title} - ${SITE_NAME}`,
+        title: `${item.title} | ${SITE_NAME}`,
         description: item.desc,
-        image: DEFAULT_IMAGE,
+        image: resolveOgImage(cleanId, item.category),
         url: fullUrl,
       };
     }
@@ -118,54 +189,54 @@ export function resolveMetadata(url: URL): MetaData {
       .replace(/\b\w/g, (c) => c.toUpperCase());
 
     return {
-      title: `${humanTitle} - ${SITE_NAME}`,
+      title: `${humanTitle} | ${SITE_NAME}`,
       description: `जैन जिनवाणी पर ${humanTitle} का सम्पूर्ण पाठ, अन्वयार्थ व भावार्थ पढ़ें।`,
-      image: DEFAULT_IMAGE,
+      image: resolveOgImage(cleanId),
       url: fullUrl,
     };
   }
 
-  // 2. Category route: /category/:id
+  // 2. Category route: /category/:id or /category?id=:id
   if (segments[0] === 'category') {
     const cat = (segments[1] || url.searchParams.get('id') || '').toLowerCase();
     const catInfo = CATEGORY_NAMES[cat];
     if (catInfo) {
       return {
-        title: `${catInfo.title} - ${SITE_NAME}`,
+        title: `${catInfo.title} | ${SITE_NAME}`,
         description: catInfo.desc,
-        image: DEFAULT_IMAGE,
+        image: resolveOgImage(cat, cat),
         url: fullUrl,
       };
     }
   }
 
-  // 3. Tirthankar route: /tirthankar/:id
+  // 3. Tirthankar route: /tirthankar/:id or /tirthankar?id=:id
   if (segments[0] === 'tirthankar') {
-    const tId = decodeURIComponent(segments[1] || '').replace(/[-_]/g, ' ');
+    const tId = decodeURIComponent(segments[1] || url.searchParams.get('id') || '').replace(/[-_]/g, ' ');
     const name = tId ? tId.charAt(0).toUpperCase() + tId.slice(1) : 'भगवान';
     return {
-      title: `भगवान श्री ${name} स्वामी - जीवन चरित्र एवं कल्याणक`,
-      description: `तीर्थंकर भगवान श्री ${name} स्वामी का संपूर्ण जीवन चरित्र, लांछन, माता-पिता एवं पाँच कल्याणक विवरण।`,
-      image: DEFAULT_IMAGE,
+      title: `भगवान श्री ${name} स्वामी चरित्र | ${SITE_NAME}`,
+      description: `तीर्थंकर भगवान श्री ${name} स्वामी का संपूर्ण जीवन चरित्र, लांछन, माता-पिता एवं पाँच कल्याणक।`,
+      image: resolveOgImage('tirthankar', 'tirthankar'),
       url: fullUrl,
     };
   }
 
-  // 4. Standalone pages: /sadhana, /library, /panchang, /samayik, /jap, /niyam, etc.
-  const pageKey = segments[0] || '';
+  // 4. Standalone pages: /sadhana, /library, /panchang, /samayik, /jap, /niyam, /pilgrimage, etc.
+  const pageKey = (segments[0] || '').toLowerCase();
   if (CATEGORY_NAMES[pageKey]) {
     const p = CATEGORY_NAMES[pageKey];
     return {
-      title: `${p.title} - ${SITE_NAME}`,
+      title: `${p.title} | ${SITE_NAME}`,
       description: p.desc,
-      image: DEFAULT_IMAGE,
+      image: resolveOgImage(pageKey, pageKey),
       url: fullUrl,
     };
   }
 
-  // Default Root
+  // 5. Default Root / Home
   return {
-    title: 'जैन जिनवाणी - Jain Jinvani | आरती, पूजा, स्तोत्र, चालीसा एवं जैन दर्शन',
+    title: 'जैन जिनवाणी - Jain Jinvani | संपूर्ण जैन संग्रह',
     description: 'सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का डिजिटल संग्रह।',
     image: DEFAULT_IMAGE,
     url: fullUrl,
