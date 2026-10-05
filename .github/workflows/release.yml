@@ -1,4 +1,4 @@
-name: Build & Release Mobile APK
+name: Build & Release Mobile App & Web
 
 on:
   push:
@@ -20,71 +20,46 @@ on:
         description: 'Custom Version (यदि "custom" चुना हो, उदा. v2.1.0)'
         required: false
         default: ''
+      build_apk:
+        description: 'Build Android APK (ARM64 + Universal)'
+        required: true
+        default: true
+        type: boolean
+      build_aab:
+        description: 'Build Android AAB (Google Play Store Bundle)'
+        required: true
+        default: true
+        type: boolean
+      build_web:
+        description: 'Build Web Bundle (PWA Distribution ZIP)'
+        required: true
+        default: true
+        type: boolean
+      build_ios:
+        description: 'Build iOS IPA (Unsigned IPA for Sideloading)'
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   contents: write
 
 jobs:
-  build-and-release:
+  # =========================================================================
+  # 1. PREPARE TAG (~10s)
+  # =========================================================================
+  prepare:
+    name: Prepare Tag
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.versioning.outputs.tag }}
+      clean_version: ${{ steps.versioning.outputs.clean_version }}
+      build_number: ${{ github.run_number }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      # If mobile/assets/web/index.html is missing, build web assets
-      - name: Verify or Build Web Assets
-        run: |
-          if [ ! -f "mobile/assets/web/index.html" ]; then
-            echo "Mobile assets not found. Installing Node.js & building web assets..."
-            npm ci
-            npm run sync:mobile
-          else
-            echo "Pre-built web assets found in mobile/assets/web/. Skipping redundant web build to save ~3-4 minutes!"
-          fi
-
-      - name: Install Flutter Dependencies
-        working-directory: mobile
-        run: flutter pub get
-
-      - name: Run Flutter Static Analysis
-        working-directory: mobile
-        run: flutter analyze
-
-      - name: Run Flutter Tests
-        working-directory: mobile
-        run: flutter test
-
-      - name: Configure Keystore Signing
-        working-directory: mobile/android
-        run: |
-          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
-            echo "Configuring release signing from GitHub Secrets..."
-            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > upload-keystore.jks
-            printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" \
-              "${{ secrets.KEYSTORE_PASSWORD }}" \
-              "${{ secrets.KEY_PASSWORD }}" \
-              "${{ secrets.KEY_ALIAS }}" > key.properties
-            echo "Release keystore configured from GitHub Secrets."
-          elif [ -f upload-keystore.jks ] && [ -f key.properties ]; then
-            echo "Using committed permanent project release keystore."
-          else
-            echo "::warning::Keystore not found. Releases will fall back to debug signing."
-          fi
 
       - name: Determine Release Version
         id: versioning
@@ -135,58 +110,271 @@ jobs:
           echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "clean_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
 
+  # =========================================================================
+  # 2. BUILD ANDROID APK (~2m) - RUNS SIMULTANEOUSLY
+  # =========================================================================
+  build-android-apk:
+    name: Build Android APK
+    needs: prepare
+    if: github.event_name == 'push' || github.event.inputs.build_apk != false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Web Assets
+        run: |
+          if [ ! -f "mobile/assets/web/index.html" ]; then
+            npm ci
+            npm run sync:mobile
+          fi
+
+      - name: Install Flutter Dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Configure Keystore Signing
+        working-directory: mobile/android
+        run: |
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > upload-keystore.jks
+            printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" \
+              "${{ secrets.KEYSTORE_PASSWORD }}" \
+              "${{ secrets.KEY_PASSWORD }}" \
+              "${{ secrets.KEY_ALIAS }}" > key.properties
+          fi
+
       - name: Build Android Release APKs
         working-directory: mobile
         run: |
-          CLEAN_VERSION="${{ steps.versioning.outputs.clean_version }}"
-          BUILD_NUMBER="${{ github.run_number }}"
-          echo "Building Version: $CLEAN_VERSION (Version Code: $BUILD_NUMBER)"
+          CLEAN_VERSION="${{ needs.prepare.outputs.clean_version }}"
+          BUILD_NUMBER="${{ needs.prepare.outputs.build_number }}"
           flutter build apk --release --split-per-abi --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
           flutter build apk --release --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
 
-      - name: Prepare Release Assets & Checksums
-        id: prep
+      - name: Package APKs
         run: |
-          VERSION="${{ steps.versioning.outputs.tag }}"
-          
-          # 1. Standardize APK filenames
+          VERSION="${{ needs.prepare.outputs.tag }}"
+          mkdir -p output-apks
           if [ -f mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk ]; then
-            cp mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "JainJinvani-${VERSION}-arm64.apk"
+            cp mobile/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "output-apks/JainJinvani-${VERSION}-arm64.apk"
           fi
-          cp mobile/build/app/outputs/flutter-apk/app-release.apk "JainJinvani-${VERSION}-universal.apk"
-          
-          # 2. Generate SHA-256 Checksums (Industry Security Standard)
-          sha256sum JainJinvani-${VERSION}-*.apk > SHA256SUMS.txt
-          
-          # 3. Extract exact file size and hash for release verification table
-          ARM64_SIZE="~35 MB"
-          ARM64_HASH="N/A"
-          if [ -f "JainJinvani-${VERSION}-arm64.apk" ]; then
-            ARM64_SIZE=$(du -h "JainJinvani-${VERSION}-arm64.apk" | cut -f1)
-            ARM64_HASH=$(sha256sum "JainJinvani-${VERSION}-arm64.apk" | awk '{print $1}')
+          cp mobile/build/app/outputs/flutter-apk/app-release.apk "output-apks/JainJinvani-${VERSION}-universal.apk"
+
+      - name: Upload Android APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apks
+          path: output-apks/*
+          if-no-files-found: error
+
+  # =========================================================================
+  # 3. BUILD ANDROID AAB (~2m) - RUNS SIMULTANEOUSLY
+  # =========================================================================
+  build-android-aab:
+    name: Build Android AAB
+    needs: prepare
+    if: github.event_name == 'push' || github.event.inputs.build_aab != false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Web Assets
+        run: |
+          if [ ! -f "mobile/assets/web/index.html" ]; then
+            npm ci
+            npm run sync:mobile
           fi
+
+      - name: Install Flutter Dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Configure Keystore Signing
+        working-directory: mobile/android
+        run: |
+          if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > upload-keystore.jks
+            printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" \
+              "${{ secrets.KEYSTORE_PASSWORD }}" \
+              "${{ secrets.KEY_PASSWORD }}" \
+              "${{ secrets.KEY_ALIAS }}" > key.properties
+          fi
+
+      - name: Build Android App Bundle (AAB)
+        working-directory: mobile
+        run: |
+          CLEAN_VERSION="${{ needs.prepare.outputs.clean_version }}"
+          BUILD_NUMBER="${{ needs.prepare.outputs.build_number }}"
+          flutter build appbundle --release --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
+
+      - name: Package AAB
+        run: |
+          VERSION="${{ needs.prepare.outputs.tag }}"
+          mkdir -p output-aab
+          cp mobile/build/app/outputs/bundle/release/app-release.aab "output-aab/JainJinvani-${VERSION}-playstore.aab"
+
+      - name: Upload Android AAB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab
+          path: output-aab/*
+          if-no-files-found: error
+
+  # =========================================================================
+  # 4. BUILD WEB BUNDLE (~1m) - RUNS SIMULTANEOUSLY
+  # =========================================================================
+  build-web:
+    name: Build Web Bundle
+    needs: prepare
+    if: github.event_name == 'push' || github.event.inputs.build_web != false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Web Application
+        run: npm run build
+
+      - name: Package Web Bundle ZIP
+        run: |
+          VERSION="${{ needs.prepare.outputs.tag }}"
+          mkdir -p output-web
+          cd dist
+          zip -r "../output-web/JainJinvani-${VERSION}-web-bundle.zip" .
+          cd ..
+
+      - name: Upload Web Bundle Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-bundle
+          path: output-web/*
+          if-no-files-found: error
+
+  # =========================================================================
+  # 5. BUILD IOS IPA (~3.5m) - RUNS SIMULTANEOUSLY
+  # =========================================================================
+  build-ios:
+    name: Build iOS IPA
+    needs: prepare
+    if: github.event_name == 'push' || (github.event.inputs.build_ios != false && github.event.inputs.build_ios != 'false')
+    runs-on: macos-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Flutter Dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Build iOS App (No Codesign)
+        working-directory: mobile
+        run: |
+          CLEAN_VERSION="${{ needs.prepare.outputs.clean_version }}"
+          BUILD_NUMBER="${{ needs.prepare.outputs.build_number }}"
+          flutter build ios --release --no-codesign --build-name="$CLEAN_VERSION" --build-number="$BUILD_NUMBER"
+
+      - name: Package Unsigned IPA
+        run: |
+          VERSION="${{ needs.prepare.outputs.tag }}"
+          mkdir -p output-ios
+          cd mobile/build/ios/iphoneos
+          mkdir -p Payload
+          cp -r Runner.app Payload/
+          zip -r "../../../../output-ios/JainJinvani-${VERSION}-ios-unsigned.ipa" Payload
+          cd ../../../..
+
+      - name: Upload iOS IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-ipa
+          path: output-ios/*
+          if-no-files-found: warn
+
+  # =========================================================================
+  # 6. PUBLISH RELEASE (~20s) - AGGREGATES ALL WORKERS
+  # =========================================================================
+  publish-release:
+    name: Publish Release
+    needs: [prepare, build-android-apk, build-android-aab, build-web, build-ios]
+    if: always() && needs.prepare.result == 'success' && (needs.build-android-apk.result == 'success' || needs.build-android-aab.result == 'success' || needs.build-web.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Generate SHA-256 Checksums & Release Notes
+        run: |
+          cd release-assets
+          sha256sum * > SHA256SUMS.txt
+          cd ..
           
-          UNI_SIZE=$(du -h "JainJinvani-${VERSION}-universal.apk" | cut -f1)
-          UNI_HASH=$(sha256sum "JainJinvani-${VERSION}-universal.apk" | awk '{print $1}')
-          
-          # 4. Generate structured Industry-Standard Release Notes
-          VERSION="$VERSION" \
-          BUILD_NUMBER="${{ github.run_number }}" \
-          ARM64_SIZE="$ARM64_SIZE" \
-          ARM64_HASH="$ARM64_HASH" \
-          UNI_SIZE="$UNI_SIZE" \
-          UNI_HASH="$UNI_HASH" \
-          node .github/scripts/generate-release-body.js
+          VERSION="${{ needs.prepare.outputs.tag }}" \
+          BUILD_NUMBER="${{ needs.prepare.outputs.build_number }}" \
+          node .github/scripts/generate-release-body.js release-assets
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.versioning.outputs.tag }}
-          name: Jain Jinvani Mobile App ${{ steps.versioning.outputs.tag }}
+          tag_name: ${{ needs.prepare.outputs.tag }}
+          name: Jain Jinvani ${{ needs.prepare.outputs.tag }}
           body_path: RELEASE_BODY.md
           files: |
-            JainJinvani-*.apk
-            SHA256SUMS.txt
+            release-assets/*
           generate_release_notes: true
           draft: false
           prerelease: false
