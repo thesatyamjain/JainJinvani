@@ -18,7 +18,11 @@ import {
   RotateCcw,
   Droplets,
   FileEdit,
+  Smartphone,
+  Download,
 } from 'lucide-react';
+import { isWebsite } from '../utils/platform';
+import { triggerHaptic } from '../utils/pwaManager';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
 import { getRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
@@ -641,6 +645,60 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           </div>
         </GlassCard>
       </motion.div>
+
+      {/* Platform-Aware App Promotion Card (Shown ONLY on Website, hidden in Web App & Native App) */}
+      {isWebsite() && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.18, duration: 0.4 }}
+          className="w-full max-w-3xl mt-4 sm:mt-5 relative z-10"
+        >
+          <GlassCard
+            variant="sacred"
+            tilt={{ maxTilt: 6, scale: 1.01, glareColor: 'gold', glareMaxOpacity: 0.16 }}
+            className="p-4 sm:p-5 rounded-xl sm:rounded-2xl border-amber-400/40 bg-gradient-to-r from-amber-500/15 via-[#0e1628]/95 to-amber-600/15 shadow-[0_12px_36px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)] relative overflow-hidden"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3.5">
+              <div className="flex items-start gap-3 min-w-0">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
+                  <Smartphone className="w-5 h-5 sm:w-6 sm:h-6 text-amber-300" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-sm sm:text-base font-notoserif font-bold text-white">
+                      फ़ोन में जिनवाणी ऐप इंस्टॉल करें
+                    </h3>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-gotu font-bold">
+                      १००% निःशुल्क • ऑफ़लाइन
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-300 font-gotu mt-0.5 leading-relaxed">
+                    बिना किसी विज्ञापन व बिना ब्राउज़र बार के, होम स्क्रीन पर असली ऐप की तरह चलाएं।
+                  </p>
+                </div>
+              </div>
+
+              <div className="shrink-0 flex items-center">
+                <motion.button
+                  type="button"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    triggerHaptic('medium');
+                    window.dispatchEvent(new CustomEvent('jinvani:open-install-prompt'));
+                  }}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-gotu font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(245,158,11,0.3)] cursor-pointer select-none transition-all"
+                >
+                  <Download className="w-4 h-4 text-slate-950 shrink-0" />
+                  <span>ऐप इंस्टॉल करें</span>
+                  <span className="text-xs">→</span>
+                </motion.button>
+              </div>
+            </div>
+          </GlassCard>
+        </motion.div>
+      )}
 
       {/* Featured Sahyog Card */}
       <motion.div

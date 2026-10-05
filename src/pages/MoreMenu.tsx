@@ -9,6 +9,7 @@ import { FeedbackModal } from '../components/features/FeedbackModal';
 import { AagamAiModal } from '../components/features/AagamAiModal';
 import { downloadTempleMode, isTempleModeCachedLocally, checkTempleModeStatus } from '../utils/templeMode';
 import { isStandaloneMode, triggerHaptic, checkStorageEstimate, requestPersistentStorage } from '../utils/pwaManager';
+import { getAppPlatform, isWebsite, isPwaWebApp, isNativeApp } from '../utils/platform';
 
 interface MoreMenuProps {
   onNavigate: (page: string, params?: any) => void;
@@ -380,27 +381,20 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             )}
           </div>
 
-          {/* PWA App Installation / Native WebAPK Status */}
-          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-600/10 border border-amber-400/30">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-2.5">
-                <Smartphone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-white font-bold font-gotu text-sm">📲 जिनवाणी ऐप मोड</span>
-                  <p className="text-[11px] text-slate-300 font-gotu mt-0.5 leading-relaxed">
-                    {isStandaloneMode()
-                      ? 'असली ऐप की तरह फ़ोन में स्थापित (Standalone WebAPK)'
-                      : 'फ़ोन की होम स्क्रीन पर बिना ब्राउज़र बार के असली ऐप की तरह चलाएं।'}
-                  </p>
+          {/* Platform-Aware Mode Status & Installation */}
+          {isWebsite() && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-yellow-500/10 to-amber-600/10 border border-amber-400/30">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-2.5">
+                  <Smartphone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-white font-bold font-gotu text-sm">📲 जिनवाणी ऐप इंस्टॉल करें</span>
+                    <p className="text-[11px] text-slate-300 font-gotu mt-0.5 leading-relaxed">
+                      फ़ोन की होम स्क्रीन पर बिना ब्राउज़र बार के असली ऐप की तरह चलाएं।
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            {isStandaloneMode() ? (
-              <div className="mt-3 pt-2 border-t border-white/10 flex items-center gap-1.5 text-xs text-emerald-400 font-gotu">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>ऐप मोड सक्रिय • पूर्ण स्क्रीन अनुभव</span>
-              </div>
-            ) : (
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.96 }}
@@ -415,15 +409,45 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 <Download className="w-3.5 h-3.5" />
                 फ़ोन में ऐप इंस्टॉल करें
               </motion.button>
-            )}
-          </div>
+            </div>
+          )}
 
-          {/* App Version & OTA In-App Update Checker */}
+          {isPwaWebApp() && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 via-slate-900/80 to-teal-500/10 border border-emerald-400/30">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-white font-bold font-gotu text-sm">📲 वेब ऐप मोड सक्रिय</span>
+                  <p className="text-[11px] text-slate-300 font-gotu mt-0.5 leading-relaxed">
+                    होम स्क्रीन स्टैंडअलोन मोड • ऑफ़लाइन स्वाध्याय व पूर्ण स्क्रीन अनुभव
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {isNativeApp() && (
+            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-slate-900/80 to-amber-600/10 border border-amber-400/30">
+              <div className="flex items-start gap-2.5">
+                <Smartphone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-white font-bold font-gotu text-sm">📱 नेटिव ऐप मोड (Android APK)</span>
+                  <p className="text-[11px] text-slate-300 font-gotu mt-0.5 leading-relaxed">
+                    हार्डवेयर एक्सेलेरेशन, सुपर-स्मूथ स्क्रॉलिंग एवं बैक-बटन जेस्चर सक्रिय।
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* App Version & Platform-Specific Update Checker */}
           <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-600/10 to-yellow-500/10 border border-amber-400/30 space-y-3">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-amber-400" />
-                <span className="text-white font-bold font-gotu text-sm">ऐप संस्करण एवं अपडेट</span>
+                <span className="text-white font-bold font-gotu text-sm">
+                  {isNativeApp() ? 'ऐप OTA अपडेट' : isPwaWebApp() ? 'वेब ऐप संस्करण' : 'वेबसाइट संस्करण'}
+                </span>
               </div>
               <span className="text-[11px] font-mono font-bold text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded border border-amber-400/30">
                 v1.0.3
@@ -431,7 +455,11 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
             </div>
 
             <p className="text-[11px] text-slate-300 font-gotu leading-relaxed">
-              नवीनतम संस्करण, बग सुधार और नए जिनवाणी पाठ तुरंत प्राप्त करने हेतु अपडेट जांचें।
+              {isNativeApp()
+                ? 'नया संस्करण, बग सुधार और जिनवाणी पाठ तुरंत प्राप्त करने हेतु OTA अपडेट जांचें।'
+                : isPwaWebApp()
+                ? 'नवीनतम ऑफ़लाइन कैशे और नए पाठ तुरंत प्राप्त करने हेतु अपडेट जांचें।'
+                : 'नवीनतम जिनवाणी पाठ, ऑडियो व पंचांग लोड करने हेतु पुनः लोड करें।'}
             </p>
 
             <motion.button
@@ -440,7 +468,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               whileHover={{ scale: 1.02 }}
               onClick={() => {
                 triggerHaptic('medium');
-                if ((window as any).JinvaniNative) {
+                if (isNativeApp() && (window as any).JinvaniNative) {
                   (window as any).JinvaniNative.postMessage('check_update');
                 } else if ('serviceWorker' in navigator) {
                   navigator.serviceWorker.getRegistrations().then((regs) => {

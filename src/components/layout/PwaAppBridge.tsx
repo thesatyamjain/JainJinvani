@@ -22,6 +22,7 @@ import {
   isIOSDevice,
   triggerHaptic,
 } from '../../utils/pwaManager';
+import { isWebsite, isNativeApp } from '../../utils/platform';
 import { useModalBackHandler } from '../../lib';
 
 export const PwaAppBridge = () => {
@@ -63,9 +64,9 @@ export const PwaAppBridge = () => {
       setUpdateAvailable(true);
     });
 
-    // 4. Listen for manual trigger from menus/buttons
+    // 4. Listen for manual trigger from menus/buttons (Only allowed in Website mode)
     const handleManualInstallTrigger = () => {
-      if (isStandaloneMode()) return;
+      if (!isWebsite()) return;
       if (isIOSDevice()) {
         setShowIOSGuide(true);
       } else {
