@@ -75,12 +75,10 @@ jobs:
           if [ -n "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" ]; then
             echo "Configuring release signing from GitHub Secrets..."
             echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > upload-keystore.jks
-            cat <<EOF > key.properties
-          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword=${{ secrets.KEY_PASSWORD }}
-          keyAlias=${{ secrets.KEY_ALIAS }}
-          storeFile=upload-keystore.jks
-          EOF
+            printf "storePassword=%s\nkeyPassword=%s\nkeyAlias=%s\nstoreFile=upload-keystore.jks\n" \
+              "${{ secrets.KEYSTORE_PASSWORD }}" \
+              "${{ secrets.KEY_PASSWORD }}" \
+              "${{ secrets.KEY_ALIAS }}" > key.properties
             echo "Release keystore configured from GitHub Secrets."
           elif [ -f upload-keystore.jks ] && [ -f key.properties ]; then
             echo "Using committed permanent project release keystore."
@@ -172,41 +170,13 @@ jobs:
           UNI_HASH=$(sha256sum "JainJinvani-${VERSION}-universal.apk" | awk '{print $1}')
           
           # 4. Generate structured Industry-Standard Release Notes
-          cat << 'EOF' > RELEASE_BODY.md
-## 📱 जिनवाणी (Jain Jinvani) - ${{ steps.versioning.outputs.tag }}
-
-सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का 100% ऑफ़लाइन डिजिटल संग्रह।
-
-### 📦 पैकेज विवरण (Package Metadata):
-- **Package Name:** `com.jainjinvani.app`
-- **Minimum Requirements:** Android 6.0 (API 23)+
-- **Target SDK:** Android 15 (API 35)
-- **Build Number:** `${{ github.run_number }}`
-- **Signing Scheme:** Verified Release Keystore (v1 + v2 + v3 Signature Scheme)
-
----
-
-### 🔐 सुरक्षा एवं चेकसम (Verification & Checksums):
-| पैकेज (Package) | आर्किटेक्चर (Architecture) | साइज़ (Size) | SHA-256 Checksum |
-| :--- | :--- | :--- | :--- |
-EOF
-
-          echo "| \`JainJinvani-${VERSION}-arm64.apk\` | **ARM64-v8a** *(Recommended)* | ${ARM64_SIZE} | \`${ARM64_HASH}\` |" >> RELEASE_BODY.md
-          echo "| \`JainJinvani-${VERSION}-universal.apk\` | **Universal** *(All Devices)* | ${UNI_SIZE} | \`${UNI_HASH}\` |" >> RELEASE_BODY.md
-
-          cat << 'EOF' >> RELEASE_BODY.md
-
-> 💡 **टिप:** सभी आधुनिक स्मार्टफ़ोन (99% डिवाइस) के लिए **`arm64`** वर्ज़न सबसे हल्का और सबसे तेज़ चलता है। पुराना फ़ोन होने पर ही **`universal`** का उपयोग करें।
-
----
-
-### 📥 इंस्टॉलेशन निर्देश (Installation Guide):
-1. नीचे **Assets** में से अपने डिवाइस के अनुसार APK डाउनलोड करें।
-2. डाउनलोड पूरी होने पर फ़ाइल खोलें और **Install** दबाएं।
-3. यदि Google Play Protect पूछे, तो *"Install without scanning"* या *"Scan app"* चुनें।
-4. भविष्य के सभी नए अपडेट सीधे ऐप के भीतर **1-क्लिक इन-ऐप OTA** से अपने आप मिल जाएंगे।
-
-EOF
+          VERSION="$VERSION" \
+          BUILD_NUMBER="${{ github.run_number }}" \
+          ARM64_SIZE="$ARM64_SIZE" \
+          ARM64_HASH="$ARM64_HASH" \
+          UNI_SIZE="$UNI_SIZE" \
+          UNI_HASH="$UNI_HASH" \
+          node .github/scripts/generate-release-body.js
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
