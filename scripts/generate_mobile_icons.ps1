@@ -76,7 +76,7 @@ foreach ($density in $androidDensities.Keys) {
     Save-ResizedImage -destinationPath $iconPath -width $size -height $size -hasBackground $true -scaleFactor 0.72
 }
 
-# 2. Android Adaptive Icon Foregrounds (108x108 base grid, 66% safe mask, 50% logo scale)
+# 2. Android Adaptive Icon Foregrounds (108x108 base grid, 72% logo scale matching web app PWA)
 $adaptiveDensities = @{
     "mipmap-mdpi"    = 108
     "mipmap-hdpi"    = 162
@@ -88,7 +88,7 @@ $adaptiveDensities = @{
 foreach ($density in $adaptiveDensities.Keys) {
     $size = $adaptiveDensities[$density]
     $fgPath = Join-Path $androidResDir "$density\ic_launcher_foreground.png"
-    Save-ResizedImage -destinationPath $fgPath -width $size -height $size -hasBackground $false -scaleFactor 0.50
+    Save-ResizedImage -destinationPath $fgPath -width $size -height $size -hasBackground $false -scaleFactor 0.72
 }
 
 # 3. Android Adaptive XML Definitions & Colors
