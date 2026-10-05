@@ -77,6 +77,6 @@
             "export:mobile-data": "node scripts/export_data_to_json.js",
             "sync:mobile": "npm run build && node scripts/sync_to_mobile.js",
             "sync:full": "node scripts/export_data_to_json.js && npm run sync:mobile",
-            "build": "node scripts/generate_pwa_icons.js && node scripts/generate_sitemap.js && vite build"
+            "build": "node scripts/generate_pwa_icons.js && node scripts/generate_og_image.js && node scripts/generate_sitemap.js && vite build"
       }
 }
