@@ -14,6 +14,7 @@ class UpdateDialog extends StatefulWidget {
 
 class _UpdateDialogState extends State<UpdateDialog> {
   bool _isDownloading = false;
+  bool _isInstalling = false;
   String _progress = '0';
   String? _errorMessage;
 
@@ -31,6 +32,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   void _startOtaDownload() {
     setState(() {
       _isDownloading = true;
+      _isInstalling = false;
       _errorMessage = null;
       _progress = '0';
     });
@@ -47,16 +49,26 @@ class _UpdateDialogState extends State<UpdateDialog> {
               _progress = event.value ?? '0';
             });
           } else if (event.status == OtaStatus.INSTALLING) {
-            Navigator.of(context, rootNavigator: true).pop();
+            setState(() {
+              _isDownloading = false;
+              _isInstalling = true;
+            });
+            Future.delayed(const Duration(seconds: 4), () {
+              if (mounted && _isInstalling) {
+                Navigator.of(context, rootNavigator: true).pop();
+              }
+            });
           } else if (event.status == OtaStatus.PERMISSION_NOT_GRANTED_ERROR) {
             setState(() {
               _isDownloading = false;
+              _isInstalling = false;
               _errorMessage = 'कृपया ऐप को \'Install unknown apps\' अनुमति दें, या नीचे से सीधे डाउनलोड करें।';
             });
           } else if (event.status == OtaStatus.INTERNAL_ERROR ||
               event.status == OtaStatus.DOWNLOAD_ERROR) {
             setState(() {
               _isDownloading = false;
+              _isInstalling = false;
               _errorMessage = 'डाउनलोड में समस्या आई। नीचे दिए गए बटन से ब्राउज़र में सीधे डाउनलोड करें।';
             });
           }
@@ -212,7 +224,66 @@ class _UpdateDialogState extends State<UpdateDialog> {
               const SizedBox(height: 12),
             ],
 
-            if (_errorMessage != null) ...[
+            if (_isInstalling) ...[
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: const Color(0x1A22C55E),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0x4422C55E)),
+                ),
+                child: const Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.check_circle_rounded, color: Color(0xFF22C55E), size: 20),
+                        SizedBox(width: 8),
+                        Text(
+                          'डाउनलोड पूर्ण हुआ! ✨',
+                          style: TextStyle(
+                            color: Color(0xFF22C55E),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'सिस्टम पैकेज इंस्टॉलर शुरू किया जा रहा है। यदि स्क्रीन बंद हो जाए, तो फ़ोन की नोटिफिकेशन बार (Notification Bar) देखें या नीचे दिए गए बटन पर टैप करें।',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 14),
+              ElevatedButton.icon(
+                onPressed: _launchBrowserDownload,
+                icon: const Icon(Icons.install_mobile_rounded, size: 18),
+                label: const Text('ब्राउज़र से सीधा इंस्टॉल करें'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFB800),
+                  foregroundColor: const Color(0xFF05060A),
+                  padding: const EdgeInsets.symmetric(vertical: 13),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Center(
+                child: TextButton(
+                  onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+                  child: const Text('बंद करें', style: TextStyle(color: Colors.white54, fontSize: 12)),
+                ),
+              ),
+            ] else if (_errorMessage != null) ...[
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -261,7 +332,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                   ),
                 ],
               ),
-            ] else if (!_isDownloading) ...[
+            ] else if (!_isDownloading && !_isInstalling) ...[
               Row(
                 children: [
                   Expanded(
