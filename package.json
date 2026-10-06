@@ -63,8 +63,8 @@
       "scripts": {
             "dev": "vite",
             "typecheck": "tsc --noEmit",
-            "test": "node scripts/auth.check.ts && node --test test/*.test.ts",
-            "test:web": "node scripts/auth.check.ts && node --test test/*.test.ts",
+            "test": "node --experimental-strip-types scripts/auth.check.ts && node --experimental-strip-types --test test/*.test.ts",
+            "test:web": "node --experimental-strip-types scripts/auth.check.ts && node --experimental-strip-types --test test/*.test.ts",
             "test:mobile": "cd mobile && flutter test",
             "analyze:mobile": "cd mobile && flutter analyze --fatal-infos",
             "check:web": "npm run typecheck && npm run test:web && npm run build",
