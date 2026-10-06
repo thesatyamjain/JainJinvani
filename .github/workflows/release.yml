@@ -276,7 +276,7 @@ jobs:
         run: |
           VERSION="${{ needs.prepare.outputs.tag }}"
           mkdir -p output-web
-          cd dist
+          cd build
           zip -r "../output-web/JainJinvani-${VERSION}-web-bundle.zip" .
           cd ..
 
