@@ -31,6 +31,15 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  // PRE-PROCESSING: Remove elements that mask structural content from querySelectorAll('*')
+  // or alter the HTML parsing context, which can lead to parsing bypasses and mXSS.
+  const dangerousWrappers = ['template', 'noscript', 'math', 'svg', 'script', 'style', 'iframe', 'object', 'embed'];
+  for (const wrapper of dangerousWrappers) {
+    for (const el of Array.from(documentFragment.body.querySelectorAll(wrapper))) {
+      el.remove();
+    }
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
