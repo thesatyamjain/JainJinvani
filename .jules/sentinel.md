@@ -1,4 +1,4 @@
-## 2024-05-14 - Vite Environment Variable Leak
-**Vulnerability:** The VITE_ADMIN_PASSWORD was being read as a plaintext environment variable. In Vite, any environment variable prefixed with VITE_ is statically replaced with its value during the build process, thereby exposing the plaintext password to the public bundle.
-**Learning:** Client-side bundles should never include plaintext passwords or secrets as environment variables, even if they are only used to verify an input on the client-side. The public bundler will expose them.
-**Prevention:** Always hash the password and provide the hash as the environment variable (e.g., VITE_ADMIN_PASSWORD_HASH), then check if the hash of the user input matches the provided hash.
+## 2025-02-14 - Mutation XSS and parsing bypass via content-masking tags in custom DOMParser sanitizers
+**Vulnerability:** A custom HTML sanitizer using `DOMParser` and `querySelectorAll('*')` was vulnerable to mXSS and filtering bypasses via content-masking tags like `<template>`, `<noscript>`, `<math>`, and `<svg>`.
+**Learning:** `DOMParser` handles content within `<template>` differently (it creates a separate document fragment), and tags like `<noscript>` alter the parsing context depending on JS execution settings. Attackers use these to hide malicious scripts from the sanitizer loop, which later execute when the browser re-parses the sanitized string.
+**Prevention:** Always explicitly query and remove content-masking nodes (`template, noscript, math, svg`) *before* running standard tree traversal to neuter namespace confusion and mXSS vectors.
