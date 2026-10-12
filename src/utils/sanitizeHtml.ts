@@ -31,6 +31,11 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  // Prevent mXSS and parsing bypasses by explicitly stripping content-masking nodes
+  for (const el of Array.from(documentFragment.body.querySelectorAll('template, noscript, math, svg'))) {
+    el.remove();
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
