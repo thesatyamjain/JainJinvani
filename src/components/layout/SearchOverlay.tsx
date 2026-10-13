@@ -123,7 +123,7 @@ export const SearchOverlay = ({
   const [speechSupported, setSpeechSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const activeItemRef = useRef<HTMLDivElement>(null);
+  const activeItemRef = useRef<HTMLButtonElement>(null);
 
   const allItems = useMemo(() => getAllItems(), []);
 
@@ -399,12 +399,13 @@ export const SearchOverlay = ({
                     type="button"
                     whileTap={{ scale: 0.9 }}
                     onClick={toggleVoiceSearch}
-                    className={`p-1.5 rounded-xl transition-all cursor-pointer select-none ${
+                    className={`p-1.5 rounded-xl transition-all cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071124] ${
                       isListening
                         ? 'bg-rose-500/25 border border-rose-400 text-rose-300 animate-pulse'
                         : 'bg-white/5 hover:bg-amber-500/20 text-slate-400 hover:text-amber-200 border border-white/10'
                     }`}
                     title={isListening ? 'बोलना बंद करें' : 'हिंदी में बोलकर खोजें'}
+                    aria-label={isListening ? 'बोलना बंद करें (Stop listening)' : 'हिंदी में बोलकर खोजें (Voice search in Hindi)'}
                   >
                     {isListening ? (
                       <MicOff className="w-4 h-4 text-rose-300 animate-bounce" />
@@ -423,8 +424,9 @@ export const SearchOverlay = ({
                       setQuery('');
                       inputRef.current?.focus();
                     }}
-                    className="p-1.5 hover:bg-white/10 rounded-xl transition-colors text-slate-400 hover:text-white cursor-pointer select-none"
+                    className="p-1.5 hover:bg-white/10 rounded-xl transition-colors text-slate-400 hover:text-white cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071124]"
                     title="साफ़ करें"
+                    aria-label="खोज साफ़ करें (Clear search)"
                   >
                     <X className="w-4 h-4" />
                   </motion.button>
@@ -435,8 +437,9 @@ export const SearchOverlay = ({
                   type="button"
                   whileTap={{ scale: 0.9 }}
                   onClick={onClose}
-                  className="p-1.5 hover:bg-white/10 rounded-xl transition-colors text-slate-400 hover:text-rose-200 cursor-pointer select-none ml-0.5"
+                  className="p-1.5 hover:bg-white/10 rounded-xl transition-colors text-slate-400 hover:text-rose-200 cursor-pointer select-none ml-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071124]"
                   title="बंद करें (Esc)"
+                  aria-label="खोज बंद करें (Close search)"
                 >
                   <span className="hidden sm:inline-block text-[10px] font-mono text-slate-400 bg-white/10 px-1.5 py-0.5 rounded mr-1">
                     ESC
@@ -686,8 +689,10 @@ export const SearchOverlay = ({
                   {filteredItems.map((item, index) => {
                     const isSelected = selectedIndex === index;
                     return (
-                      <motion.div
+                      <motion.button
                         key={item.id}
+                        type="button"
+                        aria-label={`${item.title} खोलें`}
                         ref={isSelected ? activeItemRef : undefined}
                         whileHover={{ scale: 1.008 }}
                         whileTap={{ scale: 0.985 }}
@@ -698,7 +703,7 @@ export const SearchOverlay = ({
                           preloadContent(item.id);
                         }}
                         onTouchStart={() => preloadContent(item.id)}
-                        className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border cursor-pointer group transition-all select-none ${
+                        className={`w-full text-left flex items-center justify-between p-2.5 sm:p-3 rounded-xl border cursor-pointer group transition-all select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071124] ${
                           isSelected
                             ? 'bg-amber-500/20 border-amber-400/60 shadow-[0_0_16px_rgba(245,158,11,0.25)] ring-1 ring-amber-400/40'
                             : 'bg-white/[0.02] hover:bg-amber-500/10 border-white/5 hover:border-amber-400/30'
@@ -773,7 +778,7 @@ export const SearchOverlay = ({
                             }`}
                           />
                         </div>
-                      </motion.div>
+                      </motion.button>
                     );
                   })}
                 </div>
