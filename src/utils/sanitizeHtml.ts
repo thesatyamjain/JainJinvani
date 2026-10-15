@@ -31,6 +31,10 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  for (const element of Array.from(documentFragment.body.querySelectorAll('template, noscript, math, svg, script, style, iframe, object, embed'))) {
+    element.remove();
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
