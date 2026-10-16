@@ -2,3 +2,8 @@
 **Vulnerability:** The VITE_ADMIN_PASSWORD was being read as a plaintext environment variable. In Vite, any environment variable prefixed with VITE_ is statically replaced with its value during the build process, thereby exposing the plaintext password to the public bundle.
 **Learning:** Client-side bundles should never include plaintext passwords or secrets as environment variables, even if they are only used to verify an input on the client-side. The public bundler will expose them.
 **Prevention:** Always hash the password and provide the hash as the environment variable (e.g., VITE_ADMIN_PASSWORD_HASH), then check if the hash of the user input matches the provided hash.
+
+## 2024-05-24 - mXSS and Parsing Bypass with DOMParser
+**Vulnerability:** When building an HTML sanitizer using `DOMParser`, simply iterating over `document.body.querySelectorAll('*')` misses elements nested inside tags like `<template>` because they are parsed into a separate document fragment, not directly into the main DOM tree. Additionally, tags like `<math>` and `<svg>` trigger namespace-switching in the browser parser. This allows malicious code (like XSS payloads) to be hidden inside these tags and bypass the standard DOM traversal sanitization.
+**Learning:** `DOMParser` behavior differs from main document rendering context. Different tags have different parsing rules and namespace switching behaviors that can hide nodes from a simple query selector iteration.
+**Prevention:** To prevent mXSS and parsing bypasses, explicitly query and immediately remove content-masking elements (`<template>`, `<noscript>`) and dangerous namespace-switching elements (`<math>`, `<svg>`) from the `DOMParser`'s document fragment before performing the main allowlist traversal.
