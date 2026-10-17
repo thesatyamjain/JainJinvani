@@ -31,16 +31,19 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  // Prevent Mutation XSS (mXSS) and parsing bypasses
+  // Remove content-masking and dangerous elements entirely before traversal.
+  const dangerousElements = documentFragment.body.querySelectorAll(
+    'template, noscript, script, style, iframe, object, embed, svg, math'
+  );
+  for (const element of Array.from(dangerousElements)) {
+    element.remove();
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
-      // Keep text from unsupported formatting tags, but discard executable or
-      // embedded nodes such as script, iframe, object, and svg entirely.
-      if (['script', 'style', 'iframe', 'object', 'embed', 'svg', 'math'].includes(tagName)) {
-        element.remove();
-      } else {
-        element.replaceWith(...Array.from(element.childNodes));
-      }
+      element.replaceWith(...Array.from(element.childNodes));
       continue;
     }
 
