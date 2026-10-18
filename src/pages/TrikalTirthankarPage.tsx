@@ -215,6 +215,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
             }}
             className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
+            aria-label="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
           </motion.button>
@@ -1642,6 +1643,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                     }
                     className="p-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/30 transition-colors shrink-0"
                     title="महार्घ्य कॉपी करें"
+                    aria-label="महार्घ्य कॉपी करें"
                   >
                     {copiedMantra === 'tees-maharghya' ? (
                       <Check className="w-4 h-4 text-emerald-400" />
@@ -2259,6 +2261,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                         }}
                         className="p-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-slate-300 hover:text-white transition-colors shrink-0"
                         title="मंत्र कॉपी करें"
+                        aria-label="मंत्र कॉपी करें"
                       >
                         {copiedMantra === 'modal-salutation' ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
