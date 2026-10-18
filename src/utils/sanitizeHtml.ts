@@ -31,6 +31,12 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  // Pre-process content-masking elements before tree traversal to prevent bypasses
+  const maskingElements = documentFragment.body.querySelectorAll('template, noscript');
+  for (const el of Array.from(maskingElements)) {
+    el.remove();
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
