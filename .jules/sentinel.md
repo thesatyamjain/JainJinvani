@@ -2,3 +2,7 @@
 **Vulnerability:** The VITE_ADMIN_PASSWORD was being read as a plaintext environment variable. In Vite, any environment variable prefixed with VITE_ is statically replaced with its value during the build process, thereby exposing the plaintext password to the public bundle.
 **Learning:** Client-side bundles should never include plaintext passwords or secrets as environment variables, even if they are only used to verify an input on the client-side. The public bundler will expose them.
 **Prevention:** Always hash the password and provide the hash as the environment variable (e.g., VITE_ADMIN_PASSWORD_HASH), then check if the hash of the user input matches the provided hash.
+## 2023-10-25 - Prevent mXSS and Parsing Bypasses in sanitizeHtml
+**Vulnerability:** The `sanitizeHtml` utility iterates over `querySelectorAll('*')` to strip unallowed attributes. However, certain elements like `<template>` parse their content into a separate DocumentFragment (`content`), which bypasses standard tree traversal. This could allow executable nodes to hide inside `<template>` elements and evade sanitization, leading to mXSS when the `<template>` is later stripped and its uninspected contents are attached to the DOM.
+**Learning:** Naive `DOMParser` iteration with `querySelectorAll('*')` is insufficient against mXSS vectors (like `<template>`, `<noscript>`, `<math>`, or `<svg>`).
+**Prevention:** Explicitly query and discard content-masking elements and dangerous tags entirely from the document fragment before performing the universal element loop traversal.
