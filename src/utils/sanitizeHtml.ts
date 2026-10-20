@@ -31,16 +31,21 @@ export function sanitizeHtml(html: string): string {
 
   const documentFragment = new DOMParser().parseFromString(html, 'text/html');
 
+  // Prevent mXSS and parsing bypasses by explicitly querying and removing
+  // content-masking elements and dangerous tags BEFORE traversing the DOM tree.
+  // Elements like <template> parse content into a separate fragment that bypasses querySelectorAll('*').
+  const dangerousTags = ['template', 'noscript', 'script', 'style', 'iframe', 'object', 'embed', 'svg', 'math'];
+  for (const tag of dangerousTags) {
+    for (const element of Array.from(documentFragment.body.querySelectorAll(tag))) {
+      element.remove();
+    }
+  }
+
   for (const element of Array.from(documentFragment.body.querySelectorAll('*'))) {
     const tagName = element.tagName.toLowerCase();
     if (!ALLOWED_TAGS.has(tagName)) {
-      // Keep text from unsupported formatting tags, but discard executable or
-      // embedded nodes such as script, iframe, object, and svg entirely.
-      if (['script', 'style', 'iframe', 'object', 'embed', 'svg', 'math'].includes(tagName)) {
-        element.remove();
-      } else {
-        element.replaceWith(...Array.from(element.childNodes));
-      }
+      // Keep text from unsupported formatting tags
+      element.replaceWith(...Array.from(element.childNodes));
       continue;
     }
 
