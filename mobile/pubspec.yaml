@@ -1,5 +1,5 @@
 name: jain_jinvani
-description: "A new Flutter project."
+description: "जैन जिनवाणी - प्रामाणिक दिगम्बर जैन आगम, सिद्धांत ग्रंथ, स्तोत्र, पूजन एवं स्वाध्याय मोबाइल ऐप"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

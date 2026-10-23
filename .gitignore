@@ -138,3 +138,8 @@ build/
 scratch/
 antigravity_skills_temp/
 build_corrupted/
+
+.Jules/
+_tmp_*
+mobile/assets/data/
+mobile/assets/audio/

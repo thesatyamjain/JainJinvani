@@ -30,11 +30,13 @@ void main() async {
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xFF05060A),
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.light,
       systemNavigationBarDividerColor: Colors.transparent,
     ),
   );
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(const JainJinvaniApp());
 }
@@ -45,7 +47,7 @@ class JainJinvaniApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'जिनवाणी',
+      title: 'Ã Â¤Å“Ã Â¤Â¿Ã Â¤Â¨Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â£Ã Â¥â‚¬',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -100,7 +102,7 @@ class _WebAppShellState extends State<WebAppShell> {
               if (error.isForMainFrame ?? false) {
                 if (mounted) {
                   setState(() {
-                    _errorMessage = 'लोड करने में असमर्थ (${error.errorCode}): ${error.description}';
+                    _errorMessage = 'Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¦Ã Â¤Â¸Ã Â¤Â®Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¥ (${error.errorCode}): ${error.description}';
                   });
                 }
               }
@@ -190,7 +192,7 @@ class _WebAppShellState extends State<WebAppShell> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text(
-                  'ऐप बंद करने के लिए दोबारा बैक दबाएं',
+                  'Ã Â¤ÂÃ Â¤Âª Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤Â¦Ã Â¥â€¹Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â¾ Ã Â¤Â¬Ã Â¥Ë†Ã Â¤â€¢ Ã Â¤Â¦Ã Â¤Â¬Ã Â¤Â¾Ã Â¤ÂÃ Â¤â€š',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -236,7 +238,7 @@ class _WebAppShellState extends State<WebAppShell> {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'लोड करने में समस्या आई',
+                          'Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¸Ã Â¤Â®Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤â€ Ã Â¤Ë†',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -264,7 +266,7 @@ class _WebAppShellState extends State<WebAppShell> {
                             backgroundColor: const Color(0xFFFFB800),
                             foregroundColor: Colors.black,
                           ),
-                          child: const Text('पुनः प्रयास करें'),
+                          child: const Text('Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¨Ã Â¤Æ’ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š'),
                         ),
                       ],
                     ),

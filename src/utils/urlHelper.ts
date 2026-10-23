@@ -3,7 +3,8 @@ export const VALID_PAGES = new Set([
   'more', 'admin', 'notfound', 'favorites', 'festivals', 'parva', 'tirthankar',
   'pilgrimage', 'tirth', 'philosophy', 'tattva', 'rituals', 'puja', 'pathshala', 'gallery',
   'explore', 'samayik', 'dietary', 'aahar', 'ascetics', 'muni', 'muni-profiles',
-  'jap', 'niyam', 'daily-puja', 'trikal-tirthankar', 'tirthankars', 'tirthankar-list'
+  'jap', 'niyam', 'daily-puja', 'trikal-tirthankar', 'tirthankars', 'tirthankar-list',
+  'launch-video', 'video'
 ]);
 
 export const PAGE_ALIASES: Record<string, string> = {
@@ -16,6 +17,7 @@ export const PAGE_ALIASES: Record<string, string> = {
   'muni': 'ascetics',
   'tirthankars': 'trikal-tirthankar',
   'tirthankar-list': 'trikal-tirthankar',
+  'video': 'launch-video',
 };
 
 export interface ParsedRoute {

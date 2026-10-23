@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch, Database } from 'lucide-react';
+import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch, Database, Film } from 'lucide-react';
 import { getSettings, updateSettings, type UserSettings, useModalBackHandler } from '../lib';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
@@ -466,7 +466,7 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
               type="button"
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.02 }}
-              onClick={() => {
+              onClick={async () => {
                 triggerHaptic('medium');
                 if (isNativeApp() && (window as any).JinvaniNative) {
                   (window as any).JinvaniNative.postMessage('check_update');
@@ -474,7 +474,19 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                   navigator.serviceWorker.getRegistrations().then((regs) => {
                     for (const r of regs) r.update();
                   });
-                  alert('नवीनतम संस्करण की जाँच की जा रही है...');
+                  try {
+                    const res = await fetch('/version.json?t=' + Date.now(), { credentials: 'omit', cache: 'no-store' });
+                    if (res.ok) {
+                      const data = await res.json();
+                      if (data.version && data.version !== '1.0.3') {
+                        if (window.confirm('नया संस्करण (' + data.version + ') उपलब्ध है!\nक्या आप तुरंत अपडेट करना चाहते हैं?')) {
+                          window.location.reload();
+                          return;
+                        }
+                      }
+                    }
+                  } catch (_) {}
+                  window.alert('🎉 आप नवीनतम संस्करण का उपयोग कर रहे हैं।');
                 } else {
                   window.location.reload();
                 }
@@ -581,6 +593,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
         </div>
       )
     },
+    {
+      id: 'launch-video',
+      label: 'लॉन्च वीडियो',
+      icon: Film,
+      desc: 'Remotion आधिकारिक लॉन्च वीडियो देखें'
+    },
     { id: 'share', label: 'साझा करें', icon: Share2, desc: 'मित्रों व परिजनों के साथ साझा करें' },
   ];
 
@@ -612,6 +630,12 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
           }
         }
       }
+      return;
+    }
+
+    if (item.id === 'launch-video') {
+      triggerHaptic('medium');
+      onNavigate('launch-video');
       return;
     }
 
