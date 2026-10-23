@@ -48,6 +48,7 @@ const MuniProfilesPage = lazy(() => import("./pages/MuniProfilesPage").then((m) 
 const JapMalaPage = lazy(() => import("./pages/JapMalaPage").then((m) => ({ default: m.JapMalaPage })));
 const NiyamaPage = lazy(() => import("./pages/NiyamaPage").then((m) => ({ default: m.NiyamaPage })));
 const DailyPujaFlow = lazy(() => import("./pages/DailyPujaFlow").then((m) => ({ default: m.DailyPujaFlow })));
+const LaunchVideoPage = lazy(() => import("./pages/LaunchVideoPage").then((m) => ({ default: m.LaunchVideoPage })));
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
 
 const PageLoading = () => (
@@ -514,6 +515,14 @@ export default function App() {
             </PageTransition>
           )}
 
+
+
+
+          {activePage === "launch-video" && (
+            <PageTransition pageKey="launch-video">
+              <LaunchVideoPage onBack={() => handleBack("landing")} />
+            </PageTransition>
+          )}
           {activePage === "daily-puja" && (
             <PageTransition pageKey="daily-puja">
               <DailyPujaFlow

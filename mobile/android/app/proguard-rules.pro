@@ -19,3 +19,7 @@
 }
 -keep class android.webkit.** { *; }
 -keep class io.flutter.plugins.webviewflutter.** { *; }
+
+# OTA Update and FileProvider
+-keep class sk.fourq.otaupdate.** { *; }
+-dontwarn sk.fourq.otaupdate.**
