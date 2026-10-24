@@ -2,6 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+if (process.env.CF_PAGES || process.env.CI) {
+  console.log('[og-image] Running in CI / Cloudflare Pages environment. Using pre-generated assets.');
+  process.exit(0);
+}
+
 const bookImgPath = path.resolve(__dirname, '..', 'src', 'assets', '52d9a82ed1897797854817247f9d26b0426643b0.png');
 const bookBase64 = fs.readFileSync(bookImgPath).toString('base64');
 const bookDataUri = `data:image/png;base64,${bookBase64}`;
