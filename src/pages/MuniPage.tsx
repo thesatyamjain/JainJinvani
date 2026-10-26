@@ -118,13 +118,8 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
         animate={{ opacity: 1, y: 0 }}
         className="w-full h-[400px] rounded-3xl overflow-hidden relative mb-12 group"
       >
-        <img
-          src="https://images.unsplash.com/photo-1619616030121-fc704e016e47?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZWFjb2NrJTIwZmVhdGhlciUyMGJyb29tJTIwamFpbnxlbnwxfHx8fDE3NjkwODUxODl8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Pichhi"
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-blue-950/40 to-[#050a14] pointer-events-none" />
+        <div className="absolute -top-16 -left-16 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/60 to-transparent flex flex-col justify-end p-8 md:p-12">
           <h2 className="text-3xl md:text-5xl font-rozha text-amber-200 mb-4">२८ मूलगुण</h2>
           <p className="text-blue-100/80 font-gotu text-lg max-w-3xl leading-relaxed">

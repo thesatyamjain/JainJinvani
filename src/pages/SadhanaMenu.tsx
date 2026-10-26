@@ -413,13 +413,9 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
         className="mb-3.5 sm:mb-5 md:mb-6 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[160px] md:h-72 flex items-end p-3.5 sm:p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/25 group"
       >
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1659263240327-20af29178b91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqYWluJTIwcHVqYSUyMGFhcnRpJTIwZGl5YSUyMGxhbXB8ZW58MXx8fHwxNzY4OTY3MDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-55"
-            alt="Sadhana Header"
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-amber-950/40 to-[#030712] pointer-events-none" />
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 -right-24 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/75 to-transparent" />
         </div>
 

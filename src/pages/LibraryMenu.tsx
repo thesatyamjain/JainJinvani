@@ -296,13 +296,9 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         className="mb-4 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[170px] md:h-80 flex items-end p-3.5 sm:p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
       >
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1745895255289-0410ef510cd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmNpZW50JTIwaW5kaWFuJTIwbGlicrFyeSUyMHNjcmlwdHVyZXMlMjBib29rc3xlbnwxfHx8fDE3Njg5NjcwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-40 sm:opacity-50"
-            alt="Digambar Jain Granthalaya"
-          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-amber-950/40 to-[#030712] pointer-events-none" />
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 -right-24 w-80 h-80 bg-yellow-600/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-transparent" />
         </div>
 

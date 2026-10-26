@@ -14,8 +14,8 @@ import { setAppNotificationBadge, clearAppNotificationBadge } from "./utils/pwaM
 import { getDailyNiyamaState } from "./lib/storage";
 
 // Critical initial render components
-import { Landing } from "./pages/Landing";
-import { SearchOverlay } from "./components/layout/SearchOverlay";
+const Landing = lazy(() => import("./pages/Landing").then((m) => ({ default: m.Landing })));
+const SearchOverlay = lazy(() => import("./components/layout/SearchOverlay").then((m) => ({ default: m.SearchOverlay })));
 
 // Code-split secondary routes on demand (faster initial bundle & first paint)
 const SadhanaMenu = lazy(() => import("./pages/SadhanaMenu").then((m) => ({ default: m.SadhanaMenu })));

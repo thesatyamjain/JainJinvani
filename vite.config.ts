@@ -61,6 +61,7 @@
           manualChunks: {
             react: ['react', 'react-dom'],
             motion: ['motion'],
+            icons: ['lucide-react'],
           },
         },
       },
