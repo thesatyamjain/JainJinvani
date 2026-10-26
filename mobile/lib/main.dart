@@ -47,7 +47,7 @@ class JainJinvaniApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ã Â¤Å“Ã Â¤Â¿Ã Â¤Â¨Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â£Ã Â¥â‚¬',
+      title: 'जिनवाणी',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -75,6 +75,8 @@ class _WebAppShellState extends State<WebAppShell> {
   String? _errorMessage;
   DateTime? _lastBackPressTime;
   Timer? _updateTimer;
+  bool _isLoading = true;
+  int _loadingProgress = 0;
 
   @override
   void initState() {
@@ -97,12 +99,34 @@ class _WebAppShellState extends State<WebAppShell> {
         ..setBackgroundColor(const Color(0xFF05060A))
         ..setNavigationDelegate(
           NavigationDelegate(
+            onProgress: (int progress) {
+              if (mounted) {
+                setState(() {
+                  _loadingProgress = progress;
+                });
+              }
+            },
+            onPageStarted: (String url) {
+              if (mounted) {
+                setState(() {
+                  _isLoading = true;
+                });
+              }
+            },
+            onPageFinished: (String url) {
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                });
+              }
+            },
             onWebResourceError: (WebResourceError error) {
               debugPrint('WebResource error: ${error.errorCode} - ${error.description}');
               if (error.isForMainFrame ?? false) {
                 if (mounted) {
                   setState(() {
-                    _errorMessage = 'Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¦Ã Â¤Â¸Ã Â¤Â®Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¥ (${error.errorCode}): ${error.description}';
+                    _isLoading = false;
+                    _errorMessage = 'सामग्री लोड करने में असमर्थ (${error.errorCode}): ${error.description}';
                   });
                 }
               }
@@ -192,7 +216,7 @@ class _WebAppShellState extends State<WebAppShell> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Text(
-                  'Ã Â¤ÂÃ Â¤Âª Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤Â¦Ã Â¥â€¹Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â¾ Ã Â¤Â¬Ã Â¥Ë†Ã Â¤â€¢ Ã Â¤Â¦Ã Â¤Â¬Ã Â¤Â¾Ã Â¤ÂÃ Â¤â€š',
+                  'ऐप बंद करने के लिए दोबारा बैक दबाएं',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -223,7 +247,16 @@ class _WebAppShellState extends State<WebAppShell> {
           child: Stack(
             children: [
               if (_errorMessage == null && _controller != null)
-                _buildWebView()
+                RefreshIndicator(
+                  color: const Color(0xFFFFB800),
+                  backgroundColor: const Color(0xFF141724),
+                  onRefresh: () async {
+                    if (_controller != null) {
+                      await _controller!.reload();
+                    }
+                  },
+                  child: _buildWebView(),
+                )
               else if (_errorMessage != null)
                 Center(
                   child: Padding(
@@ -238,7 +271,7 @@ class _WebAppShellState extends State<WebAppShell> {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¸Ã Â¤Â®Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤â€ Ã Â¤Ë†',
+                          'लोड करने में समस्या आई',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -259,6 +292,7 @@ class _WebAppShellState extends State<WebAppShell> {
                           onPressed: () {
                             setState(() {
                               _errorMessage = null;
+                              _isLoading = true;
                             });
                             _startServerAndLoad();
                           },
@@ -266,12 +300,97 @@ class _WebAppShellState extends State<WebAppShell> {
                             backgroundColor: const Color(0xFFFFB800),
                             foregroundColor: Colors.black,
                           ),
-                          child: const Text('Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¨Ã Â¤Æ’ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š'),
+                          child: const Text('पुनः प्रयास करें'),
                         ),
                       ],
                     ),
                   ),
                 ),
+              // Top linear progress bar during web navigation
+              if (_isLoading && _loadingProgress < 100)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: LinearProgressIndicator(
+                    value: _loadingProgress > 0 ? _loadingProgress / 100.0 : null,
+                    backgroundColor: Colors.transparent,
+                    valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFFFB800)),
+                    minHeight: 2.5,
+                  ),
+                ),
+              // Smooth initial branded splash overlay
+              IgnorePointer(
+                ignoring: !_isLoading,
+                child: AnimatedOpacity(
+                  opacity: _isLoading ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 300),
+                  child: Container(
+                    color: const Color(0xFF05060A),
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFFFB800).withValues(alpha: 0.2),
+                                  blurRadius: 28,
+                                  spreadRadius: 6,
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: Image.asset(
+                                'assets/images/app_icon.png',
+                                fit: BoxFit.cover,
+                                errorBuilder: (_, _, _) => const Icon(
+                                  Icons.auto_stories_rounded,
+                                  size: 44,
+                                  color: Color(0xFFFFB800),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 18),
+                          const Text(
+                            'जिनवाणी',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.6,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            'प्रामाणिक दिगम्बर जैन आगम एवं स्वाध्याय',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white.withValues(alpha: 0.6),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.2,
+                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFB800)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
