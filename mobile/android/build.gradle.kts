@@ -20,22 +20,6 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-subprojects {
-    afterEvaluate {
-        if (project.hasProperty("android")) {
-            project.extensions.findByName("android")?.let { ext ->
-                try {
-                    ext.javaClass.getMethod("compileSdkVersion", Int::class.javaPrimitiveType).invoke(ext, 36)
-                } catch (_: Exception) {
-                    try {
-                        ext.javaClass.getMethod("setCompileSdkVersion", Int::class.javaPrimitiveType).invoke(ext, 36)
-                    } catch (_: Exception) {}
-                }
-            }
-        }
-    }
-}
-
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
