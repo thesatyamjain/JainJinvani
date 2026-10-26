@@ -15,8 +15,25 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
+}
+
+subprojects {
+    afterEvaluate {
+        if (project.hasProperty("android")) {
+            project.extensions.findByName("android")?.let { ext ->
+                try {
+                    ext.javaClass.getMethod("compileSdkVersion", Int::class.javaPrimitiveType).invoke(ext, 36)
+                } catch (_: Exception) {
+                    try {
+                        ext.javaClass.getMethod("setCompileSdkVersion", Int::class.javaPrimitiveType).invoke(ext, 36)
+                    } catch (_: Exception) {}
+                }
+            }
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {
