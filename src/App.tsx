@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useRef, useEffect } from "react";
+import React, { lazy, Suspense, useState, useRef, useEffect, startTransition } from "react";
 import { SpaceBackground } from "./components/layout/SpaceBackground";
 import { Dock } from "./components/layout/Dock";
 import { ExitToast } from "./components/layout/ExitToast";
@@ -138,14 +138,18 @@ export default function App() {
       }
 
       if (event.state?.page) {
-        setActivePage(event.state.page);
-        setPageParams(event.state.params || null);
+        startTransition(() => {
+          setActivePage(event.state.page);
+          setPageParams(event.state.params || null);
+        });
       } else {
         // Fallback to parsing the current window location if history state was absent
         const locationRoute = parseLocation(window.location);
         if (locationRoute.page && locationRoute.page !== 'landing') {
-          setActivePage(locationRoute.page);
-          setPageParams(locationRoute.params);
+          startTransition(() => {
+            setActivePage(locationRoute.page);
+            setPageParams(locationRoute.params);
+          });
           return;
         }
 
@@ -192,8 +196,10 @@ export default function App() {
     // React to direct URL adjustments (external anchors or address bar changes)
     const handleLocationChange = () => {
       const currentRoute = parseLocation(window.location);
-      setActivePage(currentRoute.page);
-      setPageParams(currentRoute.params);
+      startTransition(() => {
+        setActivePage(currentRoute.page);
+        setPageParams(currentRoute.params);
+      });
     };
 
     // Force manual scroll restoration so the browser doesn't scroll the document window
@@ -233,8 +239,10 @@ export default function App() {
 
     // Push new state to history stack with clean path URL for SEO and sharing
     window.history.pushState({ page, params, historyIndex: newIndex }, "", targetUrl);
-    setPageParams(params || null);
-    setActivePage(page);
+    startTransition(() => {
+      setPageParams(params || null);
+      setActivePage(page);
+    });
   };
 
   const handleBack = (fallbackPage: string = 'landing', fallbackParams?: any) => {

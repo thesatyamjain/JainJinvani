@@ -808,7 +808,8 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
 
   // Distance from cursor to icon center on X axis
   const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+    if (isMobile || !ref.current) return Infinity;
+    const bounds = ref.current.getBoundingClientRect();
     return val - bounds.x - bounds.width / 2;
   });
 
@@ -835,8 +836,10 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
 
   // macOS Launch Bounce Physics on click
   const handleClick = () => {
-    setIsBouncing(true);
-    setTimeout(() => setIsBouncing(false), 520);
+    if (!isMobile) {
+      setIsBouncing(true);
+      setTimeout(() => setIsBouncing(false), 520);
+    }
     onClick();
   };
 
