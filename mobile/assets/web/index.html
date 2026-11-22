@@ -1,7 +1,29 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" class="theme-manuscript">
 
 <head>
+  <script>
+    (function() {
+      try {
+        var s = localStorage.getItem('jain_settings');
+        var theme = s ? JSON.parse(s).backgroundTheme : 'manuscript';
+        var root = document.documentElement;
+        root.classList.remove('theme-manuscript', 'theme-cosmic', 'theme-sanctum', 'dark');
+        if (theme === 'sanctum') {
+          root.classList.add('theme-sanctum', 'dark');
+          root.style.colorScheme = 'dark';
+        } else if (theme === 'cosmic') {
+          root.classList.add('theme-cosmic', 'dark');
+          root.style.colorScheme = 'dark';
+        } else {
+          root.classList.add('theme-manuscript');
+          root.style.colorScheme = 'light';
+        }
+      } catch(e) {
+        document.documentElement.classList.add('theme-manuscript');
+      }
+    })();
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRHCJLL700"></script>
   <script>
@@ -23,8 +45,7 @@
   <meta name="author" content="Jain Jinvani" />
   <meta name="robots" content="index, follow" />
   <meta name="google-site-verification" content="pXZ2zcfpCdWz-OKTVeW7n3HjNhlWvwQ9a_mhx72QpBs" />
-  <meta name="theme-color" content="#05060a" />
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#05060a" />
+  <meta name="theme-color" content="#F4EFE3" />
   
   <!-- iOS Safari & Android WebAPK Native PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -88,38 +109,136 @@
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Mukta:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Serif+Devanagari:wght@600;700&display=swap">
   </noscript>
-  <script type="module" crossorigin src="/assets/index-DPADMoAq.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/icons-BKZUhdA8.js">
-  <link rel="modulepreload" crossorigin href="/assets/react-sACyvHWp.js">
+
+  <style>
+    html, body {
+      background-color: #F4EFE3;
+      color: #1C1917;
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      min-height: 100vh;
+    }
+    .jinwani-preloader {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #F4EFE3;
+      padding: 24px;
+      box-sizing: border-box;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+              user-select: none;
+    }
+    .jinwani-preloader-badge {
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      background: #F4EFE3;
+      box-shadow: 6px 6px 16px rgba(180, 165, 145, 0.45), -6px -6px 16px rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(217, 119, 6, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .jinwani-preloader-badge img {
+      width: 48px;
+      height: 48px;
+      -o-object-fit: contain;
+         object-fit: contain;
+      border-radius: 12px;
+    }
+    .jinwani-preloader-title {
+      font-family: 'Noto Serif Devanagari', 'Cinzel', serif, system-ui;
+      font-size: 24px;
+      font-weight: 700;
+      color: #1C1917;
+      letter-spacing: -0.01em;
+      margin: 0 0 4px 0;
+      text-align: center;
+    }
+    .jinwani-preloader-sub {
+      font-family: 'Noto Sans Devanagari', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #991B1B;
+      letter-spacing: 0.04em;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+    .jinwani-preloader-spinner {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(153, 27, 27, 0.15);
+      border-top-color: #991B1B;
+      animation: jw-spin 0.75s linear infinite;
+    }
+    @keyframes jw-spin {
+      to { transform: rotate(360deg); }
+    }
+    html.theme-space, html.theme-space body, html.theme-space .jinwani-preloader {
+      background-color: #05060a !important;
+      color: #f1f5f9 !important;
+    }
+    html.theme-space .jinwani-preloader-badge {
+      background: #0b0f19 !important;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.6) !important;
+      border-color: rgba(217, 119, 6, 0.4) !important;
+    }
+    html.theme-space .jinwani-preloader-title {
+      color: #f1f5f9 !important;
+    }
+    html.theme-space .jinwani-preloader-sub {
+      color: #fbbf24 !important;
+    }
+    html.theme-space .jinwani-preloader-spinner {
+      border-color: rgba(251, 191, 36, 0.2) !important;
+      border-top-color: #fbbf24 !important;
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-CidsYche.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/icons-D2CD5VnI.js">
+  <link rel="modulepreload" crossorigin href="/assets/react-N_cmULB1.js">
   <link rel="modulepreload" crossorigin href="/assets/motion-TibVTyhY.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-CYRo6leX.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-DM0NHcwR.css">
 </head>
 
 <body>
   <div id="root">
-    <header style="padding: 24px; text-align: center; font-family: sans-serif;">
-      <h1 style="font-size: 28px; margin-bottom: 8px;">जैन जिनवाणी - Jain Jinvani</h1>
-      <p style="font-size: 16px; color: #888; max-width: 640px; margin: 0 auto;">सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का डिजिटल संग्रह।</p>
-    </header>
-    <main style="padding: 16px; max-width: 800px; margin: 0 auto; font-family: sans-serif;">
-      <nav aria-label="मुख्य नेविगेशन">
-        <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
-          <li><a href="/sadhana" style="color: #c9933e; text-decoration: none;">दैनिक साधना</a></li>
-          <li><a href="/library" style="color: #c9933e; text-decoration: none;">जिनवाणी साहित्य</a></li>
-          <li><a href="/panchang" style="color: #c9933e; text-decoration: none;">जैन पंचांग</a></li>
-          <li><a href="/tirthankar" style="color: #c9933e; text-decoration: none;">24 तीर्थंकर</a></li>
-        </ul>
-      </nav>
-    </main>
+    <div class="jinwani-preloader" role="status" aria-label="जैन जिनवाणी लोड हो रही है...">
+      <div class="jinwani-preloader-badge">
+        <img src="/logo.webp" alt="जैन जिनवाणी" width="48" height="48" />
+      </div>
+      <h1 class="jinwani-preloader-title">जैन जिनवाणी</h1>
+      <p class="jinwani-preloader-sub">णमोकार महामंत्र • प्रामाणिक शास्त्र संग्रह</p>
+      <div class="jinwani-preloader-spinner" aria-hidden="true"></div>
+    </div>
   </div>
 
   <noscript>
-    <div style="padding: 20px; text-align: center; font-family: sans-serif; color: #888;">
-      <p>इस वेबसाइट का संपूर्ण अनुभव प्राप्त करने के लिए कृपया अपने ब्राउज़र में जावास्क्रिप्ट (JavaScript) सक्षम करें।</p>
+    <div style="padding: 32px 16px; max-width: 800px; margin: 0 auto; font-family: sans-serif; text-align: center; background: #F4EFE3; color: #1C1917;">
+      <h1 style="font-size: 26px; color: #991B1B; margin-bottom: 8px;">जैन जिनवाणी - Jain Jinvani</h1>
+      <p style="font-size: 15px; color: #44403C; margin-bottom: 24px;">सम्पूर्ण जैन धर्म ग्रंथ, भक्तामर स्तोत्र, णमोकार महामंत्र, जैन पूजा, आरती, स्तुति, चालीसा, तीर्थंकर परिचय एवं पंचांग का डिजिटल संग्रह।</p>
+      <nav aria-label="मुख्य नेविगेशन">
+        <ul style="list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <li><a href="/sadhana" style="color: #991B1B; font-weight: 600; text-decoration: underline;">दैनिक साधना</a></li>
+          <li><a href="/library" style="color: #991B1B; font-weight: 600; text-decoration: underline;">जिनवाणी साहित्य</a></li>
+          <li><a href="/panchang" style="color: #991B1B; font-weight: 600; text-decoration: underline;">जैन पंचांग</a></li>
+          <li><a href="/tirthankar" style="color: #991B1B; font-weight: 600; text-decoration: underline;">24 तीर्थंकर</a></li>
+        </ul>
+      </nav>
+      <p style="margin-top: 24px; font-size: 13px; color: #78716C;">इस वेबसाइट का संपूर्ण अनुभव प्राप्त करने के लिए कृपया अपने ब्राउज़र में जावास्क्रिप्ट (JavaScript) सक्षम करें।</p>
     </div>
   </noscript>
 
-  <!-- Load React app -->
+  <!-- Load React app -->
 </body>
 
 </html>
