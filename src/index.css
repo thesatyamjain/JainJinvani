@@ -488,6 +488,7 @@ body.has-modal-open [data-scroll-scrubber] {
   --neu-bg-card: #F9F5EC;
   --neu-bg-sunken: #ECE5D5;
   --neu-border: rgba(184, 134, 11, 0.28);
+  --neu-shadow-contact: rgba(165, 145, 120, 0.25);
   --neu-shadow-dark: rgba(184, 165, 138, 0.42);
   --neu-shadow-light: rgba(255, 255, 255, 0.95);
   --neu-shadow-hover-dark: rgba(184, 165, 138, 0.52);
@@ -513,6 +514,7 @@ html.shade-bhojpatra.theme-manuscript,
   --neu-bg-card: #FFFDF9;
   --neu-bg-sunken: #F1ECE2;
   --neu-border: rgba(168, 140, 93, 0.25);
+  --neu-shadow-contact: rgba(180, 165, 140, 0.22);
   --neu-shadow-dark: rgba(195, 180, 155, 0.35);
   --neu-shadow-light: rgba(255, 255, 255, 1);
   --neu-shadow-hover-dark: rgba(195, 180, 155, 0.45);
@@ -531,6 +533,7 @@ html.shade-swarna.theme-manuscript,
   --neu-bg-card: #F8EFD8;
   --neu-bg-sunken: #E7D9B6;
   --neu-border: rgba(190, 130, 20, 0.35);
+  --neu-shadow-contact: rgba(160, 125, 70, 0.28);
   --neu-shadow-dark: rgba(175, 142, 85, 0.46);
   --neu-shadow-light: rgba(255, 253, 240, 0.95);
   --neu-shadow-hover-dark: rgba(175, 142, 85, 0.58);
@@ -549,6 +552,7 @@ html.shade-puratan.theme-manuscript,
   --neu-bg-card: #F1E8D9;
   --neu-bg-sunken: #DDD1BD;
   --neu-border: rgba(150, 105, 45, 0.32);
+  --neu-shadow-contact: rgba(140, 115, 85, 0.30);
   --neu-shadow-dark: rgba(155, 130, 100, 0.48);
   --neu-shadow-light: rgba(255, 252, 245, 0.90);
   --neu-shadow-hover-dark: rgba(155, 130, 100, 0.60);
@@ -567,6 +571,7 @@ html.shade-tamrapatra.theme-manuscript,
   --neu-bg-card: #F6ECE1;
   --neu-bg-sunken: #E2D3C1;
   --neu-border: rgba(175, 105, 75, 0.30);
+  --neu-shadow-contact: rgba(155, 115, 95, 0.28);
   --neu-shadow-dark: rgba(175, 135, 115, 0.44);
   --neu-shadow-light: rgba(255, 250, 245, 0.95);
   --neu-shadow-hover-dark: rgba(175, 135, 115, 0.55);
@@ -585,6 +590,7 @@ html.shade-khadi.theme-manuscript,
   --neu-bg-card: #F4F0E8;
   --neu-bg-sunken: #E0D9CD;
   --neu-border: rgba(155, 135, 110, 0.28);
+  --neu-shadow-contact: rgba(145, 135, 120, 0.25);
   --neu-shadow-dark: rgba(165, 155, 140, 0.40);
   --neu-shadow-light: rgba(255, 255, 255, 0.95);
   --neu-shadow-hover-dark: rgba(165, 155, 140, 0.50);
@@ -663,19 +669,22 @@ body.theme-manuscript,
   background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
   border-color: var(--neu-border) !important;
-  box-shadow: 7px 7px 18px var(--neu-shadow-dark),
-              -7px -7px 18px var(--neu-shadow-light),
-              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .glass-card:hover,
 .theme-manuscript [data-glass-card]:hover,
 .theme-manuscript .panchang-hero-card:hover {
-  box-shadow: 9px 9px 24px var(--neu-shadow-hover-dark),
-              -9px -9px 24px var(--neu-shadow-hover-light),
-              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 3px 3px 6px var(--neu-shadow-contact, rgba(165, 145, 120, 0.3)),
+              10px 12px 28px var(--neu-shadow-hover-dark),
+              -8px -8px 24px var(--neu-shadow-hover-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
   border-color: var(--neu-border) !important;
 }
 
@@ -722,7 +731,7 @@ body.theme-manuscript,
 .theme-manuscript [class*="bg-[#0b162c]"],
 .theme-manuscript [class*="bg-slate-900"],
 .theme-manuscript [class*="bg-slate-950"] {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg) !important;
   background-image: none !important;
 }
 
@@ -742,11 +751,12 @@ body.theme-manuscript,
 .theme-manuscript .glass-card [class*="bg-purple-500/20"],
 .theme-manuscript .glass-card [class*="bg-cyan-500/20"],
 .theme-manuscript .glass-card [class*="bg-orange-500/20"] {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.16) !important;
-  box-shadow: inset 2.5px 2.5px 5px rgba(184, 165, 138, 0.38),
-              inset -2.5px -2.5px 5px rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: inset 2px 2.5px 5px var(--neu-shadow-dark),
+              inset -2px -2.5px 5px var(--neu-shadow-light),
+              inset 0 1px 2px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)) !important;
 }
 
 /* 6. Typography in Matte Lampblack Ink (High-Contrast & Crisp) */
@@ -951,35 +961,51 @@ body.theme-manuscript,
 .theme-manuscript .neu-btn-kumkum:active,
 .theme-manuscript .app-install-btn:active,
 .theme-manuscript .community-feedback-btn:active {
-  box-shadow: inset 3px 3px 6px rgba(127, 29, 29, 0.6),
-              inset -2px -2px 5px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: inset 3px 3px 6px rgba(127, 29, 29, 0.65),
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+              0 1px 3px rgba(127, 29, 29, 0.3) !important;
 }
 
 /* 9. Tactile Parchment Secondary Buttons */
 .theme-manuscript .primary-cta-library,
 .theme-manuscript .neu-btn-paper {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.32) !important;
-  box-shadow: 6px 6px 16px rgba(184, 165, 138, 0.42),
-              -6px -6px 16px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              4px 5px 12px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .primary-cta-library *,
 .theme-manuscript .neu-btn-paper * {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .primary-cta-library svg {
-  color: #B8860B !important;
+  color: var(--neu-gold) !important;
+}
+
+.theme-manuscript .primary-cta-library:hover,
+.theme-manuscript .neu-btn-paper:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              6px 7px 16px var(--neu-shadow-hover-dark),
+              -5px -5px 16px var(--neu-shadow-hover-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
 }
 
 .theme-manuscript .primary-cta-library:active,
 .theme-manuscript .neu-btn-paper:active {
-  box-shadow: inset 3px 3px 6px rgba(184, 165, 138, 0.45),
-              inset -3px -3px 6px rgba(255, 255, 255, 0.95) !important;
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: inset 2.5px 2.5px 5px var(--neu-shadow-dark),
+              inset -2.5px -2.5px 5px var(--neu-shadow-light) !important;
 }
 
 /* 10. Sacred Gold Action Buttons & Panchang Details */
@@ -988,8 +1014,25 @@ body.theme-manuscript,
   color: #FFFDF5 !important;
   font-weight: 700 !important;
   border: 1px solid rgba(251, 191, 36, 0.45) !important;
-  box-shadow: 3px 3px 8px rgba(146, 64, 14, 0.30),
-              -3px -3px 8px rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 2px 2px 4px rgba(146, 64, 14, 0.25),
+              4px 5px 12px rgba(146, 64, 14, 0.35),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .panchang-view-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 5px rgba(146, 64, 14, 0.3),
+              5px 7px 16px rgba(146, 64, 14, 0.45),
+              -4px -4px 10px var(--neu-shadow-hover-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.6) !important;
+}
+
+.theme-manuscript .panchang-view-btn:active {
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: inset 3px 3px 6px rgba(146, 64, 14, 0.6),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.2) !important;
 }
 
 .theme-manuscript .panchang-view-btn,
@@ -998,39 +1041,66 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .panchang-hero-card [class*="bg-white/"] span:first-child {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .panchang-hero-card [class*="bg-white/"] span:last-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 /* 11. Quick Access Pills */
 .theme-manuscript .quick-access-tag {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.32) !important;
-  box-shadow: 4px 4px 10px rgba(184, 165, 138, 0.35),
-              -4px -4px 10px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .quick-access-tag:hover {
-  border-color: rgba(153, 27, 27, 0.50) !important;
+  transform: translateY(-1.5px) !important;
+  border-color: rgba(153, 27, 27, 0.40) !important;
   color: #991B1B !important;
-  box-shadow: 5px 5px 12px rgba(184, 165, 138, 0.45),
-              -5px -5px 12px rgba(255, 255, 255, 1) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              5px 6px 14px var(--neu-shadow-hover-dark),
+              -4px -4px 14px var(--neu-shadow-hover-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .quick-access-tag:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 /* Daily Quote Card Enhancements */
 .theme-manuscript .quote-share-btn {
   background: linear-gradient(135deg, #047857 0%, #065F46 100%) !important;
   border: 1px solid rgba(16, 185, 129, 0.4) !important;
-  box-shadow: 3px 3px 8px rgba(6, 95, 70, 0.28),
-              -2px -2px 6px rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 1.5px 1.5px 3px rgba(4, 120, 87, 0.2),
+              3px 4px 10px rgba(6, 95, 70, 0.3),
+              -2px -2px 8px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-manuscript .quote-share-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 4px rgba(4, 120, 87, 0.25),
+              4px 6px 14px rgba(6, 95, 70, 0.4),
+              -3px -3px 10px var(--neu-shadow-hover-light) !important;
+}
+
+.theme-manuscript .quote-share-btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: inset 2px 2px 5px rgba(6, 95, 70, 0.6) !important;
 }
 
 .theme-manuscript .quote-share-btn,
@@ -1040,37 +1110,38 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .quote-verse {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .quote-meaning {
-  color: #292524 !important;
+  color: var(--neu-ink-muted, #292524) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .quote-attribution,
 .theme-manuscript .quote-attribution * {
-  color: #78350F !important;
+  color: var(--neu-gold) !important;
   font-weight: 600 !important;
 }
 
 /* App Install Banner UX Polish */
 .theme-manuscript .app-install-header-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  box-shadow: 4px 4px 12px rgba(184, 165, 138, 0.35),
-              -4px -4px 12px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              6px 7px 18px var(--neu-shadow-dark),
+              -5px -5px 16px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .app-install-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .app-install-subtitle {
-  color: #57534E !important;
+  color: var(--neu-ink-muted, #57534E) !important;
   font-weight: 600 !important;
 }
 
@@ -1078,7 +1149,19 @@ body.theme-manuscript,
   background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
   border: 1px solid rgba(254, 202, 202, 0.35) !important;
   color: #FFFDF5 !important;
-  box-shadow: 0 2px 8px rgba(153, 27, 27, 0.32) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.3),
+              5px 6px 16px rgba(153, 27, 27, 0.38),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.45) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .app-install-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.35),
+              6px 8px 20px rgba(153, 27, 27, 0.48),
+              -5px -5px 14px var(--neu-shadow-hover-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.55) !important;
 }
 
 .theme-manuscript .app-install-btn span,
@@ -1087,23 +1170,23 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .app-install-dismiss {
-  color: #78716C !important;
+  color: var(--neu-ink-subtle, #78716C) !important;
 }
 
 .theme-manuscript .app-install-dismiss:hover {
-  background-color: rgba(184, 134, 11, 0.12) !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
 }
 
 /* Abhishek & Community Badges */
 .theme-manuscript .abhishek-badge,
 .theme-manuscript .community-badge {
-  background-color: rgba(153, 27, 27, 0.08) !important;
-  border: 1px solid rgba(153, 27, 27, 0.32) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
   color: #991B1B !important;
   font-weight: 700 !important;
-  box-shadow: 1px 1px 3px rgba(153, 27, 27, 0.10),
-              inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .community-badge svg {
@@ -1112,23 +1195,23 @@ body.theme-manuscript,
 
 /* Portal Cards Typography */
 .theme-manuscript .portal-card-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .portal-card-sub {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 600 !important;
 }
 
 /* Sahyog Action Button & Card */
 .theme-manuscript .sahyog-card h4 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .sahyog-card p {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 600 !important;
 }
 
@@ -1137,12 +1220,24 @@ body.theme-manuscript,
   color: #FFFFFF !important;
   font-weight: 700 !important;
   border: 1px solid rgba(153, 27, 27, 0.4) !important;
-  box-shadow: 2px 2px 6px rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.3),
+              3px 4px 10px rgba(153, 27, 27, 0.35),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.2s ease !important;
 }
 
 .theme-manuscript .sahyog-action-btn:hover {
   background: linear-gradient(135deg, #991B1B 0%, #7F1D1D 100%) !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 5px rgba(127, 29, 29, 0.35),
+              5px 6px 14px rgba(153, 27, 27, 0.45) !important;
   color: #FFFFFF !important;
+}
+
+.theme-manuscript .sahyog-action-btn:active {
+  transform: translateY(1px) scale(0.98) !important;
+  box-shadow: inset 3px 3px 6px rgba(127, 29, 29, 0.65) !important;
 }
 
 .theme-manuscript .sahyog-card svg {
@@ -1158,14 +1253,24 @@ body.theme-manuscript,
 
 /* Recent Reads Button */
 .theme-manuscript .recent-read-btn {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
-              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-manuscript .recent-read-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              5px 6px 14px var(--neu-shadow-hover-dark),
+              -4px -4px 14px var(--neu-shadow-hover-light) !important;
 }
 
 .theme-manuscript .recent-read-btn p:first-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
@@ -1176,42 +1281,57 @@ body.theme-manuscript,
 
 /* 12. Floating Dock Navigation */
 .theme-manuscript [data-floating-dock] > div {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.30) !important;
-  box-shadow: 8px 12px 28px rgba(184, 165, 138, 0.52),
-              -8px -8px 20px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 6px var(--neu-shadow-contact, rgba(165, 145, 120, 0.28)),
+              8px 12px 32px var(--neu-shadow-dark),
+              -8px -8px 24px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-.theme-manuscript [data-floating-dock] button {
-  color: #292524 !important;
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.16) !important;
-  box-shadow: 2.5px 2.5px 6px rgba(184, 165, 138, 0.32),
-              -2.5px -2.5px 6px rgba(255, 255, 255, 0.92) !important;
+.theme-manuscript [data-floating-dock] button:not(.reader-dock-dot) {
+  color: var(--neu-ink) !important;
+  background-color: var(--neu-bg) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              2.5px 3px 7px var(--neu-shadow-dark),
+              -2.5px -2.5px 7px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.theme-manuscript [data-floating-dock] button svg {
-  color: #292524 !important;
+.theme-manuscript [data-floating-dock] button:not(.reader-dock-dot) svg {
+  color: var(--neu-ink) !important;
 }
 
-.theme-manuscript [data-floating-dock] button:hover {
+.theme-manuscript [data-floating-dock] button:not(.reader-dock-dot):hover {
+  transform: translateY(-1.5px) !important;
   color: #991B1B !important;
   border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              4px 5px 10px var(--neu-shadow-hover-dark),
+              -3px -3px 10px var(--neu-shadow-hover-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
 }
 
-.theme-manuscript [data-floating-dock] button:hover svg {
+.theme-manuscript [data-floating-dock] button:not(.reader-dock-dot):hover svg {
   color: #991B1B !important;
+}
+
+.theme-manuscript [data-floating-dock] button:not(.reader-dock-dot):active {
+  transform: translateY(1px) scale(0.96) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript [data-floating-dock] [class*="bg-gradient-to-b"][class*="from-amber-500/20"] {
-  background: #ECE5D5 !important;
+  background: var(--neu-bg-sunken) !important;
   border-color: rgba(153, 27, 27, 0.45) !important;
-  box-shadow: inset 2.5px 2.5px 5px rgba(184, 165, 138, 0.45),
-              inset -2.5px -2.5px 5px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: inset 2.5px 2.5px 5px var(--neu-shadow-dark),
+              inset -2.5px -2.5px 5px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript [data-floating-dock] [class*="bg-gradient-to-b"][class*="from-amber-500/20"] svg {
@@ -1221,7 +1341,7 @@ body.theme-manuscript,
 .theme-manuscript [data-floating-dock] [layoutid="macos-dock-active-dot"],
 .theme-manuscript .dock-active-dot {
   background-color: #991B1B !important;
-  box-shadow: 0 0 6px rgba(153, 27, 27, 0.6) !important;
+  box-shadow: 0 1px 4px rgba(153, 27, 27, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript [data-floating-dock] [class*="via-white"],
@@ -1238,41 +1358,47 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .search-input-field {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   background-image: none !important;
-  color: #1C1917 !important;
-  border-color: rgba(184, 134, 11, 0.3) !important;
-  box-shadow: inset 3px 3px 7px rgba(184, 165, 138, 0.40),
-              inset -3px -3px 7px rgba(255, 255, 255, 0.95) !important;
+  color: var(--neu-ink) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: inset 2.5px 2.5px 6px var(--neu-shadow-dark),
+              inset -2.5px -2.5px 6px var(--neu-shadow-light),
+              inset 0 1px 2px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)) !important;
 }
 
 .theme-manuscript .search-input-field::placeholder {
-  color: #78716C !important;
+  color: var(--neu-ink-subtle, #78716C) !important;
 }
 
 .theme-manuscript .search-results-panel [class*="hover:bg-amber-500"] {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
-  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
-              -3px -3px 8px rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s ease !important;
 }
 
 .theme-manuscript .search-results-panel [class*="hover:bg-amber-500"]:hover {
-  border-color: rgba(184, 134, 11, 0.45) !important;
-  box-shadow: 5px 5px 12px rgba(184, 165, 138, 0.42),
-              -5px -5px 12px rgba(255, 255, 255, 1) !important;
+  transform: translateY(-1.5px) !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              5px 6px 14px var(--neu-shadow-hover-dark),
+              -4px -4px 14px var(--neu-shadow-hover-light) !important;
 }
 
 /* Form Inputs & Textareas */
 .theme-manuscript input:not([type="checkbox"]):not([type="radio"]),
 .theme-manuscript textarea {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   background-image: none !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: inset 3px 3px 6px rgba(184, 165, 138, 0.38),
-              inset -3px -3px 6px rgba(255, 255, 255, 0.95) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 2.5px 2.5px 6px var(--neu-shadow-dark),
+              inset -2.5px -2.5px 6px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript input:focus,
@@ -1284,33 +1410,55 @@ body.theme-manuscript,
 /* 14. Modals & Popups in Manuscript Mode */
 .theme-manuscript [class*="bg-[#0b162c]"],
 .theme-manuscript .theme-modal-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 10px 10px 30px rgba(184, 165, 138, 0.5),
-              -10px -10px 30px rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 6px var(--neu-shadow-contact, rgba(165, 145, 120, 0.3)),
+              10px 14px 36px var(--neu-shadow-dark),
+              -10px -10px 30px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 /* 15. Jap Mala Page (१०८ डिजिटल जाप माला) */
 .theme-manuscript .jap-back-btn,
 .theme-manuscript .jap-tool-btn {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
-  box-shadow: 2.5px 2.5px 6px rgba(184, 165, 138, 0.35),
-              -2.5px -2.5px 6px rgba(255, 255, 255, 0.95) !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              2.5px 3px 7px var(--neu-shadow-dark),
+              -2.5px -2.5px 7px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  color: var(--neu-ink) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .jap-back-btn:hover,
+.theme-manuscript .jap-tool-btn:hover {
+  transform: translateY(-1.5px) !important;
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              4px 5px 10px var(--neu-shadow-hover-dark),
+              -3px -3px 10px var(--neu-shadow-hover-light) !important;
+}
+
+.theme-manuscript .jap-back-btn:active,
+.theme-manuscript .jap-tool-btn:active {
+  transform: translateY(1px) scale(0.96) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .jap-back-btn svg,
 .theme-manuscript .jap-tool-btn svg {
-  color: #78350F !important;
+  color: var(--neu-gold) !important;
 }
 
 .theme-manuscript .jap-tool-btn[title*="चालू"] {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(153, 27, 27, 0.35) !important;
-  box-shadow: inset 2px 2px 4px rgba(184, 165, 138, 0.40),
-              inset -2px -2px 4px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: rgba(153, 27, 27, 0.4) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .jap-tool-btn[title*="चालू"] svg {
@@ -1318,7 +1466,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .jap-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   text-shadow: none !important;
   filter: none !important;
   -webkit-filter: none !important;
@@ -1326,28 +1474,36 @@ body.theme-manuscript,
 
 /* Mantra Selector Pills */
 .theme-manuscript .jap-mantra-pill {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
-              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .jap-mantra-pill:hover {
+  transform: translateY(-1.5px) !important;
   color: #991B1B !important;
   border-color: rgba(153, 27, 27, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              5px 6px 14px var(--neu-shadow-hover-dark),
+              -4px -4px 14px var(--neu-shadow-hover-light) !important;
 }
 
 .theme-manuscript .jap-mantra-pill-active {
   background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
   color: #FFFDF5 !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(254, 202, 202, 0.35) !important;
-  box-shadow: 4px 4px 12px rgba(153, 27, 27, 0.35),
-              -3px -3px 10px rgba(255, 255, 255, 0.9),
-              inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.3),
+              4px 5px 12px rgba(153, 27, 27, 0.38),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript .jap-mantra-pill-active,
@@ -1357,54 +1513,64 @@ body.theme-manuscript,
 
 /* Target Row & Preset Segmented Control */
 .theme-manuscript .jap-target-label {
-  color: #78350F !important;
+  color: var(--neu-gold) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .jap-target-label svg {
-  color: #B45309 !important;
+  color: var(--neu-gold) !important;
 }
 
 .theme-manuscript .jap-target-badge {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(184, 134, 11, 0.30) !important;
-  box-shadow: inset 1.5px 1.5px 3px rgba(184, 165, 138, 0.35),
-              inset -1.5px -1.5px 3px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .jap-preset-container {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: inset 2.5px 2.5px 6px rgba(184, 165, 138, 0.40),
-              inset -2.5px -2.5px 6px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 2px 2.5px 5px var(--neu-shadow-dark),
+              inset -2px -2.5px 5px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .jap-preset-btn {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.18) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.28),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.18)),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .jap-preset-btn:hover {
+  transform: translateY(-1px) !important;
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
 }
 
 .theme-manuscript .jap-preset-btn span:first-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .jap-preset-btn span:last-child {
-  color: #57534E !important;
+  color: var(--neu-ink-muted, #57534E) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .jap-preset-btn-active {
   background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
   border: 1px solid rgba(254, 202, 202, 0.4) !important;
-  box-shadow: 3px 3px 10px rgba(153, 27, 27, 0.35),
-              -2px -2px 8px rgba(255, 255, 255, 0.9),
-              inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.25),
+              3px 4px 10px rgba(153, 27, 27, 0.35),
+              -2px -2px 8px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
 }
 
 .theme-manuscript .jap-preset-btn-active span:first-child,
@@ -1416,25 +1582,27 @@ body.theme-manuscript,
 
 /* Stat Counter Cards */
 .theme-manuscript .jap-stat-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 4px 4px 12px rgba(184, 165, 138, 0.35),
-              -4px -4px 12px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              4px 5px 12px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .jap-stat-card p:first-child {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 700 !important;
   font-size: 11px !important;
 }
 
 .theme-manuscript .jap-stat-card p:last-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .jap-stat-card p:last-child span {
-  color: #57534E !important;
+  color: var(--neu-ink-muted, #57534E) !important;
   font-weight: 600 !important;
 }
 
@@ -1448,72 +1616,98 @@ body.theme-manuscript,
 
 /* Central Wheel & Medallion */
 .theme-manuscript .jap-touch-pad {
-  background: radial-gradient(circle at 35% 35%, #FFFDF7 0%, #F4EFE3 55%, #ECE3CF 100%) !important;
-  border: 2px solid rgba(184, 134, 11, 0.40) !important;
-  box-shadow: 6px 8px 20px rgba(184, 165, 138, 0.45),
+  background: radial-gradient(circle at 32% 32%, var(--neu-bg-card) 0%, var(--neu-bg) 55%, var(--neu-bg-sunken) 100%) !important;
+  border: 2px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              8px 10px 24px var(--neu-shadow-dark),
+              -7px -7px 20px var(--neu-shadow-light),
               inset 0 2px 4px rgba(255, 255, 255, 0.95),
-              inset 0 -2px 5px rgba(184, 165, 138, 0.3) !important;
+              inset 0 -2px 5px var(--neu-shadow-dark) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .jap-touch-pad:active {
+  transform: scale(0.975) !important;
+  box-shadow: inset 3px 3px 8px var(--neu-shadow-dark),
+              inset -3px -3px 8px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .jap-touch-pad svg {
   color: #B45309 !important;
-  filter: drop-shadow(0 1px 2px rgba(180, 83, 9, 0.25)) !important;
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 .theme-manuscript .jap-bead-number {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
   background: none !important;
   -webkit-background-clip: unset !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .jap-target-total {
-  color: #78350F !important;
+  color: var(--neu-gold) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .jap-tap-hint {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.35),
-              inset -1px -1px 2px rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 /* Active Mantra Display Card */
 .theme-manuscript .jap-mantra-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
-              -6px -6px 18px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              6px 7px 18px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 0 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .jap-mantra-card p:first-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .jap-mantra-card p:last-child {
-  color: #292524 !important;
+  color: var(--neu-ink-muted, #292524) !important;
   font-weight: 500 !important;
 }
 
 /* Reset Counter Button */
 .theme-manuscript .jap-reset-btn {
-  background-color: #F4EFE3 !important;
-  color: #44403C !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.30),
-              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.18)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .jap-reset-btn:hover {
+  transform: translateY(-1.5px) !important;
   color: #991B1B !important;
   border-color: rgba(153, 27, 27, 0.40) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.22)),
+              4px 6px 14px var(--neu-shadow-hover-dark),
+              -4px -4px 14px var(--neu-shadow-hover-light) !important;
+}
+
+.theme-manuscript .jap-reset-btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -1543,76 +1737,103 @@ body.theme-manuscript,
 
 /* Quick Stat Pills (सूर्योदय, नवकारशी, चौविहार, सूर्यास्त) */
 .theme-manuscript .panchang-stat-pill {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.30),
-              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .panchang-stat-pill div span:first-child {
-  color: #57534E !important;
+  color: var(--neu-ink-muted, #57534E) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .panchang-stat-pill div span:last-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 /* Month Heading & Nav Buttons */
 .theme-manuscript .panchang-month-heading {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-today-btn {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.18)),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s ease !important;
 }
 
 .theme-manuscript .panchang-today-btn:hover {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg) !important;
   color: #92400E !important;
+  border-color: rgba(180, 83, 9, 0.4) !important;
 }
 
 .theme-manuscript .panchang-nav-btn {
-  background-color: #F4EFE3 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.18)),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .panchang-nav-btn svg {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .panchang-nav-btn:hover {
-  background-color: #ECE5D5 !important;
+  transform: translateY(-1px) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              3px 4px 8px var(--neu-shadow-hover-dark),
+              -3px -3px 8px var(--neu-shadow-hover-light) !important;
 }
 
 .theme-manuscript .panchang-nav-btn:hover svg {
   color: #991B1B !important;
 }
 
+.theme-manuscript .panchang-nav-btn:active {
+  transform: translateY(1px) scale(0.96) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
+}
+
 /* Parva Filter Chips */
 .theme-manuscript .panchang-filter-chip {
-  background-color: #ECE5D5 !important;
-  color: #292524 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.22),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              2.5px 3px 8px var(--neu-shadow-dark),
+              -2.5px -2.5px 8px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .panchang-filter-chip:hover {
+  transform: translateY(-1.5px) !important;
   color: #991B1B !important;
   border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              4px 5px 10px var(--neu-shadow-hover-dark),
+              -3px -3px 10px var(--neu-shadow-hover-light) !important;
 }
 
 .theme-manuscript .panchang-filter-chip-active {
@@ -1620,8 +1841,10 @@ body.theme-manuscript,
   color: #FFFDF5 !important;
   font-weight: 700 !important;
   border: 1px solid rgba(254, 202, 202, 0.4) !important;
-  box-shadow: 3px 3px 8px rgba(153, 27, 27, 0.32),
-              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 2px 2px 4px rgba(127, 29, 29, 0.3),
+              3px 4px 10px rgba(153, 27, 27, 0.35),
+              -2px -2px 8px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
 }
 
 .theme-manuscript .panchang-filter-chip-active,
@@ -1629,52 +1852,73 @@ body.theme-manuscript,
   color: #FFFDF5 !important;
 }
 
+.theme-manuscript .panchang-filter-chip span:last-child:not(:first-child) {
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink-muted, #78350F) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
+}
+
+.theme-manuscript .panchang-filter-chip-active span:last-child:not(:first-child) {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFDF5 !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
 /* Weekday Column Headers */
 .theme-manuscript .panchang-weekday-header {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-gold) !important;
   font-weight: 800 !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  border: 1px solid var(--neu-border) !important;
 }
 
 /* Calendar Day Cells (Desktop & Mobile) */
 .theme-manuscript .panchang-day-cell,
 .theme-manuscript .panchang-mobile-day-cell {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.18)),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
 }
 
 .theme-manuscript .panchang-mobile-calendar-box {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: inset 2px 2px 6px rgba(184, 165, 138, 0.35),
-              inset -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 2px 2.5px 6px var(--neu-shadow-dark),
+              inset -2px -2.5px 6px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-day-num {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-tithi-label {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 700 !important;
 }
 
 /* Normal Day Cell Hover */
 .theme-manuscript .panchang-day-normal:hover {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-card) !important;
   border-color: rgba(184, 134, 11, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
+              3px 4px 8px var(--neu-shadow-hover-dark),
+              -3px -3px 8px var(--neu-shadow-hover-light) !important;
 }
 
 /* Parva Day Cell (अष्टमी, चौदस, पूर्णिमा, अमावस्या) */
 .theme-manuscript .panchang-day-parva {
   background-color: #FEF3C7 !important;
   border: 1px solid rgba(217, 119, 6, 0.45) !important;
-  box-shadow: 2px 2px 6px rgba(217, 119, 6, 0.18),
-              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 1.5px 1.5px 3px rgba(217, 119, 6, 0.15),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-day-parva .panchang-day-num {
@@ -1714,35 +1958,36 @@ body.theme-manuscript,
 
 /* Festival Tag inside Day Cell */
 .theme-manuscript .panchang-festival-tag {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-gold) !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  border: 1px solid var(--neu-border) !important;
 }
 
 /* Selected Tithi Details Card */
 .theme-manuscript .panchang-tithi-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
-              -6px -6px 18px rgba(255, 255, 255, 0.95),
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              6px 7px 18px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
               inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
 }
 
 .theme-manuscript .panchang-tithi-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
   text-shadow: none !important;
 }
 
 .theme-manuscript .panchang-tithi-date {
-  color: #44403C !important;
+  color: var(--neu-ink-muted, #44403C) !important;
   font-weight: 600 !important;
 }
 
 /* Timing Rows */
 .theme-manuscript .panchang-tithi-card .font-mono {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -1768,10 +2013,11 @@ body.theme-manuscript,
 
 /* Pachchakkhan Card */
 .theme-manuscript .panchang-pachchakkhan-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   border: 1px solid rgba(16, 185, 129, 0.35) !important;
-  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
-              -6px -6px 18px rgba(255, 255, 255, 0.95),
+  box-shadow: 2px 2px 4px rgba(16, 185, 129, 0.15),
+              6px 7px 18px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
               inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
 }
 
@@ -1792,40 +2038,44 @@ body.theme-manuscript,
 
 /* Festivals of the Month Card */
 .theme-manuscript .panchang-festivals-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
-              -6px -6px 18px rgba(255, 255, 255, 0.95),
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              6px 7px 18px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
               inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
 }
 
 .theme-manuscript .panchang-festivals-card h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-festivals-card li {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2.5px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-fest-name {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-fest-tithi {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .panchang-festivals-card li [class*="bg-amber-500/20"] {
-  background-color: #FEF3C7 !important;
-  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-dark), -1px -1px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-festivals-card li [class*="bg-amber-500/20"] span:first-child {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -1840,99 +2090,122 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .panchang-annual-modal {
-  background: #F4EFE3 !important;
+  background: var(--neu-bg-card) !important;
   background-image: none !important;
-  border: 2px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35),
-              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  border: 2px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              12px 18px 45px var(--neu-shadow-dark),
+              -8px -8px 25px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .panchang-annual-header {
-  border-bottom: 1px solid rgba(184, 134, 11, 0.22) !important;
-  background-color: #ECE5D5 !important;
+  border-bottom: 1px solid var(--neu-border) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  box-shadow: inset 0 -1px 2px var(--neu-shadow-dark) !important;
 }
 
 .theme-manuscript .panchang-annual-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-annual-subtitle {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .panchang-annual-close {
-  background-color: #F4EFE3 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .panchang-annual-close:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-annual-close svg {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .panchang-annual-filters {
-  border-bottom: 1px solid rgba(184, 134, 11, 0.22) !important;
-  background-color: #F4EFE3 !important;
+  border-bottom: 1px solid var(--neu-border) !important;
+  background-color: var(--neu-bg) !important;
 }
 
 .theme-manuscript .panchang-annual-search {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark), inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-annual-search::placeholder {
-  color: #78716C !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .panchang-annual-cat-btn {
-  background-color: #ECE5D5 !important;
-  color: #292524 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 600 !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact), 2px 3px 6px var(--neu-shadow-dark), -2px -2px 6px var(--neu-shadow-light) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .panchang-annual-cat-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .panchang-annual-cat-btn-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFDF5 !important;
   font-weight: 700 !important;
   border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact), 3px 4px 10px rgba(136, 19, 19, 0.35), inset 1px 1px 1px rgba(255, 255, 255, 0.3) !important;
 }
 
 .theme-manuscript .panchang-annual-fest-card {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.22),
-              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .panchang-annual-fest-card:hover {
   border-color: rgba(184, 134, 11, 0.5) !important;
-  box-shadow: 3px 3px 10px rgba(184, 165, 138, 0.32),
-              -3px -3px 10px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              6px 8px 18px var(--neu-shadow-dark),
+              -5px -5px 14px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 .theme-manuscript .panchang-annual-tithi-tag {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #92400E !important;
   border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .panchang-annual-fest-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-annual-fest-desc {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .panchang-annual-fest-rules {
-  border-top: 1px solid rgba(184, 134, 11, 0.2) !important;
+  border-top: 1px solid var(--neu-border) !important;
   color: #78350F !important;
   font-weight: 700 !important;
 }
@@ -1942,7 +2215,7 @@ body.theme-manuscript,
 /* -------------------------------------------------------------------------- */
 
 .theme-manuscript .settings-main-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
   text-shadow: none !important;
 }
@@ -1954,21 +2227,22 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .settings-group-card {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
-              -6px -6px 18px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .settings-item-label,
 .theme-manuscript .settings-row-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .settings-row-desc {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
@@ -1994,36 +2268,44 @@ body.theme-manuscript,
 .theme-manuscript .settings-switch-on {
   background-color: #065F46 !important;
   border: 1px solid #047857 !important;
-  box-shadow: 0 1px 3px rgba(6, 95, 70, 0.4) !important;
+  box-shadow: 0 1px 3px rgba(6, 95, 70, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
   justify-content: flex-end !important;
 }
 
 .theme-manuscript .settings-switch-off {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.3) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
   justify-content: flex-start !important;
 }
 
 /* Atmosphere Theme Tiles */
 .theme-manuscript .settings-theme-tile {
-  background-color: #F8F5EE !important;
-  border-color: rgba(184, 134, 11, 0.28) !important;
+  background-color: var(--neu-bg) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .settings-theme-tile span,
 .theme-manuscript .settings-theme-tile h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .settings-theme-tile p {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .settings-theme-tile-active {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   border-color: #D97706 !important;
-  box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              4px 6px 14px rgba(217, 119, 6, 0.25),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 .theme-manuscript .settings-theme-tile-active span {
@@ -2033,10 +2315,11 @@ body.theme-manuscript,
 
 /* Font Size Segmented Buttons */
 .theme-manuscript .settings-size-btn-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   border: 1px solid rgba(254, 202, 202, 0.4) !important;
-  box-shadow: 3px 3px 8px rgba(153, 27, 27, 0.32),
-              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript .settings-size-btn-active,
@@ -2047,9 +2330,11 @@ body.theme-manuscript,
 
 /* Active Theme & Font Tiles */
 .theme-manuscript .settings-font-tile-active {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   border-color: #D97706 !important;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.18) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(217, 119, 6, 0.22),
+              -2px -2px 6px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .settings-font-tile-active span {
@@ -2059,23 +2344,30 @@ body.theme-manuscript,
 
 /* Dock Visual Style Tiles */
 .theme-manuscript .settings-dock-tile-inactive {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 8px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .settings-dock-tile-inactive span {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .settings-dock-tile-inactive .dock-tile-desc {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .settings-dock-tile-active,
 .theme-manuscript .glass-card .settings-dock-tile-active {
-  background-color: #FFFDF5 !important;
+  background-color: var(--neu-bg-card) !important;
   border: 2px solid #D97706 !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              4px 6px 14px rgba(217, 119, 6, 0.25),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 .theme-manuscript .settings-dock-tile-active span {
@@ -2094,27 +2386,29 @@ body.theme-manuscript,
 
 /* 15. MoreMenu Enhancements & Contrast Polish */
 .theme-manuscript .more-header-banner {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 6px 6px 16px rgba(184, 165, 138, 0.4),
-              -6px -6px 16px rgba(255, 255, 255, 0.95),
-              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .more-header-banner h1 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .more-header-banner p {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .more-header-banner [class*="rounded-full"][class*="bg-purple-"] {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   border-color: rgba(217, 119, 6, 0.4) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .more-header-banner [class*="rounded-full"][class*="bg-purple-"] span {
@@ -2128,11 +2422,15 @@ body.theme-manuscript,
 
 /* Quick Actions: Favorites & Explore */
 .theme-manuscript .more-quick-card-fav {
-  background: #F4EFE3 !important;
+  background: var(--neu-bg-card) !important;
   border-color: rgba(225, 29, 72, 0.25) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 .theme-manuscript .more-quick-card-fav h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 .theme-manuscript .more-quick-card-fav p {
@@ -2141,11 +2439,15 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .more-quick-card-exp {
-  background: #F4EFE3 !important;
+  background: var(--neu-bg-card) !important;
   border-color: rgba(124, 58, 237, 0.25) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 .theme-manuscript .more-quick-card-exp h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 .theme-manuscript .more-quick-card-exp p {
@@ -2155,53 +2457,69 @@ body.theme-manuscript,
 
 /* All MoreMenu Option Cards & Subtitles */
 .theme-manuscript .more-menu-card {
-  background-color: #F4EFE3 !important;
-  border-color: rgba(184, 134, 11, 0.28) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 12px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .more-card-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .more-card-subtitle {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 600 !important;
 }
 
 /* Share card & CTA button */
 .theme-manuscript .more-share-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .more-share-card h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .more-share-card p {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .more-share-btn {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFFFF !important;
-  border: 1px solid rgba(185, 28, 28, 0.4) !important;
-  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.28) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
   font-weight: 700 !important;
+}
+
+.theme-manuscript .more-share-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 /* 16. Search Overlay: High Clarity, Contrast & Tactile Manuscript Polish */
 .theme-manuscript .search-results-panel {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
-              0 2px 10px rgba(0, 0, 0, 0.2),
-              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              12px 18px 45px var(--neu-shadow-dark),
+              -8px -8px 25px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
@@ -2213,11 +2531,13 @@ body.theme-manuscript,
 
 /* Category Filter Tabs */
 .theme-manuscript .search-cat-tab-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
-  border: 1px solid rgba(185, 28, 28, 0.5) !important;
-  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.35) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript .search-cat-tab-active span {
@@ -2230,25 +2550,34 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .search-cat-tab-inactive {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg) !important;
   background-image: none !important;
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 1px 1px 3px rgba(184, 165, 138, 0.25) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-cat-tab-inactive span {
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .search-cat-tab-inactive span:last-child {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
+  border: 1px solid var(--neu-border) !important;
 }
 
 .theme-manuscript .search-cat-tab-inactive:hover {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #78350F !important;
   border-color: #D97706 !important;
 }
@@ -2259,11 +2588,11 @@ body.theme-manuscript,
 
 /* Section Headers & Dividers */
 .theme-manuscript .search-section-header {
-  border-color: rgba(184, 134, 11, 0.22) !important;
+  border-color: var(--neu-border) !important;
 }
 
 .theme-manuscript .search-section-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
   letter-spacing: -0.01em !important;
 }
@@ -2285,27 +2614,35 @@ body.theme-manuscript,
 /* Search Chips (Popular queries, recent history tags) */
 .theme-manuscript .search-chip,
 .theme-manuscript .search-recent-card {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg) !important;
   background-image: none !important;
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  box-shadow: 1.5px 1.5px 4px rgba(184, 165, 138, 0.28),
-              -1.5px -1.5px 4px rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .search-chip:active,
+.theme-manuscript .search-recent-card:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-chip span,
 .theme-manuscript .search-recent-card p {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .search-chip:hover,
 .theme-manuscript .search-recent-card:hover {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #78350F !important;
   border-color: rgba(217, 119, 6, 0.5) !important;
-  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.35) !important;
+  box-shadow: 2px 3px 8px var(--neu-shadow-dark) !important;
 }
 
 .theme-manuscript .search-chip:hover span,
@@ -2315,21 +2652,25 @@ body.theme-manuscript,
 
 /* Curated Item Cards */
 .theme-manuscript .search-item-card {
-  background-color: #F8F5EE !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.25),
-              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .search-item-card:hover {
-  background-color: #FFFDF8 !important;
   border-color: rgba(184, 134, 11, 0.5) !important;
-  box-shadow: 4px 4px 10px rgba(184, 165, 138, 0.32) !important;
+  box-shadow: 2px 3px 6px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 10px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-item-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
@@ -2339,9 +2680,10 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .search-item-icon {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   border: 1px solid rgba(217, 119, 6, 0.35) !important;
   color: #B45309 !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-item-chevron {
@@ -2350,19 +2692,25 @@ body.theme-manuscript,
 
 /* Results Rows when typing query */
 .theme-manuscript .search-result-row {
-  background-color: #F8F5EE !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .search-result-row h4 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .search-result-row-selected {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   border-color: #D97706 !important;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.22) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              4px 6px 14px rgba(217, 119, 6, 0.25),
+              -3px -3px 8px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-result-row-selected h4 {
@@ -2370,14 +2718,15 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .search-result-row [class*="bg-amber-500/10"] {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: var(--neu-border) !important;
   color: #78350F !important;
   font-weight: 600 !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-result-row [class*="text-slate-400"] {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
@@ -2401,11 +2750,19 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .category-filter-tab-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFDF5 !important;
-  border-color: #991B1B !important;
-  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.35) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px rgba(136, 19, 19, 0.35),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.4) !important;
   font-weight: 700 !important;
+}
+
+.theme-manuscript .category-filter-tab-active:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 .theme-manuscript .category-filter-tab-active span,
@@ -2414,54 +2771,66 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .category-filter-tab-active .category-filter-count {
-  background-color: rgba(255, 255, 255, 0.25) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
   color: #FFFDF5 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .category-filter-tab-inactive {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.25),
-              inset -1px -1px 3px rgba(255, 255, 255, 0.8) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive:hover {
+  box-shadow: 2px 3px 6px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 10px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive:active {
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark), inset -2px -2px 4px var(--neu-shadow-light) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 .theme-manuscript .category-filter-tab-inactive span {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .category-filter-tab-inactive .category-filter-count {
-  background-color: rgba(184, 134, 11, 0.15) !important;
-  color: #78350F !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink-muted) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2.5px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
-.theme-manuscript .category-filter-tab-inactive:hover {
-  background-color: #FEF3C7 !important;
-  border-color: rgba(217, 119, 6, 0.45) !important;
-}
-
-.theme-manuscript .category-filter-tab-inactive:hover span {
-  color: #78350F !important;
-}
-
 .theme-manuscript .category-divider-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .category-divider-desc {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .category-divider-badge {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 700 !important;
-  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.25) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .category-divider-badge span {
@@ -2469,65 +2838,86 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .category-item-badge {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #92400E !important;
   border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .category-item-author {
-  background-color: #ECE5D5 !important;
-  color: #44403C !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-card) !important;
+  color: var(--neu-ink-muted) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-dark), -1px -1px 3px var(--neu-shadow-light) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .category-item-index {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .category-item-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .category-item-desc {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .category-item-tag {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 /* 2. Sadhana Menu Page */
 .theme-manuscript .sadhana-tithi-badge {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  background-color: var(--neu-bg-card) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 600 !important;
-  box-shadow: inset 1.5px 1.5px 3px rgba(184, 165, 138, 0.25) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .sadhana-tithi-badge span {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .sadhana-tithi-badge svg {
   color: #B45309 !important;
 }
 
-.theme-manuscript .sadhana-chip-niyam {
-  background-color: #FEF3C7 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+.theme-manuscript .sadhana-chip-niyam,
+.theme-manuscript .sadhana-chip-jap,
+.theme-manuscript .sadhana-chip-samayik {
+  background-color: var(--neu-bg) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.7) !important;
   font-weight: 700 !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .sadhana-chip-niyam:active,
+.theme-manuscript .sadhana-chip-jap:active,
+.theme-manuscript .sadhana-chip-samayik:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .sadhana-chip-niyam span,
@@ -2535,23 +2925,9 @@ body.theme-manuscript,
   color: #78350F !important;
 }
 
-.theme-manuscript .sadhana-chip-jap {
-  background-color: #FFE4E6 !important;
-  color: #991B1B !important;
-  border: 1px solid rgba(225, 29, 72, 0.35) !important;
-  font-weight: 700 !important;
-}
-
 .theme-manuscript .sadhana-chip-jap span,
 .theme-manuscript .sadhana-chip-jap svg {
   color: #991B1B !important;
-}
-
-.theme-manuscript .sadhana-chip-samayik {
-  background-color: #DBEAFE !important;
-  color: #1E40AF !important;
-  border: 1px solid rgba(37, 99, 235, 0.35) !important;
-  font-weight: 700 !important;
 }
 
 .theme-manuscript .sadhana-chip-samayik span,
@@ -2560,11 +2936,12 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .sadhana-pillar-badge {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 700 !important;
-  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.25) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .sadhana-pillar-badge span {
@@ -2572,7 +2949,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .sadhana-divider-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -2582,10 +2959,12 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .sadhana-card-badge {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 700 !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .sadhana-card-badge span {
@@ -2597,7 +2976,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .sadhana-card-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
@@ -2608,35 +2987,38 @@ body.theme-manuscript,
 
 /* Sadhana Progress Bar & Streak Badge */
 .theme-manuscript .sadhana-streak-badge {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #92400E !important;
   border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: 1.5px 1.5px 4px var(--neu-shadow-dark), -1.5px -1.5px 4px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .sadhana-progress-section {
-  border-top: 1px solid rgba(184, 134, 11, 0.28) !important;
+  border-top: 1px solid var(--neu-border) !important;
 }
 
 .theme-manuscript .sadhana-progress-label {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .sadhana-progress-percent {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #92400E !important;
   border: 1.5px solid rgba(217, 119, 6, 0.55) !important;
-  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.2) !important;
+  box-shadow: 1.5px 1.5px 4px var(--neu-shadow-dark),
+              -1.5px -1.5px 4px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .sadhana-progress-track {
-  background-color: #DFD5C2 !important;
+  background-color: var(--neu-bg-sunken) !important;
   background-image: none !important;
-  border: 1.5px solid rgba(139, 90, 43, 0.45) !important;
-  box-shadow: inset 1px 2px 4px rgba(60, 40, 20, 0.28),
-              inset -1px -1px 2px rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
   height: 14px !important;
 }
 
@@ -2647,17 +3029,22 @@ body.theme-manuscript,
 
 /* 3. Library Menu Page */
 .theme-manuscript .library-header-stat-pill {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg-card) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
   font-weight: 700 !important;
-  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.22) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .library-pillar-badge {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
@@ -2667,7 +3054,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .library-pillar-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -2677,7 +3064,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .library-pillar-desc {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .library-pillar-key-label {
@@ -2686,17 +3073,22 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .library-key-text {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 /* 4. Content Viewer Page */
 .theme-manuscript .viewer-section-banner {
-  background: #FEF3C7 !important;
-  border: 1px solid #D97706 !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.16) !important;
+  background: var(--neu-bg-card) !important;
+  border: 1px solid rgba(217, 119, 6, 0.5) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              4px 6px 16px rgba(217, 119, 6, 0.18),
+              -3px -3px 10px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .viewer-section-title {
@@ -2709,9 +3101,11 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .viewer-cat-badge {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #92400E !important;
   border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
@@ -2720,9 +3114,11 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .viewer-verse-badge {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
@@ -2733,38 +3129,48 @@ body.theme-manuscript,
 /* 5. Donate / Sahyog & More Modals in Ancient Manuscript */
 .theme-manuscript .donate-modal-card,
 .theme-manuscript .more-modal-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(184, 134, 11, 0.15) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              14px 20px 50px var(--neu-shadow-dark),
+              -8px -8px 25px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .donate-modal-title,
 .theme-manuscript .more-modal-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .donate-modal-close,
 .theme-manuscript .more-modal-close {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .donate-modal-close:active,
+.theme-manuscript .more-modal-close:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .donate-modal-close:hover,
 .theme-manuscript .more-modal-close:hover {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #78350F !important;
 }
 
 .theme-manuscript .donate-modal-desc {
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .donate-modal-footer {
-  border-color: rgba(184, 134, 11, 0.22) !important;
+  border-color: var(--neu-border) !important;
   color: #78350F !important;
 }
 
@@ -2775,41 +3181,50 @@ body.theme-manuscript,
 
 .theme-manuscript .more-modal-body,
 .theme-manuscript .more-modal-body p {
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
 }
 
 /* 6. Settings Page Theme Cards & Typography Controls */
 .theme-manuscript .settings-theme-option {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
-  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.25),
-              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .theme-manuscript .settings-theme-option.settings-theme-active {
-  background-color: #FFFDF7 !important;
+  background-color: var(--neu-bg-card) !important;
   border: 2px solid #D97706 !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.22) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              4px 6px 14px rgba(217, 119, 6, 0.25),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 .theme-manuscript .settings-theme-title,
 .theme-manuscript .settings-theme-option .settings-theme-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .settings-theme-desc,
 .theme-manuscript .settings-theme-option .settings-theme-desc {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .settings-size-btn-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFDF5 !important;
   font-weight: 800 !important;
   border-color: rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript .settings-size-btn-active * {
@@ -2817,43 +3232,47 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .settings-size-btn {
-  color: #292524 !important;
+  color: var(--neu-ink) !important;
   font-weight: 600 !important;
 }
 
 /* 7. Comprehensive Panchang Calendar Cells (Desktop & Mobile) */
 .theme-manuscript .panchang-day-cell,
 .theme-manuscript .panchang-mobile-day-cell {
-  background-color: #F4EFE3 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 8px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .panchang-day-normal,
 .theme-manuscript .panchang-day-normal * {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .panchang-day-num {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .panchang-tithi-label {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .panchang-day-parva {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   border: 1px solid rgba(217, 119, 6, 0.45) !important;
-  box-shadow: 2px 2px 6px rgba(217, 119, 6, 0.18),
-              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 5px 10px rgba(217, 119, 6, 0.2),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .panchang-day-parva .panchang-day-num {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -2863,9 +3282,11 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .panchang-day-current {
-  background-color: #FEF9C3 !important;
+  background-color: var(--neu-bg-card) !important;
   border: 2px solid #D97706 !important;
-  box-shadow: 0 0 10px rgba(217, 119, 6, 0.35) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              0 0 12px rgba(217, 119, 6, 0.35),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
 }
 
 .theme-manuscript .panchang-day-current .panchang-day-num {
@@ -2881,7 +3302,9 @@ body.theme-manuscript,
 .theme-manuscript .panchang-day-selected {
   background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
   border: 2px solid #B45309 !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.45) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              0 4px 14px rgba(217, 119, 6, 0.45),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.7) !important;
 }
 
 .theme-manuscript .panchang-day-selected,
@@ -2891,44 +3314,33 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .panchang-tithi-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
   text-shadow: none !important;
 }
 
 /* 8. Mahagranthalaya (Library) Header Pills & Key Texts */
-.theme-manuscript .library-header-stat-pill {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  font-weight: 700 !important;
-  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.22) !important;
-}
-
-.theme-manuscript .library-pillar-key-label {
-  color: #78350F !important;
-  font-weight: 800 !important;
-}
-
-.theme-manuscript .library-key-text {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  font-weight: 700 !important;
-}
-
 .theme-manuscript .library-count-pill {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   color: #78350F !important;
   border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
   font-weight: 800 !important;
 }
 
 .theme-manuscript .library-all-btn {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFDF5 !important;
   font-weight: 700 !important;
   border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+.theme-manuscript .library-all-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 .theme-manuscript .library-all-btn,
@@ -2937,70 +3349,24 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .library-pillar-footer {
-  border-top-color: rgba(184, 134, 11, 0.22) !important;
+  border-top-color: var(--neu-border) !important;
   color: #78350F !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .library-section-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
-/* 9. Category Listing (Nitya Puja) Pills, Tags & Timeline Badges */
-.theme-manuscript .category-item-badge {
-  background-color: #FEF3C7 !important;
-  color: #92400E !important;
-  border: 1px solid rgba(217, 119, 6, 0.4) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-item-author {
-  background-color: #ECE5D5 !important;
-  color: #44403C !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  font-weight: 600 !important;
-}
-
-.theme-manuscript .category-item-index {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  font-weight: 800 !important;
-}
-
-.theme-manuscript .category-item-title {
-  color: #1C1917 !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-item-desc {
-  color: #44403C !important;
-  font-weight: 500 !important;
-}
-
-.theme-manuscript .category-item-tag {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-item-footer {
-  color: #78350F !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-divider-badge {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  font-weight: 700 !important;
-}
-
+/* 9. Category Listing (Nitya Puja) Subcategory Banner */
 .theme-manuscript .category-subcat-banner {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-card) !important;
   border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .category-subcat-desc {
@@ -3012,28 +3378,43 @@ body.theme-manuscript,
 .theme-manuscript .search-voice-btn,
 .theme-manuscript .search-clear-input-btn,
 .theme-manuscript .search-close-modal-btn {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark),
+              -1.5px -1.5px 3px var(--neu-shadow-light) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .search-voice-btn:active,
+.theme-manuscript .search-clear-input-btn:active,
+.theme-manuscript .search-close-modal-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .search-voice-btn svg,
 .theme-manuscript .search-clear-input-btn svg,
 .theme-manuscript .search-close-modal-btn svg {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .search-close-modal-btn span {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 /* 11. Daily Puja Flow (नित्य अभिषेक एवं देव-शास्त्र-गुरु पूजन) */
 .theme-manuscript .puja-top-control-bar {
-  background-color: #FBF8F1 !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 4px 20px rgba(60, 40, 10, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              6px 8px 20px var(--neu-shadow-dark),
+              -5px -5px 16px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .puja-back-btn {
@@ -3042,33 +3423,44 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .puja-step-pill {
-  background-color: #ECE5D5 !important;
-  color: #44403C !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink-muted) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   font-weight: 600 !important;
+  transition: all 0.15s ease !important;
 }
 
 .theme-manuscript .puja-step-pill:hover {
-  background-color: #E2D9C8 !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-step-pill.active {
-  background-color: #D97706 !important;
+  background: linear-gradient(135deg, #A81B1B, #881313) !important;
   color: #FFFFFF !important;
-  border-color: #B45309 !important;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.35) !important;
+  border-color: rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.3) !important;
 }
 
 .theme-manuscript .puja-reader-tool-btn {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
   font-weight: 700 !important;
+  transition: all 0.15s ease !important;
 }
 
-.theme-manuscript .puja-reader-tool-btn:hover {
-  background-color: #E2D9C8 !important;
+.theme-manuscript .puja-reader-tool-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-reader-tool-btn.active {
@@ -3079,64 +3471,77 @@ body.theme-manuscript,
 
 /* Stage Mode Switcher Tabs */
 .theme-manuscript .puja-mode-switcher {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.25) !important;
-  box-shadow: inset 2px 2px 4px rgba(184, 165, 138, 0.35), inset -2px -2px 4px rgba(255, 255, 255, 0.9) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-mode-switcher button {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .puja-mode-switcher button:hover {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
 .theme-manuscript .puja-mode-switcher button.active {
-  background-color: #D97706 !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.3) !important;
+  background-color: var(--neu-bg-card) !important;
+  color: #78350F !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-dark),
+              -2px -2px 5px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Hero Current Step Card */
 .theme-manuscript .puja-current-step-card {
-  background-color: #FBF8F1 !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 4px 18px rgba(60, 40, 10, 0.1) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .puja-step-badge {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #92400E !important;
   border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-step-percentage {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 600 !important;
 }
 
 .theme-manuscript .puja-step-title {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .puja-prev-step-btn {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
   opacity: 1 !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .puja-prev-step-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-prev-step-btn.is-disabled,
 .theme-manuscript .puja-prev-step-btn:disabled {
-  background-color: #EAE3D2 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78716C !important;
-  border: 1px solid rgba(184, 134, 11, 0.18) !important;
-  opacity: 1 !important;
+  border: 1px solid var(--neu-border) !important;
+  opacity: 0.65 !important;
+  box-shadow: none !important;
 }
 
 .theme-manuscript .puja-prev-step-btn.is-disabled span,
@@ -3145,10 +3550,18 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .puja-next-step-btn {
-  background: linear-gradient(135deg, #D97706, #B45309) !important;
+  background: linear-gradient(135deg, #A81B1B, #881313) !important;
   color: #FFFFFF !important;
-  border: 1px solid #92400E !important;
-  box-shadow: 0 3px 10px rgba(180, 83, 9, 0.35) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .puja-next-step-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 .theme-manuscript .puja-next-step-btn span,
@@ -3163,20 +3576,26 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .puja-progress-track {
-  background-color: #E2D9C8 !important;
-  border-color: rgba(184, 134, 11, 0.25) !important;
-  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.45) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: inset 1px 1px 3px var(--neu-shadow-dark), inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 /* Verse, Commentary & Translation Boxes */
 .theme-manuscript .puja-verse-box {
-  background-color: #FBF8F1 !important;
-  border-color: rgba(184, 134, 11, 0.3) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .puja-bhavarth-box {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  box-shadow: inset 1px 1px 3px var(--neu-shadow-dark),
+              inset -1px -1px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-bhavarth-label {
@@ -3185,38 +3604,50 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .puja-bhavarth-text {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 500 !important;
   line-height: 1.6 !important;
 }
 
 .theme-manuscript .puja-mantra-box {
-  background-color: #FEF3C7 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
   border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  box-shadow: inset 1px 1px 3px var(--neu-shadow-dark),
+              inset -1px -1px 3px var(--neu-shadow-light) !important;
   font-weight: 700 !important;
 }
 
 /* Floating Bottom Step Controls Dock Bar */
 .theme-manuscript .puja-bottom-dock-bar {
-  background-color: #FBF8F1 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 8px 32px rgba(60, 40, 10, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  background-color: var(--neu-bg-card) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              8px 12px 30px var(--neu-shadow-dark),
+              -6px -6px 20px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn {
-  background-color: #ECE5D5 !important;
-  color: #1C1917 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 1.5px 3px var(--neu-shadow-dark), -1.5px -1.5px 3px var(--neu-shadow-light) !important;
   opacity: 1 !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn:disabled,
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn.is-disabled {
-  background-color: #EAE3D2 !important;
+  background-color: var(--neu-bg-sunken) !important;
   color: #78716C !important;
-  border: 1px solid rgba(184, 134, 11, 0.15) !important;
-  opacity: 1 !important;
+  border: 1px solid var(--neu-border) !important;
+  opacity: 0.65 !important;
+  box-shadow: none !important;
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn.is-disabled span,
@@ -3230,15 +3661,23 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-step-name {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 700 !important;
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn {
-  background: linear-gradient(135deg, #D97706, #B45309) !important;
+  background: linear-gradient(135deg, #A81B1B, #881313) !important;
   color: #FFFFFF !important;
-  border: 1px solid #92400E !important;
-  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px rgba(136, 19, 19, 0.35),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5), inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.98) !important;
 }
 
 .theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn span,
@@ -3247,80 +3686,17 @@ body.theme-manuscript,
 }
 
 /* ==========================================================================
-   Category Listing & Card Item Polish in Ancient Manuscript Theme
-   ========================================================================== */
-.theme-manuscript .category-item-badge {
-  background-color: #FEF3C7 !important;
-  color: #92400E !important;
-  border: 1px solid rgba(217, 119, 6, 0.4) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-item-index {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.3) !important;
-  font-weight: 800 !important;
-}
-
-.theme-manuscript .category-item-tag {
-  background-color: #FEF3C7 !important;
-  color: #92400E !important;
-  border: 1px solid rgba(217, 119, 6, 0.35) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-item-title {
-  color: #1C1917 !important;
-  font-weight: 800 !important;
-}
-
-.theme-manuscript .category-item-desc {
-  color: #44403C !important;
-  font-weight: 500 !important;
-}
-
-.theme-manuscript .category-item-author {
-  background-color: #ECE5D5 !important;
-  color: #78350F !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  font-weight: 600 !important;
-}
-
-.theme-manuscript .category-item-footer {
-  color: #991B1B !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-divider-badge {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 1px 1px 3px rgba(184, 165, 138, 0.25) !important;
-}
-
-.theme-manuscript .category-divider-badge span {
-  color: #78350F !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .category-divider-title {
-  color: #1C1917 !important;
-  font-weight: 800 !important;
-}
-
-.theme-manuscript .category-divider-desc {
-  color: #44403C !important;
-  font-weight: 500 !important;
-}
-
-/* ==========================================================================
    Panchang Filter Chip High Specificity
    ========================================================================== */
 .theme-manuscript .panchang-filter-chip.panchang-filter-chip-active,
 .theme-manuscript button.panchang-filter-chip-active {
-  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFDF5 !important;
-  border-color: rgba(254, 202, 202, 0.5) !important;
+  border: 1px solid rgba(254, 202, 202, 0.5) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px rgba(136, 19, 19, 0.4),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
 .theme-manuscript .panchang-filter-chip.panchang-filter-chip-active *,
@@ -3340,42 +3716,115 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .hscroll-arrow-btn {
-  background-color: var(--neu-bg-sunken) !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  color: #78350F !important;
-  box-shadow: 0 2px 8px rgba(60, 40, 20, 0.15) !important;
+  background-color: var(--neu-bg) !important;
+  border: 1px solid var(--neu-border) !important;
+  color: var(--neu-ink) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 5px 12px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .hscroll-arrow-btn:hover {
+  box-shadow: 2px 3px 6px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 10px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+  color: var(--neu-ink) !important;
+}
+
+.theme-manuscript .hscroll-arrow-btn:active {
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
+  transform: translateY(-50%) scale(0.96) !important;
 }
 
 /* ==========================================================================
    Samayik Page Timer & Controls Contrast
    ========================================================================== */
 .theme-manuscript .samayik-timer-text {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.theme-manuscript .samayik-status-pill {
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  color: var(--neu-ink) !important;
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
+}
+
+.theme-manuscript .samayik-status-pill svg {
+  color: #B45309 !important;
 }
 
 .theme-manuscript .samayik-control-btn {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg) !important;
+  border: 1px solid var(--neu-border) !important;
+  color: var(--neu-ink) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 5px 12px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .samayik-control-btn:hover {
+  box-shadow: 2px 3px 6px var(--neu-shadow-contact),
+              4px 6px 14px var(--neu-shadow-dark),
+              -4px -4px 10px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .samayik-control-btn:active {
+  box-shadow: inset 2px 2px 5px var(--neu-shadow-dark),
+              inset -2px -2px 5px var(--neu-shadow-light) !important;
+  transform: translateY(1px) scale(0.96) !important;
 }
 
 .theme-manuscript .samayik-control-btn svg {
-  color: #78350F !important;
+  color: var(--neu-ink) !important;
+}
+
+.theme-manuscript .samayik-play-btn {
+  background: linear-gradient(135deg, #E69D00 0%, #C47A00 100%) !important;
+  color: #1A1005 !important;
+  border: 1px solid rgba(255, 230, 150, 0.5) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              5px 8px 18px rgba(180, 83, 9, 0.4),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.7) !important;
+  font-weight: 800 !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.theme-manuscript .samayik-play-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(120, 53, 15, 0.6),
+              inset -1px -1px 2px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(1px) scale(0.97) !important;
 }
 
 .theme-manuscript .samayik-tabs-container {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .samayik-tab-btn {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .samayik-tab-active {
-  background-color: #78350F !important;
-  color: #FFFDF5 !important;
+  background-color: var(--neu-bg-card) !important;
+  color: #78350F !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  box-shadow: 1.5px 1.5px 4px var(--neu-shadow-dark),
+              -1.5px -1.5px 4px var(--neu-shadow-light) !important;
 }
 
 /* ==========================================================================
@@ -3384,25 +3833,31 @@ body.theme-manuscript,
 .theme-manuscript .book-content,
 .theme-manuscript .book-content p,
 .theme-manuscript .book-content .intro {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .book-content .sutra-quote {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: var(--neu-border) !important;
   color: #78350F !important;
+  box-shadow: inset 1px 1px 3px var(--neu-shadow-dark),
+              inset -1px -1px 3px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .book-content .fact-box {
-  background-color: #F4EFE3 !important;
-  border-color: rgba(184, 134, 11, 0.30) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-dark),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .book-content .fact-item {
-  background-color: #ECE5D5 !important;
-  border: 1px solid rgba(184, 134, 11, 0.22) !important;
-  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
-              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
 .theme-manuscript .book-content .fact-item strong {
@@ -3411,7 +3866,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .book-content .fact-item span {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
   font-weight: 800 !important;
 }
 
@@ -3432,32 +3887,40 @@ body.theme-manuscript,
    Reader Feedback Card & Dock Pagination in Ancient Manuscript Mode
    ========================================================================== */
 .theme-manuscript .viewer-feedback-card {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border: 1px solid rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 4px 16px rgba(60, 40, 10, 0.10) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              7px 9px 22px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.8) !important;
 }
 
 .theme-manuscript .viewer-feedback-title {
-  color: #1C1917 !important;
-  font-weight: 700 !important;
+  color: var(--neu-ink) !important;
+  font-weight: 800 !important;
 }
 
 .theme-manuscript .viewer-feedback-subtitle {
-  color: #57534E !important;
+  color: var(--neu-ink-muted) !important;
   font-weight: 500 !important;
 }
 
 .theme-manuscript .viewer-feedback-btn {
-  background: linear-gradient(135deg, #B91C1C, #991B1B) !important;
+  background: linear-gradient(135deg, #A81B1B, #881313) !important;
   color: #FFFDF5 !important;
-  border: 1px solid rgba(153, 27, 27, 0.5) !important;
-  box-shadow: 0 2px 8px rgba(153, 27, 27, 0.25) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              4px 6px 14px rgba(136, 19, 19, 0.35),
+              -3px -3px 8px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.theme-manuscript .viewer-feedback-btn:hover {
-  background: linear-gradient(135deg, #DC2626, #B91C1C) !important;
-  color: #FFFFFF !important;
+.theme-manuscript .viewer-feedback-btn:active {
+  box-shadow: inset 2px 2px 5px rgba(40, 5, 5, 0.5),
+              inset -1px -1px 2px rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(1px) scale(0.97) !important;
 }
 
 /* Reader Dock Page Indicators */
@@ -3467,34 +3930,42 @@ body.theme-manuscript,
 
 .theme-manuscript [data-floating-dock] button.reader-dock-dot-active,
 .theme-manuscript .reader-dock-dot.reader-dock-dot-active {
-  background-color: #991B1B !important;
-  border: none !important;
-  box-shadow: 0 1px 4px rgba(153, 27, 27, 0.45) !important;
+  background: linear-gradient(135deg, #B91C1C, #991B1B) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 0 1px 4px rgba(153, 27, 27, 0.4),
+              inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
 }
 
 .theme-manuscript [data-floating-dock] button.reader-dock-dot-inactive,
 .theme-manuscript .reader-dock-dot.reader-dock-dot-inactive {
-  background-color: #BFA588 !important;
-  border: none !important;
-  box-shadow: none !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: inset 1px 1px 2px var(--neu-shadow-dark),
+              inset -1px -1px 2px var(--neu-shadow-light) !important;
   opacity: 0.85 !important;
 }
 
 .theme-manuscript [data-floating-dock] button.reader-dock-dot-inactive:hover,
 .theme-manuscript .reader-dock-dot.reader-dock-dot-inactive:hover {
-  background-color: #8C6D4F !important;
+  background-color: var(--neu-bg) !important;
+  box-shadow: 1px 1px 2px var(--neu-shadow-dark),
+              -1px -1px 2px var(--neu-shadow-light) !important;
   opacity: 1 !important;
 }
 
 /* Expanding Font Bubble in Manuscript Mode */
 .theme-manuscript .dock-font-expanded-bubble {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.4) !important;
-  box-shadow: 0 8px 24px rgba(60, 40, 10, 0.15) !important;
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              8px 12px 28px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.85) !important;
 }
 
 .theme-manuscript .dock-font-btn {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .dock-font-btn:hover {
@@ -3511,7 +3982,7 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .dock-font-divider {
-  background-color: rgba(184, 134, 11, 0.25) !important;
+  background-color: var(--neu-border) !important;
 }
 
 .theme-manuscript .dock-font-done {
@@ -3524,28 +3995,33 @@ body.theme-manuscript,
 
 /* Feedback Modal Card in Manuscript Mode */
 .theme-manuscript .feedback-modal-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
-  box-shadow: 0 20px 60px rgba(60, 40, 10, 0.25) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              14px 20px 50px var(--neu-shadow-dark),
+              -8px -8px 25px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.9) !important;
 }
 
 .theme-manuscript .feedback-modal-card h2,
 .theme-manuscript .feedback-modal-card h3 {
-  color: #1C1917 !important;
+  color: var(--neu-ink) !important;
 }
 
 .theme-manuscript .feedback-modal-card p,
 .theme-manuscript .feedback-modal-card label {
-  color: #44403C !important;
+  color: var(--neu-ink-muted) !important;
 }
 
 .theme-manuscript .feedback-modal-card input,
 .theme-manuscript .feedback-modal-card textarea,
 .theme-manuscript .feedback-modal-card select {
-  background-color: #ECE5D5 !important;
-  border-color: rgba(184, 134, 11, 0.35) !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg-sunken) !important;
+  border-color: var(--neu-border) !important;
+  color: var(--neu-ink) !important;
+  box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
+              inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
 
