@@ -18,9 +18,9 @@ import {
 } from 'lucide-react';
 import { contentInventory, ContentItem } from '../../data/inventory';
 import {
-  searchAndRankItems,
-  matchSearchQuery,
+  GlobalSearchProtocol,
   getHighlightedSegments,
+  SearchResultItem,
 } from '../../utils/searchHelper';
 import { getRecentReads } from '../../lib/storage';
 import { preloadContent } from '../../lib/bridge';
@@ -235,42 +235,41 @@ export const SearchOverlay = ({
     setSelectedIndex(0);
   }, [debouncedQuery, activeCategory]);
 
-  // ⚡ BOLT OPTIMIZATION: Category counts now depend on debouncedQuery to prevent main thread blocking
-  // Category counts
+  // Fast Inverted Index Search Engine (Indexed once across all inventory items)
+  const searchEngine = useMemo(() => new GlobalSearchProtocol(allItems), [allItems]);
+
+  // Global search across all categories (returns counts, snippets, timing, and Did-You-Mean)
+  const allCategoryResults = useMemo(() => {
+    if (!debouncedQuery.trim()) return null;
+    return searchEngine.search(debouncedQuery, undefined, allItems.length);
+  }, [debouncedQuery, searchEngine, allItems.length]);
+
+  // Category counts computed in a single pass from indexed results
   const categoryCounts = useMemo(() => {
-    if (!debouncedQuery.trim()) return {};
-    const counts: Record<string, number> = { all: 0 };
-    allItems.forEach((item) => {
-      if (matchSearchQuery(item, debouncedQuery)) {
-        counts.all = (counts.all || 0) + 1;
-        const cat = item.category === 'shastra' ? 'granthas' : item.category;
+    if (!allCategoryResults) return {};
+    const counts: Record<string, number> = { all: allCategoryResults.totalMatches };
+    for (const res of allCategoryResults.results) {
+      const cat = res.item.category === 'shastra' ? 'granthas' : res.item.category;
+      if (cat) {
         counts[cat] = (counts[cat] || 0) + 1;
       }
-    });
+    }
     return counts;
-  }, [debouncedQuery, allItems]);
+  }, [allCategoryResults]);
 
-  // ⚡ BOLT OPTIMIZATION: Heavy filtering now depends on debouncedQuery to improve typing responsiveness
-  // Filtered & Ranked Items
-  const filteredItems = useMemo(() => {
+  // Filtered & Ranked Results for currently selected category tab
+  const filteredResults: SearchResultItem<ContentItem>[] = useMemo(() => {
     if (!debouncedQuery.trim()) return [];
-    const catFilter =
-      activeCategory === 'all'
-        ? undefined
-        : activeCategory === 'granthas'
-        ? 'granthas'
-        : activeCategory;
+    if (activeCategory === 'all') {
+      return (allCategoryResults?.results || []).slice(0, 80) as SearchResultItem<ContentItem>[];
+    }
+    const catFilter = activeCategory === 'granthas' ? 'granthas' : activeCategory;
+    return searchEngine.search(debouncedQuery, catFilter, 80).results as SearchResultItem<ContentItem>[];
+  }, [debouncedQuery, activeCategory, allCategoryResults, searchEngine]);
 
-    // Normalizing category match for granthas / shastra
-    const pool =
-      activeCategory === 'granthas'
-        ? allItems.filter((i) => i.category === 'granthas' || i.category === 'shastra')
-        : catFilter
-        ? allItems.filter((i) => i.category === catFilter)
-        : allItems;
-
-    return searchAndRankItems(pool, debouncedQuery);
-  }, [debouncedQuery, allItems, activeCategory]);
+  const filteredItems = useMemo(() => {
+    return filteredResults.map((r) => r.item);
+  }, [filteredResults]);
 
   // Auto scroll highlighted item into view
   useEffect(() => {
@@ -547,6 +546,42 @@ export const SearchOverlay = ({
                     </div>
                   </div>
 
+                  {/* Quick Syntax Search Operators */}
+                  <div className="space-y-1.5">
+                    <div className="search-section-header flex items-center justify-between px-1 pb-1 border-b border-white/10">
+                      <span className="search-section-title text-xs font-gotu text-amber-300 font-bold flex items-center gap-1.5">
+                        <Layers className="w-3.5 h-3.5 text-amber-400" />
+                        त्वरित खोज ऑपरेटर (Syntax Filter):
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-0.5">
+                      {[
+                        { op: '@puja ', label: '@puja (पूजा)' },
+                        { op: '@stotra ', label: '@stotra (स्तोत्र)' },
+                        { op: '@chalisa ', label: '@chalisa (चालीसा)' },
+                        { op: '@aarti ', label: '@aarti (आरती)' },
+                        { op: '@shastra ', label: '@shastra (शास्त्र)' },
+                        { op: '@vidhan ', label: '@vidhan (विधान)' },
+                        { op: '@bhajan ', label: '@bhajan (भजन)' },
+                        { op: '@tirthankar ', label: '@tirthankar (तीर्थंकर)' },
+                      ].map((item) => (
+                        <motion.button
+                          key={item.op}
+                          type="button"
+                          whileTap={{ scale: 0.93 }}
+                          whileHover={{ scale: 1.03 }}
+                          onClick={() => {
+                            setQuery(item.op);
+                            inputRef.current?.focus();
+                          }}
+                          className="search-chip text-xs px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/25 text-amber-300 hover:text-amber-100 border border-amber-400/30 font-gotu font-medium transition-colors cursor-pointer select-none"
+                        >
+                          {item.label}
+                        </motion.button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Recent Reads (हाल ही में पढ़े गए पाठ) */}
                   {getRecentReads().length > 0 && (
                     <div className="space-y-1.5">
@@ -663,15 +698,49 @@ export const SearchOverlay = ({
               ) : (
                 /* Filtered & Ranked Results List */
                 <div className="flex flex-col gap-1.5">
+                  {/* "Did You Mean" Suggestion Chip */}
+                  {allCategoryResults?.didYouMean && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-between text-xs font-gotu text-amber-200 mb-1 shadow-sm"
+                    >
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span className="text-slate-300">शायद आपका मतलब था:</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setQuery(allCategoryResults.didYouMean!);
+                            inputRef.current?.focus();
+                          }}
+                          className="font-bold underline text-amber-300 hover:text-white cursor-pointer ml-0.5"
+                        >
+                          "{allCategoryResults.didYouMean}"
+                        </button>
+                      </div>
+                      {allCategoryResults.searchDurationMs !== undefined && (
+                        <span className="text-[10px] text-amber-300/70 font-mono shrink-0 ml-2">
+                          {allCategoryResults.searchDurationMs}ms
+                        </span>
+                      )}
+                    </motion.div>
+                  )}
+
                   {/* Results Count & Keyboard Guide Header */}
                   <div className="px-2 py-1 text-[11px] font-gotu text-slate-300 flex items-center justify-between border-b border-white/10 mb-1">
                     <div className="flex items-center gap-2">
                       <span className="text-amber-300 font-bold">
-                        {filteredItems.length} परिणाम प्राप्त
+                        {filteredResults.length} परिणाम प्राप्त
                       </span>
                       {activeCategory !== 'all' && (
                         <span className="text-[10px] text-slate-400 font-medium">
                           (फ़िल्टर: {SEARCH_CATEGORIES.find((c) => c.id === activeCategory)?.label})
+                        </span>
+                      )}
+                      {allCategoryResults?.searchDurationMs !== undefined && (
+                        <span className="text-[10px] text-slate-400/80 font-mono hidden sm:inline">
+                          • {allCategoryResults.searchDurationMs}ms
                         </span>
                       )}
                     </div>
@@ -683,7 +752,8 @@ export const SearchOverlay = ({
                   </div>
 
                   {/* Result Rows */}
-                  {filteredItems.map((item, index) => {
+                  {filteredResults.map((result, index) => {
+                    const item = result.item;
                     const isSelected = selectedIndex === index;
                     return (
                       <motion.div
@@ -716,13 +786,20 @@ export const SearchOverlay = ({
                           </div>
 
                           <div className="min-w-0 flex-1">
-                            <h4
-                              className={`font-rozha text-sm sm:text-base transition-colors truncate font-bold ${
-                                isSelected ? 'text-amber-200' : 'text-white group-hover:text-amber-200'
-                              }`}
-                            >
-                              <HighlightMatch text={item.title} query={debouncedQuery} />
-                            </h4>
+                            <div className="flex items-center gap-2">
+                              <h4
+                                className={`font-rozha text-sm sm:text-base transition-colors truncate font-bold ${
+                                  isSelected ? 'text-amber-200' : 'text-white group-hover:text-amber-200'
+                                }`}
+                              >
+                                <HighlightMatch text={item.title} query={debouncedQuery} />
+                              </h4>
+                              {result.isFuzzyMatch && (
+                                <span className="text-[9px] font-gotu px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-200 border border-amber-400/30 shrink-0">
+                                  संभावित मिलान
+                                </span>
+                              )}
+                            </div>
 
                             <div className="flex flex-wrap items-center gap-2 mt-0.5">
                               <span className="text-[10px] text-amber-300 font-cinzel font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/30">
@@ -742,6 +819,22 @@ export const SearchOverlay = ({
                                 </span>
                               )}
                             </div>
+
+                            {/* Verse / Commentary Context Snippet */}
+                            {result.snippet && (
+                              <div className="mt-1.5 p-1.5 sm:p-2 rounded-lg bg-amber-500/10 border border-amber-400/25 text-[11px] font-gotu text-amber-100 flex items-start gap-1.5 leading-relaxed">
+                                <span className="text-[9px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/25 px-1.5 py-0.5 rounded shrink-0">
+                                  {result.snippet.matchedField === 'verse'
+                                    ? 'छंद / गाथा'
+                                    : result.snippet.matchedField === 'lyrics'
+                                    ? 'पंक्ति'
+                                    : 'विवरण'}
+                                </span>
+                                <span className="line-clamp-2 text-slate-200">
+                                  <HighlightMatch text={result.snippet.snippetText} query={debouncedQuery} />
+                                </span>
+                              </div>
+                            )}
 
                             {item.tags && item.tags.length > 0 && (
                               <div className="flex flex-wrap items-center gap-1 mt-1">
