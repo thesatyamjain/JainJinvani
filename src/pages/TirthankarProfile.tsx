@@ -215,7 +215,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
 
         {/* Tirthankar Counter Badge & Actions */}
         <div className="flex items-center gap-2">
-          <div className="px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
+          <div className="px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold uppercase tracking-wider shadow-sm">
             तीर्थंकर {tirthankar.number} / २४
           </div>
           <motion.button
@@ -226,7 +226,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             className={`p-2.5 rounded-xl border cursor-pointer transition-colors ${
               favorite
                 ? 'bg-rose-500/20 border-rose-500/40 text-rose-300'
-                : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                : 'bg-white/10 border-white/15 text-slate-200 hover:bg-white/20 hover:text-white'
             }`}
             title="पसंदीदा में जोड़ें"
           >
@@ -237,7 +237,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             whileHover={{ scale: 1.08 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={handleShare}
-            className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 hover:text-white cursor-pointer transition-colors"
+            className="p-2.5 rounded-xl bg-white/10 border border-white/15 text-slate-200 hover:bg-white/20 hover:text-white cursor-pointer transition-colors"
             title="शेयर करें"
           >
             <Share2 className="w-4 h-4" />
@@ -259,17 +259,17 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           <GlassCard
             tilt={{ maxTilt: 5, glareMaxOpacity: 0.15, glareColor: 'gold' }}
             variant="gilded"
-            className="p-6 md:p-10 relative overflow-hidden text-center border-amber-500/30 shadow-2xl"
+            className="p-6 md:p-10 relative overflow-hidden text-center border-amber-500/40 shadow-2xl"
           >
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Sacred Emblem */}
             <div className="relative inline-block mb-4">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-amber-500/30 flex items-center justify-center text-5xl sm:text-6xl shadow-inner animate-float">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-2xl bg-gradient-to-br from-amber-500/25 to-orange-500/15 border border-amber-400/50 flex items-center justify-center text-5xl sm:text-6xl shadow-inner animate-float">
                 {tirthankar.symbolEmoji}
               </div>
-              <div className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-amber-950/90 border border-amber-500/40 text-[11px] font-bold text-amber-300">
+              <div className="absolute -bottom-2 -right-2 px-3 py-0.5 rounded-full bg-amber-950 border border-amber-400/50 text-[11px] font-bold text-amber-200 shadow-sm">
                 #{tirthankar.number}
               </div>
             </div>
@@ -278,11 +278,11 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-notoserif font-bold text-white mb-2 tracking-normal leading-[1.35] pt-2 pb-1">
               {tirthankar.nameHindi}
             </h1>
-            <p className="text-amber-300/80 font-gotu text-base sm:text-lg mb-2">
+            <p className="text-amber-200 font-gotu text-base sm:text-lg mb-2 font-medium">
               {tirthankar.subtitleHindi}
             </p>
-            <p className="text-white/60 text-xs sm:text-sm font-gotu mb-6">
-              {tirthankar.dynasty} • लांछन: {tirthankar.symbol}
+            <p className="text-slate-200 text-xs sm:text-sm font-gotu mb-6 font-medium">
+              {tirthankar.dynasty} • लांछन: <strong className="text-amber-300 font-bold">{tirthankar.symbol}</strong>
             </p>
 
             {/* Quick Spiritual Action Links */}
@@ -311,9 +311,9 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   const elem = document.getElementById('ritual-deck-section');
                   elem?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
-                <Layers className="w-4 h-4 text-amber-400" />
+                <Layers className="w-4 h-4 text-amber-300" />
                 <span>द्रव्य अर्पण मंत्र</span>
               </motion.button>
 
@@ -323,9 +323,9 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => onNavigate('viewer', { id: tirthankar.chalisaId, type: 'chalisa', title: `${tirthankar.nameHindi} चालीसा` })}
-                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                  className="px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
                 >
-                  <ScrollText className="w-4 h-4 text-amber-400" />
+                  <ScrollText className="w-4 h-4 text-amber-300" />
                   <span>चालीसा पढ़ें</span>
                 </motion.button>
               )}
@@ -335,9 +335,9 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => onNavigate('viewer', { id: tirthankar.artiId, type: 'aarti', title: `${tirthankar.nameHindi} आरती` })}
-                  className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                  className="px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
                 >
-                  <Flame className="w-4 h-4 text-amber-400" />
+                  <Flame className="w-4 h-4 text-amber-300" />
                   <span>आरती करें</span>
                 </motion.button>
               )}
@@ -346,9 +346,9 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                 whileHover={{ scale: 1.03 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: tirthankar.pujaId || 'chaubis-tirthankar-puja', type: 'puja', title: `${tirthankar.nameHindi} पूजन` })}
-                className="px-3 py-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 text-xs sm:text-sm font-gotu flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="px-3 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs sm:text-sm font-gotu font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
-                <Sun className="w-4 h-4 text-amber-400" />
+                <Sun className="w-4 h-4 text-amber-300" />
                 <span>पूजन विधान</span>
               </motion.button>
             </div>
@@ -953,34 +953,34 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Card 1: Sacred Attributes */}
             <GlassCard
               tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
-              className="p-6 md:p-8 border-t-4 border-t-amber-500/50"
+              className="p-6 md:p-8 border-t-4 border-t-amber-500/50 border-white/15 shadow-lg"
             >
               <h2 className="text-lg md:text-xl font-notoserif font-bold text-amber-200 mb-5 flex items-center gap-2.5">
                 <Book className="w-5 h-5 text-amber-400" />
                 लांछन एवं स्वरूप
               </h2>
               <div className="space-y-3.5 text-sm md:text-base font-gotu">
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">लांछन (चिह्न)</span>
-                  <span className="text-white font-semibold flex items-center gap-1.5">
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">लांछन (चिह्न)</span>
+                  <span className="text-white font-bold flex items-center gap-1.5">
                     <span>{tirthankar.symbolEmoji}</span>
-                    <span>{tirthankar.symbol}</span>
+                    <span className="text-amber-300">{tirthankar.symbol}</span>
                   </span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">शरीर का वर्ण (रंग)</span>
-                  <span className="text-amber-200 font-semibold">{tirthankar.color}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">शरीर का वर्ण (रंग)</span>
+                  <span className="text-amber-200 font-bold">{tirthankar.color}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">केवलज्ञान वृक्ष</span>
-                  <span className="text-white font-medium flex items-center gap-1.5">
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">केवलज्ञान वृक्ष</span>
+                  <span className="text-white font-semibold flex items-center gap-1.5">
                     <Trees className="w-4 h-4 text-emerald-400" />
                     <span>{tirthankar.kevalgyanTree}</span>
                   </span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">आयु प्रमाण</span>
-                  <span className="text-white font-medium">{tirthankar.age}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">आयु प्रमाण</span>
+                  <span className="text-slate-100 font-bold">{tirthankar.age}</span>
                 </div>
               </div>
             </GlassCard>
@@ -988,32 +988,32 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
             {/* Card 2: Family & Lineage */}
             <GlassCard
               tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'white' }}
-              className="p-6 md:p-8 border-t-4 border-t-blue-500/50"
+              className="p-6 md:p-8 border-t-4 border-t-blue-500/50 border-white/15 shadow-lg"
             >
               <h2 className="text-lg md:text-xl font-notoserif font-bold text-blue-200 mb-5 flex items-center gap-2.5">
                 <MapPin className="w-5 h-5 text-blue-400" />
                 पारिवारिक एवं तीर्थ विवरण
               </h2>
               <div className="space-y-3.5 text-sm md:text-base font-gotu">
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">पिता</span>
-                  <span className="text-white font-semibold">{tirthankar.father}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">पिता</span>
+                  <span className="text-white font-bold">{tirthankar.father}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">माता</span>
-                  <span className="text-white font-semibold">{tirthankar.mother}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">माता</span>
+                  <span className="text-white font-bold">{tirthankar.mother}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">जन्मभूमि</span>
-                  <span className="text-amber-200 font-medium">{tirthankar.birthPlace}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">जन्मभूमि</span>
+                  <span className="text-amber-200 font-bold">{tirthankar.birthPlace}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">मोक्ष / निर्वाण स्थली</span>
-                  <span className="text-emerald-300 font-medium">{tirthankar.nirvanaPlace}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">मोक्ष / निर्वाण स्थली</span>
+                  <span className="text-emerald-300 font-bold">{tirthankar.nirvanaPlace}</span>
                 </div>
-                <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                  <span className="text-white/60">यक्ष / यक्षिणी</span>
-                  <span className="text-white/90 font-medium text-xs sm:text-sm">{tirthankar.yakshaYakshini}</span>
+                <div className="flex justify-between items-center border-b border-white/10 pb-2.5">
+                  <span className="text-slate-300 font-medium">यक्ष / यक्षिणी</span>
+                  <span className="text-slate-100 font-semibold text-xs sm:text-sm">{tirthankar.yakshaYakshini}</span>
                 </div>
               </div>
             </GlassCard>
@@ -1022,46 +1022,46 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           {/* Card 3: Panchakalyanak Dates */}
           <GlassCard
             tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
-            className="p-6 md:p-8 border-t-4 border-t-emerald-500/50"
+            className="p-6 md:p-8 border-t-4 border-t-emerald-500/50 border-white/15 shadow-lg"
           >
             <h2 className="text-lg md:text-xl font-notoserif font-bold text-emerald-200 mb-5 flex items-center gap-2.5">
               <Calendar className="w-5 h-5 text-emerald-400" />
               पंचकल्याणक पावन तिथियाँ
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center font-gotu">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
                 <div className="text-xs text-amber-300 font-bold mb-1">गर्भ कल्याणक</div>
-                <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.garbha}</div>
+                <div className="text-xs sm:text-sm text-white font-semibold">{tirthankar.kalyanak.garbha}</div>
               </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
                 <div className="text-xs text-amber-300 font-bold mb-1">जन्म कल्याणक</div>
-                <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.janma}</div>
+                <div className="text-xs sm:text-sm text-white font-semibold">{tirthankar.kalyanak.janma}</div>
               </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
                 <div className="text-xs text-amber-300 font-bold mb-1">तप / दीक्षा</div>
-                <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.tap}</div>
+                <div className="text-xs sm:text-sm text-white font-semibold">{tirthankar.kalyanak.tap}</div>
               </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 shadow-sm">
                 <div className="text-xs text-amber-300 font-bold mb-1">केवलज्ञान कल्याणक</div>
-                <div className="text-xs sm:text-sm text-white font-medium">{tirthankar.kalyanak.gyan}</div>
+                <div className="text-xs sm:text-sm text-white font-semibold">{tirthankar.kalyanak.gyan}</div>
               </div>
-              <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 col-span-2 sm:col-span-1">
+              <div className="p-3.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 col-span-2 sm:col-span-1 shadow-sm">
                 <div className="text-xs text-emerald-300 font-bold mb-1">मोक्ष कल्याणक</div>
-                <div className="text-xs sm:text-sm text-white font-semibold">{tirthankar.kalyanak.moksha}</div>
+                <div className="text-xs sm:text-sm text-white font-bold">{tirthankar.kalyanak.moksha}</div>
               </div>
             </div>
           </GlassCard>
 
           {/* Card 4: Detailed Biography */}
-          <GlassCard tilt={{ maxTilt: 5, glareMaxOpacity: 0.1, glareColor: 'amber' }} className="p-6 md:p-10">
+          <GlassCard tilt={{ maxTilt: 5, glareMaxOpacity: 0.1, glareColor: 'amber' }} className="p-6 md:p-10 border-white/15 shadow-lg">
             <h2 className="text-xl md:text-2xl font-notoserif font-bold text-amber-200 mb-4 flex items-center gap-2">
               <ScrollText className="w-5 h-5 text-amber-400" />
               जीवन परिचय एवं संदेश
             </h2>
-            <p className="text-white/90 font-gotu leading-loose text-base md:text-lg text-justify">
+            <p className="text-slate-100 font-gotu leading-relaxed text-base md:text-lg text-justify">
               {tirthankar.bioHindi}
             </p>
-            <div className="mt-4 pt-4 border-t border-white/10 text-white/50 text-xs sm:text-sm font-gotu italic">
+            <div className="mt-4 pt-4 border-t border-white/10 text-slate-300 text-xs sm:text-sm font-gotu italic">
               {tirthankar.bioEn}
             </div>
           </GlassCard>

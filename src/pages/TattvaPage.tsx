@@ -1,31 +1,232 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
-import { ChevronLeft, Lightbulb, BookOpen, Eye, Heart, Sparkles, X } from 'lucide-react';
+import { ChevronLeft, Lightbulb, BookOpen, Heart, Sparkles, X, Layers, Compass, Shield, Scale } from 'lucide-react';
 import { useModalBackHandler } from '../lib';
-
 
 export interface TattvaPageProps {
   onBack: () => void;
 }
 export type PhilosophyPageProps = TattvaPageProps;
 
-const philosophyTopics = [
+interface TopicItem {
+  id: string;
+  icon: string;
+  title: string;
+  titleEn: string;
+  categoryTag?: string;
+  shortDesc: string;
+  classification?: string; // हेय, ज्ञेय, उपादेय
+  content: {
+    intro: string;
+    sutra?: string;
+    principles: string[];
+    practice: string;
+  };
+}
+
+const sevenTattvasAndNinePadarthas: TopicItem[] = [
+  {
+    id: 'jiva-tattva',
+    icon: '✨',
+    title: 'जीव तत्त्व',
+    titleEn: 'Jiva Tattva (Conscious Soul)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'उपादेय (आश्रय करने योग्य)',
+    shortDesc: 'ज्ञान-दर्शनमय चेतन आत्म-तत्त्व',
+    content: {
+      sutra: 'उपयोगो लक्षणम्। चेतनालक्षणो जीवः।',
+      intro: 'जीव तत्त्व वह चेतन सत्ता है जिसमें जानने और देखने की स्वाभाविक शक्ति (ज्ञान और दर्शन उपयोग) होती है। जो सुख-दुःख का संवेदन करता है और जिसका कभी नाश नहीं होता। शरीर से सर्वथा भिन्न यह अमूर्तिक तत्त्व ही वास्तविक "मैं" हूँ।',
+      principles: [
+        'चेतना लक्षण: जीव का कभी भी चैतन्य से वियोग नहीं होता।',
+        'अमूर्तिक स्वभाव: आत्मा वर्ण, गंध, रस, स्पर्श से रहित है।',
+        'संसारी व मुक्त भेद: कर्म सहित जीव संसारी (४ गतियों में) और कर्म रहित जीव सिद्ध (मुक्त)।',
+        'इन्द्रिय विस्तार: १ इन्द्रिय (स्थावर) से ५ इन्द्रिय (त्रस संज्ञी) तक अनंत जीव राशियाँ।'
+      ],
+      practice: 'प्रतिदिन स्वयं को शरीर, राग-द्वेष और कषायों से भिन्न शुद्ध ज्ञायक आत्मा अनुभव करना ही जीव तत्त्व का सम्यक् श्रद्धान है।'
+    }
+  },
+  {
+    id: 'ajiva-tattva',
+    icon: '🧱',
+    title: 'अजीव तत्त्व',
+    titleEn: 'Ajiva Tattva (Non-Conscious Entities)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'ज्ञेय (जानने योग्य)',
+    shortDesc: 'चेतना-रहित ५ अचेतन द्रव्य',
+    content: {
+      sutra: 'अचेतनं द्रव्यमजीवम्।',
+      intro: 'जिसमें चेतना, ज्ञान और सुख-दुःख की अनुभूति नहीं होती, वह अजीव तत्त्व कहलाता है। अजीव के ५ भेद हैं: पुद्गल, धर्म, अधर्म, आकाश और काल। हमारा भौतिक शरीर, कर्म, धन, मकान सब पुद्गल अजीव हैं।',
+      principles: [
+        'पुद्गल द्रव्य: स्पर्श, रस, गंध, वर्ण वाला मूर्तिक द्रव्य (शरीर व कर्म)।',
+        'धर्म द्रव्य: गति में सहायक (जैसे मछली को जल)।',
+        'अधर्म द्रव्य: स्थिति/ठहरने में सहायक (जैसे थके पथिक को वृक्ष-छाया)।',
+        'आकाश द्रव्य: सभी द्रव्यों को अवकाश (स्थान) देने वाला।',
+        'काल द्रव्य: नए-पुराने होने (परिवर्तन/वर्तना) में निमित्त।'
+      ],
+      practice: 'शरीर और भौतिक वस्तुओं के संयोग-वियोग में समता रखना और उन्हें आत्मा से भिन्न अचेतन मानना।'
+    }
+  },
+  {
+    id: 'asrava-tattva',
+    icon: '🌊',
+    title: 'आस्रव तत्त्व',
+    titleEn: 'Asrava Tattva (Influx of Karma)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'हेय (त्यागने योग्य)',
+    shortDesc: 'आत्मा में कर्म पुद्गलों का आगमन',
+    content: {
+      sutra: 'कायवाङ्मनः कर्म योगः। स आस्रवः॥',
+      intro: 'मन, वचन और काय की चंचलता (योग) तथा कषायों के निमित्त से कार्मण वर्गणाओं (कर्म परमाणुओं) का आत्मा की ओर खिंचकर आना आस्रव कहलाता है। जैसे नाव के छिद्र से जल भीतर प्रवेश करता है, वैसे ही आत्मा में कर्म आते हैं।',
+      principles: [
+        'शुभ आस्रव (पुण्य): दया, दान, भक्ति, व्रत से साताकारी कर्मों का आगमन।',
+        'अशुभ आस्रव (पाप): हिंसा, असत्य, चोरी, क्रोध, लोभ से असाताकारी कर्मों का आगमन।',
+        'योग व कषाय: योग से प्रकृति व प्रदेश बंध और कषाय से स्थिति व अनुभाग बंध होता है।',
+        'दुःख का मूल कारण: आस्रव ही संसार परिभ्रमण और जन्म-मरण का बीज है।'
+      ],
+      practice: 'मन, वचन और काया की उद्दंडता को नियंत्रित कर कषायों को मंद करना आस्रव को घटाने का उपाय है।'
+    }
+  },
+  {
+    id: 'bandha-tattva',
+    icon: '⛓️',
+    title: 'बंध तत्त्व',
+    titleEn: 'Bandha Tattva (Bondage of Karma)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'हेय (त्यागने योग्य)',
+    shortDesc: 'आत्मा और कर्म का एक क्षेत्रावगाह संबंध',
+    content: {
+      sutra: 'सकषायत्वाज्जीवः कर्मणो योग्यान् पुद्गलानादत्ते स बन्धः।',
+      intro: 'आत्मा में आए हुए कर्म परमाणुओं का कषायों (क्रोध, मान, माया, लोभ) की स्निग्धता/चिकनाहट के कारण आत्मा के साथ दूध और पानी की भाँति एकमेक हो जाना बंध तत्त्व है।',
+      principles: [
+        'प्रकृति बंध: कर्म का मूल स्वभाव निर्धारित होना (जैसे मीठा या तीखा)।',
+        'स्थिति बंध: कर्म आत्मा के साथ कितने समय रहेगा (काल मर्यादा)।',
+        'अनुभाग बंध: कर्म फल देने में कितना तीव्र या मंद होगा (रस/तीव्रता)।',
+        'प्रदेश बंध: कितने कर्म परमाणु आत्मा के साथ चिपके हैं (संख्या)।'
+      ],
+      practice: 'वस्तु स्वरूप का यथार्थ विचार कर क्रोध, मान, माया, लोभ का त्याग करना जिससे नवीन बंध न हो सके।'
+    }
+  },
+  {
+    id: 'samvara-tattva',
+    icon: '🛡️',
+    title: 'संवर तत्त्व',
+    titleEn: 'Samvara Tattva (Stoppage of Karma)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'उपादेय (प्रकट करने योग्य)',
+    shortDesc: 'नवीन कर्मों के आगमन को रोकना',
+    content: {
+      sutra: 'आस्रवनिरोधः संवरः। स गुप्ति-समिति-धर्मानुप्रेक्षा-परीषहजय-चारित्रैः।',
+      intro: 'आत्म-विशुद्धि, सम्यग्दर्शन एवं संयम द्वारा नवीन कर्मों के आने वाले द्वारों को पूर्णतः बंद कर देना संवर कहलाता है। जैसे नाव के छिद्र को बंद कर देने से पानी का आना रुक जाता है।',
+      principles: [
+        '३ गुप्ति: मन, वचन और काय का पूर्ण संयम।',
+        '५ समिति: ईर्या, भाषा, एषणा, आदान-निक्षेपण, प्रतिष्ठापना समिति।',
+        '१० धर्म: उत्तम क्षमा, मार्दव, आर्जव, शौच, सत्य, संयम, तप, त्याग, आकिंचन्य, ब्रह्मचर्य।',
+        '१२ अनुप्रेक्षा: अनित्य, अशरण, संसार, एकत्व आदि वैराग्य भावनाएँ।',
+        '२२ परीषह जय व ५ चारित्र: भूख, प्यास, शीत, दंश आदि कष्टों को समभाव से सहना।'
+      ],
+      practice: 'दैनिक जीवन में सावद्य योगों से बचकर सामायिक, स्वाध्याय और इंद्रिय निग्रह का अभ्यास करना।'
+    }
+  },
+  {
+    id: 'nirjara-tattva',
+    icon: '🔥',
+    title: 'निर्जरा तत्त्व',
+    titleEn: 'Nirjara Tattva (Shedding of Karma)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'एकदेश उपादेय (साधन)',
+    shortDesc: 'पूर्व संचित कर्मों का आत्मा से क्षय',
+    content: {
+      sutra: 'तपसा निर्जरा च। सविपाकाविपाकभेदेन द्विधा।',
+      intro: 'आत्मा से पहले से बंधे हुए कर्मों का आंशिक रूप से झड़ जाना या नष्ट हो जाना निर्जरा तत्त्व है। तपस्या की अग्नि से कर्म रूपी ईंधन भस्म हो जाता है।',
+      principles: [
+        'सविपाक (अकाम) निर्जरा: कर्म फल देकर स्वतः समय पर झड़ जाते हैं (यह सभी संसारी जीवों में निरंतर होती है)।',
+        'अविपाक (सकाम) निर्जरा: तप, ध्यान और समता के बल से कर्मों को समय से पूर्व बिना फल भुगताए नष्ट करना (मोक्ष का सच्चा कारण)।',
+        '१२ प्रकार के तप: ६ बाह्य तप (अनशन, अवमौदर्य आदि) एवं ६ अंतरंग तप (प्रायश्चित्त, विनय, स्वाध्याय, ध्यान आदि)।',
+        'कर्मों का विशोधन: ध्यान की एकाग्रता से करोड़ों भवों के संचित कर्म क्षण भर में क्षय होते हैं।'
+      ],
+      practice: 'उपवास, एकासन, रस-परित्याग, स्वाध्याय एवं ध्यान द्वारा आत्म-शुद्धि का पुरुषार्थ करना।'
+    }
+  },
+  {
+    id: 'moksha-tattva',
+    icon: '👑',
+    title: 'मोक्ष तत्त्व',
+    titleEn: 'Moksha Tattva (Liberation)',
+    categoryTag: 'मूल तत्त्व',
+    classification: 'परम उपादेय (साध्य लक्ष्य)',
+    shortDesc: 'आठों कर्मों से आत्मा की पूर्ण एवं शाश्वत मुक्ति',
+    content: {
+      sutra: 'कृत्स्नकर्मविप्रमोक्षो मोक्षः।',
+      intro: 'समस्त ८ कर्मों (४ घातिया और ४ अघातिया) का समूल विनाश होकर आत्मा का अपने शुद्ध, असीम अनंत स्वरूप में स्थित हो जाना ही मोक्ष है। सिद्धशिला पर मुक्त आत्मा अनंत काल तक अनंत चतुष्टय (अनंत ज्ञान, दर्शन, सुख, वीर्य) में लीन रहती है।',
+      principles: [
+        'अनंत सुख: सांसारिक आकुलता से सर्वथा रहित, अतीन्द्रिय, अखंड, स्वाधीन आनंद।',
+        'अष्ट गुण प्रगट: सम्यक्त्व, ज्ञान, दर्शन, वीर्य, सूक्ष्मत्व, अवगाहनत्व, अगुरुलघुत्व, अव्याबाधत्व।',
+        'पुनरागमन नहीं: मोक्ष प्राप्त जीव का संसार में कभी पुनरागमन नहीं होता।',
+        'सिद्ध पद: लोक के अग्रभाग (सिद्धशिला) पर स्थित होकर शाश्वत विश्राम।'
+      ],
+      practice: 'रत्नत्रय (सम्यग्दर्शन, सम्यग्ज्ञान, सम्यक्चारित्र) की पूर्णता से ही मोक्ष तत्त्व साक्षात् प्रगट होता है।'
+    }
+  },
+  {
+    id: 'punya-padartha',
+    icon: '☀️',
+    title: 'पुण्य पदार्थ',
+    titleEn: 'Punya Padartha (Meritorious Karma)',
+    categoryTag: 'नव पदार्थ',
+    classification: 'पुण्य (स्वर्ण की बेड़ी)',
+    shortDesc: 'शुभ परिणाम व साताकारी फल का निमित्त',
+    content: {
+      intro: 'शुभ परिणामों (दया, दान, पूजा, शील) के निमित्त से आत्मा में बंधने वाली शुभ कर्म प्रकृतियाँ पुण्य कहलाती हैं। यह सांसारिक अनुकूलता व उत्तम कुल, निरोगी काया और जिनधर्म का संयोग कराता है। यद्यपि मोक्षमार्ग में यह भी बंध का कारण होने से त्याज्य (हेय) है।',
+      principles: [
+        'शुभ प्रकृति: साता वेदनीय, उच्च गोत्र, शुभ आयु, शुभ नाम कर्म।',
+        'निमित्त: जिनपूजा, मुनि सेवा, अभयदान, करुणा, व्रत-नियम।',
+        'स्वर्ण बेड़ी रूप: जैसे लोहे की बेड़ी बांधती है, वैसे ही सोने की बेड़ी भी बांधती है।',
+        'परंपरागत साधन: पुण्य से उत्तम मानव भव व जिनवाणी का समागम मिलता है जो मोक्ष की साधना में अनुकूल होता है।'
+      ],
+      practice: 'पाप से बचने हेतु शुभ भाव करें, किन्तु पुण्य के फल में आसक्त न होकर वीतराग भाव की ओर बढ़ें।'
+    }
+  },
+  {
+    id: 'papa-padartha',
+    icon: '🌑',
+    title: 'पाप पदार्थ',
+    titleEn: 'Papa Padartha (Demeritorious Karma)',
+    categoryTag: 'नव पदार्थ',
+    classification: 'पाप (लोहे की बेड़ी)',
+    shortDesc: 'अशुभ परिणाम व तीव्र दुःख का कारण',
+    content: {
+      intro: 'अशुभ परिणामों (हिंसा, झूठ, चोरी, कुशील, परिग्रह, तीव्र क्रोध, मान, माया, लोभ) से आत्मा में बंधने वाली असाताकारी प्रकृतियाँ पाप कहलाती हैं। यह नरक-तिर्यंच गतियों के असह्य दुःखों का कारण बनती हैं।',
+      principles: [
+        'अशुभ प्रकृति: असाता वेदनीय, नीच गोत्र, नरक आयु, अशुभ नाम कर्म।',
+        '५ महापाप: हिंसा, असत्य, अचौर्य, अब्रह्मचर्य, परिग्रह।',
+        '४ कषाय: तीव्र क्रोध, मान, माया, लोभ की उत्पत्ति।',
+        'सर्वथा हेय: पाप आत्मा को अंधकार व अनंत संसार के दुःखों में ढकेलता है।'
+      ],
+      practice: 'पाँचों पापों और चारों कषायों से मनसा, वाचा, कर्मणा सर्वथा दूर रहना।'
+    }
+  }
+];
+
+const foundationalPhilosophy: TopicItem[] = [
   {
     id: 'ahimsa',
     icon: '🕊️',
-    title: 'अहिंसा',
-    titleEn: 'Ahimsa (Non-Violence)',
-    shortDesc: 'सर्वोच्च धर्म',
+    title: 'अहिंसा परमो धर्मः',
+    titleEn: 'Ahimsa (Universal Non-Violence)',
+    categoryTag: 'मूल सिद्धांत',
+    classification: 'सर्वोच्च सिद्धांत',
+    shortDesc: 'समस्त जीवों के प्रति मन, वचन, काय से अभय',
     content: {
-      intro: 'अहिंसा जैन धर्म का सबसे महत्वपूर्ण सिद्धांत है। यह केवल शारीरिक हिंसा से बचना नहीं, बल्कि मन, वचन और कर्म से किसी भी जीव को कष्ट न पहुंचाना है।',
+      sutra: 'परस्परोपग्रहो जीवानाम्। अहिंसा परमो धर्मः।',
+      intro: 'अहिंसा जैन धर्म का प्राण है। यह केवल बाह्य शारीरिक हिंसा से बचना नहीं, अपितु राग-द्वेष रहित विशुद्ध आत्मा का परिणाम है। किसी भी जीव को रंचमात्र भी कष्ट न पहुंचाना और आत्म-भाव से देखना ही अहिंसा है।',
       principles: [
-        'मनसा, वाचा, कर्मणा अहिंसा',
-        'सभी जीवों में आत्मा का निवास',
-        'परस्पर उपग्रहो जीवानाम् (जीव एक दूसरे की सहायता करते हैं)',
-        'जीओ और जीने दो'
+        'मनसा, वाचा, कर्मणा अहिंसा: विचारों, वाणी और आचरण तीनों से जीव रक्षा।',
+        'कृत, कारित, अनुमोदना: न स्वयं हिंसा करना, न दूसरों से कराना, न करने वाले की प्रशंसा करना।',
+        'जीओ और जीने दो: विश्व के प्रत्येक प्राणी को जीवित रहने का समान अधिकार है।',
+        'भाव हिंसा का त्याग: क्रोध, मान, माया, लोभ ही वास्तविक आंतरिक हिंसा हैं।'
       ],
-      practice: 'शाकाहार, जीव दया, करुणा, क्षमा और सहनशीलता से अहिंसा का पालन होता है।'
+      practice: 'शुद्ध शाकाहार, छने जल का उपयोग, रात्रि भोजन त्याग, जीव दया और करुणा का पालन।'
     }
   },
   {
@@ -33,181 +234,227 @@ const philosophyTopics = [
     icon: '🔷',
     title: 'अनेकांतवाद',
     titleEn: 'Anekantavada (Multiple Viewpoints)',
-    shortDesc: 'बहुपक्षीय दृष्टिकोण',
+    categoryTag: 'ज्ञान सिद्धांत',
+    classification: 'समन्वय दृष्टि',
+    shortDesc: 'वस्तु के अनंत विरोधी प्रतीत होने वाले धर्मों का सत्य',
     content: {
-      intro: 'अनेकांतवाद का अर्थ है कि सत्य के अनेक पहलू होते हैं। कोई भी एक दृष्टिकोण पूर्ण सत्य नहीं है।',
+      sutra: 'अनन्तधर्मात्मकमेव तत्त्वम्।',
+      intro: 'अनेकांतवाद जैन दर्शन की अद्वितीय बौद्धिक देन है। इसके अनुसार प्रत्येक वस्तु में अनंत धर्म (जैसे नित्य-अनित्य, एक-अनेक, भेद-अभेद) युगपत् विद्यमान रहते हैं। किसी एक दृष्टिकोण से वस्तु का पूर्ण स्वरूप नहीं जाना जा सकता।',
       principles: [
-        'सत्य बहुआयामी है',
-        'प्रत्येक दृष्टिकोण आंशिक रूप से सही है',
-        'सहिष्णुता और समन्वय का आधार',
-        'विवादों का समाधान'
+        'सत्य बहुआयामी है: एकांत आग्रह विवाद का कारण है, समन्वय शांति का आधार है।',
+        'अंधे और हाथी का दृष्टांत: प्रत्येक व्यक्ति वस्तु के एक अंश को ही जान पाता है।',
+        'द्रव्य और पर्याय दृष्टि: द्रव्य रूप से वस्तु नित्य (शाश्वत) है, पर्याय रूप से अनित्य (परिवर्तनशील)।',
+        'सर्वधर्म सहिष्णुता: अन्य मतावलंबियों के सत्य अंश को स्वीकार कर आदर देना।'
       ],
-      practice: 'अन्य विचारों का सम्मान करना, खुले मन से सोचना, और कट्टरता से बचना अनेकांतवाद का अभ्यास है।'
+      practice: 'कट्टरता और हठ छोड़कर दूसरों के विचारों को समझना और समन्वयवादी दृष्टिकोण रखना।'
     }
   },
   {
     id: 'syadvad',
     icon: '💭',
-    title: 'स्याद्वाद',
-    titleEn: 'Syadvada (Conditional Truth)',
-    shortDesc: 'सप्तभंगी नय',
+    title: 'स्याद्वाद व सप्तभंगी',
+    titleEn: 'Syadvada (Conditional Prediction)',
+    categoryTag: 'भाषा सिद्धांत',
+    classification: 'सापेक्ष कथन शैली',
+    shortDesc: 'सत्य को प्रकट करने की सप्तभंगी सापेक्ष भाषा',
     content: {
-      intro: 'स्याद्वाद अनेकांतवाद की अभिव्यक्ति है। यह कहता है कि हर कथन "स्यात्" (शायद/हो सकता है) से प्रारंभ होना चाहिए।',
+      sutra: 'स्याद्वाद-मंजरी। कथंचित् सत्यम्।',
+      intro: 'स्याद्वाद अनेकांत दर्शन की भाषायी अभिव्यक्ति है। "स्यात्" का अर्थ है "कथंचित्" अर्थात् किसी निश्चित अपेक्षा से। वस्तु के अनंत धर्मों को वाणी द्वारा एक साथ नहीं कहा जा सकता, इसलिए अपेक्षा लगाकर कथन किया जाता है।',
       principles: [
-        'स्यात् अस्ति (कुछ दृष्टि से है)',
-        'स्यात् नास्ति (कुछ दृष्टि से नहीं है)',
-        'स्यात् अस्ति च नास्ति च (दोनों है)',
-        'सप्तभंगी (सात संभावनाएं)'
+        '१. स्यादस्ति: किसी अपेक्षा से वस्तु है (स्वद्रव्य, क्षेत्र, काल, भाव से)।',
+        '२. स्यान्नास्ति: किसी अपेक्षा से वस्तु नहीं है (परद्रव्य, परक्षेत्र से)।',
+        '३. स्यादस्ति-नास्ति: क्रम से है और नहीं भी है।',
+        '४. स्यादवक्तव्यम्: एक साथ दोनों धर्मों को कहना अशक्य है।',
+        '५. स्यादस्ति-अवक्तव्यम्',
+        '६. स्यान्नास्ति-अवक्तव्यम्',
+        '७. स्यादस्ति-नास्ति-अवक्तव्यम्'
       ],
-      practice: 'निर्णय लेते समय सभी पहलुओं को देखना और निश्चितता से बचना।'
+      practice: 'बातचीत में एकांत हठ से बचकर "अपेक्षाकृत" सत्य का प्रयोग करना।'
     }
   },
   {
     id: 'aparigraha',
     icon: '🎋',
-    title: 'अपरिग्रह',
+    title: 'अपरिग्रह महाव्रत',
     titleEn: 'Aparigraha (Non-Possessiveness)',
-    shortDesc: 'आसक्ति से मुक्ति',
+    categoryTag: 'सदाचार',
+    classification: 'मानसिक शांति',
+    shortDesc: 'मूर्च्छा व आंतरिक-बाह्य परिग्रह से मुक्ति',
     content: {
-      intro: 'अपरिग्रह का अर्थ है संग्रह और आसक्ति से मुक्त रहना। यह केवल भौतिक वस्तुओं तक सीमित नहीं है।',
+      sutra: 'मूर्च्छा परिग्रहः।',
+      intro: 'अपरिग्रह केवल बाह्य धन-संपत्ति छोड़ना नहीं, बल्कि वस्तुओं में "ममत्व" (यह मेरा है) की भावना यानी मूर्च्छा का त्याग है। जब तक अंतःकरण में तृष्णा है, तब तक वास्तविक शांति असंभव है।',
       principles: [
-        'आवश्यकता से अधिक संग्रह न करना',
-        'भौतिक और मानसिक आसक्ति से मुक्ति',
-        'सादगी और संतोष',
-        'मोह-माया से दूरी'
+        'आंतरिक परिग्रह (१४ भेद): मिथ्यात्व, क्रोध, मान, माया, लोभ, हास्य, रति, अरति, शोक, भय, जुगुप्सा, तीन वेद।',
+        'बाह्य परिग्रह (१० भेद): धन, धान्य, दास, दासी, खेत, मकान, चांदी, सोना, वस्त्र, बर्तन।',
+        'परिग्रह परिमाण: श्रावक अपनी आवश्यकताओं की सीमा निश्चित करे।',
+        'संतोष ही परम सुख: तृष्णा की कोई सीमा नहीं, संयम ही मुक्ति का द्वार है।'
       ],
-      practice: 'सरल जीवन जीना, दान देना, और केवल आवश्यक वस्तुओं का उपयोग करना।'
-    }
-  },
-  {
-    id: 'karma',
-    icon: '⚖️',
-    title: 'कर्म सिद्धांत',
-    titleEn: 'Karma Theory',
-    shortDesc: 'कार्य-कारण का नियम',
-    content: {
-      intro: 'जैन कर्म सिद्धांत अत्यंत वैज्ञानिक है। कर्म सूक्ष्म पुद्गल कण हैं जो आत्मा से बंधते हैं।',
-      principles: [
-        'आठ प्रकार के कर्म',
-        'हर कर्म का फल मिलता है',
-        'आत्मा कर्म से बंधी है',
-        'कर्म निर्जरा से मुक्ति'
-      ],
-      practice: 'शुभ कर्म करना, अशुभ कर्मों से बचना, और तपस्या से कर्मों को नष्ट करना।'
+      practice: 'दैनिक वस्तुओं की सीमा तय करना, दान देना, सादा जीवन और उच्च विचार अपनाना।'
     }
   },
   {
     id: 'ratnatraya',
     icon: '💎',
-    title: 'रत्नत्रय',
-    titleEn: 'Three Jewels',
-    shortDesc: 'सम्यक दर्शन, ज्ञान, चरित्र',
+    title: 'रत्नत्रय (मोक्षमार्ग)',
+    titleEn: 'Ratnatraya (The Three Jewels)',
+    categoryTag: 'मोक्षमार्ग',
+    classification: 'मुक्ति का मार्ग',
+    shortDesc: 'सम्यग्दर्शन, सम्यग्ज्ञान एवं सम्यक्चारित्र',
     content: {
-      intro: 'रत्नत्रय मोक्ष का मार्ग है - सम्यक दर्शन (सही विश्वास), सम्यक ज्ञान (सही ज्ञान), और सम्यक चरित्र (सही आचरण)।',
+      sutra: 'सम्यग्दर्शनज्ञानचारित्राणि मोक्षमार्गः।',
+      intro: 'जैन दर्शन में मोक्ष की प्राप्ति किसी कृपा से नहीं, अपितु रत्नत्रय की साधना से होती है। यथार्थ श्रद्धा (सम्यग्दर्शन), यथार्थ ज्ञान (सम्यग्ज्ञान) और यथार्थ आचरण (सम्यक्चारित्र) - ये तीनों मिलकर ही एक मोक्षमार्ग बनाते हैं।',
       principles: [
-        'सम्यक दर्शन - तत्व का सही ज्ञान',
-        'सम्यक ज्ञान - शास्त्रों का अध्ययन',
-        'सम्यक चरित्र - व्रतों का पालन',
-        'तीनों एक साथ आवश्यक'
+        'सम्यग्दर्शन: ७ तत्त्वों का यथार्थ संशय-रहित श्रद्धान। यह मोक्ष महल की प्रथम सीढ़ी है।',
+        'सम्यग्ज्ञान: तत्त्वों का जैसा स्वरूप है वैसा संशय, विपर्यय और अनध्यवसाय रहित ज्ञान।',
+        'सम्यक्चारित्र: कषायों के अभाव पूर्वक आत्म-स्वरूप में लीन होना तथा व्रतों का पालन।',
+        'अविनाभावी संबंध: तीनों की एकता ही मोक्ष का कारण है, एक के बिना दूसरा निष्फल है।'
       ],
-      practice: 'तीर्थंकरों में श्रद्धा, शास्त्र अध्ययन, और नैतिक जीवन जीना।'
+      practice: 'देव, शास्त्र, गुरु पर अटूट श्रद्धा रखना, स्वाध्याय करना और सदाचार का पालन करना।'
     }
   },
   {
-    id: 'tattva',
-    icon: '🌟',
-    title: 'नव तत्व',
-    titleEn: 'Nine Tattvas',
-    shortDesc: 'जीवन के मूल सिद्धांत',
+    id: 'gunasthan',
+    icon: '🪜',
+    title: '१४ गुणस्थान',
+    titleEn: 'Fourteen Gunasthanas',
+    categoryTag: 'आध्यात्मिक सोपान',
+    classification: 'आत्म विकास',
+    shortDesc: 'मिथ्यात्व से सिद्ध पद तक के १४ क्रमिक सोपान',
     content: {
-      intro: 'नौ तत्व जैन दर्शन के आधार हैं जो जीवन और मुक्ति को समझाते हैं।',
+      intro: 'मोह और योग के निमित्त से आत्मा के परिणामों में होने वाले क्रमिक विकास की १४ अवस्थाओं को गुणस्थान कहते हैं। यह मिथ्यात्व (घोर अज्ञान) से प्रारंभ होकर सिद्ध पद (पूर्ण वीतरागता) तक पहुँचने का वैज्ञानिक मानचित्र है।',
       principles: [
-        'जीव - आत्मा',
-        'अजीव - निर्जीव पदार्थ',
-        'पुण्य और पाप',
-        'आस्रव, बंध, संवर, निर्जरा, मोक्ष'
+        '१-४ गुणस्थान: मिथ्यात्व से सम्यग्दर्शन की प्राप्ति (असंयत सम्यग्दृष्टि)।',
+        '५वां गुणस्थान: देशविरत (श्रावक के १२ व्रतों का पालन)।',
+        '६-७वां गुणस्थान: प्रमत्त व अप्रमत्त संयत (दिगम्बर मुनिराज की विशुद्ध चर्या)।',
+        '८-१२वां गुणस्थान: क्षपक श्रेणी आरोहण एवं कषायों का समूल नाश (वीतराग दशा)।',
+        '१३-१४वां गुणस्थान: सयोगकेवली (अरिहंत परमेष्ठी) एवं अयोगकेवली (मोक्ष गमन)।'
       ],
-      practice: 'इन तत्वों को समझकर आध्यात्मिक जीवन जीना।'
-    }
-  },
-  {
-    id: 'jiva',
-    icon: '🔆',
-    title: 'जीव दया',
-    titleEn: 'Compassion for All Beings',
-    shortDesc: 'सभी जीवों में आत्मा',
-    content: {
-      intro: 'जैन धर्म में सभी जीवों को समान माना गया है। चाहे एक इंद्रिय हो या पंच इंद्रिय, सभी में आत्मा है।',
-      principles: [
-        'एकेन्द्रिय से पंचेन्द्रिय तक',
-        'त्रस और स्थावर जीव',
-        'सभी जीव सुख चाहते हैं',
-        'जीव हत्या सबसे बड़ा पाप'
-      ],
-      practice: 'जीवों की रक्षा, शाकाहार, और सावधानी से चलना-फिरना।'
+      practice: 'कषायों की मंदता और भेद-विज्ञान द्वारा निरंतर ऊपर के गुणस्थान की ओर अग्रसर होना।'
     }
   }
 ];
 
 export const TattvaPage = ({ onBack }: TattvaPageProps) => {
-  const [selectedTopic, setSelectedTopic] = useState<any>(null);
+  const [selectedTopic, setSelectedTopic] = useState<TopicItem | null>(null);
+  const [activeTab, setActiveTab] = useState<'tattvas' | 'philosophy'>('tattvas');
 
-  // Close philosophy topic modal on mobile back navigation
   useModalBackHandler(!!selectedTopic, () => setSelectedTopic(null), 'philosophy-detail');
 
+  const currentList = activeTab === 'tattvas' ? sevenTattvasAndNinePadarthas : foundationalPhilosophy;
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
+    <div className="w-full max-w-6xl mx-auto pt-6 sm:pt-12 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
       {/* Header */}
-      <div className="mb-8">
-        <motion.button
-          whileHover={{ scale: 1.05, x: -2 }}
-          whileTap={{ scale: 0.94 }}
-          onClick={onBack}
-          className="w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group mb-6 cursor-pointer shadow-md"
-          title="वापस जाएं"
-        >
-          <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
-        </motion.button>
+      <div className="mb-6 sm:mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <motion.button
+            whileHover={{ scale: 1.05, x: -2 }}
+            whileTap={{ scale: 0.94 }}
+            onClick={onBack}
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/15 hover:border-amber-500/40 transition-colors flex items-center justify-center group cursor-pointer shadow-md"
+            title="वापस जाएं"
+          >
+            <ChevronLeft className="w-6 h-6 text-slate-200 group-hover:text-amber-200" />
+          </motion.button>
+
+          <div className="flex items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold font-gotu">
+              दिगम्बर जैन अध्यात्म
+            </span>
+          </div>
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center"
+          className="text-center max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs mb-3">
-            <Lightbulb className="w-3 h-3" />
-            <span className="uppercase tracking-widest text-sm font-bold font-cinzel">Philosophy</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-200 text-xs mb-3 font-semibold">
+            <Lightbulb className="w-3.5 h-3.5 text-purple-300" />
+            <span className="uppercase tracking-widest text-xs font-bold font-cinzel">Jain Philosophy & Tattva Gyan</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-rozha text-white mb-3 pt-2 pb-1 leading-[1.35]">
-            जैन दर्शन
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-rozha text-white mb-2 pt-1 pb-1 leading-tight drop-shadow-md">
+            जैन तत्त्वज्ञान एवं दर्शन
           </h1>
-          <p className="text-blue-100/60 font-gotu text-lg">
-            आध्यात्मिक सिद्धांत और जीवन मूल्य
+          <p className="text-slate-200 font-gotu text-sm sm:text-base leading-relaxed font-medium">
+            प्रयोजनभूत ७ तत्त्व, ९ पदार्थ, षट्द्रव्य एवं वीतराग मोक्षमार्ग के शाश्वत सिद्धांत
           </p>
         </motion.div>
       </div>
 
+      {/* Category Tabs */}
+      <div className="w-full flex items-center justify-center gap-2.5 mb-8">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => setActiveTab('tattvas')}
+          className={`px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-gotu font-bold transition-all border cursor-pointer flex items-center gap-2 shadow-sm ${
+            activeTab === 'tattvas'
+              ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
+              : 'bg-slate-900/80 text-slate-200 border-white/15 hover:border-white/30 hover:text-white'
+          }`}
+        >
+          <Layers className="w-4 h-4" />
+          <span>७ तत्त्व एवं ९ पदार्थ</span>
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => setActiveTab('philosophy')}
+          className={`px-4 sm:px-6 py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-gotu font-bold transition-all border cursor-pointer flex items-center gap-2 shadow-sm ${
+            activeTab === 'philosophy'
+              ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
+              : 'bg-slate-900/80 text-slate-200 border-white/15 hover:border-white/30 hover:text-white'
+          }`}
+        >
+          <Compass className="w-4 h-4" />
+          <span>मूल दर्शन व सिद्धांत</span>
+        </motion.button>
+      </div>
+
       {/* Topics Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {philosophyTopics.map((topic, idx) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {currentList.map((topic, idx) => (
           <motion.div
             key={topic.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
+            className="h-full"
           >
             <GlassCard
-              tilt={{ maxTilt: 12, scale: 1.025, glareColor: 'gold' }}
-              className="p-6 hover:bg-white/10 cursor-pointer transition-all group text-center h-full flex flex-col"
+              tilt={{ maxTilt: 8, scale: 1.015, glareColor: 'gold' }}
+              className="p-5 sm:p-6 hover:border-amber-400/60 cursor-pointer transition-all group h-full flex flex-col justify-between border-white/15 rounded-2xl shadow-md bg-slate-900/70"
               onClick={() => setSelectedTopic(topic)}
             >
-              <div className="text-5xl mb-3">{topic.icon}</div>
-              <h3 className="text-xl font-rozha text-white mb-1 group-hover:text-amber-300 transition-colors">
-                {topic.title}
-              </h3>
-              <p className="text-xs text-blue-100/50 font-gotu mb-2">{topic.titleEn}</p>
-              <p className="text-sm text-amber-300/80 font-gotu mt-auto">{topic.shortDesc}</p>
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-2xl shadow-inner group-hover:scale-105 transition-transform">
+                    {topic.icon}
+                  </div>
+                  {topic.classification && (
+                    <span className="text-[10px] sm:text-[11px] font-bold font-gotu px-2.5 py-0.5 rounded-full bg-white/10 text-amber-200 border border-white/20 shadow-sm truncate max-w-[150px]">
+                      {topic.classification}
+                    </span>
+                  )}
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-notoserif font-bold text-white mb-1 group-hover:text-amber-200 transition-colors">
+                  {topic.title}
+                </h3>
+                <p className="text-xs text-amber-300 font-gotu font-semibold mb-2">
+                  {topic.titleEn}
+                </p>
+                <p className="text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed line-clamp-3">
+                  {topic.content.intro}
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-300 group-hover:text-amber-200 font-gotu font-bold">
+                <span>{topic.shortDesc}</span>
+                <span className="text-amber-400">विस्तार से पढ़ें →</span>
+              </div>
             </GlassCard>
           </motion.div>
         ))}
@@ -222,7 +469,7 @@ export const TattvaPage = ({ onBack }: TattvaPageProps) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedTopic(null)}
-              className="fixed inset-0 bg-black/85 backdrop-blur-md z-0"
+              className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-0"
             />
 
             <motion.div
@@ -232,69 +479,99 @@ export const TattvaPage = ({ onBack }: TattvaPageProps) => {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-w-2xl z-10 my-auto"
             >
-              <GlassCard className="p-4 sm:p-8 border-white/20 bg-[#0b162c] shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,700px)] flex flex-col">
+              <GlassCard className="p-4 sm:p-7 border-amber-500/40 bg-slate-950/95 shadow-2xl relative overflow-hidden rounded-2xl sm:rounded-3xl max-h-[min(90vh,700px)] flex flex-col">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setSelectedTopic(null)}
-                  className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer z-10"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white transition-colors cursor-pointer z-10 border border-white/15"
                 >
                   <X className="w-5 h-5" />
                 </motion.button>
 
-              <div className="flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0 pt-2">
-                <div className="text-5xl sm:text-6xl mb-3 text-center">{selectedTopic.icon}</div>
-
-                <h2 className="text-2xl sm:text-3xl font-rozha text-white mb-1 text-center">
-                  {selectedTopic.title}
-                </h2>
-                <p className="text-blue-100/60 font-gotu mb-5 text-center text-xs sm:text-sm">{selectedTopic.titleEn}</p>
-
-                <div className="space-y-5">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <BookOpen className="w-4 h-4 text-amber-400" />
-                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">परिचय</div>
+                <div className="flex-1 overflow-y-auto custom-scrollbar pr-1 min-h-0 pt-2 space-y-4">
+                  <div className="text-center pb-2 border-b border-white/10">
+                    <div className="text-5xl mb-2">{selectedTopic.icon}</div>
+                    <div className="inline-block px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-gotu font-bold mb-1">
+                      {selectedTopic.classification || selectedTopic.categoryTag}
                     </div>
-                    <p className="text-blue-100/80 font-gotu leading-relaxed text-xs sm:text-sm">
-                      {selectedTopic.content.intro}
+                    <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-0.5">
+                      {selectedTopic.title}
+                    </h2>
+                    <p className="text-slate-300 font-gotu text-xs sm:text-sm font-medium">
+                      {selectedTopic.titleEn}
                     </p>
                   </div>
 
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="w-4 h-4 text-amber-400" />
-                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">मुख्य सिद्धांत</div>
+                  {selectedTopic.content.sutra && (
+                    <div className="p-3.5 rounded-xl bg-amber-500/15 border border-amber-500/35 text-center">
+                      <div className="text-[11px] font-bold text-amber-300 font-cinzel mb-0.5">आगम सूत्र</div>
+                      <div className="text-sm sm:text-base font-notoserif font-bold text-amber-100">
+                        "{selectedTopic.content.sutra}"
+                      </div>
                     </div>
-                    <ul className="space-y-2">
-                      {selectedTopic.content.principles.map((principle: string, idx: number) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-blue-100/80 font-gotu text-xs sm:text-sm">
-                          <span className="text-amber-400 mt-0.5">✦</span>
-                          <span>{principle}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
 
-                  <div className="pt-3 border-t border-white/10">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <Heart className="w-4 h-4 text-rose-400" />
-                      <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-semibold">व्यावहारिक अभ्यास</div>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <BookOpen className="w-4 h-4 text-amber-400" />
+                        <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-bold">
+                          तात्त्विक परिचय एवं स्वरूप
+                        </div>
+                      </div>
+                      <p className="text-slate-100 font-gotu leading-relaxed text-xs sm:text-sm bg-white/5 p-3.5 rounded-xl border border-white/10">
+                        {selectedTopic.content.intro}
+                      </p>
                     </div>
-                    <p className="text-blue-100/80 font-gotu leading-relaxed text-xs sm:text-sm">
-                      {selectedTopic.content.practice}
-                    </p>
+
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-4 h-4 text-amber-400" />
+                        <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-bold">
+                          प्रमुख शास्त्रीय बिंदु व भेद
+                        </div>
+                      </div>
+                      <ul className="space-y-2 bg-white/5 p-3.5 rounded-xl border border-white/10">
+                        {selectedTopic.content.principles.map((principle: string, idx: number) => (
+                          <li key={idx} className="flex items-start gap-2.5 text-slate-100 font-gotu text-xs sm:text-sm leading-relaxed">
+                            <span className="text-amber-400 mt-0.5 font-bold">✦</span>
+                            <span>{principle}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <Heart className="w-4 h-4 text-rose-400" />
+                        <div className="text-xs sm:text-sm text-amber-300 uppercase font-gotu font-bold">
+                          व्यावहारिक जीवन में अभ्यास
+                        </div>
+                      </div>
+                      <p className="text-slate-100 font-gotu leading-relaxed text-xs sm:text-sm bg-amber-500/10 p-3.5 rounded-xl border border-amber-500/25 font-medium">
+                        {selectedTopic.content.practice}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </GlassCard>
-          </motion.div>
-        </div>
-      )}
+
+                <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedTopic(null)}
+                    className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 font-gotu font-semibold text-xs border border-white/15 cursor-pointer"
+                  >
+                    बंद करें
+                  </motion.button>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        )}
       </AnimatePresence>
     </div>
   );
 };
 
 export const PhilosophyPage = TattvaPage;
-

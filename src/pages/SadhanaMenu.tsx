@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { triggerHaptic } from '../utils/pwaManager';
 import { getJainDate, getFestival } from '../lib/panchang';
+import { getDailyNiyamaState, getJapMalaState } from '../lib/storage';
 import {
   Flame,
   Music,
@@ -20,6 +21,8 @@ import {
   Droplets,
   Sun,
   ShieldCheck,
+  CheckCircle2,
+  Award,
 } from 'lucide-react';
 
 interface SadhanaMenuProps {
@@ -147,6 +150,18 @@ const sadhanaItems: SadhanaItem[] = [
     border: 'border-emerald-500/30',
     accent: 'text-emerald-300',
     badge: 'दैनिक संकल्प',
+    category: 'daily-rituals',
+  },
+  {
+    id: 'pratikraman',
+    label: 'दैनिक प्रतिक्रमण व आलोचना',
+    sub: 'दोष विशुद्धि व क्षमापना पाठ',
+    description: 'दिन-रात के प्रमाद एवं दोषों का परिमार्जन, दैवसिक प्रतिक्रमण एवं आलोचना पाठ।',
+    icon: Scroll,
+    color: 'from-purple-500/20 to-indigo-700/10',
+    border: 'border-purple-400/40',
+    accent: 'text-purple-300',
+    badge: 'दैनिक क्षमापना',
     category: 'daily-rituals',
   },
   {
@@ -330,20 +345,20 @@ const CategoryDivider = ({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-sm sm:text-lg md:text-xl font-notoserif font-bold text-amber-200 tracking-tight leading-snug">
+            <h2 className="sadhana-divider-title text-sm sm:text-lg md:text-xl font-notoserif font-bold text-amber-100 tracking-tight leading-snug drop-shadow-sm">
               {titleHindi}
             </h2>
-            <span className="text-[10px] sm:text-xs uppercase tracking-widest font-cinzel text-slate-400/80 font-semibold hidden sm:inline-block">
+            <span className="sadhana-divider-eng text-[10px] sm:text-xs uppercase tracking-widest font-cinzel text-amber-200/90 font-semibold hidden sm:inline-block">
               {titleEnglish}
             </span>
           </div>
-          <p className="text-[10px] sm:text-xs text-slate-300/75 font-gotu mt-0.5 line-clamp-1 sm:line-clamp-none">
+          <p className="sadhana-divider-desc text-[10px] sm:text-xs text-slate-200 font-gotu font-medium mt-0.5 line-clamp-1 sm:line-clamp-none">
             {subtitle}
           </p>
         </div>
       </div>
 
-      <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300/90 text-[10px] sm:text-[11px] font-gotu backdrop-blur-sm">
+      <div className="sadhana-pillar-badge inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-200 text-[10px] sm:text-[11px] font-gotu font-semibold backdrop-blur-sm shadow-sm">
         <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
         <span>{count} साधन</span>
       </div>
@@ -373,6 +388,12 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
     );
   }, [jainDate, todayDate]);
 
+  // Daily Sadhana Progress Data
+  const niyamaState = useMemo(() => getDailyNiyamaState(), []);
+  const japState = useMemo(() => getJapMalaState(), []);
+  const completedNiyamas = niyamaState.completedIds.length;
+  const niyamaProgressPercent = Math.round((completedNiyamas / 8) * 100);
+
   const handleItemClick = (item: SadhanaItem) => {
     triggerHaptic('light');
 
@@ -382,6 +403,14 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
       onNavigate('jap');
     } else if (item.id === 'niyam') {
       onNavigate('niyam');
+    } else if (item.id === 'pratikraman') {
+      onNavigate('viewer', {
+        id: 'alochana-path',
+        title: 'आलोचना पाठ एवं प्रतिक्रमण',
+        type: 'path',
+        source: 'sadhana',
+        previousPage: 'sadhana',
+      });
     } else if (item.id === 'calendar') {
       onNavigate('panchang');
     } else if (item.id === 'samayik') {
@@ -410,37 +439,37 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-3.5 sm:mb-5 md:mb-6 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[160px] md:h-72 flex items-end p-3.5 sm:p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/25 group"
+        className="sadhana-header-banner mb-4 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[160px] md:h-72 flex items-end p-4 sm:p-6 md:p-9 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
       >
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-amber-950/40 to-[#030712] pointer-events-none" />
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-1/2 -right-24 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/75 to-transparent" />
+        <div className="banner-dark-overlay absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-600/25 via-amber-950/45 to-[#030712] pointer-events-none" />
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 -right-24 w-80 h-80 bg-amber-600/15 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/80 to-transparent" />
         </div>
 
         <div className="relative z-10 w-full">
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2.5">
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-[10px] sm:text-xs backdrop-blur-md">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2 sm:mb-2.5">
+            <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-100 text-[10px] sm:text-xs font-semibold backdrop-blur-md shadow-sm">
               <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300" />
-              <span className="uppercase tracking-[0.15em] sm:tracking-[0.2em] font-cinzel font-bold">Daily Sadhana</span>
+              <span className="uppercase tracking-[0.15em] sm:tracking-[0.2em] font-cinzel font-bold">जय जिनेन्द्र • Daily Sadhana</span>
             </div>
 
             {/* Live Tithi Badge */}
-            <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-slate-900/80 border border-white/15 text-slate-200 text-[10px] sm:text-xs backdrop-blur-md font-gotu">
+            <div className="sadhana-tithi-badge inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-slate-900/90 border border-amber-400/30 text-amber-100 text-[10px] sm:text-xs backdrop-blur-md font-gotu font-medium shadow-sm">
               <Sun className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-400" />
               <span>
                 {jainDate.jainMonth} {jainDate.pakshaLabel} {jainDate.tithiLabel}
               </span>
-              <span className="text-amber-400/70 hidden sm:inline">•</span>
-              <span className="text-amber-300/90 hidden sm:inline">वीर संवत् {jainDate.vnsYear}</span>
+              <span className="text-amber-400 hidden sm:inline">•</span>
+              <span className="text-amber-200 hidden sm:inline">वीर संवत् {jainDate.vnsYear}</span>
             </div>
           </div>
 
-          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight tracking-tight">
+          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1.5 sm:mb-2 leading-tight tracking-tight drop-shadow-md">
             साधना एवं नित्य नियम
           </h1>
-          <p className="hidden sm:block text-slate-200/85 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed mb-2 sm:mb-4">
+          <p className="hidden sm:block text-slate-100 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed mb-2.5 sm:mb-4">
             दैनिक स्वाध्याय, सामायिक, अष्टद्रव्य पूजन, स्तोत्र पाठ एवं आत्म-शुद्धि का पावन दिग्दर्शन।
           </p>
 
@@ -449,7 +478,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-[11px] sm:text-sm font-gotu backdrop-blur-md shadow-sm"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-amber-500/25 border border-amber-400/50 text-amber-100 text-[11px] sm:text-sm font-gotu font-medium backdrop-blur-md shadow-md"
             >
               <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
               <span className="line-clamp-1 sm:line-clamp-none">
@@ -458,6 +487,91 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             </motion.div>
           )}
         </div>
+      </motion.div>
+
+      {/* Daily Sadhana Progress Tracker */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.1 }}
+        className="mb-5 md:mb-6"
+      >
+        <GlassCard
+          variant="gilded"
+          tilt
+          className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl border-amber-500/35 bg-gradient-to-br from-amber-950/30 via-slate-900/90 to-black/80 shadow-[0_12px_36px_rgba(0,0,0,0.55)]"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-[0_2px_10px_rgba(245,158,11,0.2)] shrink-0">
+                <Flame className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base sm:text-lg font-notoserif font-bold text-white leading-tight">
+                    दैनिक साधना प्रगति
+                  </h3>
+                  <span className="sadhana-streak-badge px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-[10px] font-gotu font-semibold">
+                    {niyamaState.streak > 0 ? `${niyamaState.streak} दिन निरंतर` : 'आज का संकल्प'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-200 font-gotu mt-0.5">
+                  ८ श्रावक नियम • १०८ माला जाप • ४८ मिनट सामायिक समता
+                </p>
+              </div>
+            </div>
+
+            {/* Quick action chips */}
+            <div className="flex items-center gap-2 self-stretch sm:self-auto overflow-x-auto scrollbar-none py-0.5">
+              <button
+                onClick={() => onNavigate('niyam')}
+                className="sadhana-chip-niyam px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-100 text-xs font-gotu font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shrink-0"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-amber-300" />
+                <span>नियम ({completedNiyamas}/8)</span>
+              </button>
+              <button
+                onClick={() => onNavigate('jap')}
+                className="sadhana-chip-jap px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-400/40 text-rose-100 text-xs font-gotu font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shrink-0"
+              >
+                <Flame className="w-3.5 h-3.5 text-rose-300" />
+                <span>जाप ({japState.todayCount})</span>
+              </button>
+              <button
+                onClick={() => onNavigate('samayik')}
+                className="sadhana-chip-samayik px-3 py-1.5 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/40 text-blue-100 text-xs font-gotu font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shrink-0"
+              >
+                <Timer className="w-3.5 h-3.5 text-blue-300" />
+                <span>सामायिक</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Progress Bar with label */}
+          <div
+            onClick={() => onNavigate('niyam')}
+            className="sadhana-progress-section space-y-2.5 pt-2.5 pb-1 border-t border-amber-500/15 cursor-pointer group/progress"
+            title="नियम पूर्ण करने हेतु क्लिक करें"
+          >
+            <div className="flex items-center justify-between text-xs font-gotu">
+              <span className="sadhana-progress-label text-slate-200 font-medium group-hover/progress:text-amber-300 transition-colors flex items-center gap-1.5">
+                <span>आज के नियमों की पूर्णता</span>
+                <span className="text-[10px] text-amber-400/80 font-normal hidden sm:inline">• नियम पूर्ण करने हेतु टैप करें →</span>
+              </span>
+              <span className="sadhana-progress-percent px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 font-mono font-bold text-xs shadow-xs">
+                {niyamaProgressPercent}% पूर्ण
+              </span>
+            </div>
+            <div className="sadhana-progress-track w-full h-3.5 rounded-full bg-slate-950/80 border border-amber-500/30 overflow-hidden relative shadow-inner">
+              <motion.div
+                className="sadhana-progress-fill h-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-400 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${niyamaProgressPercent}%` }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              />
+            </div>
+          </div>
+        </GlassCard>
       </motion.div>
 
       {/* Pillar Sections */}
@@ -498,7 +612,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                       <GlassCard
                         variant="gilded"
                         tilt
-                        className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group transition-all duration-300"
+                        className="p-3.5 sm:p-4 md:p-5 h-full min-h-[145px] sm:min-h-[160px] flex flex-col justify-between cursor-pointer group transition-all duration-300 border-amber-500/25 hover:border-amber-400/60 shadow-lg"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div
@@ -506,20 +620,20 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                           >
                             <item.icon className="w-4.5 h-4.5 sm:w-6 sm:h-6" />
                           </div>
-                          <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-gotu px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-amber-500/12 border border-amber-400/30 text-amber-200 group-hover:bg-amber-500/25 group-hover:border-amber-400/50 group-hover:text-amber-100 transition-all shadow-sm shrink-0">
+                          <span className="sadhana-card-badge inline-flex items-center gap-1 text-[10px] sm:text-xs font-gotu px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-100 group-hover:bg-amber-500/35 group-hover:border-amber-300 group-hover:text-amber-50 font-semibold transition-all shadow-sm shrink-0">
                             <span className="truncate">{item.badge}</span>
-                            <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400/70 group-hover:text-amber-200 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                            <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300 group-hover:text-amber-100 group-hover:translate-x-0.5 transition-transform shrink-0" />
                           </span>
                         </div>
 
                         <div className="mt-3">
-                          <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-1 leading-snug">
+                          <h3 className="sadhana-card-title text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-1 leading-snug drop-shadow-sm">
                             {item.label}
                           </h3>
-                          <p className="text-[11px] sm:text-xs text-slate-300/70 font-gotu line-clamp-1 mt-0.5">
+                          <p className="sadhana-card-sub text-[11px] sm:text-xs text-amber-200/90 font-gotu font-medium line-clamp-1 mt-0.5">
                             {item.sub}
                           </p>
-                          <p className="text-[10px] sm:text-[11px] text-slate-400 font-gotu line-clamp-2 mt-1 hidden sm:block">
+                          <p className="text-[10px] sm:text-[11px] text-slate-200/90 font-gotu leading-relaxed line-clamp-2 mt-1 hidden sm:block">
                             {item.description}
                           </p>
                         </div>

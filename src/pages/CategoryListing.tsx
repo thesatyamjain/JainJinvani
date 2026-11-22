@@ -250,12 +250,12 @@ const CategoryDivider = ({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="text-base sm:text-lg md:text-xl font-notoserif font-bold text-amber-200 tracking-tight leading-snug">
+            <h2 className="category-divider-title text-base sm:text-lg md:text-xl font-notoserif font-bold text-amber-200 tracking-tight leading-snug">
               {title}
             </h2>
           </div>
           {subtitle && (
-            <p className="text-[11px] sm:text-xs text-slate-300/75 font-gotu mt-0.5 line-clamp-1 max-w-xl">
+            <p className="category-divider-desc text-[11px] sm:text-xs text-slate-300/75 font-gotu mt-0.5 line-clamp-1 max-w-xl">
               {subtitle}
             </p>
           )}
@@ -263,7 +263,7 @@ const CategoryDivider = ({
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300/90 text-[11px] font-gotu backdrop-blur-sm">
+        <div className="category-divider-badge inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300/90 text-[11px] font-gotu backdrop-blur-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
           <span>
             {count} {count === 1 ? 'रचना' : 'रचनाएँ'}
@@ -391,30 +391,30 @@ export const CategoryListing = ({
           {/* Top Badges Row */}
           <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
             {item.badge ? (
-              <span className="text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-badge text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
                 {item.badge}
               </span>
             ) : item.author ? (
-              <span className="text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-author text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
                 {item.author}
               </span>
             ) : (
               <span />
             )}
 
-            <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
+            <span className="category-item-index text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
               #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
+          <h3 className="category-item-title text-sm sm:text-base md:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2 leading-snug break-words">
             {item.title}
           </h3>
 
           {/* Short Description */}
           {item.description && (
-            <p className="text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
+            <p className="category-item-desc text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
               {item.description}
             </p>
           )}
@@ -425,7 +425,7 @@ export const CategoryListing = ({
               {item.tags.slice(0, 2).map((tag, tIdx) => (
                 <span
                   key={tIdx}
-                  className="text-[9px] font-gotu px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/85"
+                  className="category-item-tag text-[9px] font-gotu px-1.5 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/85"
                 >
                   #{tag}
                 </span>
@@ -476,12 +476,12 @@ export const CategoryListing = ({
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
             {item.badge && (
-              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300 font-medium">
+              <span className="category-item-badge text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-400/25 text-amber-300 font-medium">
                 {item.badge}
               </span>
             )}
             {item.author && (
-              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
+              <span className="category-item-author text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300">
                 {item.author}
               </span>
             )}
@@ -490,7 +490,7 @@ export const CategoryListing = ({
                 {item.tags.slice(0, 3).map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className="text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/80"
+                    className="category-item-tag text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/20 text-amber-300/80"
                   >
                     #{tag}
                   </span>
@@ -499,19 +499,19 @@ export const CategoryListing = ({
             )}
           </div>
 
-          <h3 className="text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors leading-snug">
+          <h3 className="category-item-title text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors leading-snug">
             {item.title}
           </h3>
 
           {item.description && (
-            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-1 leading-relaxed">
+            <p className="category-item-desc text-xs sm:text-sm text-slate-300/80 font-gotu mt-1 leading-relaxed">
               {item.description}
             </p>
           )}
         </div>
 
         <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-          <span className="text-xs font-gotu text-amber-300/90 group-hover:text-amber-200 transition-colors">
+          <span className="category-item-footer text-xs font-gotu text-amber-300/90 group-hover:text-amber-200 transition-colors">
             पूजन करें
           </span>
           <div className="w-8 h-8 rounded-full bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 group-hover:translate-x-1 group-hover:bg-amber-400 group-hover:text-slate-950 transition-all">
@@ -711,7 +711,7 @@ export const CategoryListing = ({
                       setViewMode('grid');
                     }
                   }}
-                  className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap border cursor-pointer shrink-0 transition-[background-color,border-color,color] ${
+                  className={`category-filter-tab ${isActive ? 'category-filter-tab-active' : 'category-filter-tab-inactive'} group relative flex items-center gap-2 px-4 py-2.5 rounded-2xl font-gotu text-xs md:text-sm whitespace-nowrap border cursor-pointer shrink-0 transition-all ${
                     isActive
                       ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/20 text-amber-200 border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.2)] font-semibold'
                       : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-white/20 hover:bg-slate-800/60'
@@ -722,7 +722,7 @@ export const CategoryListing = ({
                   </span>
                   <span>{sub.label}</span>
                   <span
-                    className={`text-[11px] px-2 py-0.5 rounded-full font-mono font-medium ${
+                    className={`category-filter-count text-[11px] px-2 py-0.5 rounded-full font-mono font-medium ${
                       isActive
                         ? 'bg-amber-400/30 text-amber-100'
                         : 'bg-white/5 text-slate-400 group-hover:bg-white/10'

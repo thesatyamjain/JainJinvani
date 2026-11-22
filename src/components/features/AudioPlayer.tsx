@@ -441,7 +441,7 @@ export const AudioPlayer = ({
               <button
                 type="button"
                 onClick={() => setIsMinimized(false)}
-                className="w-7 h-7 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                 title="विस्तार करें (Expand)"
                 aria-label="विस्तार करें (Expand)"
               >
@@ -450,7 +450,7 @@ export const AudioPlayer = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="w-7 h-7 rounded-lg hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 flex items-center justify-center transition-colors cursor-pointer"
                 title="बंद करें (Close)"
                 aria-label="बंद करें (Close)"
               >
@@ -467,7 +467,7 @@ export const AudioPlayer = ({
                 <h4 className="text-amber-100 font-bold font-gotu text-sm sm:text-base leading-tight truncate">
                   {track.title}
                 </h4>
-                <p className="text-amber-300/70 text-xs font-gotu truncate mt-0.5">
+                <p className="text-amber-300 text-xs font-gotu font-medium truncate mt-0.5">
                   {track.artist || 'जैन जिनवाणी • नित्य स्वाध्याय'}
                 </p>
               </div>
@@ -477,7 +477,7 @@ export const AudioPlayer = ({
                 <button
                   type="button"
                   onClick={() => setIsMinimized(true)}
-                  className="w-8 h-8 rounded-lg hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-lg hover:bg-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                   title="छोटा करें (Minimize)"
                   aria-label="छोटा करें (Minimize)"
                 >
@@ -486,7 +486,7 @@ export const AudioPlayer = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="w-8 h-8 rounded-lg hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-lg hover:bg-rose-500/20 text-slate-300 hover:text-rose-300 flex items-center justify-center transition-colors cursor-pointer"
                   title="बंद करें (Close)"
                   aria-label="बंद करें (Close)"
                 >
@@ -497,7 +497,7 @@ export const AudioPlayer = ({
 
             {/* Error Banner if stream failed */}
             {hasError && (
-              <div className="flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-200 text-xs font-gotu">
+              <div className="flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-200 text-xs font-gotu font-medium">
                 <div className="flex items-center gap-1.5 truncate">
                   <AlertCircle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                   <span className="truncate">ऑडियो लोड नहीं हो सका। पुनः प्रयास करें।</span>
@@ -527,11 +527,11 @@ export const AudioPlayer = ({
               />
 
               {/* Time Labels */}
-              <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mt-1.5 px-0.5">
-                <span className="text-amber-200/90 font-medium">
+              <div className="flex items-center justify-between text-[11px] font-mono text-slate-300 mt-1.5 px-0.5">
+                <span className="text-amber-300 font-bold">
                   {formatTime(displayTime)}
                 </span>
-                <span className="text-slate-400/80">{formatTime(duration)}</span>
+                <span className="text-slate-300 font-medium">{formatTime(duration)}</span>
               </div>
             </div>
 
@@ -544,7 +544,7 @@ export const AudioPlayer = ({
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.92 }}
                   onClick={cyclePlaybackRate}
-                  className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-white/5 hover:bg-amber-400/20 text-amber-300/90 hover:text-amber-200 border border-amber-400/30 transition-colors cursor-pointer select-none"
+                  className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-amber-500/20 hover:bg-amber-400/30 text-amber-200 hover:text-amber-100 border border-amber-400/40 transition-colors cursor-pointer select-none shadow-xs"
                   title="पाठ गति बदलें (Change Speed)"
                   aria-label="पाठ गति बदलें (Change Speed)"
                 >
@@ -556,11 +556,11 @@ export const AudioPlayer = ({
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.90 }}
                   onClick={toggleMute}
-                  className="p-1.5 rounded-lg hover:bg-white/10 text-slate-400 hover:text-amber-200 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-slate-300 hover:text-amber-200 transition-colors cursor-pointer"
                   title={isMuted ? 'ध्वनि चालू करें (Unmute)' : 'म्यूट करें (Mute)'}
                   aria-label={isMuted ? 'ध्वनि चालू करें (Unmute)' : 'म्यूट करें (Mute)'}
                 >
-                  {isMuted ? <VolumeX className="w-4 h-4 text-rose-300" /> : <Volume2 className="w-4 h-4" />}
+                  {isMuted ? <VolumeX className="w-4 h-4 text-rose-300" /> : <Volume2 className="w-4 h-4 text-slate-200" />}
                 </motion.button>
               </div>
 
@@ -572,7 +572,7 @@ export const AudioPlayer = ({
                   whileTap={{ scale: 0.88 }}
                   transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={() => handleSkip(-10)}
-                  className="p-2 rounded-xl text-slate-300 hover:text-amber-200 hover:bg-white/10 transition-colors cursor-pointer relative"
+                  className="p-2 rounded-xl text-slate-200 hover:text-amber-200 hover:bg-white/10 transition-colors cursor-pointer relative"
                   title="10 सेकंड पीछे (Skip Back 10s)"
                   aria-label="10 सेकंड पीछे (Skip Back 10s)"
                 >
@@ -605,7 +605,7 @@ export const AudioPlayer = ({
                   whileTap={{ scale: 0.88 }}
                   transition={{ type: 'spring', stiffness: 450, damping: 25 }}
                   onClick={() => handleSkip(10)}
-                  className="p-2 rounded-xl text-slate-300 hover:text-amber-200 hover:bg-white/10 transition-colors cursor-pointer relative"
+                  className="p-2 rounded-xl text-slate-200 hover:text-amber-200 hover:bg-white/10 transition-colors cursor-pointer relative"
                   title="10 सेकंड आगे (Skip Forward 10s)"
                   aria-label="10 सेकंड आगे (Skip Forward 10s)"
                 >
@@ -797,9 +797,9 @@ const RealtimeWaveformScrubber: React.FC<RealtimeWaveformScrubberProps> = ({
         ctx.shadowBlur = 0;
         // Hover highlight
         if (hoverX !== null && barX <= hoverX) {
-          ctx.fillStyle = 'rgba(251, 191, 36, 0.42)';
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.6)';
         } else {
-          ctx.fillStyle = 'rgba(251, 191, 36, 0.2)';
+          ctx.fillStyle = 'rgba(251, 191, 36, 0.35)';
         }
       }
 
@@ -808,9 +808,9 @@ const RealtimeWaveformScrubber: React.FC<RealtimeWaveformScrubberProps> = ({
 
     // Glowing Playhead Needle
     if (progressX >= 0 && progressX <= rect.width) {
-      ctx.shadowColor = 'rgba(245, 158, 11, 0.75)';
+      ctx.shadowColor = 'rgba(245, 158, 11, 0.9)';
       ctx.shadowBlur = 8;
-      ctx.fillStyle = '#fef3c7';
+      ctx.fillStyle = '#fef08a';
       ctx.beginPath();
       if (typeof ctx.roundRect === 'function') {
         ctx.roundRect(Math.max(0, Math.min(rect.width - 2.5, progressX - 1.25)), 2, 2.5, rect.height - 4, 1.25);

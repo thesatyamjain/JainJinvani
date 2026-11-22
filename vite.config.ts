@@ -53,6 +53,7 @@
   build: {
       target: 'esnext',
       outDir: 'build',
+      emptyOutDir: true,
       sourcemap: false,
       cssCodeSplit: true,
       chunkSizeWarningLimit: 2000,
@@ -70,7 +71,7 @@
       port: 3000,
       open: true,
       watch: {
-        ignored: ['**/build_corrupted/**', '**/build/**', '**/build_corrupted', '**/build'],
+        ignored: ['**/build_corrupted/**', '**/build/**', '**/dist/**', '**/mobile/**', '**/mobile/assets/web/**'],
       },
     },
   });

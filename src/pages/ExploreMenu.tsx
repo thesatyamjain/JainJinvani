@@ -98,9 +98,9 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
         whileHover={{ x: -3 }}
         whileTap={{ scale: 0.96 }}
         onClick={() => onNavigate('home')}
-        className="inline-flex items-center gap-2 text-xs font-gotu text-indigo-300/80 hover:text-indigo-200 transition-colors mb-3 sm:mb-4 group cursor-pointer"
+        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/70 border border-indigo-400/30 text-xs font-gotu font-medium text-indigo-200 hover:text-white hover:border-indigo-300 transition-colors mb-3.5 sm:mb-5 group cursor-pointer shadow-sm"
       >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform text-indigo-300" />
         <span>मुख्य मेनू पर वापस जाएं</span>
       </motion.button>
 
@@ -117,14 +117,14 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
         <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent pointer-events-none" />
 
         <div className="relative z-10 w-full">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md">
-            <Compass className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-indigo-300" />
-            <span className="font-gotu font-medium">जैन संस्कृति एवं ज्ञानकोश</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-indigo-500/25 border border-indigo-300/40 text-indigo-100 text-[11px] sm:text-xs mb-2 sm:mb-3 backdrop-blur-md font-semibold">
+            <Compass className="w-3.5 h-3.5 text-indigo-200" />
+            <span className="font-gotu">जैन संस्कृति एवं ज्ञानकोश</span>
           </div>
-          <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1.5 sm:mb-2 leading-tight drop-shadow-sm">
             अन्वेषण
           </h1>
-          <p className="hidden sm:block text-slate-200/85 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed">
+          <p className="hidden sm:block text-slate-100 max-w-xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed font-medium">
             तीर्थ यात्रा, जैन दर्शन, चित्र दीर्घा, बाल संस्कार एवं गुरु परंपरा का पावन ज्ञानकोश।
           </p>
         </div>
@@ -155,29 +155,29 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
               <div>
                 <div className="flex items-start justify-between mb-2.5 sm:mb-5">
                   <div
-                    className={`w-9 h-9 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} border ${category.border} flex items-center justify-center ${category.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
+                    className={`w-10 h-10 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} border ${category.border} flex items-center justify-center ${category.accent} group-hover:scale-110 transition-transform shadow-inner shrink-0`}
                   >
-                    <category.icon className="w-4 h-4 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                    <category.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                   </div>
-                  <span className="text-[9px] sm:text-xs font-gotu px-1.5 sm:px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 group-hover:border-amber-400/40 group-hover:text-amber-200 transition-colors">
+                  <span className="text-[10px] sm:text-xs font-gotu font-semibold px-2 sm:px-2.5 py-0.5 rounded-full bg-white/10 border border-white/20 text-slate-200 group-hover:border-amber-400/50 group-hover:text-amber-200 transition-colors shadow-sm">
                     अन्वेषण
                   </span>
                 </div>
 
-                <h3 className="text-sm sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 sm:mb-1 line-clamp-1 leading-snug">
+                <h3 className="text-sm sm:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-1 sm:mb-1.5 line-clamp-1 leading-snug">
                   {category.title}
                 </h3>
-                <p className="text-[10px] sm:text-sm text-amber-200/80 font-gotu mb-1 sm:mb-2 line-clamp-1">
+                <p className="text-[11px] sm:text-sm text-amber-300 font-gotu font-medium mb-1.5 sm:mb-2 line-clamp-1">
                   {category.sub}
                 </p>
-                <p className="text-[11px] sm:text-xs text-slate-300/70 font-gotu leading-relaxed line-clamp-2">
+                <p className="text-xs sm:text-xs text-slate-200 font-gotu leading-relaxed line-clamp-2">
                   {category.description}
                 </p>
               </div>
 
-              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-white/5 flex items-center justify-between text-[11px] sm:text-xs font-gotu text-amber-300/80 group-hover:text-amber-200 transition-colors">
+              <div className="mt-3.5 sm:mt-5 pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-xs sm:text-xs font-gotu font-semibold text-amber-300 group-hover:text-amber-200 transition-colors">
                 <span className="truncate">विवरण देखें</span>
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform shrink-0" />
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
               </div>
             </GlassCard>
           </motion.div>
@@ -194,20 +194,20 @@ export const ExploreMenu = ({ onBack, onNavigate }: ExploreMenuProps) => {
         <GlassCard variant="sacred" className="p-5 sm:p-7 rounded-2xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
             <div className="p-2">
-              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-amber-300 mb-0.5">२४</div>
-              <div className="text-xs text-slate-300 font-gotu">तीर्थंकर भगवान</div>
+              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-amber-300 mb-1">२४</div>
+              <div className="text-xs sm:text-sm text-slate-200 font-gotu font-medium">तीर्थंकर भगवान</div>
             </div>
             <div className="p-2">
-              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-cyan-300 mb-0.5">५०+</div>
-              <div className="text-xs text-slate-300 font-gotu">पवित्र तीर्थ स्थल</div>
+              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-cyan-300 mb-1">५०+</div>
+              <div className="text-xs sm:text-sm text-slate-200 font-gotu font-medium">पवित्र तीर्थ स्थल</div>
             </div>
             <div className="p-2">
-              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-emerald-300 mb-0.5">८</div>
-              <div className="text-xs text-slate-300 font-gotu">दार्शनिक सिद्धांत</div>
+              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-emerald-300 mb-1">८</div>
+              <div className="text-xs sm:text-sm text-slate-200 font-gotu font-medium">दार्शनिक सिद्धांत</div>
             </div>
             <div className="p-2">
-              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-purple-300 mb-0.5">१२+</div>
-              <div className="text-xs text-slate-300 font-gotu">धार्मिक अनुष्ठान</div>
+              <div className="text-2xl sm:text-3xl font-bold font-notoserif text-purple-300 mb-1">१२+</div>
+              <div className="text-xs sm:text-sm text-slate-200 font-gotu font-medium">धार्मिक अनुष्ठान</div>
             </div>
           </div>
         </GlassCard>

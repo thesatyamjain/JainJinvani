@@ -120,73 +120,66 @@ export const DailyQuoteCard = () => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15, duration: 0.5 }}
-      className="w-full max-w-xl mb-4 sm:mb-6"
+      className="w-full max-w-4xl mb-4 sm:mb-6"
     >
-      <TiltCard
-        maxTilt={8}
-        scale={1.015}
-        glareColor="gold"
-        glareMaxOpacity={0.22}
-        className="w-full"
+      <GlassCard
+        variant="subtle"
+        tilt={{ maxTilt: 6, scale: 1.01, glareColor: 'gold', glareMaxOpacity: 0.15 }}
+        className="daily-quote-card relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-500/35 dark:border-amber-400/25 shadow-md overflow-hidden bg-amber-50/40 dark:bg-[#0b1325]/85 backdrop-blur-xl"
       >
-        <div className="relative rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-amber-500/[0.12] via-slate-900/90 to-amber-950/20 border border-amber-400/35 shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_25px_rgba(245,158,11,0.12)] backdrop-blur-xl overflow-hidden">
-          {/* Subtle Ambient Glow */}
-          <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/10 blur-3xl pointer-events-none rounded-full" />
-          <div className="absolute inset-x-4 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/50 to-transparent pointer-events-none" />
-
-          {/* Top Header */}
-          <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
-            <div className="flex items-center gap-2 min-w-0">
-              <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 shrink-0">
-                <Sparkles className="w-3.5 h-3.5" />
-              </div>
-              <h3 className="text-xs sm:text-sm font-notoserif font-bold text-amber-200 tracking-wide truncate">
-                दैनिक जिनवाणी अमृत वचन
-              </h3>
+        {/* Top Header */}
+        <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-amber-900/15 dark:border-white/10">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-7 h-7 rounded-lg bg-amber-500/25 border border-amber-500/40 flex items-center justify-center text-amber-900 dark:text-amber-300 shrink-0 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5" />
             </div>
-
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.92 }}
-              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-300 hover:text-emerald-200 text-xs font-gotu font-bold transition-colors cursor-pointer shadow-sm shrink-0 select-none"
-              title="WhatsApp या मित्रों के साथ साझा करें"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3 h-3 text-emerald-400" />
-                  <span>कॉपी हुआ!</span>
-                </>
-              ) : (
-                <>
-                  <Share2 className="w-3 h-3" />
-                  <span>साझा करें</span>
-                </>
-              )}
-            </motion.button>
+            <h3 className="text-xs sm:text-sm font-notoserif font-bold text-stone-900 dark:text-amber-200 tracking-wide truncate">
+              दैनिक जिनवाणी अमृत वचन
+            </h3>
           </div>
 
-          {/* Shloka / Verse */}
-          <div className="text-center my-3 px-2">
-            <p className="text-sm sm:text-base md:text-lg font-notoserif font-bold text-amber-100 leading-relaxed drop-shadow-[0_1px_8px_rgba(245,158,11,0.25)] whitespace-pre-line">
-              « {quote.verse} »
-            </p>
-          </div>
-
-          {/* Meaning / Bhavarth */}
-          <p className="text-xs sm:text-sm font-gotu text-slate-200/90 leading-relaxed text-center px-1 mb-3">
-            {quote.meaning}
-          </p>
-
-          {/* Source & Author Attribution */}
-          <div className="flex items-center justify-center gap-2 pt-2 border-t border-white/5 text-[11px] font-gotu text-amber-300/80">
-            <BookOpen className="w-3 h-3" />
-            <span>{quote.source} • {quote.author}</span>
-          </div>
+          <motion.button
+            type="button"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+            onClick={handleShare}
+            className="quote-share-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-xs font-gotu font-bold transition-all cursor-pointer shadow-sm hover:shadow-md shrink-0 select-none border border-emerald-600/70 dark:border-emerald-400/40 active:scale-95"
+            title="WhatsApp या मित्रों के साथ साझा करें"
+            aria-label="दैनिक जिनवाणी अमृत वचन साझा करें"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-white" />
+                <span className="text-white font-bold">कॉपी हुआ!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-3.5 h-3.5 text-white" />
+                <span className="text-white font-bold">साझा करें</span>
+              </>
+            )}
+          </motion.button>
         </div>
-      </TiltCard>
+
+        {/* Shloka / Verse */}
+        <div className="text-center my-3.5 px-2">
+          <p className="quote-verse text-sm sm:text-base md:text-lg font-notoserif font-bold text-[#1C1917] dark:text-amber-50 leading-relaxed whitespace-pre-line tracking-wide drop-shadow-xs dark:drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+            « {quote.verse} »
+          </p>
+        </div>
+
+        {/* Meaning / Bhavarth */}
+        <p className="quote-meaning text-xs sm:text-sm font-gotu text-[#262320] dark:text-slate-100 leading-relaxed text-center px-1 mb-3.5 font-medium">
+          {quote.meaning}
+        </p>
+
+        {/* Source & Author Attribution */}
+        <div className="quote-attribution flex items-center justify-center gap-2 pt-2.5 border-t border-amber-900/15 dark:border-white/10 text-[11px] sm:text-xs font-gotu text-[#713F12] dark:text-amber-300 font-semibold tracking-wide">
+          <BookOpen className="w-3.5 h-3.5 text-[#713F12] dark:text-amber-300 shrink-0" />
+          <span>{quote.source} • {quote.author}</span>
+        </div>
+      </GlassCard>
     </motion.div>
   );
 };

@@ -13,10 +13,14 @@ export interface ReadingProgress {
 
 export interface UserSettings {
     fontSize: 'small' | 'medium' | 'large' | 'xl';
+    fontFamily?: 'serif' | 'sans';
     notifications: boolean;
     autoPlay: boolean;
-    backgroundTheme: 'sanctum' | 'cosmic';
+    backgroundTheme: 'sanctum' | 'cosmic' | 'manuscript';
     dockTheme?: 'frosted' | 'crystal' | 'gilded' | 'classic';
+    hapticFeedback?: boolean;
+    showTithiTimings?: boolean;
+    sunsetReminder?: boolean;
 }
 
 export interface JainDate {

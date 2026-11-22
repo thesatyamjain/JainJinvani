@@ -228,7 +228,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-white pt-1 pb-1 leading-[1.3] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
               त्रिकाल २४ तीर्थंकर परिचय
             </h1>
-            <p className="text-slate-300/80 text-xs md:text-sm font-gotu mt-0.5">
+            <p className="text-slate-200 text-xs md:text-sm font-gotu mt-0.5 font-medium">
               भूत, वर्तमान, भविष्य एवं विदेह क्षेत्र तीर्थंकर • कालचक्र ज्ञान • ९३ अर्घ्यावली
             </p>
           </div>
@@ -236,7 +236,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
 
         {/* View Mode Switcher (Cards / Table / Stats) - Only for Tirthankara eras */}
         {activeEra !== 'cycle' && activeEra !== 'arghya' && (
-          <div className="flex items-center bg-slate-900/90 border border-white/15 rounded-2xl p-1 shrink-0 shadow-inner self-start md:self-auto">
+          <div className="flex items-center bg-slate-900/90 border border-white/20 rounded-2xl p-1 shrink-0 shadow-inner self-start md:self-auto">
             <motion.button
               whileTap={{ scale: 0.92 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
@@ -247,7 +247,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs font-gotu font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'cards'
                   ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200 hover:text-white hover:bg-white/5'
               }`}
               title="कार्ड दर्शन"
             >
@@ -264,7 +264,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs font-gotu font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'table'
                   ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200 hover:text-white hover:bg-white/5'
               }`}
               title="सम्पूर्ण सारणी / चार्ट"
             >
@@ -281,7 +281,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
               className={`px-3.5 py-2 rounded-xl text-xs font-gotu font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'stats'
                   ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-400 hover:text-white'
+                  : 'text-slate-200 hover:text-white hover:bg-white/5'
               }`}
               title="सांख्यिकी व तथ्य"
             >
@@ -315,7 +315,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
               className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-all border cursor-pointer shrink-0 flex items-center gap-2 ${
                 isActive
                   ? 'bg-amber-500 text-slate-950 font-bold border-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.25)]'
-                  : 'bg-slate-900/80 text-slate-300 border-white/10 hover:border-white/20 hover:text-white'
+                  : 'bg-slate-900/80 text-slate-200 border-white/15 hover:border-white/30 hover:text-white font-medium'
               }`}
             >
               <tab.icon className={`w-3.5 h-3.5 ${isActive ? 'text-slate-950' : 'text-amber-400'}`} />
@@ -329,7 +329,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
       {activeEra !== 'cycle' && activeEra !== 'arghya' && viewMode !== 'stats' && (
         <div className="mb-6 space-y-3">
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-amber-400" />
             <input
               type="text"
               value={searchQuery}
@@ -343,14 +343,14 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                   ? 'विद्यमान तीर्थंकर अथवा देश (सीमंधर, सुसीमा, जम्बूद्वीप आदि) खोजें...'
                   : 'भूतकाल तीर्थंकर नाम, माता-पिता या लांछन खोजें...'
               }
-              className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
+              className="w-full bg-slate-900/90 border border-white/20 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:bg-slate-900 focus:border-amber-400 transition-all font-gotu shadow-inner"
             />
             {searchQuery && (
               <motion.button
                 whileTap={{ scale: 0.88 }}
                 whileHover={{ scale: 1.1 }}
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white cursor-pointer"
                 aria-label="खोज साफ़ करें"
               >
                 <X className="w-3.5 h-3.5" />
@@ -359,7 +359,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
           </div>
 
             {/* Quick Filter Info Pills */}
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-gotu text-slate-400 px-1">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-gotu text-slate-300 px-1 font-medium">
               <div className="flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                 <span>
@@ -373,7 +373,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                     `महाविदेह क्षेत्र में साक्षात् विराजमान २० तीर्थंकर (प्रदर्शित: ${filteredVideha.length})`}
                 </span>
               </div>
-              <div className="text-[11px] text-amber-300/80">
+              <div className="text-[11px] text-amber-300 font-semibold">
                 पूर्ण शास्त्रीय डेटा • किसी भी तीर्थंकर पर क्लिक करके सम्पूर्ण चरित्र व अर्घ्य पढ़ें
               </div>
             </div>
@@ -726,20 +726,20 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           triggerHaptic('light');
                           setSelectedItem({ type: 'present', data: t });
                         }}
-                        className="p-4 sm:p-5 flex flex-col justify-between cursor-pointer group hover:border-amber-400/60 transition-all duration-200 rounded-2xl border-white/10"
+                        className="p-4 sm:p-5 flex flex-col justify-between cursor-pointer group hover:border-amber-400/70 transition-all duration-200 rounded-2xl border-white/15 shadow-md"
                       >
                         <div>
                           {/* Top Bar: Number & Symbol */}
                           <div className="flex items-center justify-between gap-2 mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
+                              <span className="w-7 h-7 rounded-lg bg-amber-500/25 border border-amber-400/50 text-amber-200 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
                                 {t.number}
                               </span>
-                              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
-                                लांछन: <strong className="text-amber-300">{t.symbol}</strong>
+                              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-slate-200 font-medium">
+                                लांछन: <strong className="text-amber-300 font-bold">{t.symbol}</strong>
                               </span>
                             </div>
-                            <span className="text-xs font-gotu px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-400/20">
+                            <span className="text-xs font-gotu px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-200 border border-amber-400/35 font-semibold">
                               {t.color}
                             </span>
                           </div>
@@ -748,58 +748,58 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors">
                             {t.nameHindi}
                           </h3>
-                          <p className="text-xs text-amber-400/80 font-gotu mt-0.5">
+                          <p className="text-xs text-amber-300 font-gotu mt-0.5 font-medium">
                             {t.subtitleHindi}
                           </p>
 
                           {/* Parents Info */}
-                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/5 text-[11px] font-gotu text-slate-300">
+                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-gotu text-slate-200">
                             <div className="flex items-center justify-between">
                               <span>
-                                <strong className="text-slate-400">पिता:</strong> {t.father}
+                                <strong className="text-slate-300 font-semibold">पिता:</strong> {t.father}
                               </span>
                               <span>
-                                <strong className="text-slate-400">माता:</strong> {t.mother}
+                                <strong className="text-slate-300 font-semibold">माता:</strong> {t.mother}
                               </span>
                             </div>
                           </div>
 
                           {/* Key Facts */}
-                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-300/85">
-                            <div className="p-2 rounded-xl bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">जन्म नगरी</span>
-                              <span className="font-medium text-slate-200 truncate block">
+                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-200">
+                            <div className="p-2 rounded-xl bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">जन्म नगरी</span>
+                              <span className="font-medium text-slate-100 truncate block">
                                 {t.birthPlace}
                               </span>
                             </div>
-                            <div className="p-2 rounded-xl bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">निर्वाण भूमि</span>
-                              <span className="font-medium text-amber-300 truncate block">
+                            <div className="p-2 rounded-xl bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">निर्वाण भूमि</span>
+                              <span className="font-bold text-amber-300 truncate block">
                                 {t.nirvanaPlace}
                               </span>
                             </div>
                           </div>
 
                           {/* Tree & Yaksh */}
-                          <div className="mt-2 p-2 rounded-xl bg-amber-500/5 border border-amber-500/15 text-[11px] font-gotu text-slate-300 space-y-1">
+                          <div className="mt-2 p-2 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[11px] font-gotu text-slate-200 space-y-1">
                             <div className="flex items-center justify-between">
-                              <span className="text-slate-400 text-[10px]">केवलज्ञान वृक्ष:</span>
+                              <span className="text-slate-300 text-[10px] font-semibold">केवलज्ञान वृक्ष:</span>
                               <span className="text-amber-200 font-medium">{t.kevalgyanTree}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-slate-400 text-[10px]">यक्ष व यक्षी:</span>
-                              <span className="text-slate-200 truncate max-w-[180px]">{t.yakshaYakshini}</span>
+                              <span className="text-slate-300 text-[10px] font-semibold">यक्ष व यक्षी:</span>
+                              <span className="text-slate-100 truncate max-w-[180px]">{t.yakshaYakshini}</span>
                             </div>
                           </div>
 
                           {/* Bio Text (NO CLAMPING) */}
-                          <p className="text-xs text-slate-300/85 font-gotu mt-2.5 leading-relaxed">
+                          <p className="text-xs text-slate-200 font-gotu mt-2.5 leading-relaxed">
                             {t.bioHindi}
                           </p>
                         </div>
 
                         {/* Footer Action */}
-                        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-gotu text-amber-300 group-hover:text-amber-200">
+                        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-gotu text-amber-300 group-hover:text-amber-200 font-bold">
                           <span>सम्पूर्ण विवरण व अर्घ्य</span>
                           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </div>
@@ -843,21 +843,21 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           triggerHaptic('light');
                           setSelectedItem({ type: 'past', data: t });
                         }}
-                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-blue-400/50 transition-all rounded-2xl border-white/10 cursor-pointer"
+                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-blue-400/60 transition-all rounded-2xl border-white/15 shadow-md cursor-pointer"
                       >
                         <div>
                           {/* Top Bar: Number & Symbol */}
                           <div className="flex items-center justify-between gap-2 mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-500/40 text-blue-300 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
+                              <span className="w-7 h-7 rounded-lg bg-blue-500/25 border border-blue-400/50 text-blue-200 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
                                 {t.number}
                               </span>
-                              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300">
+                              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-200 font-semibold">
                                 अतीत तीर्थंकर
                               </span>
                             </div>
-                            <span className="text-xs font-gotu text-slate-300">
-                              लांछन: <strong className="text-blue-300">{t.symbol}</strong>
+                            <span className="text-xs font-gotu text-slate-200 font-medium">
+                              लांछन: <strong className="text-blue-300 font-bold">{t.symbol}</strong>
                             </span>
                           </div>
 
@@ -865,50 +865,50 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-blue-200 transition-colors">
                             {t.nameHindi}
                           </h3>
-                          <p className="text-[11px] text-slate-400 font-gotu italic mt-0.5">
+                          <p className="text-[11px] text-blue-200/80 font-gotu italic mt-0.5">
                             {t.nameEn}
                           </p>
 
                           {/* Parents */}
-                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/5 text-[11px] font-gotu text-slate-300">
+                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-gotu text-slate-200">
                             <div className="flex items-center justify-between">
                               <span>
-                                <strong className="text-slate-400">पिता:</strong> {t.father}
+                                <strong className="text-slate-300 font-semibold">पिता:</strong> {t.father}
                               </span>
                               <span>
-                                <strong className="text-slate-400">माता:</strong> {t.mother}
+                                <strong className="text-slate-300 font-semibold">माता:</strong> {t.mother}
                               </span>
                             </div>
                           </div>
 
                           {/* Places & Age */}
-                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-300">
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">जन्म नगरी</span>
-                              <span className="truncate block font-medium">{t.birthPlace}</span>
+                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-200">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">जन्म नगरी</span>
+                              <span className="truncate block font-medium text-slate-100">{t.birthPlace}</span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">निर्वाण भूमि</span>
-                              <span className="truncate block font-medium text-blue-300">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">निर्वाण भूमि</span>
+                              <span className="truncate block font-bold text-blue-300">
                                 {t.nirvanaPlace}
                               </span>
                             </div>
                           </div>
 
                           {/* Age and Symbol Meaning */}
-                          <div className="mt-2 p-2 rounded-xl bg-white/5 border border-white/5 text-[11px] font-gotu text-slate-300 space-y-1">
+                          <div className="mt-2 p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-gotu text-slate-200 space-y-1">
                             <div className="flex items-center justify-between">
-                              <span className="text-slate-400 text-[10px]">आयु मर्यादा:</span>
+                              <span className="text-slate-300 text-[10px] font-semibold">आयु मर्यादा:</span>
                               <span className="text-blue-200 font-medium">{t.age}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-slate-400 text-[10px]">प्रतीक भाव:</span>
-                              <span className="text-slate-200">{t.symbolMeaning}</span>
+                              <span className="text-slate-300 text-[10px] font-semibold">प्रतीक भाव:</span>
+                              <span className="text-slate-100">{t.symbolMeaning}</span>
                             </div>
                           </div>
 
                           {/* Description (NO CLAMPING) */}
-                          <p className="text-xs text-slate-300/85 font-gotu mt-2.5 leading-relaxed">
+                          <p className="text-xs text-slate-200 font-gotu mt-2.5 leading-relaxed">
                             {t.detailedBio}
                           </p>
                         </div>
@@ -916,7 +916,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                         {/* Salutation & View Details */}
                         <div className="mt-4 pt-3 border-t border-white/10 space-y-2">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-[11px] font-gotu text-blue-300 truncate">
+                            <span className="text-[11px] font-gotu text-blue-200 truncate font-medium">
                               {t.salutation}
                             </span>
                             <button
@@ -924,7 +924,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                                 e.stopPropagation();
                                 copyToClipboard(t.salutation, t.id);
                               }}
-                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white transition-colors shrink-0"
                               title="मंत्र कॉपी करें"
                               aria-label="मंत्र कॉपी करें"
                             >
@@ -936,7 +936,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                             </button>
                           </div>
 
-                          <div className="flex items-center justify-between text-xs font-gotu text-blue-300/90 group-hover:text-blue-200">
+                          <div className="flex items-center justify-between text-xs font-gotu text-blue-300 group-hover:text-blue-200 font-bold">
                             <span>विस्तृत विवरण व अर्घ्य</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                           </div>
@@ -982,22 +982,22 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           triggerHaptic('light');
                           setSelectedItem({ type: 'future', data: t });
                         }}
-                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-emerald-400/50 transition-all rounded-2xl border-white/10 cursor-pointer"
+                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-emerald-400/60 transition-all rounded-2xl border-white/15 shadow-md cursor-pointer"
                       >
                         <div>
                           {/* Top Bar: Number & Tag */}
                           <div className="flex items-center justify-between gap-2 mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
+                              <span className="w-7 h-7 rounded-lg bg-emerald-500/25 border border-emerald-400/50 text-emerald-200 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
                                 {t.number}
                               </span>
-                              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+                              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 font-semibold">
                                 भावी तीर्थंकर
                               </span>
                             </div>
                             {t.symbol && (
-                              <span className="text-xs font-gotu text-slate-300">
-                                लांछन: <strong className="text-emerald-300">{t.symbol}</strong>
+                              <span className="text-xs font-gotu text-slate-200 font-medium">
+                                लांछन: <strong className="text-emerald-300 font-bold">{t.symbol}</strong>
                               </span>
                             )}
                           </div>
@@ -1006,38 +1006,38 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-emerald-200 transition-colors">
                             {t.nameHindi}
                           </h3>
-                          <p className="text-[11px] text-slate-400 font-gotu italic mt-0.5">
+                          <p className="text-[11px] text-emerald-200/80 font-gotu italic mt-0.5">
                             {t.nameEn}
                           </p>
 
                           {/* Previous Soul / Incarnation Card */}
-                          <div className="mt-3 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25">
-                            <div className="flex items-center gap-1.5 text-xs font-gotu font-bold text-emerald-300 mb-1">
-                              <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                          <div className="mt-3 p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-400/30">
+                            <div className="flex items-center gap-1.5 text-xs font-gotu font-bold text-emerald-200 mb-1">
+                              <Shield className="w-3.5 h-3.5 text-emerald-300" />
                               <span>पूर्व भव: {t.previousSoul}</span>
                             </div>
-                            <p className="text-[11px] text-slate-300/90 font-gotu leading-relaxed">
+                            <p className="text-[11px] text-slate-200 font-gotu leading-relaxed">
                               {t.previousSoulDetails}
                             </p>
                           </div>
 
                           {/* Future Parents & Places */}
-                          <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-300">
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">भावी माता-पिता</span>
-                              <span className="truncate block font-medium">
+                          <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-200">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">भावी माता-पिता</span>
+                              <span className="truncate block font-medium text-slate-100">
                                 {t.futureFather} • {t.futureMother}
                               </span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">जन्म व मोक्ष</span>
-                              <span className="truncate block font-medium text-emerald-300">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">जन्म व मोक्ष</span>
+                              <span className="truncate block font-bold text-emerald-300">
                                 {t.futureBirthPlace} • {t.futureNirvanaPlace}
                               </span>
                             </div>
                           </div>
 
-                          <p className="text-xs text-slate-300/80 font-gotu mt-2.5 leading-relaxed">
+                          <p className="text-xs text-slate-200 font-gotu mt-2.5 leading-relaxed">
                             {t.detailedBio}
                           </p>
                         </div>
@@ -1045,7 +1045,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                         {/* Salutation & View Details */}
                         <div className="mt-4 pt-3 border-t border-white/10 space-y-2">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-[11px] font-gotu text-emerald-300 truncate">
+                            <span className="text-[11px] font-gotu text-emerald-200 truncate font-medium">
                               {t.salutation}
                             </span>
                             <button
@@ -1053,7 +1053,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                                 e.stopPropagation();
                                 copyToClipboard(t.salutation, t.id);
                               }}
-                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white transition-colors shrink-0"
                               title="मंत्र कॉपी करें"
                               aria-label="मंत्र कॉपी करें"
                             >
@@ -1065,7 +1065,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                             </button>
                           </div>
 
-                          <div className="flex items-center justify-between text-xs font-gotu text-emerald-300/90 group-hover:text-emerald-200">
+                          <div className="flex items-center justify-between text-xs font-gotu text-emerald-300 group-hover:text-emerald-200 font-bold">
                             <span>विस्तृत विवरण व अर्घ्य</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                           </div>
@@ -1111,20 +1111,20 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           triggerHaptic('light');
                           setSelectedItem({ type: 'videha', data: t });
                         }}
-                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-purple-400/50 transition-all rounded-2xl border-white/10 cursor-pointer"
+                        className="p-4 sm:p-5 flex flex-col justify-between group hover:border-purple-400/60 transition-all rounded-2xl border-white/15 shadow-md cursor-pointer"
                       >
                         <div>
                           {/* Top Bar: Number & Continent */}
                           <div className="flex items-center justify-between gap-2 mb-2.5">
                             <div className="flex items-center gap-2">
-                              <span className="w-7 h-7 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
+                              <span className="w-7 h-7 rounded-lg bg-purple-500/25 border border-purple-400/50 text-purple-200 font-notoserif font-bold text-xs flex items-center justify-center shadow-inner">
                                 {t.number}
                               </span>
-                              <span className="text-[11px] font-gotu px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">
+                              <span className="text-[11px] font-gotu px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-400/30 text-purple-200 font-semibold">
                                 {t.direction}
                               </span>
                             </div>
-                            <span className="text-xs font-gotu text-purple-300 truncate max-w-[150px]">
+                            <span className="text-xs font-gotu text-purple-200 truncate max-w-[150px] font-medium">
                               {t.continent}
                             </span>
                           </div>
@@ -1133,38 +1133,38 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                           <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-purple-200 transition-colors">
                             {t.nameHindi}
                           </h3>
-                          <p className="text-[11px] text-slate-400 font-gotu italic mt-0.5">
+                          <p className="text-[11px] text-purple-200/80 font-gotu italic mt-0.5">
                             {t.nameEn}
                           </p>
 
                           {/* Location Details */}
-                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/5 text-[11px] font-gotu text-slate-300">
-                            <div className="flex items-center gap-1 text-slate-400 text-[10px] mb-0.5">
+                          <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] font-gotu text-slate-200">
+                            <div className="flex items-center gap-1 text-slate-300 text-[10px] mb-0.5 font-semibold">
                               <MapPin className="w-3 h-3 text-purple-400" />
                               <span>विराजमान देश व नगरी</span>
                             </div>
-                            <span className="text-purple-200 font-medium">
+                            <span className="text-purple-200 font-semibold">
                               {t.country} • नगरी: {t.city}
                             </span>
                           </div>
 
                           {/* Parents & Physical Stats */}
-                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-300">
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">माता-पिता</span>
-                              <span className="truncate block font-medium">
+                          <div className="mt-2 grid grid-cols-2 gap-1.5 text-[11px] font-gotu text-slate-200">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">माता-पिता</span>
+                              <span className="truncate block font-medium text-slate-100">
                                 {t.father} • {t.mother}
                               </span>
                             </div>
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
-                              <span className="text-slate-400 text-[10px] block">अवगाहना व आयु</span>
-                              <span className="truncate block font-medium text-purple-300">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                              <span className="text-slate-300 text-[10px] block font-semibold">अवगाहना व आयु</span>
+                              <span className="truncate block font-bold text-purple-300">
                                 {t.height} • {t.age}
                               </span>
                             </div>
                           </div>
 
-                          <p className="text-xs text-slate-300/85 font-gotu mt-2.5 leading-relaxed">
+                          <p className="text-xs text-slate-200 font-gotu mt-2.5 leading-relaxed">
                             {t.detailedBio}
                           </p>
                         </div>
@@ -1172,7 +1172,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                         {/* Salutation & View Details */}
                         <div className="mt-4 pt-3 border-t border-white/10 space-y-2">
                           <div className="flex items-center justify-between gap-2">
-                            <span className="text-[11px] font-gotu text-purple-300 truncate">
+                            <span className="text-[11px] font-gotu text-purple-200 truncate font-medium">
                               {t.salutation}
                             </span>
                             <button
@@ -1180,7 +1180,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                                 e.stopPropagation();
                                 copyToClipboard(t.salutation, t.id);
                               }}
-                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors shrink-0"
+                              className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white transition-colors shrink-0"
                               title="मंत्र कॉपी करें"
                               aria-label="मंत्र कॉपी करें"
                             >
@@ -1192,7 +1192,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
                             </button>
                           </div>
 
-                          <div className="flex items-center justify-between text-xs font-gotu text-purple-300/90 group-hover:text-purple-200">
+                          <div className="flex items-center justify-between text-xs font-gotu text-purple-300 group-hover:text-purple-200 font-bold">
                             <span>विस्तृत विवरण व अर्घ्य</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                           </div>

@@ -220,6 +220,7 @@ export const TiltCard = ({
   return (
     <div
       ref={cardRef}
+      data-tilt-card=""
       style={{ perspective: `${perspective}px` }}
       className={cn('relative transform-gpu', className)}
       onPointerEnter={handlePointerEnter}

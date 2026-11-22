@@ -9,6 +9,9 @@ import {
   Flower2,
   Flame,
   BookOpen,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface DailyPujaFlowProps {
@@ -18,11 +21,20 @@ interface DailyPujaFlowProps {
 
 type RitualStage = 'all' | 'abhishek' | 'puja';
 
+interface StepDef {
+  id: string;
+  shortName: string;
+  title: string;
+  stage: RitualStage;
+  ref: React.RefObject<HTMLDivElement | null>;
+}
+
 export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
   const [activeStage, setActiveStage] = useState<RitualStage>('all');
   const [fontSize, setFontSize] = useState<number>(18);
   const [isAutoScrolling, setIsAutoScrolling] = useState<boolean>(false);
   const [scrollSpeed] = useState<number>(1.2);
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const scrollRafRef = useRef<number | null>(null);
 
@@ -37,6 +49,33 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
   const devPujaRef = useRef<HTMLDivElement>(null);
   const arghyavaliRef = useRef<HTMLDivElement>(null);
   const aartiRef = useRef<HTMLDivElement>(null);
+
+  const steps: StepDef[] = [
+    { id: 'abhishek', shortName: 'अभिषेक', title: '१. श्री जिनेन्द्र अभिषेक विधि एवं कलश मंत्र', stage: 'abhishek', ref: abhishekRef },
+    { id: 'shantidhara', shortName: 'शांतिधारा', title: '२. वृहद् शांतिधारा पाठ (सकल वांग्मय)', stage: 'abhishek', ref: shantidharaRef },
+    { id: 'gandhodak', shortName: 'गंधोदक', title: '३. गंधोदक ग्रहण विधि एवं महिमा', stage: 'abhishek', ref: gandhodakRef },
+    { id: 'pithika', shortName: 'पूजा पीठिका', title: '४. पूजा पीठिका एवं सामान्य अर्घ्यावली', stage: 'puja', ref: pithikaRef },
+    { id: 'pratigya', shortName: 'प्रतिज्ञा पाठ', title: '५. अर्हत्-पूजा-प्रतिज्ञा एवं अभिषेक', stage: 'puja', ref: pratigyaRef },
+    { id: 'swasti', shortName: 'स्वस्ति पाठ', title: '६. स्वस्ति मंगलपाठ (२४ तीर्थंकर)', stage: 'puja', ref: swastiRef },
+    { id: 'parmarshi', shortName: 'परमर्षि पाठ', title: '७. परमर्षि स्वस्ति मंगल पाठ', stage: 'puja', ref: parmarshiRef },
+    { id: 'devPuja', shortName: 'पूजन', title: '८. श्री देव-शास्त्र-गुरु पूजन', stage: 'puja', ref: devPujaRef },
+    { id: 'arghyavali', shortName: 'अर्घ्य', title: '९. नित्य नियम अर्घ्यावली', stage: 'puja', ref: arghyavaliRef },
+    { id: 'aarti', shortName: 'आरती', title: '१०. मंगल आरती, जिनवाणी स्तुति व विसर्जन', stage: 'puja', ref: aartiRef },
+  ];
+
+  const goToStep = (index: number) => {
+    const nextIdx = Math.max(0, Math.min(steps.length - 1, index));
+    setCurrentStepIndex(nextIdx);
+    const targetStep = steps[nextIdx];
+    if (activeStage === 'abhishek' && targetStep.stage !== 'abhishek') {
+      setActiveStage('all');
+    } else if (activeStage === 'puja' && targetStep.stage !== 'puja') {
+      setActiveStage('all');
+    }
+    if (targetStep.ref.current) {
+      targetStep.ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   // Smooth Auto-scroll Engine
   useEffect(() => {
@@ -86,13 +125,13 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto pt-14 md:pt-16 page-bottom-clearance px-3.5 sm:px-6">
       {/* Top Floating Control Bar (Font size, Auto-scroll, Quick jump) */}
-      <div className="sticky top-14 z-30 mb-6 py-2 px-3 sm:px-4 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-amber-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.8)] flex items-center justify-between gap-2">
+      <div className="puja-top-control-bar sticky top-14 z-30 mb-6 py-2 px-3 sm:px-4 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-amber-500/30 shadow-[0_8px_30px_rgba(0,0,0,0.8)] flex items-center justify-between gap-2">
         <motion.button
           whileTap={{ scale: 0.90 }}
           whileHover={{ scale: 1.05 }}
           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           onClick={onBack}
-          className="flex items-center gap-1.5 text-xs sm:text-sm font-gotu text-amber-300 hover:text-amber-200 transition-colors shrink-0 cursor-pointer"
+          className="puja-back-btn flex items-center gap-1.5 text-xs sm:text-sm font-gotu text-amber-300 hover:text-amber-200 transition-colors shrink-0 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="hidden sm:inline">वापस</span>
@@ -100,96 +139,25 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
 
         {/* Quick Stepper Jump Pills */}
         <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 scrollbar-none text-[11px] sm:text-xs font-gotu">
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(abhishekRef)}
-            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            अभिषेक
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(shantidharaRef)}
-            className="px-2.5 py-1 rounded-lg bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/30 text-blue-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            शांतिधारा
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(gandhodakRef)}
-            className="px-2.5 py-1 rounded-lg bg-teal-500/15 hover:bg-teal-500/25 border border-teal-500/30 text-teal-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            गंधोदक
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(pithikaRef)}
-            className="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            पूजा पीठिका
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(pratigyaRef)}
-            className="px-2.5 py-1 rounded-lg bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            प्रतिज्ञा पाठ
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(swastiRef)}
-            className="px-2.5 py-1 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            स्वस्ति पाठ
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(parmarshiRef)}
-            className="px-2.5 py-1 rounded-lg bg-violet-500/15 hover:bg-violet-500/25 border border-violet-500/30 text-violet-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            परमर्षि पाठ
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(devPujaRef)}
-            className="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            पूजन
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(arghyavaliRef)}
-            className="px-2.5 py-1 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            अर्घ्य
-          </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.92 }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => scrollToSection(aartiRef)}
-            className="px-2.5 py-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-200 whitespace-nowrap cursor-pointer transition-colors"
-          >
-            आरती
-          </motion.button>
+          {steps.map((step, idx) => {
+            const isCurrent = currentStepIndex === idx;
+            return (
+              <motion.button
+                key={step.id}
+                whileTap={{ scale: 0.92 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                onClick={() => goToStep(idx)}
+                className={`puja-step-pill px-2.5 py-1 rounded-lg whitespace-nowrap cursor-pointer transition-all font-semibold ${
+                  isCurrent
+                    ? 'active bg-amber-400 text-slate-950 font-bold border border-amber-300 shadow-md scale-105'
+                    : 'bg-slate-900/80 hover:bg-slate-800 border border-white/15 text-slate-200 hover:text-white'
+                }`}
+              >
+                {step.shortName}
+              </motion.button>
+            );
+          })}
         </div>
 
         {/* Reader Tools (Font & Scroll) */}
@@ -199,7 +167,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             whileHover={{ scale: 1.08 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setFontSize((f) => Math.max(14, f - 2))}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 text-xs font-bold cursor-pointer transition-colors"
+            className="puja-reader-tool-btn w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-slate-200 text-xs font-bold cursor-pointer transition-colors shadow-sm"
             title="फ़ॉन्ट छोटा करें"
           >
             A-
@@ -209,7 +177,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             whileHover={{ scale: 1.08 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setFontSize((f) => Math.min(28, f + 2))}
-            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 text-xs font-bold cursor-pointer transition-colors"
+            className="puja-reader-tool-btn w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-slate-200 text-xs font-bold cursor-pointer transition-colors shadow-sm"
             title="फ़ॉन्ट बड़ा करें"
           >
             A+
@@ -219,10 +187,10 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setIsAutoScrolling(!isAutoScrolling)}
-            className={`px-2.5 py-1.5 rounded-lg border text-xs font-gotu font-bold flex items-center gap-1.5 cursor-pointer transition-colors ${
+            className={`puja-reader-tool-btn px-2.5 py-1.5 rounded-lg border text-xs font-gotu font-bold flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm ${
               isAutoScrolling
-                ? 'bg-amber-400 text-slate-950 border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]'
-                : 'bg-white/5 hover:bg-white/10 border-white/10 text-amber-300'
+                ? 'active bg-amber-400 text-slate-950 border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]'
+                : 'bg-white/10 hover:bg-white/20 border-white/20 text-amber-200'
             }`}
             title="ऑटो-स्क्रॉल (हाथ व्यस्त होने पर स्वतः स्क्रॉल)"
           >
@@ -236,32 +204,32 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 p-6 sm:p-8 rounded-3xl border border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-slate-900/80 to-[#030712] relative overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.7)]"
+        className="mb-8 p-5 sm:p-7 md:p-8 rounded-3xl border border-amber-500/35 bg-gradient-to-br from-amber-950/45 via-slate-900/90 to-[#030712] relative overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.7)]"
       >
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[60px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/15 blur-[60px] rounded-full pointer-events-none" />
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-xs mb-2.5 font-gotu">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-100 text-xs mb-2.5 font-gotu font-semibold">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
             <span>दैनिक नित्य मंदिर एवं स्वाध्याय आराधना</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-notoserif font-bold text-white mb-2 leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-notoserif font-bold text-white mb-2 leading-tight drop-shadow-md">
             नित्य अभिषेक एवं देव-शास्त्र-गुरु पूजन
           </h1>
-          <p className="text-xs sm:text-sm text-slate-300/90 font-gotu leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed max-w-2xl font-normal">
             प्रतिदिन मंदिर जी एवं गृह चैत्यालय में की जाने वाली संपूर्ण साधना: मंगलाचरण, अभिषेक पाठ, वृहद् शांतिधारा, गंधोदक, देव-शास्त्र-गुरु पूजा, अर्घ्यावली एवं मंगल आरती — बिना बार-बार पेज बदले एक ही अखंड प्रवाह में।
           </p>
 
           {/* Mode Switcher */}
-          <div className="grid grid-cols-3 gap-2 mt-5 p-1 rounded-2xl bg-black/40 border border-white/10 max-w-lg">
+          <div className="puja-mode-switcher grid grid-cols-3 gap-2 mt-4 p-1 rounded-2xl bg-black/60 border border-white/15 max-w-lg">
             <motion.button
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => setActiveStage('all')}
               className={`py-2 px-2 rounded-xl text-xs font-gotu font-bold cursor-pointer text-center transition-colors ${
                 activeStage === 'all'
-                  ? 'bg-amber-400 text-slate-950 shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'active bg-amber-400 text-slate-950 shadow-md'
+                  : 'text-slate-200 hover:text-white hover:bg-white/10'
               }`}
             >
               संपूर्ण नित्य क्रम
@@ -272,8 +240,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
               onClick={() => setActiveStage('abhishek')}
               className={`py-2 px-2 rounded-xl text-xs font-gotu font-bold cursor-pointer text-center transition-colors ${
                 activeStage === 'abhishek'
-                  ? 'bg-amber-400 text-slate-950 shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'active bg-amber-400 text-slate-950 shadow-md'
+                  : 'text-slate-200 hover:text-white hover:bg-white/10'
               }`}
             >
               अभिषेक व शांतिधारा
@@ -284,12 +252,69 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
               onClick={() => setActiveStage('puja')}
               className={`py-2 px-2 rounded-xl text-xs font-gotu font-bold cursor-pointer text-center transition-colors ${
                 activeStage === 'puja'
-                  ? 'bg-amber-400 text-slate-950 shadow-md'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'active bg-amber-400 text-slate-950 shadow-md'
+                  : 'text-slate-200 hover:text-white hover:bg-white/10'
               }`}
             >
               देव-शास्त्र-गुरु पूजन
             </motion.button>
+          </div>
+
+          {/* Step Progress & Current Puja Step Card */}
+          <div className="puja-current-step-card mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/85 border border-amber-400/40 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="puja-step-badge px-2.5 py-0.5 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-200 text-[11px] font-gotu font-bold">
+                    चरण {currentStepIndex + 1} / {steps.length}
+                  </span>
+                  <span className="puja-step-percentage text-xs text-slate-200 font-gotu font-medium">
+                    {Math.round(((currentStepIndex + 1) / steps.length) * 100)}% अनुष्ठान पूर्ण
+                  </span>
+                </div>
+                <h3 className="puja-step-title text-base sm:text-lg font-notoserif font-bold text-white mt-1 leading-snug">
+                  {steps[currentStepIndex].title}
+                </h3>
+              </div>
+
+              {/* Prev / Next controls */}
+              <div className="flex items-center gap-2 self-stretch sm:self-auto shrink-0">
+                <button
+                  disabled={currentStepIndex === 0}
+                  onClick={() => goToStep(currentStepIndex - 1)}
+                  className={`puja-step-nav-btn puja-prev-step-btn flex-1 sm:flex-none px-3.5 py-2 rounded-xl text-xs font-gotu font-bold flex items-center justify-center gap-1.5 transition-all ${
+                    currentStepIndex === 0
+                      ? 'is-disabled bg-white/5 text-slate-500 border border-white/10 cursor-not-allowed opacity-50'
+                      : 'bg-white/10 hover:bg-white/20 border border-white/20 text-slate-200 hover:text-white cursor-pointer shadow-sm'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>पिछला</span>
+                </button>
+
+                <button
+                  disabled={currentStepIndex === steps.length - 1}
+                  onClick={() => goToStep(currentStepIndex + 1)}
+                  className={`puja-step-nav-btn puja-next-step-btn flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-gotu font-bold flex items-center justify-center gap-1.5 transition-all ${
+                    currentStepIndex === steps.length - 1
+                      ? 'is-completed bg-emerald-500/20 text-emerald-300 border border-emerald-400/30'
+                      : 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 hover:brightness-110 cursor-pointer shadow-md'
+                  }`}
+                >
+                  <span>{currentStepIndex === steps.length - 1 ? 'पूजा पूर्ण' : 'अगला चरण'}</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Stepper progress track */}
+            <div className="puja-progress-track w-full h-2 sm:h-2.5 rounded-full bg-slate-900 border border-white/10 overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-amber-400 via-yellow-400 to-emerald-400 rounded-full"
+                animate={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              />
+            </div>
           </div>
         </div>
       </motion.div>
@@ -316,26 +341,32 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
           <GlassCard
             tilt={{ maxTilt: 5, glareMaxOpacity: 0.12, glareColor: 'gold' }}
             variant="gilded"
-            className="p-5 sm:p-7 rounded-3xl space-y-6"
+            className="p-5 sm:p-7 rounded-3xl space-y-6 border-amber-500/35 bg-gradient-to-b from-slate-900/90 to-black/90 shadow-xl"
           >
             {/* पवित्रता व संकल्प */}
-            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 font-gotu">
-              <div className="text-xs font-bold text-amber-300 mb-1">॥ पवित्रता मंत्र ॥</div>
-              <p style={{ fontSize: `${fontSize}px` }} className="text-amber-100 font-notoserif leading-relaxed">
+            <div className="puja-verse-box p-4 sm:p-5 rounded-2xl bg-amber-500/15 border border-amber-400/35 font-gotu shadow-sm">
+              <div className="text-xs font-bold text-amber-300 mb-1.5 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>॥ पवित्रता मंत्र ॥</span>
+              </div>
+              <p style={{ fontSize: `${fontSize}px` }} className="text-white font-notoserif font-medium leading-relaxed">
                 अपवित्रः पवित्रो वा सर्वावस्थां गतोऽपि वा।<br />
                 यः स्मरेत्परमात्मानं स बाह्याभ्यंतरः शुचिः॥
               </p>
-              <p className="text-xs text-slate-400 mt-2">
-                (अर्थ: आत्मा को पवित्र करने वाले परमात्मा का स्मरण करते ही समस्त बाह्य व आभ्यंतर अपवित्रता नष्ट होकर शुद्धि होती है।)
-              </p>
+              <div className="puja-bhavarth-box mt-3 p-3.5 rounded-xl bg-amber-500/10 border border-amber-400/30">
+                <p className="puja-bhavarth-text text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed">
+                  <strong className="puja-bhavarth-label text-amber-300 font-bold mr-1.5">भावार्थ:</strong>
+                  आत्मा को पवित्र करने वाले वीतराग परमात्मा का स्मरण करते ही समस्त बाह्य व आभ्यंतर अपवित्रता नष्ट होकर अंतःकरण शुद्ध हो जाता है।
+                </p>
+              </div>
             </div>
 
             {/* मंगलाचरण */}
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 font-gotu mb-2">
-                ॥ अभिषेक मंगलाचरणम् ॥
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-300 font-gotu mb-2 flex items-center gap-1.5">
+                <span>॥ अभिषेक मंगलाचरणम् ॥</span>
               </div>
-              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white leading-relaxed space-y-3">
+              <div style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white font-medium leading-relaxed space-y-3">
                 <p>
                   श्रीमत्-परम-गम्भीर-स्याद्वादामोघ-शासनम्।<br />
                   जीयात् त्रैलोक्य-नाथस्य शासनं जिन-शासनम्॥१॥
@@ -349,76 +380,76 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
 
             {/* चार कलश अभिषेक पाठ (माघनन्दिकृत) */}
             <div className="space-y-4 pt-4 border-t border-white/10">
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">॥ प्रथम कलशः (क्षीरोदक धाराभिषेक) ॥</div>
-                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-amber-500/35 shadow-md">
+                <div className="text-xs font-bold text-amber-300 font-gotu mb-1.5">॥ प्रथम कलशः (क्षीरोदक धाराभिषेक) ॥</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white font-medium leading-relaxed">
                   क्षीरोदक-समं तोयं कनक-कलश-संस्थितम्।<br />
                   गृहीत्वा स्नापयेद् देवं जन्म-मृत्यु-निवारकम्॥
                 </p>
-                <div className="mt-2.5 p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                <div className="mt-3 p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-100 font-mono text-xs sm:text-sm font-bold shadow-sm">
                   ॐ ह्रीं श्रीं क्लीं ऐं अर्हं श्री जिनेन्द्राय नमः। प्रथम-क्षीरोदक-धाराभिषेकं करोमि स्वाहा॥
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">॥ द्वितीय कलशः (गन्धोदक धाराभिषेक) ॥</div>
-                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-amber-500/35 shadow-md">
+                <div className="text-xs font-bold text-amber-300 font-gotu mb-1.5">॥ द्वितीय कलशः (गन्धोदक धाराभिषेक) ॥</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white font-medium leading-relaxed">
                   चन्दनागरु-कर्पूर-मिश्रितं गन्ध-वारिणा।<br />
                   अभिषिञ्चामि देवेशं संसार-ताप-शान्तये॥
                 </p>
-                <div className="mt-2.5 p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                <div className="mt-3 p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-100 font-mono text-xs sm:text-sm font-bold shadow-sm">
                   ॐ ह्रीं श्रीं क्लीं ऐं अर्हं श्री जिनेन्द्राय नमः। द्वितीय-गन्धोदक-धाराभिषेकं करोमि स्वाहा॥
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">॥ तृतीय कलशः (सर्वौषधि धाराभिषेक) ॥</div>
-                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-amber-500/35 shadow-md">
+                <div className="text-xs font-bold text-amber-300 font-gotu mb-1.5">॥ तृतीय कलशः (सर्वौषधि धाराभिषेक) ॥</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white font-medium leading-relaxed">
                   सर्वौषधि-समायुक्तं पावनं तीर्थ-वारिणा।<br />
                   स्नापयामि जगन्नाथं सर्व-व्याधि-प्रणाशनम्॥
                 </p>
-                <div className="mt-2.5 p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                <div className="mt-3 p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-100 font-mono text-xs sm:text-sm font-bold shadow-sm">
                   ॐ ह्रीं श्रीं क्लीं ऐं अर्हं श्री जिनेन्द्राय नमः। तृतीय-सर्वौषधि-धाराभिषेकं करोमि स्वाहा॥
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                <div className="text-xs font-bold text-amber-400 font-gotu mb-1">॥ चतुर्थ कलशः (महाभिषेक व सर्वशांति मंत्र) ॥</div>
-                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-slate-100 leading-relaxed">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-amber-500/35 shadow-md">
+                <div className="text-xs font-bold text-amber-300 font-gotu mb-1.5">॥ चतुर्थ कलशः (महाभिषेक व सर्वशांति मंत्र) ॥</div>
+                <p style={{ fontSize: `${fontSize}px` }} className="font-notoserif text-white font-medium leading-relaxed">
                   कनक-कलश-सहस्रैः स्नापितस्य जिनेशस्य।<br />
                   पादोदकं पवित्रं सर्व-पाप-प्रणाशनम्॥
                 </p>
-                <div className="mt-2.5 p-2.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-xs sm:text-sm font-bold">
+                <div className="mt-3 p-3 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-100 font-mono text-xs sm:text-sm font-bold shadow-sm">
                   ॐ ह्रीं श्रीं क्लीं ऐं अर्हं श्री वृषभादि-महावीर-पर्यन्त-चतुर्विंशति-तीर्थंकरेभ्यो नमः। सर्व शान्तिं तुष्टिं पुष्टिं च कुरु कुरु स्वाहा॥
                 </div>
               </div>
             </div>
 
             {/* अभिषेक प्रतिज्ञा व मंत्र */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-amber-500/30 space-y-2.5 shadow-md">
               <div className="text-xs font-bold text-amber-300 uppercase tracking-wider font-gotu">
                 ॥ अभिषेक प्रतिज्ञा व संकल्प ॥
               </div>
-              <p style={{ fontSize: `${fontSize - 1}px` }} className="font-gotu text-slate-300 leading-relaxed">
+              <p style={{ fontSize: `${fontSize - 1}px` }} className="font-gotu text-slate-100 leading-relaxed">
                 अद्येह जम्बूद्वीपे भरतक्षेत्रे आर्यखण्डे जिनेन्द्रदेवस्य पावन-चरण-कमले आत्म-विशुद्धये कर्म-क्षयार्थं च अभिषेक-कर्म करोम्यहम्।
               </p>
             </div>
 
             {/* कलश मंत्र */}
-            <div className="space-y-4">
-              <div className="text-xs font-bold uppercase tracking-wider text-amber-400 font-gotu">
+            <div className="space-y-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-300 font-gotu">
                 ॥ मुख्य कलश अभिषेक महामंत्र ॥
               </div>
-              <div className="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/30 text-amber-200 font-mono text-sm sm:text-base font-bold text-center leading-relaxed">
+              <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/25 border border-amber-400/50 text-amber-100 font-mono text-sm sm:text-base font-bold text-center leading-relaxed shadow-lg">
                 ॐ ह्रीं श्रीं क्लीं ऐं अर्हं वं मं हं सं तं पं झं झ्वीं क्ष्वीं हं सः।<br />
                 श्री जिनेन्द्राय नमः अभिषेकं करोमि स्वाहा॥
               </div>
             </div>
 
             {/* प्रासुक जल समर्पण */}
-            <div className="pt-2 border-t border-white/10 text-xs text-slate-400 font-gotu">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-amber-500/15 border border-amber-400/30 text-xs sm:text-sm text-slate-100 font-gotu leading-relaxed">
               <p>
-                💡 दोनों हाथों में कलश लेकर जिनेन्द्र प्रभु की प्रतिमा के मस्तक पर धार बांधते हुए <strong>"ॐ ह्रीं अर्हं नमः"</strong> का निरंतर उच्चारण करें।
+                💡 दोनों हाथों में कलश लेकर जिनेन्द्र प्रभु की प्रतिमा के मस्तक पर अखंड धार बांधते हुए <strong className="text-amber-300">"ॐ ह्रीं अर्हं नमः"</strong> का निरंतर उच्चारण करें।
               </p>
             </div>
           </GlassCard>
@@ -612,8 +643,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   अपवित्रः पवित्रो वा, सुस्थितो दुःस्थितोऽपि वा।<br />
                   ध्यायतेत्पंच-नमस्कारं, सर्वपापैः प्रमुच्यते॥१॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र यहाँ तक कि सुस्थित या दुःस्थित भी पाँच नमस्कार मन्त्र का ध्यान करता है वह सब पापों से छूट जाता है॥१॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र यहाँ तक कि सुस्थित या दुःस्थित भी पाँच नमस्कार मन्त्र का ध्यान करता है वह सब पापों से छूट जाता है॥१॥
                 </p>
               </div>
 
@@ -624,8 +655,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   अपवित्रः पवित्रो वा, सर्वावस्थां गतोऽपि वा।<br />
                   यः स्मरेत्परमात्मानं, स बाह्याभ्यंतरे शुचिः॥२॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र सब अवस्थाओं में स्थित होकर परमात्मा का स्मरण करता है वह भीतर और बाहर सर्वत्र पवित्र है॥२॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> जो मनुष्य पवित्र या अपवित्र सब अवस्थाओं में स्थित होकर परमात्मा का स्मरण करता है वह भीतर और बाहर सर्वत्र पवित्र है॥२॥
                 </p>
               </div>
 
@@ -636,8 +667,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   अपराजित मंत्रोऽयं, सर्व-विघ्न-विनाशनः।<br />
                   मङ्गलेषु च सर्वेषु, प्रथमं मङ्गलं मतः॥३॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> यह पंच नमस्कार मन्त्र अजेय है, सब विघ्नों का विनाश करनेवाला है और सब मंगलों में पहला मंगल है॥३॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> यह पंच नमस्कार मन्त्र अजेय है, सब विघ्नों का विनाश करनेवाला है और सब मंगलों में पहला मंगल है॥३॥
                 </p>
               </div>
 
@@ -648,8 +679,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   एसो पंच - णमोयारो, सव्व-पावप्पणासणो।<br />
                   मंगलाणं च सव्वेसिं, पढमं होई मंगलं॥४॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> यह पंच नमस्कार मन्त्र सब पापों का नाश करनेवाला और सब मंगलों में पहला मंगल है॥४॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> यह पंच नमस्कार मन्त्र सब पापों का नाश करनेवाला और सब मंगलों में पहला मंगल है॥४॥
                 </p>
               </div>
 
@@ -660,8 +691,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   अर्ह-मित्यक्षरं ब्रह्म, - वाचकं परमेष्ठिनः।<br />
                   सिद्धचक्रस्य सद्बीजं, सर्वतः प्रणमाम्यहम्॥५॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> 'अर्हम्' ये अक्षर परब्रह्म परमेष्ठी के वाचक हैं और सिद्ध समूह के सुन्दर बीजाक्षर हैं। मैं इनको मन, वचन, काय से नमस्कार करता हूँ॥५॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> 'अर्हम्' ये अक्षर परब्रह्म परमेष्ठी के वाचक हैं और सिद्ध समूह के सुन्दर बीजाक्षर हैं। मैं इनको मन, वचन, काय से नमस्कार करता हूँ॥५॥
                 </p>
               </div>
 
@@ -672,8 +703,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                   कर्माष्टक-विनिर्मुक्तं, मोक्ष-लक्ष्मी-निकेतनं।<br />
                   सम्यक्त्वादि-गुणोपेतं, सिद्धचक्रं नमाम्यहम्॥६॥
                 </p>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> आठों कर्मों से रहित, मुक्तिरूपी लक्ष्मी के मन्दिर और सम्यक्त्वादि आठ गुणों से युक्त सिद्ध-समूह को मैं नमस्कार करता हूँ॥६॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> आठों कर्मों से रहित, मुक्तिरूपी लक्ष्मी के मन्दिर और सम्यक्त्वादि आठ गुणों से युक्त सिद्ध-समूह को मैं नमस्कार करता हूँ॥६॥
                 </p>
               </div>
 
@@ -687,8 +718,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                 <div className="p-2 rounded-xl bg-amber-500/15 text-amber-200 font-mono text-xs font-bold">
                   ॥ पुष्पाञ्जलिं क्षिपेत् ॥
                 </div>
-                <p className="text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
-                  <span className="text-amber-300 font-semibold">अर्थ:</span> भगवान् जिनेन्द्र की स्तुति करने पर विघ्नसमूह नष्ट हो जाते हैं, शाकिनी, भूत और पन्नगों का भय नहीं रहता तथा विष निर्विष हो जाता है॥७॥
+                <p className="puja-bhavarth-text text-xs text-slate-300 font-gotu pt-1 border-t border-white/10">
+                  <span className="puja-bhavarth-label text-amber-300 font-semibold mr-1">अर्थ:</span> भगवान् जिनेन्द्र की स्तुति करने पर विघ्नसमूह नष्ट हो जाते हैं, शाकिनी, भूत और पन्नगों का भय नहीं रहता तथा विष निर्विष हो जाता है॥७॥
                 </p>
               </div>
             </div>
@@ -945,8 +976,9 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
               <p className="text-xs sm:text-sm text-slate-300 font-gotu leading-relaxed">
                 वृषभनाथ से पुष्पदन्त तीर्थंकर पर्यंत धर्म की परंपरा अनवरत रूप से चलती रही, मगर पुष्पदन्त भगवान् के तीर्थ में पावपल्य का अभाव रहा, इसके पश्चात् शीतलनाथ भगवान तक धर्म चलता रहा, फिर उनके तीर्थ में अद्र्धपल्य पर्यंत धर्म का अभाव रहा। श्रेयांसनाथ भगवान् के तीर्थ में पौन पल्य का अभाव रहा। वासुपूज्य भगवान् के तीर्थ में एकपल्य का अभाव रहा। विमलनाथ भगवान् के तीर्थ में पौन पल्य का अभाव रहा। फिर इसके पश्चात् अनन्तनाथ भगवान के तीर्थ में अद्र्धपल्य का अभाव रहा। धर्मनाथ भगवान् के तीर्थ में पाव पल्य का अभाव रहा। इस प्रकार से पुष्पदन्त भगवान् से लेकर धर्मनाथ भगवान् पर्यंत धर्म का बीच बीच में अभाव रहा। मगर शांतिनाथ भगवान् से लेकर महावीर स्वामीपर्यंत अखण्ड सतत् रूप से धर्म की परंपरा चलती रही। इसी वजह से शान्तिधारा करने का प्रचलन हो गया। ऐसा अनुमानतः माना जाता है।
               </p>
-              <div className="pt-2 border-t border-white/10 text-xs text-amber-200/90 font-gotu">
-                <span className="font-bold text-amber-300">विशेषार्थ:</span> पुष्पदन्त भगवान् के तीर्थ में धर्म का विच्छेद हो जाने से इस भरत क्षेत्र की भूमि में जिनमार्ग के ज्ञाता, भव्य जीव का अभाव हो गया था। जिससे दिगम्बर दीक्षा लेने वाला कोई नहीं था।
+              <div className="puja-bhavarth-box pt-2 border-t border-white/10 text-xs sm:text-sm text-amber-200/90 font-gotu">
+                <span className="puja-bhavarth-label font-bold text-amber-300 mr-1.5">विशेषार्थ:</span>
+                <span className="puja-bhavarth-text">पुष्पदन्त भगवान् के तीर्थ में धर्म का विच्छेद हो जाने से इस भरत क्षेत्र की भूमि में जिनमार्ग के ज्ञाता, भव्य जीव का अभाव हो गया था। जिससे दिगम्बर दीक्षा लेने वाला कोई नहीं था।</span>
               </div>
             </div>
           </GlassCard>
@@ -1274,6 +1306,44 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
           </GlassCard>
         </div>
       )}
+
+      {/* Sticky Floating Bottom Step Controls (Positioned cleanly above the persistent App Dock) */}
+      <div className="puja-bottom-dock-bar fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom,_0px))] md:bottom-28 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-lg py-2 px-3 sm:px-5 rounded-2xl bg-slate-950/90 backdrop-blur-xl border border-amber-400/40 shadow-[0_12px_40px_rgba(0,0,0,0.85)] flex items-center justify-between gap-3">
+        <button
+          disabled={currentStepIndex === 0}
+          onClick={() => goToStep(currentStepIndex - 1)}
+          className={`puja-bottom-prev-btn px-3 py-1.5 rounded-xl text-xs font-gotu font-bold flex items-center gap-1 transition-all ${
+            currentStepIndex === 0
+              ? 'is-disabled opacity-40 text-slate-500 cursor-not-allowed'
+              : 'bg-white/10 hover:bg-white/20 text-slate-100 hover:text-white cursor-pointer shadow-sm'
+          }`}
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">पिछला</span>
+        </button>
+
+        <div className="text-center font-gotu flex-1 min-w-0">
+          <span className="puja-bottom-step-indicator text-[11px] text-amber-300 font-bold block">
+            चरण {currentStepIndex + 1} / {steps.length}
+          </span>
+          <span className="puja-bottom-step-name text-xs text-white block truncate font-medium">
+            {steps[currentStepIndex].shortName}
+          </span>
+        </div>
+
+        <button
+          disabled={currentStepIndex === steps.length - 1}
+          onClick={() => goToStep(currentStepIndex + 1)}
+          className={`puja-bottom-next-btn px-3.5 py-1.5 rounded-xl text-xs font-gotu font-bold flex items-center gap-1 transition-all ${
+            currentStepIndex === steps.length - 1
+              ? 'is-completed bg-emerald-500/20 text-emerald-300 border border-emerald-400/30'
+              : 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 hover:brightness-110 cursor-pointer shadow-md'
+          }`}
+        >
+          <span>{currentStepIndex === steps.length - 1 ? 'पूर्ण' : 'अगला'}</span>
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
     </div>
   );
 };

@@ -24,6 +24,13 @@ interface NiyamaPageProps {
   onNavigate?: (page: string, params?: any) => void;
 }
 
+const CATEGORY_TAGS: Record<string, { label: string; badge: string }> = {
+  daily: { label: 'नित्य आवश्यक', badge: 'bg-amber-500/20 text-amber-200 border-amber-400/40' },
+  dietary: { label: 'आहार संयम', badge: 'bg-indigo-500/20 text-indigo-200 border-indigo-400/40' },
+  sadhana: { label: 'आत्म साधना', badge: 'bg-blue-500/20 text-blue-200 border-blue-400/40' },
+  vow: { label: 'व्रत संकल्प', badge: 'bg-purple-500/20 text-purple-200 border-purple-400/40' },
+};
+
 const NIYAMAS: (NiyamaItem & { icon: any; color: string })[] = [
   {
     id: 'darshan',
@@ -145,37 +152,43 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
       <GlassCard
         tilt={{ maxTilt: 6, glareMaxOpacity: 0.15, glareColor: 'gold' }}
         variant="gilded"
-        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl sm:rounded-3xl mb-6 border-amber-500/30 relative overflow-hidden"
+        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl sm:rounded-3xl mb-6 border-amber-500/35 relative overflow-hidden bg-gradient-to-br from-amber-950/30 via-slate-900/90 to-black/85 shadow-lg"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_12px_rgba(245,158,11,0.15)]">
-              <Flame className="w-5 h-5" />
+            <div className="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-[0_2px_8px_rgba(0,0,0,0.35),0_0_12px_rgba(245,158,11,0.2)] shrink-0">
+              <Flame className="w-5 h-5 text-amber-400" />
             </div>
             <div>
-              <p className="text-xs text-amber-300 font-gotu font-semibold">साधना निरंतरता (Streak)</p>
-              <h3 className="text-lg sm:text-xl font-bold font-notoserif text-white">
+              <p className="text-xs text-amber-300 font-gotu font-bold">साधना निरंतरता (Streak)</p>
+              <h3 className="text-lg sm:text-xl font-bold font-notoserif text-white drop-shadow-sm">
                 {state.streak} दिन की निरंतर साधना
               </h3>
             </div>
           </div>
 
           <div className="text-right">
-            <p className="text-xs text-slate-400 font-gotu">आज की प्रगति</p>
-            <p className="text-lg sm:text-xl font-bold font-mono text-amber-300">
-              {completedCount} <span className="text-xs text-slate-400">/ {totalCount}</span>
+            <p className="text-xs text-slate-200 font-gotu font-medium">आज की प्रगति</p>
+            <p className="text-lg sm:text-xl font-bold font-mono text-amber-200">
+              {completedCount} <span className="text-xs text-slate-300">/ {totalCount}</span>
             </p>
           </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="w-full h-2.5 rounded-full bg-slate-900 border border-white/10 overflow-hidden relative">
-          <motion.div
-            className="h-full bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${progressPercent}%` }}
-            transition={{ duration: 0.4 }}
-          />
+        {/* Progress Bar with label */}
+        <div className="sadhana-progress-section space-y-2.5 pt-2.5 pb-1 border-t border-amber-500/15">
+          <div className="flex items-center justify-between text-xs font-gotu">
+            <span className="sadhana-progress-label text-slate-200 font-medium">८ श्रावक नियमों की पूर्णता</span>
+            <span className="sadhana-progress-percent px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 font-mono font-bold text-xs">{progressPercent}%</span>
+          </div>
+          <div className="sadhana-progress-track w-full h-3.5 rounded-full bg-slate-950/80 border border-amber-500/30 overflow-hidden relative shadow-inner">
+            <motion.div
+              className="sadhana-progress-fill h-full bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-400 rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressPercent}%` }}
+              transition={{ duration: 0.4 }}
+            />
+          </div>
         </div>
       </GlassCard>
 
@@ -184,6 +197,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
         {NIYAMAS.map((item) => {
           const isDone = state.completedIds.includes(item.id);
           const Icon = item.icon;
+          const tagInfo = CATEGORY_TAGS[item.category] || { label: 'श्रावक नियम', badge: 'bg-amber-500/20 text-amber-200 border-amber-400/40' };
 
           return (
             <GlassCard
@@ -191,36 +205,57 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               tilt={{ maxTilt: 8, glareMaxOpacity: 0.15, glareColor: isDone ? 'gold' : 'amber' }}
               variant={isDone ? 'gilded' : 'subtle'}
               onClick={() => handleToggle(item.id)}
-              className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl transition-all duration-200 active:scale-[0.98] border ${
+              className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl transition-all duration-200 active:scale-[0.98] border group ${
                 isDone
-                  ? 'border-emerald-500/40 bg-emerald-950/20 shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_14px_rgba(16,185,129,0.12)]'
-                  : 'border-white/10 hover:border-white/20 hover:bg-white/5'
+                  ? 'border-emerald-500/50 bg-gradient-to-br from-emerald-950/35 via-slate-900/90 to-black/85 shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_14px_rgba(16,185,129,0.15)]'
+                  : 'border-amber-500/25 bg-slate-900/85 hover:border-amber-400/50 hover:bg-slate-800/90 shadow-md'
               }`}
             >
               {/* Checkbox Icon */}
-              <div className="mt-0.5 shrink-0">
+              <div className="mt-1 shrink-0">
                 {isDone ? (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-500/20" />
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 fill-emerald-500/20 drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                 ) : (
-                  <Circle className="w-5 h-5 text-slate-500 group-hover:text-slate-400" />
+                  <div className="w-6 h-6 rounded-full border-2 border-amber-400/50 group-hover:border-amber-300 bg-white/5 flex items-center justify-center transition-all group-hover:scale-105" />
                 )}
               </div>
 
               {/* Text content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <Icon className={`w-4 h-4 ${item.color} shrink-0`} />
-                  <h4
-                    className={`text-sm sm:text-base font-notoserif font-bold transition-colors ${
-                      isDone ? 'text-emerald-200 line-through decoration-emerald-400/50' : 'text-white'
-                    }`}
-                  >
-                    {item.title}
-                  </h4>
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Icon className={`w-4.5 h-4.5 ${item.color} shrink-0`} />
+                    <h4
+                      className={`text-sm sm:text-base font-notoserif font-bold transition-colors leading-snug ${
+                        isDone ? 'text-emerald-200 line-through decoration-emerald-400/60' : 'text-white'
+                      }`}
+                    >
+                      {item.title}
+                    </h4>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-gotu font-bold border shrink-0 ${tagInfo.badge}`}>
+                    {tagInfo.label}
+                  </span>
                 </div>
-                <p className="text-xs text-slate-400 font-gotu leading-relaxed">
+
+                <p className="text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed">
                   {item.description}
                 </p>
+
+                {/* Status indicator */}
+                <div className="mt-2.5 flex items-center gap-1.5 text-[11px] font-gotu">
+                  {isDone ? (
+                    <span className="inline-flex items-center gap-1 text-emerald-300 font-bold bg-emerald-500/20 border border-emerald-400/35 px-2.5 py-0.5 rounded-full shadow-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>आज का नियम पूर्ण</span>
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-amber-200/90 font-medium bg-amber-500/15 border border-amber-400/30 px-2.5 py-0.5 rounded-full group-hover:bg-amber-500/25 transition-colors">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>टैप करके संकल्प पूर्ण करें</span>
+                    </span>
+                  )}
+                </div>
               </div>
             </GlassCard>
           );
@@ -231,12 +266,12 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
       <GlassCard
         tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
         variant="subtle"
-        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl border-amber-500/20 text-center"
+        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl border-amber-500/30 bg-slate-900/80 text-center shadow-lg"
       >
-        <h4 className="text-sm sm:text-base font-notoserif font-bold text-amber-200 mb-2">
+        <h4 className="text-base sm:text-lg font-notoserif font-bold text-amber-200 mb-2 drop-shadow-sm">
           आचार्य समंतभद्र कृत 'रत्नकरण्ड श्रावकाचार'
         </h4>
-        <p className="text-xs sm:text-sm text-slate-300/85 font-gotu leading-relaxed mb-4">
+        <p className="text-xs sm:text-sm text-slate-100 font-gotu leading-relaxed mb-4">
           "सम्यग्दर्शन-शुद्धः संसारी भवति भव्य-जन-पूज्यः।" — सम्यग्दर्शन, सम्यग्ज्ञान एवं सम्यक् चारित्र
           ही मोक्ष का सच्चा मार्ग है। नित्य छोटे-छोटे नियमों का पालन आत्मा को निर्मल बनाता है।
         </p>
@@ -247,7 +282,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => onNavigate('jap')}
-              className="px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-gotu hover:bg-amber-500/25 transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-100 text-xs font-gotu font-bold hover:bg-amber-500/30 transition-colors cursor-pointer shadow-sm"
             >
               १०८ जाप माला प्रारम्भ करें
             </motion.button>
@@ -255,7 +290,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               onClick={() => onNavigate('samayik')}
-              className="px-4 py-2 rounded-xl bg-blue-500/15 border border-blue-400/30 text-blue-200 text-xs font-gotu hover:bg-blue-500/25 transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-blue-500/20 border border-blue-400/40 text-blue-100 text-xs font-gotu font-bold hover:bg-blue-500/30 transition-colors cursor-pointer shadow-sm"
             >
               सामायिक साधना
             </motion.button>

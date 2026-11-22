@@ -293,9 +293,9 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-4 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[170px] md:h-80 flex items-end p-3.5 sm:p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
+        className="library-header-banner mb-4 sm:mb-6 md:mb-10 relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-0 sm:min-h-[170px] md:h-80 flex items-end p-3.5 sm:p-6 md:p-10 shadow-[0_16px_50px_rgba(0,0,0,0.7)] border border-amber-500/30 group"
       >
-        <div className="absolute inset-0">
+        <div className="banner-dark-overlay absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-amber-950/40 to-[#030712] pointer-events-none" />
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-1/2 -right-24 w-80 h-80 bg-yellow-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -303,22 +303,22 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
         </div>
 
         <div className="relative z-10 w-full">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-200 text-[10px] sm:text-xs mb-1.5 sm:mb-3 backdrop-blur-md font-semibold">
             <Scroll className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300" />
             <span className="uppercase tracking-[0.16em] sm:tracking-[0.2em] font-cinzel font-bold">Digambar Jain Mahagranthalaya</span>
           </div>
           <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-notoserif font-bold text-white mb-1 sm:mb-2 leading-tight">
             दिगम्बर जिनवाणी महा-ग्रंथालय
           </h1>
-          <p className="text-slate-200/90 max-w-2xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed mb-2.5 sm:mb-4 hidden sm:block">
+          <p className="text-slate-100 max-w-2xl font-gotu text-xs sm:text-sm md:text-base leading-relaxed mb-2.5 sm:mb-4 hidden sm:block">
             चारों अनुयोग (प्रथमानुयोग, करणानुयोग, चरणानुयोग, द्रव्यानुयोग), प्राचीन मूल आगम, आचार्य परंपरा एवं प्रामाणिक ई-पुस्तकालय का संपूर्ण डिजिटल महा-संग्रह।
           </p>
 
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-amber-300/90 font-gotu font-medium">
-            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg border border-white/10">४ अनुयोग</span>
-            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/10">३९+ मूल शास्त्र</span>
-            <span className="bg-white/10 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg border border-white/10">प्रामाणिक ई-बुक्स</span>
-            <span className="hidden sm:inline-block bg-white/10 px-2.5 py-1 rounded-lg border border-white/10">१००% दिगम्बर आम्नाय</span>
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-gotu font-semibold">
+            <span className="library-header-stat-pill bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-stone-900 dark:text-amber-200">४ अनुयोग</span>
+            <span className="library-header-stat-pill bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-stone-900 dark:text-amber-200">३९+ मूल शास्त्र</span>
+            <span className="library-header-stat-pill bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-stone-900 dark:text-amber-200">प्रामाणिक ई-बुक्स</span>
+            <span className="library-header-stat-pill hidden sm:inline-block bg-white/15 px-2.5 py-1 rounded-lg border border-white/20 text-stone-900 dark:text-amber-200">१००% दिगम्बर आम्नाय</span>
           </div>
         </div>
       </motion.div>
@@ -331,11 +331,11 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
               <Layers className="w-3.5 h-3.5" />
               <span>The Four Pillars</span>
             </div>
-            <h2 className="text-lg sm:text-2xl md:text-3xl font-notoserif font-bold text-white flex items-center gap-2 leading-tight">
+            <h2 className="library-section-title text-lg sm:text-2xl md:text-3xl font-notoserif font-bold text-white flex items-center gap-2 leading-tight">
               <span>चार अनुयोग</span>
-              <span className="text-xs uppercase tracking-wider font-cinzel text-amber-400/80 font-normal hidden sm:inline">(The Four Anuyogas)</span>
+              <span className="text-xs uppercase tracking-wider font-cinzel text-amber-300 font-semibold hidden sm:inline">(The Four Anuyogas)</span>
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5 hidden sm:block">
+            <p className="text-xs sm:text-sm text-slate-200 font-gotu mt-0.5 hidden sm:block">
               किसी भी अनुयोग पर क्लिक करके उसके संपूर्ण शास्त्रों की सूची एवं विस्तृत अध्ययन देखें
             </p>
           </div>
@@ -344,10 +344,10 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             whileHover={{ scale: 1.03 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => onNavigate('category', { id: 'granthas', source: 'library' })}
-            className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-amber-300 hover:text-amber-200 font-gotu font-medium sm:font-bold bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-amber-500/30 cursor-pointer transition-[background-color,border-color,color]"
+            className="library-all-btn inline-flex items-center gap-1 text-[11px] sm:text-xs text-amber-200 hover:text-white font-gotu font-bold bg-amber-500/25 hover:bg-amber-500/35 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl border border-amber-400/40 cursor-pointer transition-[background-color,border-color,color] shadow-sm"
           >
             <span>सभी ३९ शास्त्र</span>
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3.5 h-3.5 text-amber-300" />
           </motion.button>
         </div>
 
@@ -374,33 +374,33 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2 sm:mb-3">
-                    <span className="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-300/80 bg-white/10 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full border border-white/10 font-gotu truncate max-w-[100px] sm:max-w-none">
+                    <span className="library-pillar-badge text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-100 bg-white/15 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border border-white/20 font-gotu truncate max-w-[100px] sm:max-w-none shadow-sm">
                       {pillar.badge}
                     </span>
-                    <span className="text-[10px] sm:text-xs font-cinzel font-bold text-amber-400 shrink-0">
+                    <span className="library-pillar-index text-[10px] sm:text-xs font-cinzel font-bold text-amber-300 shrink-0">
                       स्तंभ ०{idx + 1}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 sm:mb-1 leading-snug">
+                  <h3 className="library-pillar-title text-base sm:text-xl md:text-2xl lg:text-3xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 sm:mb-1 leading-snug">
                     {pillar.titleHindi}
                   </h3>
-                  <p className="text-[10px] sm:text-xs font-bold text-amber-400/90 uppercase tracking-wider mb-1.5 sm:mb-2 font-gotu line-clamp-1">
+                  <p className="library-pillar-subtitle text-[10px] sm:text-xs font-bold text-amber-300 uppercase tracking-wider mb-1.5 sm:mb-2 font-gotu line-clamp-1">
                     {pillar.subtitle}
                   </p>
-                  <p className="text-[11px] sm:text-xs md:text-sm text-slate-300/85 leading-relaxed font-gotu mb-2.5 sm:mb-4 line-clamp-2 sm:line-clamp-3">
+                  <p className="library-pillar-desc text-[11px] sm:text-xs md:text-sm text-slate-200 leading-relaxed font-gotu mb-2.5 sm:mb-4 line-clamp-2 sm:line-clamp-3">
                     {pillar.description}
                   </p>
 
                   <div className="mb-3 sm:mb-4">
-                    <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 sm:mb-2 font-gotu">
+                    <div className="library-pillar-key-label text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-200/90 mb-1.5 sm:mb-2 font-gotu">
                       प्रमुख शास्त्र:
                     </div>
                     <div className="flex flex-wrap gap-1 sm:gap-1.5">
                       {pillar.keyTexts.map((txt, textIdx) => (
                         <span
                           key={txt}
-                          className={`text-[9px] sm:text-[11px] bg-black/40 text-amber-200/90 px-1.5 sm:px-2 py-0.5 rounded-md sm:rounded-lg border border-amber-500/20 font-gotu truncate max-w-full ${
+                          className={`library-key-text text-[9px] sm:text-[11px] bg-black/60 text-amber-200 font-medium px-2 py-0.5 rounded-md sm:rounded-lg border border-amber-500/35 font-gotu truncate max-w-full ${
                             textIdx >= 2 ? 'hidden sm:inline-block' : ''
                           }`}
                         >
@@ -408,7 +408,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                         </span>
                       ))}
                       {pillar.keyTexts.length > 2 && (
-                        <span className="sm:hidden text-[9px] bg-white/5 text-amber-300/80 px-1.5 py-0.5 rounded-md border border-white/10 font-gotu">
+                        <span className="library-count-pill sm:hidden text-[9px] bg-white/15 text-stone-900 dark:text-amber-200 font-bold px-1.5 py-0.5 rounded-md border border-white/20 font-gotu">
                           +{pillar.keyTexts.length - 2}
                         </span>
                       )}
@@ -416,13 +416,13 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                   </div>
                 </div>
 
-                <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-amber-300 font-gotu font-bold">
+                <div className="library-pillar-footer pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-amber-200 font-gotu font-bold">
                   <span>
                     <span className="sm:hidden">ग्रंथ देखें</span>
                     <span className="hidden sm:inline">{pillar.titleHindi} के ग्रंथ खोलें</span>
                   </span>
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 group-hover:translate-x-1 transition-all shrink-0">
-                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-500/25 flex items-center justify-center group-hover:bg-amber-500/40 group-hover:translate-x-1 transition-all shrink-0 border border-amber-400/30">
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200" />
                   </div>
                 </div>
               </GlassCard>
@@ -446,7 +446,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white mb-2">
               दिगम्बर आम्नाय के मूल आधार ग्रंथ
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300/90 font-gotu max-w-3xl leading-relaxed mb-6">
+            <p className="text-xs sm:text-sm text-slate-200 font-gotu max-w-3xl leading-relaxed mb-6">
               भगवान महावीर की दिव्यध्वनि गौतम गणधर से लेकर धरसेनाचार्य तक गुरु-शिष्य परंपरा में अक्षुण्ण रही। धरसेनाचार्य के आदेश से आचार्य पुष्पदंत एवं भूतबलि ने <strong>षट्खण्डागम</strong> और आचार्य गुणधर ने <strong>कषायपाहुड़</strong> लिपिबद्ध किए, जो दिगम्बर परंपरा के अनादि स्तंभ हैं।
             </p>
 
@@ -456,19 +456,19 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                 whileHover={{ scale: 1.015 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: 'shatkhandagama' })}
-                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color]"
+                className="p-3.5 sm:p-5 rounded-2xl bg-slate-900/80 border border-amber-500/35 hover:border-amber-400/60 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color] shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
-                    <span className="text-[10px] sm:text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded truncate">
+                    <span className="text-[10px] sm:text-xs font-bold text-amber-300 font-gotu bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 rounded truncate">
                       प्रथम मूल आगम
                     </span>
-                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover:translate-x-1 transition-transform shrink-0" />
                   </div>
                   <h3 className="text-sm sm:text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2">
                     षट्खण्डागम (Shatkhandagama)
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-300 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
+                  <p className="text-[11px] sm:text-xs text-slate-200 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
                     आचार्य पुष्पदंत व भूतबलि विरचित ६ खण्ड एवं वीरसेनाचार्य कृत धवला टीका।
                   </p>
                 </div>
@@ -479,19 +479,19 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                 whileHover={{ scale: 1.015 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => onNavigate('viewer', { id: 'kashayaprabhrita' })}
-                className="p-3.5 sm:p-5 rounded-2xl bg-white/5 border border-amber-500/20 hover:border-amber-400/50 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color]"
+                className="p-3.5 sm:p-5 rounded-2xl bg-slate-900/80 border border-amber-500/35 hover:border-amber-400/60 cursor-pointer group flex flex-col justify-between transition-[background-color,border-color] shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-2">
-                    <span className="text-[10px] sm:text-xs font-bold text-amber-400 font-gotu bg-amber-500/10 px-2 py-0.5 rounded truncate">
+                    <span className="text-[10px] sm:text-xs font-bold text-amber-300 font-gotu bg-amber-500/20 border border-amber-500/30 px-2.5 py-0.5 rounded truncate">
                       द्वितीय मूल आगम
                     </span>
-                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 group-hover:translate-x-1 transition-transform shrink-0" />
                   </div>
                   <h3 className="text-sm sm:text-lg md:text-xl font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors line-clamp-2">
                     कषायपाहुड़ (Kashayaprabhrita)
                   </h3>
-                  <p className="text-[11px] sm:text-xs text-slate-300 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
+                  <p className="text-[11px] sm:text-xs text-slate-200 font-gotu mt-1 leading-relaxed line-clamp-3 sm:line-clamp-none">
                     आचार्य गुणधर विरचित २३३ गाथाएं एवं जिनसेन-वीरसेन कृत जयधवला महाटीका।
                   </p>
                 </div>
@@ -512,19 +512,19 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
             <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
               प्रामाणिक ई-पुस्तकालय (Grantha Archive)
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+            <p className="text-xs sm:text-sm text-slate-200 font-gotu mt-0.5">
               दिगम्बर आम्नाय के प्रमुख शास्त्र जिन्हें आप सीधे इन-ऐप पढ़ सकते हैं
             </p>
           </div>
 
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-400" />
             <input
               type="text"
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
               placeholder="शास्त्र या आचार्य खोजें..."
-              className="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-white/15 focus:border-amber-400 rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none transition-colors font-gotu"
+              className="w-full pl-9 pr-4 py-2.5 bg-slate-900/90 border border-white/20 focus:border-amber-400 rounded-xl text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none transition-colors font-gotu shadow-inner"
             />
           </div>
         </div>
@@ -535,14 +535,14 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
               key={pdf.id}
               variant="gilded"
               tilt
-              className="p-3 sm:p-4 md:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/50 transition-all duration-300"
+              className="p-3 sm:p-4 md:p-5 rounded-2xl flex flex-col justify-between hover:border-amber-400/60 transition-all duration-300"
             >
               <div>
                 <div className="flex items-center justify-between gap-1 mb-1.5 sm:mb-2">
-                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-amber-500/15 px-1.5 sm:px-2 py-0.5 rounded border border-amber-500/25 font-gotu truncate max-w-[85px] sm:max-w-none">
+                  <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-amber-200 bg-amber-500/25 px-2 py-0.5 rounded border border-amber-400/40 font-gotu truncate max-w-[85px] sm:max-w-none shadow-sm">
                     {pdf.anuyoga}
                   </span>
-                  <span className="text-[10px] sm:text-[11px] text-slate-400 font-gotu font-medium shrink-0">
+                  <span className="text-[10px] sm:text-[11px] text-slate-200 font-gotu font-semibold bg-white/10 px-2 py-0.5 rounded border border-white/15 shrink-0">
                     {pdf.pages}
                   </span>
                 </div>
@@ -550,10 +550,10 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                 <h3 className="text-xs sm:text-base md:text-lg font-notoserif font-bold text-white mb-0.5 sm:mb-1 line-clamp-2 leading-snug">
                   {pdf.title}
                 </h3>
-                <p className="text-[10px] sm:text-xs font-medium text-amber-400/90 font-gotu mb-1 sm:mb-2 line-clamp-1">
+                <p className="text-[10px] sm:text-xs font-semibold text-amber-300 font-gotu mb-1 sm:mb-2 line-clamp-1">
                   {pdf.author}
                 </p>
-                <p className="text-[11px] sm:text-xs text-slate-300/80 font-gotu leading-relaxed line-clamp-2 mb-2 sm:mb-4">
+                <p className="text-[11px] sm:text-xs text-slate-200 font-gotu leading-relaxed line-clamp-2 mb-2 sm:mb-4">
                   {pdf.description}
                 </p>
               </div>
@@ -565,9 +565,9 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                     onClick={() => onNavigate('viewer', { id: pdf.readGranthId })}
-                    className="w-full flex items-center justify-center gap-1 text-[11px] sm:text-xs font-gotu font-bold text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-1.5 sm:py-2 rounded-xl shadow-md cursor-pointer transition-colors"
+                    className="w-full flex items-center justify-center gap-1.5 text-[11px] sm:text-xs font-gotu font-bold text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:from-amber-200 hover:to-amber-300 py-2 rounded-xl shadow-md cursor-pointer transition-colors"
                   >
-                    <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <BookOpen className="w-3.5 h-3.5" />
                     <span>
                       <span className="sm:hidden">पढ़ें</span>
                       <span className="hidden sm:inline">इन-ऐप शास्त्र पढ़ें</span>
@@ -590,7 +590,7 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
           <h2 className="text-2xl sm:text-3xl font-notoserif font-bold text-white">
             स्वाध्याय एवं दर्शन अनुभाग
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300/80 font-gotu mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-200 font-gotu mt-0.5 font-medium">
             तत्त्वज्ञान, जैन भूगोल, तीर्थंकर इतिहास एवं पर्व व्यवस्था
           </p>
         </div>
@@ -622,15 +622,15 @@ export const LibraryMenu = ({ onNavigate }: LibraryMenuProps) => {
                   <h3 className="text-base sm:text-lg font-notoserif font-bold text-white group-hover:text-amber-200 transition-colors mb-0.5 break-words">
                     {item.label}
                   </h3>
-                  <p className="text-[11px] text-amber-400/90 font-bold mb-1.5 font-gotu break-words line-clamp-1">
+                  <p className="text-[11px] text-amber-300 font-bold mb-1.5 font-gotu break-words line-clamp-1">
                     {item.sub}
                   </p>
-                  <p className="text-xs text-slate-300/80 leading-relaxed font-gotu break-words line-clamp-2">
+                  <p className="text-xs text-slate-200 leading-relaxed font-gotu break-words line-clamp-2">
                     {item.desc}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs text-amber-300/90 font-gotu font-semibold">
+                <div className="mt-3 pt-2.5 border-t border-white/10 flex items-center justify-between text-xs text-amber-300 font-gotu font-bold">
                   <span>सूची देखें</span>
                   <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform shrink-0" />
                 </div>

@@ -236,7 +236,7 @@ export const subCategoryMap: Record<string, SubCategoryDef[]> = {
   "vrat": [
     {
       "id": "all",
-      "label": "सभी विषय (174)"
+      "label": "सभी विषय"
     },
     {
       "id": "vrat-vidhi",

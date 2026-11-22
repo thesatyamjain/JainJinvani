@@ -164,8 +164,8 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
 
   const beadCoordinates = useMemo(() => {
     return Array.from({ length: visualBeadCount }, (_, i) => {
-      // Start from top (-90 deg / 12 o'clock) and proceed clockwise
-      const angle = (2 * Math.PI * i) / visualBeadCount - Math.PI / 2;
+      // Start from top (-90 deg / 12 o'clock) with 0.5 step offset to create a natural Sumeru crest notch
+      const angle = (2 * Math.PI * (i + 0.5)) / visualBeadCount - Math.PI / 2;
       return {
         index: i + 1,
         cx: Number((BEAD_CENTER + BEAD_RADIUS * Math.cos(angle)).toFixed(2)),
@@ -300,7 +300,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
           whileTap={{ scale: 0.90 }}
           transition={{ type: 'spring', stiffness: 450, damping: 25 }}
           onClick={onBack}
-          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+          className="jap-back-btn w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
           title="वापस जाएं"
         >
           <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-amber-200" />
@@ -311,7 +311,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             <Sparkles className="w-3 h-3" />
             <span>अनादि मूल मंत्र साधना</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 to-amber-300 truncate">
+          <h1 className="jap-title text-xl sm:text-2xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 to-amber-300 truncate">
             {targetCount === 108
               ? '१०८ डिजिटल जाप माला'
               : targetCount === 27
@@ -327,7 +327,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             whileTap={{ scale: 0.90 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
+            className={`jap-tool-btn w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
               soundEnabled
                 ? 'bg-amber-500/15 border-amber-400/30 text-amber-300'
                 : 'bg-white/5 border-white/10 text-slate-400'
@@ -340,7 +340,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             whileTap={{ scale: 0.90 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={() => setVibrationEnabled(!vibrationEnabled)}
-            className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
+            className={`jap-tool-btn w-10 h-10 rounded-xl border flex items-center justify-center transition-colors cursor-pointer ${
               vibrationEnabled
                 ? 'bg-amber-500/15 border-amber-400/30 text-amber-300'
                 : 'bg-white/5 border-white/10 text-slate-400'
@@ -363,10 +363,10 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               whileTap={{ scale: 0.94 }}
               transition={{ type: 'spring', stiffness: 450, damping: 25 }}
               onClick={() => handleMantraSelect(mantra.id)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-colors border cursor-pointer shrink-0 select-none ${
+              className={`jap-mantra-pill ${isActive ? 'jap-mantra-pill-active' : ''} px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-colors border cursor-pointer shrink-0 select-none ${
                 isActive
-                  ? 'bg-gradient-to-r from-amber-500/20 to-amber-600/15 text-amber-200 border-amber-400/40 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_0_12px_rgba(245,158,11,0.12),inset_0_1px_0_rgba(255,255,255,0.2)] font-bold'
-                  : 'bg-slate-900/60 text-slate-300 border-white/10 hover:border-white/20'
+                  ? 'bg-gradient-to-r from-amber-500/35 to-amber-600/30 text-amber-100 border-amber-400/60 shadow-[0_2px_10px_rgba(245,158,11,0.25),inset_0_1px_0_rgba(255,255,255,0.25)] font-bold'
+                  : 'bg-slate-900/70 text-slate-200 hover:text-white border-white/15 hover:border-white/25 font-medium'
               }`}
             >
               {mantra.name}
@@ -378,16 +378,16 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       {/* Jap Target Options (7, 27, 108, कस्टम) */}
       <div className="w-full max-w-md mb-5">
         <div className="flex items-center justify-between px-1 mb-2">
-          <span className="text-xs font-gotu text-amber-300/90 flex items-center gap-1.5">
+          <span className="jap-target-label text-xs font-gotu text-amber-300 flex items-center gap-1.5 font-bold">
             <Target className="w-3.5 h-3.5 text-amber-400" />
             जाप लक्ष्य (संकल्प संख्या):
           </span>
-          <span className="text-[11px] font-mono text-slate-300 bg-white/5 px-2.5 py-0.5 rounded-full border border-white/10">
+          <span className="jap-target-badge text-[11px] font-mono text-slate-200 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/15 font-bold">
             लक्ष्य: {targetCount} जाप
           </span>
         </div>
 
-        <div className="grid grid-cols-4 gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-slate-900/80 border border-amber-500/20 backdrop-blur-xl shadow-inner">
+        <div className="jap-preset-container grid grid-cols-4 gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-slate-900/80 border border-amber-500/20 backdrop-blur-xl shadow-inner">
           {TARGET_PRESETS.map((preset) => {
             const isActive = targetCount === preset.count;
             return (
@@ -397,10 +397,10 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
                 whileTap={{ scale: 0.94 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 28 }}
                 onClick={() => handleTargetSelect(preset.count)}
-                className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all cursor-pointer border ${
+                className={`jap-preset-btn ${isActive ? 'jap-preset-btn-active' : ''} flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all cursor-pointer border ${
                   isActive
-                    ? 'bg-gradient-to-b from-amber-500/25 to-amber-600/15 border-amber-400/50 text-amber-200 shadow-[0_2px_10px_rgba(245,158,11,0.2),inset_0_1px_0_rgba(255,255,255,0.2)] font-bold'
-                    : 'bg-white/[0.03] border-transparent text-slate-400 hover:text-slate-200 hover:bg-white/[0.06]'
+                    ? 'bg-gradient-to-b from-amber-500/35 to-amber-600/25 border-amber-400/70 text-amber-100 shadow-[0_2px_12px_rgba(245,158,11,0.25),inset_0_1px_0_rgba(255,255,255,0.25)] font-extrabold'
+                    : 'bg-white/[0.03] border-transparent text-slate-300 hover:text-white hover:bg-white/[0.08] font-semibold'
                 }`}
               >
                 <span className="text-sm sm:text-base font-bold font-mono leading-tight">
@@ -408,7 +408,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
                 </span>
                 <span
                   className={`text-[10px] font-gotu tracking-tight leading-none mt-0.5 ${
-                    isActive ? 'text-amber-300 font-semibold' : 'text-slate-400'
+                    isActive ? 'text-amber-200 font-bold' : 'text-slate-400'
                   }`}
                 >
                   {preset.tag}
@@ -426,10 +426,10 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               setCustomInputValue(String(isCustomTarget ? targetCount : stats.customTarget || 21));
               setShowCustomModal(true);
             }}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all cursor-pointer border ${
+            className={`jap-preset-btn ${isCustomTarget ? 'jap-preset-btn-active' : ''} flex flex-col items-center justify-center py-2 px-1 rounded-xl transition-all cursor-pointer border ${
               isCustomTarget
-                ? 'bg-gradient-to-b from-amber-500/25 to-amber-600/15 border-amber-400/50 text-amber-200 shadow-[0_2px_10px_rgba(245,158,11,0.2),inset_0_1px_0_rgba(255,255,255,0.2)] font-bold'
-                : 'bg-white/[0.03] border-transparent text-slate-400 hover:text-slate-200 hover:bg-white/[0.06]'
+                ? 'bg-gradient-to-b from-amber-500/35 to-amber-600/25 border-amber-400/70 text-amber-100 shadow-[0_2px_12px_rgba(245,158,11,0.25),inset_0_1px_0_rgba(255,255,255,0.25)] font-extrabold'
+                : 'bg-white/[0.03] border-transparent text-slate-300 hover:text-white hover:bg-white/[0.08] font-semibold'
             }`}
           >
             <span className="text-sm sm:text-base font-bold font-mono leading-tight truncate max-w-full px-1">
@@ -437,7 +437,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             </span>
             <span
               className={`text-[10px] font-gotu tracking-tight leading-none mt-0.5 ${
-                isCustomTarget ? 'text-amber-300 font-semibold' : 'text-slate-400'
+                isCustomTarget ? 'text-amber-200 font-bold' : 'text-slate-400'
               }`}
             >
               {isCustomTarget ? 'बदलें ✎' : 'अन्य संख्या'}
@@ -451,19 +451,19 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
           variant="subtle"
-          className="p-3 text-center rounded-xl border-amber-500/20"
+          className="jap-stat-card p-3 text-center rounded-xl border-amber-500/20"
         >
-          <p className="text-[10px] text-amber-300/80 font-gotu">वर्तमान मणका</p>
-          <p className="text-lg sm:text-xl font-bold font-mono text-amber-200">
-            {stats.currentBead} <span className="text-xs text-slate-400">/ {targetCount}</span>
+          <p className="text-[10px] text-amber-300 font-gotu font-bold">वर्तमान मणका</p>
+          <p className="text-lg sm:text-xl font-bold font-mono text-amber-100">
+            {stats.currentBead} <span className="text-xs text-slate-300 font-semibold">/ {targetCount}</span>
           </p>
         </GlassCard>
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
           variant="subtle"
-          className="p-3 text-center rounded-xl border-emerald-500/20"
+          className="jap-stat-card p-3 text-center rounded-xl border-emerald-500/20"
         >
-          <p className="text-[10px] text-emerald-300/80 font-gotu">
+          <p className="text-[10px] text-emerald-300 font-gotu font-bold">
             {targetCount === 108 ? 'आज की मालाएं' : 'आज पूर्ण चक्र'}
           </p>
           <p className="text-lg sm:text-xl font-bold font-mono text-emerald-300">
@@ -473,9 +473,9 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }}
           variant="subtle"
-          className="p-3 text-center rounded-xl border-purple-500/20"
+          className="jap-stat-card p-3 text-center rounded-xl border-purple-500/20"
         >
-          <p className="text-[10px] text-purple-300/80 font-gotu">
+          <p className="text-[10px] text-purple-300 font-gotu font-bold">
             {targetCount === 108 ? 'कुल पूर्ण मालाएं' : 'कुल पूर्ण चक्र'}
           </p>
           <p className="text-lg sm:text-xl font-bold font-mono text-purple-300">
@@ -502,9 +502,9 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             <defs>
               {/* Spherical bead gradient: Uncounted Sandalwood */}
               <radialGradient id="beadWood" cx="35%" cy="35%" r="65%">
-                <stop offset="0%" stopColor="#854d0e" />
-                <stop offset="45%" stopColor="#451a03" />
-                <stop offset="100%" stopColor="#1c1917" />
+                <stop offset="0%" stopColor="#d4a373" />
+                <stop offset="50%" stopColor="#9c6644" />
+                <stop offset="100%" stopColor="#5c2f0f" />
               </radialGradient>
               {/* Spherical bead gradient: Counted Radiant Gold */}
               <radialGradient id="beadGold" cx="30%" cy="30%" r="70%">
@@ -573,6 +573,8 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
                 ? isCurrent
                   ? 'url(#beadActive)'
                   : 'url(#beadGold)'
+                : isMeru
+                ? 'url(#beadSpacer)'
                 : isQuad
                 ? 'url(#beadSpacer)'
                 : 'url(#beadWood)';
@@ -611,13 +613,13 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               );
             })}
 
-            {/* Sacred Sumeru Mani (Head Bead with Golden Tassel) at Top (140, 20) */}
-            <g transform="translate(140, 15)">
+            {/* Sacred Sumeru Mani (Head Bead with Golden Tassel) at Top (140, 13) */}
+            <g transform="translate(140, 13)">
               {/* Tassel loop & ring */}
-              <circle cx="0" cy="0" r="3.5" fill="none" stroke="#f59e0b" strokeWidth="1" />
+              <circle cx="0" cy="0" r="3" fill="none" stroke="#f59e0b" strokeWidth="1" />
               {/* Golden Tassel threads */}
               <path
-                d="M -2.5,4 L 0,11 L 2.5,4 Z"
+                d="M -2,2.5 L 0,8.5 L 2,2.5 Z"
                 fill="#d97706"
                 stroke="#b45309"
                 strokeWidth="0.5"
@@ -626,19 +628,19 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
           </svg>
 
           {/* Inner Interactive Touch Pad (Concentric Engraved Bell-Metal Medallion) */}
-          <div className="absolute inset-6 sm:inset-7 rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-all">
+          <div className="jap-touch-pad absolute inset-6 sm:inset-7 rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-all">
             {/* Concentric etched decorative rings for authentic medallion feel */}
             <div className="absolute inset-2 sm:inset-2.5 rounded-full border border-amber-500/20 border-dashed pointer-events-none" />
             <div className="absolute inset-4 rounded-full border border-amber-500/10 pointer-events-none" />
 
-            <LotusSymbol className="w-8 h-8 text-amber-400/80 mb-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
-            <span className="text-4xl sm:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            <LotusSymbol className="w-8 h-8 text-amber-400 mb-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
+            <span className="jap-bead-number text-4xl sm:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               {stats.currentBead}
             </span>
-            <span className="text-[11px] font-gotu text-amber-300/80 uppercase tracking-widest mt-1">
+            <span className="jap-target-total text-[11px] font-gotu text-amber-200 uppercase tracking-widest mt-1 font-bold">
               / {targetCount} जाप
             </span>
-            <span className="text-[10px] text-slate-300/90 font-gotu mt-1 bg-amber-500/10 px-3 py-0.5 rounded-full border border-amber-400/20">
+            <span className="jap-tap-hint text-[10px] text-amber-100 font-gotu mt-1 bg-amber-500/20 px-3 py-0.5 rounded-full border border-amber-400/35 font-bold shadow-sm">
               टैप कर गिनें
             </span>
           </div>
@@ -648,7 +650,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       {/* Active Mantra Banner & Meaning */}
       <GlassCard
         variant="gilded"
-        className="w-full p-4 sm:p-5 text-center mb-4 rounded-2xl border-amber-500/30"
+        className="jap-mantra-card w-full p-4 sm:p-5 text-center mb-4 rounded-2xl border-amber-500/30"
       >
         <p className="text-base sm:text-lg font-notoserif font-bold text-amber-100 leading-relaxed">
           {activeMantra.text}
@@ -665,7 +667,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
           whileTap={{ scale: 0.94 }}
           transition={{ type: 'spring', stiffness: 450, damping: 25 }}
           onClick={handleResetCurrent}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-amber-200 hover:border-amber-400/40 text-xs font-gotu transition-colors cursor-pointer select-none"
+          className="jap-reset-btn inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-amber-200 hover:border-amber-400/40 text-xs font-gotu transition-colors cursor-pointer select-none"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>इस जाप को पुनः प्रारम्भ से गिनें</span>

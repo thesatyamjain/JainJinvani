@@ -414,7 +414,7 @@ export const Dock = ({
         icon={<Menu className="w-5 h-5 md:w-5.5 md:h-5.5" />}
         label="अधिक"
         subLabel="More"
-        isActive={activePage === 'more' || activePage === 'explore' || activePage === 'favorites'}
+        isActive={activePage === 'more' || activePage === 'settings' || activePage === 'explore' || activePage === 'favorites'}
         onClick={() => {
           triggerHaptic('light');
           onNavigate('more');
@@ -550,7 +550,7 @@ export const Dock = ({
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                        className="flex items-center bg-[#071224]/80 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px]"
+                        className="dock-font-expanded-bubble flex items-center bg-[#071224]/80 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px]"
                       >
                         <motion.button
                           whileTap={{ scale: 0.88 }}
@@ -558,7 +558,7 @@ export const Dock = ({
                             e.stopPropagation();
                             handleAdjustFontSize(-2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
+                          className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर छोटा करें (A-)"
                         >
                           A-
@@ -569,7 +569,7 @@ export const Dock = ({
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="px-2 py-0.5 rounded text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
+                          className="dock-font-val px-2 py-0.5 rounded text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
                           title="क्लिक करके बंद करें"
                         >
                           {readerState.fontSize}
@@ -580,19 +580,19 @@ export const Dock = ({
                             e.stopPropagation();
                             handleAdjustFontSize(2);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
+                          className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर बड़ा करें (A+)"
                         >
                           A+
                         </motion.button>
-                        <div className="h-4 w-[1px] bg-white/15 mx-1" />
+                        <div className="dock-font-divider h-4 w-[1px] bg-white/15 mx-1" />
                         <motion.button
                           whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs cursor-pointer transition-colors"
+                          className="dock-font-done w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs cursor-pointer transition-colors"
                           title="संपन्न"
                         >
                           ✓
@@ -729,12 +729,12 @@ export const Dock = ({
           )}
         </AnimatePresence>
 
-        {/* 2-Page Pagination Dash Indicator (-- instead of ..) INSIDE Dock when in Reader Mode */}
+        {/* 2-Page Pagination Indicator INSIDE Dock when in Reader Mode */}
         {isReaderMode && (
           <div
             role="tablist"
             aria-label="Reader dock page navigation"
-            className={`absolute bottom-1.5 md:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 pointer-events-auto select-none py-1 px-3 cursor-pointer transition-opacity duration-200 ${
+            className={`reader-dock-nav absolute bottom-1.5 md:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-auto select-none py-0.5 px-2.5 cursor-pointer transition-opacity duration-200 ${
               isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
           >
@@ -749,11 +749,11 @@ export const Dock = ({
                 triggerHaptic();
                 setReaderDockPage('reader');
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`reader-dock-dot ${
                 readerDockPage === 'reader'
-                  ? 'w-6 sm:w-7 bg-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.8),0_1px_3px_rgba(0,0,0,0.6)]'
-                  : 'w-4 sm:w-5 bg-white/40 hover:bg-white/70 border border-white/20'
-              }`}
+                  ? 'reader-dock-dot-active w-5 sm:w-6 bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]'
+                  : 'reader-dock-dot-inactive w-2.5 sm:w-3 bg-white/40 hover:bg-white/70'
+              } h-1.5 rounded-full transition-all duration-300 border-none outline-none`}
               title="स्वाध्याय टूल्स (Reader)"
             />
             <motion.button
@@ -767,11 +767,11 @@ export const Dock = ({
                 triggerHaptic();
                 setReaderDockPage('home');
               }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`reader-dock-dot ${
                 readerDockPage === 'home'
-                  ? 'w-6 sm:w-7 bg-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.8),0_1px_3px_rgba(0,0,0,0.6)]'
-                  : 'w-4 sm:w-5 bg-white/40 hover:bg-white/70 border border-white/20'
-              }`}
+                  ? 'reader-dock-dot-active w-5 sm:w-6 bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]'
+                  : 'reader-dock-dot-inactive w-2.5 sm:w-3 bg-white/40 hover:bg-white/70'
+              } h-1.5 rounded-full transition-all duration-300 border-none outline-none`}
               title="होम नेविगेशन (Home)"
             />
           </div>
@@ -897,7 +897,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         {isActive && (
           <motion.div
             layoutId="macos-dock-active-dot"
-            className="w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(245,158,11,0.55),0_1px_2px_rgba(0,0,0,0.5)]"
+            className="dock-active-dot w-1.5 h-1.5 rounded-full bg-amber-300 shadow-[0_0_6px_rgba(245,158,11,0.55),0_1px_2px_rgba(0,0,0,0.5)]"
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
           />
         )}

@@ -65,20 +65,84 @@ export const getSettings = (): UserSettings => {
             const parsed = JSON.parse(stored);
             return {
                 fontSize: parsed.fontSize || 'medium',
+                fontFamily: parsed.fontFamily === 'sans' ? 'sans' : 'serif',
                 notifications: Boolean(parsed.notifications),
                 autoPlay: Boolean(parsed.autoPlay),
-                backgroundTheme: parsed.backgroundTheme === 'cosmic' ? 'cosmic' : 'sanctum',
+                backgroundTheme: (parsed.backgroundTheme === 'cosmic' || parsed.backgroundTheme === 'sanctum' || parsed.backgroundTheme === 'manuscript')
+                    ? parsed.backgroundTheme
+                    : 'manuscript',
                 dockTheme: (parsed.dockTheme === 'classic' || parsed.dockTheme === 'crystal' || parsed.dockTheme === 'gilded' || parsed.dockTheme === 'frosted') ? parsed.dockTheme : 'frosted',
+                hapticFeedback: parsed.hapticFeedback !== undefined ? Boolean(parsed.hapticFeedback) : true,
+                showTithiTimings: parsed.showTithiTimings !== undefined ? Boolean(parsed.showTithiTimings) : true,
+                sunsetReminder: Boolean(parsed.sunsetReminder),
             };
         }
     } catch {}
     return {
         fontSize: 'medium',
+        fontFamily: 'serif',
         notifications: false,
         autoPlay: false,
-        backgroundTheme: 'sanctum',
+        backgroundTheme: 'manuscript',
         dockTheme: 'frosted',
+        hapticFeedback: true,
+        showTithiTimings: true,
+        sunsetReminder: false,
     };
+};
+
+// Data Backup & Restore (Jinvani Export/Import)
+export const exportBackupData = (): string => {
+    const backup = {
+        version: 1,
+        appName: 'Jain Jinvani',
+        exportedAt: new Date().toISOString(),
+        favorites: getFavorites(),
+        settings: getSettings(),
+        recentReads: getRecentReads(),
+        readingProgress: (() => {
+            try { return JSON.parse(localStorage.getItem('jain_reading_progress') || '{}'); } catch { return {}; }
+        })(),
+        niyamState: (() => {
+            try { return JSON.parse(localStorage.getItem('jain_daily_niyam_v2') || '{}'); } catch { return {}; }
+        })(),
+        japMala: (() => {
+            try { return JSON.parse(localStorage.getItem('jain_jap_mala_state') || '{}'); } catch { return {}; }
+        })()
+    };
+    return JSON.stringify(backup, null, 2);
+};
+
+export const importBackupData = (jsonString: string): { success: boolean; message: string; count?: number } => {
+    try {
+        const data = JSON.parse(jsonString);
+        if (!data || typeof data !== 'object') {
+            return { success: false, message: 'अमान्य बैकअप फ़ाइल' };
+        }
+        let restoredCount = 0;
+        if (Array.isArray(data.favorites)) {
+            localStorage.setItem('jain_favorites', JSON.stringify(data.favorites));
+            restoredCount += data.favorites.length;
+        }
+        if (data.settings && typeof data.settings === 'object') {
+            updateSettings(data.settings);
+        }
+        if (Array.isArray(data.recentReads)) {
+            localStorage.setItem('jain_recent_reads', JSON.stringify(data.recentReads));
+        }
+        if (data.readingProgress && typeof data.readingProgress === 'object') {
+            localStorage.setItem('jain_reading_progress', JSON.stringify(data.readingProgress));
+        }
+        if (data.niyamState && typeof data.niyamState === 'object') {
+            localStorage.setItem('jain_daily_niyam_v2', JSON.stringify(data.niyamState));
+        }
+        if (data.japMala && typeof data.japMala === 'object') {
+            localStorage.setItem('jain_jap_mala_state', JSON.stringify(data.japMala));
+        }
+        return { success: true, message: 'पसंदीदा, सेटिंग्स व साधना डेटा सफलतापूर्वक रीस्टोर हुआ।', count: restoredCount };
+    } catch (e: any) {
+        return { success: false, message: 'बैकअप रीस्टोर विफल: ' + (e?.message || 'त्रुटि') };
+    }
 };
 
 export const updateSettings = (settings: Partial<UserSettings>): void => {

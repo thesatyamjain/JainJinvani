@@ -87,7 +87,7 @@ export const GlassCard = ({
 
   const cardClasses = (innerClasses?: string) =>
     cn(
-      'rounded-2xl transition-[background-color,border-color,box-shadow] duration-300 relative overflow-hidden',
+      'glass-card rounded-2xl transition-[background-color,border-color,box-shadow] duration-300 relative overflow-hidden',
       variantClasses[variant],
       intensity !== 'high' && intensityModifier[intensity],
       innerClasses
@@ -102,6 +102,7 @@ export const GlassCard = ({
     if (!tilt || isTouchDevice) {
       return (
         <div
+          data-glass-card=""
           className={cn(cardClasses(className), 'cursor-pointer active:scale-[0.985] transition-transform duration-100 ease-out select-none')}
           onClick={onClick}
           role="button"
@@ -141,7 +142,7 @@ export const GlassCard = ({
         {...tiltOptions}
         {...props}
       >
-        <div className={cardClasses(cn(inner, 'w-full h-full'))}>
+        <div data-glass-card="" className={cardClasses(cn(inner, 'w-full h-full'))}>
           {cardContent}
         </div>
       </TiltCard>
@@ -156,7 +157,7 @@ export const GlassCard = ({
 
     if (isTouchDevice) {
       return (
-        <div className={cardClasses(className)} {...props}>
+        <div data-glass-card="" className={cardClasses(className)} {...props}>
           {cardContent}
         </div>
       );
@@ -174,7 +175,7 @@ export const GlassCard = ({
         {...tiltOptions}
         {...props}
       >
-        <div className={cardClasses(cn(inner, 'w-full h-full'))}>
+        <div data-glass-card="" className={cardClasses(cn(inner, 'w-full h-full'))}>
           {cardContent}
         </div>
       </TiltCard>
@@ -182,7 +183,7 @@ export const GlassCard = ({
   }
 
   return (
-    <div className={cardClasses(className)} {...props}>
+    <div data-glass-card="" className={cardClasses(className)} {...props}>
       {cardContent}
     </div>
   );

@@ -398,15 +398,15 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+          className="w-11 h-11 rounded-2xl bg-white/5 border border-white/15 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
           title="वापस जाएं"
         >
-          <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-amber-200" />
+          <ChevronLeft className="w-5 h-5 text-slate-200 group-hover:text-amber-200" />
         </motion.button>
 
         <div className="text-center flex-1 min-w-0">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-[11px] font-gotu mb-1">
-            <MapPin className="w-3 h-3" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-200 text-[11px] font-gotu mb-1 font-semibold">
+            <MapPin className="w-3.5 h-3.5 text-cyan-300" />
             <span>दिगम्बर जैन सिद्ध, अतिशय एवं कल्याणक क्षेत्र</span>
           </div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-cyan-100 to-cyan-300 truncate">
@@ -419,13 +419,13 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
 
       {/* Search Bar */}
       <div className="w-full max-w-md relative mb-5">
-        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-cyan-400" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="तीर्थ क्षेत्र, राज्य अथवा तीर्थंकर नाम खोजें..."
-          className="w-full pl-9 pr-4 py-2.5 bg-slate-900/80 border border-white/15 focus:border-cyan-400 rounded-2xl text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none transition-colors font-gotu shadow-inner"
+          className="w-full pl-9 pr-4 py-2.5 bg-slate-900/90 border border-white/20 focus:border-cyan-400 rounded-2xl text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none transition-colors font-gotu shadow-inner"
         />
       </div>
 
@@ -455,8 +455,8 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
               onClick={() => setFilter(tab.id)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-gotu whitespace-nowrap transition-[background-color,border-color,color] border cursor-pointer shrink-0 ${
                 isActive
-                  ? 'bg-cyan-500/20 text-cyan-200 border-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.2)] font-bold'
-                  : 'bg-slate-900/60 text-slate-400 border-white/10 hover:border-white/20'
+                  ? 'bg-cyan-500/25 text-cyan-100 border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.25)] font-bold'
+                  : 'bg-slate-900/80 text-slate-200 border-white/15 hover:border-white/30 hover:text-white font-medium'
               }`}
             >
               {tab.label}
@@ -472,24 +472,24 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
             key={place.id}
             variant="gilded"
             tilt={{ maxTilt: 10, glareColor: 'amber', scale: 1.02 }}
-            className="p-5 flex flex-col justify-between hover:border-cyan-400/50 transition-all duration-300 rounded-2xl group cursor-pointer"
+            className="p-5 flex flex-col justify-between hover:border-cyan-400/60 transition-all duration-300 rounded-2xl group cursor-pointer border-white/15 shadow-md"
             onClick={() => setSelectedPlace(place)}
           >
             <div>
               <div className="flex items-start justify-between gap-2 mb-2">
                 <span
-                  className={`text-[10px] font-bold font-gotu px-2.5 py-0.5 rounded-full border ${
+                  className={`text-[10px] font-bold font-gotu px-2.5 py-0.5 rounded-full border shadow-sm ${
                     place.category === 'सिद्ध क्षेत्र'
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                      ? 'bg-amber-500/25 text-amber-200 border-amber-400/40'
                       : place.category === 'कल्याणक क्षेत्र'
-                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
-                      : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                      ? 'bg-purple-500/25 text-purple-200 border-purple-400/40'
+                      : 'bg-cyan-500/25 text-cyan-200 border-cyan-400/40'
                   }`}
                 >
                   {place.category}
                 </span>
-                <span className="text-xs text-slate-400 font-gotu flex items-center gap-1">
-                  <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+                <span className="text-xs text-slate-200 font-gotu flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full border border-white/15 font-medium">
+                  <MapPin className="w-3 h-3 text-cyan-300 shrink-0" />
                   <span className="truncate">{place.state}</span>
                 </span>
               </div>
@@ -497,15 +497,15 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
               <h3 className="text-lg sm:text-xl font-notoserif font-bold text-white group-hover:text-cyan-200 transition-colors mb-1">
                 {place.nameHindi}
               </h3>
-              <p className="text-xs text-cyan-300/90 font-gotu font-medium mb-2 line-clamp-1">
+              <p className="text-xs text-cyan-200 font-gotu font-semibold mb-2 line-clamp-1">
                 {place.significance}
               </p>
-              <p className="text-xs text-slate-300/80 font-gotu leading-relaxed line-clamp-3 mb-4">
+              <p className="text-xs text-slate-200 font-gotu leading-relaxed line-clamp-3 mb-4">
                 {place.description}
               </p>
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-cyan-300 font-gotu font-semibold">
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-cyan-300 hover:text-cyan-200 font-gotu font-bold">
               <span>विस्तृत विवरण व आवागमन</span>
               <Navigation className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -532,15 +532,15 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
               className="relative w-full max-w-2xl max-h-[min(90vh,720px)] flex flex-col bg-slate-900/95 border border-cyan-400/40 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-10"
             >
               {/* Pinned Modal Header */}
-              <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/60 flex items-start justify-between gap-3 shrink-0">
+              <div className="p-4 sm:p-5 border-b border-white/10 bg-slate-950/80 flex items-start justify-between gap-3 shrink-0">
                 <div className="min-w-0 flex-1">
                   <span
-                    className={`text-[11px] font-bold font-gotu px-2.5 py-0.5 rounded-full border inline-block mb-1.5 ${
+                    className={`text-[11px] font-bold font-gotu px-2.5 py-0.5 rounded-full border inline-block mb-1.5 shadow-sm ${
                       selectedPlace.category === 'सिद्ध क्षेत्र'
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                        ? 'bg-amber-500/25 text-amber-200 border-amber-400/40'
                         : selectedPlace.category === 'कल्याणक क्षेत्र'
-                        ? 'bg-purple-500/20 text-purple-300 border-purple-500/30'
-                        : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
+                        ? 'bg-purple-500/25 text-purple-200 border-purple-400/40'
+                        : 'bg-cyan-500/25 text-cyan-200 border-cyan-400/40'
                     }`}
                   >
                     {selectedPlace.category}
@@ -548,8 +548,8 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   <h2 className="text-lg sm:text-2xl font-notoserif font-bold text-white leading-snug break-words">
                     {selectedPlace.nameHindi}
                   </h2>
-                  <div className="flex items-center gap-1.5 text-xs text-cyan-300 font-gotu mt-0.5">
-                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  <div className="flex items-center gap-1.5 text-xs text-cyan-300 font-gotu mt-0.5 font-medium">
+                    <MapPin className="w-3.5 h-3.5 shrink-0 text-cyan-400" />
                     <span>
                       {selectedPlace.location}, {selectedPlace.state}
                     </span>
@@ -560,7 +560,7 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setSelectedPlace(null)}
-                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                  className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-200 hover:text-white transition-colors cursor-pointer shrink-0 border border-white/10"
                   title="बंद करें"
                 >
                   <X className="w-5 h-5" />
@@ -569,56 +569,56 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
 
               {/* Scrollable Content Body */}
               <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 space-y-4 min-h-0">
-                <div className="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
-                  <div className="text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-1 font-gotu">
+                <div className="p-4 rounded-xl bg-cyan-500/15 border border-cyan-400/30 shadow-inner">
+                  <div className="text-[11px] font-bold text-cyan-300 uppercase tracking-wider mb-1 font-gotu">
                     पावन महात्म्य व विशेषता:
                   </div>
-                  <div className="text-xs sm:text-sm font-gotu text-cyan-100 font-medium leading-relaxed">
+                  <div className="text-xs sm:text-sm font-gotu text-cyan-100 font-semibold leading-relaxed">
                     {selectedPlace.significance}
                   </div>
                 </div>
 
-                <div className="space-y-4 text-xs sm:text-sm text-slate-200 font-gotu leading-relaxed">
+                <div className="space-y-4 text-xs sm:text-sm text-slate-100 font-gotu leading-relaxed">
                   <div>
-                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
+                    <h4 className="text-[11px] font-bold text-cyan-300 uppercase tracking-wider mb-1.5 font-cinzel">
                       इतिहास एवं परिचय
                     </h4>
-                    <p className="bg-white/5 p-3.5 rounded-xl border border-white/5">
+                    <p className="bg-slate-900/80 p-4 rounded-xl border border-white/15 text-slate-200 leading-relaxed shadow-sm">
                       {selectedPlace.description}
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
-                      आवागमन एवं मार्ग
+                    <h4 className="text-[11px] font-bold text-cyan-300 uppercase tracking-wider mb-1.5 font-cinzel">
+                      आवागमन एवं मार्ग (दिशा व सुविधाएं)
                     </h4>
-                    <div className="bg-white/5 p-3.5 rounded-xl border border-white/5 space-y-2.5">
+                    <div className="bg-slate-900/80 p-4 rounded-xl border border-white/15 space-y-3 shadow-sm">
                       <div className="flex items-start gap-2.5">
                         <Train className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-slate-100">निकटतम रेलवे:</strong> {selectedPlace.railway}
+                          <strong className="text-cyan-200 font-semibold">निकटतम रेलवे:</strong> {selectedPlace.railway}
                         </span>
                       </div>
                       <div className="flex items-start gap-2.5">
                         <Plane className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-slate-100">निकटतम एयरपोर्ट:</strong> {selectedPlace.airport}
+                          <strong className="text-cyan-200 font-semibold">निकटतम एयरपोर्ट:</strong> {selectedPlace.airport}
                         </span>
                       </div>
                       <div className="flex items-start gap-2.5">
                         <Navigation className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                         <span>
-                          <strong className="text-slate-100">पहुँचने का मार्ग:</strong> {selectedPlace.howToReach}
+                          <strong className="text-cyan-200 font-semibold">पहुँचने का मार्ग:</strong> {selectedPlace.howToReach}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-cinzel">
+                    <h4 className="text-[11px] font-bold text-amber-300 uppercase tracking-wider mb-1.5 font-cinzel">
                       धर्मशाला एवं भोजनशाला सुविधा
                     </h4>
-                    <p className="bg-white/5 p-3.5 rounded-xl border border-white/5 text-amber-200/90">
+                    <p className="bg-amber-500/10 p-4 rounded-xl border border-amber-500/25 text-amber-100 font-medium leading-relaxed shadow-sm">
                       {selectedPlace.dharamshala}
                     </p>
                   </div>
@@ -635,7 +635,7 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-gotu font-bold text-xs transition-colors shadow-lg"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 text-slate-950 font-gotu font-bold text-xs transition-colors shadow-lg cursor-pointer"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>गूगल मैप्स पर देखें</span>
@@ -646,7 +646,7 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => setSelectedPlace(null)}
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-gotu text-xs transition-colors cursor-pointer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-200 hover:text-white font-gotu font-semibold text-xs transition-colors cursor-pointer border border-white/15"
                 >
                   बंद करें
                 </motion.button>

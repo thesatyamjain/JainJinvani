@@ -71,6 +71,8 @@ export function useModalBackHandler(
 ) {
   const isPushedRef = useRef(false);
   const isClosingViaBackRef = useRef(false);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (isOpen) {
@@ -93,7 +95,7 @@ export function useModalBackHandler(
         if (isPushedRef.current) {
           isPushedRef.current = false;
           isClosingViaBackRef.current = true;
-          onClose();
+          onCloseRef.current();
         }
       };
 
@@ -115,6 +117,6 @@ export function useModalBackHandler(
       isPushedRef.current = false;
       isClosingViaBackRef.current = false;
     }
-  }, [isOpen, onClose, modalId]);
+  }, [isOpen, modalId]);
 }
 

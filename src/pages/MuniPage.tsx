@@ -68,35 +68,40 @@ const moolGunas = [
 
 // Helper icon component since we used a custom one in the list
 function RotateCcwIcon(props: any) {
-  return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12" /><path d="M3 3v9h9" /></svg>;
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12" />
+      <path d="M3 3v9h9" />
+    </svg>
+  );
 }
 
 export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-6">
+    <div className="w-full max-w-6xl mx-auto pt-20 page-bottom-clearance px-4 sm:px-6">
       {/* Header */}
       <div className="mb-10 relative">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onBack}
-          className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-white/5 hover:bg-amber-500/20 border border-white/10 hover:border-amber-500/40 transition-colors flex items-center justify-center group z-10 cursor-pointer shadow-md"
+          className="absolute left-0 top-1 w-12 h-12 rounded-2xl bg-slate-900/80 hover:bg-amber-500/25 border border-white/15 hover:border-amber-400/50 transition-colors flex items-center justify-center group z-10 cursor-pointer shadow-md"
           title="वापस जाएं"
         >
-          <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
+          <ChevronLeft className="w-6 h-6 text-slate-200 group-hover:text-amber-200" />
         </motion.button>
 
         <div className="text-center w-full">
-          <div className="inline-flex items-center gap-2 mb-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-widest">
-            <Feather className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 mb-2.5 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold uppercase tracking-widest shadow-sm">
+            <Feather className="w-4 h-4 text-amber-300" />
             <span>Guru Parampara</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-rozha text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70 mb-4 pt-2 pb-1 leading-[1.35]">
+          <h1 className="text-4xl md:text-6xl font-rozha text-white drop-shadow-[0_2px_15px_rgba(245,158,11,0.25)] mb-3 pt-2 pb-1 leading-[1.35]">
             जैन साधु परंपरा
           </h1>
-          <p className="text-blue-100/60 font-gotu max-w-2xl mx-auto text-lg mb-6">
+          <p className="text-slate-200 font-gotu font-medium max-w-2xl mx-auto text-base md:text-lg mb-6">
             मोक्ष मार्ग के पथिक: निर्ग्रन्थ मुनिराज
           </p>
 
@@ -104,9 +109,9 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             onClick={() => onNavigate('muni-profiles')}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/10 hover:bg-amber-500/20 text-white border border-white/10 hover:border-amber-500/50 transition-colors font-gotu text-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 hover:border-amber-300 transition-colors font-gotu text-sm font-semibold cursor-pointer shadow-sm"
           >
-            <Users className="w-4 h-4" />
+            <Users className="w-4 h-4 text-amber-300" />
             <span>प्रमुख आचार्य एवं मुनि परिचय</span>
           </motion.button>
         </div>
@@ -116,13 +121,17 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full h-[400px] rounded-3xl overflow-hidden relative mb-12 group"
+        className="w-full min-h-[340px] md:h-[380px] rounded-3xl overflow-hidden relative mb-12 group border border-amber-500/30 shadow-xl"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/20 via-blue-950/40 to-[#050a14] pointer-events-none" />
-        <div className="absolute -top-16 -left-16 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/60 to-transparent flex flex-col justify-end p-8 md:p-12">
-          <h2 className="text-3xl md:text-5xl font-rozha text-amber-200 mb-4">२८ मूलगुण</h2>
-          <p className="text-blue-100/80 font-gotu text-lg max-w-3xl leading-relaxed">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-600/25 via-blue-950/60 to-[#050a14] pointer-events-none" />
+        <div className="absolute -top-16 -left-16 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050a14] via-[#050a14]/80 to-transparent flex flex-col justify-end p-6 sm:p-10 md:p-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/25 border border-amber-400/40 text-amber-200 text-xs font-gotu font-bold w-fit mb-3">
+            <Sun className="w-3.5 h-3.5 text-amber-300" />
+            <span>पंचम काल के साक्षात देव</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-rozha text-amber-200 mb-3 drop-shadow-sm">२८ मूलगुण</h2>
+          <p className="text-slate-100 font-gotu text-base md:text-lg max-w-3xl leading-relaxed font-medium">
             दिगम्बर जैन मुनि २८ मूलगुणों का निरतिचार पालन करते हैं। ये गुण उनके जीवन का आधार हैं।
             इनमें ५ महाव्रत, ५ समिति, ५ इन्द्रिय विजय, ६ आवश्यक और ७ शेष गुण सम्मिलित हैं।
           </p>
@@ -134,24 +143,27 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
         {[
           {
             title: "आचार्य",
-            sub: "Acharya",
+            sub: "Acharya (36 Guna)",
             desc: "संघ के नायक, जो स्वयं आचरण करते हैं और शिष्यों से कराते हैं। ३६ गुणों के धारक।",
             icon: Users,
-            color: "text-amber-400"
+            color: "text-amber-300",
+            bgIcon: "bg-amber-500/20 border-amber-400/30"
           },
           {
             title: "उपाध्याय",
-            sub: "Upadhyaya",
+            sub: "Upadhyaya (25 Guna)",
             desc: "संघ में शिक्षा प्रदान करने वाले गुरु। ११ अंग और १४ पूर्व के ज्ञाता (२५ गुण)।",
             icon: BookOpen,
-            color: "text-blue-400"
+            color: "text-cyan-300",
+            bgIcon: "bg-cyan-500/20 border-cyan-400/30"
           },
           {
             title: "साधु",
-            sub: "Sadhu",
-            desc: "आत्म-साधना में लीन मुनिराज। २८ मूलगुणों के धारक।",
+            sub: "Sadhu (28 Guna)",
+            desc: "आत्म-साधना में लीन मुनिराज। २८ मूलगुणों के निरतिचार आराधक।",
             icon: User,
-            color: "text-emerald-400"
+            color: "text-emerald-300",
+            bgIcon: "bg-emerald-500/20 border-emerald-400/30"
           }
         ].map((item, idx) => (
           <motion.div
@@ -160,13 +172,13 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
           >
-            <GlassCard tilt className="p-6 h-full border-t-4 border-t-white/20 hover:bg-white/10 transition-colors">
-              <div className={`w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-4 ${item.color}`}>
+            <GlassCard tilt className="p-6 h-full border-t-4 border-t-amber-400/60 bg-slate-900/80 hover:bg-slate-800/80 transition-colors border border-white/10 rounded-2xl shadow-lg">
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 border ${item.bgIcon} ${item.color}`}>
                 <item.icon className="w-6 h-6" />
               </div>
               <h3 className="text-2xl font-rozha text-white mb-1">{item.title}</h3>
-              <span className="text-xs font-bold uppercase tracking-wider text-white/40 mb-3 block">{item.sub}</span>
-              <p className="text-blue-100/70 font-gotu">{item.desc}</p>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-300/90 font-mono mb-3 block">{item.sub}</span>
+              <p className="text-slate-200 font-gotu text-sm leading-relaxed">{item.desc}</p>
             </GlassCard>
           </motion.div>
         ))}
@@ -182,17 +194,21 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setActiveTab(idx)}
-              className={`p-4 rounded-xl text-left transition-[background-color,border-color,color] border cursor-pointer ${activeTab === idx
-                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-200 shadow-md shadow-amber-500/10'
-                  : 'bg-white/5 border-white/5 text-white/60 hover:bg-white/10 hover:text-white'
-                }`}
+              className={`p-4 rounded-xl text-left transition-[background-color,border-color,color] border cursor-pointer ${
+                activeTab === idx
+                  ? 'bg-amber-500/25 border-amber-400/60 text-amber-200 shadow-md shadow-amber-500/10 font-bold'
+                  : 'bg-slate-900/60 border-white/10 text-slate-200 hover:bg-slate-800/80 hover:text-white font-medium'
+              }`}
             >
-              <h3 className="font-bold text-lg font-gotu">{section.category}</h3>
+              <h3 className="text-base sm:text-lg font-gotu">{section.category}</h3>
             </motion.button>
           ))}
-          <div className="p-6 rounded-xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-white/10 mt-4">
-            <h4 className="font-bold text-blue-200 mb-2 font-gotu">दिगम्बर वेष</h4>
-            <p className="text-sm text-blue-100/60 leading-relaxed">
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-500/15 via-blue-950/40 to-purple-950/20 border border-amber-400/30 mt-4 shadow-md">
+            <h4 className="font-bold text-amber-200 mb-2 font-gotu flex items-center gap-2">
+              <Sun className="w-4 h-4 text-amber-300" />
+              <span>दिगम्बर वेष</span>
+            </h4>
+            <p className="text-sm text-slate-200 leading-relaxed font-gotu">
               यथाजात रूप (नग्नत्व), पिच्छी (मयूर पंख), और कमंडलु - ये तीन मुनि के बाह्य चिह्न हैं।
             </p>
           </div>
@@ -200,25 +216,30 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
 
         {/* Content Area */}
         <div className="w-full md:w-2/3">
-          <GlassCard className="p-6 min-h-[400px]">
-            <h3 className="text-2xl font-rozha text-white mb-6 pb-4 border-b border-white/10">
-              {moolGunas[activeTab].category}
-            </h3>
-            <div className="grid gap-4">
+          <GlassCard className="p-6 min-h-[400px] border border-amber-500/30 rounded-2xl bg-slate-900/85">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-white/10">
+              <h3 className="text-2xl font-rozha text-white">
+                {moolGunas[activeTab].category}
+              </h3>
+              <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                {moolGunas[activeTab].items.length} गुण
+              </span>
+            </div>
+            <div className="grid gap-3.5">
               {moolGunas[activeTab].items.map((item, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors group"
+                  className="flex items-start gap-4 p-3.5 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-amber-400/30 transition-colors group"
                 >
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-amber-200/50 group-hover:text-amber-200 transition-colors shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-300 group-hover:scale-105 transition-transform shrink-0 mt-0.5">
                     {React.isValidElement(item.icon) ? item.icon : <item.icon className="w-5 h-5" />}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white text-lg font-gotu">{item.name}</h4>
-                    <p className="text-sm text-blue-100/60">{item.desc}</p>
+                    <h4 className="font-bold text-white text-base sm:text-lg font-gotu group-hover:text-amber-200 transition-colors">{item.name}</h4>
+                    <p className="text-sm text-slate-200 font-gotu leading-relaxed mt-0.5">{item.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -231,4 +252,3 @@ export const MuniPage = ({ onBack, onNavigate }: MuniPageProps) => {
 };
 
 export const AsceticsPage = MuniPage;
-

@@ -474,3 +474,2934 @@ body.has-modal-open [data-scroll-scrubber] {
   }
 }
 
+
+/* ==========================================================================
+   Ancient Manuscript Neumorphism Theme (प्राचीन पांडुलिपि शैली)
+   - Primary Canvas: Aged Handmade Parchment (#F4EFE3)
+   - Secondary Accents: Auspicious Kumkum (#991B1B) & Sacred Gold (#B8860B)
+   - Typography: Traditional Matte Lampblack Ink (#1C1917)
+   - Physical Neumorphism: Dual-light bi-directional extrusion and debossing
+   ========================================================================== */
+
+.theme-manuscript {
+  --neu-bg: #F4EFE3;
+  --neu-bg-sunken: #ECE5D5;
+  --neu-ink: #1C1917;
+  --neu-ink-muted: #44403C;
+  --neu-ink-subtle: #78716C;
+  --neu-gold: #B8860B;
+  --neu-gold-glow: rgba(184, 134, 11, 0.28);
+  --neu-kumkum: #991B1B;
+  --neu-kumkum-glow: rgba(153, 27, 27, 0.25);
+
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
+  color-scheme: light;
+}
+
+/* 1. Base Document & Canvas */
+html.theme-manuscript,
+body.theme-manuscript,
+.theme-manuscript {
+  background-color: #F4EFE3 !important;
+  color: #1C1917 !important;
+}
+
+/* 2. All Cards, Glass Surfaces & Raised Plates in Manuscript Mode */
+.theme-manuscript .glass-card,
+.theme-manuscript [data-glass-card],
+.theme-manuscript [data-tilt-card] > div,
+.theme-manuscript .daily-quote-card,
+.theme-manuscript .featured-abhishek-card,
+.theme-manuscript .community-contribution-card,
+.theme-manuscript .sahyog-card,
+.theme-manuscript .sadhana-header-banner,
+.theme-manuscript .more-header-banner,
+.theme-manuscript .library-header-banner,
+.theme-manuscript .panchang-hero-card,
+.theme-manuscript .app-install-header-card {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 7px 7px 18px rgba(184, 165, 138, 0.42),
+              -7px -7px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.theme-manuscript .glass-card:hover,
+.theme-manuscript .panchang-hero-card:hover,
+.theme-manuscript [data-tilt-card] > div:hover {
+  box-shadow: 9px 9px 24px rgba(184, 165, 138, 0.52),
+              -9px -9px 24px rgba(255, 255, 255, 1),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(184, 134, 11, 0.38) !important;
+}
+
+/* 3. Strip Dark Overlays & Glows Inside Banners */
+.theme-manuscript .banner-dark-overlay,
+.theme-manuscript .sadhana-header-banner > div:first-child,
+.theme-manuscript .more-header-banner > div:first-child,
+.theme-manuscript .library-header-banner > div:first-child,
+.theme-manuscript .daily-quote-card > div:first-child {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* 4. Overwrite Any Residual Tailwind Dark Gradient/Background Classes */
+.theme-manuscript [class*="bg-gradient-to-"][class*="from-slate-"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="via-slate-"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="to-slate-"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="from-[#"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="via-[#"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="to-[#"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="from-amber-950"],
+.theme-manuscript [class*="bg-gradient-to-"][class*="from-purple-950"],
+.theme-manuscript [class*="bg-[#0c101a]"],
+.theme-manuscript [class*="bg-[#121620]"],
+.theme-manuscript [class*="bg-[#050b17]"],
+.theme-manuscript [class*="bg-[#071124]"],
+.theme-manuscript [class*="bg-[#0e1628]"],
+.theme-manuscript [class*="bg-[#1b1710]"],
+.theme-manuscript [class*="bg-[#181d28]"],
+.theme-manuscript [class*="bg-[#080b12]"],
+.theme-manuscript [class*="bg-[#07090f]"],
+.theme-manuscript [class*="bg-[#0b162c]"],
+.theme-manuscript [class*="bg-slate-900"],
+.theme-manuscript [class*="bg-slate-950"] {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+}
+
+/* 5. Debossed / Sunken Wells (Stat boxes, search fields, chips, icon wells) */
+.theme-manuscript .neu-sunken,
+.theme-manuscript .panchang-hero-card [class*="bg-white/"],
+.theme-manuscript [class*="bg-white/[0.02]"],
+.theme-manuscript [class*="bg-white/[0.03]"],
+.theme-manuscript [class*="bg-white/[0.04]"],
+.theme-manuscript [class*="bg-white/[0.05]"],
+.theme-manuscript [class*="bg-white/5"],
+.theme-manuscript [class*="bg-white/10"],
+.theme-manuscript .glass-card [class*="bg-amber-500/20"],
+.theme-manuscript .glass-card [class*="bg-rose-500/20"],
+.theme-manuscript .glass-card [class*="bg-blue-500/20"],
+.theme-manuscript .glass-card [class*="bg-emerald-500/20"],
+.theme-manuscript .glass-card [class*="bg-purple-500/20"],
+.theme-manuscript .glass-card [class*="bg-cyan-500/20"],
+.theme-manuscript .glass-card [class*="bg-orange-500/20"] {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.16) !important;
+  box-shadow: inset 2.5px 2.5px 5px rgba(184, 165, 138, 0.38),
+              inset -2.5px -2.5px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 6. Typography in Matte Lampblack Ink (High-Contrast & Crisp) */
+.theme-manuscript h1,
+.theme-manuscript h2,
+.theme-manuscript h3,
+.theme-manuscript h4,
+.theme-manuscript h5,
+.theme-manuscript h6,
+.theme-manuscript .glass-card h1,
+.theme-manuscript .glass-card h2,
+.theme-manuscript .glass-card h3,
+.theme-manuscript .glass-card h4,
+.theme-manuscript .glass-card h5,
+.theme-manuscript .glass-card h6 {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript p,
+.theme-manuscript .glass-card p,
+.theme-manuscript .text-slate-100,
+.theme-manuscript .text-slate-200,
+.theme-manuscript .text-slate-300,
+.theme-manuscript [class*="text-slate-100"],
+.theme-manuscript [class*="text-slate-200"],
+.theme-manuscript [class*="text-slate-300"] {
+  color: #292524 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .text-slate-400,
+.theme-manuscript .text-slate-500,
+.theme-manuscript [class*="text-slate-400"],
+.theme-manuscript [class*="text-slate-500"] {
+  color: #44403C !important;
+  font-weight: 500 !important;
+  text-shadow: none !important;
+}
+
+/* Global High-Contrast Color Mappings on Ancient Manuscript Parchment */
+.theme-manuscript [class*="text-amber-100"],
+.theme-manuscript [class*="text-amber-200"],
+.theme-manuscript [class*="text-yellow-100"],
+.theme-manuscript [class*="text-yellow-200"] {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-amber-300"],
+.theme-manuscript [class*="text-amber-400"],
+.theme-manuscript [class*="text-yellow-300"],
+.theme-manuscript [class*="text-yellow-400"] {
+  color: #78350F !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-rose-100"],
+.theme-manuscript [class*="text-rose-200"],
+.theme-manuscript [class*="text-red-100"],
+.theme-manuscript [class*="text-red-200"] {
+  color: #991B1B !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-blue-100"],
+.theme-manuscript [class*="text-blue-200"],
+.theme-manuscript [class*="text-sky-100"],
+.theme-manuscript [class*="text-sky-200"] {
+  color: #1E40AF !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-emerald-100"],
+.theme-manuscript [class*="text-emerald-200"],
+.theme-manuscript [class*="text-green-100"],
+.theme-manuscript [class*="text-green-200"] {
+  color: #065F46 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-pink-100"],
+.theme-manuscript [class*="text-pink-200"] {
+  color: #9D174D !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-purple-100"],
+.theme-manuscript [class*="text-purple-200"],
+.theme-manuscript [class*="text-violet-100"],
+.theme-manuscript [class*="text-violet-200"] {
+  color: #6B21A8 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-teal-100"],
+.theme-manuscript [class*="text-teal-200"] {
+  color: #0F766E !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-indigo-100"],
+.theme-manuscript [class*="text-indigo-200"] {
+  color: #3730A3 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript [class*="text-cyan-100"],
+.theme-manuscript [class*="text-cyan-200"] {
+  color: #0E7490 !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+}
+
+/* Rich Vibrant Jewel Tone Icons on Ancient Parchment */
+.theme-manuscript .text-blue-300,
+.theme-manuscript [class*="text-blue-300"] {
+  color: #1D4ED8 !important;
+}
+.theme-manuscript .text-rose-300,
+.theme-manuscript [class*="text-rose-300"] {
+  color: #BE123C !important;
+}
+.theme-manuscript .text-emerald-300,
+.theme-manuscript [class*="text-emerald-300"] {
+  color: #047857 !important;
+}
+.theme-manuscript .text-purple-300,
+.theme-manuscript [class*="text-purple-300"] {
+  color: #7E22CE !important;
+}
+.theme-manuscript .text-cyan-300,
+.theme-manuscript [class*="text-cyan-300"] {
+  color: #0E7490 !important;
+}
+
+/* Reset any bg-clip-text gradient headers to deep solid ink */
+.theme-manuscript .bg-clip-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: #1C1917 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .gilded-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  color: #991B1B !important;
+  text-shadow: none !important;
+}
+
+/* 7. Hero Title & Subtitle */
+.theme-manuscript .hero-title {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+.theme-manuscript .hero-subtitle-container {
+  border-color: rgba(184, 134, 11, 0.40) !important;
+}
+.theme-manuscript .hero-subtitle {
+  color: #292524 !important;
+  font-weight: 500 !important;
+}
+
+/* 8. Auspicious Kumkum Buttons & Actions */
+.theme-manuscript .primary-cta-sadhana,
+.theme-manuscript .neu-btn-kumkum,
+.theme-manuscript .app-install-btn,
+.theme-manuscript .community-feedback-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  border: 1px solid rgba(254, 202, 202, 0.3) !important;
+  box-shadow: 5px 5px 14px rgba(153, 27, 27, 0.35),
+              -4px -4px 12px rgba(255, 255, 255, 0.9),
+              inset 0 1px 1px rgba(255, 255, 255, 0.4) !important;
+}
+
+.theme-manuscript .primary-cta-sadhana,
+.theme-manuscript .primary-cta-sadhana *,
+.theme-manuscript .neu-btn-kumkum,
+.theme-manuscript .neu-btn-kumkum *,
+.theme-manuscript .app-install-btn,
+.theme-manuscript .app-install-btn *,
+.theme-manuscript .community-feedback-btn,
+.theme-manuscript .community-feedback-btn * {
+  color: #FFFDF5 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .primary-cta-sadhana:active,
+.theme-manuscript .neu-btn-kumkum:active,
+.theme-manuscript .app-install-btn:active,
+.theme-manuscript .community-feedback-btn:active {
+  box-shadow: inset 3px 3px 6px rgba(127, 29, 29, 0.6),
+              inset -2px -2px 5px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 9. Tactile Parchment Secondary Buttons */
+.theme-manuscript .primary-cta-library,
+.theme-manuscript .neu-btn-paper {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.32) !important;
+  box-shadow: 6px 6px 16px rgba(184, 165, 138, 0.42),
+              -6px -6px 16px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .primary-cta-library *,
+.theme-manuscript .neu-btn-paper * {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .primary-cta-library svg {
+  color: #B8860B !important;
+}
+
+.theme-manuscript .primary-cta-library:active,
+.theme-manuscript .neu-btn-paper:active {
+  box-shadow: inset 3px 3px 6px rgba(184, 165, 138, 0.45),
+              inset -3px -3px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 10. Sacred Gold Action Buttons & Panchang Details */
+.theme-manuscript .panchang-view-btn {
+  background: linear-gradient(135deg, #B45309 0%, #92400E 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(251, 191, 36, 0.45) !important;
+  box-shadow: 3px 3px 8px rgba(146, 64, 14, 0.30),
+              -3px -3px 8px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .panchang-view-btn,
+.theme-manuscript .panchang-view-btn * {
+  color: #FFFDF5 !important;
+}
+
+.theme-manuscript .panchang-hero-card [class*="bg-white/"] span:first-child {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .panchang-hero-card [class*="bg-white/"] span:last-child {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+/* 11. Quick Access Pills */
+.theme-manuscript .quick-access-tag {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  color: #1C1917 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.32) !important;
+  box-shadow: 4px 4px 10px rgba(184, 165, 138, 0.35),
+              -4px -4px 10px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .quick-access-tag:hover {
+  border-color: rgba(153, 27, 27, 0.50) !important;
+  color: #991B1B !important;
+  box-shadow: 5px 5px 12px rgba(184, 165, 138, 0.45),
+              -5px -5px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* Daily Quote Card Enhancements */
+.theme-manuscript .quote-share-btn {
+  background: linear-gradient(135deg, #047857 0%, #065F46 100%) !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 3px 3px 8px rgba(6, 95, 70, 0.28),
+              -2px -2px 6px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .quote-share-btn,
+.theme-manuscript .quote-share-btn * {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .quote-verse {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .quote-meaning {
+  color: #292524 !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .quote-attribution,
+.theme-manuscript .quote-attribution * {
+  color: #78350F !important;
+  font-weight: 600 !important;
+}
+
+/* App Install Banner UX Polish */
+.theme-manuscript .app-install-header-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 4px 4px 12px rgba(184, 165, 138, 0.35),
+              -4px -4px 12px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+.theme-manuscript .app-install-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .app-install-subtitle {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .app-install-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  border: 1px solid rgba(254, 202, 202, 0.35) !important;
+  color: #FFFDF5 !important;
+  box-shadow: 0 2px 8px rgba(153, 27, 27, 0.32) !important;
+}
+
+.theme-manuscript .app-install-btn span,
+.theme-manuscript .app-install-btn svg {
+  color: #FFFDF5 !important;
+}
+
+.theme-manuscript .app-install-dismiss {
+  color: #78716C !important;
+}
+
+.theme-manuscript .app-install-dismiss:hover {
+  background-color: rgba(184, 134, 11, 0.12) !important;
+  color: #1C1917 !important;
+}
+
+/* Abhishek & Community Badges */
+.theme-manuscript .abhishek-badge,
+.theme-manuscript .community-badge {
+  background-color: rgba(153, 27, 27, 0.08) !important;
+  border: 1px solid rgba(153, 27, 27, 0.32) !important;
+  color: #991B1B !important;
+  font-weight: 700 !important;
+  box-shadow: 1px 1px 3px rgba(153, 27, 27, 0.10),
+              inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .community-badge svg {
+  color: #991B1B !important;
+}
+
+/* Portal Cards Typography */
+.theme-manuscript .portal-card-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .portal-card-sub {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+/* Sahyog Action Button & Card */
+.theme-manuscript .sahyog-card h4 {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sahyog-card p {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .sahyog-action-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(153, 27, 27, 0.4) !important;
+  box-shadow: 2px 2px 6px rgba(153, 27, 27, 0.35) !important;
+}
+
+.theme-manuscript .sahyog-action-btn:hover {
+  background: linear-gradient(135deg, #991B1B 0%, #7F1D1D 100%) !important;
+  color: #FFFFFF !important;
+}
+
+.theme-manuscript .sahyog-card svg {
+  color: #991B1B !important;
+  fill: rgba(153, 27, 27, 0.25) !important;
+}
+
+.theme-manuscript .community-contribution-card a {
+  color: #991B1B !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+}
+
+/* Recent Reads Button */
+.theme-manuscript .recent-read-btn {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
+              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .recent-read-btn p:first-child {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .recent-read-btn p:last-child {
+  color: #991B1B !important;
+  font-weight: 700 !important;
+}
+
+/* 12. Floating Dock Navigation */
+.theme-manuscript [data-floating-dock] > div {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.30) !important;
+  box-shadow: 8px 12px 28px rgba(184, 165, 138, 0.52),
+              -8px -8px 20px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.theme-manuscript [data-floating-dock] button {
+  color: #292524 !important;
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.16) !important;
+  box-shadow: 2.5px 2.5px 6px rgba(184, 165, 138, 0.32),
+              -2.5px -2.5px 6px rgba(255, 255, 255, 0.92) !important;
+}
+
+.theme-manuscript [data-floating-dock] button svg {
+  color: #292524 !important;
+}
+
+.theme-manuscript [data-floating-dock] button:hover {
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+}
+
+.theme-manuscript [data-floating-dock] button:hover svg {
+  color: #991B1B !important;
+}
+
+.theme-manuscript [data-floating-dock] [class*="bg-gradient-to-b"][class*="from-amber-500/20"] {
+  background: #ECE5D5 !important;
+  border-color: rgba(153, 27, 27, 0.45) !important;
+  box-shadow: inset 2.5px 2.5px 5px rgba(184, 165, 138, 0.45),
+              inset -2.5px -2.5px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript [data-floating-dock] [class*="bg-gradient-to-b"][class*="from-amber-500/20"] svg {
+  color: #991B1B !important;
+}
+
+.theme-manuscript [data-floating-dock] [layoutid="macos-dock-active-dot"],
+.theme-manuscript .dock-active-dot {
+  background-color: #991B1B !important;
+  box-shadow: 0 0 6px rgba(153, 27, 27, 0.6) !important;
+}
+
+.theme-manuscript [data-floating-dock] [class*="via-white"],
+.theme-manuscript [data-floating-dock] [class*="via-amber"] {
+  background: linear-gradient(to bottom, transparent, rgba(184, 134, 11, 0.35), transparent) !important;
+}
+
+/* 13. Search Overlay & Dialog */
+.theme-manuscript [role="dialog"] .bg-black\/85,
+.theme-manuscript .fixed.inset-0.bg-black\/85 {
+  background-color: rgba(35, 25, 15, 0.45) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.theme-manuscript .search-input-field {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  color: #1C1917 !important;
+  border-color: rgba(184, 134, 11, 0.3) !important;
+  box-shadow: inset 3px 3px 7px rgba(184, 165, 138, 0.40),
+              inset -3px -3px 7px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .search-input-field::placeholder {
+  color: #78716C !important;
+}
+
+.theme-manuscript .search-results-panel [class*="hover:bg-amber-500"] {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
+              -3px -3px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .search-results-panel [class*="hover:bg-amber-500"]:hover {
+  border-color: rgba(184, 134, 11, 0.45) !important;
+  box-shadow: 5px 5px 12px rgba(184, 165, 138, 0.42),
+              -5px -5px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* Form Inputs & Textareas */
+.theme-manuscript input:not([type="checkbox"]):not([type="radio"]),
+.theme-manuscript textarea {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: inset 3px 3px 6px rgba(184, 165, 138, 0.38),
+              inset -3px -3px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript input:focus,
+.theme-manuscript textarea:focus {
+  border-color: #991B1B !important;
+  outline: none !important;
+}
+
+/* 14. Modals & Popups in Manuscript Mode */
+.theme-manuscript [class*="bg-[#0b162c]"],
+.theme-manuscript .theme-modal-card {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 10px 10px 30px rgba(184, 165, 138, 0.5),
+              -10px -10px 30px rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 15. Jap Mala Page (१०८ डिजिटल जाप माला) */
+.theme-manuscript .jap-back-btn,
+.theme-manuscript .jap-tool-btn {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  box-shadow: 2.5px 2.5px 6px rgba(184, 165, 138, 0.35),
+              -2.5px -2.5px 6px rgba(255, 255, 255, 0.95) !important;
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .jap-back-btn svg,
+.theme-manuscript .jap-tool-btn svg {
+  color: #78350F !important;
+}
+
+.theme-manuscript .jap-tool-btn[title*="चालू"] {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+  box-shadow: inset 2px 2px 4px rgba(184, 165, 138, 0.40),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-tool-btn[title*="चालू"] svg {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .jap-title {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* Mantra Selector Pills */
+.theme-manuscript .jap-mantra-pill {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  color: #292524 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.32),
+              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-mantra-pill:hover {
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.4) !important;
+}
+
+.theme-manuscript .jap-mantra-pill-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 202, 202, 0.35) !important;
+  box-shadow: 4px 4px 12px rgba(153, 27, 27, 0.35),
+              -3px -3px 10px rgba(255, 255, 255, 0.9),
+              inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+}
+
+.theme-manuscript .jap-mantra-pill-active,
+.theme-manuscript .jap-mantra-pill-active * {
+  color: #FFFDF5 !important;
+}
+
+/* Target Row & Preset Segmented Control */
+.theme-manuscript .jap-target-label {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .jap-target-label svg {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .jap-target-badge {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(184, 134, 11, 0.30) !important;
+  box-shadow: inset 1.5px 1.5px 3px rgba(184, 165, 138, 0.35),
+              inset -1.5px -1.5px 3px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-preset-container {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: inset 2.5px 2.5px 6px rgba(184, 165, 138, 0.40),
+              inset -2.5px -2.5px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-preset-btn {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.18) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.28),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-preset-btn span:first-child {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .jap-preset-btn span:last-child {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .jap-preset-btn-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 3px 3px 10px rgba(153, 27, 27, 0.35),
+              -2px -2px 8px rgba(255, 255, 255, 0.9),
+              inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-manuscript .jap-preset-btn-active span:first-child,
+.theme-manuscript .jap-preset-btn-active span:last-child,
+.theme-manuscript .jap-preset-btn-active * {
+  color: #FFFDF5 !important;
+  font-weight: 800 !important;
+}
+
+/* Stat Counter Cards */
+.theme-manuscript .jap-stat-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 4px 4px 12px rgba(184, 165, 138, 0.35),
+              -4px -4px 12px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-stat-card p:first-child {
+  color: #44403C !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+
+.theme-manuscript .jap-stat-card p:last-child {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .jap-stat-card p:last-child span {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .jap-stat-card:nth-child(2) p:last-child {
+  color: #047857 !important;
+}
+
+.theme-manuscript .jap-stat-card:nth-child(3) p:last-child {
+  color: #7E22CE !important;
+}
+
+/* Central Wheel & Medallion */
+.theme-manuscript .jap-touch-pad {
+  background: radial-gradient(circle at 35% 35%, #FFFDF7 0%, #F4EFE3 55%, #ECE3CF 100%) !important;
+  border: 2px solid rgba(184, 134, 11, 0.40) !important;
+  box-shadow: 6px 8px 20px rgba(184, 165, 138, 0.45),
+              inset 0 2px 4px rgba(255, 255, 255, 0.95),
+              inset 0 -2px 5px rgba(184, 165, 138, 0.3) !important;
+}
+
+.theme-manuscript .jap-touch-pad svg {
+  color: #B45309 !important;
+  filter: drop-shadow(0 1px 2px rgba(180, 83, 9, 0.25)) !important;
+}
+
+.theme-manuscript .jap-bead-number {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .jap-target-total {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .jap-tap-hint {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.35),
+              inset -1px -1px 2px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Active Mantra Display Card */
+.theme-manuscript .jap-mantra-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
+              -6px -6px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .jap-mantra-card p:first-child {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .jap-mantra-card p:last-child {
+  color: #292524 !important;
+  font-weight: 500 !important;
+}
+
+/* Reset Counter Button */
+.theme-manuscript .jap-reset-btn {
+  background-color: #F4EFE3 !important;
+  color: #44403C !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.30),
+              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .jap-reset-btn:hover {
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.40) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 13. Digambara Jain Panchang (Parchment Manuscript Mode Contrast & Clarity) */
+/* -------------------------------------------------------------------------- */
+
+/* Header Titles & Badges */
+.theme-manuscript .panchang-main-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .panchang-annual-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 3px 3px 10px rgba(153, 27, 27, 0.35),
+              -2px -2px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .panchang-annual-btn,
+.theme-manuscript .panchang-annual-btn * {
+  color: #FFFDF5 !important;
+}
+
+/* Quick Stat Pills (सूर्योदय, नवकारशी, चौविहार, सूर्यास्त) */
+.theme-manuscript .panchang-stat-pill {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 3px 3px 8px rgba(184, 165, 138, 0.30),
+              -3px -3px 8px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-stat-pill div span:first-child {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .panchang-stat-pill div span:last-child {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+/* Month Heading & Nav Buttons */
+.theme-manuscript .panchang-month-heading {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-today-btn {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-today-btn:hover {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+}
+
+.theme-manuscript .panchang-nav-btn {
+  background-color: #F4EFE3 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-nav-btn svg {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .panchang-nav-btn:hover {
+  background-color: #ECE5D5 !important;
+  color: #991B1B !important;
+}
+
+.theme-manuscript .panchang-nav-btn:hover svg {
+  color: #991B1B !important;
+}
+
+/* Parva Filter Chips */
+.theme-manuscript .panchang-filter-chip {
+  background-color: #ECE5D5 !important;
+  color: #292524 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.22),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-filter-chip:hover {
+  color: #991B1B !important;
+  border-color: rgba(153, 27, 27, 0.35) !important;
+}
+
+.theme-manuscript .panchang-filter-chip-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 3px 3px 8px rgba(153, 27, 27, 0.32),
+              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .panchang-filter-chip-active,
+.theme-manuscript .panchang-filter-chip-active * {
+  color: #FFFDF5 !important;
+}
+
+/* Weekday Column Headers */
+.theme-manuscript .panchang-weekday-header {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  font-weight: 800 !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+}
+
+/* Calendar Day Cells (Desktop & Mobile) */
+.theme-manuscript .panchang-day-cell,
+.theme-manuscript .panchang-mobile-day-cell {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-mobile-calendar-box {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: inset 2px 2px 6px rgba(184, 165, 138, 0.35),
+              inset -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-day-num {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-tithi-label {
+  color: #44403C !important;
+  font-weight: 700 !important;
+}
+
+/* Normal Day Cell Hover */
+.theme-manuscript .panchang-day-normal:hover {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.4) !important;
+}
+
+/* Parva Day Cell (अष्टमी, चौदस, पूर्णिमा, अमावस्या) */
+.theme-manuscript .panchang-day-parva {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(217, 119, 6, 0.45) !important;
+  box-shadow: 2px 2px 6px rgba(217, 119, 6, 0.18),
+              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-day-parva .panchang-day-num {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-day-parva .panchang-tithi-label {
+  color: #92400E !important;
+  font-weight: 800 !important;
+}
+
+/* Today / Current Day Cell */
+.theme-manuscript .panchang-day-current {
+  background-color: #FEF9C3 !important;
+  border: 2px solid #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.35) !important;
+}
+
+.theme-manuscript .panchang-day-current .panchang-day-num {
+  color: #92400E !important;
+  font-weight: 900 !important;
+}
+
+/* Selected Day Cell */
+.theme-manuscript .panchang-day-selected {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+  border: 2px solid #B45309 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.45) !important;
+}
+
+.theme-manuscript .panchang-day-selected .panchang-day-num,
+.theme-manuscript .panchang-day-selected .panchang-tithi-label {
+  color: #1C1917 !important;
+  font-weight: 900 !important;
+}
+
+/* Festival Tag inside Day Cell */
+.theme-manuscript .panchang-festival-tag {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+}
+
+/* Selected Tithi Details Card */
+.theme-manuscript .panchang-tithi-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
+              -6px -6px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .panchang-tithi-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .panchang-tithi-date {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+/* Timing Rows */
+.theme-manuscript .panchang-tithi-card .font-mono {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-tithi-card [class*="bg-amber-500/15"] {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+}
+
+.theme-manuscript .panchang-tithi-card [class*="bg-amber-500/15"] span {
+  color: #991B1B !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-tithi-card [class*="bg-rose-500/15"] {
+  background-color: #FFE4E6 !important;
+  border: 1px solid rgba(244, 63, 94, 0.4) !important;
+}
+
+.theme-manuscript .panchang-tithi-card [class*="bg-rose-500/15"] span {
+  color: #9F1239 !important;
+  font-weight: 800 !important;
+}
+
+/* Pachchakkhan Card */
+.theme-manuscript .panchang-pachchakkhan-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
+              -6px -6px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .panchang-pachchakkhan-card h3 {
+  color: #065F46 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-pachchakkhan-card [class*="bg-emerald-500/10"] {
+  background-color: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+.theme-manuscript .panchang-pachchakkhan-card [class*="bg-emerald-500/10"] p {
+  color: #064E3B !important;
+  font-weight: 700 !important;
+}
+
+/* Festivals of the Month Card */
+.theme-manuscript .panchang-festivals-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
+              -6px -6px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .panchang-festivals-card h3 {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-festivals-card li {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+}
+
+.theme-manuscript .panchang-fest-name {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-fest-tithi {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .panchang-festivals-card li [class*="bg-amber-500/20"] {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.theme-manuscript .panchang-festivals-card li [class*="bg-amber-500/20"] span:first-child {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-festivals-card li [class*="bg-amber-500/20"] span:last-child {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+/* Annual Directory Modal in Manuscript Theme */
+.theme-manuscript .panchang-annual-backdrop {
+  background-color: rgba(28, 25, 23, 0.78) !important;
+}
+
+.theme-manuscript .panchang-annual-modal {
+  background: #F4EFE3 !important;
+  background-image: none !important;
+  border: 2px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .panchang-annual-header {
+  border-bottom: 1px solid rgba(184, 134, 11, 0.22) !important;
+  background-color: #ECE5D5 !important;
+}
+
+.theme-manuscript .panchang-annual-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-annual-subtitle {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .panchang-annual-close {
+  background-color: #F4EFE3 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+}
+
+.theme-manuscript .panchang-annual-close svg {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .panchang-annual-filters {
+  border-bottom: 1px solid rgba(184, 134, 11, 0.22) !important;
+  background-color: #F4EFE3 !important;
+}
+
+.theme-manuscript .panchang-annual-search {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+}
+
+.theme-manuscript .panchang-annual-search::placeholder {
+  color: #78716C !important;
+}
+
+.theme-manuscript .panchang-annual-cat-btn {
+  background-color: #ECE5D5 !important;
+  color: #292524 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .panchang-annual-cat-btn-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+}
+
+.theme-manuscript .panchang-annual-fest-card {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.22),
+              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-annual-fest-card:hover {
+  border-color: rgba(184, 134, 11, 0.5) !important;
+  box-shadow: 3px 3px 10px rgba(184, 165, 138, 0.32),
+              -3px -3px 10px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-annual-tithi-tag {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .panchang-annual-fest-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-annual-fest-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .panchang-annual-fest-rules {
+  border-top: 1px solid rgba(184, 134, 11, 0.2) !important;
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 14. Dedicated Settings Page UX (Manuscript & High-Contrast Precision)      */
+/* -------------------------------------------------------------------------- */
+
+.theme-manuscript .settings-main-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .settings-section-title {
+  color: #78350F !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+}
+
+.theme-manuscript .settings-group-card {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 6px 6px 18px rgba(184, 165, 138, 0.38),
+              -6px -6px 18px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .settings-item-label,
+.theme-manuscript .settings-row-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .settings-row-desc {
+  color: #57534E !important;
+  font-weight: 500 !important;
+}
+
+/* Switches (iOS / Material Style Native Feel across Themes) */
+.settings-switch {
+  width: 48px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 9999px !important;
+  padding: 3px !important;
+  box-sizing: border-box !important;
+}
+
+.settings-switch div {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 9999px !important;
+  background-color: #FFFDF5 !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.28) !important;
+}
+
+.theme-manuscript .settings-switch-on {
+  background-color: #065F46 !important;
+  border: 1px solid #047857 !important;
+  box-shadow: 0 1px 3px rgba(6, 95, 70, 0.4) !important;
+  justify-content: flex-end !important;
+}
+
+.theme-manuscript .settings-switch-off {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.3) !important;
+  justify-content: flex-start !important;
+}
+
+/* Atmosphere Theme Tiles */
+.theme-manuscript .settings-theme-tile {
+  background-color: #F8F5EE !important;
+  border-color: rgba(184, 134, 11, 0.28) !important;
+}
+
+.theme-manuscript .settings-theme-tile span,
+.theme-manuscript .settings-theme-tile h3 {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .settings-theme-tile p {
+  color: #44403C !important;
+}
+
+.theme-manuscript .settings-theme-tile-active {
+  background-color: #FEF3C7 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 3px 10px rgba(217, 119, 6, 0.22) !important;
+}
+
+.theme-manuscript .settings-theme-tile-active span {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+/* Font Size Segmented Buttons */
+.theme-manuscript .settings-size-btn-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  box-shadow: 3px 3px 8px rgba(153, 27, 27, 0.32),
+              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .settings-size-btn-active,
+.theme-manuscript .settings-size-btn-active * {
+  color: #FFFDF5 !important;
+  font-weight: 800 !important;
+}
+
+/* Active Theme & Font Tiles */
+.theme-manuscript .settings-font-tile-active {
+  background-color: #FEF3C7 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.18) !important;
+}
+
+.theme-manuscript .settings-font-tile-active span {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+/* Dock Visual Style Tiles */
+.theme-manuscript .settings-dock-tile-inactive {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.25) !important;
+}
+
+.theme-manuscript .settings-dock-tile-inactive span {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .settings-dock-tile-inactive .dock-tile-desc {
+  color: #57534E !important;
+}
+
+.theme-manuscript .settings-dock-tile-active,
+.theme-manuscript .glass-card .settings-dock-tile-active {
+  background-color: #FFFDF5 !important;
+  border: 2px solid #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25) !important;
+}
+
+.theme-manuscript .settings-dock-tile-active span {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .settings-dock-check {
+  background-color: #D97706 !important;
+  color: #FFFFFF !important;
+}
+
+.theme-manuscript .settings-dock-check svg {
+  color: #FFFFFF !important;
+}
+
+/* 15. MoreMenu Enhancements & Contrast Polish */
+.theme-manuscript .more-header-banner {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 6px 6px 16px rgba(184, 165, 138, 0.4),
+              -6px -6px 16px rgba(255, 255, 255, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .more-header-banner h1 {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .more-header-banner p {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .more-header-banner [class*="rounded-full"][class*="bg-purple-"] {
+  background-color: #FEF3C7 !important;
+  border-color: rgba(217, 119, 6, 0.4) !important;
+}
+
+.theme-manuscript .more-header-banner [class*="rounded-full"][class*="bg-purple-"] span {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .more-header-banner [class*="rounded-full"][class*="bg-purple-"] svg {
+  color: #B45309 !important;
+}
+
+/* Quick Actions: Favorites & Explore */
+.theme-manuscript .more-quick-card-fav {
+  background: #F4EFE3 !important;
+  border-color: rgba(225, 29, 72, 0.25) !important;
+}
+.theme-manuscript .more-quick-card-fav h3 {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+.theme-manuscript .more-quick-card-fav p {
+  color: #9F1239 !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .more-quick-card-exp {
+  background: #F4EFE3 !important;
+  border-color: rgba(124, 58, 237, 0.25) !important;
+}
+.theme-manuscript .more-quick-card-exp h3 {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+.theme-manuscript .more-quick-card-exp p {
+  color: #6B21A8 !important;
+  font-weight: 500 !important;
+}
+
+/* All MoreMenu Option Cards & Subtitles */
+.theme-manuscript .more-menu-card {
+  background-color: #F4EFE3 !important;
+  border-color: rgba(184, 134, 11, 0.28) !important;
+}
+
+.theme-manuscript .more-card-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .more-card-subtitle {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+/* Share card & CTA button */
+.theme-manuscript .more-share-card {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+}
+
+.theme-manuscript .more-share-card h3 {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .more-share-card p {
+  color: #44403C !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .more-share-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(185, 28, 28, 0.4) !important;
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.28) !important;
+  font-weight: 700 !important;
+}
+
+/* 16. Search Overlay: High Clarity, Contrast & Tactile Manuscript Polish */
+.theme-manuscript .search-results-panel {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
+              0 2px 10px rgba(0, 0, 0, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Search input left icon */
+.theme-manuscript .search-input-icon {
+  color: #78350F !important;
+}
+
+/* Category Filter Tabs */
+.theme-manuscript .search-cat-tab-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(185, 28, 28, 0.5) !important;
+  box-shadow: 0 2px 6px rgba(185, 28, 28, 0.35) !important;
+}
+
+.theme-manuscript .search-cat-tab-active span {
+  color: #FFFFFF !important;
+}
+
+.theme-manuscript .search-cat-tab-active span:last-child {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  color: #FFFFFF !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  color: #292524 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 1px 1px 3px rgba(184, 165, 138, 0.25) !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive span {
+  color: #292524 !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive span:last-child {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive:hover {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+  border-color: #D97706 !important;
+}
+
+.theme-manuscript .search-cat-tab-inactive:hover span {
+  color: #78350F !important;
+}
+
+/* Section Headers & Dividers */
+.theme-manuscript .search-section-header {
+  border-color: rgba(184, 134, 11, 0.22) !important;
+}
+
+.theme-manuscript .search-section-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.theme-manuscript .search-section-title svg {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .search-recommended-badge {
+  color: #92400E !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .search-clear-btn {
+  color: #991B1B !important;
+  font-weight: 600 !important;
+}
+
+/* Search Chips (Popular queries, recent history tags) */
+.theme-manuscript .search-chip,
+.theme-manuscript .search-recent-card {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  color: #1C1917 !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 1.5px 1.5px 4px rgba(184, 165, 138, 0.28),
+              -1.5px -1.5px 4px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .search-chip span,
+.theme-manuscript .search-recent-card p {
+  color: #1C1917 !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .search-chip:hover,
+.theme-manuscript .search-recent-card:hover {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+  border-color: rgba(217, 119, 6, 0.5) !important;
+  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.35) !important;
+}
+
+.theme-manuscript .search-chip:hover span,
+.theme-manuscript .search-recent-card:hover p {
+  color: #78350F !important;
+}
+
+/* Curated Item Cards */
+.theme-manuscript .search-item-card {
+  background-color: #F8F5EE !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.25),
+              -2px -2px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .search-item-card:hover {
+  background-color: #FFFDF8 !important;
+  border-color: rgba(184, 134, 11, 0.5) !important;
+  box-shadow: 4px 4px 10px rgba(184, 165, 138, 0.32) !important;
+}
+
+.theme-manuscript .search-item-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .search-item-subtitle {
+  color: #92400E !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .search-item-icon {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  color: #B45309 !important;
+}
+
+.theme-manuscript .search-item-chevron {
+  color: #78350F !important;
+}
+
+/* Results Rows when typing query */
+.theme-manuscript .search-result-row {
+  background-color: #F8F5EE !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+}
+
+.theme-manuscript .search-result-row h4 {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .search-result-row-selected {
+  background-color: #FEF3C7 !important;
+  border-color: #D97706 !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.22) !important;
+}
+
+.theme-manuscript .search-result-row-selected h4 {
+  color: #78350F !important;
+}
+
+.theme-manuscript .search-result-row [class*="bg-amber-500/10"] {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.3) !important;
+  color: #78350F !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .search-result-row [class*="text-slate-400"] {
+  color: #57534E !important;
+  font-weight: 500 !important;
+}
+
+/* Highlight Matches */
+.theme-manuscript mark,
+.theme-manuscript [class*="bg-amber-500/25"] {
+  background-color: #FEF3C7 !important;
+  color: #991B1B !important;
+  font-weight: 800 !important;
+  border-bottom: 2px solid #B91C1C !important;
+}
+
+/* ==========================================================================
+   Ancient Manuscript Theme: High-Contrast Clarity & Legibility Specifications
+   Category Listing, Sadhana Menu, Library Menu & Content Viewer
+   ========================================================================== */
+
+/* 1. Category Listing Page */
+.theme-manuscript .category-filter-tab {
+  border-radius: 1rem !important;
+}
+
+.theme-manuscript .category-filter-tab-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFDF5 !important;
+  border-color: #991B1B !important;
+  box-shadow: 0 4px 14px rgba(185, 28, 28, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-filter-tab-active span,
+.theme-manuscript .category-filter-tab-active svg {
+  color: #FFFDF5 !important;
+}
+
+.theme-manuscript .category-filter-tab-active .category-filter-count {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.25),
+              inset -1px -1px 3px rgba(255, 255, 255, 0.8) !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive span {
+  color: #1C1917 !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive .category-filter-count {
+  background-color: rgba(184, 134, 11, 0.15) !important;
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive:hover {
+  background-color: #FEF3C7 !important;
+  border-color: rgba(217, 119, 6, 0.45) !important;
+}
+
+.theme-manuscript .category-filter-tab-inactive:hover span {
+  color: #78350F !important;
+}
+
+.theme-manuscript .category-divider-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-divider-desc {
+  color: #44403C !important;
+}
+
+.theme-manuscript .category-divider-badge {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.25) !important;
+}
+
+.theme-manuscript .category-divider-badge span {
+  color: #78350F !important;
+}
+
+.theme-manuscript .category-item-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-author {
+  background-color: #ECE5D5 !important;
+  color: #44403C !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .category-item-index {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-item-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .category-item-tag {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 700 !important;
+}
+
+/* 2. Sadhana Menu Page */
+.theme-manuscript .sadhana-tithi-badge {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  font-weight: 600 !important;
+  box-shadow: inset 1.5px 1.5px 3px rgba(184, 165, 138, 0.25) !important;
+}
+
+.theme-manuscript .sadhana-tithi-badge span {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .sadhana-tithi-badge svg {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .sadhana-chip-niyam {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-chip-niyam span,
+.theme-manuscript .sadhana-chip-niyam svg {
+  color: #78350F !important;
+}
+
+.theme-manuscript .sadhana-chip-jap {
+  background-color: #FFE4E6 !important;
+  color: #991B1B !important;
+  border: 1px solid rgba(225, 29, 72, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-chip-jap span,
+.theme-manuscript .sadhana-chip-jap svg {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .sadhana-chip-samayik {
+  background-color: #DBEAFE !important;
+  color: #1E40AF !important;
+  border: 1px solid rgba(37, 99, 235, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-chip-samayik span,
+.theme-manuscript .sadhana-chip-samayik svg {
+  color: #1E40AF !important;
+}
+
+.theme-manuscript .sadhana-pillar-badge {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  font-weight: 700 !important;
+  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.25) !important;
+}
+
+.theme-manuscript .sadhana-pillar-badge span {
+  color: #78350F !important;
+}
+
+.theme-manuscript .sadhana-divider-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .sadhana-divider-eng {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-card-badge {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-card-badge span {
+  color: #78350F !important;
+}
+
+.theme-manuscript .sadhana-card-badge svg {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .sadhana-card-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-card-sub {
+  color: #78350F !important;
+  font-weight: 600 !important;
+}
+
+/* Sadhana Progress Bar & Streak Badge */
+.theme-manuscript .sadhana-streak-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-progress-section {
+  border-top: 1px solid rgba(184, 134, 11, 0.28) !important;
+}
+
+.theme-manuscript .sadhana-progress-label {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .sadhana-progress-percent {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1.5px solid rgba(217, 119, 6, 0.55) !important;
+  box-shadow: 0 1px 3px rgba(217, 119, 6, 0.2) !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .sadhana-progress-track {
+  background-color: #DFD5C2 !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(139, 90, 43, 0.45) !important;
+  box-shadow: inset 1px 2px 4px rgba(60, 40, 20, 0.28),
+              inset -1px -1px 2px rgba(255, 255, 255, 0.8) !important;
+  height: 14px !important;
+}
+
+.theme-manuscript .sadhana-progress-fill {
+  background: linear-gradient(90deg, #B91C1C 0%, #D97706 50%, #059669 100%) !important;
+  box-shadow: 0 1px 4px rgba(185, 28, 28, 0.4) !important;
+}
+
+/* 3. Library Menu Page */
+.theme-manuscript .library-header-stat-pill {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.22) !important;
+}
+
+.theme-manuscript .library-pillar-badge {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .library-pillar-index {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .library-pillar-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .library-pillar-subtitle {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .library-pillar-desc {
+  color: #44403C !important;
+}
+
+.theme-manuscript .library-pillar-key-label {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .library-key-text {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 700 !important;
+}
+
+/* 4. Content Viewer Page */
+.theme-manuscript .viewer-section-banner {
+  background: #FEF3C7 !important;
+  border: 1px solid #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.16) !important;
+}
+
+.theme-manuscript .viewer-section-title {
+  color: #991B1B !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .viewer-section-banner svg {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .viewer-cat-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .viewer-cat-badge svg {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .viewer-verse-badge {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .viewer-verse-badge svg {
+  color: #78350F !important;
+}
+
+/* 5. Donate / Sahyog & More Modals in Ancient Manuscript */
+.theme-manuscript .donate-modal-card,
+.theme-manuscript .more-modal-card {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 35px rgba(184, 134, 11, 0.15) !important;
+}
+
+.theme-manuscript .donate-modal-title,
+.theme-manuscript .more-modal-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .donate-modal-close,
+.theme-manuscript .more-modal-close {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+}
+
+.theme-manuscript .donate-modal-close:hover,
+.theme-manuscript .more-modal-close:hover {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+}
+
+.theme-manuscript .donate-modal-desc {
+  color: #292524 !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .donate-modal-footer {
+  border-color: rgba(184, 134, 11, 0.22) !important;
+  color: #78350F !important;
+}
+
+.theme-manuscript .donate-modal-footer a {
+  color: #991B1B !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .more-modal-body,
+.theme-manuscript .more-modal-body p {
+  color: #292524 !important;
+}
+
+/* 6. Settings Page Theme Cards & Typography Controls */
+.theme-manuscript .settings-theme-option {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+  box-shadow: 2px 2px 6px rgba(184, 165, 138, 0.25),
+              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .settings-theme-option.settings-theme-active {
+  background-color: #FFFDF7 !important;
+  border: 2px solid #D97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.22) !important;
+}
+
+.theme-manuscript .settings-theme-title,
+.theme-manuscript .settings-theme-option .settings-theme-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .settings-theme-desc,
+.theme-manuscript .settings-theme-option .settings-theme-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .settings-size-btn-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 800 !important;
+  border-color: rgba(254, 202, 202, 0.4) !important;
+}
+
+.theme-manuscript .settings-size-btn-active * {
+  color: #FFFDF5 !important;
+}
+
+.theme-manuscript .settings-size-btn {
+  color: #292524 !important;
+  font-weight: 600 !important;
+}
+
+/* 7. Comprehensive Panchang Calendar Cells (Desktop & Mobile) */
+.theme-manuscript .panchang-day-cell,
+.theme-manuscript .panchang-mobile-day-cell {
+  background-color: #F4EFE3 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-day-normal,
+.theme-manuscript .panchang-day-normal * {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .panchang-day-num {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-tithi-label {
+  color: #44403C !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .panchang-day-parva {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(217, 119, 6, 0.45) !important;
+  box-shadow: 2px 2px 6px rgba(217, 119, 6, 0.18),
+              -2px -2px 6px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .panchang-day-parva .panchang-day-num {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-day-parva .panchang-tithi-label {
+  color: #92400E !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-day-current {
+  background-color: #FEF9C3 !important;
+  border: 2px solid #D97706 !important;
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.35) !important;
+}
+
+.theme-manuscript .panchang-day-current .panchang-day-num {
+  color: #92400E !important;
+  font-weight: 900 !important;
+}
+
+.theme-manuscript .panchang-day-current .panchang-tithi-label {
+  color: #B45309 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .panchang-day-selected {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+  border: 2px solid #B45309 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.45) !important;
+}
+
+.theme-manuscript .panchang-day-selected,
+.theme-manuscript .panchang-day-selected * {
+  color: #1C1917 !important;
+  font-weight: 900 !important;
+}
+
+.theme-manuscript .panchang-tithi-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+
+/* 8. Mahagranthalaya (Library) Header Pills & Key Texts */
+.theme-manuscript .library-header-stat-pill {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  font-weight: 700 !important;
+  box-shadow: inset 1px 1px 2px rgba(184, 165, 138, 0.22) !important;
+}
+
+.theme-manuscript .library-pillar-key-label {
+  color: #78350F !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .library-key-text {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .library-count-pill {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .library-all-btn {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%) !important;
+  color: #FFFDF5 !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+}
+
+.theme-manuscript .library-all-btn,
+.theme-manuscript .library-all-btn * {
+  color: #FFFDF5 !important;
+}
+
+.theme-manuscript .library-pillar-footer {
+  border-top-color: rgba(184, 134, 11, 0.22) !important;
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .library-section-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+/* 9. Category Listing (Nitya Puja) Pills, Tags & Timeline Badges */
+.theme-manuscript .category-item-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-author {
+  background-color: #ECE5D5 !important;
+  color: #44403C !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .category-item-index {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-item-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .category-item-tag {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-footer {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-divider-badge {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-subcat-banner {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+}
+
+.theme-manuscript .category-subcat-desc {
+  color: #78350F !important;
+  font-weight: 600 !important;
+}
+
+/* 10. Search Overlay Header Buttons */
+.theme-manuscript .search-voice-btn,
+.theme-manuscript .search-clear-input-btn,
+.theme-manuscript .search-close-modal-btn {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.28) !important;
+}
+
+.theme-manuscript .search-voice-btn svg,
+.theme-manuscript .search-clear-input-btn svg,
+.theme-manuscript .search-close-modal-btn svg {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .search-close-modal-btn span {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+}
+
+/* 11. Daily Puja Flow (नित्य अभिषेक एवं देव-शास्त्र-गुरु पूजन) */
+.theme-manuscript .puja-top-control-bar {
+  background-color: #FBF8F1 !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(60, 40, 10, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.theme-manuscript .puja-back-btn {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-step-pill {
+  background-color: #ECE5D5 !important;
+  color: #44403C !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .puja-step-pill:hover {
+  background-color: #E2D9C8 !important;
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .puja-step-pill.active {
+  background-color: #D97706 !important;
+  color: #FFFFFF !important;
+  border-color: #B45309 !important;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.35) !important;
+}
+
+.theme-manuscript .puja-reader-tool-btn {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-reader-tool-btn:hover {
+  background-color: #E2D9C8 !important;
+}
+
+.theme-manuscript .puja-reader-tool-btn.active {
+  background-color: #D97706 !important;
+  color: #FFFFFF !important;
+  border-color: #B45309 !important;
+}
+
+/* Stage Mode Switcher Tabs */
+.theme-manuscript .puja-mode-switcher {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.25) !important;
+  box-shadow: inset 2px 2px 4px rgba(184, 165, 138, 0.35), inset -2px -2px 4px rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-manuscript .puja-mode-switcher button {
+  color: #44403C !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-mode-switcher button:hover {
+  color: #1C1917 !important;
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.theme-manuscript .puja-mode-switcher button.active {
+  background-color: #D97706 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.3) !important;
+}
+
+/* Hero Current Step Card */
+.theme-manuscript .puja-current-step-card {
+  background-color: #FBF8F1 !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 4px 18px rgba(60, 40, 10, 0.1) !important;
+}
+
+.theme-manuscript .puja-step-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+}
+
+.theme-manuscript .puja-step-percentage {
+  color: #57534E !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .puja-step-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-prev-step-btn {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  opacity: 1 !important;
+}
+
+.theme-manuscript .puja-prev-step-btn.is-disabled,
+.theme-manuscript .puja-prev-step-btn:disabled {
+  background-color: #EAE3D2 !important;
+  color: #78716C !important;
+  border: 1px solid rgba(184, 134, 11, 0.18) !important;
+  opacity: 1 !important;
+}
+
+.theme-manuscript .puja-prev-step-btn.is-disabled span,
+.theme-manuscript .puja-prev-step-btn.is-disabled svg {
+  color: #78716C !important;
+}
+
+.theme-manuscript .puja-next-step-btn {
+  background: linear-gradient(135deg, #D97706, #B45309) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #92400E !important;
+  box-shadow: 0 3px 10px rgba(180, 83, 9, 0.35) !important;
+}
+
+.theme-manuscript .puja-next-step-btn span,
+.theme-manuscript .puja-next-step-btn svg {
+  color: #FFFFFF !important;
+}
+
+.theme-manuscript .puja-next-step-btn.is-completed {
+  background: #047857 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #065F46 !important;
+}
+
+.theme-manuscript .puja-progress-track {
+  background-color: #E2D9C8 !important;
+  border-color: rgba(184, 134, 11, 0.25) !important;
+  box-shadow: inset 1px 1px 3px rgba(184, 165, 138, 0.45) !important;
+}
+
+/* Verse, Commentary & Translation Boxes */
+.theme-manuscript .puja-verse-box {
+  background-color: #FBF8F1 !important;
+  border-color: rgba(184, 134, 11, 0.3) !important;
+}
+
+.theme-manuscript .puja-bhavarth-box {
+  background-color: #FEF3C7 !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+}
+
+.theme-manuscript .puja-bhavarth-label {
+  color: #92400E !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-bhavarth-text {
+  color: #1C1917 !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+}
+
+.theme-manuscript .puja-mantra-box {
+  background-color: #FEF3C7 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+/* Floating Bottom Step Controls Dock Bar */
+.theme-manuscript .puja-bottom-dock-bar {
+  background-color: #FBF8F1 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 8px 32px rgba(60, 40, 10, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn {
+  background-color: #ECE5D5 !important;
+  color: #1C1917 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  opacity: 1 !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn:disabled,
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn.is-disabled {
+  background-color: #EAE3D2 !important;
+  color: #78716C !important;
+  border: 1px solid rgba(184, 134, 11, 0.15) !important;
+  opacity: 1 !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn.is-disabled span,
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-prev-btn.is-disabled svg {
+  color: #78716C !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-step-indicator {
+  color: #92400E !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-step-name {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn {
+  background: linear-gradient(135deg, #D97706, #B45309) !important;
+  color: #FFFFFF !important;
+  border: 1px solid #92400E !important;
+  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3) !important;
+}
+
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn span,
+.theme-manuscript .puja-bottom-dock-bar .puja-bottom-next-btn svg {
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Category Listing & Card Item Polish in Ancient Manuscript Theme
+   ========================================================================== */
+.theme-manuscript .category-item-badge {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.4) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-index {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.3) !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-item-tag {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.35) !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-item-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-item-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .category-item-author {
+  background-color: #ECE5D5 !important;
+  color: #78350F !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  font-weight: 600 !important;
+}
+
+.theme-manuscript .category-item-footer {
+  color: #991B1B !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-divider-badge {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 1px 1px 3px rgba(184, 165, 138, 0.25) !important;
+}
+
+.theme-manuscript .category-divider-badge span {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .category-divider-title {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+.theme-manuscript .category-divider-desc {
+  color: #44403C !important;
+  font-weight: 500 !important;
+}
+
+/* ==========================================================================
+   Panchang Filter Chip High Specificity
+   ========================================================================== */
+.theme-manuscript .panchang-filter-chip.panchang-filter-chip-active,
+.theme-manuscript button.panchang-filter-chip-active {
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 65%, #7F1D1D 100%) !important;
+  color: #FFFDF5 !important;
+  border-color: rgba(254, 202, 202, 0.5) !important;
+}
+
+.theme-manuscript .panchang-filter-chip.panchang-filter-chip-active *,
+.theme-manuscript button.panchang-filter-chip-active * {
+  color: #FFFDF5 !important;
+}
+
+/* ==========================================================================
+   Horizontal Scroll Container Edge Masks & Navigation Arrows
+   ========================================================================== */
+.theme-manuscript .hscroll-fade-left {
+  background: linear-gradient(to right, #F4EFE3 0%, rgba(244, 239, 227, 0.85) 60%, transparent 100%) !important;
+}
+
+.theme-manuscript .hscroll-fade-right {
+  background: linear-gradient(to left, #F4EFE3 0%, rgba(244, 239, 227, 0.85) 60%, transparent 100%) !important;
+}
+
+.theme-manuscript .hscroll-arrow-btn {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  color: #78350F !important;
+  box-shadow: 0 2px 8px rgba(60, 40, 20, 0.15) !important;
+}
+
+/* ==========================================================================
+   Samayik Page Timer & Controls Contrast
+   ========================================================================== */
+.theme-manuscript .samayik-timer-text {
+  color: #1C1917 !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .samayik-control-btn {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .samayik-control-btn svg {
+  color: #78350F !important;
+}
+
+.theme-manuscript .samayik-tabs-container {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.25) !important;
+}
+
+.theme-manuscript .samayik-tab-btn {
+  color: #57534E !important;
+}
+
+.theme-manuscript .samayik-tab-active {
+  background-color: #78350F !important;
+  color: #FFFDF5 !important;
+}
+
+/* ==========================================================================
+   Book Content Fact Box & Sutra Quotes (Ancient Manuscript Mode)
+   ========================================================================== */
+.theme-manuscript .book-content,
+.theme-manuscript .book-content p,
+.theme-manuscript .book-content .intro {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .book-content .sutra-quote {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  color: #78350F !important;
+}
+
+.theme-manuscript .book-content .fact-box {
+  background-color: #F4EFE3 !important;
+  border-color: rgba(184, 134, 11, 0.30) !important;
+}
+
+.theme-manuscript .book-content .fact-item {
+  background-color: #ECE5D5 !important;
+  border: 1px solid rgba(184, 134, 11, 0.22) !important;
+  box-shadow: 2px 2px 5px rgba(184, 165, 138, 0.25),
+              -2px -2px 5px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .book-content .fact-item strong {
+  color: #78350F !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .book-content .fact-item span {
+  color: #1C1917 !important;
+  font-weight: 800 !important;
+}
+
+/* ==========================================================================
+   Daily Puja Flow Floating Dock Positioning
+   ========================================================================== */
+.puja-bottom-dock-bar {
+  bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+@media (min-width: 768px) {
+  .puja-bottom-dock-bar {
+    bottom: 6.5rem !important;
+  }
+}
+
+/* ==========================================================================
+   Reader Feedback Card & Dock Pagination in Ancient Manuscript Mode
+   ========================================================================== */
+.theme-manuscript .viewer-feedback-card {
+  background-color: #ECE5D5 !important;
+  background-image: none !important;
+  border: 1px solid rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(60, 40, 10, 0.10) !important;
+}
+
+.theme-manuscript .viewer-feedback-title {
+  color: #1C1917 !important;
+  font-weight: 700 !important;
+}
+
+.theme-manuscript .viewer-feedback-subtitle {
+  color: #57534E !important;
+  font-weight: 500 !important;
+}
+
+.theme-manuscript .viewer-feedback-btn {
+  background: linear-gradient(135deg, #B91C1C, #991B1B) !important;
+  color: #FFFDF5 !important;
+  border: 1px solid rgba(153, 27, 27, 0.5) !important;
+  box-shadow: 0 2px 8px rgba(153, 27, 27, 0.25) !important;
+}
+
+.theme-manuscript .viewer-feedback-btn:hover {
+  background: linear-gradient(135deg, #DC2626, #B91C1C) !important;
+  color: #FFFFFF !important;
+}
+
+/* Reader Dock Page Indicators */
+.theme-manuscript [data-floating-dock] .reader-dock-nav {
+  background: transparent !important;
+}
+
+.theme-manuscript [data-floating-dock] button.reader-dock-dot-active,
+.theme-manuscript .reader-dock-dot.reader-dock-dot-active {
+  background-color: #991B1B !important;
+  border: none !important;
+  box-shadow: 0 1px 4px rgba(153, 27, 27, 0.45) !important;
+}
+
+.theme-manuscript [data-floating-dock] button.reader-dock-dot-inactive,
+.theme-manuscript .reader-dock-dot.reader-dock-dot-inactive {
+  background-color: #BFA588 !important;
+  border: none !important;
+  box-shadow: none !important;
+  opacity: 0.85 !important;
+}
+
+.theme-manuscript [data-floating-dock] button.reader-dock-dot-inactive:hover,
+.theme-manuscript .reader-dock-dot.reader-dock-dot-inactive:hover {
+  background-color: #8C6D4F !important;
+  opacity: 1 !important;
+}
+
+/* Expanding Font Bubble in Manuscript Mode */
+.theme-manuscript .dock-font-expanded-bubble {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.4) !important;
+  box-shadow: 0 8px 24px rgba(60, 40, 10, 0.15) !important;
+}
+
+.theme-manuscript .dock-font-btn {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .dock-font-btn:hover {
+  background-color: rgba(184, 134, 11, 0.15) !important;
+  color: #991B1B !important;
+}
+
+.theme-manuscript .dock-font-val {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .dock-font-val:hover {
+  background-color: rgba(184, 134, 11, 0.15) !important;
+}
+
+.theme-manuscript .dock-font-divider {
+  background-color: rgba(184, 134, 11, 0.25) !important;
+}
+
+.theme-manuscript .dock-font-done {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .dock-font-done:hover {
+  background-color: rgba(153, 27, 27, 0.12) !important;
+}
+
+/* Feedback Modal Card in Manuscript Mode */
+.theme-manuscript .feedback-modal-card {
+  background-color: #F4EFE3 !important;
+  background-image: none !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  box-shadow: 0 20px 60px rgba(60, 40, 10, 0.25) !important;
+}
+
+.theme-manuscript .feedback-modal-card h2,
+.theme-manuscript .feedback-modal-card h3 {
+  color: #1C1917 !important;
+}
+
+.theme-manuscript .feedback-modal-card p,
+.theme-manuscript .feedback-modal-card label {
+  color: #44403C !important;
+}
+
+.theme-manuscript .feedback-modal-card input,
+.theme-manuscript .feedback-modal-card textarea,
+.theme-manuscript .feedback-modal-card select {
+  background-color: #ECE5D5 !important;
+  border-color: rgba(184, 134, 11, 0.35) !important;
+  color: #1C1917 !important;
+}
+
+
+
+
+
+
+
+
+
+

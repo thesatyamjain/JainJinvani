@@ -35,13 +35,13 @@ interface ShootingStar {
 }
 
 interface SpaceBackgroundProps {
-  theme?: 'sanctum' | 'cosmic';
+  theme?: 'sanctum' | 'cosmic' | 'manuscript';
 }
 
 export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [currentTheme, setCurrentTheme] = useState<'sanctum' | 'cosmic'>(() => {
-    return propTheme || getSettings().backgroundTheme || 'sanctum';
+  const [currentTheme, setCurrentTheme] = useState<'sanctum' | 'cosmic' | 'manuscript'>(() => {
+    return propTheme || getSettings().backgroundTheme || 'manuscript';
   });
 
   // Sync if prop changes
@@ -185,7 +185,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
       canvas.width = newWidth;
       canvas.height = newHeight;
-      if (currentTheme === 'sanctum') {
+      if (currentTheme === 'sanctum' || currentTheme === 'manuscript') {
         initSanctumParticles();
       } else {
         initCosmicStars();
@@ -193,6 +193,34 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
     };
 
     // Sanctum Incense Embers (Particle dots only, no heavy full-screen radial gradient per frame)
+    const drawManuscript = (time: number) => {
+      // Gentle warm golden incense motes & subtle kumkum dust on antique parchment
+      incenseParticles.forEach((particle) => {
+        const sway = Math.sin(time * particle.swaySpeed + particle.phase) * particle.swayAmplitude;
+        const currentX = particle.x + sway;
+        const pulse = (Math.sin(time * 1.5 + particle.phase) + 1) * 0.5;
+        const alpha = particle.baseOpacity * (0.35 + pulse * 0.45);
+
+        ctx.beginPath();
+        ctx.arc(currentX, particle.y, particle.radius * 0.95, 0, Math.PI * 2);
+
+        if (particle.color === 'gold') {
+          ctx.fillStyle = `rgba(184, 134, 11, ${alpha * 0.55})`;
+        } else if (particle.color === 'amber') {
+          ctx.fillStyle = `rgba(185, 28, 28, ${alpha * 0.35})`;
+        } else {
+          ctx.fillStyle = `rgba(217, 119, 6, ${alpha * 0.45})`;
+        }
+        ctx.fill();
+
+        particle.y -= particle.speedY * 0.5;
+        if (particle.y < -10) {
+          particle.y = canvas.height + 10;
+          particle.x = Math.random() * canvas.width;
+        }
+      });
+    };
+
     const drawSanctum = (time: number) => {
       incenseParticles.forEach((p) => {
         ctx.beginPath();
@@ -320,7 +348,9 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           const time = Date.now() * 0.001;
 
-          if (currentTheme === 'sanctum') {
+          if (currentTheme === 'manuscript') {
+            drawManuscript(time);
+          } else if (currentTheme === 'sanctum') {
             drawSanctum(time);
           } else {
             drawCosmic(time);
@@ -350,8 +380,45 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
 
   return (
     <>
+      {/* Background Base Gradient/Color Layer */}
+      <div
+        className={`fixed inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ${
+          currentTheme === 'manuscript'
+            ? 'bg-[#F4EFE3]'
+            : currentTheme === 'sanctum'
+            ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
+            : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
+        }`}
+      />
+
       {/* Hardware-Accelerated CSS Ambient Layer (Zero Canvas Re-draw Overhead) */}
-      {currentTheme === 'sanctum' ? (
+      {currentTheme === 'manuscript' ? (
+        <>
+          <div
+            className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-700"
+            style={{
+              background:
+                'radial-gradient(circle 850px at 50% 0%, rgba(245, 230, 200, 0.75) 0%, rgba(244, 239, 227, 0.45) 45%, transparent 75%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+          <div
+            className="fixed inset-0 z-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle 600px at 80% 90%, rgba(218, 165, 32, 0.08) 0%, transparent 60%)',
+              transform: 'translateZ(0)',
+            }}
+          />
+          <div
+            className="fixed inset-0 z-0 pointer-events-none opacity-40"
+            style={{
+              background:
+                'radial-gradient(circle 1000px at 50% 50%, transparent 60%, rgba(184, 165, 138, 0.25) 100%)',
+            }}
+          />
+        </>
+      ) : currentTheme === 'sanctum' ? (
         <>
           <div
             className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-700"
@@ -392,14 +459,10 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
         </>
       )}
 
-      {/* Canvas Layer for Floating Embers & Twinkling Stars */}
+      {/* Canvas Layer for Floating Embers & Twinkling Stars (Transparent overlay) */}
       <canvas
         ref={canvasRef}
-        className={`fixed inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ${
-          currentTheme === 'sanctum'
-            ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
-            : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'
-        }`}
+        className="fixed inset-0 z-0 w-full h-full pointer-events-none bg-transparent"
         style={{ transform: 'translateZ(0)', willChange: 'transform' }}
       />
     </>

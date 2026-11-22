@@ -6,7 +6,7 @@ import { ScrollScrubber } from "./components/layout/ScrollScrubber";
 import { PwaAppBridge } from "./components/layout/PwaAppBridge";
 import { PageTransition } from "./components/layout/PageTransition";
 import { AnimatePresence } from "motion/react";
-import { useModalBackHandler } from "./lib";
+import { useModalBackHandler, getSettings, type UserSettings } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
 import { resetSeoToDefault } from "./utils/seoHelper";
 import { useEdgeSwipeBack } from "./hooks/useEdgeSwipeBack";
@@ -50,6 +50,7 @@ const NiyamaPage = lazy(() => import("./pages/NiyamaPage").then((m) => ({ defaul
 const DailyPujaFlow = lazy(() => import("./pages/DailyPujaFlow").then((m) => ({ default: m.DailyPujaFlow })));
 const LaunchVideoPage = lazy(() => import("./pages/LaunchVideoPage").then((m) => ({ default: m.LaunchVideoPage })));
 const AdminLogin = lazy(() => import("./pages/AdminLogin").then(({ AdminLogin }) => ({ default: AdminLogin })));
+const SettingsPage = lazy(() => import("./pages/SettingsPage").then((m) => ({ default: m.SettingsPage })));
 
 const PageLoading = () => (
   <div className="min-h-full flex flex-col items-center justify-center gap-3 select-none py-16">
@@ -74,6 +75,61 @@ export default function App() {
     const initialRoute = typeof window !== 'undefined' ? parseLocation(window.location) : { page: 'landing', params: null };
     return initialRoute.params;
   });
+
+  const [backgroundTheme, setBackgroundTheme] = useState<string>(() => {
+    return getSettings().backgroundTheme || 'manuscript';
+  });
+
+  useEffect(() => {
+    const applyTheme = (theme: string) => {
+      setBackgroundTheme(theme);
+      if (typeof document !== 'undefined') {
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        document.documentElement.classList.remove('theme-manuscript', 'theme-cosmic', 'theme-sanctum', 'dark');
+
+        if (theme === 'manuscript') {
+          document.documentElement.classList.add('theme-manuscript');
+          document.documentElement.style.colorScheme = 'light';
+          if (metaThemeColor) metaThemeColor.setAttribute('content', '#F4EFE3');
+        } else if (theme === 'sanctum') {
+          document.documentElement.classList.add('theme-sanctum', 'dark');
+          document.documentElement.style.colorScheme = 'dark';
+          if (metaThemeColor) metaThemeColor.setAttribute('content', '#05070d');
+        } else {
+          document.documentElement.classList.add('theme-cosmic', 'dark');
+          document.documentElement.style.colorScheme = 'dark';
+          if (metaThemeColor) metaThemeColor.setAttribute('content', '#030712');
+        }
+      }
+    };
+
+    applyTheme(getSettings().backgroundTheme || 'manuscript');
+
+    const handleSettingsUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<UserSettings>;
+      if (customEvent.detail?.backgroundTheme) {
+        applyTheme(customEvent.detail.backgroundTheme);
+      }
+    };
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'jain_settings' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed.backgroundTheme) {
+            applyTheme(parsed.backgroundTheme);
+          }
+        } catch {}
+      }
+    };
+
+    window.addEventListener('jain_settings_updated', handleSettingsUpdate);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('jain_settings_updated', handleSettingsUpdate);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showExitToast, setShowExitToast] = useState(false);
@@ -298,10 +354,16 @@ export default function App() {
   }, [activePage]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden text-slate-100 font-noto selection:bg-amber-500/30 selection:text-amber-100 bg-[#05060a]">
+    <div className={`relative h-full w-full overflow-hidden font-noto transition-colors duration-500 ${
+      backgroundTheme === 'manuscript'
+        ? 'bg-[#F4EFE3] text-[#1C1917] selection:bg-amber-700/20 selection:text-[#1C1917] theme-manuscript'
+        : backgroundTheme === 'sanctum'
+        ? 'bg-[#05070d] text-amber-50 selection:bg-amber-500/30 selection:text-amber-100 theme-sanctum'
+        : 'bg-[#030712] text-slate-100 selection:bg-blue-500/30 selection:text-blue-100 theme-cosmic'
+    }`}>
 
       {/* Background Layer */}
-      <SpaceBackground />
+      <SpaceBackground theme={backgroundTheme as any} />
 
       {/* Main Content Area */}
       <main
@@ -374,6 +436,15 @@ export default function App() {
           {activePage === "more" && (
             <PageTransition pageKey="more">
               <MoreMenu onNavigate={handleNavigate} />
+            </PageTransition>
+          )}
+
+          {activePage === "settings" && (
+            <PageTransition pageKey="settings">
+              <SettingsPage
+                onNavigate={handleNavigate}
+                onBack={() => handleBack("more")}
+              />
             </PageTransition>
           )}
 

@@ -17,13 +17,13 @@ import {
 } from 'lucide-react';
 import { getContentByIdAsync, getContentById } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
-import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
+import { addFavorite, removeFavorite, isFavorite, addRecentRead, getSettings } from '../lib/storage';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { repairDevanagariUnicode } from '../utils/unicodeFixer';
 import { FeedbackModal } from '../components/features/FeedbackModal';
-import { requestScreenWakeLock, releaseScreenWakeLock } from '../utils/pwaManager';
+import { requestScreenWakeLock, releaseScreenWakeLock, triggerHaptic } from '../utils/pwaManager';
 import { AudioPlayer } from '../components/features/AudioPlayer';
 import { getContentAudioTrack, AudioTimestamp } from '../config/media';
 import { useAutoScroll } from '../hooks/useAutoScroll';
@@ -45,17 +45,17 @@ const HtmlView = ({ content, fontSize }: { content: string; fontSize: number }) 
     <GlassCard variant="gilded" tilt={{ maxTilt: 3, glareMaxOpacity: 0.08, glareColor: 'gold' }} className="p-6 sm:p-10 md:p-12 min-h-full">
       <div
         style={{ fontSize: `${fontSize}px` }}
-        className="prose prose-invert prose-lg max-w-none font-mukta text-slate-200 leading-relaxed
-                   prose-headings:font-notoserif prose-headings:text-amber-200 prose-headings:mb-4
-                   prose-p:mb-6 prose-strong:text-amber-300 prose-ul:list-disc prose-ul:pl-6
-                   prose-li:mb-2 [&_.intro]:text-xl [&_.intro]:font-light [&_.intro]:text-white/90
-                   [&_.fact-box]:grid [&_.fact-box]:grid-cols-2 [&_.fact-box]:gap-4 [&_.fact-box]:bg-amber-500/10 [&_.fact-box]:border [&_.fact-box]:border-amber-500/20 [&_.fact-box]:p-6 [&_.fact-box]:rounded-2xl [&_.fact-box]:mb-8
-                   [&_.fact-item]:flex [&_.fact-item]:flex-col [&_.fact-item_strong]:text-amber-400 [&_.fact-item_strong]:text-xs [&_.fact-item_strong]:uppercase [&_.fact-item_strong]:tracking-wider
+        className="prose prose-invert prose-lg max-w-none font-mukta text-stone-900 dark:text-slate-100 leading-relaxed
+                   prose-headings:font-notoserif prose-headings:text-stone-900 dark:prose-headings:text-amber-200 prose-headings:mb-4
+                   prose-p:mb-6 prose-strong:text-amber-900 dark:prose-strong:text-amber-300 prose-ul:list-disc prose-ul:pl-6
+                   prose-li:mb-2 [&_.intro]:text-xl [&_.intro]:font-medium [&_.intro]:text-stone-900 dark:[&_.intro]:text-white
+                   [&_.fact-box]:grid [&_.fact-box]:grid-cols-2 [&_.fact-box]:gap-4 [&_.fact-box]:bg-amber-500/15 [&_.fact-box]:border [&_.fact-box]:border-amber-500/30 [&_.fact-box]:p-6 [&_.fact-box]:rounded-2xl [&_.fact-box]:mb-8
+                   [&_.fact-item]:flex [&_.fact-item]:flex-col [&_.fact-item_strong]:text-amber-800 dark:[&_.fact-item_strong]:text-amber-400 [&_.fact-item_strong]:text-xs [&_.fact-item_strong]:uppercase [&_.fact-item_strong]:tracking-wider
                    [&_.bio-header]:text-center [&_.bio-header]:mb-10 [&_.tirthankara-symbol]:text-6xl [&_.tirthankara-symbol]:block [&_.tirthankara-symbol]:mb-4
-                   [&_.mantra-box]:bg-gradient-to-r [&_.mantra-box]:from-amber-500/15 [&_.mantra-box]:via-slate-900/80 [&_.mantra-box]:to-amber-500/15 [&_.mantra-box]:p-6 [&_.mantra-box]:rounded-2xl [&_.mantra-box]:text-center [&_.mantra-box]:border [&_.mantra-box]:border-amber-400/35 [&_.mantra-box]:my-6 [&_.mantra-box]:shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(254,240,138,0.2)]
+                   [&_.mantra-box]:bg-gradient-to-r [&_.mantra-box]:from-amber-500/20 [&_.mantra-box]:via-slate-900/90 [&_.mantra-box]:to-amber-500/20 [&_.mantra-box]:p-6 [&_.mantra-box]:rounded-2xl [&_.mantra-box]:text-center [&_.mantra-box]:border [&_.mantra-box]:border-amber-400/40 [&_.mantra-box]:my-6 [&_.mantra-box]:shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(254,240,138,0.2)]
                    [&_.steps-grid]:grid [&_.steps-grid]:gap-6 [&_.steps-grid]:md:grid-cols-1
-                   [&_.step-card]:bg-slate-900/60 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-white/10
-                   [&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
+                   [&_.step-card]:bg-amber-500/10 dark:bg-slate-900/70 [&_.step-card]:p-6 [&_.step-card]:rounded-2xl [&_.step-card]:border [&_.step-card]:border-amber-500/25 dark:[&_.step-card]:border-white/10
+                   [&_.step-number]:text-amber-800 dark:[&_.step-number]:text-amber-400 [&_.step-number]:font-bold [&_.step-number]:text-xl [&_.step-number]:mb-2 [&_.step-number]:block"
         dangerouslySetInnerHTML={{ __html: sanitizedRepairedContent }}
       />
     </GlassCard>
@@ -321,12 +321,12 @@ const UnifiedVerseView = ({
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-5 text-center my-2"
               >
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-500/25 to-amber-500/15 border border-amber-400/40 backdrop-blur-md shadow-lg">
-                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-notoserif font-bold text-amber-200 tracking-wide pt-1 pb-0.5">
+                <div className="viewer-section-banner inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-500/30 to-amber-500/20 border border-amber-400/50 backdrop-blur-md shadow-lg">
+                  <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
+                  <h3 className="viewer-section-title text-lg sm:text-xl md:text-2xl font-notoserif font-bold text-stone-950 dark:text-amber-200 tracking-wide pt-1 pb-0.5">
                     {parsed.sectionTitle}
                   </h3>
-                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                  <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
                 </div>
               </motion.div>
             )}
@@ -339,32 +339,26 @@ const UnifiedVerseView = ({
                 className={`p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border shadow-[0_16px_44px_rgba(6,3,1,0.7)] ${
                   isActive
                     ? 'border-amber-400/90 bg-amber-500/10 ring-2 ring-amber-400/40 shadow-[0_0_35px_rgba(245,158,11,0.25)]'
-                    : 'border-amber-500/25'
+                    : 'border-amber-500/30 dark:border-amber-500/25'
                 }`}
               >
-                {/* Traditional Manuscript Ornamental Corner Fillets (पांडुलिपि कोने) */}
-                <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t border-l border-amber-400/30 rounded-tl pointer-events-none" />
-                <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t border-r border-amber-400/30 rounded-tr pointer-events-none" />
-                <div className="absolute bottom-2.5 left-2.5 w-3 h-3 border-b border-l border-amber-400/30 rounded-bl pointer-events-none" />
-                <div className="absolute bottom-2.5 right-2.5 w-3 h-3 border-b border-r border-amber-400/30 rounded-br pointer-events-none" />
-
                 {/* Traditional Sacred Margin Lines (हशिया) */}
-                <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
-                <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/20 to-transparent pointer-events-none" />
+                <div className="absolute left-2.5 sm:left-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/30 to-transparent pointer-events-none" />
+                <div className="absolute right-2.5 sm:right-3.5 inset-y-4 w-[1px] bg-gradient-to-b from-transparent via-amber-500/30 to-transparent pointer-events-none" />
 
                 {/* Verse Header Row (only when numberDisplay exists) */}
                 {parsed.numberDisplay ? (
-                  <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/15">
+                  <div className="flex items-center justify-between mb-4 pb-2.5 border-b border-amber-500/20">
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-amber-600/20 border border-amber-400/40 text-amber-200 font-mono text-xs font-bold flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.4),0_0_8px_rgba(245,158,11,0.12),inset_0_1px_0_rgba(255,255,255,0.2)]">
+                      <span className="px-3 py-0.5 rounded-full bg-amber-500/20 dark:bg-gradient-to-r dark:from-amber-500/20 dark:to-amber-600/20 border border-amber-500/40 text-amber-950 dark:text-amber-200 font-mono text-xs font-bold flex items-center justify-center shadow-[0_2px_6px_rgba(0,0,0,0.4),0_0_8px_rgba(245,158,11,0.12),inset_0_1px_0_rgba(255,255,255,0.2)]">
                         {parsed.numberDisplay}
                       </span>
-                      <span className="text-[11px] uppercase tracking-widest text-amber-300/80 font-gotu font-medium">
+                      <span className="text-[11px] uppercase tracking-widest text-amber-800 dark:text-amber-300 font-gotu font-semibold">
                         पद / श्लोक
                       </span>
                       {isActive && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-semibold animate-pulse">
-                          <Volume2 className="w-3 h-3 text-amber-400 shrink-0" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-bold animate-pulse">
+                          <Volume2 className="w-3 h-3 text-amber-700 dark:text-amber-400 shrink-0" />
                           वाचन चालू
                         </span>
                       )}
@@ -378,7 +372,7 @@ const UnifiedVerseView = ({
                           className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer ${
                             isActive
                               ? 'bg-amber-400 text-slate-950 font-bold shadow'
-                              : 'bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-400/30'
+                              : 'bg-amber-500/20 text-amber-900 dark:text-amber-300 hover:bg-amber-500/30 border border-amber-500/40'
                           }`}
                           title="यहाँ से ऑडियो चलाएँ"
                         >
@@ -391,24 +385,24 @@ const UnifiedVerseView = ({
                           whileTap={{ scale: 0.88 }}
                           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                           onClick={() => onShareVerse(parsed.numberDisplay, parsed.lines, parsed.meanings)}
-                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
+                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-700 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-100 hover:bg-amber-500/20 border border-transparent hover:border-amber-400/40 transition-colors cursor-pointer"
                           title="यह पद साझा करें"
                           aria-label="यह पद साझा करें"
                         >
                           <Share2 className="w-3.5 h-3.5" />
                         </motion.button>
                       )}
-                      <span className="text-amber-400/40 text-xs">❖</span>
+                      <span className="text-amber-500/60 dark:text-amber-400/40 text-xs">❖</span>
                     </div>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-between mb-3 text-amber-400/60 text-xs">
+                  <div className="flex items-center justify-between mb-3 text-amber-600 dark:text-amber-400/60 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-400/30" />
+                      <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-500/40" />
                       <span>❖</span>
                       {isActive && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-semibold animate-pulse">
-                          <Volume2 className="w-3 h-3 text-amber-400 shrink-0" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/25 text-amber-900 dark:text-amber-200 border border-amber-400/40 text-[11px] font-gotu font-bold animate-pulse">
+                          <Volume2 className="w-3 h-3 text-amber-700 dark:text-amber-400 shrink-0" />
                           वाचन चालू
                         </span>
                       )}
@@ -422,7 +416,7 @@ const UnifiedVerseView = ({
                           className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium transition-colors cursor-pointer ${
                             isActive
                               ? 'bg-amber-400 text-slate-950 font-bold shadow'
-                              : 'bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-400/30'
+                              : 'bg-amber-500/20 text-amber-900 dark:text-amber-300 hover:bg-amber-500/30 border border-amber-500/40'
                           }`}
                           title="यहाँ से ऑडियो चलाएँ"
                         >
@@ -435,7 +429,7 @@ const UnifiedVerseView = ({
                           whileTap={{ scale: 0.88 }}
                           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                           onClick={() => onShareVerse(null, parsed.lines, parsed.meanings)}
-                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-400/60 hover:text-amber-200 hover:bg-amber-500/15 border border-transparent hover:border-amber-400/30 transition-colors cursor-pointer"
+                          className="flex items-center justify-center w-7 h-7 rounded-lg text-amber-700 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-100 hover:bg-amber-500/20 border border-transparent hover:border-amber-400/40 transition-colors cursor-pointer"
                           title="यह भाग साझा करें"
                           aria-label="यह भाग साझा करें"
                         >
@@ -452,7 +446,7 @@ const UnifiedVerseView = ({
                     if (lineObj.type === 'tag') {
                       return (
                         <div key={lIdx} className="pt-1 pb-1">
-                          <span className="inline-block px-4 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 font-gotu text-xs sm:text-sm font-semibold tracking-wide shadow-sm">
+                          <span className="inline-block px-4 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-900 dark:text-amber-200 font-gotu text-xs sm:text-sm font-bold tracking-wide shadow-xs">
                             {lineObj.text}
                           </span>
                         </div>
@@ -464,7 +458,7 @@ const UnifiedVerseView = ({
                         <div
                           key={lIdx}
                           style={{ fontSize: `${fontSize + 1}px` }}
-                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-[#0e1526]/90 to-amber-500/15 border border-amber-400/40 text-amber-100 font-notoserif font-bold text-center shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.5)] tracking-wide leading-relaxed"
+                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-amber-500/10 dark:bg-gradient-to-r dark:from-amber-500/15 dark:via-[#0e1526]/90 dark:to-amber-500/15 border border-amber-500/35 dark:border-amber-400/40 text-amber-950 dark:text-amber-100 font-notoserif font-bold text-center shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.5)] tracking-wide leading-relaxed"
                         >
                           {lineObj.text}
                         </div>
@@ -475,7 +469,7 @@ const UnifiedVerseView = ({
                       <p
                         key={lIdx}
                         style={{ fontSize: `${fontSize + 3}px` }}
-                        className="font-notoserif font-bold text-amber-50/95 leading-[1.65] tracking-wide pt-0.5 pb-0.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+                        className="font-notoserif font-bold text-stone-900 dark:text-amber-50 leading-[1.65] tracking-wide pt-0.5 pb-0.5 drop-shadow-xs dark:drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
                       >
                         {lineObj.text}
                       </p>
@@ -485,15 +479,15 @@ const UnifiedVerseView = ({
 
                 {/* Meanings / Translation */}
                 {parsed.meanings.length > 0 && (
-                  <div className="mt-5 pt-4 border-t border-amber-500/20 space-y-2 text-center bg-gradient-to-b from-amber-950/20 to-slate-950/40 -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 md:-mx-9 md:-mb-9 p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl">
-                    <span className="text-[11px] uppercase tracking-widest text-amber-300 font-cinzel font-bold inline-flex items-center gap-2 mb-1.5 px-3 py-0.5 rounded-full bg-amber-500/10 border border-amber-400/20">
+                  <div className="mt-5 pt-4 border-t border-amber-500/25 space-y-2 text-center bg-amber-500/[0.06] dark:bg-gradient-to-b dark:from-amber-950/20 dark:to-slate-950/40 -mx-5 -mb-5 sm:-mx-7 sm:-mb-7 md:-mx-9 md:-mb-9 p-4 sm:p-6 rounded-b-2xl sm:rounded-b-3xl">
+                    <span className="text-[11px] uppercase tracking-widest text-amber-900 dark:text-amber-300 font-cinzel font-bold inline-flex items-center gap-2 mb-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/35 shadow-xs">
                       <span>॥</span> भावार्थ <span>॥</span>
                     </span>
                     {parsed.meanings.map((meaningLine: string, lIdx: number) => (
                       <p
                         key={lIdx}
                         style={{ fontSize: `${fontSize}px` }}
-                        className="font-mukta text-slate-200/90 leading-relaxed max-w-3xl mx-auto text-sm sm:text-base font-normal"
+                        className="font-mukta text-stone-900 dark:text-slate-100 leading-relaxed max-w-3xl mx-auto text-sm sm:text-base font-normal"
                       >
                         {meaningLine}
                       </p>
@@ -522,7 +516,7 @@ const ArticleView = ({
   if (!data.chapters) return null;
   return (
     <GlassCard variant="gilded" tilt={{ maxTilt: 3, glareMaxOpacity: 0.08, glareColor: 'gold' }} className="p-6 md:p-12 min-h-full">
-      <div className="max-w-3xl mx-auto space-y-12 text-slate-200 leading-relaxed font-mukta">
+      <div className="max-w-3xl mx-auto space-y-12 text-stone-900 dark:text-slate-100 leading-relaxed font-mukta">
         {data.chapters.map((chapter: any, chapterIdx: number) => (
           <div
             key={chapterIdx}
@@ -531,7 +525,7 @@ const ArticleView = ({
             }}
             className="scroll-mt-20"
           >
-            <h3 className="text-2xl md:text-3xl font-notoserif text-amber-200 mb-6 border-l-4 border-amber-500 pl-4 py-1">
+            <h3 className="text-2xl md:text-3xl font-notoserif font-bold text-stone-900 dark:text-amber-200 mb-6 border-l-4 border-amber-500 pl-4 py-1">
               {chapter.title}
             </h3>
             <div className="space-y-6">
@@ -542,7 +536,7 @@ const ArticleView = ({
                   <p
                     key={pIdx}
                     style={{ fontSize: `${fontSize}px` }}
-                    className="leading-loose text-justify text-slate-200"
+                    className="leading-loose text-justify text-stone-900 dark:text-slate-100"
                   >
                     {para}
                   </p>
@@ -995,59 +989,91 @@ export const ContentViewer = ({
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
 
-        {/* Top Header Metadata Badges */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap min-w-0 mb-4 sm:mb-6 w-full">
-          {data?.category && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-[0_0_15px_rgba(245,158,11,0.15)] font-gotu truncate">
-              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
-              {CATEGORY_NAMES_HI[data.category] || data.category}
-            </span>
-          )}
-          {verseCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-              <Scroll className="w-3 h-3 text-amber-400/80 shrink-0" />
-              {verseCount} पद्य
-            </span>
-          )}
-          {chapterCount > 0 && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-gotu backdrop-blur-md">
-              <BookOpen className="w-3 h-3 text-amber-400/80 shrink-0" />
-              {chapterCount} अध्याय
-            </span>
-          )}
-          <motion.button
-            type="button"
-            whileTap={{ scale: 0.94 }}
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-            onClick={() => setShowFeedbackModal(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 text-xs font-gotu backdrop-blur-md cursor-pointer transition-[background-color,border-color,color]"
-            title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
-          >
-            <FileEdit className="w-3 h-3 text-amber-400/80 shrink-0" />
-            <span>सुधार बताएं</span>
-          </motion.button>
+        {/* Top Header Row: Badges & Font Size Controls (A- / A+) */}
+        <div className="flex items-center justify-between gap-2 flex-wrap min-w-0 mb-4 sm:mb-5 w-full">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
+            {data?.category && (
+              <span className="viewer-cat-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/35 text-amber-900 dark:text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-xs font-gotu truncate">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                {CATEGORY_NAMES_HI[data.category] || data.category}
+              </span>
+            )}
+            {verseCount > 0 && (
+              <span className="viewer-verse-badge inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-amber-500/10 dark:bg-white/5 border border-amber-400/25 dark:border-white/10 text-stone-800 dark:text-slate-200 text-xs font-gotu backdrop-blur-md font-medium">
+                <Scroll className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                {verseCount} पद्य
+              </span>
+            )}
+            {chapterCount > 0 && (
+              <span className="viewer-verse-badge inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-amber-500/10 dark:bg-white/5 border border-amber-400/25 dark:border-white/10 text-stone-800 dark:text-slate-200 text-xs font-gotu backdrop-blur-md font-medium">
+                <BookOpen className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                {chapterCount} अध्याय
+              </span>
+            )}
+          </div>
+
+          {/* Quick Reader Controls: Font Sizing (A- / A+) & Report */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <div className="inline-flex items-center rounded-xl bg-amber-500/15 dark:bg-slate-900/80 border border-amber-500/35 dark:border-amber-400/30 p-0.5 shadow-xs">
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.88 }}
+                onClick={() => setFontSize((f) => Math.max(14, f - 2))}
+                className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-stone-900 dark:text-amber-200 hover:bg-amber-500/20 transition-colors cursor-pointer select-none"
+                title="अक्षर छोटा करें (A-)"
+                aria-label="अक्षर छोटा करें (A-)"
+              >
+                A-
+              </motion.button>
+              <span className="px-1.5 text-[11px] font-mono font-bold text-amber-900 dark:text-amber-300 select-none">
+                {fontSize}
+              </span>
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.88 }}
+                onClick={() => setFontSize((f) => Math.min(28, f + 2))}
+                className="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-stone-900 dark:text-amber-200 hover:bg-amber-500/20 transition-colors cursor-pointer select-none"
+                title="अक्षर बड़ा करें (A+)"
+                aria-label="अक्षर बड़ा करें (A+)"
+              >
+                A+
+              </motion.button>
+            </div>
+
+            <motion.button
+              type="button"
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+              onClick={() => setShowFeedbackModal(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
+              title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
+            >
+              <FileEdit className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="hidden sm:inline">सुधार बताएं</span>
+            </motion.button>
+          </div>
         </div>
 
         {/* Grand Sacred Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-50 via-amber-100 to-amber-300 leading-[1.25] tracking-normal mb-2.5 sm:mb-3 drop-shadow-[0_2px_18px_rgba(245,158,11,0.25)] select-none">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-stone-950 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-b dark:from-amber-50 dark:via-amber-100 dark:to-amber-300 leading-[1.25] tracking-normal mb-2.5 sm:mb-3 drop-shadow-xs dark:drop-shadow-[0_2px_18px_rgba(245,158,11,0.25)] select-none">
           {data?.title || title || 'स्वाध्याय'}
         </h1>
 
         {/* Refined Subtitle & Author Meta */}
         {hindiSubtitle ? (
-          <p className="text-slate-300/90 text-xs sm:text-sm md:text-base font-gotu max-w-2xl mx-auto leading-relaxed px-2">
+          <p className="text-stone-800 dark:text-stone-200 text-xs sm:text-sm md:text-base font-gotu font-medium max-w-2xl mx-auto leading-relaxed px-2">
             {hindiSubtitle}
           </p>
         ) : null}
 
         {/* Auspicious Mangal Filigree Divider */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 pt-1 opacity-70">
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-amber-400/40" />
-          <span className="text-amber-400/80 text-[10px] sm:text-xs font-gotu select-none tracking-widest">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-4 pt-1">
+          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-r from-transparent to-amber-500/40" />
+          <span className="text-amber-700 dark:text-amber-300 text-[10px] sm:text-xs font-gotu select-none tracking-widest font-semibold">
             ❖ ॐ नमः सिद्धेभ्यः ❖
           </span>
-          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-400/40" />
+          <div className="h-[1px] w-10 sm:w-16 bg-gradient-to-l from-transparent to-amber-500/40" />
         </div>
       </motion.div>
       </TiltCard>
@@ -1111,15 +1137,19 @@ export const ContentViewer = ({
             {/* Reader Footer Contribution Prompt */}
             <div className="pt-8 pb-4 text-center">
               <TiltCard
-                maxTilt={5}
-                glareMaxOpacity={0.12}
+                maxTilt={4}
+                glareMaxOpacity={0.08}
                 glareColor="gold"
                 className="inline-block max-w-md w-full rounded-2xl"
               >
-                <div className="inline-flex flex-col sm:flex-row items-center gap-3 p-4 rounded-2xl bg-[#0c1222]/80 border border-amber-500/25 w-full shadow-lg">
+                <div className="viewer-feedback-card inline-flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-slate-900/85 dark:bg-slate-950/85 border border-amber-500/35 backdrop-blur-md w-full shadow-md">
                   <div className="text-left flex-1 min-w-0">
-                    <div className="text-xs font-bold text-amber-200 font-notoserif">क्या इस पाठ में कोई अशुद्धि मिली?</div>
-                    <div className="text-[11px] text-slate-300/80 font-gotu">शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।</div>
+                    <div className="viewer-feedback-title text-xs font-bold font-notoserif text-amber-200 dark:text-amber-200">
+                      क्या इस पाठ में कोई अशुद्धि मिली?
+                    </div>
+                    <div className="viewer-feedback-subtitle text-[11px] font-gotu font-medium text-slate-300 dark:text-slate-300">
+                      शुद्ध जिनवाणी संवर्धन हेतु हमें सूचित करें।
+                    </div>
                   </div>
                   <motion.button
                     type="button"
@@ -1127,7 +1157,7 @@ export const ContentViewer = ({
                     whileHover={{ scale: 1.04 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                     onClick={() => setShowFeedbackModal(true)}
-                    className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-xs font-gotu font-semibold shrink-0 cursor-pointer transition-colors"
+                    className="viewer-feedback-btn px-3.5 py-1.5 rounded-xl bg-amber-500/25 hover:bg-amber-500/35 text-amber-100 border border-amber-400/45 text-xs font-gotu font-bold shrink-0 cursor-pointer transition-colors shadow-xs"
                   >
                     सुधार बताएं →
                   </motion.button>
@@ -1138,18 +1168,18 @@ export const ContentViewer = ({
         ) : (
           <div className="flex flex-col items-center justify-center min-h-[50vh] text-center py-20">
             <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6">
-              <BookOpen className="w-10 h-10 text-white/30" />
+              <BookOpen className="w-10 h-10 text-white/50" />
             </div>
             <h1 className="text-3xl md:text-5xl font-rozha text-white mb-4">
               {title || 'सामग्री उपलब्ध नहीं है'}
             </h1>
-            <p className="text-slate-400 font-gotu text-base mb-6">यह रचना अभी उपलब्ध नहीं है अथवा लिंक अधूरा है।</p>
+            <p className="text-slate-300 font-gotu text-base mb-6 font-medium">यह रचना अभी उपलब्ध नहीं है अथवा लिंक अधूरा है।</p>
             <motion.button
               whileTap={{ scale: 0.94 }}
               whileHover={{ scale: 1.04 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={onBack}
-              className="px-6 py-2.5 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/40 text-sm font-gotu font-semibold shadow-md cursor-pointer transition-[background-color,border-color,box-shadow]"
+              className="px-6 py-2.5 rounded-full bg-amber-500/25 hover:bg-amber-500/35 text-amber-100 border border-amber-400/50 text-sm font-gotu font-bold shadow-md cursor-pointer transition-colors"
             >
               ← वापस जाएँ
             </motion.button>

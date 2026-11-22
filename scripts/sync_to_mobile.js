@@ -13,10 +13,14 @@ if (!fs.existsSync(srcDir)) {
 }
 
 if (fs.existsSync(destDir)) {
-  fs.rmSync(destDir, { recursive: true, force: true });
+  try {
+    fs.rmSync(destDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 150 });
+  } catch {
+    // Fall back to in-place overwrite if Windows holds directory handle
+  }
 }
 
-fs.cpSync(srcDir, destDir, { recursive: true });
+fs.cpSync(srcDir, destDir, { recursive: true, force: true });
 console.log(`[sync_to_mobile] Success! Mobile app assets updated with latest web build.`);
 
 // Ensure mobile icons are generated

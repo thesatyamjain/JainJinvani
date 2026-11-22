@@ -353,7 +353,7 @@ export const FeedbackModal = ({
             <GlassCard
               variant="sacred"
               sheen
-              className="p-3.5 sm:p-6 border-amber-500/35 bg-[#0b1220]/95 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(245,158,11,0.15)] rounded-2xl sm:rounded-3xl relative overflow-hidden max-h-[min(92vh,720px)] flex flex-col"
+              className="feedback-modal-card p-3.5 sm:p-6 border-amber-500/35 bg-[#0b1220]/95 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(245,158,11,0.15)] rounded-2xl sm:rounded-3xl relative overflow-hidden max-h-[min(92vh,720px)] flex flex-col"
             >
               {/* Sacred Corner Traditional Markers */}
               <div className="absolute top-2.5 left-3 text-[10px] text-amber-400/40 pointer-events-none select-none">
