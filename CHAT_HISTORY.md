@@ -697,14 +697,14 @@
 
 > Set up a Google tag ka matlab'
 
-> <!-- Google tag (gtag.js) -->
-> <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRHCJLL700"></script>
-> <script>
->   window.dataLayer = window.dataLayer || [];
->   function gtag(){dataLayer.push(arguments);}
->   gtag('js', new Date());
-> 
->   gtag('config', 'G-VRHCJLL700');
+> <!-- Google tag (gtag.js) -->
+> <script async src="https://www.googletagmanager.com/gtag/js?id=G-VRHCJLL700"></script>
+> <script>
+>   window.dataLayer = window.dataLayer || [];
+>   function gtag(){dataLayer.push(arguments);}
+>   gtag('js', new Date());
+> 
+>   gtag('config', 'G-VRHCJLL700');
 > </script>
 
 > ab age
@@ -1086,17 +1086,17 @@
 
 > any recommendation or suggestions
 
-> continue with all except  हैंड्स-फ्री ऑटो-स्क्रोल (Hands-Free Auto-Scroll in Viewer):
-> 
-> समस्या: पूजा या विधान करते समय हाथों में पूजा की थाली/द्रव्य होने से बार-बार स्क्रीन को टच करना असुविधाजनक होता है।
+> continue with all except  हैंड्स-फ्री ऑटो-स्क्रोल (Hands-Free Auto-Scroll in Viewer):
+> 
+> समस्या: पूजा या विधान करते समय हाथों में पूजा की थाली/द्रव्य होने से बार-बार स्क्रीन को टच करना असुविधाजनक होता है।
 > सुझाव: व्यूअर में एक साधारण 'ऑटो-स्क्रोल' (धीमी / मध्यम / तीव्र गति) बटन जोड़ें ताकि पाठ स्वतः नीचे स्क्रोल होता रहे।
 
 > continue with all 
-> except:  हैंड्स-फ्री ऑटो-स्क्रोल (Hands-Free Auto-Scroll in Viewer):
-> समस्या: पूजा या विधान करते समय हाथों में पूजा की थाली/द्रव्य होने से बार-बार स्क्रीन को टच करना असुविधाजनक होता है।
+> except:  हैंड्स-फ्री ऑटो-स्क्रोल (Hands-Free Auto-Scroll in Viewer):
+> समस्या: पूजा या विधान करते समय हाथों में पूजा की थाली/द्रव्य होने से बार-बार स्क्रीन को टच करना असुविधाजनक होता है।
 > सुझाव: व्यूअर में एक साधारण 'ऑटो-स्क्रोल' (धीमी / मध्यम / तीव्र गति) बटन जोड़ें ताकि पाठ स्वतः नीचे स्क्रोल होता रहे।
 > 
-> चंक ऑप्टिमाइजेशन (Vite Manual Chunks for Ritual Data):
+> चंक ऑप्टिमाइजेशन (Vite Manual Chunks for Ritual Data):
 > ritual.ts (१.३ MB) जैसे बड़े डेटा मॉड्यूल को सब-चंक्स (जैसे puja-chunks, vidhan-chunks) में कोड-स्प्लिट करना ताकि मोबाइल पर रैम और नेटवर्क का उपयोग न्यूनतम हो।
 
 > Dynamic Parva Banner kaha hai
@@ -1122,57 +1122,57 @@
 - **Walkthrough Document:** [Dock Pagination Dots Update — [ ● ● ]](file:///C:/Users/hp/.gemini/antigravity/brain/f2a70bc7-8f4c-463f-a010-c078e2ea3388/walkthrough.md)
 
 **User Prompts in this session:**
-> 2026-08-28T13:25:50.805807Z	Cloning repository...
-> 2026-08-28T13:25:52.243419Z	From https://github.com/thesatyamjain/jainjinvani
-> 2026-08-28T13:25:52.243724Z	 * branch            9d4d7e0f8dbef85445f731b5938678bb0f0101d9 -> FETCH_HEAD
-> 2026-08-28T13:25:52.243828Z	
-> 2026-08-28T13:25:52.325173Z	HEAD is now at 9d4d7e0 update
-> 2026-08-28T13:25:52.32546Z	
-> 2026-08-28T13:25:52.372236Z	
-> 2026-08-28T13:25:52.372592Z	Using v2 root directory strategy
-> 2026-08-28T13:25:52.389049Z	Success: Finished cloning repository files
-> 2026-08-28T13:25:53.924337Z	Checking for configuration in a Wrangler configuration file (BETA)
-> 2026-08-28T13:25:53.924783Z	
-> 2026-08-28T13:25:54.073894Z	No Wrangler configuration file found. Continuing.
-> 2026-08-28T13:25:54.327976Z	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
-> 2026-08-28T13:25:54.32841Z	Installing project dependencies: npm clean-install --progress=false
-> 2026-08-28T13:26:01.54222Z	
-> 2026-08-28T13:26:01.542973Z	added 249 packages, and audited 250 packages in 7s
-> 2026-08-28T13:26:01.543164Z	
-> 2026-08-28T13:26:01.543249Z	31 packages are looking for funding
-> 2026-08-28T13:26:01.543327Z	  run `npm fund` for details
-> 2026-08-28T13:26:01.565371Z	
-> 2026-08-28T13:26:01.565617Z	7 vulnerabilities (1 moderate, 6 high)
-> 2026-08-28T13:26:01.56569Z	
-> 2026-08-28T13:26:01.565849Z	To address issues that do not require attention, run:
-> 2026-08-28T13:26:01.56597Z	  npm audit fix
-> 2026-08-28T13:26:01.566033Z	
-> 2026-08-28T13:26:01.566131Z	To address all issues, run:
-> 2026-08-28T13:26:01.56623Z	  npm audit fix --force
-> 2026-08-28T13:26:01.566289Z	
-> 2026-08-28T13:26:01.566341Z	Run `npm audit` for details.
-> 2026-08-28T13:26:01.622445Z	Executing user command: npm run build
-> 2026-08-28T13:26:01.959119Z	
-> 2026-08-28T13:26:01.959421Z	> Jain Jinvani@0.1.0 build
-> 2026-08-28T13:26:01.959529Z	> vite build
-> 2026-08-28T13:26:01.959603Z	
-> 2026-08-28T13:26:02.195503Z	[36mvite v6.3.5 [32mbuilding for production...[36m[39m
+> 2026-08-28T13:25:50.805807Z	Cloning repository...
+> 2026-08-28T13:25:52.243419Z	From https://github.com/thesatyamjain/jainjinvani
+> 2026-08-28T13:25:52.243724Z	 * branch            9d4d7e0f8dbef85445f731b5938678bb0f0101d9 -> FETCH_HEAD
+> 2026-08-28T13:25:52.243828Z	
+> 2026-08-28T13:25:52.325173Z	HEAD is now at 9d4d7e0 update
+> 2026-08-28T13:25:52.32546Z	
+> 2026-08-28T13:25:52.372236Z	
+> 2026-08-28T13:25:52.372592Z	Using v2 root directory strategy
+> 2026-08-28T13:25:52.389049Z	Success: Finished cloning repository files
+> 2026-08-28T13:25:53.924337Z	Checking for configuration in a Wrangler configuration file (BETA)
+> 2026-08-28T13:25:53.924783Z	
+> 2026-08-28T13:25:54.073894Z	No Wrangler configuration file found. Continuing.
+> 2026-08-28T13:25:54.327976Z	Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
+> 2026-08-28T13:25:54.32841Z	Installing project dependencies: npm clean-install --progress=false
+> 2026-08-28T13:26:01.54222Z	
+> 2026-08-28T13:26:01.542973Z	added 249 packages, and audited 250 packages in 7s
+> 2026-08-28T13:26:01.543164Z	
+> 2026-08-28T13:26:01.543249Z	31 packages are looking for funding
+> 2026-08-28T13:26:01.543327Z	  run `npm fund` for details
+> 2026-08-28T13:26:01.565371Z	
+> 2026-08-28T13:26:01.565617Z	7 vulnerabilities (1 moderate, 6 high)
+> 2026-08-28T13:26:01.56569Z	
+> 2026-08-28T13:26:01.565849Z	To address issues that do not require attention, run:
+> 2026-08-28T13:26:01.56597Z	  npm audit fix
+> 2026-08-28T13:26:01.566033Z	
+> 2026-08-28T13:26:01.566131Z	To address all issues, run:
+> 2026-08-28T13:26:01.56623Z	  npm audit fix --force
+> 2026-08-28T13:26:01.566289Z	
+> 2026-08-28T13:26:01.566341Z	Run `npm audit` for details.
+> 2026-08-28T13:26:01.622445Z	Executing user command: npm run build
+> 2026-08-28T13:26:01.959119Z	
+> 2026-08-28T13:26:01.959421Z	> Jain Jinvani@0.1.0 build
+> 2026-08-28T13:26:01.959529Z	> vite build
+> 2026-08-28T13:26:01.959603Z	
+> 2026-08-28T13:26:02.195503Z	[36mvite v6.3.5 [32mbuilding for production...[36m[39m
 > 2026-08-28T13:26:02.276979Z	(node:1075) [MODULE_TYPELESS_PAC
 > <truncated 1963 bytes>
-> ', category: 'granthas', subCategory: 'prathamanuyoga', author: 'आचार्य जिनसेन', badge: 'महापुराण पूर्व', description: 'प्रथम तीर्थंकर ऋषभदेव एवं भरत चक्रवर्ती का पावन महाचरित्र' },
-> 2026-08-28T13:26:04.219211Z	[31m
-> 2026-08-28T13:26:04.219289Z	    at failureErrorWithLog (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:1467:15)
-> 2026-08-28T13:26:04.219383Z	    at /opt/buildhome/repo/node_modules/esbuild/lib/main.js:736:50
-> 2026-08-28T13:26:04.219511Z	    at responseCallbacks.<computed> (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:603:9)
-> 2026-08-28T13:26:04.219598Z	    at handleIncomingPacket (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:658:12)
-> 2026-08-28T13:26:04.219661Z	    at Socket.readFromStdout (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:581:7)
-> 2026-08-28T13:26:04.219781Z	    at Socket.emit (node:events:518:28)
-> 2026-08-28T13:26:04.219863Z	    at addChunk (node:internal/streams/readable:561:12)
-> 2026-08-28T13:26:04.219993Z	    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
-> 2026-08-28T13:26:04.220052Z	    at Readable.push (node:internal/streams/readable:392:5)
-> 2026-08-28T13:26:04.220085Z	    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m
-> 2026-08-28T13:26:04.289436Z	Failed: Error while executing user command. Exited with error code: 1
-> 2026-08-28T13:26:04.295396Z	Failed: build command exited with code: 1
+> ', category: 'granthas', subCategory: 'prathamanuyoga', author: 'आचार्य जिनसेन', badge: 'महापुराण पूर्व', description: 'प्रथम तीर्थंकर ऋषभदेव एवं भरत चक्रवर्ती का पावन महाचरित्र' },
+> 2026-08-28T13:26:04.219211Z	[31m
+> 2026-08-28T13:26:04.219289Z	    at failureErrorWithLog (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:1467:15)
+> 2026-08-28T13:26:04.219383Z	    at /opt/buildhome/repo/node_modules/esbuild/lib/main.js:736:50
+> 2026-08-28T13:26:04.219511Z	    at responseCallbacks.<computed> (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:603:9)
+> 2026-08-28T13:26:04.219598Z	    at handleIncomingPacket (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:658:12)
+> 2026-08-28T13:26:04.219661Z	    at Socket.readFromStdout (/opt/buildhome/repo/node_modules/esbuild/lib/main.js:581:7)
+> 2026-08-28T13:26:04.219781Z	    at Socket.emit (node:events:518:28)
+> 2026-08-28T13:26:04.219863Z	    at addChunk (node:internal/streams/readable:561:12)
+> 2026-08-28T13:26:04.219993Z	    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+> 2026-08-28T13:26:04.220052Z	    at Readable.push (node:internal/streams/readable:392:5)
+> 2026-08-28T13:26:04.220085Z	    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m
+> 2026-08-28T13:26:04.289436Z	Failed: Error while executing user command. Exited with error code: 1
+> 2026-08-28T13:26:04.295396Z	Failed: build command exited with code: 1
 > 2026-08-28T13:26:05.018151Z	Failed: error occurred while running build command
 
 > any vidhi page
@@ -1243,75 +1243,75 @@
 > pura complete karo
 
 > checklist:
-> दर्शन विधि
-> णमोकार महामन्त्र.
-> दर्शन पाठ (संस्कृत)
-> 
-> नित्य पूजा
-> मंगलाष्टक स्तोत्रम्
-> शुद्धि मंत्रादि
-> अभिषेक पाठ संस्कृत (माघनन्दिकृत)
-> सिद्धयन्त्रस्थापाना
-> सिद्धयंत्राभिषेक
-> शान्तिधारा
-> विनय पाठ
-> नित्य पूजा पीठिका.
-> परमर्षि स्वस्ति मंगल पाठ
-> देवशास्त्र गुरु समुच्च पूजन (आ. पूर्णमति माताजी कृत)
-> समुच्चय पूजन
-> नवदेवता पूजन (आ. पूर्णमति माताजी कृत)
-> श्री सिद्ध पूजन (संस्कृत)
-> श्री चौबीसी समुच्च जिन पूजन (आ. पूर्णमति माताजी कृत)
-> अर्घावली.
-> श्री सम्मेदशिखरजी की कूट अर्घ
-> शांतिपाठ भाषा
-> विसर्जन
-> जिन भाषा स्तुति पाठ
-> 
-> तीर्थंकर पूजन
-> श्री आदिनाथ जिन पूजन (आ. पूर्णमति माताजी कृत)
-> श्री आदिनाथ जिनपूजन.
-> श्रीपुष्पदन्त जिनपूजा (जिनेश्वर दास कृत)
-> श्री वासुपूज्य जिन पूजन (आ. पूर्णमति माताजी कृत)
-> श्री शांतिनाथ जिन पूजन (आ. पूर्णमति माताजी कृत)
-> श्री शान्तिनाथ जिनपूजन
+> दर्शन विधि
+> णमोकार महामन्त्र.
+> दर्शन पाठ (संस्कृत)
+> 
+> नित्य पूजा
+> मंगलाष्टक स्तोत्रम्
+> शुद्धि मंत्रादि
+> अभिषेक पाठ संस्कृत (माघनन्दिकृत)
+> सिद्धयन्त्रस्थापाना
+> सिद्धयंत्राभिषेक
+> शान्तिधारा
+> विनय पाठ
+> नित्य पूजा पीठिका.
+> परमर्षि स्वस्ति मंगल पाठ
+> देवशास्त्र गुरु समुच्च पूजन (आ. पूर्णमति माताजी कृत)
+> समुच्चय पूजन
+> नवदेवता पूजन (आ. पूर्णमति माताजी कृत)
+> श्री सिद्ध पूजन (संस्कृत)
+> श्री चौबीसी समुच्च जिन पूजन (आ. पूर्णमति माताजी कृत)
+> अर्घावली.
+> श्री सम्मेदशिखरजी की कूट अर्घ
+> शांतिपाठ भाषा
+> विसर्जन
+> जिन भाषा स्तुति पाठ
+> 
+> तीर्थंकर पूजन
+> श्री आदिनाथ जिन पूजन (आ. पूर्णमति माताजी कृत)
+> श्री आदिनाथ जिनपूजन.
+> श्रीपुष्पदन्त जिनपूजा (जिनेश्वर दास कृत)
+> श्री वासुपूज्य जिन पूजन (आ. पूर्णमति माताजी कृत)
+> श्री शांतिनाथ जिन पूजन (आ. पूर्णमति माताजी कृत)
+> श्री शान्तिनाथ जिनपूजन
 > श्री पार्श्वनाथ जिन
 > <truncated 1110 bytes>
-> ्दीश्वरद्वी - पूजा (कवि द्यानतराय)
-> क्षमावाणी- पूजा (कवि मल्ल कृत)
-> रक्षाबन्धनपर्व पूजन....
-> 
-> नैमित्तिक पूजा
-> विद्यमान श्री बीस तीर्थंकर पूजन (कवि द्यानतराय)
-> श्रीरविव्रत पूजन (कवि द्यानतराय)
-> चारित्र शुद्धि व्रत पूजन (छोटे लाल)
-> निर्वाणक्षेत्र-पूजा (कवि द्यानतराय)
-> 
-> विधान
-> श्री दशलक्षण मण्डल विधान...
-> आचार्य श्रीविद्यासागर पूजन.
-> मुनिश्री प्रमाणसागरजी महाराज
-> 
-> पाठ एवं स्तोत्र खण्ड
-> सुप्रभात-स्तोत्रम्.
-> भक्तामरस्तोत्र (संस्कृत)
-> महावीराष्टक-स्तात्रेम्..
-> निर्वाण काण्ड (भाषा)
-> सामायिक पाठ
-> आलोचना पाठ
-> बारह भावना.
-> मेरी भावना
-> प्रतिक्रमण पाठ
-> आत्म चिन्तन ...
-> तीर्थंकर स्तवन (दोहा)
-> बाहुबली जिनस्तवन
-> विद्यागुरु स्तवन
-> आचार्य-वन्दना.
-> तत्त्वार्थसूत्र
-> छह ढाला
-> श्रीजिनहसस्स्रनाम स्तोत्रम्.
-> आरती - पंचपरमेष्ठी.
-> आरती विद्यासागर जी.
+> ्दीश्वरद्वी - पूजा (कवि द्यानतराय)
+> क्षमावाणी- पूजा (कवि मल्ल कृत)
+> रक्षाबन्धनपर्व पूजन....
+> 
+> नैमित्तिक पूजा
+> विद्यमान श्री बीस तीर्थंकर पूजन (कवि द्यानतराय)
+> श्रीरविव्रत पूजन (कवि द्यानतराय)
+> चारित्र शुद्धि व्रत पूजन (छोटे लाल)
+> निर्वाणक्षेत्र-पूजा (कवि द्यानतराय)
+> 
+> विधान
+> श्री दशलक्षण मण्डल विधान...
+> आचार्य श्रीविद्यासागर पूजन.
+> मुनिश्री प्रमाणसागरजी महाराज
+> 
+> पाठ एवं स्तोत्र खण्ड
+> सुप्रभात-स्तोत्रम्.
+> भक्तामरस्तोत्र (संस्कृत)
+> महावीराष्टक-स्तात्रेम्..
+> निर्वाण काण्ड (भाषा)
+> सामायिक पाठ
+> आलोचना पाठ
+> बारह भावना.
+> मेरी भावना
+> प्रतिक्रमण पाठ
+> आत्म चिन्तन ...
+> तीर्थंकर स्तवन (दोहा)
+> बाहुबली जिनस्तवन
+> विद्यागुरु स्तवन
+> आचार्य-वन्दना.
+> तत्त्वार्थसूत्र
+> छह ढाला
+> श्रीजिनहसस्स्रनाम स्तोत्रम्.
+> आरती - पंचपरमेष्ठी.
+> आरती विद्यासागर जी.
 > आरती प्रमाणसागर जी.
 
 > bhahut si pujao me pura data nhi hai
@@ -1549,55 +1549,55 @@
 
 > add required files for github
 
-> PDFBox
-> PDFBox is a premium, client-side, privacy-first PDF editor built with React, TypeScript, and Vite. Designed to look and feel like Figma, it enables you to manage page layouts, edit page frames, draw and annotate, redact content, compress file sizes, and secure your documents—all 100% locally in your browser.
-> 
-> ✨ Features
-> Figma-Style Layer Tree: Collapsible, draggable, and interactive sidebar layer tree. Pages act as frames, and annotations act as layers within each page frame.
-> Double-Page Spread (1P / 2P): Switch dynamically between a single-page view and a side-by-side two-page spread view.
-> Collapsible Document Grouping: Import or append multiple PDFs, and PDFBox will group them under collapsible parent folders corresponding to the original files.
-> Draggable Page Cropping: Crop the contents of any page using draggable visual bounding boxes or exact percentages, while retaining the original page dimensions (MediaBox).
-> Bulk Page Actions: Toggle multi-select mode in the sidebar to delete or export selected pages in a single click.
-> Annotations Studio: Add text annotations, shapes (rectangle, circle, line, arrow), freehand drawing, highlighters, and image stamps.
-> Security & Watermarking: Add custom passwords, set print/copy permissions, and stamp watermarks across all pages.
-> PDF Compression: Strip metadata and optimize object streams to achieve target file sizes (in KB or MB) on-the-fly.
-> OCR Text Extraction: Perform local optical character recognition on any PDF page to extract copyable text.
-> 🛠 Tech Stack
-> Core: React, TypeScript, Vite
-> Styling: Tailwind CSS
-> PDF Core: pdfjs-dist (PDF.js for rendering), pdf-lib (PDF manipulation)
-> OCR: tesseract.js (Local WebAssembly OCR)
+> PDFBox
+> PDFBox is a premium, client-side, privacy-first PDF editor built with React, TypeScript, and Vite. Designed to look and feel like Figma, it enables you to manage page layouts, edit page frames, draw and annotate, redact content, compress file sizes, and secure your documents—all 100% locally in your browser.
+> 
+> ✨ Features
+> Figma-Style Layer Tree: Collapsible, draggable, and interactive sidebar layer tree. Pages act as frames, and annotations act as layers within each page frame.
+> Double-Page Spread (1P / 2P): Switch dynamically between a single-page view and a side-by-side two-page spread view.
+> Collapsible Document Grouping: Import or append multiple PDFs, and PDFBox will group them under collapsible parent folders corresponding to the original files.
+> Draggable Page Cropping: Crop the contents of any page using draggable visual bounding boxes or exact percentages, while retaining the original page dimensions (MediaBox).
+> Bulk Page Actions: Toggle multi-select mode in the sidebar to delete or export selected pages in a single click.
+> Annotations Studio: Add text annotations, shapes (rectangle, circle, line, arrow), freehand drawing, highlighters, and image stamps.
+> Security & Watermarking: Add custom passwords, set print/copy permissions, and stamp watermarks across all pages.
+> PDF Compression: Strip metadata and optimize object streams to achieve target file sizes (in KB or MB) on-the-fly.
+> OCR Text Extraction: Perform local optical character recognition on any PDF page to extract copyable text.
+> 🛠 Tech Stack
+> Core: React, TypeScript, Vite
+> Styling: Tailwind CSS
+> PDF Core: pdfjs-dist (PDF.js for rendering), pdf-lib (PDF manipulation)
+> OCR: tesseract.js (Local WebAssembly OCR)
 > Icons: lucide-react
 
-> UPI QR
-> A privacy-first, browser-based generator for styled UPI payment QR cards.
-> 
-> Features
-> Generates upi://pay QR codes entirely in the browser
-> Indian-numbering amount formatting and amount-in-words display
-> Download as JPEG or share through the Web Share API
-> Multiple card themes
-> Remembers the most recently used details in the current browser for reuse
-> Run locally
-> This is a static site with no build step or server dependency.
-> 
-> Clone or download this repository.
-> Open index.html in a modern browser.
-> For the best browser compatibility, you can serve the folder with any static-file server.
-> 
-> Privacy
-> Payment details are encoded only into the generated QR card. The app does not send those details to a server. The last-used form data is stored in the browser's localStorage so it can be reused on the same device and browser.
-> 
-> Project structure
-> index.html       Application markup
-> style.css        Interface styling and responsive layout
-> app.js           Form state, QR rendering, sharing, and local persistence
-> qrcode.min.js    Bundled QR-code generation library
-> favicon.svg      Application favicon
-> Deployment
-> The project can be deployed directly with GitHub Pages: publish the repository root from the desired branch. No build command is required.
-> 
-> License
+> UPI QR
+> A privacy-first, browser-based generator for styled UPI payment QR cards.
+> 
+> Features
+> Generates upi://pay QR codes entirely in the browser
+> Indian-numbering amount formatting and amount-in-words display
+> Download as JPEG or share through the Web Share API
+> Multiple card themes
+> Remembers the most recently used details in the current browser for reuse
+> Run locally
+> This is a static site with no build step or server dependency.
+> 
+> Clone or download this repository.
+> Open index.html in a modern browser.
+> For the best browser compatibility, you can serve the folder with any static-file server.
+> 
+> Privacy
+> Payment details are encoded only into the generated QR card. The app does not send those details to a server. The last-used form data is stored in the browser's localStorage so it can be reused on the same device and browser.
+> 
+> Project structure
+> index.html       Application markup
+> style.css        Interface styling and responsive layout
+> app.js           Form state, QR rendering, sharing, and local persistence
+> qrcode.min.js    Bundled QR-code generation library
+> favicon.svg      Application favicon
+> Deployment
+> The project can be deployed directly with GitHub Pages: publish the repository root from the desired branch. No build command is required.
+> 
+> License
 > No license has been selected yet. Add one before distributing or accepting external contributions.
 
 > Changa Asta
@@ -1672,211 +1672,211 @@
 > Gatti
 > When enabled, two same-color pawns on the same non-goal square form a Gatti. Opponents cannot pass or land on an opposing Gatti unless they land with their own Gatti.
 
-> # Changa Asta
-> 
-> [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-> [![HTML5](https://img.shields.io/badge/HTML5-supported-orange.svg)](#)
-> [![CSS3](https://img.shields.io/badge/CSS3-vanilla-blue.svg)](#)
-> [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow.svg)](#)
-> 
-> A polished vanilla-web implementation of **Changa Asta**, also known as **Chowka Bara**, **Ashta Chamma**, **Chakka**, **Katte Mane**, or **Gatta Mane**. The game supports local multiplayer, computer opponents, mobile play, offline install, save/resume, rule toggles, animated kaudis, and synthesized audio.
-> 
-> ![Changa Asta Preview](preview.png)
-> 
-> ## Features
-> 
-> - **5x5 and 7x7 boards**
->   - 5x5 uses 4 kaudis with roll values `1`, `2`, `3`, `4`, and `8`.
->   - 7x7 uses 6 kaudis with roll values `1`, `2`, `3`, `4`, `5`, `6`, and `12`.
-> - **Pass & Play**
->   - Play locally with 2, 3, or 4 players on one device.
-> - **Vs Computer**
->   - Computer mode defaults to one human player and the remaining active players as bots.
->   - Bot difficulty levels: Easy, Normal, and Smart.
-> - **Custom rules**
->   - Gatti blockades.
->   - Optional spawn requirement on high rolls.
-> - **Game feel**
->   - Animated kaudi toss area with power meter.
->   - Web Audio API sound effects.
->   - Turn/result toast messages.
->   - Move previews and highlighted valid pawns.
->   - Capture effects and victory stats.
-> - **Persistence and install**
->   - Save/resume using `localStorage`.
->   - PWA manifest and service worker for install/offline play when served over HTTP.
-> - **Responsive UI**
->   - Desktop board with side panels.
->   - Mobile-first gameplay controls and centered board layout.
-> 
-> ## Project Structure
-> 
-> - [index.html](index.html): App markup, setup screen, game screen, overlays, and PWA registration.
-> - [styles.css](styles.css): Visual system, board layout, responsive UI, overlays, and animations.
-> - [game.js](game.js): Game engine, state machine, bot logic, rendering, save/resume, and UI handlers.
-> - [favicon.js](favicon.js): Procedural animated favicon.
-> - [manifest.json](manifest.json): PWA metadata.
-> - [sw.js](sw.js): Offline cache service worker.
-> - [scripts/gen_paths.py](scripts/gen_paths.py): Helper script for generating reference coordinate paths.
-> - [docs/paths_output.md](docs/paths_output.md): Reference 5x5 coordinate paths.
-> - [docs/CHOWKA_BHARA.md](docs/CHOWKA_BHARA.md): Guide covering the history, setup, and core gameplay rules.
-> - [docs/GATTI_RULES.md](docs/GATTI_RULES.md): Detailed rulebook explaining Gatti formation, splits, movement, blockades, and protection shields.
-> - [docs/changa_asta_research.md](docs/changa_asta_research.md): Research document detailing board math, paths, and probabilities.
-> - [tests/rules.test.js](tests/rules.test.js): Dependency-free Node sanity tests for board/path rules.
-> 
-> ## Core Rules
-> 
-> ### Movement
-> 
-> Each player starts from a side of the board:
-> 
-> - Red: south start
-> - Green: west start
-> - Yellow: north start
-> - Blue: east start
-> 
-> Pawns travel around the outer ring. After a player captures at least one opponent pawn, that player may enter the inner path toward the center home square.
-> 
-> ### Kaudi Rolls
-> 
-> The roll value is based on how many kaudis land mouth-up.
-> 
-> | Board | 0 up | 1 up | 2 up | 3 up | 4 up | 5 up | 6 up |
-> | --- | --- | --- | --- | --- | --- | --- | --- |
-> | 5x5, 4 kaudis | 4 extra | 1 | 2 | 3 | 8 extra | - | - |
-> | 7x7, 6 kaudis | 6 extra | 1 | 2 | 3 | 4 | 5 | 12 extra |
-> 
-> Rolling a high/extra value grants another roll. Three consecutive high/extra rolls cancel the turn and pass play to the next player.
-> 
-> ### Safe Squares
-> 
-> The center and player start squares are safe. The 7x7 board also marks the inner ring corners as safe.
-> 
-> ### Gatti
-> 
+> # Changa Asta
+> 
+> [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+> [![HTML5](https://img.shields.io/badge/HTML5-supported-orange.svg)](#)
+> [![CSS3](https://img.shields.io/badge/CSS3-vanilla-blue.svg)](#)
+> [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow.svg)](#)
+> 
+> A polished vanilla-web implementation of **Changa Asta**, also known as **Chowka Bara**, **Ashta Chamma**, **Chakka**, **Katte Mane**, or **Gatta Mane**. The game supports local multiplayer, computer opponents, mobile play, offline install, save/resume, rule toggles, animated kaudis, and synthesized audio.
+> 
+> ![Changa Asta Preview](preview.png)
+> 
+> ## Features
+> 
+> - **5x5 and 7x7 boards**
+>   - 5x5 uses 4 kaudis with roll values `1`, `2`, `3`, `4`, and `8`.
+>   - 7x7 uses 6 kaudis with roll values `1`, `2`, `3`, `4`, `5`, `6`, and `12`.
+> - **Pass & Play**
+>   - Play locally with 2, 3, or 4 players on one device.
+> - **Vs Computer**
+>   - Computer mode defaults to one human player and the remaining active players as bots.
+>   - Bot difficulty levels: Easy, Normal, and Smart.
+> - **Custom rules**
+>   - Gatti blockades.
+>   - Optional spawn requirement on high rolls.
+> - **Game feel**
+>   - Animated kaudi toss area with power meter.
+>   - Web Audio API sound effects.
+>   - Turn/result toast messages.
+>   - Move previews and highlighted valid pawns.
+>   - Capture effects and victory stats.
+> - **Persistence and install**
+>   - Save/resume using `localStorage`.
+>   - PWA manifest and service worker for install/offline play when served over HTTP.
+> - **Responsive UI**
+>   - Desktop board with side panels.
+>   - Mobile-first gameplay controls and centered board layout.
+> 
+> ## Project Structure
+> 
+> - [index.html](index.html): App markup, setup screen, game screen, overlays, and PWA registration.
+> - [styles.css](styles.css): Visual system, board layout, responsive UI, overlays, and animations.
+> - [game.js](game.js): Game engine, state machine, bot logic, rendering, save/resume, and UI handlers.
+> - [favicon.js](favicon.js): Procedural animated favicon.
+> - [manifest.json](manifest.json): PWA metadata.
+> - [sw.js](sw.js): Offline cache service worker.
+> - [scripts/gen_paths.py](scripts/gen_paths.py): Helper script for generating reference coordinate paths.
+> - [docs/paths_output.md](docs/paths_output.md): Reference 5x5 coordinate paths.
+> - [docs/CHOWKA_BHARA.md](docs/CHOWKA_BHARA.md): Guide covering the history, setup, and core gameplay rules.
+> - [docs/GATTI_RULES.md](docs/GATTI_RULES.md): Detailed rulebook explaining Gatti formation, splits, movement, blockades, and protection shields.
+> - [docs/changa_asta_research.md](docs/changa_asta_research.md): Research document detailing board math, paths, and probabilities.
+> - [tests/rules.test.js](tests/rules.test.js): Dependency-free Node sanity tests for board/path rules.
+> 
+> ## Core Rules
+> 
+> ### Movement
+> 
+> Each player starts from a side of the board:
+> 
+> - Red: south start
+> - Green: west start
+> - Yellow: north start
+> - Blue: east start
+> 
+> Pawns travel around the outer ring. After a player captures at least one opponent pawn, that player may enter the inner path toward the center home square.
+> 
+> ### Kaudi Rolls
+> 
+> The roll value is based on how many kaudis land mouth-up.
+> 
+> | Board | 0 up | 1 up | 2 up | 3 up | 4 up | 5 up | 6 up |
+> | --- | --- | --- | --- | --- | --- | --- | --- |
+> | 5x5, 4 kaudis | 4 extra | 1 | 2 | 3 | 8 extra | - | - |
+> | 7x7, 6 kaudis | 6 extra | 1 | 2 | 3 | 4 | 5 | 12 extra |
+> 
+> Rolling a high/extra value grants another roll. Three consecutive high/extra rolls cancel the turn and pass play to the next player.
+> 
+> ### Safe Squares
+> 
+> The center and player start squares are safe. The 7x7 board also marks the inner ring corners as safe.
+> 
+> ### Gatti
+> 
 > When enabled, two same-color pawns on the same non-goal square form a Gatti. Opponents cannot pass or land on an opposing Gatti unless they land with their own Gatti.
 
-> # जैन जिनवाणी (Jain Jinvani)
-> 
-> > **जिनेन्द्र भगवान की शाश्वत अमृतवाणी**  
-> > An authentic digital encyclopedia, scripture library, and daily spiritual companion for the Jain community worldwide.
-> 
-> [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
-> [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-> [![Vite](https://img.shields.io/badge/Vite-6.3.5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-> [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-> [![License](https://img.shields.io/badge/License-MIT-amber.svg)](LICENSE)
-> 
-> ---
-> 
-> ## 📖 परिचय (Overview)
-> 
-> **जैन जिनवाणी (Jain Jinvani)** एक आधुनिक, सुरुचिपूर्ण एवं पूर्णतः प्रामाणिक डिजिटल ज्ञानकोश और नित्य साधना वेब एप्लिकेशन है। इसका उद्देश्य जैन धर्म के अनादि तत्त्वज्ञान, प्राचीन आगम, सिद्धांत ग्रंथ, स्तोत्र, पूजन, विधान, और दैनिक साधना पद्धतियों को उच्चतम गुणवत्ता, शुद्ध देवनागरी टाइपोग्राफी एवं आधुनिक यूज़र इंटरफ़ेस के साथ सुलभ कराना है।
-> 
-> ---
-> 
-> ## ✨ प्रमुख विशेषताएँ (Key Features)
-> 
-> ### 🧘 नित्य साधना एवं आध्यात्मिक टूल्स (Daily Sadhana Tools)
+> # जैन जिनवाणी (Jain Jinvani)
+> 
+> > **जिनेन्द्र भगवान की शाश्वत अमृतवाणी**  
+> > An authentic digital encyclopedia, scripture library, and daily spiritual companion for the Jain community worldwide.
+> 
+> [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
+> [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+> [![Vite](https://img.shields.io/badge/Vite-6.3.5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+> [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+> [![License](https://img.shields.io/badge/License-MIT-amber.svg)](LICENSE)
+> 
+> ---
+> 
+> ## 📖 परिचय (Overview)
+> 
+> **जैन जिनवाणी (Jain Jinvani)** एक आधुनिक, सुरुचिपूर्ण एवं पूर्णतः प्रामाणिक डिजिटल ज्ञानकोश और नित्य साधना वेब एप्लिकेशन है। इसका उद्देश्य जैन धर्म के अनादि तत्त्वज्ञान, प्राचीन आगम, सिद्धांत ग्रंथ, स्तोत्र, पूजन, विधान, और दैनिक साधना पद्धतियों को उच्चतम गुणवत्ता, शुद्ध देवनागरी टाइपोग्राफी एवं आधुनिक यूज़र इंटरफ़ेस के साथ सुलभ कराना है।
+> 
+> ---
+> 
+> ## ✨ प्रमुख विशेषताएँ (Key Features)
+> 
+> ### 🧘 नित्य साधना एवं आध्यात्मिक टूल्स (Daily Sadhana Tools)
 > - **📿 १०८ जाप माला (Digital Rosary)**: टच 
 > <truncated 18793 bytes>
->  (Contribution & Dharma Seva)
-> 
-> यह परियोजना जैन धर्म के शाश्वत ज्ञान को संरक्षित करने और अगली पीढ़ी तक सुगमता से पहुँचाने का एक निःस्वार्थ धार्मिक व तकनीकी प्रयास है।
-> 
-> - यदि आपको किसी पाठ, श्लोक या अर्थ में कोई त्रुटि (Typo) दिखे, तो कृपया Pull Request अथवा Issue के माध्यम से सूचित करें।
-> - सभी जैन बंधुओं से अनुरोध है कि वे इस ऐप का उपयोग स्वाध्याय और नित्य साधना में करें एवं अन्य धर्मावलम्बियों तक इसे साझा करें।
-> 
-> ---
-> 
-> ## ⚖️ लाइसेंस (License)
-> 
-> यह प्रोजेक्ट **MIT License** के अंतर्गत मुक्त स्रोत (Open Source) के रूप में उपलब्ध है। अधिक जानकारी के लिए [LICENSE](LICENSE) फाइल देखें।
-> 
-> ---
-> 
-> <p align="center">
->   <b>॥ परस्परोपग्रहो जीवानाम् ॥</b><br>
->   <i>(सभी जीव परस्पर एक-दूसरे के उपकारक हैं — तत्त्वार्थ सूत्र ५.२१)</i>
+>  (Contribution & Dharma Seva)
+> 
+> यह परियोजना जैन धर्म के शाश्वत ज्ञान को संरक्षित करने और अगली पीढ़ी तक सुगमता से पहुँचाने का एक निःस्वार्थ धार्मिक व तकनीकी प्रयास है।
+> 
+> - यदि आपको किसी पाठ, श्लोक या अर्थ में कोई त्रुटि (Typo) दिखे, तो कृपया Pull Request अथवा Issue के माध्यम से सूचित करें।
+> - सभी जैन बंधुओं से अनुरोध है कि वे इस ऐप का उपयोग स्वाध्याय और नित्य साधना में करें एवं अन्य धर्मावलम्बियों तक इसे साझा करें।
+> 
+> ---
+> 
+> ## ⚖️ लाइसेंस (License)
+> 
+> यह प्रोजेक्ट **MIT License** के अंतर्गत मुक्त स्रोत (Open Source) के रूप में उपलब्ध है। अधिक जानकारी के लिए [LICENSE](LICENSE) फाइल देखें।
+> 
+> ---
+> 
+> <p align="center">
+>   <b>॥ परस्परोपग्रहो जीवानाम् ॥</b><br>
+>   <i>(सभी जीव परस्पर एक-दूसरे के उपकारक हैं — तत्त्वार्थ सूत्र ५.२१)</i>
 > </p>
 
 > remove words modern and classic and english jain jinvani word
 
-> # Webshot
-> 
-> > Ultra-high-resolution screenshots (up to 8K), native Chrome DevTools Protocol rendering, and full-page capture for production and localhost web applications.
-> 
-> Webshot is a Chromium extension built on the **WXT** framework. Unlike conventional screenshot tools that merely rasterize the current visible viewport or perform slow scroll-and-stitch sequences, Webshot integrates directly with the **Chrome DevTools Protocol (CDP)**. It re-renders layouts at true hardware pixel densities, takes instant beyond-viewport full-page captures, and works across both public websites and local development servers (`localhost`, `127.0.0.1`).
-> 
-> ---
-> 
-> ## Key Features
-> 
-> ### 1. Capture Engines
-> - **Visible Screen (Super-Sampled)**: Render viewports at `1080p`, `1440p`, `4K`, `8K`, or custom dimensions. Multiplies device pixel scale factor before capture to output crisp typography and vector assets.
-> - **1-Shot Full Page Capture**: Uses CDP `Page.captureScreenshot` with `captureBeyondViewport: true`. Eliminates repeated sticky headers, sliced text seams, and scroll jitter.
-> - **Localhost & SPA Support**: Built-in support for Single Page Applications (Next.js, Vite, React, Vue) with internal scroll containers (`#root`, `#__next`, `main`, `[role="main"]`, and `overflow-y: auto` layouts).
-> - **Element Isolation**: Interactive element inspector to point, hover, and capture specific DOM nodes with bounding-box precision, plus smart-subject detection for main article bodies.
-> 
-> ### 2. Studio Prep & Automation
-> - **Clutter Cleaner**: Automatically strips cookie consent banners, GDPR notices, floating promotional modals, and third-party chat widgets (Intercom, HubSpot, Drift, Zendesk) before the shutter triggers.
-> - **Automated PII Redaction**: TreeWalker regex engine detects and obscures sensitive personal data (email addresses, phone numbers, credit card numbers, IPv4 addresses) in-page prior to capture.
+> # Webshot
+> 
+> > Ultra-high-resolution screenshots (up to 8K), native Chrome DevTools Protocol rendering, and full-page capture for production and localhost web applications.
+> 
+> Webshot is a Chromium extension built on the **WXT** framework. Unlike conventional screenshot tools that merely rasterize the current visible viewport or perform slow scroll-and-stitch sequences, Webshot integrates directly with the **Chrome DevTools Protocol (CDP)**. It re-renders layouts at true hardware pixel densities, takes instant beyond-viewport full-page captures, and works across both public websites and local development servers (`localhost`, `127.0.0.1`).
+> 
+> ---
+> 
+> ## Key Features
+> 
+> ### 1. Capture Engines
+> - **Visible Screen (Super-Sampled)**: Render viewports at `1080p`, `1440p`, `4K`, `8K`, or custom dimensions. Multiplies device pixel scale factor before capture to output crisp typography and vector assets.
+> - **1-Shot Full Page Capture**: Uses CDP `Page.captureScreenshot` with `captureBeyondViewport: true`. Eliminates repeated sticky headers, sliced text seams, and scroll jitter.
+> - **Localhost & SPA Support**: Built-in support for Single Page Applications (Next.js, Vite, React, Vue) with internal scroll containers (`#root`, `#__next`, `main`, `[role="main"]`, and `overflow-y: auto` layouts).
+> - **Element Isolation**: Interactive element inspector to point, hover, and capture specific DOM nodes with bounding-box precision, plus smart-subject detection for main article bodies.
+> 
+> ### 2. Studio Prep & Automation
+> - **Clutter Cleaner**: Automatically strips cookie consent banners, GDPR notices, floating promotional modals, and third-party chat widgets (Intercom, HubSpot, Drift, Zendesk) before the shutter triggers.
+> - **Automated PII Redaction**: TreeWalker regex engine detects and obscures sensitive personal data (email addresses, phone numbers, credit card numbers, IPv4 addresses) in-page prior to capture.
 > - **Forced Dark Mode**: Emulates CSS media feature `prefers-color-scheme: dark` at the browser composito
 > <truncated 4750 bytes>
-> rowser (Google Chrome, Microsoft Edge, Brave, Opera, Vivaldi).
-> 
-> 1. Build the extension bundle:
->    ```bash
->    npm run build
->    ```
-> 2. Open your browser and navigate to the Extensions page:
->    - **Chrome**: `chrome://extensions/`
->    - **Edge**: `edge://extensions/`
->    - **Brave**: `brave://extensions/`
-> 3. Toggle **Developer mode** in the top-right corner.
-> 4. Click **Load unpacked** in the top-left toolbar.
-> 5. In the file picker, select the generated output folder:
->    ```
->    webshot/.output/chrome-mv3
->    ```
-> 6. Open any webpage or local dev server (e.g. `http://localhost:3000` or `http://localhost:5173`), click the Webshot icon in the extensions menu, and trigger a capture. Captured assets are automatically saved to your browser's `Downloads/Webshot/` folder.
-> 
-> ---
-> 
-> ## Required Permissions
-> 
-> | Permission | Purpose |
-> | :--- | :--- |
-> | `debugger` | Attaches to the active tab to execute CDP emulation and native screenshot commands. |
-> | `downloads` | Saves captured images directly to the user's `Downloads/Webshot/` directory. |
-> | `scripting` | Dynamically executes content helpers on tabs if not already injected. |
-> | `offscreen` | Hosts background canvas processing for macOS window framing. |
-> | `tabs` | Identifies active tab metadata (page title, dimensions, URL). |
-> | `host_permissions` | Permits capture execution on all web origins, including `localhost` and `127.0.0.1`. |
-> 
-> ---
-> 
-> ## Contributing
-> 
-> 1. Fork the repository.
-> 2. Create a dedicated feature branch:
->    ```bash
->    git checkout -b feature/my-new-feature
->    ```
-> 3. Verify that types compile without errors:
->    ```bash
->    npm run compile
->    ```
-> 4. Commit your changes:
->    ```bash
->    git commit -m "feat: add support for custom watermarking"
->    ```
-> 5. Push to your branch and submit a Pull Request.
-> 
-> ---
-> 
-> ## License
-> 
+> rowser (Google Chrome, Microsoft Edge, Brave, Opera, Vivaldi).
+> 
+> 1. Build the extension bundle:
+>    ```bash
+>    npm run build
+>    ```
+> 2. Open your browser and navigate to the Extensions page:
+>    - **Chrome**: `chrome://extensions/`
+>    - **Edge**: `edge://extensions/`
+>    - **Brave**: `brave://extensions/`
+> 3. Toggle **Developer mode** in the top-right corner.
+> 4. Click **Load unpacked** in the top-left toolbar.
+> 5. In the file picker, select the generated output folder:
+>    ```
+>    webshot/.output/chrome-mv3
+>    ```
+> 6. Open any webpage or local dev server (e.g. `http://localhost:3000` or `http://localhost:5173`), click the Webshot icon in the extensions menu, and trigger a capture. Captured assets are automatically saved to your browser's `Downloads/Webshot/` folder.
+> 
+> ---
+> 
+> ## Required Permissions
+> 
+> | Permission | Purpose |
+> | :--- | :--- |
+> | `debugger` | Attaches to the active tab to execute CDP emulation and native screenshot commands. |
+> | `downloads` | Saves captured images directly to the user's `Downloads/Webshot/` directory. |
+> | `scripting` | Dynamically executes content helpers on tabs if not already injected. |
+> | `offscreen` | Hosts background canvas processing for macOS window framing. |
+> | `tabs` | Identifies active tab metadata (page title, dimensions, URL). |
+> | `host_permissions` | Permits capture execution on all web origins, including `localhost` and `127.0.0.1`. |
+> 
+> ---
+> 
+> ## Contributing
+> 
+> 1. Fork the repository.
+> 2. Create a dedicated feature branch:
+>    ```bash
+>    git checkout -b feature/my-new-feature
+>    ```
+> 3. Verify that types compile without errors:
+>    ```bash
+>    npm run compile
+>    ```
+> 4. Commit your changes:
+>    ```bash
+>    git commit -m "feat: add support for custom watermarking"
+>    ```
+> 5. Push to your branch and submit a Pull Request.
+> 
+> ---
+> 
+> ## License
+> 
 > This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 > update Bengaluru to Bharat
@@ -1885,110 +1885,110 @@
 
 > bottom left me kya hai aur back to top missing
 
-> # Fillify
-> Text-to-interactive-form utility that converts static text templates with placeholders into structured, interactive data-entry forms.
-> Fillify runs entirely in the browser. It parses standard placeholder conventions directly from raw text, generates corresponding input controls, replaces variables in real time, and produces clean text output ready for copying or printing.
-> ---
-> ## Key Features
-> - **Automated Placeholder Detection**: Scans raw text for brackets `[Placeholder]`, angle brackets `<Field>`, parentheses `(Input)`, braces `{Variable}`, and underscore blanks `___`.
-> - **Intelligent Field Typing**: Automatically infers appropriate field inputs—including single-line text, multi-line textareas, dates, numeric inputs, and currency—based on contextual field naming.
-> - **Dual Filling Workflows**:
->   - **Wizard Mode**: Guided step-by-step completion focused on one input at a time with rapid keyboard progression.
->   - **Form Mode**: Comprehensive single-page form layout suited for rapid multi-field entry and review.
-> - **Live Document Preview**: Real-time rendering with active highlight tracking showing exact substitution positions in the final output.
-> - **Clean Export and Print Support**: Includes dedicated print styling that isolates the generated document and strips interface controls for physical printing or PDF export.
-> - **Client-Side Persistence**: Stores templates and filled instance histories in browser `localStorage` for privacy and offline reliability.
-> - **Data Portability**: Full JSON export and import capabilities for backup, sharing, and version archiving.
+> # Fillify
+> Text-to-interactive-form utility that converts static text templates with placeholders into structured, interactive data-entry forms.
+> Fillify runs entirely in the browser. It parses standard placeholder conventions directly from raw text, generates corresponding input controls, replaces variables in real time, and produces clean text output ready for copying or printing.
+> ---
+> ## Key Features
+> - **Automated Placeholder Detection**: Scans raw text for brackets `[Placeholder]`, angle brackets `<Field>`, parentheses `(Input)`, braces `{Variable}`, and underscore blanks `___`.
+> - **Intelligent Field Typing**: Automatically infers appropriate field inputs—including single-line text, multi-line textareas, dates, numeric inputs, and currency—based on contextual field naming.
+> - **Dual Filling Workflows**:
+>   - **Wizard Mode**: Guided step-by-step completion focused on one input at a time with rapid keyboard progression.
+>   - **Form Mode**: Comprehensive single-page form layout suited for rapid multi-field entry and review.
+> - **Live Document Preview**: Real-time rendering with active highlight tracking showing exact substitution positions in the final output.
+> - **Clean Export and Print Support**: Includes dedicated print styling that isolates the generated document and strips interface controls for physical printing or PDF export.
+> - **Client-Side Persistence**: Stores templates and filled instance histories in browser `localStorage` for privacy and offline reliability.
+> - **Data Portability**: Full JSON export and import capabilities for backup, sharing, and version archiving.
 > - **Preloaded Templates**: Built-in starter templates for agreements, offer letters, client intake forms, and invoice memos.
 
 > baki pages ko bhi update kardo
 
-> # Lipi OCR — On-Site High-Fidelity Bharatiya Document Processing Engine
-> 
-> > **100% Client-Side Document Intelligence**  
-> > Your files never leave your browser. Scanned PDFs, multi-page TIFFs, and images are processed locally using WebAssembly and client-side hardware multi-threading.
-> 
-> ---
-> 
-> ## Overview
-> 
-> Lipi OCR is a browser-native document extraction and layout reconstruction suite engineered specifically for multi-page documents, complex regional scripts, and legal/regulatory records.
-> 
-> Most web OCR utilities compromise either on **privacy** (uploading sensitive legal and financial documents to remote cloud servers) or on **layout fidelity** (flattening pages into continuous text reflow that destroys the original page structure when exported to Word).
-> 
-> Lipi OCR solves both problems with two foundational architectural guarantees:
-> 
-> 1. **Zero-Server Execution:** All document rasterization, WebAssembly OCR workers, and document assembly execute 100% inside your local browser memory sandbox.
-> 2. **Strict 1:1 Page-to-Page Fidelity:** Input Page *N* maps directly to Output Word (.docx) Page *N*, preserving page breaks, orientation (portrait vs landscape), margins, and headings without reflow bleed.
-> 
-> ---
-> 
-> ## Core Capabilities
-> 
-> ### 1. Full Pan-Bharatiya Script Coverage
-> Supports all 22 official Eighth Schedule languages of the Republic of India with automated Unicode script detection:
-> 
-> - **Devanagari:** Hindi, Marathi, Sanskrit, Nepali, Bodo, Dogri, Konkani, Maithili
-> - **Bengali & Assamese Script:** Bengali, Assamese, Manipuri (Meitei)
-> - **Dravidian Scripts:** Tamil, Telugu, Kannada, Malayalam
-> - **Gujarati Script:** Gujarati
-> - **Gurmukhi Script:** Punjabi
-> - **Odia Script:** Odia
-> - **Perso-Arabic Script:** Urdu, Kashmiri, Sindhi
-> - **Santali Script:** Ol Chiki
-> - **Latin:** English and mixed multilingual records
-> 
-> ### 2. Dual-Engine Architecture
-> Combines fast local character extraction with intelligent vision model refinement:
-> 
+> # Lipi OCR — On-Site High-Fidelity Bharatiya Document Processing Engine
+> 
+> > **100% Client-Side Document Intelligence**  
+> > Your files never leave your browser. Scanned PDFs, multi-page TIFFs, and images are processed locally using WebAssembly and client-side hardware multi-threading.
+> 
+> ---
+> 
+> ## Overview
+> 
+> Lipi OCR is a browser-native document extraction and layout reconstruction suite engineered specifically for multi-page documents, complex regional scripts, and legal/regulatory records.
+> 
+> Most web OCR utilities compromise either on **privacy** (uploading sensitive legal and financial documents to remote cloud servers) or on **layout fidelity** (flattening pages into continuous text reflow that destroys the original page structure when exported to Word).
+> 
+> Lipi OCR solves both problems with two foundational architectural guarantees:
+> 
+> 1. **Zero-Server Execution:** All document rasterization, WebAssembly OCR workers, and document assembly execute 100% inside your local browser memory sandbox.
+> 2. **Strict 1:1 Page-to-Page Fidelity:** Input Page *N* maps directly to Output Word (.docx) Page *N*, preserving page breaks, orientation (portrait vs landscape), margins, and headings without reflow bleed.
+> 
+> ---
+> 
+> ## Core Capabilities
+> 
+> ### 1. Full Pan-Bharatiya Script Coverage
+> Supports all 22 official Eighth Schedule languages of the Republic of India with automated Unicode script detection:
+> 
+> - **Devanagari:** Hindi, Marathi, Sanskrit, Nepali, Bodo, Dogri, Konkani, Maithili
+> - **Bengali & Assamese Script:** Bengali, Assamese, Manipuri (Meitei)
+> - **Dravidian Scripts:** Tamil, Telugu, Kannada, Malayalam
+> - **Gujarati Script:** Gujarati
+> - **Gurmukhi Script:** Punjabi
+> - **Odia Script:** Odia
+> - **Perso-Arabic Script:** Urdu, Kashmiri, Sindhi
+> - **Santali Script:** Ol Chiki
+> - **Latin:** English and mixed multilingual records
+> 
+> ### 2. Dual-Engine Architecture
+> Combines fast local character extraction with intelligent vision model refinement:
+> 
 > - **Layer 1 (Base WASM OCR):** Parallel Tessera
 > <truncated 2010 bytes>
-> 
->                  +-------------------+
->                  |                   |
->                  v                   v
->       [High-Res Page Blob]    [Low-Res Thumbnail]
->                  |                   |
->                  v                   v
->    +---------------------------+     |
->    | Unicode Script & Language |     |
->    | Classifier                |     |
->    +---------------------------+     |
->                  |                   |
->                  v                   |
->    +---------------------------+     |
->    | Parallel WASM Worker Pool |     |
->    | (Hardware Concurrency)    |     |
->    +---------------------------+     |
->                  |                   |
->                  v                   |
->        [Raw Base OCR Draft]          |
->                  |                   |
->                  +---------+---------+
->                            |
->                            v
->            +-------------------------------+
->            | Layer 2: Gemini Flash AI      |  (Optional user-enabled)
->            | Multimodal Vision Refinement  |
->            +-------------------------------+
->                            |
->                            v
->            +-------------------------------+
->            | Strict 1:1 Page Exporter      |
->            | (DOCX / HTML / MD / TXT)      |
->            +-------------------------------+
-> ```
-> 
-> ---
-> 
-> 
-> 
-> ## Privacy & Security
-> 
-> - **Zero Remote Storage:** Your documents are never uploaded to any remote server or third-party database. All document analysis happens in client memory.
-> - **Air-Gapped Operation:** The base WASM engine and PDF worker are bundled locally (`dist/assets/`). Once loaded, base OCR functions completely offline.
-> - **API Key Storage:** When using Layer 2 AI refinement, your Google Gemini API key is stored exclusively in your browser's private `localStorage` and sent directly to Google's API endpoint over HTTPS.
-> 
+> 
+>                  +-------------------+
+>                  |                   |
+>                  v                   v
+>       [High-Res Page Blob]    [Low-Res Thumbnail]
+>                  |                   |
+>                  v                   v
+>    +---------------------------+     |
+>    | Unicode Script & Language |     |
+>    | Classifier                |     |
+>    +---------------------------+     |
+>                  |                   |
+>                  v                   |
+>    +---------------------------+     |
+>    | Parallel WASM Worker Pool |     |
+>    | (Hardware Concurrency)    |     |
+>    +---------------------------+     |
+>                  |                   |
+>                  v                   |
+>        [Raw Base OCR Draft]          |
+>                  |                   |
+>                  +---------+---------+
+>                            |
+>                            v
+>            +-------------------------------+
+>            | Layer 2: Gemini Flash AI      |  (Optional user-enabled)
+>            | Multimodal Vision Refinement  |
+>            +-------------------------------+
+>                            |
+>                            v
+>            +-------------------------------+
+>            | Strict 1:1 Page Exporter      |
+>            | (DOCX / HTML / MD / TXT)      |
+>            +-------------------------------+
+> ```
+> 
+> ---
+> 
+> 
+> 
+> ## Privacy & Security
+> 
+> - **Zero Remote Storage:** Your documents are never uploaded to any remote server or third-party database. All document analysis happens in client memory.
+> - **Air-Gapped Operation:** The base WASM engine and PDF worker are bundled locally (`dist/assets/`). Once loaded, base OCR functions completely offline.
+> - **API Key Storage:** When using Layer 2 AI refinement, your Google Gemini API key is stored exclusively in your browser's private `localStorage` and sent directly to Google's API endpoint over HTTPS.
+> 
 > ---
 
 > Last telemetry sync ka kam kya hai
@@ -2428,7 +2428,7 @@
 > 
 > and move all other things to the settings menu 
 > remove Recent Studio History
-> 
+> 
 > when user click on capture button, why not save the screenshot directly, why new window open instead
 
 > when user click on capture button, why not save the screenshot directly, why new window open instead
@@ -2529,8 +2529,8 @@
 > 3. 🎨 Center Logo / Icon on QR Code
 > 4. 🧹 Reset / Clear Form Button
 
-> remove UPI Classic (Dark navy UPI badge)
-> BHIM (Orange BHIM badge)
+> remove UPI Classic (Dark navy UPI badge)
+> BHIM (Orange BHIM badge)
 > Verified (🛡️ Verified shield icon badge)
 > 
 > only none and custom 
