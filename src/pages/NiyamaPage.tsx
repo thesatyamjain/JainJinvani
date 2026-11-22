@@ -205,7 +205,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
               tilt={{ maxTilt: 8, glareMaxOpacity: 0.15, glareColor: isDone ? 'gold' : 'amber' }}
               variant={isDone ? 'gilded' : 'subtle'}
               onClick={() => handleToggle(item.id)}
-              className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl transition-all duration-200 active:scale-[0.98] border group ${
+              className={`p-4 sm:p-5 flex items-start gap-3.5 cursor-pointer rounded-2xl sm:rounded-3xl transition-all duration-200 active:scale-[0.98] border group ${
                 isDone
                   ? 'border-emerald-500/50 bg-gradient-to-br from-emerald-950/35 via-slate-900/90 to-black/85 shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_14px_rgba(16,185,129,0.15)]'
                   : 'border-amber-500/25 bg-slate-900/85 hover:border-amber-400/50 hover:bg-slate-800/90 shadow-md'
@@ -266,7 +266,7 @@ export const NiyamaPage = ({ onBack, onNavigate }: NiyamaPageProps) => {
       <GlassCard
         tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
         variant="subtle"
-        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl border-amber-500/30 bg-slate-900/80 text-center shadow-lg"
+        className="p-5 sm:p-6 w-full max-w-2xl rounded-2xl sm:rounded-3xl border-amber-500/30 bg-slate-900/80 text-center shadow-lg"
       >
         <h4 className="text-base sm:text-lg font-notoserif font-bold text-amber-200 mb-2 drop-shadow-sm">
           आचार्य समंतभद्र कृत 'रत्नकरण्ड श्रावकाचार'

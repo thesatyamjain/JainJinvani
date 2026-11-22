@@ -507,10 +507,51 @@ body.theme-manuscript,
   color: #1C1917 !important;
 }
 
-/* 2. All Cards, Glass Surfaces & Raised Plates in Manuscript Mode */
+/* 2. Universal Card Corner Curvature Standard (Continuous Squircles) */
+.glass-card,
+[data-glass-card],
+.daily-quote-card,
+.panchang-hero-card,
+.sadhana-header-banner,
+.library-header-banner,
+.more-header-banner,
+.puja-header-banner,
+.viewer-feedback-card,
+.app-install-header-card,
+.featured-abhishek-card,
+.community-contribution-card,
+.sahyog-card,
+.donate-modal-card,
+.feedback-modal-card,
+.puja-current-step-card {
+  border-radius: 1.25rem !important; /* 20px base mobile squircle curve */
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .glass-card,
+  [data-glass-card],
+  .daily-quote-card,
+  .panchang-hero-card,
+  .sadhana-header-banner,
+  .library-header-banner,
+  .more-header-banner,
+  .puja-header-banner,
+  .viewer-feedback-card,
+  .app-install-header-card,
+  .featured-abhishek-card,
+  .community-contribution-card,
+  .sahyog-card,
+  .donate-modal-card,
+  .feedback-modal-card,
+  .puja-current-step-card {
+    border-radius: 1.5rem !important; /* 24px desktop/tablet generous curve */
+  }
+}
+
+/* 3. All Cards, Glass Surfaces & Raised Plates in Manuscript Mode */
 .theme-manuscript .glass-card,
 .theme-manuscript [data-glass-card],
-.theme-manuscript [data-tilt-card] > div,
 .theme-manuscript .daily-quote-card,
 .theme-manuscript .featured-abhishek-card,
 .theme-manuscript .community-contribution-card,
@@ -518,8 +559,11 @@ body.theme-manuscript,
 .theme-manuscript .sadhana-header-banner,
 .theme-manuscript .more-header-banner,
 .theme-manuscript .library-header-banner,
+.theme-manuscript .puja-header-banner,
 .theme-manuscript .panchang-hero-card,
-.theme-manuscript .app-install-header-card {
+.theme-manuscript .app-install-header-card,
+.theme-manuscript .viewer-feedback-card,
+.theme-manuscript .feedback-modal-card {
   background-color: #F4EFE3 !important;
   background-image: none !important;
   border-color: rgba(184, 134, 11, 0.25) !important;
@@ -531,12 +575,24 @@ body.theme-manuscript,
 }
 
 .theme-manuscript .glass-card:hover,
-.theme-manuscript .panchang-hero-card:hover,
-.theme-manuscript [data-tilt-card] > div:hover {
+.theme-manuscript [data-glass-card]:hover,
+.theme-manuscript .panchang-hero-card:hover {
   box-shadow: 9px 9px 24px rgba(184, 165, 138, 0.52),
               -9px -9px 24px rgba(255, 255, 255, 1),
               inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
   border-color: rgba(184, 134, 11, 0.38) !important;
+}
+
+/* Tilt wrappers are purely 3D transform hosts: never paint square backgrounds, borders or shadows */
+[data-tilt-card],
+[data-tilt-card] > div,
+.theme-manuscript [data-tilt-card],
+.theme-manuscript [data-tilt-card] > div {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: inherit;
 }
 
 /* 3. Strip Dark Overlays & Glows Inside Banners */

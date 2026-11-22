@@ -9,18 +9,26 @@ function cn(...inputs: ClassValue[]) {
 }
 
 function splitGridClasses(className?: string) {
-  if (!className) return { outer: '', inner: '' };
+  if (!className) return { outer: '', inner: '', rounded: 'rounded-2xl sm:rounded-3xl' };
   const tokens = className.split(/\s+/).filter(Boolean);
   const outerTokens: string[] = [];
   const innerTokens: string[] = [];
+  const roundedTokens: string[] = [];
   for (const token of tokens) {
     if (/^(sm:|md:|lg:|xl:)?(col-span-|row-span-)/.test(token)) {
       outerTokens.push(token);
+    } else if (/^(sm:|md:|lg:|xl:)?rounded(-[a-z0-9\[\]]+)?$/.test(token)) {
+      roundedTokens.push(token);
+      innerTokens.push(token);
     } else {
       innerTokens.push(token);
     }
   }
-  return { outer: outerTokens.join(' '), inner: innerTokens.join(' ') };
+  return {
+    outer: outerTokens.join(' '),
+    inner: innerTokens.join(' '),
+    rounded: roundedTokens.length > 0 ? roundedTokens.join(' ') : 'rounded-2xl sm:rounded-3xl',
+  };
 }
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -79,7 +87,7 @@ export const GlassCard = ({
       )}
 
       {/* Subtle Ambient Radial Highlight on Hover */}
-      <div className="absolute -inset-px rounded-2xl bg-radial-gradient from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      <div className="absolute -inset-px rounded-[inherit] bg-radial-gradient from-white/[0.04] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {children}
     </>
@@ -87,7 +95,7 @@ export const GlassCard = ({
 
   const cardClasses = (innerClasses?: string) =>
     cn(
-      'glass-card rounded-2xl transition-[background-color,border-color,box-shadow] duration-300 relative overflow-hidden',
+      'glass-card rounded-2xl sm:rounded-3xl transition-[background-color,border-color,box-shadow] duration-300 relative overflow-hidden',
       variantClasses[variant],
       intensity !== 'high' && intensityModifier[intensity],
       innerClasses
@@ -123,13 +131,13 @@ export const GlassCard = ({
     // Desktop fine pointer with 3D tilt
     const tiltOptions = typeof tilt === 'object' ? tilt : {};
     const resolvedGlareColor = tiltOptions.glareColor || (isGilded ? 'amber' : 'white');
-    const { outer, inner } = splitGridClasses(className);
+    const { outer, inner, rounded } = splitGridClasses(className);
 
     return (
       <TiltCard
-        className={cn(outer, className?.includes('h-full') ? 'h-full' : '', 'cursor-pointer')}
+        className={cn(outer, rounded, className?.includes('h-full') ? 'h-full' : '', 'cursor-pointer')}
         glareColor={resolvedGlareColor}
-        contentClassName={className?.includes('h-full') ? 'h-full' : ''}
+        contentClassName={cn(rounded, className?.includes('h-full') ? 'h-full' : '')}
         onClick={onClick}
         role="button"
         tabIndex={0}
@@ -165,13 +173,13 @@ export const GlassCard = ({
 
     const tiltOptions = typeof tilt === 'object' ? tilt : {};
     const resolvedGlareColor = tiltOptions.glareColor || (isGilded ? 'amber' : 'white');
-    const { outer, inner } = splitGridClasses(className);
+    const { outer, inner, rounded } = splitGridClasses(className);
 
     return (
       <TiltCard
-        className={cn(outer, className?.includes('h-full') ? 'h-full' : '')}
+        className={cn(outer, rounded, className?.includes('h-full') ? 'h-full' : '')}
         glareColor={resolvedGlareColor}
-        contentClassName={className?.includes('h-full') ? 'h-full' : ''}
+        contentClassName={cn(rounded, className?.includes('h-full') ? 'h-full' : '')}
         {...tiltOptions}
         {...props}
       >

@@ -204,7 +204,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 p-5 sm:p-7 md:p-8 rounded-3xl border border-amber-500/35 bg-gradient-to-br from-amber-950/45 via-slate-900/90 to-[#030712] relative overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.7)]"
+        className="puja-header-banner mb-8 p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-amber-500/35 bg-gradient-to-br from-amber-950/45 via-slate-900/90 to-[#030712] relative overflow-hidden shadow-[0_16px_50px_rgba(0,0,0,0.7)]"
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/15 blur-[60px] rounded-full pointer-events-none" />
         <div className="relative z-10">
@@ -261,7 +261,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
           </div>
 
           {/* Step Progress & Current Puja Step Card */}
-          <div className="puja-current-step-card mt-5 p-4 sm:p-5 rounded-2xl bg-slate-950/85 border border-amber-400/40 shadow-xl">
+          <div className="puja-current-step-card mt-5 p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-slate-950/85 border border-amber-400/40 shadow-xl">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
               <div>
                 <div className="flex items-center gap-2">

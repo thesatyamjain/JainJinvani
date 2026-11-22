@@ -222,7 +222,7 @@ export const TiltCard = ({
       ref={cardRef}
       data-tilt-card=""
       style={{ perspective: `${perspective}px` }}
-      className={cn('relative transform-gpu', className)}
+      className={cn('relative transform-gpu rounded-[inherit]', className)}
       onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -239,7 +239,7 @@ export const TiltCard = ({
           transformStyle: 'preserve-3d',
         }}
         className={cn(
-          'w-full h-full relative transition-shadow duration-300 will-change-transform',
+          'w-full h-full relative transition-shadow duration-300 will-change-transform rounded-[inherit]',
           isHovered ? 'shadow-[0_20px_45px_rgba(0,0,0,0.6)]' : '',
           contentClassName
         )}

@@ -266,7 +266,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 triggerHaptic('medium');
                 window.dispatchEvent(new CustomEvent('jinvani:open-install-prompt'));
               }}
-              className="app-install-header-card p-2.5 sm:p-3 rounded-2xl border-amber-500/25 shadow-sm hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
+              className="app-install-header-card p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl border-amber-500/25 shadow-sm hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
             >
               <div className="flex items-center justify-between gap-2.5 sm:gap-4 min-w-0">
                 {/* Left: App Logo Emblem & Info */}
@@ -344,7 +344,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           whileHover={{ scale: 1.006 }}
           transition={{ duration: 0.35 }}
           onClick={() => onNavigate('panchang')}
-          className={`panchang-hero-card w-full p-4 sm:p-5 md:p-6 rounded-2xl border backdrop-blur-xl mb-5 sm:mb-6 cursor-pointer group text-left relative overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(254,240,138,0.2)] ${
+          className={`panchang-hero-card w-full p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl border backdrop-blur-xl mb-5 sm:mb-6 cursor-pointer group text-left relative overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(254,240,138,0.2)] ${
             isSpecialParva
               ? 'bg-gradient-to-br from-amber-500/20 via-[#131b2e]/95 to-[#0b101d]/95 border-amber-400/40 shadow-[0_12px_36px_rgba(0,0,0,0.6),0_0_24px_rgba(245,158,11,0.12)]'
               : 'bg-gradient-to-br from-[#1c160b]/95 via-[#131b2e]/90 to-[#0e1422]/95 border-amber-400/35'
@@ -543,7 +543,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt={{ maxTilt: 6, scale: 1.015, glareColor: 'amber' }}
           onClick={() => onNavigate('daily-puja')}
-          className="featured-abhishek-card p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer group rounded-xl sm:rounded-2xl border-amber-500/35 dark:border-amber-400/30 shadow-md col-span-2 md:col-span-4"
+          className="featured-abhishek-card p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer group rounded-2xl sm:rounded-3xl border-amber-500/35 dark:border-amber-400/30 shadow-md col-span-2 md:col-span-4"
         >
           <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40">
             <Droplets className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -568,7 +568,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('samayik')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-blue-500/30 dark:border-blue-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-blue-500/30 dark:border-blue-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-500/20 text-blue-700 dark:text-blue-300 flex items-center justify-center shrink-0 border border-blue-500/35">
             <Timer className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -588,7 +588,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('jap')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-rose-500/30 dark:border-rose-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-rose-500/30 dark:border-rose-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-rose-500/20 text-rose-700 dark:text-rose-300 flex items-center justify-center shrink-0 border border-rose-500/35">
             <Flame className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -608,7 +608,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('niyam')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-emerald-500/30 dark:border-emerald-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-emerald-500/30 dark:border-emerald-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0 border border-emerald-500/35">
             <ShieldCheck className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -637,7 +637,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           }
           onMouseEnter={() => preloadContent('bhaktamar-stotra')}
           onTouchStart={() => preloadContent('bhaktamar-stotra')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/30 dark:border-amber-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-amber-500/30 dark:border-amber-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/35">
             <Feather className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -657,7 +657,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('trikal-tirthankar', { source: 'landing' })}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-amber-500/30 dark:border-amber-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-amber-500/30 dark:border-amber-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-800 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/35">
             <Crown className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -677,7 +677,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('category', { id: 'granthas', source: 'landing' })}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-emerald-500/30 dark:border-emerald-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-emerald-500/30 dark:border-emerald-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0 border border-emerald-500/35">
             <Scroll className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -706,7 +706,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           }
           onMouseEnter={() => preloadContent('daivasika-pratikramana')}
           onTouchStart={() => preloadContent('daivasika-pratikramana')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-cyan-500/30 dark:border-cyan-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-cyan-500/30 dark:border-cyan-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 flex items-center justify-center shrink-0 border border-cyan-500/35">
             <RotateCcw className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -726,7 +726,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           tilt
           onClick={() => onNavigate('pilgrimage')}
-          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-xl sm:rounded-2xl border-purple-500/30 dark:border-purple-400/30 shadow-md"
+          className="p-3.5 sm:p-4 flex items-center gap-2.5 sm:gap-3 cursor-pointer hover:bg-white/10 group rounded-2xl sm:rounded-3xl border-purple-500/30 dark:border-purple-400/30 shadow-md"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center shrink-0 border border-purple-500/35">
             <MapPin className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
@@ -753,7 +753,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           variant="subtle"
           sheen
           tilt={{ maxTilt: 4, scale: 1.008, glareColor: 'gold', glareMaxOpacity: 0.16 }}
-          className="community-contribution-card p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-amber-500/30 shadow-md relative overflow-hidden"
+          className="community-contribution-card p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl border-amber-500/30 shadow-md relative overflow-hidden"
         >
           {/* Subtle gold traditional corner markers */}
           <div className="absolute top-2 left-2.5 text-[10px] text-amber-500/50 pointer-events-none select-none">❖</div>
@@ -811,7 +811,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
             triggerHaptic('light');
             setShowDonateModal(true);
           }}
-          className="sahyog-card p-3.5 sm:p-4 flex items-center justify-between gap-3 group rounded-xl sm:rounded-2xl border-amber-500/35 dark:border-amber-400/30 shadow-md cursor-pointer"
+          className="sahyog-card p-3.5 sm:p-4 flex items-center justify-between gap-3 group rounded-2xl sm:rounded-3xl border-amber-500/35 dark:border-amber-400/30 shadow-md cursor-pointer"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/40 group-hover:scale-110 transition-transform">

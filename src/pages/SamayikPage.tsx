@@ -115,7 +115,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
         <div className="lg:col-span-6">
           <GlassCard
             variant="gilded"
-            className="p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center min-h-[440px] relative overflow-hidden h-full border-amber-500/35 bg-gradient-to-b from-slate-900/95 via-amber-950/20 to-black/90 shadow-[0_16px_40px_rgba(0,0,0,0.6)]"
+            className="p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center min-h-[440px] relative overflow-hidden h-full border-amber-500/35 bg-gradient-to-b from-slate-900/95 via-amber-950/20 to-black/90 shadow-[0_16px_40px_rgba(0,0,0,0.6)] rounded-2xl sm:rounded-3xl"
           >
             {/* Background Watermark */}
             <div className="absolute inset-0 pointer-events-none opacity-10 flex items-center justify-center">
@@ -229,7 +229,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
           <GlassCard
             tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
             variant="gilded"
-            className="p-5 sm:p-6 flex-1 border-amber-500/30"
+            className="p-5 sm:p-6 flex-1 border-amber-500/30 rounded-2xl sm:rounded-3xl"
           >
             {/* Step Tabs Navigation */}
             <div className="samayik-tabs-container grid grid-cols-3 gap-1.5 sm:gap-2 mb-4 p-1 rounded-xl bg-slate-950/70 border border-white/10">

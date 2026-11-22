@@ -451,7 +451,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'amber' }}
           variant="subtle"
-          className="jap-stat-card p-3 text-center rounded-xl border-amber-500/20"
+          className="jap-stat-card p-3 text-center rounded-2xl border-amber-500/20"
         >
           <p className="text-[10px] text-amber-300 font-gotu font-bold">वर्तमान मणका</p>
           <p className="text-lg sm:text-xl font-bold font-mono text-amber-100">
@@ -461,7 +461,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'gold' }}
           variant="subtle"
-          className="jap-stat-card p-3 text-center rounded-xl border-emerald-500/20"
+          className="jap-stat-card p-3 text-center rounded-2xl border-emerald-500/20"
         >
           <p className="text-[10px] text-emerald-300 font-gotu font-bold">
             {targetCount === 108 ? 'आज की मालाएं' : 'आज पूर्ण चक्र'}
@@ -473,7 +473,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         <GlassCard
           tilt={{ maxTilt: 6, glareMaxOpacity: 0.12, glareColor: 'subtle' }}
           variant="subtle"
-          className="jap-stat-card p-3 text-center rounded-xl border-purple-500/20"
+          className="jap-stat-card p-3 text-center rounded-2xl border-purple-500/20"
         >
           <p className="text-[10px] text-purple-300 font-gotu font-bold">
             {targetCount === 108 ? 'कुल पूर्ण मालाएं' : 'कुल पूर्ण चक्र'}
@@ -650,7 +650,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       {/* Active Mantra Banner & Meaning */}
       <GlassCard
         variant="gilded"
-        className="jap-mantra-card w-full p-4 sm:p-5 text-center mb-4 rounded-2xl border-amber-500/30"
+        className="jap-mantra-card w-full p-4 sm:p-5 text-center mb-4 rounded-2xl sm:rounded-3xl border-amber-500/30"
       >
         <p className="text-base sm:text-lg font-notoserif font-bold text-amber-100 leading-relaxed">
           {activeMantra.text}
