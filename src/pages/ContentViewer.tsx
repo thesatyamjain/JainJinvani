@@ -14,10 +14,13 @@ import {
   FileEdit,
   Volume2,
   Play,
+  Palette,
 } from 'lucide-react';
 import { getContentByIdAsync, getContentById } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
-import { addFavorite, removeFavorite, isFavorite, addRecentRead, getSettings } from '../lib/storage';
+import { addFavorite, removeFavorite, isFavorite, addRecentRead, getSettings, updateSettings } from '../lib/storage';
+import { MANUSCRIPT_SHADES } from '../lib/manuscriptShades';
+import type { UserSettings, ManuscriptShade } from '../types';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
@@ -662,6 +665,31 @@ export const ContentViewer = ({
   const [isFav, setIsFav] = React.useState(false);
   const { isAutoScrolling, setIsAutoScrolling, scrollSpeed, setScrollSpeed } = useAutoScroll(1);
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
+  const [showShadePicker, setShowShadePicker] = React.useState(false);
+  const [currentShade, setCurrentShade] = React.useState<ManuscriptShade>(() => getSettings().manuscriptShade || 'tadpatra');
+  const shadePickerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const handleSettingsUpdate = (e: Event) => {
+      const customEvent = e as CustomEvent<UserSettings>;
+      if (customEvent.detail?.manuscriptShade) {
+        setCurrentShade(customEvent.detail.manuscriptShade);
+      }
+    };
+    window.addEventListener('jain_settings_updated', handleSettingsUpdate);
+    return () => window.removeEventListener('jain_settings_updated', handleSettingsUpdate);
+  }, []);
+
+  React.useEffect(() => {
+    if (!showShadePicker) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (shadePickerRef.current && !shadePickerRef.current.contains(e.target as Node)) {
+        setShowShadePicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showShadePicker]);
   const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
   const [activeVerseIndex, setActiveVerseIndex] = React.useState<number | null>(null);
   const [audioSeekTarget, setAudioSeekTarget] = React.useState<number | null>(null);
@@ -1012,7 +1040,7 @@ export const ContentViewer = ({
             )}
           </div>
 
-          {/* Quick Reader Controls: Font Sizing (A- / A+) & Report */}
+          {/* Quick Reader Controls: Font Sizing (A- / A+), Page Shade & Report */}
           <div className="flex items-center gap-1.5 shrink-0">
             <div className="inline-flex items-center rounded-xl bg-amber-500/15 dark:bg-slate-900/80 border border-amber-500/35 dark:border-amber-400/30 p-0.5 shadow-xs">
               <motion.button
@@ -1038,6 +1066,81 @@ export const ContentViewer = ({
               >
                 A+
               </motion.button>
+            </div>
+
+            {/* Quick Paper Shade Selector */}
+            <div className="relative" ref={shadePickerRef}>
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.04 }}
+                onClick={() => setShowShadePicker((prev) => !prev)}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
+                title="पांडुलिपि पृष्ठ रंग बदलें"
+                aria-label="पांडुलिपि पृष्ठ रंग बदलें"
+              >
+                <Palette className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span className="hidden sm:inline">पृष्ठ रंग</span>
+              </motion.button>
+
+              <AnimatePresence>
+                {showShadePicker && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95, y: -4 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -4 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 z-50 w-64 p-2.5 rounded-2xl bg-[#F4EFE3] dark:bg-slate-900 border border-amber-500/35 shadow-[0_12px_32px_rgba(0,0,0,0.35),0_0_15px_rgba(245,158,11,0.15)] backdrop-blur-xl"
+                  >
+                    <div className="text-[11px] font-gotu font-bold text-stone-800 dark:text-amber-200 mb-2 px-1 flex items-center justify-between">
+                      <span>पांडुलिपि पृष्ठ रंग</span>
+                      <span className="text-[10px] text-amber-800 dark:text-amber-400 font-mono">६ शेड्स</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {MANUSCRIPT_SHADES.map((shade) => {
+                        const isActive = currentShade === shade.id;
+                        return (
+                          <button
+                            key={shade.id}
+                            type="button"
+                            onClick={() => {
+                              triggerHaptic('light');
+                              updateSettings({ backgroundTheme: 'manuscript', manuscriptShade: shade.id });
+                              setCurrentShade(shade.id);
+                              setShowShadePicker(false);
+                            }}
+                            className={`p-2 rounded-xl text-left border transition-all cursor-pointer flex items-center gap-1.5 ${
+                              isActive
+                                ? 'ring-2 ring-amber-600 border-amber-600 font-bold shadow-xs'
+                                : 'border-stone-300 dark:border-white/10 hover:border-amber-400/50'
+                            }`}
+                            style={{ backgroundColor: shade.cardHex }}
+                          >
+                            <span
+                              className="w-3.5 h-3.5 rounded-full border shadow-2xs shrink-0"
+                              style={{ backgroundColor: shade.bgHex, borderColor: shade.borderRgba }}
+                            />
+                            <div className="min-w-0">
+                              <div
+                                className="text-xs font-notoserif font-bold truncate leading-tight"
+                                style={{ color: shade.ink }}
+                              >
+                                {shade.nameHi}
+                              </div>
+                              <div
+                                className="text-[9.5px] font-gotu truncate leading-none mt-0.5 opacity-80"
+                                style={{ color: shade.ink }}
+                              >
+                                {shade.tag}
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <motion.button

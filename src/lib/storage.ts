@@ -71,6 +71,9 @@ export const getSettings = (): UserSettings => {
                 backgroundTheme: (parsed.backgroundTheme === 'cosmic' || parsed.backgroundTheme === 'sanctum' || parsed.backgroundTheme === 'manuscript')
                     ? parsed.backgroundTheme
                     : 'manuscript',
+                manuscriptShade: (['tadpatra', 'bhojpatra', 'swarna', 'puratan', 'tamrapatra', 'khadi'].includes(parsed.manuscriptShade))
+                    ? parsed.manuscriptShade
+                    : 'tadpatra',
                 dockTheme: (parsed.dockTheme === 'classic' || parsed.dockTheme === 'crystal' || parsed.dockTheme === 'gilded' || parsed.dockTheme === 'frosted') ? parsed.dockTheme : 'frosted',
                 hapticFeedback: parsed.hapticFeedback !== undefined ? Boolean(parsed.hapticFeedback) : true,
                 showTithiTimings: parsed.showTithiTimings !== undefined ? Boolean(parsed.showTithiTimings) : true,
@@ -84,6 +87,7 @@ export const getSettings = (): UserSettings => {
         notifications: false,
         autoPlay: false,
         backgroundTheme: 'manuscript',
+        manuscriptShade: 'tadpatra',
         dockTheme: 'frosted',
         hapticFeedback: true,
         showTithiTimings: true,

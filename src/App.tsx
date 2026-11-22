@@ -6,7 +6,7 @@ import { ScrollScrubber } from "./components/layout/ScrollScrubber";
 import { PwaAppBridge } from "./components/layout/PwaAppBridge";
 import { PageTransition } from "./components/layout/PageTransition";
 import { AnimatePresence } from "motion/react";
-import { useModalBackHandler, getSettings, type UserSettings } from "./lib";
+import { useModalBackHandler, getSettings, getManuscriptShade, type UserSettings } from "./lib";
 import { parseLocation, buildPath, buildHash, VALID_PAGES } from "./utils/urlHelper";
 import { resetSeoToDefault } from "./utils/seoHelper";
 import { useEdgeSwipeBack } from "./hooks/useEdgeSwipeBack";
@@ -80,17 +80,23 @@ export default function App() {
     return getSettings().backgroundTheme || 'manuscript';
   });
 
+  const ALL_SHADE_CLASSES = ['shade-tadpatra', 'shade-bhojpatra', 'shade-swarna', 'shade-puratan', 'shade-tamrapatra', 'shade-khadi'];
+
   useEffect(() => {
-    const applyTheme = (theme: string) => {
+    const applyTheme = (theme: string, shadeParam?: string) => {
+      const currentSettings = getSettings();
+      const activeShade = shadeParam || currentSettings.manuscriptShade || 'tadpatra';
+      const shadeConfig = getManuscriptShade(activeShade);
+
       setBackgroundTheme(theme);
       if (typeof document !== 'undefined') {
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        document.documentElement.classList.remove('theme-manuscript', 'theme-cosmic', 'theme-sanctum', 'dark');
+        document.documentElement.classList.remove('theme-manuscript', 'theme-cosmic', 'theme-sanctum', 'dark', ...ALL_SHADE_CLASSES);
 
         if (theme === 'manuscript') {
-          document.documentElement.classList.add('theme-manuscript');
+          document.documentElement.classList.add('theme-manuscript', `shade-${activeShade}`);
           document.documentElement.style.colorScheme = 'light';
-          if (metaThemeColor) metaThemeColor.setAttribute('content', '#F4EFE3');
+          if (metaThemeColor) metaThemeColor.setAttribute('content', shadeConfig.bgHex);
         } else if (theme === 'sanctum') {
           document.documentElement.classList.add('theme-sanctum', 'dark');
           document.documentElement.style.colorScheme = 'dark';
@@ -103,12 +109,15 @@ export default function App() {
       }
     };
 
-    applyTheme(getSettings().backgroundTheme || 'manuscript');
+    applyTheme(getSettings().backgroundTheme || 'manuscript', getSettings().manuscriptShade);
 
     const handleSettingsUpdate = (e: Event) => {
       const customEvent = e as CustomEvent<UserSettings>;
-      if (customEvent.detail?.backgroundTheme) {
-        applyTheme(customEvent.detail.backgroundTheme);
+      if (customEvent.detail) {
+        const current = getSettings();
+        const nextTheme = customEvent.detail.backgroundTheme || current.backgroundTheme || 'manuscript';
+        const nextShade = customEvent.detail.manuscriptShade || current.manuscriptShade || 'tadpatra';
+        applyTheme(nextTheme, nextShade);
       }
     };
 
@@ -116,8 +125,8 @@ export default function App() {
       if (e.key === 'jain_settings' && e.newValue) {
         try {
           const parsed = JSON.parse(e.newValue);
-          if (parsed.backgroundTheme) {
-            applyTheme(parsed.backgroundTheme);
+          if (parsed.backgroundTheme || parsed.manuscriptShade) {
+            applyTheme(parsed.backgroundTheme || getSettings().backgroundTheme || 'manuscript', parsed.manuscriptShade);
           }
         } catch {}
       }
@@ -356,7 +365,7 @@ export default function App() {
   return (
     <div className={`relative h-full w-full overflow-hidden font-noto transition-colors duration-500 ${
       backgroundTheme === 'manuscript'
-        ? 'bg-[#F4EFE3] text-[#1C1917] selection:bg-amber-700/20 selection:text-[#1C1917] theme-manuscript'
+        ? 'bg-[var(--neu-bg,#F4EFE3)] text-[var(--neu-ink,#1C1917)] selection:bg-amber-700/20 selection:text-[#1C1917] theme-manuscript'
         : backgroundTheme === 'sanctum'
         ? 'bg-[#05070d] text-amber-50 selection:bg-amber-500/30 selection:text-amber-100 theme-sanctum'
         : 'bg-[#030712] text-slate-100 selection:bg-blue-500/30 selection:text-blue-100 theme-cosmic'

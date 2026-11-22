@@ -485,7 +485,13 @@ body.has-modal-open [data-scroll-scrubber] {
 
 .theme-manuscript {
   --neu-bg: #F4EFE3;
+  --neu-bg-card: #F9F5EC;
   --neu-bg-sunken: #ECE5D5;
+  --neu-border: rgba(184, 134, 11, 0.28);
+  --neu-shadow-dark: rgba(184, 165, 138, 0.42);
+  --neu-shadow-light: rgba(255, 255, 255, 0.95);
+  --neu-shadow-hover-dark: rgba(184, 165, 138, 0.52);
+  --neu-shadow-hover-light: rgba(255, 255, 255, 1);
   --neu-ink: #1C1917;
   --neu-ink-muted: #44403C;
   --neu-ink-subtle: #78716C;
@@ -499,12 +505,102 @@ body.has-modal-open [data-scroll-scrubber] {
   color-scheme: light;
 }
 
+/* Shade 1: Bhojpatra (Pale Birch Bark Ivory) */
+html.shade-bhojpatra .theme-manuscript,
+html.shade-bhojpatra.theme-manuscript,
+.theme-manuscript.shade-bhojpatra {
+  --neu-bg: #FAF6EE;
+  --neu-bg-card: #FFFDF9;
+  --neu-bg-sunken: #F1ECE2;
+  --neu-border: rgba(168, 140, 93, 0.25);
+  --neu-shadow-dark: rgba(195, 180, 155, 0.35);
+  --neu-shadow-light: rgba(255, 255, 255, 1);
+  --neu-shadow-hover-dark: rgba(195, 180, 155, 0.45);
+  --neu-shadow-hover-light: rgba(255, 255, 255, 1);
+  --neu-ink: #1C1917;
+  --neu-ink-muted: #44403C;
+  --neu-gold: #A88C5D;
+  --neu-gold-glow: rgba(168, 140, 93, 0.25);
+}
+
+/* Shade 2: Swarna Patra (Radiant Gilded Gold) */
+html.shade-swarna .theme-manuscript,
+html.shade-swarna.theme-manuscript,
+.theme-manuscript.shade-swarna {
+  --neu-bg: #F3E8CB;
+  --neu-bg-card: #F8EFD8;
+  --neu-bg-sunken: #E7D9B6;
+  --neu-border: rgba(190, 130, 20, 0.35);
+  --neu-shadow-dark: rgba(175, 142, 85, 0.46);
+  --neu-shadow-light: rgba(255, 253, 240, 0.95);
+  --neu-shadow-hover-dark: rgba(175, 142, 85, 0.58);
+  --neu-shadow-hover-light: rgba(255, 253, 240, 1);
+  --neu-ink: #1A140B;
+  --neu-ink-muted: #3D2D18;
+  --neu-gold: #C27803;
+  --neu-gold-glow: rgba(194, 120, 3, 0.32);
+}
+
+/* Shade 3: Puratan (Aged Sepia Parchment) */
+html.shade-puratan .theme-manuscript,
+html.shade-puratan.theme-manuscript,
+.theme-manuscript.shade-puratan {
+  --neu-bg: #EAE0CE;
+  --neu-bg-card: #F1E8D9;
+  --neu-bg-sunken: #DDD1BD;
+  --neu-border: rgba(150, 105, 45, 0.32);
+  --neu-shadow-dark: rgba(155, 130, 100, 0.48);
+  --neu-shadow-light: rgba(255, 252, 245, 0.90);
+  --neu-shadow-hover-dark: rgba(155, 130, 100, 0.60);
+  --neu-shadow-hover-light: rgba(255, 252, 245, 1);
+  --neu-ink: #1F1A14;
+  --neu-ink-muted: #453A2E;
+  --neu-gold: #9A6B32;
+  --neu-gold-glow: rgba(154, 107, 50, 0.30);
+}
+
+/* Shade 4: Tamrapatra (Antique Copper / Terracotta) */
+html.shade-tamrapatra .theme-manuscript,
+html.shade-tamrapatra.theme-manuscript,
+.theme-manuscript.shade-tamrapatra {
+  --neu-bg: #EFE4D6;
+  --neu-bg-card: #F6ECE1;
+  --neu-bg-sunken: #E2D3C1;
+  --neu-border: rgba(175, 105, 75, 0.30);
+  --neu-shadow-dark: rgba(175, 135, 115, 0.44);
+  --neu-shadow-light: rgba(255, 250, 245, 0.95);
+  --neu-shadow-hover-dark: rgba(175, 135, 115, 0.55);
+  --neu-shadow-hover-light: rgba(255, 250, 245, 1);
+  --neu-ink: #231713;
+  --neu-ink-muted: #4D342B;
+  --neu-gold: #B45309;
+  --neu-gold-glow: rgba(180, 83, 9, 0.28);
+}
+
+/* Shade 5: Khadi (Natural Handmade Paper) */
+html.shade-khadi .theme-manuscript,
+html.shade-khadi.theme-manuscript,
+.theme-manuscript.shade-khadi {
+  --neu-bg: #ECE7DE;
+  --neu-bg-card: #F4F0E8;
+  --neu-bg-sunken: #E0D9CD;
+  --neu-border: rgba(155, 135, 110, 0.28);
+  --neu-shadow-dark: rgba(165, 155, 140, 0.40);
+  --neu-shadow-light: rgba(255, 255, 255, 0.95);
+  --neu-shadow-hover-dark: rgba(165, 155, 140, 0.50);
+  --neu-shadow-hover-light: rgba(255, 255, 255, 1);
+  --neu-ink: #1C1917;
+  --neu-ink-muted: #44403C;
+  --neu-gold: #8D7B68;
+  --neu-gold-glow: rgba(141, 123, 104, 0.25);
+}
+
 /* 1. Base Document & Canvas */
 html.theme-manuscript,
 body.theme-manuscript,
 .theme-manuscript {
-  background-color: #F4EFE3 !important;
-  color: #1C1917 !important;
+  background-color: var(--neu-bg) !important;
+  color: var(--neu-ink) !important;
 }
 
 /* 2. Universal Card Corner Curvature Standard (Continuous Squircles) */
@@ -564,11 +660,11 @@ body.theme-manuscript,
 .theme-manuscript .app-install-header-card,
 .theme-manuscript .viewer-feedback-card,
 .theme-manuscript .feedback-modal-card {
-  background-color: #F4EFE3 !important;
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   background-image: none !important;
-  border-color: rgba(184, 134, 11, 0.25) !important;
-  box-shadow: 7px 7px 18px rgba(184, 165, 138, 0.42),
-              -7px -7px 18px rgba(255, 255, 255, 0.95),
+  border-color: var(--neu-border) !important;
+  box-shadow: 7px 7px 18px var(--neu-shadow-dark),
+              -7px -7px 18px var(--neu-shadow-light),
               inset 0 1px 1px rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -577,10 +673,10 @@ body.theme-manuscript,
 .theme-manuscript .glass-card:hover,
 .theme-manuscript [data-glass-card]:hover,
 .theme-manuscript .panchang-hero-card:hover {
-  box-shadow: 9px 9px 24px rgba(184, 165, 138, 0.52),
-              -9px -9px 24px rgba(255, 255, 255, 1),
+  box-shadow: 9px 9px 24px var(--neu-shadow-hover-dark),
+              -9px -9px 24px var(--neu-shadow-hover-light),
               inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(184, 134, 11, 0.38) !important;
+  border-color: var(--neu-border) !important;
 }
 
 /* Tilt wrappers are purely 3D transform hosts: never paint square backgrounds, borders or shadows */
@@ -3236,15 +3332,15 @@ body.theme-manuscript,
    Horizontal Scroll Container Edge Masks & Navigation Arrows
    ========================================================================== */
 .theme-manuscript .hscroll-fade-left {
-  background: linear-gradient(to right, #F4EFE3 0%, rgba(244, 239, 227, 0.85) 60%, transparent 100%) !important;
+  background: linear-gradient(to right, var(--neu-bg) 0%, var(--neu-bg) 60%, transparent 100%) !important;
 }
 
 .theme-manuscript .hscroll-fade-right {
-  background: linear-gradient(to left, #F4EFE3 0%, rgba(244, 239, 227, 0.85) 60%, transparent 100%) !important;
+  background: linear-gradient(to left, var(--neu-bg) 0%, var(--neu-bg) 60%, transparent 100%) !important;
 }
 
 .theme-manuscript .hscroll-arrow-btn {
-  background-color: #ECE5D5 !important;
+  background-color: var(--neu-bg-sunken) !important;
   border: 1px solid rgba(184, 134, 11, 0.35) !important;
   color: #78350F !important;
   box-shadow: 0 2px 8px rgba(60, 40, 20, 0.15) !important;

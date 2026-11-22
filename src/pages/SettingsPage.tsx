@@ -29,6 +29,7 @@ import {
   exportBackupData,
   importBackupData,
   clearRecentReads,
+  MANUSCRIPT_SHADES,
   type UserSettings,
   useModalBackHandler,
 } from '../lib';
@@ -135,6 +136,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate, onBack }
         notifications: true,
         autoPlay: false,
         backgroundTheme: 'manuscript',
+        manuscriptShade: 'tadpatra',
         dockTheme: 'frosted',
         hapticFeedback: true,
         showTithiTimings: true,
@@ -320,6 +322,78 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate, onBack }
                   </p>
                 </motion.button>
               </div>
+
+              {/* 1.1b Manuscript Paper Shades (पांडुलिपि पृष्ठ रंग) */}
+              {settings.backgroundTheme === 'manuscript' && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="mt-4 pt-4 border-t border-stone-200 dark:border-white/10"
+                >
+                  <div className="flex items-center justify-between mb-2.5">
+                    <label className="settings-item-label text-xs sm:text-sm font-gotu font-bold text-stone-900 dark:text-white flex items-center gap-2">
+                      <span>पांडुलिपि पृष्ठ रंग (Shades of Old Pages)</span>
+                    </label>
+                    <span className="text-[11px] font-gotu text-amber-900 dark:text-amber-300 font-bold">
+                      {MANUSCRIPT_SHADES.find((s) => s.id === (settings.manuscriptShade || 'tadpatra'))?.nameHi} • {MANUSCRIPT_SHADES.find((s) => s.id === (settings.manuscriptShade || 'tadpatra'))?.tag}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                    {MANUSCRIPT_SHADES.map((shade) => {
+                      const isActive = (settings.manuscriptShade || 'tadpatra') === shade.id;
+                      return (
+                        <motion.button
+                          key={shade.id}
+                          type="button"
+                          whileTap={{ scale: 0.96 }}
+                          whileHover={{ scale: 1.02 }}
+                          onClick={() => handleSettingChange('manuscriptShade', shade.id)}
+                          className={`relative p-3 rounded-2xl text-left border cursor-pointer transition-all flex flex-col justify-between overflow-hidden shadow-xs ${
+                            isActive
+                              ? 'ring-2 ring-amber-600 border-amber-600 shadow-md'
+                              : 'border-stone-300 dark:border-white/10 hover:border-amber-500/50'
+                          }`}
+                          style={{
+                            backgroundColor: shade.cardHex,
+                          }}
+                        >
+                          <div className="flex items-center justify-between mb-1.5">
+                            <div className="flex items-center gap-1.5 min-w-0">
+                              <span
+                                className="w-3.5 h-3.5 rounded-full border shadow-2xs shrink-0"
+                                style={{
+                                  backgroundColor: shade.bgHex,
+                                  borderColor: shade.borderRgba,
+                                }}
+                              />
+                              <span
+                                className="text-xs font-bold font-notoserif truncate leading-tight"
+                                style={{ color: shade.ink }}
+                              >
+                                {shade.nameHi}
+                              </span>
+                            </div>
+                            {isActive && (
+                              <span className="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                                <Check className="w-2.5 h-2.5 stroke-[3] text-white" />
+                              </span>
+                            )}
+                          </div>
+                          <p
+                            className="text-[10.5px] font-gotu leading-snug line-clamp-2"
+                            style={{ color: shade.ink, opacity: 0.85 }}
+                          >
+                            {shade.description}
+                          </p>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* 1.2 Devanagari Typography Style */}

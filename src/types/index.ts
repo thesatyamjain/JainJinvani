@@ -11,12 +11,15 @@ export interface ReadingProgress {
     lastRead: number; // timestamp
 }
 
+export type ManuscriptShade = 'tadpatra' | 'bhojpatra' | 'swarna' | 'puratan' | 'tamrapatra' | 'khadi';
+
 export interface UserSettings {
     fontSize: 'small' | 'medium' | 'large' | 'xl';
     fontFamily?: 'serif' | 'sans';
     notifications: boolean;
     autoPlay: boolean;
     backgroundTheme: 'sanctum' | 'cosmic' | 'manuscript';
+    manuscriptShade?: ManuscriptShade;
     dockTheme?: 'frosted' | 'crystal' | 'gilded' | 'classic';
     hapticFeedback?: boolean;
     showTithiTimings?: boolean;

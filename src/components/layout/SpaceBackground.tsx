@@ -384,7 +384,7 @@ export const SpaceBackground = React.memo(({ theme: propTheme }: SpaceBackground
       <div
         className={`fixed inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ${
           currentTheme === 'manuscript'
-            ? 'bg-[#F4EFE3]'
+            ? 'bg-[var(--neu-bg,#F4EFE3)]'
             : currentTheme === 'sanctum'
             ? 'bg-gradient-to-b from-[#05070d] via-[#070b14] to-[#04060a]'
             : 'bg-gradient-to-b from-[#030712] via-[#050c1e] to-[#07132c]'

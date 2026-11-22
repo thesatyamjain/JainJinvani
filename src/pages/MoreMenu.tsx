@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { Settings, Info, Heart, Mail, Shield, Share2, X, Volume2, Type, Bell, Star, Compass, Menu, Sparkles, Download, CheckCircle2, WifiOff, Smartphone, GitBranch, Database, Film, SunMedium, Clock, SmartphoneNfc, FileJson, Upload, BookOpen } from 'lucide-react';
-import { getSettings, updateSettings, exportBackupData, importBackupData, type UserSettings, useModalBackHandler } from '../lib';
+import { getSettings, updateSettings, exportBackupData, importBackupData, MANUSCRIPT_SHADES, type UserSettings, useModalBackHandler } from '../lib';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import { FeedbackModal } from '../components/features/FeedbackModal';
@@ -254,6 +254,48 @@ export const MoreMenu = ({ onNavigate }: MoreMenuProps) => {
                 </div>
               </motion.button>
             </div>
+
+            {settings.backgroundTheme === 'manuscript' && (
+              <div className="mt-3 pt-3 border-t border-white/10">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-gotu font-semibold text-slate-300">
+                    पांडुलिपि पृष्ठ रंग (Page Shade)
+                  </span>
+                  <span className="text-[11px] font-gotu text-amber-300 font-bold">
+                    {MANUSCRIPT_SHADES.find((s) => s.id === (settings.manuscriptShade || 'tadpatra'))?.nameHi}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {MANUSCRIPT_SHADES.map((shade) => {
+                    const isActive = (settings.manuscriptShade || 'tadpatra') === shade.id;
+                    return (
+                      <button
+                        key={shade.id}
+                        type="button"
+                        onClick={() => handleSettingChange('manuscriptShade', shade.id)}
+                        className={`p-2 rounded-xl text-left border transition-all cursor-pointer flex items-center gap-1.5 ${
+                          isActive
+                            ? 'ring-2 ring-amber-500 border-amber-400 font-bold shadow-sm'
+                            : 'border-white/10 hover:border-white/20'
+                        }`}
+                        style={{ backgroundColor: shade.cardHex }}
+                      >
+                        <span
+                          className="w-3.5 h-3.5 rounded-full border shrink-0"
+                          style={{ backgroundColor: shade.bgHex, borderColor: shade.borderRgba }}
+                        />
+                        <span
+                          className="text-[11px] font-notoserif truncate leading-none font-bold"
+                          style={{ color: shade.ink }}
+                        >
+                          {shade.nameHi}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Section 2: Dock Visual Style */}
