@@ -2836,6 +2836,72 @@ body.theme-manuscript,
               -2px -2px 5px var(--neu-shadow-light) !important;
 }
 
+/* Category Listing Top Header Bar */
+.theme-manuscript .category-back-btn {
+  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
+  border: 1px solid var(--neu-border) !important;
+  box-shadow: 1.5px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              2px 3px 8px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.9) !important;
+  color: #78350F !important;
+}
+
+.theme-manuscript .category-back-btn:hover {
+  background-color: var(--neu-bg) !important;
+  border-color: rgba(180, 83, 9, 0.4) !important;
+  color: #991B1B !important;
+  box-shadow: 2px 3px 6px var(--neu-shadow-contact),
+              3px 4px 10px var(--neu-shadow-hover-dark),
+              -2px -2px 8px var(--neu-shadow-hover-light) !important;
+}
+
+.theme-manuscript .category-back-btn svg {
+  color: #78350F !important;
+  stroke: #78350F !important;
+  stroke-width: 2.4 !important;
+}
+
+.theme-manuscript .category-back-btn:hover svg {
+  color: #991B1B !important;
+  stroke: #991B1B !important;
+}
+
+.theme-manuscript .category-header-title {
+  color: var(--neu-ink) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.015em !important;
+  text-shadow: none !important;
+}
+
+.theme-manuscript .category-header-sub {
+  color: var(--neu-ink-muted) !important;
+}
+
+.theme-manuscript .category-header-count {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #78350F !important;
+  border-color: rgba(180, 83, 9, 0.35) !important;
+  box-shadow: 0 1px 2px rgba(180, 140, 90, 0.15) !important;
+}
+
+.theme-manuscript .category-search-icon {
+  color: #78350F !important;
+}
+
+.theme-manuscript .category-search-input {
+  background-color: var(--neu-bg-sunken) !important;
+  color: var(--neu-ink) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: inset 1.5px 2px 4px var(--neu-shadow-dark),
+              inset -1.5px -2px 4px var(--neu-shadow-light) !important;
+}
+
+.theme-manuscript .category-search-input::placeholder {
+  color: var(--neu-ink-muted) !important;
+  opacity: 0.75 !important;
+}
+
 .theme-manuscript .category-context-banner {
   background-color: var(--neu-bg-sunken) !important;
   border: 1px solid var(--neu-border) !important;

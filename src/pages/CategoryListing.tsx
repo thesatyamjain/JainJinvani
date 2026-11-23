@@ -544,37 +544,44 @@ export const CategoryListing = ({
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col md:flex-row md:items-center justify-between gap-5 mb-6"
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3.5 sm:gap-4">
           <motion.button
             whileTap={{ scale: 0.90 }}
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="category-back-btn w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-all backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
+            aria-label="वापस जाएं"
           >
-            <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300 group-hover:text-amber-200" />
           </motion.button>
-          <div className="py-1">
-            <h1 className="text-3xl md:text-4xl font-notoserif font-bold text-white pt-2 pb-1.5 leading-[1.35] drop-shadow-[0_2px_15px_rgba(245,158,11,0.2)]">
+          <div className="flex flex-col justify-center">
+            <h1 className="category-header-title text-2xl sm:text-3xl md:text-4xl font-notoserif font-bold text-stone-900 dark:text-white tracking-tight leading-tight">
               {meta.title}
             </h1>
-            <p className="text-slate-300/80 text-xs md:text-sm font-gotu mt-0.5">
-              {meta.sub} • {filteredItems.length} {filteredItems.length === 1 ? 'रचना' : 'रचनाएँ'}
-            </p>
+            <div className="category-header-sub flex flex-wrap items-center gap-2 mt-1">
+              <span className="text-xs sm:text-sm font-gotu text-stone-700 dark:text-slate-300 font-medium">
+                {meta.sub}
+              </span>
+              <span className="text-stone-400 dark:text-slate-600 select-none hidden xs:inline">•</span>
+              <span className="category-header-count inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 dark:bg-amber-400/10 border border-amber-600/25 dark:border-amber-400/30 text-[11px] sm:text-xs font-mono font-bold text-amber-900 dark:text-amber-200">
+                {filteredItems.length} {filteredItems.length === 1 ? 'रचना' : 'रचनाएँ'}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Search & View Mode Switcher */}
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="category-search-icon absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder="रचना, कवि, या विषय खोजें..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
+              className="category-search-input w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
             />
             {searchQuery && (
               <motion.button
