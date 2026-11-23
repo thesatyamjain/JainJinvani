@@ -358,7 +358,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
           <div id="ritual-deck-section" className="space-y-4">
             {/* Top Deck Mode Switcher Tabs */}
             <div className="flex flex-wrap items-center justify-between gap-3 bg-black/40 p-1.5 rounded-2xl border border-amber-500/30 shadow-lg">
-              <div className="flex items-center gap-1.5 overflow-x-auto">
+              <HorizontalScrollContainer className="flex-1 min-w-0">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
@@ -406,7 +406,7 @@ export const TirthankarProfile: React.FC<TirthankarProfileProps> = ({
                   <Crown className="w-4 h-4" />
                   <span>२४ तीर्थंकर समुच्चय अर्घ्य</span>
                 </motion.button>
-              </div>
+              </HorizontalScrollContainer>
 
               <div className="text-xs text-amber-300/80 font-gotu px-3 hidden sm:block">
                 {activeMainTab === 'arghyavali' && `कल्याणक अर्घ्य प्रगति: ${totalOfferedArghya} / ६`}

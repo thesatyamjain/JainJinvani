@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface HorizontalScrollContainerProps {
   children: React.ReactNode;
   className?: string;
+  innerClassName?: string;
   arrowClassName?: string;
   step?: number;
 }
@@ -12,6 +13,7 @@ interface HorizontalScrollContainerProps {
 export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps> = ({
   children,
   className = '',
+  innerClassName = '',
   arrowClassName = '',
   step = 260,
 }) => {
@@ -154,7 +156,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
           touchAction: 'pan-x pan-y',
           ...maskStyle,
         }}
-        className="w-full flex items-center gap-2 overflow-x-auto py-1.5 px-1 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth after:content-[''] after:w-4 after:shrink-0"
+        className={`w-full flex items-center gap-2 overflow-x-auto py-1.5 px-1 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth after:content-[''] after:w-4 after:shrink-0 ${innerClassName}`}
       >
         {children}
       </div>

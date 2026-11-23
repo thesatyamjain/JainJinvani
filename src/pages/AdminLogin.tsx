@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   Lock,
   User,
@@ -2341,7 +2342,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
       </div>
 
       {/* Sacred Admin Tab Selector */}
-      <div className="w-full flex items-center justify-start sm:justify-center gap-1.5 sm:gap-2.5 mb-7 pb-2 overflow-x-auto no-scrollbar relative z-10 border-b border-white/10">
+      <HorizontalScrollContainer className="mb-7 border-b border-white/10" innerClassName="justify-start sm:justify-center">
         {[
           { id: 'announcement', label: 'सार्वजनिक घोषणा', icon: Megaphone, badge: announcementActive ? 'LIVE' : undefined },
           { id: 'content', label: 'स्तोत्र व ग्रंथ संपादक', icon: BookOpen, badge: 'CMS' },
@@ -2355,7 +2356,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             <button
               key={tab.id}
               onClick={() => setAdminTab(tab.id as any)}
-              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-gotu font-medium whitespace-nowrap transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-gotu font-medium whitespace-nowrap transition-all cursor-pointer shrink-0 ${
                 isActive
                   ? 'bg-amber-500/20 text-amber-200 border border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.2)] scale-[1.02]'
                   : 'bg-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10 border border-transparent'
@@ -2373,7 +2374,7 @@ export const AdminLogin = ({ onBack, onNavigate }: AdminLoginProps) => {
             </button>
           );
         })}
-      </div>
+      </HorizontalScrollContainer>
 
       {/* TAB 1: अशुद्धि व सुझाव प्रबंधन (Feedback & Corrections) */}
       {adminTab === 'feedback' && (

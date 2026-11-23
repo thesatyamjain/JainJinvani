@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import { AutoScrollIcon } from '../components/layout/Dock';
 import {
   ArrowLeft,
@@ -138,7 +139,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
         </motion.button>
 
         {/* Quick Stepper Jump Pills */}
-        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 scrollbar-none text-[11px] sm:text-xs font-gotu">
+        <HorizontalScrollContainer className="flex-1 min-w-0" innerClassName="text-[11px] sm:text-xs font-gotu">
           {steps.map((step, idx) => {
             const isCurrent = currentStepIndex === idx;
             return (
@@ -148,7 +149,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => goToStep(idx)}
-                className={`puja-step-pill px-2.5 py-1 rounded-lg whitespace-nowrap cursor-pointer transition-all font-semibold ${
+                className={`puja-step-pill px-2.5 py-1 rounded-lg whitespace-nowrap cursor-pointer transition-all font-semibold shrink-0 ${
                   isCurrent
                     ? 'active bg-amber-400 text-slate-950 font-bold border border-amber-300 shadow-md scale-105'
                     : 'bg-slate-900/80 hover:bg-slate-800 border border-white/15 text-slate-200 hover:text-white'
@@ -158,7 +159,7 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
               </motion.button>
             );
           })}
-        </div>
+        </HorizontalScrollContainer>
 
         {/* Reader Tools (Font & Scroll) */}
         <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">

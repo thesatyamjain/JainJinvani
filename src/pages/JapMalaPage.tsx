@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   ChevronLeft,
   RotateCcw,
@@ -379,7 +380,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       </div>
 
       {/* Mantra Selector Pills */}
-      <div className="w-full flex items-center gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
+      <HorizontalScrollContainer className="mb-4">
         {MANTRAS.map((mantra) => {
           const isActive = mantra.id === stats.selectedMantraId;
           return (
@@ -399,7 +400,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             </motion.button>
           );
         })}
-      </div>
+      </HorizontalScrollContainer>
 
       {/* Jap Target Options (9, 27, 108, कस्टम) */}
       <div className="w-full max-w-md mb-5">

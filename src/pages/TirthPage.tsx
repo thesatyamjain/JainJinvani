@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   ChevronLeft,
   MapPin,
@@ -430,7 +431,7 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
       </div>
 
       {/* Filter Tabs */}
-      <div className="w-full flex items-center justify-center gap-2 mb-6 overflow-x-auto pb-1 scrollbar-none">
+      <HorizontalScrollContainer className="mb-6" innerClassName="justify-center">
         {[
           { id: 'all', label: `सर्व तीर्थ (${pilgrimageData.length})` },
           {
@@ -463,7 +464,7 @@ export const TirthPage = ({ onBack }: TirthPageProps) => {
             </motion.button>
           );
         })}
-      </div>
+      </HorizontalScrollContainer>
 
       {/* Kshetra Cards Grid */}
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

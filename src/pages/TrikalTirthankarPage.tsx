@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   ChevronLeft,
   Search,
@@ -293,7 +294,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
       </motion.div>
 
       {/* Era Navigation Tabs */}
-      <div className="w-full flex items-center gap-2 mb-6 overflow-x-auto pb-1 scrollbar-none">
+      <HorizontalScrollContainer className="mb-6">
         {[
           { id: 'present', label: 'वर्तमान चौबीसी (२४)', icon: Crown },
           { id: 'past', label: 'भूतकाल चौबीसी (२४)', icon: Clock },
@@ -323,7 +324,7 @@ export const TrikalTirthankarPage: React.FC<TrikalTirthankarPageProps> = ({
             </motion.button>
           );
         })}
-      </div>
+      </HorizontalScrollContainer>
 
       {/* Search Bar (for list tabs) */}
       {activeEra !== 'cycle' && activeEra !== 'arghya' && viewMode !== 'stats' && (

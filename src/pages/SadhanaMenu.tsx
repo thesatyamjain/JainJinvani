@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import { triggerHaptic } from '../utils/pwaManager';
 import { getJainDate, getFestival } from '../lib/panchang';
 import { getDailyNiyamaState, getJapMalaState } from '../lib/storage';
@@ -522,7 +523,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
             </div>
 
             {/* Quick action chips */}
-            <div className="flex items-center gap-2 self-stretch sm:self-auto overflow-x-auto scrollbar-none py-0.5">
+            <HorizontalScrollContainer className="self-stretch sm:self-auto py-0.5">
               <button
                 onClick={() => onNavigate('niyam')}
                 className="sadhana-chip-niyam px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-100 text-xs font-gotu font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm shrink-0"
@@ -544,7 +545,7 @@ export const SadhanaMenu = ({ onNavigate }: SadhanaMenuProps) => {
                 <Timer className="w-3.5 h-3.5 text-blue-300" />
                 <span>सामायिक</span>
               </button>
-            </div>
+            </HorizontalScrollContainer>
           </div>
 
           {/* Progress Bar with label */}

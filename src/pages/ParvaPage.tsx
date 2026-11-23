@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import { Calendar, Sparkles, ChevronRight, X, ChevronLeft, Flame, Shield, BookOpen, Clock, Heart } from 'lucide-react';
 import { jainFestivals, type JainFestival } from '../data/festivals';
 import { useModalBackHandler } from '../lib';
@@ -198,7 +199,7 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
 
       {/* Sub-Filters for Festivals */}
       {activeTab === 'festivals' && (
-        <div className="w-full flex items-center justify-center gap-2 mb-6 overflow-x-auto pb-1 scrollbar-none">
+        <HorizontalScrollContainer className="mb-6" innerClassName="justify-center">
           {[
             { id: 'all', label: 'सभी पर्व' },
             { id: 'parva', label: 'महापर्व' },
@@ -208,7 +209,7 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
             <button
               key={tab.id}
               onClick={() => setFilterType(tab.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-gotu font-semibold border transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-gotu font-semibold border transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                 filterType === tab.id
                   ? 'bg-amber-500/25 text-amber-200 border-amber-400/50 shadow-sm'
                   : 'bg-slate-900/70 text-slate-300 border-white/10 hover:border-white/20'
@@ -217,7 +218,7 @@ export const ParvaPage = ({ onBack }: ParvaPageProps) => {
               {tab.label}
             </button>
           ))}
-        </div>
+        </HorizontalScrollContainer>
       )}
 
       {/* Content: Festivals Grid */}

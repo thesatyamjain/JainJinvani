@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
+import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
 import {
   ChevronLeft,
   ChevronRight,
@@ -227,7 +228,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
         </div>
 
         {/* Timings summary pill badges & Annual Directory Button */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto py-1 no-scrollbar">
+        <HorizontalScrollContainer className="w-full lg:w-auto py-1">
           <motion.button
             whileTap={{ scale: 0.94 }}
             whileHover={{ scale: 1.04 }}
@@ -286,7 +287,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
               <span className="text-[11px] sm:text-xs font-mono font-bold text-stone-900 dark:text-blue-200">{selectedDateTimings.sunset}</span>
             </div>
           </GlassCard>
-        </div>
+        </HorizontalScrollContainer>
       </motion.div>
 
       {/* Main Grid Layout */}
@@ -710,7 +711,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
             </div>
 
             {/* Pachchakkhan Selector Tabs */}
-            <div className="flex gap-1.5 overflow-x-auto pb-2 mb-3 no-scrollbar">
+            <HorizontalScrollContainer className="mb-3">
               {PACHCHAKKHAN_LIST.map((item) => (
                 <motion.button
                   key={item.id}
@@ -718,7 +719,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                   whileHover={{ scale: 1.04 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => setSelectedPachchakkhan(item.id)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-gotu whitespace-nowrap cursor-pointer border transition-[background-color,border-color,color] ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-gotu whitespace-nowrap cursor-pointer border transition-[background-color,border-color,color] shrink-0 ${
                     selectedPachchakkhan === item.id
                       ? 'bg-emerald-700 text-white font-bold shadow-sm border-emerald-600'
                       : 'bg-stone-200/80 dark:bg-white/5 text-stone-800 dark:text-slate-400 border-stone-300/60 dark:border-white/5 hover:text-stone-950 dark:hover:text-white font-semibold'
@@ -727,7 +728,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                   {item.title.replace(' पच्चक्खाण', '')}
                 </motion.button>
               ))}
-            </div>
+            </HorizontalScrollContainer>
 
             <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 space-y-2">
               <div className="flex justify-between items-center text-[11px] text-emerald-900 dark:text-emerald-300 font-gotu font-bold">
@@ -883,10 +884,10 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                 </div>
 
                 {/* Jain Months Filter Row */}
-                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs font-gotu">
+                <HorizontalScrollContainer className="py-1">
                   <button
                     onClick={() => setAnnualMonthFilter('all')}
-                    className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border transition-colors ${
+                    className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border text-xs font-gotu transition-colors ${
                       annualMonthFilter === 'all'
                         ? 'bg-amber-500 text-slate-950 font-bold border-amber-400'
                         : 'bg-white/5 text-slate-300 border-white/5 hover:text-white'
@@ -898,7 +899,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                     <button
                       key={m}
                       onClick={() => setAnnualMonthFilter(m)}
-                      className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border transition-colors ${
+                      className={`px-2.5 py-1 rounded-lg shrink-0 cursor-pointer border text-xs font-gotu transition-colors ${
                         annualMonthFilter === m
                           ? 'bg-amber-500 text-slate-950 font-bold border-amber-400'
                           : 'bg-white/5 text-slate-400 border-white/5 hover:text-white'
@@ -907,7 +908,7 @@ export const Panchang = ({ onBack }: PanchangProps) => {
                       {m}
                     </button>
                   ))}
-                </div>
+                </HorizontalScrollContainer>
               </div>
 
               {/* Festivals List */}
