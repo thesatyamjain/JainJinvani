@@ -1666,26 +1666,6 @@ body.theme-manuscript,
               inset -1px -1px 2px var(--neu-shadow-light) !important;
 }
 
-/* Active Mantra Display Card */
-.theme-manuscript .jap-mantra-card {
-  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
-  border: 1px solid var(--neu-border) !important;
-  box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
-              6px 7px 18px var(--neu-shadow-dark),
-              -6px -6px 18px var(--neu-shadow-light),
-              inset 0 1px 1.5px rgba(255, 255, 255, 0.9) !important;
-}
-
-.theme-manuscript .jap-mantra-card p:first-child {
-  color: var(--neu-ink) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .jap-mantra-card p:last-child {
-  color: var(--neu-ink-muted, #292524) !important;
-  font-weight: 500 !important;
-}
-
 /* Reset Counter Button */
 .theme-manuscript .jap-reset-btn {
   background-color: var(--neu-bg-card, var(--neu-bg)) !important;
