@@ -918,12 +918,16 @@ body.theme-manuscript,
   text-shadow: none !important;
 }
 
-/* 7. Hero Title & Subtitle */
+/* 7. Hero Title & Subtitle: Sacred Kumkum with Golden Sheen (कुमकुम वर्ण + स्वर्णिम कांति) */
 .theme-manuscript .hero-title {
-  color: #1C1917 !important;
-  text-shadow: none !important;
-  filter: none !important;
-  -webkit-filter: none !important;
+  color: #941717 !important; /* Deep Sacred Kumkum Red */
+  text-shadow: 
+    0 1px 0 rgba(254, 240, 138, 0.45), /* Subtle top gold leaf illumination rim */
+    0 2px 8px rgba(180, 83, 9, 0.22),  /* Warm burnished gold aura */
+    0 1px 2px rgba(127, 29, 29, 0.35) !important; /* Deep authentic kumkum depth */
+  filter: drop-shadow(0 1px 2px rgba(146, 64, 14, 0.18)) !important;
+  -webkit-filter: drop-shadow(0 1px 2px rgba(146, 64, 14, 0.18)) !important;
+  letter-spacing: -0.015em;
 }
 .theme-manuscript .hero-subtitle-container {
   border-color: rgba(184, 134, 11, 0.40) !important;
