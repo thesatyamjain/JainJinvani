@@ -2520,36 +2520,45 @@ body.theme-manuscript,
   color: #78350F !important;
 }
 
-/* Category Filter Tabs */
+/* Category Filter Tabs in Search Overlay */
 .theme-manuscript .search-cat-tab-active {
   background: linear-gradient(135deg, #A81B1B 0%, #881313 100%) !important;
   color: #FFFFFF !important;
-  font-weight: 700 !important;
-  border: 1px solid rgba(254, 202, 202, 0.4) !important;
+  font-weight: 800 !important;
+  border: 1px solid rgba(254, 202, 202, 0.45) !important;
   box-shadow: 2px 2px 4px var(--neu-shadow-contact),
               3px 4px 10px rgba(136, 19, 19, 0.35),
               inset 1px 1px 1px rgba(255, 255, 255, 0.4) !important;
 }
 
-.theme-manuscript .search-cat-tab-active span {
+.theme-manuscript .search-cat-tab-active span,
+.theme-manuscript .search-cat-tab-active .search-cat-label {
   color: #FFFFFF !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-.theme-manuscript .search-cat-tab-active span:last-child {
-  background-color: rgba(0, 0, 0, 0.25) !important;
+.theme-manuscript .search-cat-tab-active .search-cat-count,
+.theme-manuscript .search-cat-tab-active span:last-child:not(:first-child) {
+  background-color: rgba(0, 0, 0, 0.28) !important;
   color: #FFFFFF !important;
+  border-radius: 9999px !important;
+  padding: 0.1rem 0.45rem !important;
 }
 
 .theme-manuscript .search-cat-tab-inactive {
-  background-color: var(--neu-bg) !important;
+  background-color: var(--neu-bg-card, #FFFDF9) !important;
   background-image: none !important;
-  color: var(--neu-ink) !important;
-  font-weight: 600 !important;
-  border: 1px solid var(--neu-border) !important;
-  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+  color: #451A03 !important;
+  font-weight: 700 !important;
+  border: 1px solid var(--neu-border, rgba(168, 140, 93, 0.28)) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
               2px 3px 6px var(--neu-shadow-dark),
               -2px -2px 6px var(--neu-shadow-light),
-              inset 1px 1px 1px rgba(255, 255, 255, 0.8) !important;
+              inset 1px 1px 1px rgba(255, 255, 255, 0.9) !important;
   transition: all 0.15s ease !important;
 }
 
@@ -2557,24 +2566,34 @@ body.theme-manuscript,
   box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark), inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
 }
 
-.theme-manuscript .search-cat-tab-inactive span {
-  color: var(--neu-ink) !important;
+.theme-manuscript .search-cat-tab-inactive span,
+.theme-manuscript .search-cat-tab-inactive .search-cat-label {
+  color: #451A03 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-.theme-manuscript .search-cat-tab-inactive span:last-child {
+.theme-manuscript .search-cat-tab-inactive .search-cat-count,
+.theme-manuscript .search-cat-tab-inactive span:last-child:not(:first-child) {
   background-color: var(--neu-bg-sunken) !important;
   color: #78350F !important;
   border: 1px solid var(--neu-border) !important;
+  border-radius: 9999px !important;
+  padding: 0.1rem 0.45rem !important;
 }
 
 .theme-manuscript .search-cat-tab-inactive:hover {
-  background-color: var(--neu-bg-card) !important;
-  color: #78350F !important;
-  border-color: #D97706 !important;
+  background-color: var(--neu-bg-sunken, #F1ECE2) !important;
+  color: #9A3412 !important;
+  border-color: rgba(180, 83, 9, 0.45) !important;
 }
 
-.theme-manuscript .search-cat-tab-inactive:hover span {
-  color: #78350F !important;
+.theme-manuscript .search-cat-tab-inactive:hover span,
+.theme-manuscript .search-cat-tab-inactive:hover .search-cat-label {
+  color: #9A3412 !important;
 }
 
 /* Section Headers & Dividers */

@@ -25,6 +25,7 @@ import {
 import { getRecentReads } from '../../lib/storage';
 import { preloadContent } from '../../lib/bridge';
 import { TiltCard } from './TiltCard';
+import { HorizontalScrollContainer } from './HorizontalScrollContainer';
 import { useDebounce } from '../../hooks/useDebounce';
 
 // Helper to flatten the inventory
@@ -446,41 +447,43 @@ export const SearchOverlay = ({
             </div>
 
             {/* Category Filter Tabs */}
-            <div className="flex items-center gap-1 overflow-x-auto scrollbar-none px-1 py-0.5">
-              {SEARCH_CATEGORIES.map((cat) => {
-                const isSelected = activeCategory === cat.id;
-                const count = debouncedQuery.trim() ? categoryCounts[cat.id] || 0 : null;
+            <div className="px-1 py-0.5">
+              <HorizontalScrollContainer>
+                {SEARCH_CATEGORIES.map((cat) => {
+                  const isSelected = activeCategory === cat.id;
+                  const count = debouncedQuery.trim() ? categoryCounts[cat.id] || 0 : null;
 
-                // Hide category chips with 0 results when searching (except 'all')
-                if (debouncedQuery.trim() && count === 0 && cat.id !== 'all') {
-                  return null;
-                }
+                  // Hide category chips with 0 results when searching (except 'all')
+                  if (debouncedQuery.trim() && count === 0 && cat.id !== 'all') {
+                    return null;
+                  }
 
-                return (
-                  <motion.button
-                    key={cat.id}
-                    type="button"
-                    whileTap={{ scale: 0.94 }}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`search-cat-tab text-xs px-3 py-1 rounded-full font-gotu whitespace-nowrap transition-all cursor-pointer select-none flex items-center gap-1.5 shrink-0 ${
-                      isSelected
-                        ? 'search-cat-tab-active bg-amber-500 text-slate-950 font-bold border border-amber-400 shadow-[0_2px_10px_rgba(245,158,11,0.35)]'
-                        : 'search-cat-tab-inactive bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-white/15 font-medium'
-                    }`}
-                  >
-                    <span>{cat.label}</span>
-                    {count !== null && count > 0 && (
-                      <span
-                        className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
-                          isSelected ? 'bg-slate-950/20 text-slate-950' : 'bg-amber-500/25 text-amber-200'
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    )}
-                  </motion.button>
-                );
-              })}
+                  return (
+                    <motion.button
+                      key={cat.id}
+                      type="button"
+                      whileTap={{ scale: 0.94 }}
+                      onClick={() => setActiveCategory(cat.id)}
+                      className={`search-cat-tab text-xs px-3 py-1 rounded-full font-gotu whitespace-nowrap transition-all cursor-pointer select-none flex items-center gap-1.5 shrink-0 ${
+                        isSelected
+                          ? 'search-cat-tab-active bg-amber-500 text-slate-950 font-bold border border-amber-400 shadow-[0_2px_10px_rgba(245,158,11,0.35)]'
+                          : 'search-cat-tab-inactive bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-white/15 font-medium'
+                      }`}
+                    >
+                      <span className="search-cat-label">{cat.label}</span>
+                      {count !== null && count > 0 && (
+                        <span
+                          className={`search-cat-count text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                            isSelected ? 'bg-slate-950/20 text-slate-950' : 'bg-amber-500/25 text-amber-200'
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </HorizontalScrollContainer>
             </div>
 
             {/* Content & Results Scroll Area */}
