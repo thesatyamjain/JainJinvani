@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import {
@@ -22,12 +22,15 @@ import {
   Download,
   Copy,
   Check,
+  ChevronLeft,
+  ChevronRight,
+  Trash2,
 } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { isWebsite } from '../utils/platform';
 import { triggerHaptic, isStandaloneMode } from '../utils/pwaManager';
 import { getJainDate, getFestival, useModalBackHandler } from '../lib';
-import { getRecentReads } from '../lib/storage';
+import { getRecentReads, clearRecentReads } from '../lib/storage';
 import { RecentReadItem } from '../types';
 import upiQrCode from '../assets/upi_qr_code_satyam5246.png';
 import appLogo from '../assets/logo.webp';
@@ -129,6 +132,57 @@ export const Landing = ({ onNavigate }: LandingProps) => {
 
   // Close modal on mobile back navigation
   useModalBackHandler(showDonateModal, () => setShowDonateModal(false), 'landing-donate-modal');
+
+  const recentScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollRecent = (direction: 'left' | 'right') => {
+    if (recentScrollRef.current) {
+      const amount = direction === 'left' ? -260 : 260;
+      recentScrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+  };
+
+  const handleClearAllRecent = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    clearRecentReads();
+    setRecentReads([]);
+  };
+
+  const handleRemoveRecent = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    const updated = recentReads.filter((r) => r.id !== id);
+    setRecentReads(updated);
+    try {
+      localStorage.setItem('jain_recent_reads', JSON.stringify(updated));
+    } catch {}
+  };
+
+  const getRecentCategoryBadge = (item: RecentReadItem): string => {
+    if (item.type === 'granth') return 'ग्रंथ';
+    if (item.type === 'stotra') return 'स्तोत्र';
+    if (item.type === 'puja') return 'पूजन';
+    if (item.type === 'aarti') return 'आरती';
+    if (item.type === 'chalisa') return 'चालीसा';
+
+    const title = item.title || '';
+    if (/पुराण|पाहुड़|सार|शास्त्र|समयसार|प्रवचनसार|नियमसार/i.test(title)) return 'ग्रंथ';
+    if (/स्तोत्र|अष्टक|स्तुति|सहस्रनाम|भक्तामर/i.test(title)) return 'स्तोत्र';
+    if (/पूजा|पूजन|अभिषेक|शान्तिधारा|विधान/i.test(title)) return 'पूजन';
+    if (/आरती|दीपक/i.test(title)) return 'आरती';
+    if (/चालीसा/i.test(title)) return 'चालीसा';
+    if (/मंत्र|जाप/i.test(title)) return 'मंत्र';
+    return 'स्वाध्याय';
+  };
+
+  const getRecentRelativeTime = (timestamp?: number): string => {
+    if (!timestamp) return 'हाल ही में';
+    const diffHours = (Date.now() - timestamp) / (1000 * 60 * 60);
+    if (diffHours < 24) return 'आज';
+    if (diffHours < 48) return 'कल';
+    const days = Math.floor(diffHours / 24);
+    if (days <= 7) return `${days} दिन पूर्व`;
+    return 'पूर्व पाठ';
+  };
 
   useEffect(() => {
     setRecentReads(getRecentReads());
@@ -499,39 +553,107 @@ export const Landing = ({ onNavigate }: LandingProps) => {
       {/* Recent Reads Section (Shown when user has read items) */}
       {recentReads.length > 0 && (
         <div className="w-full max-w-4xl relative z-10 mb-4 sm:mb-6">
-          <div className="flex items-center gap-2 mb-2 px-1">
-            <History className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-            <h3 className="text-xs sm:text-sm font-notoserif font-bold text-slate-900 dark:text-amber-200">
-              हाल ही में पढ़े गए पाठ
-            </h3>
-          </div>
-          <div className="flex items-center gap-2.5 overflow-x-auto pb-1.5 scrollbar-none">
-            {recentReads.map((item) => (
-              <motion.button
-                key={item.id}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.96 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                onClick={() =>
-                  onNavigate('viewer', {
-                    id: item.id,
-                    title: item.title,
-                    type: item.type,
-                    source: 'landing',
-                  })
-                }
-                onMouseEnter={() => preloadContent(item.id)}
-                onTouchStart={() => preloadContent(item.id)}
-                className="recent-read-btn px-3.5 py-2 rounded-xl bg-amber-500/10 dark:bg-slate-900/80 hover:bg-amber-500/20 dark:hover:bg-slate-800/90 border border-amber-500/25 hover:border-amber-400/50 backdrop-blur-xl text-left transition-colors shrink-0 cursor-pointer group max-w-[220px]"
+          <div className="flex items-center justify-between mb-2.5 px-1">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-400 flex items-center justify-center border border-amber-400/30">
+                <History className="w-3.5 h-3.5" />
+              </div>
+              <h3 className="text-xs sm:text-sm font-notoserif font-bold text-stone-900 dark:text-amber-200">
+                हाल ही में पढ़े गए पाठ
+              </h3>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-stone-200/70 dark:bg-stone-800 text-stone-700 dark:text-stone-300 font-bold">
+                {recentReads.length}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={handleClearAllRecent}
+                className="text-[11px] font-gotu text-stone-500 hover:text-red-600 dark:text-stone-400 dark:hover:text-red-400 px-2 py-1 rounded-lg hover:bg-stone-200/50 dark:hover:bg-stone-800 transition-colors cursor-pointer flex items-center gap-1"
+                title="हाल ही में पढ़े गए सभी पाठ साफ़ करें"
               >
-                <p className="text-xs font-notoserif font-bold text-slate-900 dark:text-white group-hover:text-amber-800 dark:group-hover:text-amber-200 truncate">
-                  {item.title}
-                </p>
-                <p className="text-[10px] text-amber-800 dark:text-amber-300 font-gotu font-semibold truncate">
-                  पुनः स्वाध्याय करें →
-                </p>
-              </motion.button>
-            ))}
+                <Trash2 className="w-3 h-3" />
+                <span className="hidden sm:inline">साफ़ करें</span>
+              </button>
+
+              <div className="hidden sm:flex items-center gap-1 ml-1">
+                <button
+                  onClick={() => scrollRecent('left')}
+                  className="w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 hover:bg-amber-500/20 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-colors cursor-pointer"
+                  title="बाएं स्क्रॉल करें"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => scrollRecent('right')}
+                  className="w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 hover:bg-amber-500/20 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-colors cursor-pointer"
+                  title="दाएं स्क्रॉल करें"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div
+              ref={recentScrollRef}
+              className="flex items-stretch gap-2.5 sm:gap-3 overflow-x-auto pb-2 pt-0.5 scrollbar-none scroll-smooth snap-x snap-mandatory"
+            >
+              {recentReads.map((item) => {
+                const categoryBadge = getRecentCategoryBadge(item);
+                const relativeTime = getRecentRelativeTime(item.lastRead);
+
+                return (
+                  <motion.div
+                    key={item.id}
+                    whileHover={{ y: -2, scale: 1.01 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+                    onClick={() =>
+                      onNavigate('viewer', {
+                        id: item.id,
+                        title: item.title,
+                        type: item.type,
+                        source: 'landing',
+                      })
+                    }
+                    onMouseEnter={() => preloadContent(item.id)}
+                    onTouchStart={() => preloadContent(item.id)}
+                    className="recent-read-card snap-start relative group flex items-start gap-2.5 p-3 rounded-2xl bg-amber-500/10 dark:bg-stone-900/80 hover:bg-amber-500/15 dark:hover:bg-stone-800/90 border border-amber-500/20 hover:border-amber-400/50 backdrop-blur-xl shrink-0 cursor-pointer w-[210px] sm:w-[230px] transition-all duration-200 select-none shadow-sm"
+                  >
+                    {/* Left: Sacred Scripture Icon Badge */}
+                    <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/30 group-hover:bg-amber-500/25 transition-colors mt-0.5">
+                      <BookOpen className="w-4 h-4" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="min-w-0 flex-1 pr-3">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-[9px] font-gotu font-bold px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-400/30">
+                          {categoryBadge}
+                        </span>
+                        <span className="text-[9px] font-gotu text-stone-500 dark:text-stone-400">
+                          {relativeTime}
+                        </span>
+                      </div>
+                      <h4 className="text-xs font-notoserif font-bold text-stone-900 dark:text-stone-100 group-hover:text-amber-700 dark:group-hover:text-amber-200 line-clamp-2 leading-snug">
+                        {item.title}
+                      </h4>
+                    </div>
+
+                    {/* Individual item dismissal */}
+                    <button
+                      onClick={(e) => handleRemoveRecent(e, item.id)}
+                      className="absolute top-1.5 right-1.5 p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-stone-200/60 dark:hover:bg-stone-700/60 text-stone-400 hover:text-red-600 dark:hover:text-red-400 transition-all cursor-pointer"
+                      title="सूची से हटाएं"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}

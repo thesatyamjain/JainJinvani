@@ -1255,8 +1255,8 @@ body.theme-manuscript,
   text-decoration: underline !important;
 }
 
-/* Recent Reads Button */
-.theme-manuscript .recent-read-btn {
+/* Recent Reads Card */
+.theme-manuscript .recent-read-card {
   background-color: var(--neu-bg-card, var(--neu-bg)) !important;
   border: 1px solid var(--neu-border) !important;
   box-shadow: 1.5px 1.5px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
@@ -1266,20 +1266,15 @@ body.theme-manuscript,
   transition: all 0.2s ease !important;
 }
 
-.theme-manuscript .recent-read-btn:hover {
-  transform: translateY(-1.5px) !important;
+.theme-manuscript .recent-read-card:hover {
+  transform: translateY(-2px) !important;
   box-shadow: 2px 2px 4px var(--neu-shadow-contact, rgba(165, 145, 120, 0.25)),
               5px 6px 14px var(--neu-shadow-hover-dark),
               -4px -4px 14px var(--neu-shadow-hover-light) !important;
 }
 
-.theme-manuscript .recent-read-btn p:first-child {
+.theme-manuscript .recent-read-card h4 {
   color: var(--neu-ink) !important;
-  font-weight: 700 !important;
-}
-
-.theme-manuscript .recent-read-btn p:last-child {
-  color: #991B1B !important;
   font-weight: 700 !important;
 }
 
