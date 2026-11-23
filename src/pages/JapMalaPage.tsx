@@ -138,13 +138,19 @@ interface TargetPreset {
 }
 
 const TARGET_PRESETS: TargetPreset[] = [
-  { count: 7, label: '७', tag: 'जाप' },
+  { count: 9, label: '९', tag: 'जाप' },
   { count: 27, label: '२७', tag: 'सुमरनी' },
   { count: 108, label: '१०८', tag: 'माला' },
 ];
 
 export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
-  const [stats, setStats] = useState<JapMalaState>(getJapMalaState());
+  const [stats, setStats] = useState<JapMalaState>(() => {
+    const s = getJapMalaState();
+    if (s.targetCount === 7) {
+      return { ...s, targetCount: 9 };
+    }
+    return s;
+  });
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [vibrationEnabled, setVibrationEnabled] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
@@ -185,7 +191,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
   }, [visualBeadCount]);
 
   const getBeadRadius = (isMeru: boolean, isQuad: boolean) => {
-    if (visualBeadCount <= 7) {
+    if (visualBeadCount <= 9) {
       return isMeru ? 11.5 : 9.5;
     }
     if (visualBeadCount <= 27) {
@@ -319,8 +325,8 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               ? '१०८ डिजिटल जाप माला'
               : targetCount === 27
               ? '२७ सुमरनी जाप माला'
-              : targetCount === 7
-              ? '७ जाप संकल्प'
+              : targetCount === 9
+              ? '९ नवकार जाप संकल्प'
               : `${targetCount} जाप माला`}
           </h1>
         </div>
@@ -378,7 +384,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
         })}
       </div>
 
-      {/* Jap Target Options (7, 27, 108, कस्टम) */}
+      {/* Jap Target Options (9, 27, 108, कस्टम) */}
       <div className="w-full max-w-md mb-5">
         <div className="flex items-center justify-between px-1 mb-2">
           <span className="jap-target-label text-xs font-gotu text-amber-300 flex items-center gap-1.5 font-bold">
