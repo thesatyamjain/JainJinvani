@@ -3696,16 +3696,8 @@ body.theme-manuscript,
 }
 
 /* ==========================================================================
-   Horizontal Scroll Container Edge Masks & Navigation Arrows
+   Horizontal Scroll Container Navigation Arrows
    ========================================================================== */
-.theme-manuscript .hscroll-fade-left {
-  background: linear-gradient(to right, var(--neu-bg) 0%, var(--neu-bg) 60%, transparent 100%) !important;
-}
-
-.theme-manuscript .hscroll-fade-right {
-  background: linear-gradient(to left, var(--neu-bg) 0%, var(--neu-bg) 60%, transparent 100%) !important;
-}
-
 .theme-manuscript .hscroll-arrow-btn {
   background-color: var(--neu-bg) !important;
   border: 1px solid var(--neu-border) !important;

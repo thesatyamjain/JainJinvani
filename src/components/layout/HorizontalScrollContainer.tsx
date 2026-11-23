@@ -104,9 +104,26 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
     }
   };
 
+  const maskStyle: React.CSSProperties = {
+    maskImage: canScrollLeft && canScrollRight
+      ? 'linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 36px), transparent 100%)'
+      : canScrollRight
+      ? 'linear-gradient(to right, black calc(100% - 36px), transparent 100%)'
+      : canScrollLeft
+      ? 'linear-gradient(to right, transparent 0%, black 28px, black 100%)'
+      : undefined,
+    WebkitMaskImage: canScrollLeft && canScrollRight
+      ? 'linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 36px), transparent 100%)'
+      : canScrollRight
+      ? 'linear-gradient(to right, black calc(100% - 36px), transparent 100%)'
+      : canScrollLeft
+      ? 'linear-gradient(to right, transparent 0%, black 28px, black 100%)'
+      : undefined,
+  };
+
   return (
     <div className={`relative group/hscroll w-full flex items-center ${className}`}>
-      {/* Left Navigation Arrow (desktop only to prevent mobile touch blockage) */}
+      {/* Left Navigation Arrow */}
       <AnimatePresence>
         {canScrollLeft && (
           <motion.button
@@ -116,7 +133,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollBy(-step)}
-            className={`hidden md:flex hscroll-arrow-btn absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
+            className={`hidden sm:flex hscroll-arrow-btn absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
             title="बाईं ओर स्क्रॉल करें"
             aria-label="Scroll left"
           >
@@ -125,12 +142,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
         )}
       </AnimatePresence>
 
-      {/* Left Edge Fade Mask */}
-      {canScrollLeft && (
-        <div className="hscroll-fade-left absolute left-0 top-0 bottom-0 w-6 md:w-12 bg-gradient-to-r from-[#050a14] via-[#050a14]/80 to-transparent pointer-events-none z-10" />
-      )}
-
-      {/* Scrollable Container */}
+      {/* Scrollable Container with Dynamic Feathered Alpha Mask */}
       <div
         ref={containerRef}
         onMouseDown={handleMouseDown}
@@ -138,18 +150,16 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
         onMouseUp={handleMouseUpOrLeave}
         onMouseLeave={handleMouseUpOrLeave}
         onClickCapture={handleCaptureClick}
-        className="w-full flex items-center gap-2 overflow-x-auto py-1.5 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth"
-        style={{ touchAction: 'pan-x pan-y' }}
+        style={{
+          touchAction: 'pan-x pan-y',
+          ...maskStyle,
+        }}
+        className="w-full flex items-center gap-2 overflow-x-auto py-1.5 px-1 scrollbar-none no-scrollbar select-none cursor-grab active:cursor-grabbing scroll-smooth after:content-[''] after:w-4 after:shrink-0"
       >
         {children}
       </div>
 
-      {/* Right Edge Fade Mask */}
-      {canScrollRight && (
-        <div className="hscroll-fade-right absolute right-0 top-0 bottom-0 w-6 md:w-12 bg-gradient-to-l from-[#050a14] via-[#050a14]/80 to-transparent pointer-events-none z-10" />
-      )}
-
-      {/* Right Navigation Arrow (desktop only to prevent mobile touch blockage) */}
+      {/* Right Navigation Arrow */}
       <AnimatePresence>
         {canScrollRight && (
           <motion.button
@@ -159,7 +169,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollBy(step)}
-            className={`hidden md:flex hscroll-arrow-btn absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
+            className={`hidden sm:flex hscroll-arrow-btn absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
             title="दाईं ओर स्क्रॉल करें"
             aria-label="Scroll right"
           >
