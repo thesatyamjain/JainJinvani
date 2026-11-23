@@ -127,9 +127,9 @@ const playBeadClickSound = () => {
   } catch {}
 };
 
-// Physical Geometry along circular silk thread
-const BEAD_RADIUS = 120;
-const BEAD_CENTER = 140;
+// Physical Geometry along circular silk thread (viewBox 0 0 360 360)
+const BEAD_RADIUS = 144;
+const BEAD_CENTER = 180;
 
 interface TargetPreset {
   count: number;
@@ -164,8 +164,11 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
 
   const beadCoordinates = useMemo(() => {
     return Array.from({ length: visualBeadCount }, (_, i) => {
-      // Start from top (-90 deg / 12 o'clock) with 0.5 step offset to create a natural Sumeru crest notch
-      const angle = (2 * Math.PI * (i + 0.5)) / visualBeadCount - Math.PI / 2;
+      // 12 o'clock is -PI/2.
+      // Reserve slot at 12 o'clock for the majestic Sumeru (Guru bead).
+      // Slots 1 to visualBeadCount are distributed clockwise around the mala cord.
+      const stepAngle = (2 * Math.PI) / (visualBeadCount + 1);
+      const angle = -Math.PI / 2 + (i + 1) * stepAngle;
       return {
         index: i + 1,
         cx: Number((BEAD_CENTER + BEAD_RADIUS * Math.cos(angle)).toFixed(2)),
@@ -176,22 +179,22 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
             : visualBeadCount === 27
             ? (i + 1) === 9 || (i + 1) === 18
             : false,
-        isMeru: (i + 1) === visualBeadCount,
+        isMeru: false,
       };
     });
   }, [visualBeadCount]);
 
   const getBeadRadius = (isMeru: boolean, isQuad: boolean) => {
     if (visualBeadCount <= 7) {
-      return isMeru ? 8.5 : 7.0;
+      return isMeru ? 11.5 : 9.5;
     }
     if (visualBeadCount <= 27) {
-      return isMeru ? 6.2 : isQuad ? 5.2 : 4.4;
+      return isMeru ? 9.0 : isQuad ? 8.0 : 6.8;
     }
     if (visualBeadCount <= 54) {
-      return isMeru ? 5.5 : isQuad ? 4.5 : 3.4;
+      return isMeru ? 7.0 : isQuad ? 6.0 : 5.0;
     }
-    return isMeru ? 5.2 : isQuad ? 4.0 : 2.8;
+    return isMeru ? 5.8 : isQuad ? 4.8 : 3.8;
   };
 
   const activeMantra =
@@ -485,55 +488,95 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       </div>
 
       {/* Central Interactive Jap Mala Wheel */}
-      <div className="relative flex flex-col items-center justify-center my-2 sm:my-4">
+      <div className="relative flex flex-col items-center justify-center my-3 sm:my-5">
         {/* Outer Glowing Ring with SVG Progress & Physical 108 Spherical Beads */}
         <motion.div
-          whileTap={{ scale: 0.96 }}
+          whileTap={{ scale: 0.97 }}
           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
           onClick={handleTap}
-          className="relative w-72 h-72 sm:w-84 sm:h-84 rounded-full flex flex-col items-center justify-center cursor-pointer select-none group"
+          className="relative w-[300px] h-[300px] xs:w-[335px] xs:h-[335px] sm:w-[385px] sm:h-[385px] rounded-full flex flex-col items-center justify-center cursor-pointer select-none group"
           style={{ touchAction: 'manipulation' }}
         >
           {/* Subtle Ambient Diya Radiance */}
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.12)_0%,_rgba(217,119,6,0.03)_50%,_transparent_75%)] pointer-events-none" />
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.15)_0%,_rgba(217,119,6,0.04)_55%,_transparent_75%)] pointer-events-none" />
 
-          {/* Circular SVG with Physical Spherical 108 Beads */}
-          <svg className="w-full h-full transform" viewBox="0 0 280 280">
+          {/* Circular SVG with Physical Spherical 108 Beads & Sacred Sumeru */}
+          <svg className="w-full h-full transform" viewBox="0 0 360 360">
             <defs>
-              {/* Spherical bead gradient: Uncounted Sandalwood */}
-              <radialGradient id="beadWood" cx="35%" cy="35%" r="65%">
-                <stop offset="0%" stopColor="#d4a373" />
-                <stop offset="50%" stopColor="#9c6644" />
-                <stop offset="100%" stopColor="#5c2f0f" />
+              {/* 3D Mysore Sandalwood Bead (Uncounted) */}
+              <radialGradient id="beadWood" cx="30%" cy="26%" r="72%">
+                <stop offset="0%" stopColor="#f7ddbc" />
+                <stop offset="22%" stopColor="#d89e5c" />
+                <stop offset="60%" stopColor="#965220" />
+                <stop offset="88%" stopColor="#572809" />
+                <stop offset="100%" stopColor="#381703" />
               </radialGradient>
-              {/* Spherical bead gradient: Counted Radiant Gold */}
-              <radialGradient id="beadGold" cx="30%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#fef9c3" />
-                <stop offset="40%" stopColor="#f59e0b" />
-                <stop offset="100%" stopColor="#92400e" />
-              </radialGradient>
-              {/* Active Current Bead Luminous Highlight */}
-              <radialGradient id="beadActive" cx="35%" cy="35%" r="65%">
+
+              {/* Radiant Consecrated Gold Bead (Counted) */}
+              <radialGradient id="beadGold" cx="28%" cy="25%" r="72%">
                 <stop offset="0%" stopColor="#ffffff" />
-                <stop offset="35%" stopColor="#fef08a" />
-                <stop offset="75%" stopColor="#f59e0b" />
+                <stop offset="20%" stopColor="#fef08a" />
+                <stop offset="52%" stopColor="#f59e0b" />
+                <stop offset="82%" stopColor="#b45309" />
+                <stop offset="100%" stopColor="#78350f" />
+              </radialGradient>
+
+              {/* Active Glowing Bead (Current) */}
+              <radialGradient id="beadActive" cx="32%" cy="28%" r="68%">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="28%" stopColor="#fef08a" />
+                <stop offset="60%" stopColor="#fbbf24" />
+                <stop offset="86%" stopColor="#f59e0b" />
                 <stop offset="100%" stopColor="#b45309" />
               </radialGradient>
-              {/* Sacred Quadrant Spacer Bead (Mani / Carnelian) */}
-              <radialGradient id="beadSpacer" cx="30%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#fed7aa" />
-                <stop offset="45%" stopColor="#ea580c" />
-                <stop offset="100%" stopColor="#7c2d12" />
+
+              {/* Sacred Quadrant Mani / Carnelian Gem Bead (27, 54, 81) */}
+              <radialGradient id="beadSpacer" cx="28%" cy="25%" r="72%">
+                <stop offset="0%" stopColor="#fee2e2" />
+                <stop offset="22%" stopColor="#f87171" />
+                <stop offset="55%" stopColor="#dc2626" />
+                <stop offset="82%" stopColor="#991b1b" />
+                <stop offset="100%" stopColor="#5c0d0d" />
               </radialGradient>
+
+              {/* Sumeru Guru Bead (Consecrated Gold/Amethyst Finial) */}
+              <radialGradient id="beadSumeru" cx="30%" cy="26%" r="70%">
+                <stop offset="0%" stopColor="#ffffff" />
+                <stop offset="25%" stopColor="#fef08a" />
+                <stop offset="55%" stopColor="#f59e0b" />
+                <stop offset="85%" stopColor="#b45309" />
+                <stop offset="100%" stopColor="#6b21a8" />
+              </radialGradient>
+
+              {/* Sacred Tassel Silk Gradient */}
+              <linearGradient id="tasselGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#7f1d1d" />
+                <stop offset="25%" stopColor="#dc2626" />
+                <stop offset="50%" stopColor="#f59e0b" />
+                <stop offset="75%" stopColor="#dc2626" />
+                <stop offset="100%" stopColor="#7f1d1d" />
+              </linearGradient>
+
+              {/* Golden Silk Thread */}
+              <linearGradient id="threadGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#fef08a" />
+                <stop offset="50%" stopColor="#f59e0b" />
+                <stop offset="100%" stopColor="#b45309" />
+              </linearGradient>
+
+              {/* Drop shadow filter for 3D beads */}
+              <filter id="beadShadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0.6" dy="1.0" stdDeviation="0.8" floodColor="#000" floodOpacity="0.35" />
+              </filter>
             </defs>
 
-            {/* Sacred Silk Thread Cord */}
+            {/* Sacred Silk Thread Cord running through all beads */}
             <circle
               cx={BEAD_CENTER}
               cy={BEAD_CENTER}
               r={BEAD_RADIUS}
-              className="stroke-amber-900/40"
-              strokeWidth="1.5"
+              className="stroke-amber-900/35"
+              strokeWidth="2"
               fill="transparent"
             />
 
@@ -542,13 +585,14 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               cx={BEAD_CENTER}
               cy={BEAD_CENTER}
               r={BEAD_RADIUS}
-              className="stroke-amber-400/40 transition-all duration-200"
-              strokeWidth="2.5"
+              stroke="url(#threadGold)"
+              strokeWidth="3.2"
               strokeDasharray={circumference}
               strokeDashoffset={strokeDashoffset}
               strokeLinecap="round"
               fill="transparent"
-              transform="rotate(-90 140 140)"
+              transform={`rotate(-90 ${BEAD_CENTER} ${BEAD_CENTER})`}
+              className="transition-all duration-200"
             />
 
             {/* Dynamic Spherical Beads */}
@@ -566,84 +610,132 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
                 isCurrent = stats.currentBead > prevThreshold && stats.currentBead <= threshold;
               }
 
-              const isMeru = bead.isMeru;
               const isQuad = bead.isQuadrant;
+              const r = getBeadRadius(false, isQuad);
 
-              const fill = isCounted
-                ? isCurrent
-                  ? 'url(#beadActive)'
-                  : 'url(#beadGold)'
-                : isMeru
-                ? 'url(#beadSpacer)'
+              const fill = isCurrent
+                ? 'url(#beadActive)'
+                : isCounted
+                ? 'url(#beadGold)'
                 : isQuad
                 ? 'url(#beadSpacer)'
                 : 'url(#beadWood)';
-              const r = getBeadRadius(isMeru, isQuad);
+
+              const strokeColor = isCurrent
+                ? '#fef08a'
+                : isCounted
+                ? '#b45309'
+                : isQuad
+                ? '#7f1d1d'
+                : '#5c2f0f';
 
               return (
                 <g key={bead.index}>
-                  {/* Contact shadow under bead */}
+                  {/* Soft bead contact shadow */}
                   <circle
-                    cx={bead.cx + 0.5}
-                    cy={bead.cy + 0.8}
+                    cx={bead.cx + 0.6}
+                    cy={bead.cy + 1.0}
                     r={r}
-                    fill="rgba(0,0,0,0.6)"
+                    fill="rgba(0,0,0,0.3)"
                   />
                   {/* The Physical Spherical Bead */}
                   <circle
                     cx={bead.cx}
                     cy={bead.cy}
-                    r={r}
+                    r={isCurrent ? r * 1.15 : r}
                     fill={fill}
+                    stroke={strokeColor}
+                    strokeWidth={0.5}
                     className="transition-all duration-150"
                   />
                   {/* Current Active Bead Glow Halo */}
                   {isCurrent && (
-                    <circle
-                      cx={bead.cx}
-                      cy={bead.cy}
-                      r={r + (visualBeadCount <= 27 ? 4 : 3)}
-                      fill="none"
-                      stroke="rgba(251, 191, 36, 0.75)"
-                      strokeWidth={visualBeadCount <= 27 ? 1.6 : 1.2}
-                      className="animate-pulse"
-                    />
+                    <>
+                      <circle
+                        cx={bead.cx}
+                        cy={bead.cy}
+                        r={r + 4.5}
+                        fill="none"
+                        stroke="rgba(245, 158, 11, 0.85)"
+                        strokeWidth="1.6"
+                        className="animate-ping"
+                      />
+                      <circle
+                        cx={bead.cx}
+                        cy={bead.cy}
+                        r={r + 3.2}
+                        fill="none"
+                        stroke="#fde047"
+                        strokeWidth="1.4"
+                      />
+                    </>
                   )}
                 </g>
               );
             })}
 
-            {/* Sacred Sumeru Mani (Head Bead with Golden Tassel) at Top (140, 13) */}
-            <g transform="translate(140, 13)">
-              {/* Tassel loop & ring */}
-              <circle cx="0" cy="0" r="3" fill="none" stroke="#f59e0b" strokeWidth="1" />
-              {/* Golden Tassel threads */}
+            {/* Sacred Sumeru Mani (Guru Head Bead with Golden Stupa & Silk Tassel) at Top */}
+            <g transform={`translate(${BEAD_CENTER}, ${BEAD_CENTER - BEAD_RADIUS})`}>
+              {/* Golden Silk Tassel extending upwards */}
               <path
-                d="M -2,2.5 L 0,8.5 L 2,2.5 Z"
-                fill="#d97706"
-                stroke="#b45309"
-                strokeWidth="0.5"
+                d="M -3,-14 L -5,-25 L 5,-25 L 3,-14 Z"
+                fill="url(#tasselGradient)"
               />
+              {/* Tassel individual thread lines */}
+              <line x1="-3" y1="-25" x2="-4" y2="-29" stroke="#b91c1c" strokeWidth="0.8" />
+              <line x1="-1" y1="-25" x2="-1" y2="-30" stroke="#dc2626" strokeWidth="0.8" />
+              <line x1="1" y1="-25" x2="1" y2="-30" stroke="#dc2626" strokeWidth="0.8" />
+              <line x1="3" y1="-25" x2="4" y2="-29" stroke="#b91c1c" strokeWidth="0.8" />
+
+              {/* Golden Tie Band */}
+              <rect x="-4" y="-16" width="8" height="3" rx="1.5" fill="#f59e0b" stroke="#78350f" strokeWidth="0.5" />
+
+              {/* Golden Stupa Finial Cap */}
+              <path
+                d="M -5,-8 Q 0,-14 5,-8 Z"
+                fill="url(#beadGold)"
+                stroke="#92400e"
+                strokeWidth="0.6"
+              />
+              <circle cx="0" cy="-10" r="2" fill="#fef08a" stroke="#b45309" strokeWidth="0.5" />
+
+              {/* Sumeru Master Bead (Majestic Sacred Jewel) */}
+              <ellipse
+                cx="0"
+                cy="0"
+                rx="7.5"
+                ry="9"
+                fill="url(#beadSumeru)"
+                stroke="#78350f"
+                strokeWidth="0.8"
+                filter="url(#beadShadow)"
+              />
+              {/* Specular curved highlight on Sumeru */}
+              <ellipse cx="-2.5" cy="-3.5" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.4)" />
             </g>
           </svg>
 
-          {/* Inner Interactive Touch Pad (Concentric Engraved Bell-Metal Medallion) */}
-          <div className="jap-touch-pad absolute inset-6 sm:inset-7 rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-6 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-all">
+          {/* Inner Interactive Touch Pad (Concentric Engraved Sacred Medallion) */}
+          <motion.div
+            animate={{ scale: tapEffect ? 0.95 : 1 }}
+            transition={{ type: 'spring', stiffness: 600, damping: 25 }}
+            className="jap-touch-pad absolute w-[170px] h-[170px] xs:w-[195px] xs:h-[195px] sm:w-[225px] sm:h-[225px] rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-4 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-colors"
+          >
             {/* Concentric etched decorative rings for authentic medallion feel */}
-            <div className="absolute inset-2 sm:inset-2.5 rounded-full border border-amber-500/20 border-dashed pointer-events-none" />
-            <div className="absolute inset-4 rounded-full border border-amber-500/10 pointer-events-none" />
+            <div className="absolute inset-2.5 sm:inset-3 rounded-full border border-amber-500/20 border-dashed pointer-events-none" />
+            <div className="absolute inset-4 sm:inset-5 rounded-full border border-amber-500/10 pointer-events-none" />
 
-            <LotusSymbol className="w-8 h-8 text-amber-400 mb-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
-            <span className="jap-bead-number text-4xl sm:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            <LotusSymbol className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500 mb-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
+            <span className="jap-bead-number text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               {stats.currentBead}
             </span>
-            <span className="jap-target-total text-[11px] font-gotu text-amber-200 uppercase tracking-widest mt-1 font-bold">
+            <span className="jap-target-total text-[10px] sm:text-xs font-gotu text-amber-200 uppercase tracking-widest mt-0.5 font-bold">
               / {targetCount} जाप
             </span>
-            <span className="jap-tap-hint text-[10px] text-amber-100 font-gotu mt-1 bg-amber-500/20 px-3 py-0.5 rounded-full border border-amber-400/35 font-bold shadow-sm">
+            <span className="jap-tap-hint text-[9px] sm:text-[10px] text-amber-100 font-gotu mt-1 bg-amber-500/20 px-3 py-0.5 rounded-full border border-amber-400/35 font-bold shadow-sm">
               टैप कर गिनें
             </span>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
