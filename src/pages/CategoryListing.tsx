@@ -247,7 +247,7 @@ const CategoryDivider = ({
     <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2">
       <div className="flex items-center gap-2.5 sm:gap-3">
         <div
-          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br ${color} border ${border} flex items-center justify-center ${accent} shadow-sm shrink-0`}
+          className={`category-divider-icon w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br ${color} border ${border} flex items-center justify-center ${accent} shadow-sm shrink-0`}
         >
           {icon}
         </div>
@@ -394,29 +394,29 @@ export const CategoryListing = ({
       onClick={() => handleItemClick(item)}
       onMouseEnter={() => preloadContent(item.id)}
       onTouchStart={() => preloadContent(item.id)}
-      className="h-full"
+      className="category-item-card h-full"
     >
       <GlassCard
         variant="gilded"
         tilt
-        className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
+        className="category-listing-card p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
       >
         <div>
           {/* Top Badges Row */}
           <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
             {item.badge ? (
-              <span className="category-item-badge text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-badge text-[10px] sm:text-[11px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-semibold truncate max-w-[110px] sm:max-w-[170px]">
                 {item.badge}
               </span>
             ) : item.author ? (
-              <span className="category-item-author text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-author text-[10px] sm:text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
                 {item.author}
               </span>
             ) : (
               <span />
             )}
 
-            <span className="category-item-index text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
+            <span className="category-item-index text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 font-bold shrink-0">
               #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
             </span>
           </div>
@@ -428,7 +428,7 @@ export const CategoryListing = ({
 
           {/* Short Description */}
           {item.description && (
-            <p className="category-item-desc text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
+            <p className="category-item-desc text-xs sm:text-[13px] text-slate-400 font-gotu line-clamp-2 mt-1.5 leading-relaxed">
               {item.description}
             </p>
           )}
@@ -449,7 +449,7 @@ export const CategoryListing = ({
         </div>
 
         {/* Footer Action */}
-        <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
+        <div className="category-item-footer mt-3 sm:mt-4 flex items-center justify-between text-xs font-gotu text-slate-400 group-hover:text-amber-300 transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
           <span className="truncate">
             {categoryId === 'puja'
               ? 'पूजन करें'
@@ -550,7 +550,7 @@ export const CategoryListing = ({
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="category-back-btn w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
@@ -568,13 +568,13 @@ export const CategoryListing = ({
         {/* Search & View Mode Switcher */}
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-80">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="search-input-icon absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder="रचना, कवि, या विषय खोजें..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
+              className="category-search-input search-input-field w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
             />
             {searchQuery && (
               <motion.button
@@ -582,7 +582,7 @@ export const CategoryListing = ({
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
+                className="search-clear-input-btn absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </motion.button>
