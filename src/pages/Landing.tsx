@@ -134,11 +134,21 @@ export const Landing = ({ onNavigate }: LandingProps) => {
   useModalBackHandler(showDonateModal, () => setShowDonateModal(false), 'landing-donate-modal');
 
   const recentScrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScrollBounds = () => {
+    if (!recentScrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = recentScrollRef.current;
+    setCanScrollLeft(scrollLeft > 6);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 6);
+  };
 
   const scrollRecent = (direction: 'left' | 'right') => {
     if (recentScrollRef.current) {
       const amount = direction === 'left' ? -260 : 260;
       recentScrollRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+      setTimeout(checkScrollBounds, 320);
     }
   };
 
@@ -155,6 +165,7 @@ export const Landing = ({ onNavigate }: LandingProps) => {
     try {
       localStorage.setItem('jain_recent_reads', JSON.stringify(updated));
     } catch {}
+    setTimeout(checkScrollBounds, 50);
   };
 
   const getRecentCategoryBadge = (item: RecentReadItem): string => {
@@ -183,6 +194,13 @@ export const Landing = ({ onNavigate }: LandingProps) => {
     if (days <= 7) return `${days} दिन पूर्व`;
     return 'पूर्व पाठ';
   };
+
+  useEffect(() => {
+    checkScrollBounds();
+    const handleResize = () => checkScrollBounds();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [recentReads]);
 
   useEffect(() => {
     setRecentReads(getRecentReads());
@@ -576,17 +594,27 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                 <span className="hidden sm:inline">साफ़ करें</span>
               </button>
 
-              <div className="hidden sm:flex items-center gap-1 ml-1">
+              <div className="flex items-center gap-1 ml-1">
                 <button
                   onClick={() => scrollRecent('left')}
-                  className="w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 hover:bg-amber-500/20 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-colors cursor-pointer"
+                  disabled={!canScrollLeft}
+                  className={`w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-all ${
+                    canScrollLeft
+                      ? 'opacity-100 hover:bg-amber-500/20 cursor-pointer shadow-xs'
+                      : 'opacity-30 cursor-not-allowed pointer-events-none'
+                  }`}
                   title="बाएं स्क्रॉल करें"
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
                 <button
                   onClick={() => scrollRecent('right')}
-                  className="w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 hover:bg-amber-500/20 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-colors cursor-pointer"
+                  disabled={!canScrollRight}
+                  className={`w-7 h-7 rounded-lg bg-stone-200/60 dark:bg-stone-800/80 text-stone-700 dark:text-stone-300 flex items-center justify-center border border-stone-300/50 dark:border-stone-700 transition-all ${
+                    canScrollRight
+                      ? 'opacity-100 hover:bg-amber-500/20 cursor-pointer shadow-xs'
+                      : 'opacity-30 cursor-not-allowed pointer-events-none'
+                  }`}
                   title="दाएं स्क्रॉल करें"
                 >
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -598,7 +626,24 @@ export const Landing = ({ onNavigate }: LandingProps) => {
           <div className="relative">
             <div
               ref={recentScrollRef}
-              className="flex items-stretch gap-2.5 sm:gap-3 overflow-x-auto pb-2 pt-0.5 scrollbar-none scroll-smooth snap-x snap-mandatory"
+              onScroll={checkScrollBounds}
+              style={{
+                maskImage: canScrollLeft && canScrollRight
+                  ? 'linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 32px), transparent 100%)'
+                  : canScrollRight
+                  ? 'linear-gradient(to right, black calc(100% - 32px), transparent 100%)'
+                  : canScrollLeft
+                  ? 'linear-gradient(to right, transparent 0%, black 24px, black 100%)'
+                  : undefined,
+                WebkitMaskImage: canScrollLeft && canScrollRight
+                  ? 'linear-gradient(to right, transparent 0%, black 24px, black calc(100% - 32px), transparent 100%)'
+                  : canScrollRight
+                  ? 'linear-gradient(to right, black calc(100% - 32px), transparent 100%)'
+                  : canScrollLeft
+                  ? 'linear-gradient(to right, transparent 0%, black 24px, black 100%)'
+                  : undefined,
+              }}
+              className="flex items-stretch gap-2.5 sm:gap-3 overflow-x-auto pb-2 pt-0.5 px-1 scrollbar-none scroll-smooth snap-x snap-mandatory after:content-[''] after:w-5 after:shrink-0"
             >
               {recentReads.map((item) => {
                 const categoryBadge = getRecentCategoryBadge(item);
@@ -620,10 +665,10 @@ export const Landing = ({ onNavigate }: LandingProps) => {
                     }
                     onMouseEnter={() => preloadContent(item.id)}
                     onTouchStart={() => preloadContent(item.id)}
-                    className="recent-read-card snap-start relative group flex items-start gap-2.5 p-3 rounded-2xl bg-amber-500/10 dark:bg-stone-900/80 hover:bg-amber-500/15 dark:hover:bg-stone-800/90 border border-amber-500/20 hover:border-amber-400/50 backdrop-blur-xl shrink-0 cursor-pointer w-[210px] sm:w-[230px] transition-all duration-200 select-none shadow-sm"
+                    className="recent-read-card snap-start relative group flex items-start gap-2.5 p-3 rounded-2xl bg-amber-500/10 dark:bg-stone-900/80 hover:bg-amber-500/15 dark:hover:bg-stone-800/90 border border-amber-500/20 hover:border-amber-400/50 backdrop-blur-xl shrink-0 cursor-pointer w-[76vw] max-w-[225px] xs:w-[205px] sm:w-[225px] transition-all duration-200 select-none shadow-sm"
                   >
                     {/* Left: Sacred Scripture Icon Badge */}
-                    <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/30 group-hover:bg-amber-500/25 transition-colors mt-0.5">
+                    <div className="recent-icon-badge w-8 h-8 rounded-xl bg-amber-500/15 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 border border-amber-400/30 transition-colors mt-0.5">
                       <BookOpen className="w-4 h-4" />
                     </div>
 
