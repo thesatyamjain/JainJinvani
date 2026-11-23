@@ -117,16 +117,16 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
             variant="gilded"
             className="p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center min-h-[440px] relative overflow-hidden h-full border-amber-500/35 bg-gradient-to-b from-slate-900/95 via-amber-950/20 to-black/90 shadow-[0_16px_40px_rgba(0,0,0,0.6)] rounded-2xl sm:rounded-3xl"
           >
-            {/* Background Watermark */}
-            <div className="absolute inset-0 pointer-events-none opacity-10 flex items-center justify-center">
-              <HrimSymbol className="w-80 h-80 text-amber-400" />
-            </div>
-
             <div className="relative z-10 flex flex-col items-center w-full">
               {/* Circular Progress Gauge */}
               <div className="relative w-64 h-64 flex items-center justify-center mb-8">
+                {/* Concentric Sacred Watermark */}
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center select-none z-0">
+                  <HrimSymbol className="samayik-hrim-watermark w-44 h-44 text-amber-400 opacity-15" showCircle={false} />
+                </div>
+
                 {/* SVG Progress Circle */}
-                <svg className="w-full h-full transform -rotate-90">
+                <svg className="w-full h-full transform -rotate-90 relative z-10">
                   <circle
                     cx="128"
                     cy="128"
@@ -151,7 +151,7 @@ export const SamayikPage = ({ onBack }: SamayikPageProps) => {
                 </svg>
 
                 {/* Inner Content */}
-                <div className="absolute flex flex-col items-center justify-center">
+                <div className="absolute flex flex-col items-center justify-center z-20">
                   <span className="samayik-timer-text text-5xl sm:text-6xl font-notoserif font-black text-white tracking-widest drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
                     {formatTime(timeLeft)}
                   </span>

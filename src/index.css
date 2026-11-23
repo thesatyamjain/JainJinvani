@@ -3747,6 +3747,16 @@ body.theme-manuscript,
 /* ==========================================================================
    Samayik Page Timer & Controls Contrast
    ========================================================================== */
+.samayik-hrim-watermark {
+  color: #F59E0B;
+  opacity: 0.15;
+}
+
+.theme-manuscript .samayik-hrim-watermark {
+  color: #B45309 !important;
+  opacity: 0.12 !important;
+}
+
 .theme-manuscript .samayik-timer-text {
   color: var(--neu-ink) !important;
   text-shadow: none !important;

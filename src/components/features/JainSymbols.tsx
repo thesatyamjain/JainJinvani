@@ -118,16 +118,56 @@ export const LotusSymbol = ({ className = "w-6 h-6", color = "currentColor" }: {
   </svg>
 );
 
-export const HrimSymbol = ({ className = "w-6 h-6", color = "currentColor" }: { className?: string; color?: string }) => (
+export const HrimSymbol = ({
+  className = "w-6 h-6",
+  color = "currentColor",
+  showCircle = true,
+}: {
+  className?: string;
+  color?: string;
+  showCircle?: boolean;
+}) => (
   <svg viewBox="0 0 100 100" className={className} fill={color}>
-    <text x="50" y="70" textAnchor="middle" fontSize="56" fontFamily="'Rozha One', 'Gotu', serif" fontWeight="bold">ह्रीं</text>
-    <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.4" />
+    <text
+      x="50"
+      y="50"
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontSize="52"
+      fontFamily="'Rozha One', 'Gotu', 'Noto Serif Devanagari', serif"
+      fontWeight="bold"
+    >
+      ह्रीं
+    </text>
+    {showCircle && (
+      <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.4" />
+    )}
   </svg>
 );
 
-export const OmSymbol = ({ className = "w-6 h-6", color = "currentColor" }: { className?: string; color?: string }) => (
+export const OmSymbol = ({
+  className = "w-6 h-6",
+  color = "currentColor",
+  showCircle = true,
+}: {
+  className?: string;
+  color?: string;
+  showCircle?: boolean;
+}) => (
   <svg viewBox="0 0 100 100" className={className} fill={color}>
-    <text x="50" y="72" textAnchor="middle" fontSize="62" fontFamily="'Rozha One', 'Gotu', serif" fontWeight="bold">ॐ</text>
-    <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.4" />
+    <text
+      x="50"
+      y="50"
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontSize="58"
+      fontFamily="'Rozha One', 'Gotu', 'Noto Serif Devanagari', serif"
+      fontWeight="bold"
+    >
+      ॐ
+    </text>
+    {showCircle && (
+      <circle cx="50" cy="50" r="46" stroke={color} strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.4" />
+    )}
   </svg>
 );
