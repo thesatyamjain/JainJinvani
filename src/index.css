@@ -3762,7 +3762,6 @@ body.theme-manuscript,
 .theme-manuscript .hscroll-arrow-btn:active {
   box-shadow: inset 2px 2px 4px var(--neu-shadow-dark),
               inset -2px -2px 4px var(--neu-shadow-light) !important;
-  transform: translateY(-50%) scale(0.96) !important;
 }
 
 /* ==========================================================================

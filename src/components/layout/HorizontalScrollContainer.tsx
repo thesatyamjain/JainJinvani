@@ -133,7 +133,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollBy(-step)}
-            className={`hidden sm:flex hscroll-arrow-btn absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:-translate-x-3.5 ${arrowClassName}`}
+            className={`hidden sm:flex hscroll-arrow-btn absolute left-0 sm:-left-3.5 top-0 bottom-0 my-auto z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer ${arrowClassName}`}
             title="बाईं ओर स्क्रॉल करें"
             aria-label="Scroll left"
           >
@@ -169,7 +169,7 @@ export const HorizontalScrollContainer: React.FC<HorizontalScrollContainerProps>
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => scrollBy(step)}
-            className={`hidden sm:flex hscroll-arrow-btn absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer sm:translate-x-3.5 ${arrowClassName}`}
+            className={`hidden sm:flex hscroll-arrow-btn absolute right-0 sm:-right-3.5 top-0 bottom-0 my-auto z-20 w-8 h-8 rounded-full bg-slate-900/95 border border-amber-500/40 text-amber-300 items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.8),0_0_12px_rgba(245,158,11,0.25)] backdrop-blur-xl hover:bg-amber-500 hover:text-slate-950 transition-colors cursor-pointer ${arrowClassName}`}
             title="दाईं ओर स्क्रॉल करें"
             aria-label="Scroll right"
           >
