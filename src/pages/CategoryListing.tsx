@@ -244,7 +244,7 @@ const CategoryDivider = ({
   onSelectSubcategory?: () => void;
 }) => (
   <div className="pt-6 pb-3 md:pt-9 md:pb-4">
-    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2">
+    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-2.5">
       <div className="flex items-center gap-2.5 sm:gap-3">
         <div
           className={`category-divider-icon w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br ${color} border ${border} flex items-center justify-center ${accent} shadow-sm shrink-0`}
@@ -253,12 +253,12 @@ const CategoryDivider = ({
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="category-divider-title text-base sm:text-lg md:text-xl font-notoserif font-bold text-amber-200 tracking-tight leading-snug">
+            <h2 className="category-divider-title text-base sm:text-lg md:text-xl font-notoserif font-bold text-stone-900 dark:text-amber-100 tracking-tight leading-snug">
               {title}
             </h2>
           </div>
           {subtitle && (
-            <p className="category-divider-desc text-[11px] sm:text-xs text-slate-300/75 font-gotu mt-0.5 line-clamp-1 max-w-xl">
+            <p className="category-divider-desc text-xs sm:text-sm text-stone-700 dark:text-slate-300 font-gotu mt-0.5 line-clamp-1 max-w-xl font-medium">
               {subtitle}
             </p>
           )}
@@ -266,8 +266,8 @@ const CategoryDivider = ({
       </div>
 
       <div className="flex items-center gap-2">
-        <div className="category-divider-badge inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300/90 text-[11px] font-gotu backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+        <div className="category-divider-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-900 dark:text-amber-200 text-xs font-gotu font-bold backdrop-blur-sm shadow-sm">
+          <span className="category-divider-dot w-1.5 h-1.5 rounded-full bg-amber-600 dark:bg-amber-400 shrink-0" />
           <span>
             {count} {count === 1 ? 'रचना' : 'रचनाएँ'}
           </span>
@@ -278,11 +278,11 @@ const CategoryDivider = ({
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onSelectSubcategory}
-            className="hidden sm:inline-flex items-center gap-1 text-[11px] font-gotu text-slate-400 hover:text-amber-200 transition-colors px-2 py-0.5 rounded-lg hover:bg-white/5 cursor-pointer"
+            className="category-divider-expand-btn hidden sm:inline-flex items-center gap-1 text-xs font-gotu text-stone-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-200 transition-colors px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/5 dark:border-white/10 cursor-pointer font-semibold"
             title="केवल यह अनुभाग देखें"
           >
             <span>विस्तार</span>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3.5 h-3.5" />
           </motion.button>
         )}
       </div>
@@ -290,9 +290,9 @@ const CategoryDivider = ({
 
     {/* Auspicious Mangal Filigree Divider Rule */}
     <div className="relative flex items-center gap-2 pt-1">
-      <div className="h-[1.5px] w-10 sm:w-16 bg-gradient-to-r from-amber-400/90 to-amber-500/40" />
-      <span className="text-amber-400/90 text-xs select-none">❖</span>
-      <div className="h-[1px] flex-1 bg-gradient-to-r from-amber-500/35 via-amber-400/15 to-transparent" />
+      <div className="category-divider-rule-start h-[1.5px] w-12 sm:w-16 bg-gradient-to-r from-amber-600/80 dark:from-amber-400/90 to-amber-500/30" />
+      <span className="category-divider-symbol text-amber-700 dark:text-amber-400/90 text-xs select-none">❖</span>
+      <div className="category-divider-rule-end h-[1px] flex-1 bg-gradient-to-r from-amber-600/30 dark:from-amber-500/35 via-amber-500/15 to-transparent" />
     </div>
   </div>
 );
@@ -394,29 +394,29 @@ export const CategoryListing = ({
       onClick={() => handleItemClick(item)}
       onMouseEnter={() => preloadContent(item.id)}
       onTouchStart={() => preloadContent(item.id)}
-      className="category-item-card h-full"
+      className="h-full"
     >
       <GlassCard
         variant="gilded"
         tilt
-        className="category-listing-card p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
+        className="p-3.5 sm:p-5 md:p-6 h-full min-h-[135px] sm:min-h-[145px] flex flex-col justify-between cursor-pointer group transition-all duration-300 relative overflow-hidden rounded-2xl border border-white/10 hover:border-amber-400/50 shadow-md"
       >
         <div>
           {/* Top Badges Row */}
           <div className="flex items-center justify-between gap-1.5 mb-2 sm:mb-2.5">
             {item.badge ? (
-              <span className="category-item-badge text-[10px] sm:text-[11px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-semibold truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-badge text-[9px] sm:text-[10px] font-gotu px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/30 text-amber-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
                 {item.badge}
               </span>
             ) : item.author ? (
-              <span className="category-item-author text-[10px] sm:text-[11px] font-gotu px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 font-medium truncate max-w-[110px] sm:max-w-[170px]">
+              <span className="category-item-author text-[9px] sm:text-[10px] font-gotu px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-slate-300 truncate max-w-[110px] sm:max-w-[170px]">
                 {item.author}
               </span>
             ) : (
               <span />
             )}
 
-            <span className="category-item-index text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 font-bold shrink-0">
+            <span className="category-item-index text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-amber-300/80 shrink-0">
               #{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
             </span>
           </div>
@@ -428,7 +428,7 @@ export const CategoryListing = ({
 
           {/* Short Description */}
           {item.description && (
-            <p className="category-item-desc text-xs sm:text-[13px] text-slate-400 font-gotu line-clamp-2 mt-1.5 leading-relaxed">
+            <p className="category-item-desc text-[10px] sm:text-[11px] md:text-xs text-slate-400 font-gotu line-clamp-2 mt-1 sm:mt-1.5 leading-relaxed">
               {item.description}
             </p>
           )}
@@ -449,7 +449,7 @@ export const CategoryListing = ({
         </div>
 
         {/* Footer Action */}
-        <div className="category-item-footer mt-3 sm:mt-4 flex items-center justify-between text-xs font-gotu text-slate-400 group-hover:text-amber-300 transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
+        <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-400 group-hover:text-amber-300 font-gotu transition-colors border-t border-white/5 pt-2 sm:pt-2.5">
           <span className="truncate">
             {categoryId === 'puja'
               ? 'पूजन करें'
@@ -550,7 +550,7 @@ export const CategoryListing = ({
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
             onClick={onBack}
-            className="category-back-btn w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
+            className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-amber-500/20 hover:border-amber-500/40 transition-colors backdrop-blur-xl shrink-0 group cursor-pointer shadow-md"
             title="वापस जाएं"
           >
             <ChevronLeft className="w-6 h-6 text-slate-300 group-hover:text-amber-200" />
@@ -568,13 +568,13 @@ export const CategoryListing = ({
         {/* Search & View Mode Switcher */}
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-80">
-            <Search className="search-input-icon absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
               placeholder="रचना, कवि, या विषय खोजें..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="category-search-input search-input-field w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
+              className="w-full bg-slate-900/80 border border-white/15 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:bg-slate-900 focus:border-amber-400/60 transition-all font-gotu shadow-inner"
             />
             {searchQuery && (
               <motion.button
@@ -582,7 +582,7 @@ export const CategoryListing = ({
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                 onClick={() => setSearchQuery('')}
-                className="search-clear-input-btn absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </motion.button>
