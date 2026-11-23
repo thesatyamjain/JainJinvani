@@ -13,8 +13,10 @@ import {
   Sliders,
   Target,
   Check,
+  Box,
 } from 'lucide-react';
 import { LotusSymbol } from '../components/features/JainSymbols';
+import { JapMala3D } from '../components/features/JapMala3D';
 import { getJapMalaState, saveJapMalaState } from '../lib/storage';
 import { JapMalaState } from '../types';
 import { useModalBackHandler } from '../lib';
@@ -157,6 +159,7 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [customInputValue, setCustomInputValue] = useState(String(stats.customTarget || 21));
   const [tapEffect, setTapEffect] = useState(false);
+  const [is3DMode, setIs3DMode] = useState(true);
 
   // Close modals on mobile back navigation and hide floating navigation
   useModalBackHandler(showCelebration, () => setShowCelebration(false), 'jap-celebration');
@@ -358,6 +361,20 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
           >
             <Smartphone className="w-4 h-4" />
           </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.90 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+            onClick={() => setIs3DMode(!is3DMode)}
+            className={`jap-tool-btn px-2.5 h-10 rounded-xl border flex items-center gap-1 transition-colors cursor-pointer text-xs font-bold font-mono ${
+              is3DMode
+                ? 'bg-amber-500/25 border-amber-400/50 text-amber-200 shadow-sm'
+                : 'bg-white/5 border-white/10 text-slate-400'
+            }`}
+            title={is3DMode ? '3D दिव्य माला सक्रिय (2D पर बदलें)' : '2D क्लासिक माला सक्रिय (3D पर बदलें)'}
+          >
+            <Box className="w-3.5 h-3.5" />
+            <span>{is3DMode ? '3D' : '2D'}</span>
+          </motion.button>
         </div>
       </div>
 
@@ -495,19 +512,29 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
 
       {/* Central Interactive Jap Mala Wheel */}
       <div className="relative flex flex-col items-center justify-center my-3 sm:my-5">
-        {/* Outer Glowing Ring with SVG Progress & Physical 108 Spherical Beads */}
-        <motion.div
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          onClick={handleTap}
-          className="relative w-[300px] h-[300px] xs:w-[335px] xs:h-[335px] sm:w-[385px] sm:h-[385px] rounded-full flex flex-col items-center justify-center cursor-pointer select-none group"
+        {/* Outer Wheel Container with 3D WebGL / 2D SVG Mala & Inner Medallion */}
+        <div
+          className="relative w-[300px] h-[300px] xs:w-[335px] xs:h-[335px] sm:w-[385px] sm:h-[385px] rounded-full flex flex-col items-center justify-center select-none group"
           style={{ touchAction: 'manipulation' }}
         >
           {/* Subtle Ambient Diya Radiance */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_rgba(245,158,11,0.15)_0%,_rgba(217,119,6,0.04)_55%,_transparent_75%)] pointer-events-none" />
 
-          {/* Circular SVG with Physical Spherical 108 Beads & Sacred Sumeru */}
-          <svg className="w-full h-full transform" viewBox="0 0 360 360">
+          {is3DMode ? (
+            <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
+              <JapMala3D
+                totalBeads={targetCount}
+                currentBead={stats.currentBead}
+                onTap={handleTap}
+              />
+            </div>
+          ) : (
+            /* Circular SVG with Physical Spherical 108 Beads & Sacred Sumeru */
+            <svg
+              className="w-full h-full transform cursor-pointer z-0"
+              viewBox="0 0 360 360"
+              onClick={handleTap}
+            >
             <defs>
               {/* 3D Mysore Sandalwood Bead (Uncounted) */}
               <radialGradient id="beadWood" cx="30%" cy="26%" r="72%">
@@ -720,30 +747,36 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
               <ellipse cx="-2.5" cy="-3.5" rx="2.5" ry="3.5" fill="rgba(255,255,255,0.4)" />
             </g>
           </svg>
+        )}
 
-          {/* Inner Interactive Touch Pad (Concentric Engraved Sacred Medallion) */}
-          <motion.div
-            animate={{ scale: tapEffect ? 0.95 : 1 }}
-            transition={{ type: 'spring', stiffness: 600, damping: 25 }}
-            className="jap-touch-pad absolute w-[170px] h-[170px] xs:w-[195px] xs:h-[195px] sm:w-[225px] sm:h-[225px] rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-4 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-colors"
-          >
-            {/* Concentric etched decorative rings for authentic medallion feel */}
-            <div className="absolute inset-2.5 sm:inset-3 rounded-full border border-amber-500/20 border-dashed pointer-events-none" />
-            <div className="absolute inset-4 sm:inset-5 rounded-full border border-amber-500/10 pointer-events-none" />
+        {/* Inner Interactive Touch Pad (Concentric Engraved Sacred Medallion) */}
+        <motion.div
+          whileTap={{ scale: 0.95 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleTap();
+          }}
+          animate={{ scale: tapEffect ? 0.95 : 1 }}
+          transition={{ type: 'spring', stiffness: 600, damping: 25 }}
+          className="jap-touch-pad absolute w-[170px] h-[170px] xs:w-[195px] xs:h-[195px] sm:w-[225px] sm:h-[225px] rounded-full bg-gradient-to-b from-[#141c2e]/95 via-[#0b111e]/95 to-[#060a14]/98 border border-amber-500/35 backdrop-blur-2xl flex flex-col items-center justify-center p-4 text-center shadow-[0_16px_44px_rgba(0,0,0,0.85),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_0_20px_rgba(245,158,11,0.06)] group-hover:border-amber-400/50 transition-colors cursor-pointer z-10"
+        >
+          {/* Concentric etched decorative rings for authentic medallion feel */}
+          <div className="absolute inset-2.5 sm:inset-3 rounded-full border border-amber-500/20 border-dashed pointer-events-none" />
+          <div className="absolute inset-4 sm:inset-5 rounded-full border border-amber-500/10 pointer-events-none" />
 
-            <LotusSymbol className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500 mb-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
-            <span className="jap-bead-number text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-              {stats.currentBead}
-            </span>
-            <span className="jap-target-total text-[10px] sm:text-xs font-gotu text-amber-200 uppercase tracking-widest mt-0.5 font-bold">
-              / {targetCount} जाप
-            </span>
-            <span className="jap-tap-hint text-[9px] sm:text-[10px] text-amber-100 font-gotu mt-1 bg-amber-500/20 px-3 py-0.5 rounded-full border border-amber-400/35 font-bold shadow-sm">
-              टैप कर गिनें
-            </span>
-          </motion.div>
+          <LotusSymbol className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500 mb-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
+          <span className="jap-bead-number text-3xl sm:text-4xl md:text-5xl font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+            {stats.currentBead}
+          </span>
+          <span className="jap-target-total text-[10px] sm:text-xs font-gotu text-amber-200 uppercase tracking-widest mt-0.5 font-bold">
+            / {targetCount} जाप
+          </span>
+          <span className="jap-tap-hint text-[9px] sm:text-[10px] text-amber-100 font-gotu mt-1 bg-amber-500/20 px-3 py-0.5 rounded-full border border-amber-400/35 font-bold shadow-sm">
+            टैप कर गिनें
+          </span>
         </motion.div>
       </div>
+    </div>
 
       {/* Active Mantra Banner & Meaning */}
       <GlassCard
