@@ -778,19 +778,6 @@ export const JapMalaPage = ({ onBack }: JapMalaPageProps) => {
       </div>
     </div>
 
-      {/* Active Mantra Banner & Meaning */}
-      <GlassCard
-        variant="gilded"
-        className="jap-mantra-card w-full p-4 sm:p-5 text-center mb-4 rounded-2xl sm:rounded-3xl border-amber-500/30"
-      >
-        <p className="text-base sm:text-lg font-notoserif font-bold text-amber-100 leading-relaxed">
-          {activeMantra.text}
-        </p>
-        <p className="text-xs sm:text-sm font-gotu text-slate-300/90 mt-2 max-w-xl mx-auto leading-relaxed">
-          {activeMantra.bhavarth}
-        </p>
-      </GlassCard>
-
       {/* Reset Current Count Button */}
       {stats.currentBead > 0 && (
         <motion.button
