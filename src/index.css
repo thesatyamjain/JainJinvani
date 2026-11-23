@@ -4133,6 +4133,214 @@ body.theme-manuscript,
               inset -2px -2px 4px var(--neu-shadow-light) !important;
 }
 
+/* ==========================================================================
+   Error Boundary / Crash Screen Theme Specifications
+   ========================================================================== */
+.error-boundary-screen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Default / Dark Mode */
+.error-boundary-screen {
+  background-color: #050a14;
+  color: #f8fafc;
+}
+
+.error-boundary-card {
+  max-width: 28rem;
+  width: 100%;
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  background-color: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.error-boundary-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  background-color: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+}
+
+.error-boundary-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fde68a;
+  margin-bottom: 0.5rem;
+}
+
+.error-boundary-desc {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.error-boundary-error-box {
+  margin: 0.75rem 0 1rem;
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+  background-color: rgba(69, 10, 10, 0.6);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  text-align: left;
+  max-height: 12rem;
+  overflow: auto;
+}
+
+.error-boundary-error-text {
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  color: #fca5a5;
+  word-break: break-word;
+  margin-bottom: 0.25rem;
+}
+
+.error-boundary-stack {
+  font-size: 0.625rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: rgba(254, 202, 202, 0.6);
+  white-space: pre-wrap;
+  line-height: 1.35;
+}
+
+.error-boundary-copy-btn {
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  background-color: #1e293b;
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.error-boundary-copy-btn:hover {
+  background-color: #334155;
+}
+
+.error-boundary-home-btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #020617;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+  transition: all 0.2s ease;
+}
+
+.error-boundary-home-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* ==========================================================================
+   Manuscript Mode Specific Overrides for Error Boundary
+   ========================================================================== */
+.theme-manuscript.error-boundary-screen,
+.theme-manuscript .error-boundary-screen {
+  background-color: var(--neu-bg, #FAF6EE) !important;
+  color: var(--neu-ink, #1C1917) !important;
+}
+
+.theme-manuscript .error-boundary-card,
+.theme-manuscript.error-boundary-card {
+  background-color: var(--neu-bg-card, #FFFDF9) !important;
+  background-image: none !important;
+  border: 1px solid var(--neu-border, rgba(168, 140, 93, 0.28)) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact, rgba(165, 145, 120, 0.22)),
+              10px 14px 36px var(--neu-shadow-dark, rgba(165, 145, 120, 0.25)),
+              -8px -8px 24px var(--neu-shadow-light, rgba(255, 255, 255, 0.95)),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.theme-manuscript .error-boundary-icon {
+  background-color: var(--neu-bg-sunken, #F1ECE2) !important;
+  border: 1.5px solid rgba(180, 83, 9, 0.35) !important;
+  color: #B45309 !important;
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark, rgba(165, 145, 120, 0.25)),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light, rgba(255, 255, 255, 0.9)) !important;
+}
+
+.theme-manuscript .error-boundary-title {
+  color: #78350F !important;
+}
+
+.theme-manuscript .error-boundary-desc {
+  color: var(--neu-ink-muted, #78716C) !important;
+}
+
+.theme-manuscript .error-boundary-error-box {
+  background-color: rgba(254, 242, 242, 0.85) !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+  box-shadow: inset 1.5px 1.5px 3.5px rgba(180, 140, 100, 0.18),
+              inset -1px -1px 2px rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-manuscript .error-boundary-error-text {
+  color: #991B1B !important;
+}
+
+.theme-manuscript .error-boundary-stack {
+  color: #B91C1C !important;
+  opacity: 0.85 !important;
+}
+
+.theme-manuscript .error-boundary-copy-btn {
+  background-color: var(--neu-bg-card, #FFFDF9) !important;
+  border: 1px solid var(--neu-border, rgba(168, 140, 93, 0.3)) !important;
+  color: #78350F !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              -2px -2px 5px var(--neu-shadow-light, rgba(255, 255, 255, 0.9)) !important;
+}
+
+.theme-manuscript .error-boundary-copy-btn:hover {
+  background-color: var(--neu-bg-sunken, #F1ECE2) !important;
+}
+
+.theme-manuscript .error-boundary-copy-btn:active {
+  box-shadow: inset 1px 1px 3px var(--neu-shadow-dark) !important;
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+.theme-manuscript .error-boundary-home-btn {
+  background: linear-gradient(135deg, #D97706, #B45309) !important;
+  color: #FFFDF5 !important;
+  border: 1px solid rgba(251, 191, 36, 0.4) !important;
+  box-shadow: 2px 3px 10px rgba(180, 83, 9, 0.35),
+              inset 0.5px 0.5px 1.5px rgba(255, 255, 255, 0.4) !important;
+}
+
+.theme-manuscript .error-boundary-home-btn:hover {
+  filter: brightness(1.06) !important;
+}
+
+.theme-manuscript .error-boundary-home-btn:active {
+  box-shadow: inset 1.5px 1.5px 4px rgba(60, 20, 0, 0.4) !important;
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+
 
 
 
