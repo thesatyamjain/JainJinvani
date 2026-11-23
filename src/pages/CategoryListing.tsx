@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/layout/GlassCard';
 import { HorizontalScrollContainer } from '../components/layout/HorizontalScrollContainer';
@@ -21,11 +21,14 @@ import {
   ArrowRight,
   Heart,
   Music,
+  SlidersHorizontal,
+  RotateCcw,
 } from 'lucide-react';
 import { contentInventory, ContentItem, subCategoryMap, SubCategoryDef } from '../data/inventory';
 import { matchSearchQuery } from '../utils/searchHelper';
 import { updateCategorySeo } from '../utils/seoHelper';
 import { preloadContent } from '../lib/bridge';
+import { triggerHaptic } from '../utils/pwaManager';
 
 interface CategoryListingProps {
   categoryId: string;
@@ -303,6 +306,17 @@ export const CategoryListing = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSubCategory, setActiveSubCategory] = useState<string>(initialSubCategory || 'all');
   const [viewMode, setViewMode] = useState<'grid' | 'timeline'>('grid');
+  const activeTabRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    }
+  }, [activeSubCategory]);
 
   React.useEffect(() => {
     if (initialSubCategory) {
@@ -695,6 +709,43 @@ export const CategoryListing = ({
           animate={{ opacity: 1, y: 0 }}
           className="mb-7"
         >
+          {/* Quick Filter Status & Reset Action */}
+          <div className="flex items-center justify-between gap-2 px-1 mb-2.5">
+            <div className="flex items-center gap-1.5 text-xs font-gotu text-slate-400">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span className="font-semibold text-slate-700 dark:text-amber-200/90 category-filter-header-label">
+                श्रेणी फ़िल्टर:
+              </span>
+              <span className="font-bold text-slate-900 dark:text-amber-100 category-filter-header-active">
+                {activeSubCategoryInfo?.label || 'सभी रचनाएँ'}
+              </span>
+              <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-300 ml-0.5 category-filter-header-badge">
+                {filteredItems.length}
+              </span>
+            </div>
+
+            {activeSubCategory !== 'all' && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                whileTap={{ scale: 0.92 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                onClick={() => {
+                  triggerHaptic('light');
+                  setActiveSubCategory('all');
+                  if (viewMode === 'timeline') setViewMode('grid');
+                }}
+                className="category-filter-reset-btn inline-flex items-center gap-1.5 text-xs font-gotu text-amber-700 hover:text-amber-900 dark:text-amber-300 dark:hover:text-amber-100 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 px-2.5 py-1 rounded-xl transition-all cursor-pointer font-semibold shadow-xs"
+                title="फ़िल्टर हटाएं (सभी देखें)"
+              >
+                <RotateCcw className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                <span>सभी देखें</span>
+              </motion.button>
+            )}
+          </div>
+
           <HorizontalScrollContainer>
             {subCategories.map((sub) => {
               const count = subCategoryCounts[sub.id] || 0;
@@ -702,10 +753,15 @@ export const CategoryListing = ({
               return (
                 <motion.button
                   key={sub.id}
+                  ref={isActive ? activeTabRef : null}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`${sub.label} (${count} रचनाएँ)`}
                   whileTap={{ scale: 0.95 }}
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                   onClick={() => {
+                    triggerHaptic('light');
                     setActiveSubCategory(sub.id);
                     if (sub.id !== 'daily-flow' && sub.id !== 'nitya-niyam' && viewMode === 'timeline') {
                       setViewMode('grid');
@@ -740,11 +796,11 @@ export const CategoryListing = ({
             <motion.div
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-3 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/20 backdrop-blur-md flex items-center justify-between gap-3"
+              className="category-context-banner mt-3 p-3.5 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-400/20 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm"
             >
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                <p className="text-xs sm:text-sm text-amber-200/90 font-gotu">
+                <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
+                <p className="category-context-desc text-xs sm:text-sm text-slate-800 dark:text-amber-200/90 font-gotu leading-relaxed">
                   {activeSubCategoryInfo.description}
                 </p>
               </div>
@@ -754,8 +810,11 @@ export const CategoryListing = ({
                   whileTap={{ scale: 0.94 }}
                   whileHover={{ scale: 1.04 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-                  onClick={() => handleItemClick(filteredItems[0] || items[0])}
-                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-gotu font-bold text-xs hover:bg-amber-300 shadow-md cursor-pointer transition-colors"
+                  onClick={() => {
+                    triggerHaptic('light');
+                    handleItemClick(filteredItems[0] || items[0]);
+                  }}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-gotu font-bold text-xs shadow-md cursor-pointer transition-colors"
                 >
                   <span>प्रारम्भ से पूजन करें</span>
                   <ArrowRight className="w-3.5 h-3.5" />
