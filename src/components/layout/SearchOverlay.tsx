@@ -349,7 +349,7 @@ export const SearchOverlay = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-8 sm:pt-16 px-3 sm:px-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[max(0.75rem,env(safe-area-inset-top))] sm:pt-12 px-2.5 sm:px-6 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pb-6 overflow-hidden">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -366,7 +366,7 @@ export const SearchOverlay = ({
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: -16, opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-2xl flex flex-col gap-2.5 z-10 max-h-[88vh]"
+            className="relative w-full max-w-2xl flex flex-col gap-2 sm:gap-2.5 z-10 max-h-[calc(100dvh-max(1.5rem,env(safe-area-inset-top))-max(1rem,env(safe-area-inset-bottom)))] sm:max-h-[88vh]"
           >
             {/* Search Input Box */}
             <div className="relative">
@@ -382,9 +382,9 @@ export const SearchOverlay = ({
                 placeholder={
                   isListening
                     ? 'कृपया स्पष्ट बोलें, आपकी आवाज़ पहचानी जा रही है...'
-                    : 'जिनवाणी में खोजें... (उदा. भक्तामर, पूजा, आरती, समयसार)'
+                    : 'जिनवाणी में खोजें... (उदा. भक्तामर, समयसार)'
                 }
-                className={`search-input-field w-full bg-[#071124]/95 backdrop-blur-2xl border rounded-2xl py-3 sm:py-3.5 pl-11 sm:pl-12 pr-24 sm:pr-28 text-white placeholder:text-slate-300 outline-none transition-all font-gotu text-sm sm:text-base shadow-2xl font-medium ${
+                className={`search-input-field w-full bg-[#071124]/95 backdrop-blur-2xl border rounded-2xl py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-20 sm:pr-28 text-white placeholder:text-slate-300 outline-none transition-all font-gotu text-sm sm:text-base shadow-2xl font-medium ${
                   isListening
                     ? 'border-rose-400 ring-2 ring-rose-400/30 shadow-[0_0_25px_rgba(244,63,94,0.3)]'
                     : 'border-amber-500/40 focus:border-amber-400 focus:shadow-[0_0_25px_rgba(245,158,11,0.25)]'
@@ -464,7 +464,7 @@ export const SearchOverlay = ({
                       type="button"
                       whileTap={{ scale: 0.94 }}
                       onClick={() => setActiveCategory(cat.id)}
-                      className={`search-cat-tab text-xs px-3 py-1 rounded-full font-gotu whitespace-nowrap transition-all cursor-pointer select-none flex items-center gap-1.5 shrink-0 ${
+                      className={`search-cat-tab text-xs px-3.5 py-1.5 min-h-[34px] sm:min-h-[36px] rounded-full font-gotu whitespace-nowrap transition-all cursor-pointer select-none flex items-center gap-1.5 shrink-0 ${
                         isSelected
                           ? 'search-cat-tab-active bg-amber-500 text-slate-950 font-bold border border-amber-400 shadow-[0_2px_10px_rgba(245,158,11,0.35)]'
                           : 'search-cat-tab-inactive bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white border border-white/15 font-medium'
@@ -487,10 +487,10 @@ export const SearchOverlay = ({
             </div>
 
             {/* Content & Results Scroll Area */}
-            <div className="search-results-panel flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/90 backdrop-blur-2xl rounded-2xl border border-amber-500/20 p-3 sm:p-4 shadow-2xl min-h-[300px] max-h-[62vh] flex flex-col">
+            <div className="search-results-panel flex-1 overflow-y-auto custom-scrollbar bg-[#050b17]/90 backdrop-blur-2xl rounded-2xl border border-amber-500/20 p-3.5 sm:p-4.5 shadow-2xl min-h-[280px] max-h-[calc(100dvh-150px)] sm:max-h-[68vh] flex flex-col">
               {debouncedQuery.trim() === '' ? (
                 /* Empty Query State: Recents, Popular Queries, and Curated Essentials */
-                <div className="space-y-4 flex-1">
+                <div className="space-y-4 sm:space-y-5 flex-1">
                   {/* Recent Searches (इतिहास) */}
                   {recentSearches.length > 0 && (
                     <div className="space-y-1.5">
@@ -507,7 +507,7 @@ export const SearchOverlay = ({
                           इतिहास साफ़ करें
                         </button>
                       </div>
-                      <div className="flex flex-wrap gap-1.5 pt-0.5">
+                      <div className="flex flex-wrap gap-2 pt-0.5">
                         {recentSearches.map((term) => (
                           <motion.button
                             key={term}
@@ -515,7 +515,7 @@ export const SearchOverlay = ({
                             whileTap={{ scale: 0.93 }}
                             whileHover={{ scale: 1.03 }}
                             onClick={() => setQuery(term)}
-                            className="search-chip text-xs px-2.5 py-1 rounded-xl bg-slate-900/80 hover:bg-amber-500/20 border border-white/15 hover:border-amber-400/40 text-slate-200 hover:text-amber-200 font-gotu font-medium flex items-center gap-1.5 transition-colors cursor-pointer select-none"
+                            className="search-chip text-xs px-3 py-1.5 min-h-[32px] rounded-xl bg-slate-900/80 hover:bg-amber-500/20 border border-white/15 hover:border-amber-400/40 text-slate-200 hover:text-amber-200 font-gotu font-medium flex items-center gap-1.5 transition-colors cursor-pointer select-none"
                           >
                             <RotateCcw className="w-3 h-3 text-amber-400/80" />
                             <span>{term}</span>
@@ -527,13 +527,13 @@ export const SearchOverlay = ({
 
                   {/* Popular Suggestions */}
                   <div className="space-y-1.5">
-                    <div className="search-section-header flex items-center justify-between px-1 pb-1 border-b border-white/10">
+                    <div className="search-section-header flex items-center justify-between px-1 pb-1.5 border-b border-white/10">
                       <span className="search-section-title text-xs font-gotu text-amber-300 font-bold flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                         लोकप्रिय खोजें:
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    <div className="flex flex-wrap gap-2 pt-0.5">
                       {popularSuggestions.map((tag) => (
                         <motion.button
                           key={tag}
@@ -541,7 +541,7 @@ export const SearchOverlay = ({
                           whileTap={{ scale: 0.93 }}
                           whileHover={{ scale: 1.03 }}
                           onClick={() => setQuery(tag)}
-                          className="search-chip text-xs px-2.5 py-1 rounded-xl bg-slate-900/70 hover:bg-amber-500/20 text-slate-200 hover:text-amber-200 border border-white/15 hover:border-amber-400/40 font-gotu font-medium transition-colors cursor-pointer select-none"
+                          className="search-chip text-xs px-3 py-1.5 min-h-[32px] rounded-xl bg-slate-900/70 hover:bg-amber-500/20 text-slate-200 hover:text-amber-200 border border-white/15 hover:border-amber-400/40 font-gotu font-medium transition-colors cursor-pointer select-none"
                         >
                           {tag}
                         </motion.button>
@@ -551,13 +551,13 @@ export const SearchOverlay = ({
 
                   {/* Quick Syntax Search Operators */}
                   <div className="space-y-1.5">
-                    <div className="search-section-header flex items-center justify-between px-1 pb-1 border-b border-white/10">
+                    <div className="search-section-header flex items-center justify-between px-1 pb-1.5 border-b border-white/10">
                       <span className="search-section-title text-xs font-gotu text-amber-300 font-bold flex items-center gap-1.5">
                         <Layers className="w-3.5 h-3.5 text-amber-400" />
                         त्वरित खोज ऑपरेटर (Syntax Filter):
                       </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    <div className="flex flex-wrap gap-2 pt-0.5">
                       {[
                         { op: '@puja ', label: '@puja (पूजा)' },
                         { op: '@stotra ', label: '@stotra (स्तोत्र)' },
@@ -577,7 +577,7 @@ export const SearchOverlay = ({
                             setQuery(item.op);
                             inputRef.current?.focus();
                           }}
-                          className="search-chip text-xs px-2.5 py-1 rounded-xl bg-amber-500/10 hover:bg-amber-500/25 text-amber-300 hover:text-amber-100 border border-amber-400/30 font-gotu font-medium transition-colors cursor-pointer select-none"
+                          className="search-chip text-xs px-3 py-1.5 min-h-[32px] rounded-xl bg-amber-500/10 hover:bg-amber-500/25 text-amber-300 hover:text-amber-100 border border-amber-400/30 font-gotu font-medium transition-colors cursor-pointer select-none"
                         >
                           {item.label}
                         </motion.button>
@@ -588,13 +588,13 @@ export const SearchOverlay = ({
                   {/* Recent Reads (हाल ही में पढ़े गए पाठ) */}
                   {getRecentReads().length > 0 && (
                     <div className="space-y-1.5">
-                      <div className="search-section-header flex items-center justify-between px-1 pb-1 border-b border-white/10">
+                      <div className="search-section-header flex items-center justify-between px-1 pb-1.5 border-b border-white/10">
                         <span className="search-section-title text-xs font-gotu text-amber-300 font-bold flex items-center gap-1.5">
                           <BookOpen className="w-3.5 h-3.5 text-amber-400" />
                           हाल ही में पढ़े गए पाठ
                         </span>
                       </div>
-                      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                      <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
                         {getRecentReads().map((item) => (
                           <motion.button
                             key={item.id}
@@ -610,7 +610,7 @@ export const SearchOverlay = ({
                             }
                             onMouseEnter={() => preloadContent(item.id)}
                             onTouchStart={() => preloadContent(item.id)}
-                            className="search-recent-card px-3 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-left shrink-0 transition-colors cursor-pointer group max-w-[200px]"
+                            className="search-recent-card px-3.5 py-2 min-h-[34px] rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-left shrink-0 transition-colors cursor-pointer group max-w-[220px]"
                           >
                             <p className="text-xs font-notoserif font-bold text-white group-hover:text-amber-200 truncate">
                               {item.title}
@@ -623,7 +623,7 @@ export const SearchOverlay = ({
 
                   {/* Curated Daily Essentials */}
                   <div className="space-y-2">
-                    <div className="search-section-header flex items-center justify-between px-1 pb-1 border-b border-white/10">
+                    <div className="search-section-header flex items-center justify-between px-1 pb-1.5 border-b border-white/10">
                       <span className="search-section-title text-xs font-gotu text-amber-300 font-bold flex items-center gap-1.5">
                         <Flame className="w-3.5 h-3.5 text-amber-400" />
                         प्रमुख व नित्य स्वाध्याय पाठ
@@ -633,7 +633,7 @@ export const SearchOverlay = ({
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {featuredItems.map((item) => (
                         <TiltCard
                           key={item.id}
@@ -647,7 +647,7 @@ export const SearchOverlay = ({
                             onClick={() => handleItemClick(item)}
                             onMouseEnter={() => preloadContent(item.id)}
                             onTouchStart={() => preloadContent(item.id)}
-                            className="search-item-card flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-white/[0.04] hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 cursor-pointer group transition-colors duration-200 h-full"
+                            className="search-item-card flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-white/[0.04] hover:bg-amber-500/15 border border-white/10 hover:border-amber-400/40 cursor-pointer group transition-colors duration-200 h-full min-h-[56px]"
                           >
                             <div className="flex items-center gap-2.5 min-w-0 flex-1">
                               <div className="search-item-icon w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center text-amber-300 shrink-0 group-hover:scale-105 transition-transform">
