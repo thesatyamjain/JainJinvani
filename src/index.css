@@ -664,6 +664,7 @@ body.theme-manuscript,
 .theme-manuscript .puja-header-banner,
 .theme-manuscript .panchang-hero-card,
 .theme-manuscript .app-install-header-card,
+.theme-manuscript .viewer-header-card,
 .theme-manuscript .viewer-feedback-card,
 .theme-manuscript .feedback-modal-card {
   background-color: var(--neu-bg-card, var(--neu-bg)) !important;
@@ -680,7 +681,8 @@ body.theme-manuscript,
 
 .theme-manuscript .glass-card:hover,
 .theme-manuscript [data-glass-card]:hover,
-.theme-manuscript .panchang-hero-card:hover {
+.theme-manuscript .panchang-hero-card:hover,
+.theme-manuscript .viewer-header-card:hover {
   box-shadow: 3px 3px 6px var(--neu-shadow-contact, rgba(165, 145, 120, 0.3)),
               10px 12px 28px var(--neu-shadow-hover-dark),
               -8px -8px 24px var(--neu-shadow-hover-light),
@@ -705,7 +707,9 @@ body.theme-manuscript,
 .theme-manuscript .sadhana-header-banner > div:first-child,
 .theme-manuscript .more-header-banner > div:first-child,
 .theme-manuscript .library-header-banner > div:first-child,
-.theme-manuscript .daily-quote-card > div:first-child {
+.theme-manuscript .daily-quote-card > div:first-child,
+.theme-manuscript .viewer-header-card > div:first-child,
+.theme-manuscript .viewer-header-card > div:nth-child(2) {
   opacity: 0 !important;
   display: none !important;
 }

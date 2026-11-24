@@ -983,7 +983,7 @@ export const ContentViewer = ({
           initial={{ opacity: 0, y: -14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-4 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] overflow-hidden"
+          className="viewer-header-card glass-card w-full relative rounded-2xl sm:rounded-3xl bg-gradient-to-b from-amber-500/[0.08] via-[#081226]/85 to-slate-950/60 border border-amber-500/25 p-4 sm:p-7 md:p-8 text-center backdrop-blur-2xl shadow-[0_16px_45px_rgba(0,0,0,0.6),0_0_35px_rgba(245,158,11,0.08)] overflow-hidden"
         >
         {/* Subtle Ambient Golden Rim Light & Specular Glow */}
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-amber-400/60 to-transparent pointer-events-none" />
