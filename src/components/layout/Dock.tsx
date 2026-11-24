@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
-import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Volume2 } from 'lucide-react';
+import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Volume2, ArrowUp } from 'lucide-react';
 import { useIsModalOpen, getSettings, type UserSettings } from '../../lib';
 import { triggerHaptic } from '../../utils/pwaManager';
 import { useDockScrollBehavior } from '../../hooks/useDockScrollBehavior';
@@ -304,24 +304,7 @@ export const Dock = ({
     <DockIcon
       mouseX={mouseX}
       icon={
-        <div className="relative flex items-center justify-center w-5 h-5 md:w-5.5 md:h-5.5">
-          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
-            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(251,191,36,0.18)" strokeWidth="3" />
-            <circle
-              cx="18" cy="18" r="14"
-              fill="none"
-              stroke="rgba(251,191,36,0.9)"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeDasharray={`${2 * Math.PI * 14}`}
-              strokeDashoffset={`${2 * Math.PI * 14 * (1 - scrollProgress)}`}
-              style={{ transition: 'stroke-dashoffset 0.15s ease' }}
-            />
-          </svg>
-          <svg className="relative w-3 h-3 md:w-3.5 md:h-3.5 text-amber-300" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg>
-        </div>
+        <ArrowUp className="w-4.5 h-4.5 md:w-5 md:h-5 text-amber-500 dark:text-amber-300 transition-colors" />
       }
       label="शीर्ष पर जाएं"
       subLabel={`${Math.round(scrollProgress * 100)}% read`}
@@ -358,12 +341,9 @@ export const Dock = ({
               width: { duration: 0.18, ease: [0.32, 0.72, 0, 1] },
             },
           }}
-          className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5 overflow-hidden origin-right shrink-0"
+          className="flex items-end overflow-hidden origin-right shrink-0"
         >
-          <div className="h-7 md:h-9 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
-          <div className="shrink-0">
-            {renderBackToTopIcon()}
-          </div>
+          {renderBackToTopIcon()}
         </motion.div>
       )}
     </AnimatePresence>
