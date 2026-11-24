@@ -614,24 +614,82 @@ export const Dock = ({
                   </AnimatePresence>
                 </div>
 
-                {/* 3. Auto-Scroll Hands-Free Toggle */}
-                <DockIcon
-                  mouseX={mouseX}
-                  icon={
-                    <AutoScrollIcon
-                      isScrolling={readerState.isAutoScrolling}
-                      className={`w-5 h-5 md:w-5.5 md:h-5.5 transition-colors ${
-                        readerState.isAutoScrolling
-                          ? 'text-amber-300'
-                          : 'text-slate-300 group-hover:text-amber-200'
-                      }`}
-                    />
-                  }
-                  label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
-                  subLabel={readerState.isAutoScrolling ? "रोकने हेतु टैप करें" : "सस्वर पाठ गति (1x)"}
-                  isActive={readerState.isAutoScrolling}
-                  onClick={handleToggleAutoScroll}
-                />
+                {/* 3. Auto-Scroll Hands-Free Toggle & Speed Presets */}
+                <div className="relative flex items-center">
+                  <AnimatePresence mode="wait">
+                    {readerState.isAutoScrolling ? (
+                      <motion.div
+                        key="scroll-expanded-bubble"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: 'spring', stiffness: 420, damping: 26 }}
+                        className="dock-scroll-expanded-bubble flex items-center bg-[#071224]/85 border border-amber-400/40 rounded-xl md:rounded-2xl px-1.5 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px] gap-1"
+                      >
+                        {[0.6, 1, 1.5].map((spd) => {
+                          const isCurrent = (readerState.scrollSpeed || 1) === spd;
+                          return (
+                            <motion.button
+                              key={spd}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                triggerHaptic('light');
+                                window.dispatchEvent(
+                                  new CustomEvent('jinvani:reader-scroll-speed', {
+                                    detail: { speed: spd },
+                                  })
+                                );
+                              }}
+                              className={`dock-scroll-btn px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                                isCurrent
+                                  ? 'dock-scroll-btn-active bg-amber-400 text-stone-950 font-black shadow-xs'
+                                  : 'text-slate-300 hover:text-white hover:bg-white/10'
+                              }`}
+                              title={
+                                spd === 0.6
+                                  ? 'स्वाध्याय गति (0.6x ~ 45s/पद्य)'
+                                  : spd === 1
+                                  ? 'सस्वर पाठ गति (1.0x ~ 22s/पद्य)'
+                                  : 'द्रुत पाठ गति (1.5x ~ 15s/पद्य)'
+                              }
+                            >
+                              {spd}x
+                            </motion.button>
+                          );
+                        })}
+                        <div className="dock-scroll-divider h-4 w-[1px] bg-white/15 mx-0.5" />
+                        <motion.button
+                          whileTap={{ scale: 0.88 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleAutoScroll();
+                          }}
+                          className="dock-scroll-pause w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-300 hover:text-white hover:bg-amber-500/20 rounded-lg cursor-pointer transition-colors"
+                          title="स्क्रॉल रोकें (Pause Scroll)"
+                          aria-label="स्क्रॉल रोकें"
+                        >
+                          <AutoScrollIcon isScrolling={true} className="w-4 h-4 text-amber-300" />
+                        </motion.button>
+                      </motion.div>
+                    ) : (
+                      <DockIcon
+                        key="scroll-collapsed-icon"
+                        mouseX={mouseX}
+                        icon={
+                          <AutoScrollIcon
+                            isScrolling={false}
+                            className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
+                          />
+                        }
+                        label="स्वतः स्क्रॉल"
+                        subLabel={`सस्वर गति (${readerState.scrollSpeed || 1}x)`}
+                        isActive={false}
+                        onClick={handleToggleAutoScroll}
+                      />
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 {/* 3b. Audio Read-Along Toggle (when scripture has audio track) */}
                 {readerState.hasAudio && (

@@ -660,7 +660,7 @@ export const ContentViewer = ({
   const [loading, setLoading] = React.useState<boolean>(!cachedInitial && !!id);
   const [fontSize, setFontSize] = React.useState(18);
   const [isFav, setIsFav] = React.useState(false);
-  const { isAutoScrolling, setIsAutoScrolling, scrollSpeed, setScrollSpeed } = useAutoScroll(1);
+  const { isAutoScrolling, setIsAutoScrolling, scrollSpeed, setScrollSpeed } = useAutoScroll({ fontSize });
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
   const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
   const [activeVerseIndex, setActiveVerseIndex] = React.useState<number | null>(null);
@@ -819,10 +819,16 @@ export const ContentViewer = ({
     emitReaderState();
 
     const handleToggleScroll = (e: any) => {
-      if (e.detail?.speed) {
+      if (typeof e.detail?.speed === 'number') {
         setScrollSpeed(e.detail.speed);
       }
       setIsAutoScrolling((prev) => !prev);
+    };
+
+    const handleScrollSpeed = (e: any) => {
+      if (typeof e.detail?.speed === 'number') {
+        setScrollSpeed(e.detail.speed);
+      }
     };
 
     const handleToggleFav = () => {
@@ -848,6 +854,7 @@ export const ContentViewer = ({
     const handleRequestState = () => emitReaderState();
 
     window.addEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
+    window.addEventListener('jinvani:reader-scroll-speed', handleScrollSpeed as EventListener);
     window.addEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
     window.addEventListener('jinvani:toggle-audio', handleToggleAudio as EventListener);
     window.addEventListener('jinvani:reader-font-size', handleFontSize as EventListener);
@@ -856,6 +863,7 @@ export const ContentViewer = ({
 
     return () => {
       window.removeEventListener('jinvani:reader-toggle-autoscroll', handleToggleScroll as EventListener);
+      window.removeEventListener('jinvani:reader-scroll-speed', handleScrollSpeed as EventListener);
       window.removeEventListener('jinvani:reader-toggle-favorite', handleToggleFav as EventListener);
       window.removeEventListener('jinvani:toggle-audio', handleToggleAudio as EventListener);
       window.removeEventListener('jinvani:reader-font-size', handleFontSize as EventListener);

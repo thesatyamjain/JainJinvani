@@ -4155,6 +4155,44 @@ body.theme-manuscript,
   background-color: rgba(153, 27, 27, 0.12) !important;
 }
 
+/* Expanding Scroll Speed Bubble in Manuscript Mode */
+.theme-manuscript .dock-scroll-expanded-bubble {
+  background-color: var(--neu-bg-card) !important;
+  border-color: var(--neu-border) !important;
+  box-shadow: 2px 2px 5px var(--neu-shadow-contact),
+              8px 12px 28px var(--neu-shadow-dark),
+              -6px -6px 18px var(--neu-shadow-light),
+              inset 1px 1px 1.5px rgba(255, 255, 255, 0.85) !important;
+}
+
+.theme-manuscript .dock-scroll-btn {
+  color: var(--neu-ink) !important;
+}
+
+.theme-manuscript .dock-scroll-btn:hover {
+  background-color: rgba(184, 134, 11, 0.15) !important;
+  color: #92400E !important;
+}
+
+.theme-manuscript .dock-scroll-btn-active {
+  background-color: #B45309 !important;
+  color: #FFFDF9 !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-contact),
+              inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
+}
+
+.theme-manuscript .dock-scroll-divider {
+  background-color: var(--neu-border) !important;
+}
+
+.theme-manuscript .dock-scroll-pause {
+  color: #B45309 !important;
+}
+
+.theme-manuscript .dock-scroll-pause:hover {
+  background-color: rgba(180, 83, 9, 0.12) !important;
+}
+
 /* Feedback Modal Card in Manuscript Mode */
 .theme-manuscript .feedback-modal-card {
   background-color: var(--neu-bg-card) !important;
