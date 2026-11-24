@@ -1012,7 +1012,7 @@ export const ContentViewer = ({
             )}
           </div>
 
-          {/* Quick Reader Controls: Report / Feedback */}
+          {/* Quick Reader Controls: Report / Feedback Pill */}
           <div className="flex items-center gap-1.5 shrink-0">
             <motion.button
               type="button"
@@ -1020,11 +1020,12 @@ export const ContentViewer = ({
               whileHover={{ scale: 1.04 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => setShowFeedbackModal(true)}
-              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
+              className="viewer-report-btn inline-flex items-center gap-1.5 px-3 py-1.5 min-h-[34px] sm:min-h-[36px] rounded-full bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-semibold cursor-pointer transition-all shadow-xs"
               title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
+              aria-label="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
             >
               <FileEdit className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
-              <span className="hidden sm:inline">सुधार बताएं</span>
+              <span>सुधार बताएं</span>
             </motion.button>
           </div>
         </div>

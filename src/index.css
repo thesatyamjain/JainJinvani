@@ -3257,6 +3257,36 @@ body.theme-manuscript,
   color: #78350F !important;
 }
 
+.theme-manuscript .viewer-report-btn {
+  background-color: var(--neu-bg, #FFFDF9) !important;
+  color: #92400E !important;
+  border: 1px solid var(--neu-border, rgba(168, 140, 93, 0.35)) !important;
+  box-shadow: 1px 1px 3px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
+              2px 3px 6px var(--neu-shadow-dark),
+              -2px -2px 6px var(--neu-shadow-light),
+              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  font-weight: 700 !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-manuscript .viewer-report-btn:hover {
+  background-color: var(--neu-bg-sunken, #F4EFE3) !important;
+  color: #B45309 !important;
+  border-color: rgba(217, 119, 6, 0.5) !important;
+  box-shadow: 2px 2px 4px var(--neu-shadow-contact),
+              3px 4px 8px var(--neu-shadow-hover-dark),
+              -3px -3px 8px var(--neu-shadow-hover-light) !important;
+}
+
+.theme-manuscript .viewer-report-btn:active {
+  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
+              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
+}
+
+.theme-manuscript .viewer-report-btn svg {
+  color: #B45309 !important;
+}
+
 /* 5. Donate / Sahyog & More Modals in Ancient Manuscript */
 .theme-manuscript .donate-modal-card,
 .theme-manuscript .more-modal-card {
