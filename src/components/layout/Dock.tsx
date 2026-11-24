@@ -111,6 +111,20 @@ export const Dock = ({
     return getSettings().dockTheme || 'frosted';
   });
 
+  const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1024));
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth < 768;
+  const mobileTileSize =
+    windowWidth < 320 ? 29 :
+    windowWidth < 350 ? 31 :
+    windowWidth < 380 ? 34 : 37;
+
   // Dynamic reader state when viewing content
   const [readerState, setReaderState] = useState<{
     fontSize: number;
@@ -305,13 +319,15 @@ export const Dock = ({
     <DockIcon
       mouseX={mouseX}
       icon={
-        <ArrowUp className="w-4.5 h-4.5 md:w-5 md:h-5 text-amber-500 dark:text-amber-300 transition-colors" />
+        <ArrowUp className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-amber-500 dark:text-amber-300 transition-colors" />
       }
       label="शीर्ष पर जाएं"
       subLabel={`${Math.round(scrollProgress * 100)}% read`}
       isActive={false}
       isSpecial
       onClick={handleScrollToTop}
+      mobileTileSize={mobileTileSize}
+      isMobile={isMobile}
     />
   );
 
@@ -354,7 +370,7 @@ export const Dock = ({
     <>
       <DockIcon
         mouseX={mouseX}
-        icon={<Home className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+        icon={<Home className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5" />}
         label="मुख्य पृष्ठ"
         subLabel="Home"
         isActive={activePage === 'landing'}
@@ -362,13 +378,15 @@ export const Dock = ({
           triggerHaptic('light');
           onNavigate('landing');
         }}
+        mobileTileSize={mobileTileSize}
+        isMobile={isMobile}
       />
 
-      <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
+      <div className="h-5 sm:h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-1.5 sm:mb-2.5 md:mb-3 shrink-0" />
 
       <DockIcon
         mouseX={mouseX}
-        icon={<BookOpen className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+        icon={<BookOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5" />}
         label="साधना"
         subLabel="Sadhana"
         isActive={activePage === 'sadhana'}
@@ -376,11 +394,13 @@ export const Dock = ({
           triggerHaptic('light');
           onNavigate('sadhana');
         }}
+        mobileTileSize={mobileTileSize}
+        isMobile={isMobile}
       />
 
       <DockIcon
         mouseX={mouseX}
-        icon={<Library className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+        icon={<Library className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5" />}
         label="ग्रंथालय"
         subLabel="Library"
         isActive={activePage === 'library'}
@@ -388,11 +408,13 @@ export const Dock = ({
           triggerHaptic('light');
           onNavigate('library');
         }}
+        mobileTileSize={mobileTileSize}
+        isMobile={isMobile}
       />
 
       <DockIcon
         mouseX={mouseX}
-        icon={<Menu className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+        icon={<Menu className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5" />}
         label="अधिक"
         subLabel="More"
         isActive={activePage === 'more' || activePage === 'settings' || activePage === 'explore' || activePage === 'favorites'}
@@ -400,13 +422,15 @@ export const Dock = ({
           triggerHaptic('light');
           onNavigate('more');
         }}
+        mobileTileSize={mobileTileSize}
+        isMobile={isMobile}
       />
 
-      <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
+      <div className="h-5 sm:h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-amber-400/30 to-transparent self-end mb-1.5 sm:mb-2.5 md:mb-3 shrink-0" />
 
       <DockIcon
         mouseX={mouseX}
-        icon={<Search className="w-5 h-5 md:w-5.5 md:h-5.5" />}
+        icon={<Search className="w-4 h-4 sm:w-5 sm:h-5 md:w-5.5 md:h-5.5" />}
         label="खोजें"
         subLabel="Search"
         isActive={false}
@@ -415,6 +439,8 @@ export const Dock = ({
           handleSearchClick();
         }}
         isSearch
+        mobileTileSize={mobileTileSize}
+        isMobile={isMobile}
       />
     </>
   );
@@ -426,7 +452,7 @@ export const Dock = ({
       data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,visibility] duration-200 flex justify-center max-w-[calc(100vw-1rem)] ${
+      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,visibility] duration-200 flex justify-center max-w-[calc(100vw-1.5rem)] ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible' : ''
       }`}
     >
@@ -456,8 +482,8 @@ export const Dock = ({
             : dockTheme === 'gilded'
             ? 'gilded-glass-dock'
             : 'frosted-glass-dock'
-        } px-2 sm:px-3.5 md:px-4 w-max max-w-full relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
-          isReaderMode ? 'min-h-[66px] md:min-h-[76px] pt-2.5 md:pt-3.5 pb-3.5 md:pb-4' : 'min-h-[58px] md:min-h-[68px] pt-2 md:pt-3 pb-2 md:pb-2.5'
+        } ${windowWidth < 340 ? 'px-1.5' : 'px-2 sm:px-3 md:px-4'} w-max max-w-full relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
+          isReaderMode ? 'min-h-[58px] sm:min-h-[66px] md:min-h-[76px] pt-1.5 sm:pt-2.5 md:pt-3.5 pb-2.5 sm:pb-3.5 md:pb-4' : 'min-h-[54px] sm:min-h-[58px] md:min-h-[68px] pt-1.5 sm:pt-2 md:pt-3 pb-1.5 sm:pb-2 md:pb-2.5'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
@@ -504,28 +530,30 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
+                className={`flex items-end ${windowWidth < 340 ? 'gap-0.5' : 'gap-1 sm:gap-1.5 md:gap-2'} flex-nowrap shrink-0`}
               >
                 {/* 1. Back Button */}
                 <DockIcon
                   mouseX={mouseX}
                   icon={
-                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-slate-300 group-hover:text-amber-200 transition-colors" />
                   }
                   label="वापस"
                   subLabel="Back"
                   isActive={false}
                   onClick={handleBackClick}
+                  mobileTileSize={mobileTileSize}
+                  isMobile={isMobile}
                 />
 
-                <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
+                <div className="h-5 sm:h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-1.5 sm:mb-2.5 md:mb-3 shrink-0" />
 
                 {/* 2. Font Sizing Control with Floating Popover */}
                 <div id="dock-font-controls" className="relative flex flex-col items-center">
                   <DockIcon
                     mouseX={mouseX}
                     icon={
-                      <TextSizeDuotoneIcon className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                      <TextSizeDuotoneIcon className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                     }
                     label="अक्षर आकार"
                     subLabel={`Size ${readerState.fontSize}px`}
@@ -534,6 +562,8 @@ export const Dock = ({
                       setIsFontExpanded((prev) => !prev);
                       resetFontCollapseTimer();
                     }}
+                    mobileTileSize={mobileTileSize}
+                    isMobile={isMobile}
                   />
 
                   {/* Floating Popover directly above Font button */}
@@ -545,7 +575,7 @@ export const Dock = ({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.92 }}
                         transition={{ type: 'spring', stiffness: 450, damping: 28 }}
-                        className="dock-font-expanded-bubble absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1.5 py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap"
+                        className="dock-font-expanded-bubble absolute bottom-full mb-2.5 sm:mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1 sm:px-1.5 py-0.5 sm:py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap"
                       >
                         <motion.button
                           whileTap={{ scale: 0.88 }}
@@ -554,7 +584,7 @@ export const Dock = ({
                             resetFontCollapseTimer();
                             handleAdjustFontSize(-2);
                           }}
-                          className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
+                          className="dock-font-btn w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर छोटा करें (A-)"
                         >
                           A-
@@ -565,7 +595,7 @@ export const Dock = ({
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="dock-font-val px-2 py-0.5 rounded text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
+                          className="dock-font-val px-1.5 sm:px-2 py-0.5 rounded text-xs text-amber-300 hover:bg-amber-400/20 font-mono font-semibold select-none cursor-pointer transition-colors"
                           title="क्लिक करके बंद करें"
                         >
                           {readerState.fontSize}
@@ -577,7 +607,7 @@ export const Dock = ({
                             resetFontCollapseTimer();
                             handleAdjustFontSize(2);
                           }}
-                          className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
+                          className="dock-font-btn w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
                           title="अक्षर बड़ा करें (A+)"
                         >
                           A+
@@ -589,7 +619,7 @@ export const Dock = ({
                             e.stopPropagation();
                             setIsFontExpanded(false);
                           }}
-                          className="dock-font-done w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs cursor-pointer transition-colors"
+                          className="dock-font-done w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center text-amber-400 hover:text-amber-200 hover:bg-amber-500/20 rounded-lg text-xs cursor-pointer transition-colors"
                           title="संपन्न"
                         >
                           ✓
@@ -607,13 +637,15 @@ export const Dock = ({
                     icon={
                       <AutoScrollIcon
                         isScrolling={readerState.isAutoScrolling}
-                        className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
+                        className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
                       />
                     }
                     label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
                     subLabel={`सस्वर गति (${readerState.scrollSpeed || 1}x)`}
                     isActive={readerState.isAutoScrolling}
                     onClick={handleToggleAutoScroll}
+                    mobileTileSize={mobileTileSize}
+                    isMobile={isMobile}
                   />
 
                   {/* Floating Speed Presets Popover above AutoScroll button when scrolling */}
@@ -625,7 +657,7 @@ export const Dock = ({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 6, scale: 0.92 }}
                         transition={{ type: 'spring', stiffness: 450, damping: 28 }}
-                        className="dock-scroll-expanded-bubble absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1.5 py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap gap-1"
+                        className="dock-scroll-expanded-bubble absolute bottom-full mb-2.5 sm:mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1 sm:px-1.5 py-0.5 sm:py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap gap-0.5 sm:gap-1"
                       >
                         {[0.6, 1, 1.5].map((spd) => {
                           const isCurrent = (readerState.scrollSpeed || 1) === spd;
@@ -642,7 +674,7 @@ export const Dock = ({
                                   })
                                 );
                               }}
-                              className={`dock-scroll-btn px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                              className={`dock-scroll-btn px-1.5 sm:px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                                 isCurrent
                                   ? 'dock-scroll-btn-active bg-amber-400 text-stone-950 font-black shadow-xs'
                                   : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -666,11 +698,11 @@ export const Dock = ({
                             e.stopPropagation();
                             handleToggleAutoScroll();
                           }}
-                          className="dock-scroll-pause w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-amber-300 hover:text-white hover:bg-amber-500/20 rounded-lg cursor-pointer transition-colors"
+                          className="dock-scroll-pause w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex items-center justify-center text-amber-300 hover:text-white hover:bg-amber-500/20 rounded-lg cursor-pointer transition-colors"
                           title="स्क्रॉल रोकें (Pause Scroll)"
                           aria-label="स्क्रॉल रोकें"
                         >
-                          <AutoScrollIcon isScrolling={true} className="w-4 h-4 text-amber-300" />
+                          <AutoScrollIcon isScrolling={true} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
                         </motion.button>
                         <div className="dock-popover-arrow absolute top-full left-1/2 -translate-x-1/2" />
                       </motion.div>
@@ -686,16 +718,18 @@ export const Dock = ({
                       readerState.isAudioActive ? (
                         <div className="relative flex items-center justify-center">
                           <span className="absolute -inset-1 rounded-full bg-amber-400/30 animate-ping pointer-events-none" />
-                          <Volume2 className="w-5 h-5 md:w-5.5 md:h-5.5 text-amber-300" />
+                          <Volume2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-amber-300" />
                         </div>
                       ) : (
-                        <Volume2 className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                        <Volume2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                       )
                     }
                     label={readerState.isAudioActive ? "ऑडियो सक्रिय" : "ऑडियो पाठ"}
                     subLabel={readerState.isAudioActive ? "Audio Active" : "Audio Track"}
                     isActive={!!readerState.isAudioActive}
                     onClick={handleToggleAudio}
+                    mobileTileSize={mobileTileSize}
+                    isMobile={isMobile}
                   />
                 )}
 
@@ -704,7 +738,7 @@ export const Dock = ({
                   mouseX={mouseX}
                   icon={
                     <Bookmark
-                      className={`w-4.5 h-4.5 md:w-5 md:h-5 transition-colors ${
+                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-colors ${
                         readerState.isFav ? 'text-rose-400 fill-current' : 'text-slate-300 group-hover:text-amber-200'
                       }`}
                     />
@@ -713,18 +747,22 @@ export const Dock = ({
                   subLabel={readerState.isFav ? "Saved" : "Favorite"}
                   isActive={readerState.isFav}
                   onClick={handleToggleFavorite}
+                  mobileTileSize={mobileTileSize}
+                  isMobile={isMobile}
                 />
 
                 {/* 5. Share Button */}
                 <DockIcon
                   mouseX={mouseX}
                   icon={
-                    <Share2 className="w-4.5 h-4.5 md:w-5 md:h-5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                    <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                   }
                   label="साझा करें"
                   subLabel="Share"
                   isActive={false}
                   onClick={handleShareClick}
+                  mobileTileSize={mobileTileSize}
+                  isMobile={isMobile}
                 />
 
                 {/* 6. Back To Top in Reader Mode Tools */}
@@ -744,7 +782,7 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
+                className={`flex items-end ${windowWidth < 340 ? 'gap-0.5' : 'gap-1 sm:gap-1.5 md:gap-2'} flex-nowrap shrink-0`}
               >
                 {renderNavItems()}
 
@@ -765,7 +803,7 @@ export const Dock = ({
                 layout: { type: 'spring', stiffness: 450, damping: 32 },
                 duration: 0.16,
               }}
-              className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
+              className={`flex items-end ${windowWidth < 340 ? 'gap-0.5' : 'gap-1 sm:gap-1.5 md:gap-2'} flex-nowrap shrink-0`}
             >
               {renderNavItems()}
 
@@ -833,33 +871,34 @@ interface DockIconProps {
   onClick: () => void;
   isSearch?: boolean;
   isSpecial?: boolean;
+  mobileTileSize?: number;
+  isMobile?: boolean;
 }
 
-function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, isSpecial }: DockIconProps) {
+function DockIcon({
+  mouseX,
+  icon,
+  label,
+  subLabel,
+  isActive,
+  onClick,
+  isSearch,
+  isSpecial,
+  mobileTileSize = 35,
+  isMobile = false,
+}: DockIconProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isBouncing, setIsBouncing] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1024));
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const isSmallMobile = windowWidth < 380;
-  const isMobile = windowWidth < 768;
-
-  // Distance from cursor to icon center on X axis
+  // Distance from cursor to icon center on X axis (Desktop only)
   const distance = useTransform(mouseX, (val) => {
     if (isMobile || !ref.current) return Infinity;
     const bounds = ref.current.getBoundingClientRect();
     return val - bounds.x - bounds.width / 2;
   });
 
-  // macOS Continuous Cosine-wave Fisheye Magnification
+  // macOS Continuous Cosine-wave Fisheye Magnification (Desktop only)
   const widthSync = useTransform(distance, (dist) => {
-    if (isSmallMobile) return 36;
-    if (isMobile) return 39;
     const absDist = Math.abs(dist);
     const radius = 145; // Magnification wave radius in px
     const baseWidth = 46; // macOS base icon tile size
@@ -870,11 +909,11 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
     return baseWidth + (maxWidth - baseWidth) * factor * factor;
   });
 
-  // Fluid spring physics for instant, organic responsiveness
-  const width = useSpring(widthSync, { mass: 0.1, stiffness: 220, damping: 18 });
+  // Fluid spring physics for instant, organic responsiveness on desktop
+  const springWidth = useSpring(widthSync, { mass: 0.1, stiffness: 220, damping: 18 });
 
   // Scale inner icon glyph proportionally
-  const iconScaleSync = useTransform(width, [46, 70], [1, 1.35]);
+  const iconScaleSync = useTransform(springWidth, [46, 70], [1, 1.35]);
   const iconScale = useSpring(iconScaleSync, { mass: 0.1, stiffness: 220, damping: 18 });
 
   // macOS Launch Bounce Physics on click
@@ -887,7 +926,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
   };
 
   return (
-    <div className="relative group flex flex-col items-center select-none">
+    <div className="relative group flex flex-col items-center select-none shrink-0">
       {/* Dynamic macOS Tooltip floating above the magnifying icon */}
       <div className="hidden md:flex flex-col items-center absolute bottom-full mb-3 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-[#081225]/95 text-white rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-150 pointer-events-none whitespace-nowrap backdrop-blur-2xl border border-amber-500/30 shadow-[0_10px_25px_rgba(0,0,0,0.7)] translate-y-1.5 group-hover:translate-y-0 z-50">
         <span className="font-gotu text-xs font-semibold text-amber-200 pt-0.5 pb-0.5 leading-snug">{label}</span>
@@ -899,11 +938,15 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#081225]/95" />
       </div>
 
-      {/* macOS Baseline-anchored Icon Tile */}
+      {/* Baseline-anchored Icon Tile */}
       <motion.button
         ref={ref}
         aria-label={label}
-        style={{ width, height: width }}
+        style={
+          isMobile
+            ? { width: mobileTileSize, height: mobileTileSize }
+            : { width: springWidth, height: springWidth }
+        }
         animate={
           isBouncing
             ? {
@@ -915,7 +958,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         whileTap={{ scale: 0.90 }}
         whileHover={{ scale: 1.04 }}
         onClick={handleClick}
-        className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+        className={`aspect-square rounded-xl sm:rounded-2xl flex items-center justify-center cursor-pointer relative origin-bottom transition-colors duration-200 select-none shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
           isActive
             ? 'bg-gradient-to-b from-amber-500/20 via-amber-600/10 to-amber-700/05 border border-amber-400/40 shadow-[0_4px_16px_rgba(245,158,11,0.18),0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.22)]'
             : isSpecial
@@ -926,7 +969,7 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         }`}
       >
         <motion.div
-          style={{ scale: iconScale }}
+          style={isMobile ? undefined : { scale: iconScale }}
           className={`flex items-center justify-center transition-colors duration-200 ${
             isActive ? 'text-amber-200' : 'text-slate-300 group-hover:text-white'
           }`}
@@ -935,8 +978,8 @@ function DockIcon({ mouseX, icon, label, subLabel, isActive, onClick, isSearch, 
         </motion.div>
       </motion.button>
 
-      {/* macOS Active App Glowing Dot Indicator */}
-      <div className="h-1.5 flex items-center justify-center mt-1 select-none pointer-events-none">
+      {/* Active Dot Indicator */}
+      <div className="h-1.5 flex items-center justify-center mt-0.5 sm:mt-1 select-none pointer-events-none">
         {isActive && (
           <motion.div
             layoutId="macos-dock-active-dot"
