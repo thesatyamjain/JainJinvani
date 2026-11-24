@@ -474,7 +474,7 @@ export const Dock = ({
           willChange: 'transform',
           pointerEvents: isHidden ? 'none' : 'auto',
         }}
-        className={`flex items-end rounded-full md:rounded-[26px] ${
+        className={`flex items-end rounded-2xl md:rounded-[26px] ${
           dockTheme === 'classic'
             ? 'classic-dock'
             : dockTheme === 'crystal'
@@ -482,7 +482,7 @@ export const Dock = ({
             : dockTheme === 'gilded'
             ? 'gilded-glass-dock'
             : 'frosted-glass-dock'
-        } ${windowWidth < 340 ? 'px-2' : 'px-2.5 sm:px-3 md:px-4'} w-max max-w-full relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
+        } ${windowWidth < 340 ? 'px-1.5' : 'px-2 sm:px-3 md:px-4'} w-max max-w-full relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
           isReaderMode ? 'min-h-[58px] sm:min-h-[66px] md:min-h-[76px] pt-1.5 sm:pt-2.5 md:pt-3.5 pb-2.5 sm:pb-3.5 md:pb-4' : 'min-h-[54px] sm:min-h-[58px] md:min-h-[68px] pt-1.5 sm:pt-2 md:pt-3 pb-1.5 sm:pb-2 md:pb-2.5'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
