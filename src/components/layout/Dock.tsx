@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from 'motion/react';
-import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Volume2, ArrowUp } from 'lucide-react';
+import { BookOpen, Search, Library, Menu, Home, ChevronLeft, Bookmark, Share2, Volume2 } from 'lucide-react';
 import { useIsModalOpen, getSettings, type UserSettings } from '../../lib';
 import { triggerHaptic } from '../../utils/pwaManager';
 import { useDockScrollBehavior } from '../../hooks/useDockScrollBehavior';
@@ -121,9 +121,8 @@ export const Dock = ({
 
   const isMobile = windowWidth < 768;
   const mobileTileSize =
-    windowWidth < 320 ? 29 :
-    windowWidth < 350 ? 31 :
-    windowWidth < 380 ? 34 : 37;
+    windowWidth < 340 ? 35 :
+    windowWidth < 380 ? 36 : 39;
 
   // Dynamic reader state when viewing content
   const [readerState, setReaderState] = useState<{
@@ -319,7 +318,24 @@ export const Dock = ({
     <DockIcon
       mouseX={mouseX}
       icon={
-        <ArrowUp className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-amber-500 dark:text-amber-300 transition-colors" />
+        <div className="relative flex items-center justify-center w-5 h-5 md:w-5.5 md:h-5.5">
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="14" fill="none" stroke="rgba(251,191,36,0.18)" strokeWidth="3" />
+            <circle
+              cx="18" cy="18" r="14"
+              fill="none"
+              stroke="rgba(251,191,36,0.9)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={`${2 * Math.PI * 14}`}
+              strokeDashoffset={`${2 * Math.PI * 14 * (1 - scrollProgress)}`}
+              style={{ transition: 'stroke-dashoffset 0.15s ease' }}
+            />
+          </svg>
+          <svg className="relative w-3.5 h-3.5 md:w-4 md:h-4 text-amber-500 dark:text-amber-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </div>
       }
       label="शीर्ष पर जाएं"
       subLabel={`${Math.round(scrollProgress * 100)}% read`}
@@ -553,7 +569,7 @@ export const Dock = ({
                   <DockIcon
                     mouseX={mouseX}
                     icon={
-                      <TextSizeDuotoneIcon className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                      <TextSizeDuotoneIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                     }
                     label="अक्षर आकार"
                     subLabel={`Size ${readerState.fontSize}px`}
@@ -637,7 +653,7 @@ export const Dock = ({
                     icon={
                       <AutoScrollIcon
                         isScrolling={readerState.isAutoScrolling}
-                        className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
+                        className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
                       />
                     }
                     label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
@@ -718,10 +734,10 @@ export const Dock = ({
                       readerState.isAudioActive ? (
                         <div className="relative flex items-center justify-center">
                           <span className="absolute -inset-1 rounded-full bg-amber-400/30 animate-ping pointer-events-none" />
-                          <Volume2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-amber-300" />
+                          <Volume2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-amber-300" />
                         </div>
                       ) : (
-                        <Volume2 className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                        <Volume2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                       )
                     }
                     label={readerState.isAudioActive ? "ऑडियो सक्रिय" : "ऑडियो पाठ"}
@@ -738,7 +754,7 @@ export const Dock = ({
                   mouseX={mouseX}
                   icon={
                     <Bookmark
-                      className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-colors ${
+                      className={`w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 transition-colors ${
                         readerState.isFav ? 'text-rose-400 fill-current' : 'text-slate-300 group-hover:text-amber-200'
                       }`}
                     />
@@ -755,7 +771,7 @@ export const Dock = ({
                 <DockIcon
                   mouseX={mouseX}
                   icon={
-                    <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                    <Share2 className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-slate-300 group-hover:text-amber-200 transition-colors" />
                   }
                   label="साझा करें"
                   subLabel="Share"
@@ -884,7 +900,7 @@ function DockIcon({
   onClick,
   isSearch,
   isSpecial,
-  mobileTileSize = 35,
+  mobileTileSize = 39,
   isMobile = false,
 }: DockIconProps) {
   const ref = useRef<HTMLButtonElement>(null);
