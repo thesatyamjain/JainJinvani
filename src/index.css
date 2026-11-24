@@ -4051,47 +4051,6 @@ body.theme-manuscript,
   transform: translateY(1px) scale(0.97) !important;
 }
 
-/* Quick Reader Controls: Font Box & Action Buttons (Paper Shade, Feedback) */
-.theme-manuscript .viewer-font-box {
-  background-color: var(--neu-bg-sunken) !important;
-  border: 1px solid var(--neu-border) !important;
-  box-shadow: inset 1px 1px 2.5px var(--neu-shadow-dark),
-              inset -1px -1px 2.5px var(--neu-shadow-light) !important;
-}
-
-.theme-manuscript .viewer-font-btn {
-  color: var(--neu-ink) !important;
-}
-
-.theme-manuscript .viewer-font-btn:hover {
-  background-color: rgba(217, 119, 6, 0.15) !important;
-  color: #92400E !important;
-}
-
-.theme-manuscript .viewer-control-btn {
-  background-color: var(--neu-bg-card, var(--neu-bg)) !important;
-  color: var(--neu-ink) !important;
-  border: 1px solid var(--neu-border) !important;
-  box-shadow: 1px 1px 2px var(--neu-shadow-contact, rgba(165, 145, 120, 0.2)),
-              2px 3px 8px var(--neu-shadow-dark),
-              -2px -2px 8px var(--neu-shadow-light),
-              inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
-}
-
-.theme-manuscript .viewer-control-btn svg {
-  color: #B45309 !important;
-}
-
-.theme-manuscript .viewer-control-btn:hover {
-  border-color: rgba(180, 83, 9, 0.45) !important;
-  color: #92400E !important;
-}
-
-.theme-manuscript .viewer-control-btn:active {
-  box-shadow: inset 1.5px 1.5px 3px var(--neu-shadow-dark),
-              inset -1.5px -1.5px 3px var(--neu-shadow-light) !important;
-}
-
 /* Reader Dock Page Indicators */
 .theme-manuscript [data-floating-dock] .reader-dock-nav {
   background: transparent !important;

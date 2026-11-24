@@ -14,13 +14,10 @@ import {
   FileEdit,
   Volume2,
   Play,
-  Palette,
 } from 'lucide-react';
 import { getContentByIdAsync, getContentById } from '../lib/bridge';
 import { ContentItem } from '../data/contentData';
-import { addFavorite, removeFavorite, isFavorite, addRecentRead, getSettings, updateSettings } from '../lib/storage';
-import { MANUSCRIPT_SHADES } from '../lib/manuscriptShades';
-import type { UserSettings, ManuscriptShade } from '../types';
+import { addFavorite, removeFavorite, isFavorite, addRecentRead } from '../lib/storage';
 import { getCanonicalShareUrl } from '../utils/urlHelper';
 import { updateContentSeo } from '../utils/seoHelper';
 import { sanitizeHtml } from '../utils/sanitizeHtml';
@@ -339,7 +336,7 @@ const UnifiedVerseView = ({
               <GlassCard
                 variant="gilded"
                 tilt={{ maxTilt: 3.5, glareMaxOpacity: 0.1, glareColor: 'gold' }}
-                className={`p-3.5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border shadow-[0_16px_44px_rgba(6,3,1,0.7)] ${
+                className={`p-5 sm:p-7 md:p-9 relative group hover:border-amber-400/50 transition-all duration-300 rounded-2xl sm:rounded-3xl border shadow-[0_16px_44px_rgba(6,3,1,0.7)] ${
                   isActive
                     ? 'border-amber-400/90 bg-amber-500/10 ring-2 ring-amber-400/40 shadow-[0_0_35px_rgba(245,158,11,0.25)]'
                     : 'border-amber-500/30 dark:border-amber-500/25'
@@ -395,6 +392,7 @@ const UnifiedVerseView = ({
                           <Share2 className="w-3.5 h-3.5" />
                         </motion.button>
                       )}
+                      <span className="text-amber-500/60 dark:text-amber-400/40 text-xs">❖</span>
                     </div>
                   </div>
                 ) : (
@@ -443,58 +441,40 @@ const UnifiedVerseView = ({
                 )}
 
                 {/* Sacred Lines & Mantras */}
-                <div className="space-y-3 text-center my-3 sm:my-4 px-1 sm:px-4">
-                  {(() => {
-                    let isPadyanuvad = false;
-                    return parsed.lines.map((lineObj: ParsedLine, lIdx: number) => {
-                      if (lineObj.type === 'tag') {
-                        if (lineObj.text.includes('पद्यानुवाद')) {
-                          isPadyanuvad = true;
-                        }
-                        return (
-                          <div key={lIdx} className="pt-2 pb-1">
-                            <span className="inline-block px-4 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-900 dark:text-amber-200 font-gotu text-xs sm:text-sm font-bold tracking-wide shadow-xs">
-                              {lineObj.text}
-                            </span>
-                          </div>
-                        );
-                      }
-
-                      if (lineObj.type === 'mantra') {
-                        return (
-                          <div
-                            key={lIdx}
-                            style={{ fontSize: `${fontSize + 1}px` }}
-                            className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-amber-500/10 dark:bg-gradient-to-r dark:from-amber-500/15 dark:via-[#0e1526]/90 dark:to-amber-500/15 border border-amber-500/35 dark:border-amber-400/40 text-amber-950 dark:text-amber-100 font-notoserif font-bold text-center shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.5)] tracking-wide leading-relaxed [text-wrap:balance]"
-                          >
-                            {lineObj.text}
-                          </div>
-                        );
-                      }
-
-                      if (isPadyanuvad) {
-                        return (
-                          <p
-                            key={lIdx}
-                            style={{ fontSize: `${Math.max(14, fontSize - 1)}px` }}
-                            className="font-notoserif font-medium text-stone-800 dark:text-amber-100/95 leading-[1.75] tracking-normal pt-0.5 pb-0.5 max-w-xl mx-auto [text-wrap:balance]"
-                          >
-                            {lineObj.text}
-                          </p>
-                        );
-                      }
-
+                <div className="space-y-3 text-center my-3 sm:my-4 px-2 sm:px-4">
+                  {parsed.lines.map((lineObj: ParsedLine, lIdx: number) => {
+                    if (lineObj.type === 'tag') {
                       return (
-                        <p
+                        <div key={lIdx} className="pt-1 pb-1">
+                          <span className="inline-block px-4 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-900 dark:text-amber-200 font-gotu text-xs sm:text-sm font-bold tracking-wide shadow-xs">
+                            {lineObj.text}
+                          </span>
+                        </div>
+                      );
+                    }
+
+                    if (lineObj.type === 'mantra') {
+                      return (
+                        <div
                           key={lIdx}
                           style={{ fontSize: `${fontSize + 1}px` }}
-                          className="font-notoserif font-bold text-stone-900 dark:text-amber-50 leading-[1.65] tracking-wide pt-0.5 pb-0.5 drop-shadow-xs dark:drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] [text-wrap:balance]"
+                          className="my-3.5 p-3.5 sm:p-4 rounded-xl bg-amber-500/10 dark:bg-gradient-to-r dark:from-amber-500/15 dark:via-[#0e1526]/90 dark:to-amber-500/15 border border-amber-500/35 dark:border-amber-400/40 text-amber-950 dark:text-amber-100 font-notoserif font-bold text-center shadow-[0_4px_16px_rgba(0,0,0,0.4),inset_0_1px_1.5px_rgba(254,240,138,0.25),inset_0_-1px_1px_rgba(0,0,0,0.5)] tracking-wide leading-relaxed"
                         >
                           {lineObj.text}
-                        </p>
+                        </div>
                       );
-                    });
-                  })()}
+                    }
+
+                    return (
+                      <p
+                        key={lIdx}
+                        style={{ fontSize: `${fontSize + 3}px` }}
+                        className="font-notoserif font-bold text-stone-900 dark:text-amber-50 leading-[1.65] tracking-wide pt-0.5 pb-0.5 drop-shadow-xs dark:drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+                      >
+                        {lineObj.text}
+                      </p>
+                    );
+                  })}
                 </div>
 
                 {/* Meanings / Translation */}
@@ -682,31 +662,6 @@ export const ContentViewer = ({
   const [isFav, setIsFav] = React.useState(false);
   const { isAutoScrolling, setIsAutoScrolling, scrollSpeed, setScrollSpeed } = useAutoScroll(1);
   const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
-  const [showShadePicker, setShowShadePicker] = React.useState(false);
-  const [currentShade, setCurrentShade] = React.useState<ManuscriptShade>(() => getSettings().manuscriptShade || 'tadpatra');
-  const shadePickerRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const handleSettingsUpdate = (e: Event) => {
-      const customEvent = e as CustomEvent<UserSettings>;
-      if (customEvent.detail?.manuscriptShade) {
-        setCurrentShade(customEvent.detail.manuscriptShade);
-      }
-    };
-    window.addEventListener('jain_settings_updated', handleSettingsUpdate);
-    return () => window.removeEventListener('jain_settings_updated', handleSettingsUpdate);
-  }, []);
-
-  React.useEffect(() => {
-    if (!showShadePicker) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (shadePickerRef.current && !shadePickerRef.current.contains(e.target as Node)) {
-        setShowShadePicker(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showShadePicker]);
   const [isAudioPlayerActive, setIsAudioPlayerActive] = React.useState(false);
   const [activeVerseIndex, setActiveVerseIndex] = React.useState<number | null>(null);
   const [audioSeekTarget, setAudioSeekTarget] = React.useState<number | null>(null);
@@ -1035,7 +990,7 @@ export const ContentViewer = ({
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-64 sm:w-80 h-28 bg-amber-400/12 blur-3xl pointer-events-none rounded-full" />
 
         {/* Top Header Row: Badges & Font Size Controls (A- / A+) */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 mb-4 sm:mb-5 w-full">
+        <div className="flex items-center justify-between gap-2 flex-wrap min-w-0 mb-4 sm:mb-5 w-full">
           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
             {data?.category && (
               <span className="viewer-cat-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/35 text-amber-900 dark:text-amber-200 text-xs font-semibold backdrop-blur-xl shadow-xs font-gotu truncate">
@@ -1057,120 +1012,18 @@ export const ContentViewer = ({
             )}
           </div>
 
-          {/* Quick Reader Controls: Font Sizing (A- / A+), Page Shade & Report */}
-          <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-            <div className="viewer-font-box inline-flex items-center rounded-xl bg-amber-500/15 dark:bg-slate-900/80 border border-amber-500/35 dark:border-amber-400/30 p-0.5 shadow-xs">
-              <motion.button
-                type="button"
-                whileTap={{ scale: 0.88 }}
-                onClick={() => setFontSize((f) => Math.max(14, f - 2))}
-                className="viewer-font-btn w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-stone-900 dark:text-amber-200 hover:bg-amber-500/20 transition-colors cursor-pointer select-none"
-                title="अक्षर छोटा करें (A-)"
-                aria-label="अक्षर छोटा करें (A-)"
-              >
-                A-
-              </motion.button>
-              <span className="px-1.5 text-[11px] font-mono font-bold text-amber-900 dark:text-amber-300 select-none">
-                {fontSize}
-              </span>
-              <motion.button
-                type="button"
-                whileTap={{ scale: 0.88 }}
-                onClick={() => setFontSize((f) => Math.min(28, f + 2))}
-                className="viewer-font-btn w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs text-stone-900 dark:text-amber-200 hover:bg-amber-500/20 transition-colors cursor-pointer select-none"
-                title="अक्षर बड़ा करें (A+)"
-                aria-label="अक्षर बड़ा करें (A+)"
-              >
-                A+
-              </motion.button>
-            </div>
-
-            {/* Quick Paper Shade Selector */}
-            <div className="relative" ref={shadePickerRef}>
-              <motion.button
-                type="button"
-                whileTap={{ scale: 0.94 }}
-                whileHover={{ scale: 1.04 }}
-                onClick={() => setShowShadePicker((prev) => !prev)}
-                className="viewer-control-btn inline-flex items-center justify-center gap-1.5 h-8 w-8 sm:w-auto px-0 sm:px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
-                title="पांडुलिपि पृष्ठ रंग बदलें"
-                aria-label="पांडुलिपि पृष्ठ रंग बदलें"
-              >
-                <Palette className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                <span className="hidden sm:inline">पृष्ठ रंग</span>
-              </motion.button>
-
-              <AnimatePresence>
-                {showShadePicker && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -4 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -4 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 z-50 w-64 p-2.5 rounded-2xl bg-[#F4EFE3] dark:bg-slate-900 border border-amber-500/35 shadow-[0_12px_32px_rgba(0,0,0,0.35),0_0_15px_rgba(245,158,11,0.15)] backdrop-blur-xl"
-                  >
-                    <div className="text-[11px] font-gotu font-bold text-stone-800 dark:text-amber-200 mb-2 px-1 flex items-center justify-between">
-                      <span>पांडुलिपि पृष्ठ रंग</span>
-                      <span className="text-[10px] text-amber-800 dark:text-amber-400 font-mono">६ शेड्स</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {MANUSCRIPT_SHADES.map((shade) => {
-                        const isActive = currentShade === shade.id;
-                        return (
-                          <button
-                            key={shade.id}
-                            type="button"
-                            onClick={() => {
-                              triggerHaptic('light');
-                              updateSettings({ backgroundTheme: 'manuscript', manuscriptShade: shade.id });
-                              setCurrentShade(shade.id);
-                              setShowShadePicker(false);
-                            }}
-                            className={`p-2 rounded-xl text-left border transition-all cursor-pointer flex items-center gap-1.5 ${
-                              isActive
-                                ? 'ring-2 ring-amber-600 border-amber-600 font-bold shadow-xs'
-                                : 'border-stone-300 dark:border-white/10 hover:border-amber-400/50'
-                            }`}
-                            style={{ backgroundColor: shade.cardHex }}
-                          >
-                            <span
-                              className="w-3.5 h-3.5 rounded-full border shadow-2xs shrink-0"
-                              style={{ backgroundColor: shade.bgHex, borderColor: shade.borderRgba }}
-                            />
-                            <div className="min-w-0">
-                              <div
-                                className="text-xs font-notoserif font-bold truncate leading-tight"
-                                style={{ color: shade.ink }}
-                              >
-                                {shade.nameHi}
-                              </div>
-                              <div
-                                className="text-[9.5px] font-gotu truncate leading-none mt-0.5 opacity-80"
-                                style={{ color: shade.ink }}
-                              >
-                                {shade.tag}
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+          {/* Quick Reader Controls: Report / Feedback */}
+          <div className="flex items-center gap-1.5 shrink-0">
             <motion.button
               type="button"
               whileTap={{ scale: 0.94 }}
               whileHover={{ scale: 1.04 }}
               transition={{ type: 'spring', stiffness: 500, damping: 25 }}
               onClick={() => setShowFeedbackModal(true)}
-              className="viewer-control-btn inline-flex items-center justify-center gap-1.5 h-8 w-8 sm:w-auto px-0 sm:px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/35 text-stone-900 dark:text-amber-200 text-xs font-gotu font-medium cursor-pointer transition-colors shadow-xs"
               title="इस पाठ में त्रुटि सुधार या सुझाव बताएं"
-              aria-label="सुधार बताएं"
             >
-              <FileEdit className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+              <FileEdit className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
               <span className="hidden sm:inline">सुधार बताएं</span>
             </motion.button>
           </div>
