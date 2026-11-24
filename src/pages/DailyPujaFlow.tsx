@@ -91,7 +91,8 @@ export const DailyPujaFlow = ({ onBack, onNavigate }: DailyPujaFlowProps) => {
       const delta = (now - lastTimestamp) / 1000;
       lastTimestamp = now;
 
-      const pixelsToScroll = scrollSpeed * 28 * delta;
+      // Calibrated to devotional recitation speed (~14px/second at 1x)
+      const pixelsToScroll = scrollSpeed * 14 * delta;
       const mainEl = document.querySelector('main');
       if (mainEl && mainEl.scrollHeight > mainEl.clientHeight) {
         mainEl.scrollBy({ top: pixelsToScroll, behavior: 'instant' });

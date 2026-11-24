@@ -19,8 +19,8 @@ export function useAutoScroll(initialSpeed: number = 1) {
       lastTime = now;
 
       if (container) {
-        // ~35px/second at speed 1, smooth fluid reading rate
-        const pixelsToScroll = (35 * scrollSpeed * delta) / 1000;
+        // Calibrated to religious recitation rhythm (2-3 verses/min, ~20-25s per verse): ~15px/second at 1x
+        const pixelsToScroll = (15 * scrollSpeed * delta) / 1000;
         container.scrollTop += pixelsToScroll;
 
         // Check if reached bottom

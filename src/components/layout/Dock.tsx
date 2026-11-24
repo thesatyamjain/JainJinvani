@@ -628,7 +628,7 @@ export const Dock = ({
                     />
                   }
                   label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
-                  subLabel={readerState.isAutoScrolling ? "Pause Scroll" : "Auto Scroll"}
+                  subLabel={readerState.isAutoScrolling ? "रोकने हेतु टैप करें" : "सस्वर पाठ गति (1x)"}
                   isActive={readerState.isAutoScrolling}
                   onClick={handleToggleAutoScroll}
                 />
