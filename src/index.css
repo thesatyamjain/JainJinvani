@@ -4193,6 +4193,20 @@ body.theme-manuscript,
   background-color: rgba(180, 83, 9, 0.12) !important;
 }
 
+/* Dock Floating Popover Caret Arrow */
+.dock-popover-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(7, 18, 36, 0.95);
+  pointer-events: none;
+}
+
+.theme-manuscript .dock-popover-arrow {
+  border-top-color: var(--neu-bg-card) !important;
+}
+
 /* Feedback Modal Card in Manuscript Mode */
 .theme-manuscript .feedback-modal-card {
   background-color: var(--neu-bg-card) !important;

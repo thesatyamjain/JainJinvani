@@ -254,19 +254,19 @@ export const Dock = ({
     if (!isFontExpanded) return;
     resetFontCollapseTimer();
 
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       const fontControlsEl = document.getElementById('dock-font-controls');
       if (fontControlsEl && !fontControlsEl.contains(e.target as Node)) {
         setIsFontExpanded(false);
       }
     };
     const timer = setTimeout(() => {
-      window.addEventListener('click', handleClickOutside);
+      window.addEventListener('pointerdown', handleClickOutside);
     }, 50);
     return () => {
       clearTimeout(timer);
       if (fontCollapseTimerRef.current) clearTimeout(fontCollapseTimerRef.current);
-      window.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('pointerdown', handleClickOutside);
     };
   }, [isFontExpanded, resetFontCollapseTimer]);
 
@@ -282,6 +282,7 @@ export const Dock = ({
 
   const handleToggleAutoScroll = () => {
     triggerHaptic('medium');
+    setIsFontExpanded(false);
     window.dispatchEvent(new CustomEvent('jinvani:reader-toggle-autoscroll'));
   };
 
@@ -425,7 +426,7 @@ export const Dock = ({
       data-floating-dock="true"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,visibility] duration-200 ${
+      className={`fixed bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] md:bottom-7 left-1/2 -translate-x-1/2 z-50 pointer-events-none select-none touch-none transition-[opacity,visibility] duration-200 flex justify-center max-w-[calc(100vw-1rem)] ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible' : ''
       }`}
     >
@@ -455,7 +456,7 @@ export const Dock = ({
             : dockTheme === 'gilded'
             ? 'gilded-glass-dock'
             : 'frosted-glass-dock'
-        } px-2.5 sm:px-3.5 md:px-4 w-max max-w-[calc(100vw-1rem)] relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
+        } px-2 sm:px-3.5 md:px-4 w-max max-w-full relative touch-none overscroll-contain select-none transition-[background-color,border-color,box-shadow] duration-300 ${
           isReaderMode ? 'min-h-[66px] md:min-h-[76px] pt-2.5 md:pt-3.5 pb-3.5 md:pb-4' : 'min-h-[58px] md:min-h-[68px] pt-2 md:pt-3 pb-2 md:pb-2.5'
         }`}
         onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -503,7 +504,7 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
+                className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
               >
                 {/* 1. Back Button */}
                 <DockIcon
@@ -519,23 +520,38 @@ export const Dock = ({
 
                 <div className="h-7 md:h-8 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent self-end mb-2.5 md:mb-3 shrink-0" />
 
-                {/* 2. Expanding Font Sizing Control (Aa -> [A- 18 A+ ✓]) */}
+                {/* 2. Font Sizing Control with Floating Popover */}
                 <div id="dock-font-controls" className="relative flex flex-col items-center">
-                  <AnimatePresence mode="wait">
-                    {isFontExpanded ? (
+                  <DockIcon
+                    mouseX={mouseX}
+                    icon={
+                      <TextSizeDuotoneIcon className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
+                    }
+                    label="अक्षर आकार"
+                    subLabel={`Size ${readerState.fontSize}px`}
+                    isActive={isFontExpanded}
+                    onClick={() => {
+                      setIsFontExpanded((prev) => !prev);
+                      resetFontCollapseTimer();
+                    }}
+                  />
+
+                  {/* Floating Popover directly above Font button */}
+                  <AnimatePresence>
+                    {isFontExpanded && (
                       <motion.div
-                        key="font-expanded-controls"
-                        layout
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                        className="dock-font-expanded-bubble flex items-center bg-[#071224]/80 border border-amber-400/40 rounded-xl md:rounded-2xl px-1 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px]"
+                        key="font-floating-popover"
+                        initial={{ opacity: 0, y: 8, scale: 0.92 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.92 }}
+                        transition={{ type: 'spring', stiffness: 450, damping: 28 }}
+                        className="dock-font-expanded-bubble absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1.5 py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap"
                       >
                         <motion.button
                           whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
+                            resetFontCollapseTimer();
                             handleAdjustFontSize(-2);
                           }}
                           className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
@@ -558,6 +574,7 @@ export const Dock = ({
                           whileTap={{ scale: 0.88 }}
                           onClick={(e) => {
                             e.stopPropagation();
+                            resetFontCollapseTimer();
                             handleAdjustFontSize(2);
                           }}
                           className="dock-font-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs font-mono font-bold text-slate-300 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition-colors"
@@ -577,34 +594,38 @@ export const Dock = ({
                         >
                           ✓
                         </motion.button>
+                        <div className="dock-popover-arrow absolute top-full left-1/2 -translate-x-1/2" />
                       </motion.div>
-                    ) : (
-                      <DockIcon
-                        key="font-collapsed-icon"
-                        mouseX={mouseX}
-                        icon={
-                          <TextSizeDuotoneIcon className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors" />
-                        }
-                        label="अक्षर आकार"
-                        subLabel={`Size ${readerState.fontSize}px`}
-                        isActive={false}
-                        onClick={() => setIsFontExpanded(true)}
-                      />
                     )}
                   </AnimatePresence>
                 </div>
 
-                {/* 3. Auto-Scroll Hands-Free Toggle & Speed Presets */}
-                <div className="relative flex items-center">
-                  <AnimatePresence mode="wait">
-                    {readerState.isAutoScrolling ? (
+                {/* 3. Auto-Scroll Hands-Free Toggle & Floating Speed Presets */}
+                <div id="dock-scroll-controls" className="relative flex flex-col items-center">
+                  <DockIcon
+                    mouseX={mouseX}
+                    icon={
+                      <AutoScrollIcon
+                        isScrolling={readerState.isAutoScrolling}
+                        className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
+                      />
+                    }
+                    label={readerState.isAutoScrolling ? "स्क्रॉल रोकें" : "स्वतः स्क्रॉल"}
+                    subLabel={`सस्वर गति (${readerState.scrollSpeed || 1}x)`}
+                    isActive={readerState.isAutoScrolling}
+                    onClick={handleToggleAutoScroll}
+                  />
+
+                  {/* Floating Speed Presets Popover above AutoScroll button when scrolling */}
+                  <AnimatePresence>
+                    {readerState.isAutoScrolling && (
                       <motion.div
-                        key="scroll-expanded-bubble"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ type: 'spring', stiffness: 420, damping: 26 }}
-                        className="dock-scroll-expanded-bubble flex items-center bg-[#071224]/85 border border-amber-400/40 rounded-xl md:rounded-2xl px-1.5 py-0.5 backdrop-blur-xl shadow-[0_8px_25px_rgba(0,0,0,0.4),0_0_20px_rgba(245,158,11,0.2)] mb-2.5 h-[39px] sm:h-[42px] md:h-[46px] gap-1"
+                        key="scroll-floating-popover"
+                        initial={{ opacity: 0, y: 8, scale: 0.92 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.92 }}
+                        transition={{ type: 'spring', stiffness: 450, damping: 28 }}
+                        className="dock-scroll-expanded-bubble absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex items-center bg-[#071224]/95 border border-amber-400/40 rounded-xl px-1.5 py-1 backdrop-blur-2xl shadow-[0_12px_30px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] z-50 whitespace-nowrap gap-1"
                       >
                         {[0.6, 1, 1.5].map((spd) => {
                           const isCurrent = (readerState.scrollSpeed || 1) === spd;
@@ -621,7 +642,7 @@ export const Dock = ({
                                   })
                                 );
                               }}
-                              className={`dock-scroll-btn px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                              className={`dock-scroll-btn px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
                                 isCurrent
                                   ? 'dock-scroll-btn-active bg-amber-400 text-stone-950 font-black shadow-xs'
                                   : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -651,22 +672,8 @@ export const Dock = ({
                         >
                           <AutoScrollIcon isScrolling={true} className="w-4 h-4 text-amber-300" />
                         </motion.button>
+                        <div className="dock-popover-arrow absolute top-full left-1/2 -translate-x-1/2" />
                       </motion.div>
-                    ) : (
-                      <DockIcon
-                        key="scroll-collapsed-icon"
-                        mouseX={mouseX}
-                        icon={
-                          <AutoScrollIcon
-                            isScrolling={false}
-                            className="w-5 h-5 md:w-5.5 md:h-5.5 text-slate-300 group-hover:text-amber-200 transition-colors"
-                          />
-                        }
-                        label="स्वतः स्क्रॉल"
-                        subLabel={`सस्वर गति (${readerState.scrollSpeed || 1}x)`}
-                        isActive={false}
-                        onClick={handleToggleAutoScroll}
-                      />
                     )}
                   </AnimatePresence>
                 </div>
@@ -721,7 +728,7 @@ export const Dock = ({
                 />
 
                 {/* 6. Back To Top in Reader Mode Tools */}
-                {renderBackToTopSection('reader-btt-section', showBackToTop && !isFontExpanded)}
+                {renderBackToTopSection('reader-btt-section')}
               </motion.div>
             ) : (
               /* ============================================================ */
@@ -737,7 +744,7 @@ export const Dock = ({
                   layout: { type: 'spring', stiffness: 450, damping: 32 },
                   duration: 0.16,
                 }}
-                className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
+                className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
               >
                 {renderNavItems()}
 
@@ -758,7 +765,7 @@ export const Dock = ({
                 layout: { type: 'spring', stiffness: 450, damping: 32 },
                 duration: 0.16,
               }}
-              className="flex items-end gap-1.5 sm:gap-2 md:gap-2.5"
+              className="flex items-end gap-1 sm:gap-1.5 md:gap-2 flex-nowrap shrink-0"
             >
               {renderNavItems()}
 
@@ -772,9 +779,7 @@ export const Dock = ({
           <div
             role="tablist"
             aria-label="Reader dock page navigation"
-            className={`reader-dock-nav absolute bottom-1.5 md:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-auto select-none py-0.5 px-2.5 cursor-pointer transition-opacity duration-200 ${
-              isFontExpanded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            }`}
+            className="reader-dock-nav absolute bottom-1.5 md:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-auto select-none py-0.5 px-2.5 cursor-pointer transition-opacity duration-200 opacity-100"
           >
             <motion.button
               type="button"
